@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+
     var body: some View {
-        Text("Hello, World!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        List {
+            
+            Button(action: {
+                print("Start/Pause")
+            }) {
+                Text("Start/Pause")
+            }
+            
+            Button(action: {
+                print("Exit")
+                exit(0)
+            }) {
+                Text("Exit")
+            }
+            
+        }
     }
 }
 

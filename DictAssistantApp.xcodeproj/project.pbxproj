@@ -12,6 +12,8 @@
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
+		4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE5B262EDFF7007FF470 /* StatusBarController.swift */; };
+		4440EE6C263055E9007FF470 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE6B263055E9007FF470 /* EventMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		4440EE4D262EDCA4007FF470 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4440EE4F262EDCA4007FF470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
+		4440EE5B262EDFF7007FF470 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		4440EE6B263055E9007FF470 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 				4440EE4F262EDCA4007FF470 /* Info.plist */,
 				4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */,
 				4440EE49262EDCA4007FF470 /* Preview Content */,
+				4440EE5B262EDFF7007FF470 /* StatusBarController.swift */,
+				4440EE6B263055E9007FF470 /* EventMonitor.swift */,
 			);
 			path = DictAssistantApp;
 			sourceTree = "<group>";
@@ -145,7 +151,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4440EE46262EDCA3007FF470 /* ContentView.swift in Sources */,
+				4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
+				4440EE6C263055E9007FF470 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
