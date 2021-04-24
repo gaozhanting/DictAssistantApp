@@ -12,9 +12,11 @@ class StatusBarController {
     private var statusItem: NSStatusItem
     private var popover: NSPopover
     private var eventMonitor: EventMonitor?
+    private var wordsWindow: NSPanel
     
-    init(_ popover: NSPopover) {
+    init(_ popover: NSPopover, _ wordsWindow: NSPanel) {
         self.popover = popover
+        self.wordsWindow = wordsWindow
         statusBar = NSStatusBar.init()
         statusItem = statusBar.statusItem(withLength: 28.0)
         
@@ -41,8 +43,11 @@ class StatusBarController {
     func showPopover(_ sender: AnyObject) {
         if let statusBarButton = statusItem.button {
             popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
+            wordsWindow.makeKeyAndOrderFront(nil)
+
             eventMonitor?.start()
         }
+        
     }
     
     func hidePopover(_ sender: AnyObject) {
