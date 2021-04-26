@@ -7,7 +7,10 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct PopoverView: View {
+    let showWordsView: () -> Void
+    let closeWordsView: () -> Void
+    
     @State private var x: String = "100"
     @State private var y: String = "100"
     @State private var w: String = "500"
@@ -16,7 +19,7 @@ struct ContentView: View {
     @State private var interval: String = "4"
 
     @State private var isPlaying: Bool = false
-
+    
     var body: some View {
         List {
             HStack {
@@ -43,6 +46,11 @@ struct ContentView: View {
 
             Button(action: {
                 isPlaying = !isPlaying
+                if !isPlaying {
+                    closeWordsView()
+                } else {
+                    showWordsView()
+                }
             }) {
                 if !isPlaying {
                     Text("Start")
@@ -52,7 +60,6 @@ struct ContentView: View {
             }
             
             Button(action: {
-//                exit(0)
                 NSApplication.shared.terminate(self)
             }) {
                 Text("Exit")
@@ -61,9 +68,13 @@ struct ContentView: View {
     }
 }
 
+func emptyFunc() -> Void {
+    
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        PopoverView(showWordsView: emptyFunc, closeWordsView: emptyFunc)
     }
 }
+            

@@ -17,9 +17,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let contentView = ContentView()
+        func showWordsView() {
+            wordsWindow.makeKeyAndOrderFront(nil)
+        }
+        func closeWordsView() {
+            wordsWindow.close()
+        }
+        let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView)
         popover.contentSize = NSSize(width: 360, height: 360)
-        popover.contentViewController = NSHostingController(rootView: contentView)
+        popover.contentViewController = NSHostingController(rootView: popoverView)
         
         let windowStyleMask: NSWindow.StyleMask = [
             .titled,
@@ -41,7 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         statusBar = StatusBarController.init(popover, wordsWindow)
     }
-    
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
