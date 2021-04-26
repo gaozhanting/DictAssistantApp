@@ -10,6 +10,8 @@ import SwiftUI
 struct PopoverView: View {
     let showWordsView: () -> Void
     let closeWordsView: () -> Void
+    let startScreenCapture: () -> Void
+    let stopScreenCapture: () -> Void
     
     @State private var x: String = "100"
     @State private var y: String = "100"
@@ -48,8 +50,10 @@ struct PopoverView: View {
                 isPlaying = !isPlaying
                 if !isPlaying {
                     closeWordsView()
+                    stopScreenCapture()
                 } else {
                     showWordsView()
+                    startScreenCapture()
                 }
             }) {
                 if !isPlaying {
@@ -74,7 +78,8 @@ func emptyFunc() -> Void {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PopoverView(showWordsView: emptyFunc, closeWordsView: emptyFunc)
+        PopoverView(showWordsView: emptyFunc, closeWordsView: emptyFunc, startScreenCapture: emptyFunc,
+                    stopScreenCapture: emptyFunc)
     }
 }
             

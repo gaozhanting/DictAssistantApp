@@ -14,7 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBar: StatusBarController?
     var popover = NSPopover.init()
     var wordsWindow: NSPanel!
-
+    
+    var timer: Timer = Timer()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         func showWordsView() {
@@ -23,7 +24,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         func closeWordsView() {
             wordsWindow.close()
         }
-        let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView)
+        func screenCapture(_ timer: Timer) {
+            let task = Process()
+            task.launchPath = "/usr/sbin/screencapture"
+            var arguments = [String]();
+            arguments.append("-x")
+            arguments.append("-R 100,100,500,300")
+            arguments.append(NSHomeDirectory() + "/Documents/" + "abc.png")
+
+            task.arguments = arguments
+            task.launch()
+        }
+        func startScreenCapture() {
+            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: screenCapture(_:))
+        }
+        func stopScreenCapture() {
+            timer.invalidate()
+        }
+        let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)
         
