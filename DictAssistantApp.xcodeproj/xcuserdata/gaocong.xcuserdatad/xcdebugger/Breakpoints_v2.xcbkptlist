@@ -60,7 +60,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
-            landmarkName = "textRecognize(_:)"
+            landmarkName = "textRecognize()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
