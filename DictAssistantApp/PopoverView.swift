@@ -13,12 +13,12 @@ struct PopoverView: View {
     let startScreenCapture: () -> Void
     let stopScreenCapture: () -> Void
     
-    @State private var x: String = "100"
-    @State private var y: String = "100"
-    @State private var w: String = "500"
-    @State private var d: String = "300"
+    @State private var x: String = "0"
+    @State private var y: String = "0"
+    @State private var w: String = "200"
+    @State private var d: String = "200"
     
-    @State private var interval: String = "4"
+    @State private var interval: String = "2"
 
     @State private var isPlaying: Bool = false
     
