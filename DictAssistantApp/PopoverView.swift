@@ -14,7 +14,7 @@ struct PopoverView: View {
     let stopScreenCapture: () -> Void
     
     @State private var x: String = "0"
-    @State private var y: String = "0"
+    @State private var y: String = "100"
     @State private var w: String = "200"
     @State private var d: String = "200"
     

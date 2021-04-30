@@ -12,6 +12,8 @@ import Vision
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    var modelData = ModelData()
+    
     var statusBar: StatusBarController?
     var popover = NSPopover.init()
     var wordsWindow: NSPanel!
@@ -41,8 +43,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             if let results = self.results {
                 var transcript: String = ""
+                modelData.reset()
                 for observation in results {
-                    transcript.append(observation.topCandidates(1)[0].string)
+                    let words = observation.topCandidates(1)[0].string
+                    transcript.append(words)
+                    modelData.allWords.append(words)
                     transcript.append("\n")
                 }
                 print(transcript)
@@ -64,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]();
             arguments.append("-x")
-            arguments.append("-R 0,0,200,200")
+            arguments.append("-R 0,100,200,200")
             arguments.append(imageUrlString)
 
             task.arguments = arguments
@@ -81,6 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         func textRecognize() {
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
                 do {
+                    resetRequestHandler()
                     try self.requestHandler?.perform([self.textRecognitionRequest])
                 } catch (_) {
                     print("fail")
@@ -96,15 +102,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             timer.invalidate()
         }
         
-        requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
-        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.accurate
-        textRecognitionRequest.minimumTextHeight = 0.0
-        textRecognitionRequest.usesLanguageCorrection = true
-        textRecognitionRequest.customWords = []
-        textRecognitionRequest.usesCPUOnly = true
+        func resetRequestHandler() {
+            requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
+            textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
+            textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.accurate
+            textRecognitionRequest.minimumTextHeight = 0.0
+            textRecognitionRequest.usesLanguageCorrection = true
+    //        textRecognitionRequest.customWords = []
+            textRecognitionRequest.usesCPUOnly = true
+        }
 
-        
         let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)
@@ -124,7 +131,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                      screen: NSScreen.main)
         wordsWindow.title = "Words"
         
-        let wordsView = WordsView()
+        let wordsView = WordsView(modelData: modelData)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
         statusBar = StatusBarController.init(popover, wordsWindow)

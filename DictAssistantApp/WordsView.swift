@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct WordsView: View {
+    @ObservedObject var modelData: ModelData
+
     var body: some View {
-        Text("some words")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.green)
+        VStack {
+            ForEach(modelData.allWords, id: \.self) { words in
+                Text(words)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.green)
+            }
+        }
     }
 }
 
 struct WordsView_Previews: PreviewProvider {
+    static let modelData = ModelData()
+
     static var previews: some View {
-        WordsView()
+        WordsView(modelData: modelData)
     }
 }
 
