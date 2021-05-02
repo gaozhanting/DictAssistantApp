@@ -9,15 +9,14 @@ import Foundation
 import Combine
 
 final class ModelData: ObservableObject {
-    @Published var allWords: [String] = ["sample 1", "sample 2"]
-    
-    func add(words: String) {
-        allWords.append(words)
-    }
-    
-    func reset() {
-        allWords = []
-    }
+    @Published var words = [
+        "favorite",
+        "beauty",
+        "POST",
+        "information.",
+        "customers,",
+        "saying",
+        "app.",
+        "ications"
+    ]
 }
-
-

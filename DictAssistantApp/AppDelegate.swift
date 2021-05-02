@@ -29,29 +29,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         DispatchQueue.main.async { [unowned self] in
             self.results = self.textRecognitionRequest.results as? [VNRecognizedTextObservation]
-            
-//            if let results = results {
-//                var displayResults: [((CGPoint, CGPoint, CGPoint, CGPoint), String)] = []
-//                for observation in results {
-//                    let candidate: VNRecognizedText = observation.topCandidates(1)[0]
-//                    let candidateBounds = (observation.bottomLeft, observation.bottomRight, observation.topRight, observation.topLeft)
-//                    displayResults.append((candidateBounds, candidate.string))
-//                }
-//
-////                self.imageView.annotationLayer.results = displayResults
-//            }
-            
+
             if let results = self.results {
                 var transcript: String = ""
-                modelData.reset()
+                modelData.words.removeAll(keepingCapacity: true)
                 for observation in results {
                     let words = observation.topCandidates(1)[0].string
                     transcript.append(words)
-                    modelData.allWords.append(words)
+                    let splitWords = words.components(separatedBy: " ")
+                    for word in splitWords {
+                        if !modelData.words.contains(word) { // currently ignore performance issue
+                            modelData.words.append(word)
+                        }
+                    }
                     transcript.append("\n")
                 }
                 print(transcript)
-//                self.transcriptView.string = transcript
+                print("modelData words count is = \(modelData.words.count)")
             }
         }
     }
@@ -69,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]();
             arguments.append("-x")
-            arguments.append("-R 0,100,200,200")
+            arguments.append("-R 0,50,700,400")
             arguments.append(imageUrlString)
 
             task.arguments = arguments
@@ -89,13 +83,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     resetRequestHandler()
                     try self.requestHandler?.perform([self.textRecognitionRequest])
                 } catch (_) {
-                    print("fail")
+                    print("textRecognize failed")
                 }
             }
         }
         
         func startScreenCapture() {
-            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: screenCapture(_:))
+            timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: screenCapture(_:))
+            screenCapture(timer) // instant execute one time
 //            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: screenCapture(_:))
         }
         func stopScreenCapture() {
@@ -105,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         func resetRequestHandler() {
             requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
             textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-            textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.accurate
+            textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.fast
             textRecognitionRequest.minimumTextHeight = 0.0
             textRecognitionRequest.usesLanguageCorrection = true
     //        textRecognitionRequest.customWords = []
@@ -124,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .docModalWindow,
             .nonactivatingPanel
         ]
-        wordsWindow = NSPanel.init(contentRect: NSMakeRect(1700,500,310,600),
+        wordsWindow = NSPanel.init(contentRect: NSMakeRect(700,507,310,600),
                                   styleMask: windowStyleMask,
                                     backing: NSWindow.BackingStoreType.buffered,
                                       defer: false,

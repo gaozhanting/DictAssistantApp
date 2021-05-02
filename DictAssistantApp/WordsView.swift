@@ -12,7 +12,7 @@ struct WordsView: View {
 
     var body: some View {
         VStack {
-            ForEach(modelData.allWords, id: \.self) { words in
+            ForEach(Array(modelData.words).prefix(6), id: \.self) { words in
                 Text(words)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.green)
