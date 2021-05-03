@@ -11,7 +11,10 @@ import Vision
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
+    let characters = genChars()
+        
+    let basicWords = read("en_basic.txt")
+
     var modelData = ModelData()
     
     var statusBar: StatusBarController?
@@ -31,21 +34,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.results = self.textRecognitionRequest.results as? [VNRecognizedTextObservation]
 
             if let results = self.results {
-                var transcript: String = ""
                 modelData.words.removeAll(keepingCapacity: true)
                 for observation in results {
                     let words = observation.topCandidates(1)[0].string
-                    transcript.append(words)
                     let splitWords = words.components(separatedBy: " ")
                     for word in splitWords {
-                        if !modelData.words.contains(word) { // currently ignore performance issue
-                            modelData.words.append(word)
+                        let lowercased = word.lowercased()
+                        let trueWord = lowercased.filter { characters.contains($0) }
+                        if !trueWord.isEmpty {
+                            if !modelData.words.contains(trueWord) { // currently ignore performance issue; words count is small.
+                                if !basicWords.contains(trueWord) {
+                                    modelData.words.append(trueWord)
+                                }
+                            }
                         }
                     }
-                    transcript.append("\n")
                 }
-                print(transcript)
-                print("modelData words count is = \(modelData.words.count)")
+                print(">>>>")
+                for word in modelData.words {
+                    print(word)
+                }
+                print("modelData words count is \(modelData.words.count)")
             }
         }
     }
@@ -89,7 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         func startScreenCapture() {
-            timer = Timer.scheduledTimer(withTimeInterval: 60 * 2, repeats: true, block: screenCapture(_:))
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: screenCapture(_:))
             screenCapture(timer) // instant execute one time
 //            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: screenCapture(_:))
         }
@@ -106,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     //        textRecognitionRequest.customWords = []
             textRecognitionRequest.usesCPUOnly = true
         }
-
+                        
         let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)

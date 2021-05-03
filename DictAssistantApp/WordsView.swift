@@ -11,11 +11,13 @@ struct WordsView: View {
     @ObservedObject var modelData: ModelData
 
     var body: some View {
-        VStack {
-            ForEach(Array(modelData.words).prefix(6), id: \.self) { words in
+        List {
+            Text("count = \(modelData.words.count)")
+                .foregroundColor(.yellow)
+            ForEach(modelData.words, id: \.self) { words in
                 Text(words)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.green)
+                    .foregroundColor(.white)
+//                    .background(Color.gray)
             }
         }
     }

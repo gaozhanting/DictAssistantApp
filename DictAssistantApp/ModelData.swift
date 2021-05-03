@@ -8,15 +8,21 @@
 import Foundation
 import Combine
 
-final class ModelData: ObservableObject {
-    @Published var words = [
+class ModelData: ObservableObject {
+    @Published var words = [ // can't be empty; otherwise WordsView not displayed!!
         "favorite",
         "beauty",
         "POST",
         "information.",
+        "",
         "customers,",
         "saying",
-        "app.",
+        "app",
         "ications"
     ]
+  
+// later use this
+//    var prefixSixWords: ArraySlice<String> {
+//        return words.prefix(6)
+//    }
 }
