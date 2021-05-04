@@ -14,10 +14,26 @@ struct WordsView: View {
         List {
             Text("count = \(modelData.words.count)")
                 .foregroundColor(.yellow)
-            ForEach(modelData.words, id: \.self) { words in
-                Text(words)
-                    .foregroundColor(.white)
-//                    .background(Color.gray)
+            
+            Spacer()
+            Text("found")
+            ForEach(modelData.foundEnZh, id: \.self) { foundEnZh in
+                Text(foundEnZh)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            Text("not found")
+            ForEach(modelData.notFound, id: \.self) { notFound in
+                Text(notFound)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            Text("basic")
+            ForEach(modelData.basic, id: \.self) { ba in
+                Text(ba)
+                    .foregroundColor(.secondary)
             }
         }
     }

@@ -12,9 +12,7 @@ import Vision
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     let characters = genChars()
-        
-    let basicWords = read("en_basic.txt")
-
+    
     var modelData = ModelData()
     
     var statusBar: StatusBarController?
@@ -43,9 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         let trueWord = lowercased.filter { characters.contains($0) }
                         if !trueWord.isEmpty {
                             if !modelData.words.contains(trueWord) { // currently ignore performance issue; words count is small.
-                                if !basicWords.contains(trueWord) {
-                                    modelData.words.append(trueWord)
-                                }
+                                modelData.words.append(trueWord)
                             }
                         }
                     }
@@ -72,7 +68,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]();
             arguments.append("-x")
-            arguments.append("-R 0,50,700,400")
+            arguments.append("-R 0,50,1200,800")
             arguments.append(imageUrlString)
 
             task.arguments = arguments
@@ -109,11 +105,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         func resetRequestHandler() {
             requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
             textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-            textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.fast
+            textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.accurate
             textRecognitionRequest.minimumTextHeight = 0.0
             textRecognitionRequest.usesLanguageCorrection = true
     //        textRecognitionRequest.customWords = []
-            textRecognitionRequest.usesCPUOnly = true
+//            textRecognitionRequest.usesCPUOnly = true
         }
                         
         let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
