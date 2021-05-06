@@ -16,11 +16,46 @@ struct WordsView: View {
                 .foregroundColor(.yellow)
             
             Spacer()
-            
-            ForEach(modelData.words, id: \.self) { word in
-                Text("\(word.text):\(word.translation ?? "not found")")
+            Text(">>>Translations:")
+                .foregroundColor(.yellow)
+            ForEach(modelData.translations, id: \.self) { info in
+                Text(info)
                     .foregroundColor(.secondary)
             }
+            
+            Spacer()
+            Text(">>>UnLookupableWords:")
+                .foregroundColor(.yellow)
+            ForEach(modelData.unLookupableWords, id: \.self) { info in
+                Text(info)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            Text(">>>KnownWords:")
+                .foregroundColor(.yellow)
+            ForEach(modelData.knownWords, id: \.self) { info in
+                Text(info)
+                    .foregroundColor(.secondary)
+            }
+            
+//            Spacer()
+//            ForEach(modelData.translations, id: \.self) { info in
+//                Text(info)
+//                    .foregroundColor(.secondary)
+//            }
+//
+//            Spacer()
+//            ForEach(modelData.translations, id: \.self) { info in
+//                Text(info)
+//                    .foregroundColor(.secondary)
+//            }
+//
+//            Spacer()
+//            ForEach(modelData.translations, id: \.self) { info in
+//                Text(info)
+//                    .foregroundColor(.secondary)
+//            }
 
 //            Spacer()
 //            Text("Not found:")

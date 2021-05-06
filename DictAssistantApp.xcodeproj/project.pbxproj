@@ -17,7 +17,7 @@
 		4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE6E26316C5A007FF470 /* WordsView.swift */; };
 		447D61932643C9B000AB0C1A /* Existence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61922643C9B000AB0C1A /* Existence.swift */; };
 		447D61952643CA0000AB0C1A /* Knowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61942643CA0000AB0C1A /* Knowable.swift */; };
-		447D61982643CAAD00AB0C1A /* Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61972643CAAD00AB0C1A /* Translate.swift */; };
+		447D61982643CAAD00AB0C1A /* Lookupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61972643CAAD00AB0C1A /* Lookupable.swift */; };
 		447D619A2643CC2500AB0C1A /* SingleClassifiedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61992643CC2500AB0C1A /* SingleClassifiedText.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447D61AD2644114B00AB0C1A /* Transfrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61AC2644114B00AB0C1A /* Transfrom.swift */; };
@@ -38,7 +38,7 @@
 		4440EE6E26316C5A007FF470 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
 		447D61922643C9B000AB0C1A /* Existence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Existence.swift; sourceTree = "<group>"; };
 		447D61942643CA0000AB0C1A /* Knowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knowable.swift; sourceTree = "<group>"; };
-		447D61972643CAAD00AB0C1A /* Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translate.swift; sourceTree = "<group>"; };
+		447D61972643CAAD00AB0C1A /* Lookupable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lookupable.swift; sourceTree = "<group>"; };
 		447D61992643CC2500AB0C1A /* SingleClassifiedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleClassifiedText.swift; sourceTree = "<group>"; };
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
 		447D61AC2644114B00AB0C1A /* Transfrom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transfrom.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 			children = (
 				447D61922643C9B000AB0C1A /* Existence.swift */,
 				447D61942643CA0000AB0C1A /* Knowable.swift */,
-				447D61972643CAAD00AB0C1A /* Translate.swift */,
+				447D61972643CAAD00AB0C1A /* Lookupable.swift */,
 				447D61992643CC2500AB0C1A /* SingleClassifiedText.swift */,
 				447D61AC2644114B00AB0C1A /* Transfrom.swift */,
 			);
@@ -218,7 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447D61982643CAAD00AB0C1A /* Translate.swift in Sources */,
+				447D61982643CAAD00AB0C1A /* Lookupable.swift in Sources */,
 				4440EE46262EDCA3007FF470 /* PopoverView.swift in Sources */,
 				447D61932643C9B000AB0C1A /* Existence.swift in Sources */,
 				4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */,

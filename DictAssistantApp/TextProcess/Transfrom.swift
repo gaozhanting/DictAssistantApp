@@ -29,6 +29,7 @@ func transform(_ texts: [String]) -> [SingleClassifiedText] {
     let orderedNoDuplicates = NSOrderedSet(array: cleanTexts).map({ $0 as! String })
 
     return orderedNoDuplicates.map { text in
+        // Notice: to be refined
         let existent = isExist(text)
         
         var knowable: Bool
@@ -38,17 +39,25 @@ func transform(_ texts: [String]) -> [SingleClassifiedText] {
             knowable = false
         }
         
-        var translation: String?
-        if knowable {
+        var lookupable: Bool
+        if !knowable {
+            lookupable = isLookUpable(text)
+        } else {
+            lookupable = false
+        }
+                
+        var translation: String
+        if lookupable {
             translation = translate(text)
         } else {
-            translation = nil
+            translation = "not found"
         }
         
         return SingleClassifiedText(
             text: text,
             existence: existent,
             knowable: knowable,
+            lookupable: lookupable,
             translation: translation)
     }
 }

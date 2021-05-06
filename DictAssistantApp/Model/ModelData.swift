@@ -12,7 +12,8 @@ import DataBases
 
 class ModelData: ObservableObject {
     @Published var words = [ // can't be empty; otherwise WordsView not displayed!!
-        SingleClassifiedText(text: "favorite", existence: true, knowable: true, translation: "最爱的"),
+        SingleClassifiedText(text: "favorite", existence: true, knowable: true, lookupable: true, translation: "最爱的"),
+//        SingleClassifiedText(text: "-", existence: true, knowable: true, lookupable: false),
 //        "beauty",
 //        "information",
 //        "",
@@ -23,6 +24,32 @@ class ModelData: ObservableObject {
 //        "app",
 //        "caption"
     ]
+    
+    var nonExistenceWords: [String] {
+        words.filter { !$0.existence }
+             .map { $0.text }
+    }
+    
+    var knownWords: [String] {
+        words.filter { $0.existence }
+             .filter { $0.knowable }
+             .map { $0.text }
+    }
+    
+    var unLookupableWords: [String] {
+        words.filter { $0.existence }
+             .filter { !$0.knowable }
+             .filter { !$0.lookupable }
+             .map { $0.text }
+    }
+    
+    var translations: [String] {
+        words.filter { $0.existence }
+             .filter { !$0.knowable }
+             .filter { $0.lookupable }
+             .map { "\($0.text): \($0.translation)" }
+    }
+    
 //
 //    func del() -> AppDelegate {
 //        return NSApplication.shared.delegate as! AppDelegate
