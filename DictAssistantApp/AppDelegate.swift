@@ -8,13 +8,14 @@
 import Cocoa
 import SwiftUI
 import Vision
+import DataBases
 
-@main
+//@main
+@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    let characters = genChars()
     
-    var modelData = ModelData()
-    
+    let modelData = ModelData()
+
     var statusBar: StatusBarController?
     var popover = NSPopover.init()
     var wordsWindow: NSPanel!
@@ -31,31 +32,45 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DispatchQueue.main.async { [unowned self] in
             self.results = self.textRecognitionRequest.results as? [VNRecognizedTextObservation]
 
+//            if let results = self.results {
+//                modelData.words.removeAll(keepingCapacity: true)
+//                for observation in results {
+//                    let words = observation.topCandidates(1)[0].string
+//                    let splitWords = words.components(separatedBy: " ")
+//                    for word in splitWords {
+//                        let lowercased = word.lowercased()
+//                        let trueWord = lowercased.filter { characters.contains($0) }
+//                        if !trueWord.isEmpty {
+//                            if !modelData.words.contains(trueWord) { // currently ignore performance issue; words count is small.
+//                                modelData.words.append(trueWord)
+//                            }
+//                        }
+//                    }
+//                }
+                
+//                print(">>>>")
+//                for word in modelData.words {
+//                    print(word)
+//                }
+//                for word in modelData.words {
+//                    if smallVocabulary.contains(word) {
+//                        translateFromAzure(word)
+//                    }
+//                }
+//                print("modelData words count is \(modelData.words.count)")
+            
             if let results = self.results {
-                modelData.words.removeAll(keepingCapacity: true)
-                for observation in results {
-                    let words = observation.topCandidates(1)[0].string
-                    let splitWords = words.components(separatedBy: " ")
-                    for word in splitWords {
-                        let lowercased = word.lowercased()
-                        let trueWord = lowercased.filter { characters.contains($0) }
-                        if !trueWord.isEmpty {
-                            if !modelData.words.contains(trueWord) { // currently ignore performance issue; words count is small.
-                                modelData.words.append(trueWord)
-                            }
-                        }
-                    }
+                let texts: [String] = results.map { observation in
+                    let text: String = observation.topCandidates(1)[0].string
+                    return text
                 }
-                print(">>>>")
-                for word in modelData.words {
-                    print(word)
-                }
-                print("modelData words count is \(modelData.words.count)")
+                modelData.words = transform(texts)
             }
         }
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+
         func showWordsView() {
             wordsWindow.makeKeyAndOrderFront(nil)
         }
@@ -68,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]();
             arguments.append("-x")
-            arguments.append("-R 0,50,1200,800")
+            arguments.append("-R 0,50,600,600")
             arguments.append(imageUrlString)
 
             task.arguments = arguments
@@ -94,7 +109,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         func startScreenCapture() {
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: screenCapture(_:))
+            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: screenCapture(_:))
             screenCapture(timer) // instant execute one time
 //            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: screenCapture(_:))
         }

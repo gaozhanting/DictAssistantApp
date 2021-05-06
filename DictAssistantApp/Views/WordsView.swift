@@ -16,32 +16,34 @@ struct WordsView: View {
                 .foregroundColor(.yellow)
             
             Spacer()
-            Text("found")
-            ForEach(modelData.foundEnZh, id: \.self) { foundEnZh in
-                Text(foundEnZh)
-                    .foregroundColor(.secondary)
-            }
             
-            Spacer()
-            Text("not found")
-            ForEach(modelData.notFound, id: \.self) { notFound in
-                Text(notFound)
+            ForEach(modelData.words, id: \.self) { word in
+                Text("\(word.text):\(word.translation ?? "not found")")
                     .foregroundColor(.secondary)
             }
-            
-            Spacer()
-            Text("basic")
-            ForEach(modelData.basic, id: \.self) { ba in
-                Text(ba)
-                    .foregroundColor(.secondary)
-            }
+
+//            Spacer()
+//            Text("Not found:")
+//            ForEach(modelData.notFound, id: \.self) { notFound in
+//                Text(notFound)
+//                    .foregroundColor(.secondary)
+//            }
+//
+//            Spacer()
+//            Text("Basic:")
+//            ForEach(modelData.basic, id: \.self) { ba in
+//                Text(ba)
+//                    .foregroundColor(.secondary)
+//            }
         }
     }
 }
 
+
+
 struct WordsView_Previews: PreviewProvider {
     static let modelData = ModelData()
-
+    
     static var previews: some View {
         WordsView(modelData: modelData)
     }
