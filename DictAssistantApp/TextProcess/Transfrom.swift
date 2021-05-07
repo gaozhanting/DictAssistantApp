@@ -32,11 +32,19 @@ func transform(_ texts: [String]) -> [SingleClassifiedText] {
         // Notice: to be refined
         let existent = isExist(text)
         
-        var knowable: Bool
-        if existent {
-            knowable = isKnowable(text)
-        } else {
-            knowable = false
+//        var knowable: Bool
+//        if existent {
+//            knowable = isKnowable(text)
+//        } else {
+//            knowable = false
+//        }
+        
+        var knowable: Bool {
+            if existent {
+                return isKnowable(text)
+            } else {
+                return false
+            }
         }
         
         var lookupable: Bool

@@ -22,29 +22,29 @@ public func translateFromAzure(_ word: String) {
     }
 }
 
-let jsonEncoder = JSONEncoder()
-let subscriptionKey = "6fc16e1d9f614f7baed5115f282acd29";
-let location = "global"
-let apiURL = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=en&to=zh"
-let jsonDecoder = JSONDecoder()
-
-struct EncodeText: Codable {
-    var text = String()
-}
-
-//*****TRANSLATION RETURNED DATA*****
-struct ReturnedJson: Codable {
-    var translations: [TranslatedStrings]
-}
-struct TranslatedStrings: Codable {
-    var text: String
-    var to: String
-}
-
-let config = URLSessionConfiguration.default
-let session =  URLSession(configuration: config)
-
 func translate(_ word: String, completionHandler: @escaping (_ translation: String) -> Void) {
+    let jsonEncoder = JSONEncoder()
+    let subscriptionKey = "6fc16e1d9f614f7baed5115f282acd29";
+    let location = "global"
+    let apiURL = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=en&to=zh"
+    let jsonDecoder = JSONDecoder()
+
+    struct EncodeText: Codable {
+        var text = String()
+    }
+
+    //*****TRANSLATION RETURNED DATA*****
+    struct ReturnedJson: Codable {
+        var translations: [TranslatedStrings]
+    }
+    struct TranslatedStrings: Codable {
+        var text: String
+        var to: String
+    }
+
+    let config = URLSessionConfiguration.default
+    let session =  URLSession(configuration: config)
+    
     let url = URL(string: apiURL)!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

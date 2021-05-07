@@ -109,7 +109,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         func startScreenCapture() {
-            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: screenCapture(_:))
+            timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: screenCapture(_:))
             screenCapture(timer) // instant execute one time
 //            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: screenCapture(_:))
         }
