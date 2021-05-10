@@ -13,6 +13,10 @@ import DataBases
 //@main
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    // Options
+    let recognitionLevel = VNRequestTextRecognitionLevel.fast
+    let withTimeInterval = 2.0
+    // End Options
     
     let modelData = ModelData()
 
@@ -30,41 +34,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         DispatchQueue.main.async { [unowned self] in
-            self.results = self.textRecognitionRequest.results as? [VNRecognizedTextObservation]
-
-//            if let results = self.results {
-//                modelData.words.removeAll(keepingCapacity: true)
-//                for observation in results {
-//                    let words = observation.topCandidates(1)[0].string
-//                    let splitWords = words.components(separatedBy: " ")
-//                    for word in splitWords {
-//                        let lowercased = word.lowercased()
-//                        let trueWord = lowercased.filter { characters.contains($0) }
-//                        if !trueWord.isEmpty {
-//                            if !modelData.words.contains(trueWord) { // currently ignore performance issue; words count is small.
-//                                modelData.words.append(trueWord)
-//                            }
-//                        }
-//                    }
-//                }
-                
-//                print(">>>>")
-//                for word in modelData.words {
-//                    print(word)
-//                }
-//                for word in modelData.words {
-//                    if smallVocabulary.contains(word) {
-//                        translateFromAzure(word)
-//                    }
-//                }
-//                print("modelData words count is \(modelData.words.count)")
+            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
             
-            if let results = self.results {
+            if let results = results {
                 let texts: [String] = results.map { observation in
                     let text: String = observation.topCandidates(1)[0].string
                     return text
                 }
-                modelData.words = transform(texts)
+                modelData.words = Transform.classify(texts)
             }
         }
     }
@@ -83,7 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]();
             arguments.append("-x")
-            arguments.append("-R 0,50,600,600")
+//            arguments.append("-R 0,50,600,600")
+            arguments.append("-D2")
             arguments.append(imageUrlString)
 
             task.arguments = arguments
@@ -93,15 +71,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
             task.launch()
-            
-//            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: textRecognize(_:))
         }
 
         func textRecognize() {
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
                 do {
                     resetRequestHandler()
-                    try self.requestHandler?.perform([self.textRecognitionRequest])
+                    try requestHandler?.perform([textRecognitionRequest])
                 } catch (_) {
                     print("textRecognize failed")
                 }
@@ -109,9 +85,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         func startScreenCapture() {
-            timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: screenCapture(_:))
+            timer = Timer.scheduledTimer(withTimeInterval: withTimeInterval, repeats: true, block: screenCapture(_:))
             screenCapture(timer) // instant execute one time
-//            timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: screenCapture(_:))
         }
         func stopScreenCapture() {
             timer.invalidate()
@@ -120,11 +95,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         func resetRequestHandler() {
             requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
             textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-            textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.accurate
+            textRecognitionRequest.recognitionLevel = recognitionLevel
             textRecognitionRequest.minimumTextHeight = 0.0
             textRecognitionRequest.usesLanguageCorrection = true
-    //        textRecognitionRequest.customWords = []
-//            textRecognitionRequest.usesCPUOnly = true
         }
                         
         let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)

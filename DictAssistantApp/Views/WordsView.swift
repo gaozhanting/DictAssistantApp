@@ -6,71 +6,66 @@
 //
 
 import SwiftUI
+import DataBases
 
 struct WordsView: View {
     @ObservedObject var modelData: ModelData
-
+    
+    var words: [SingleClassifiedText] {
+        modelData.words
+    }
+    
+    var highSchoolWords: [SingleClassifiedText] {
+        words.filter { highSchoolVocabulary.contains($0.text) }
+    }
+    
+    var beyondHighSchoolWords: [SingleClassifiedText] {
+        words.filter { !highSchoolVocabulary.contains($0.text) }
+    }
+    
+    var foundWords: [String] {
+        beyondHighSchoolWords
+            .filter { smallDictionary[$0.text] != nil }
+            .map { word in
+                let text = word.text
+                return "\(text): \(smallDictionary[text]!)"
+            }
+    }
+    
+    var notFoundWords: [SingleClassifiedText] {
+        beyondHighSchoolWords.filter { smallDictionary[$0.text] == nil }
+    }
+    
     var body: some View {
         List {
-            Text("count = \(modelData.words.count)")
+            Text("count = \(words.count)")
                 .foregroundColor(.yellow)
             
             Spacer()
-            Text(">>>Translations:")
+            Text(">FoundWords:")
                 .foregroundColor(.yellow)
-            ForEach(modelData.translations, id: \.self) { info in
-                Text(info)
+            ForEach(foundWords, id: \.self) { word in
+                Text(word)
                     .foregroundColor(.secondary)
             }
             
             Spacer()
-            Text(">>>UnLookupableWords:")
+            Text(">NotFoundWords:")
                 .foregroundColor(.yellow)
-            ForEach(modelData.unLookupableWords, id: \.self) { info in
-                Text(info)
+            ForEach(notFoundWords, id: \.self) { word in
+                Text(word.text)
                     .foregroundColor(.secondary)
             }
             
             Spacer()
-            Text(">>>KnownWords:")
+            Text(">HighSchoolWords:")
                 .foregroundColor(.yellow)
-            ForEach(modelData.knownWords, id: \.self) { info in
-                Text(info)
+            ForEach(highSchoolWords, id: \.self) { word in
+                Text(word.text)
                     .foregroundColor(.secondary)
             }
-            
-//            Spacer()
-//            ForEach(modelData.translations, id: \.self) { info in
-//                Text(info)
-//                    .foregroundColor(.secondary)
-//            }
-//
-//            Spacer()
-//            ForEach(modelData.translations, id: \.self) { info in
-//                Text(info)
-//                    .foregroundColor(.secondary)
-//            }
-//
-//            Spacer()
-//            ForEach(modelData.translations, id: \.self) { info in
-//                Text(info)
-//                    .foregroundColor(.secondary)
-//            }
-
-//            Spacer()
-//            Text("Not found:")
-//            ForEach(modelData.notFound, id: \.self) { notFound in
-//                Text(notFound)
-//                    .foregroundColor(.secondary)
-//            }
-//
-//            Spacer()
-//            Text("Basic:")
-//            ForEach(modelData.basic, id: \.self) { ba in
-//                Text(ba)
-//                    .foregroundColor(.secondary)
-//            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
