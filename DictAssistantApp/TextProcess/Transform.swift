@@ -18,7 +18,16 @@ struct Transform {
     }
 
     static func isKnowable(_ word: String) -> Bool {
-        return highSchoolVocabulary.contains(word)
+        if highSchoolVocabulary.contains(word) {
+            return true
+        }
+        if cet4Vocabulary.contains(word) {
+            return true
+        }
+        if cet6Vocabulary.contains(word) {
+            return true
+        }
+        return false
     }
 
     static func isLookUpable(_ word: String) -> Bool {
@@ -30,21 +39,18 @@ struct Transform {
     }
 
     // e.g:
-    // ["I   love $you", "I lovee you  "] ->
-    // ["I", "you", "love", "lovee"] ->
-    // [S..Text(..)]
+    // input: ["I Bookmarks  love you", "I lovee $you i.e. "]
+    // middleput: ["i", "bookmarks", "love", "you", "lovee", "i.e."]
+    // output: [S..Text(..)]
     static func classify(_ texts: [String]) -> [SingleClassifiedText] {
-        let cleanTexts: [String] =
-            texts.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                 .map { $0.components(separatedBy: .whitespaces) }
-                 .map { texts in
-                    texts.filter { text in
-                        !text.isEmpty
-                    }
-                 }
-                 .reduce([], +)
-                 .map { $0.filter { englishCharacterSet.contains($0) } }
-                 .filter { !isKnowable($0) }
+        let cleanTexts: [String] = texts
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .map { $0.components(separatedBy: .whitespaces) }
+            .reduce([], +)
+            .map { $0.lowercased() }
+            .map { $0.filter { invalidEnglishWordsCharacterSet.contains($0) } }
+            .filter { !$0.isEmpty }
+            .filter { !isKnowable($0) }
         
         let orderedNoDuplicates = NSOrderedSet(array: cleanTexts).map({ $0 as! String })
 
@@ -67,13 +73,15 @@ struct Transform {
         }
     }
 
-    static let englishCharacterSet = genChars()
-    static let englishCharacters = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z - '"
-    static let englishCharacters2 = "a b c d e f g h i j k l m n o p q r s t u v w x y z - '"
-    static func genChars() -> Set<Character> {
-        let characters = englishCharacters2
+    static let invalidEnglishWordsCharacterSet = makeInvalidEnglishWordsCharacterSet()
+    static let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
+    static func makeInvalidEnglishWordsCharacterSet() -> Set<Character> {
+        var characters = a_z
             .components(separatedBy: " ")
             .map { Character($0) }
+        characters.append(Character("-"))
+        characters.append(Character("'"))
+        characters.append(Character("."))
         return Set(characters)
     }
 

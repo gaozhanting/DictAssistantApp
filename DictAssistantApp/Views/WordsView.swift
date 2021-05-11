@@ -15,16 +15,8 @@ struct WordsView: View {
         modelData.words
     }
     
-    var highSchoolWords: [SingleClassifiedText] {
-        words.filter { highSchoolVocabulary.contains($0.text) }
-    }
-    
-    var beyondHighSchoolWords: [SingleClassifiedText] {
-        words.filter { !highSchoolVocabulary.contains($0.text) }
-    }
-    
     var foundWords: [String] {
-        beyondHighSchoolWords
+        words
             .filter { smallDictionary[$0.text] != nil }
             .map { word in
                 let text = word.text
@@ -32,9 +24,9 @@ struct WordsView: View {
             }
     }
     
-    var notFoundWords: [SingleClassifiedText] {
-        beyondHighSchoolWords.filter { smallDictionary[$0.text] == nil }
-    }
+//    var notFoundWords: [SingleClassifiedText] {
+//        words.filter { smallDictionary[$0.text] == nil }
+//    }
     
     var body: some View {
         List {
@@ -49,21 +41,13 @@ struct WordsView: View {
                     .foregroundColor(.secondary)
             }
             
-            Spacer()
-            Text(">NotFoundWords:")
-                .foregroundColor(.yellow)
-            ForEach(notFoundWords, id: \.self) { word in
-                Text(word.text)
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-            Text(">HighSchoolWords:")
-                .foregroundColor(.yellow)
-            ForEach(highSchoolWords, id: \.self) { word in
-                Text(word.text)
-                    .foregroundColor(.secondary)
-            }
+//            Spacer()
+//            Text(">NotFoundWords:")
+//                .foregroundColor(.yellow)
+//            ForEach(notFoundWords, id: \.self) { word in
+//                Text(word.text)
+//                    .foregroundColor(.secondary)
+//            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

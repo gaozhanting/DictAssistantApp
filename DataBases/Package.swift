@@ -23,7 +23,9 @@ let package = Package(
             dependencies: [],
             resources: [
                 .process("Resources/small_dictionary.txt"),
-                .process("Resources/high_school_vocabulary.txt")
+                .process("Resources/high_school_vocabulary.txt"),
+                .process("Resources/cet4_vocabulary.txt"),
+                .process("Resources/cet6_vocabulary.txt")
             ]),
         .testTarget(
             name: "DataBasesTests",
