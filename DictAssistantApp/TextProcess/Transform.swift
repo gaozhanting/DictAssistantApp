@@ -44,41 +44,24 @@ struct Transform {
                  }
                  .reduce([], +)
                  .map { $0.filter { englishCharacterSet.contains($0) } }
+                 .filter { !isKnowable($0) }
         
         let orderedNoDuplicates = NSOrderedSet(array: cleanTexts).map({ $0 as! String })
 
-        return orderedNoDuplicates.map { text in
-            // Notice: to be refined
-            let existent = isExist(text)
-            
-            var knowable: Bool {
-                if existent {
-                    return isKnowable(text)
-                } else {
-                    return false
-                }
-            }
-            
-            var lookupable: Bool {
-                if !knowable {
-                   return isLookUpable(text)
-                } else {
-                   return false
-                }
-            }
-                    
+        return orderedNoDuplicates.map { word in
+            let lookupable: Bool = isLookUpable(word)
             var translation: String {
                 if lookupable {
-                    return translate(text)
+                    return translate(word)
                 } else {
-                    return "not found"
+                    return ""
                 }
             }
             
             return SingleClassifiedText(
-                text: text,
-                existence: existent,
-                knowable: knowable,
+                text: word,
+                existence: true,
+                knowable: false,
                 lookupable: lookupable,
                 translation: translation)
         }
