@@ -18,6 +18,9 @@ struct Transform {
     }
 
     static func isKnowable(_ word: String) -> Bool {
+        if manuallyBasicVocabulary.contains(word) {
+            return true
+        }
         if highSchoolVocabulary.contains(word) {
             return true
         }
