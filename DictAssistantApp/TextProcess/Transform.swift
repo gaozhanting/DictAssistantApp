@@ -33,14 +33,14 @@ struct Transform {
         return false
     }
 
-    static func translate(_ word: String) -> String? {
+    static func translate(_ word: String) -> (String?, Bool) {
         if let translation = oxfordDictionary[word] {
-            return translation
+            return (translation, false)
         }
         if let translation = DictionaryServices.define(word) {
-            return translation
+            return (translation, true)
         }
-        return nil
+        return (nil, false)
     }
 
     // e.g:
@@ -59,12 +59,14 @@ struct Transform {
         
         let orderedNoDuplicates = NSOrderedSet(array: cleanTexts).map({ $0 as! String })
 
-        return orderedNoDuplicates.map { word in            
+        return orderedNoDuplicates.map { word in
+            let (translation, isTranslationFromDictionaryServices) = translate(word)
             return Word(
                 text: word,
                 existence: true,
                 knowable: false,
-                translation: translate(word))
+                translation: translation,
+                isTranslationFromDictionaryServices: isTranslationFromDictionaryServices)
         }
     }
 

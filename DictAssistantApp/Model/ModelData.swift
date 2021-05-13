@@ -16,6 +16,13 @@ class ModelData: ObservableObject {
             text: "favorite",
             existence: true,
             knowable: true,
-            translation: "最爱的"),
+            translation: "最爱的",
+            isTranslationFromDictionaryServices: false),
+        Word(
+            text: "stays",
+            existence: true,
+            knowable: true,
+            translation: "A.intransitive verb (remain in place) 停留 tíngliú",
+            isTranslationFromDictionaryServices: true),
     ]
 }

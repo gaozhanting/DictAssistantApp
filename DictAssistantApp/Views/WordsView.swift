@@ -15,38 +15,61 @@ struct WordsView: View {
         modelData.words
     }
     
-    var foundWords: [String] {
-        words
-            .filter { $0.translation != nil }
-            .map { word in
-                "\(word.text): \(word.translation!)"
-            }
+    var foundWords: [Word] {
+        words.filter { ($0.translation != nil) && !$0.isTranslationFromDictionaryServices  }
+    }
+    
+    var foundWordsFromServices: [Word] {
+        words.filter { ($0.translation != nil) && $0.isTranslationFromDictionaryServices  }
     }
     
     var notFoundWords: [Word] {
         words.filter { $0.translation == nil }
     }
-    
+        
     var body: some View {
         List {
             Text("count = \(words.count)")
                 .foregroundColor(.yellow)
             
             Spacer()
-            Text(">FoundWords:")
+            Text("FoundWords:")
                 .foregroundColor(.yellow)
             ForEach(foundWords, id: \.self) { word in
-                Text(word)
-                    .foregroundColor(.secondary)
-                    .frame(height: 20)
+                HStack {
+                    Text(word.text)
+                        .foregroundColor(.green)
+                    Text(word.translation!)
+                        .foregroundColor(.secondary)
+                }
+                .frame(height: 20)
             }
             
             Spacer()
-            Text(">NotFoundWords:")
+            Text("FoundWordsFromServices:")
+                .foregroundColor(.yellow)
+            ForEach(foundWordsFromServices, id: \.self) { word in
+                HStack(alignment: .firstTextBaseline) {
+                    VStack {
+                        Text(word.text)
+                            .foregroundColor(.green)
+                            .frame(height: 20)
+                    }
+                    VStack {
+                        Text(word.translation!)
+                            .foregroundColor(.secondary)
+                            .frame(maxHeight: 60)
+                    }
+                }
+            }
+            
+            Spacer()
+            Text("NotFoundWords:")
                 .foregroundColor(.yellow)
             ForEach(notFoundWords, id: \.self) { word in
                 Text(word.text)
                     .foregroundColor(.secondary)
+                    .frame(height: 20)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
