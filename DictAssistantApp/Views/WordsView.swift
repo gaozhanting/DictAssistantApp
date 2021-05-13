@@ -17,16 +17,16 @@ struct WordsView: View {
     
     var foundWords: [String] {
         words
-            .filter { smallDictionary[$0.text] != nil }
+            .filter { oxfordDictionary[$0.text] != nil }
             .map { word in
                 let text = word.text
-                return "\(text): \(smallDictionary[text]!)"
+                return "\(text): \(oxfordDictionary[text]!)"
             }
     }
     
-//    var notFoundWords: [SingleClassifiedText] {
-//        words.filter { smallDictionary[$0.text] == nil }
-//    }
+    var notFoundWords: [SingleClassifiedText] {
+        words.filter { oxfordDictionary[$0.text] == nil }
+    }
     
     var body: some View {
         List {
@@ -39,15 +39,16 @@ struct WordsView: View {
             ForEach(foundWords, id: \.self) { word in
                 Text(word)
                     .foregroundColor(.secondary)
+                    .frame(height: 20)
             }
             
-//            Spacer()
-//            Text(">NotFoundWords:")
-//                .foregroundColor(.yellow)
-//            ForEach(notFoundWords, id: \.self) { word in
-//                Text(word.text)
-//                    .foregroundColor(.secondary)
-//            }
+            Spacer()
+            Text(">NotFoundWords:")
+                .foregroundColor(.yellow)
+            ForEach(notFoundWords, id: \.self) { word in
+                Text(word.text)
+                    .foregroundColor(.secondary)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

@@ -31,11 +31,11 @@ struct Transform {
     }
 
     static func isLookUpable(_ word: String) -> Bool {
-        return smallDictionary[word] != nil
+        return oxfordDictionary[word] != nil
     }
 
     static func translate(_ word: String) -> String {
-        return smallDictionary[word]!
+        return oxfordDictionary[word]!
     }
 
     // e.g:
