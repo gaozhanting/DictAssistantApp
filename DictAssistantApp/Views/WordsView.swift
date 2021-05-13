@@ -11,21 +11,20 @@ import DataBases
 struct WordsView: View {
     @ObservedObject var modelData: ModelData
     
-    var words: [SingleClassifiedText] {
+    var words: [Word] {
         modelData.words
     }
     
     var foundWords: [String] {
         words
-            .filter { oxfordDictionary[$0.text] != nil }
+            .filter { $0.translation != nil }
             .map { word in
-                let text = word.text
-                return "\(text): \(oxfordDictionary[text]!)"
+                "\(word.text): \(word.translation!)"
             }
     }
     
-    var notFoundWords: [SingleClassifiedText] {
-        words.filter { oxfordDictionary[$0.text] == nil }
+    var notFoundWords: [Word] {
+        words.filter { $0.translation == nil }
     }
     
     var body: some View {

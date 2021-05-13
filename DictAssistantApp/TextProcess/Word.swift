@@ -7,12 +7,11 @@
 
 import Foundation
 
-struct SingleClassifiedText: Hashable {
+struct Word: Hashable {
     var text: String
     var existence: Bool // true if the word a valid English word
     var knowable: Bool // true if the word I know
-    var lookupable: Bool // true if the word can dict
-    var translation: String // the (Chinese) translation of the (English) word
+    var translation: String? // the (Chinese) translation of the (English) word; nil if can't found the translation
     
     // how to add assertion of this struct
     // e.g: asset translation is nil if existence is false

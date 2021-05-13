@@ -12,11 +12,10 @@ import DataBases
 
 class ModelData: ObservableObject {
     @Published var words = [ // can't be empty; otherwise WordsView not displayed!!
-        SingleClassifiedText(
+        Word(
             text: "favorite",
             existence: true,
             knowable: true,
-            lookupable: true,
             translation: "最爱的"),
     ]
 }

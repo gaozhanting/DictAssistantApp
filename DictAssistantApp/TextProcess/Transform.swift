@@ -33,19 +33,21 @@ struct Transform {
         return false
     }
 
-    static func isLookUpable(_ word: String) -> Bool {
-        return oxfordDictionary[word] != nil
-    }
-
-    static func translate(_ word: String) -> String {
-        return oxfordDictionary[word]!
+    static func translate(_ word: String) -> String? {
+        if let translation = oxfordDictionary[word] {
+            return translation
+        }
+        if let translation = DictionaryServices.define(word) {
+            return translation
+        }
+        return nil
     }
 
     // e.g:
     // input: ["I Bookmarks  love you", "I lovee $you i.e. "]
     // middleput: ["i", "bookmarks", "love", "you", "lovee", "i.e."]
     // output: [S..Text(..)]
-    static func classify(_ texts: [String]) -> [SingleClassifiedText] {
+    static func classify(_ texts: [String]) -> [Word] {
         let cleanTexts: [String] = texts
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .map { $0.components(separatedBy: .whitespaces) }
@@ -57,22 +59,12 @@ struct Transform {
         
         let orderedNoDuplicates = NSOrderedSet(array: cleanTexts).map({ $0 as! String })
 
-        return orderedNoDuplicates.map { word in
-            let lookupable: Bool = isLookUpable(word)
-            var translation: String {
-                if lookupable {
-                    return translate(word)
-                } else {
-                    return ""
-                }
-            }
-            
-            return SingleClassifiedText(
+        return orderedNoDuplicates.map { word in            
+            return Word(
                 text: word,
                 existence: true,
                 knowable: false,
-                lookupable: lookupable,
-                translation: translation)
+                translation: translate(word))
         }
     }
 
