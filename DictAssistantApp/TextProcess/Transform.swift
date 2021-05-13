@@ -24,19 +24,19 @@ struct Transform {
         if highSchoolVocabulary.contains(word) {
             return true
         }
-        if cet4Vocabulary.contains(word) {
-            return true
-        }
-        if cet6Vocabulary.contains(word) {
-            return true
-        }
+//        if cet4Vocabulary.contains(word) {
+//            return true
+//        }
+//        if cet6Vocabulary.contains(word) {
+//            return true
+//        }
         return false
     }
 
     static func translate(_ word: String) -> (String?, Bool) {
-        if let translation = oxfordDictionary[word] {
-            return (translation, false)
-        }
+//        if let translation = oxfordDictionary[word] {
+//            return (translation, false)
+//        }
         if let translation = DictionaryServices.define(word) {
             return (translation, true)
         }

@@ -10,12 +10,21 @@ import SwiftUI
 import Vision
 import DataBases
 
+//let smallDictionary = Dictionaries.readSmallDict(from: "small_dictionary.txt")
+//let oxfordDictionary = Dictionaries.readOxfordDict(from: "oxford_dictionary.txt")
+//
+//
+let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
+let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
+//let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
+//let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
+
 //@main
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     // Options
     let recognitionLevel = VNRequestTextRecognitionLevel.fast
-    let withTimeInterval = 2.0
+    let withTimeInterval = 1.0
     // End Options
     
     let modelData = ModelData()
@@ -30,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var requestHandler: VNImageRequestHandler?
     var textRecognitionRequest: VNRecognizeTextRequest!
 
-    var imageUrlString = NSHomeDirectory() + "/Documents/" + "abc.png"
+    var imageUrlString = NSHomeDirectory() + "/Documents/" + "abc.jpg"
     
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         DispatchQueue.main.async { [unowned self] in
@@ -60,6 +69,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             task.launchPath = "/usr/sbin/screencapture"
             var arguments = [String]();
             arguments.append("-x")
+            arguments.append("-a")
+            arguments.append("-r")
+            arguments.append("-d")
+            arguments.append("-o")
+            arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
+//            arguments.append("-t pdf jpg tiff")
 //            arguments.append("-R 0,50,600,600")
             arguments.append("-D2")
             arguments.append(imageUrlString)

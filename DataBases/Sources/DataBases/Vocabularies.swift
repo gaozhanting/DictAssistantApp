@@ -11,14 +11,8 @@ import Foundation
 // find:([a-zA-Z-\.]+)(\s+)(.+)
 // replace:$1
 
-public let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
-
-public let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
-public let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
-public let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
-
-struct Vocabularies {
-    static func read(from file: String) -> Set<String> {
+public struct Vocabularies {
+    public static func read(from file: String) -> Set<String> {
         guard let url = Bundle.module.url(forResource: file, withExtension: nil)
         else {
             fatalError("Couldn't find \(file) in main bundle.")

@@ -26,8 +26,8 @@
             filePath = "DataBases/Sources/DataBases/Dictionaries/Offline/Dictionaries.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "Dictionaries"
             landmarkType = "14">
          </BreakpointContent>
@@ -42,8 +42,8 @@
             filePath = "DataBases/Sources/DataBases/Dictionaries/Offline/Dictionaries.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "readOxfordDict(from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,8 +58,8 @@
             filePath = "DataBases/Sources/DataBases/Dictionaries/Offline/Dictionaries.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "Dictionaries"
             landmarkType = "14">
          </BreakpointContent>
@@ -68,14 +68,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D7241901-CE19-43A3-BD40-9530ABC664F4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DataBases/Sources/DataBases/Dictionaries/Offline/Dictionaries.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "readSmallDict(from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,8 +90,8 @@
             filePath = "DataBases/Sources/DataBases/Dictionaries/Offline/Dictionaries.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "Dictionaries"
             landmarkType = "14">
          </BreakpointContent>
