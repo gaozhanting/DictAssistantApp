@@ -81,7 +81,7 @@ struct Transform {
             .map { Character($0) }
         characters.append(Character("-"))
         characters.append(Character("'"))
-        characters.append(Character("."))
+//        characters.append(Character(".")) // currently not work with i.e. , e.g. , etc. , because . is used for punctuation most of the time!)
         return Set(characters)
     }
 
