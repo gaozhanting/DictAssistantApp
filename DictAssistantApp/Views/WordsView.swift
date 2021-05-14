@@ -49,17 +49,25 @@ struct WordsView: View {
             Text("FoundWordsFromServices:")
                 .foregroundColor(.yellow)
             ForEach(foundWordsFromServices, id: \.self) { word in
-                HStack(alignment: .firstTextBaseline) {
-                    VStack {
-                        Text(word.text)
-                            .foregroundColor(.green)
-                            .frame(height: 20)
-                    }
-                    VStack {
-                        Text(word.translation!)
-                            .foregroundColor(.secondary)
-                            .frame(maxHeight: 60)
-                    }
+//                HStack(alignment: .firstTextBaseline) {
+//                    VStack {
+//                        Text(word.text)
+//                            .foregroundColor(.green)
+//                            .frame(height: 20)
+//                    }
+//                    VStack {
+//                        Text(word.translation!)
+//                            .foregroundColor(.secondary)
+//                            .frame(maxHeight: 60)
+//                    }
+//                }
+                
+                VStack(alignment: .leading) {
+                    Text(word.text)
+                        .foregroundColor(.green)
+                    Text(word.translation!)
+                        .foregroundColor(.secondary)
+                        .frame(maxHeight: 60)
                 }
             }
             

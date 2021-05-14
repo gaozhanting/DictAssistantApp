@@ -7,6 +7,7 @@
 
 import Foundation
 import DataBases
+import NaturalLanguage
 
 struct Transform {
     // to be refined: please use CharacterSet to do trim, filter, search etc
@@ -24,9 +25,9 @@ struct Transform {
         if highSchoolVocabulary.contains(word) {
             return true
         }
-//        if cet4Vocabulary.contains(word) {
-//            return true
-//        }
+        if cet4Vocabulary.contains(word) {
+            return true
+        }
 //        if cet6Vocabulary.contains(word) {
 //            return true
 //        }
@@ -57,7 +58,25 @@ struct Transform {
             .filter { !$0.isEmpty }
             .filter { !isKnowable($0) }
         
-        let orderedNoDuplicates = NSOrderedSet(array: cleanTexts).map({ $0 as! String })
+        var all: String = ""
+        for t in cleanTexts {
+            all.append(t)
+            all.append(" ")
+        }
+        
+        print(">>before lemm")
+        print(all)
+        
+        let b = lemm(of: all)
+        print(">>after lemm")
+        print(b)
+
+        let c = b.filter { !$0.isEmpty }
+        let d = c.filter { !isKnowable($0) }
+        print(">>after filter knowable again")
+        print(d)
+        
+        let orderedNoDuplicates = NSOrderedSet(array: d).map({ $0 as! String })
 
         return orderedNoDuplicates.map { word in
             let (translation, isTranslationFromDictionaryServices) = translate(word)
@@ -70,6 +89,24 @@ struct Transform {
         }
     }
 
+    static func lemm(of text: String) -> [String] {
+        var results: [String] = []
+        let tagger = NLTagger(tagSchemes: [.lemma])
+        tagger.string = text
+        let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
+        tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
+            if let tag = tag {
+                if !tag.rawValue.isEmpty {
+                    results.append(tag.rawValue)
+                }
+            } else {
+                
+            }
+            return true
+        }
+        return results
+    }
+    
     static let invalidEnglishWordsCharacterSet = makeInvalidEnglishWordsCharacterSet()
     static let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
     static func makeInvalidEnglishWordsCharacterSet() -> Set<Character> {
