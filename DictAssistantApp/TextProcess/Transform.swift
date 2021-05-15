@@ -64,11 +64,11 @@ struct Transform {
             all.append(" ")
         }
         
-        print(">>before lemm")
+        print(">>before lemma")
         print(all)
         
-        let b = lemm(of: all)
-        print(">>after lemm")
+        let b = lemmaWithOneWordCaseFixing(of: all)
+        print(">>after lemma")
         print(b)
 
         let c = b.filter { !$0.isEmpty }
@@ -88,8 +88,23 @@ struct Transform {
                 isTranslationFromDictionaryServices: isTranslationFromDictionaryServices)
         }
     }
-
-    static func lemm(of text: String) -> [String] {
+    
+    // Because lemma always return null when meeting only one word; add the then delete the
+    static func lemmaWithOneWordCaseFixing(of text: String) -> [String] {
+        let whiteSpace = Character(" ")
+        if !text.contains(whiteSpace) {
+            let results = lemma(of: "the \(text)")
+            if let lemmaOfText = results.last {
+                return [lemmaOfText]
+            } else {
+                return []
+            }
+        } else {
+            return lemma(of: text)
+        }
+    }
+    
+    static func lemma(of text: String) -> [String] {
         var results: [String] = []
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
