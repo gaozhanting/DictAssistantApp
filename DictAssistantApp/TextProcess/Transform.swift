@@ -58,25 +58,21 @@ struct Transform {
             .filter { !$0.isEmpty }
             .filter { !isKnowable($0) }
         
-        var all: String = ""
-        for t in cleanTexts {
-            all.append(t)
-            all.append(" ")
-        }
-        
+        let text: String = cleanTexts.joined(separator: " ")
         print(">>before lemma")
-        print(all)
+        print(text)
         
-        let b = lemmaWithOneWordCaseFixing(of: all)
+        let lemmaed = lemmaWithOneWordCaseFixing(of: text)
         print(">>after lemma")
-        print(b)
+        print(lemmaed)
 
-        let c = b.filter { !$0.isEmpty }
-        let d = c.filter { !isKnowable($0) }
+        let reExcludeKnownWords = lemmaed
+            .filter { !$0.isEmpty }
+            .filter { !isKnowable($0) }
         print(">>after filter knowable again")
-        print(d)
+        print(reExcludeKnownWords)
         
-        let orderedNoDuplicates = NSOrderedSet(array: d).map({ $0 as! String })
+        let orderedNoDuplicates = NSOrderedSet(array: reExcludeKnownWords).map({ $0 as! String })
 
         return orderedNoDuplicates.map { word in
             let (translation, isTranslationFromDictionaryServices) = translate(word)
