@@ -33,35 +33,9 @@ struct WordsView: View {
                 .foregroundColor(.yellow)
             
             Spacer()
-            Text("FoundWords:")
-                .foregroundColor(.yellow)
-            ForEach(foundWords, id: \.self) { word in
-                HStack {
-                    Text(word.text)
-                        .foregroundColor(.green)
-                    Text(word.translation!)
-                        .foregroundColor(.secondary)
-                }
-                .frame(height: 20)
-            }
-            
-            Spacer()
             Text("FoundWordsFromServices:")
                 .foregroundColor(.yellow)
             ForEach(foundWordsFromServices, id: \.self) { word in
-//                HStack(alignment: .firstTextBaseline) {
-//                    VStack {
-//                        Text(word.text)
-//                            .foregroundColor(.green)
-//                            .frame(height: 20)
-//                    }
-//                    VStack {
-//                        Text(word.translation!)
-//                            .foregroundColor(.secondary)
-//                            .frame(maxHeight: 60)
-//                    }
-//                }
-                
                 VStack(alignment: .leading) {
                     Text(word.text)
                         .foregroundColor(.green)
@@ -69,6 +43,7 @@ struct WordsView: View {
                         .foregroundColor(.secondary)
                         .frame(maxHeight: 60)
                 }
+                .frame(maxHeight: 80)
             }
             
             Spacer()
