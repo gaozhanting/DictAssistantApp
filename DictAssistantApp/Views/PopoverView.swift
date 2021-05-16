@@ -13,6 +13,9 @@ struct PopoverView: View {
     let startScreenCapture: () -> Void
     let stopScreenCapture: () -> Void
     
+    let showCropView: () -> Void
+    let closeCropView: () -> Void
+    
     @State private var x: String = "0"
     @State private var y: String = "50"
     @State private var w: String = "700"
@@ -44,6 +47,18 @@ struct PopoverView: View {
             HStack {
                 Text("interval (seconds):")
                 TextField("interval", text: $interval)
+            }
+            
+            Button(action: {
+                showCropView()
+            }) {
+                Text("show crop view")
+            }
+            
+            Button(action: {
+                closeCropView()
+            }) {
+                Text("close crop view")
             }
 
             Button(action: {
@@ -78,8 +93,13 @@ func emptyFunc() -> Void {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PopoverView(showWordsView: emptyFunc, closeWordsView: emptyFunc, startScreenCapture: emptyFunc,
-                    stopScreenCapture: emptyFunc)
+        PopoverView(showWordsView: emptyFunc,
+                    closeWordsView: emptyFunc,
+                    startScreenCapture: emptyFunc,
+                    stopScreenCapture: emptyFunc,
+                    showCropView: emptyFunc,
+                    closeCropView: emptyFunc
+                    )
     }
 }
             

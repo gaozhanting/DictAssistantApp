@@ -33,6 +33,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var popover = NSPopover.init()
     var wordsWindow: NSPanel!
     
+    var cropWindow: NSPanel!
+    
     var timer: Timer = Timer()
 
     var results: [VNRecognizedTextObservation]?
@@ -114,8 +116,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             textRecognitionRequest.minimumTextHeight = 0.0
             textRecognitionRequest.usesLanguageCorrection = true
         }
-                        
-        let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
+        
+        func showCropView() {
+            self.cropWindow.makeKeyAndOrderFront(nil) // self no use
+        }
+        func closeCropView() {
+            self.cropWindow.close()
+        }
+   
+        let popoverView = PopoverView(
+            showWordsView: showWordsView,
+            closeWordsView: closeWordsView,
+            startScreenCapture: startScreenCapture,
+            stopScreenCapture: stopScreenCapture,
+            showCropView: showCropView,
+            closeCropView: closeCropView)
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)
         
@@ -137,7 +152,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let wordsView = WordsView(modelData: modelData)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
-        statusBar = StatusBarController.init(popover, wordsWindow)
+        
+        cropWindow = NSPanel.init(
+            contentRect: NSMakeRect(0, 0, 5000, 5000),
+            styleMask: [.hudWindow, .utilityWindow, .docModalWindow, .nonactivatingPanel, .fullScreen, .fullSizeContentView],
+            backing: NSWindow.BackingStoreType.buffered,
+            defer: false,
+            screen: NSScreen.main)
+        cropWindow.alphaValue = 0.1
+        let cropView = CropView()
+        cropWindow.contentView = NSHostingView(rootView: cropView)
+                     
+        
+        statusBar = StatusBarController.init(popover)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
