@@ -15,6 +15,7 @@
 		4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE5B262EDFF7007FF470 /* StatusBarController.swift */; };
 		4440EE6C263055E9007FF470 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE6B263055E9007FF470 /* EventMonitor.swift */; };
 		4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE6E26316C5A007FF470 /* WordsView.swift */; };
+		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D619A2643CC2500AB0C1A /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61992643CC2500AB0C1A /* Word.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447D61AD2644114B00AB0C1A /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61AC2644114B00AB0C1A /* Transform.swift */; };
@@ -33,6 +34,7 @@
 		4440EE5B262EDFF7007FF470 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		4440EE6B263055E9007FF470 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		4440EE6E26316C5A007FF470 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
+		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D61992643CC2500AB0C1A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
 		447D61AC2644114B00AB0C1A /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		4440EE37262EDCA3007FF470 = {
 			isa = PBXGroup;
 			children = (
+				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
 				447D61A42643E5A700AB0C1A /* DataBases */,
 				4440EE42262EDCA3007FF470 /* DictAssistantApp */,
 				4440EE41262EDCA3007FF470 /* Products */,
@@ -205,6 +208,7 @@
 				4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */,
 				4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
+				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				447D61AD2644114B00AB0C1A /* Transform.swift in Sources */,
 				4440EE6C263055E9007FF470 /* EventMonitor.swift in Sources */,
 				44BBB00F263BD6E400A5FF50 /* ModelData.swift in Sources */,
@@ -418,6 +422,19 @@
 			productName = DataBases;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				447D0F7326550D02004A7173 /* Words.xcdatamodel */,
+			);
+			currentVersion = 447D0F7326550D02004A7173 /* Words.xcdatamodel */;
+			path = WordStatistics.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4440EE38262EDCA3007FF470 /* Project object */;
 }

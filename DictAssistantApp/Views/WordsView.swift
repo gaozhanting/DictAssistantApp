@@ -10,6 +10,24 @@ import DataBases
 
 struct WordsView: View {
     @ObservedObject var modelData: ModelData
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: WordStats.entity(),
+        sortDescriptor: [
+            NSSortDescriptor(keyPath: \WordStats.count, ascending: true)
+        ]
+    ) var wordPresentCounts: FetchedResults<WordStats>
+    
+    @FetchRequest(
+      // 2.
+      entity: Movie.entity(),
+      // 3.
+      sortDescriptors: [
+        NSSortDescriptor(keyPath: \Movie.title, ascending: true)
+      ]
+      //,predicate: NSPredicate(format: "genre contains 'Action'")
+      // 4.
+    ) var movies: FetchedResults<Movie>
     
     var words: [Word] {
         modelData.words
@@ -26,6 +44,7 @@ struct WordsView: View {
     var notFoundWords: [Word] {
         words.filter { $0.translation == nil }
     }
+    
         
     var body: some View {
         List {
@@ -82,6 +101,9 @@ struct WordsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    
+
+
 }
 
 

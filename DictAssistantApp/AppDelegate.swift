@@ -9,6 +9,7 @@ import Cocoa
 import SwiftUI
 import Vision
 import DataBases
+import CoreData
 
 //let smallDictionary = Dictionaries.readSmallDict(from: "small_dictionary.txt")
 //let oxfordDictionary = Dictionaries.readOxfordDict(from: "oxford_dictionary.txt")
@@ -51,6 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     return text
                 }
                 modelData.words = Transform.classify(texts)
+//                subsequentProcessing(modelData.words)
             }
         }
     }
@@ -134,7 +136,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                      screen: NSScreen.main)
         wordsWindow.title = "Words"
         
+        let context = persistentContainer.viewContext
         let wordsView = WordsView(modelData: modelData)
+            .environment(\.managedObjectContext, context)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
         statusBar = StatusBarController.init(popover, wordsWindow)
@@ -142,6 +146,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "WordStatistics")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
+            }
+        }
+        return container
+    }()
+    
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 
 }
