@@ -12,6 +12,7 @@ struct PopoverView: View {
     let closeWordsView: () -> Void
     let startScreenCapture: () -> Void
     let stopScreenCapture: () -> Void
+    let deleteAllWordStaticstics: () -> Void
     
     @State private var x: String = "0"
     @State private var y: String = "50"
@@ -64,6 +65,12 @@ struct PopoverView: View {
             }
             
             Button(action: {
+                deleteAllWordStaticstics()
+            }) {
+                Text("!! DeleteAllWordStaticstics")
+            }
+            
+            Button(action: {
                 NSApplication.shared.terminate(self)
             }) {
                 Text("Exit")
@@ -76,10 +83,12 @@ func emptyFunc() -> Void {
     
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PopoverView(showWordsView: emptyFunc, closeWordsView: emptyFunc, startScreenCapture: emptyFunc,
-                    stopScreenCapture: emptyFunc)
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PopoverView(showWordsView: emptyFunc,
+//                    closeWordsView: emptyFunc,
+//                    startScreenCapture: emptyFunc,
+//                    stopScreenCapture: emptyFunc)
+//    }
+//}
             

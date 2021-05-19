@@ -52,9 +52,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     return text
                 }
                 modelData.words = Transform.classify(texts)
-//                subsequentProcessing(modelData.words)
+                statistic(modelData.words.map { $0.text })
             }
         }
+    }
+    
+    func statistic(_ words: [String]) -> Void {
+        for word in words {
+            addPresentCount(for: word)
+        }
+        saveContext()
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -116,8 +123,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             textRecognitionRequest.minimumTextHeight = 0.0
             textRecognitionRequest.usesLanguageCorrection = true
         }
+        
+        func deleteAllWordStaticstics() {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WordStats")
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+            do {
+                try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+            } catch {
+                fatalError("Failed to clear core data: \(error)")
+            }
+            saveContext()
+        }
                         
-        let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
+        let popoverView = PopoverView(
+            showWordsView: showWordsView,
+            closeWordsView: closeWordsView,
+            startScreenCapture: startScreenCapture,
+            stopScreenCapture: stopScreenCapture,
+            deleteAllWordStaticstics: deleteAllWordStaticstics
+        )
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)
         
@@ -164,11 +189,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 try context.save()
             } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                fatalError("Failed to save context: \(error)")
             }
         }
     }
+    
+    func addPresentCount(for word: String) {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.isEmpty {
+                let newWordStatus = WordStats(context: context)
+                newWordStatus.word = word
+                newWordStatus.presentCount = 1
+            } else {
+                if let wordStats = results.first {
+                    wordStats.presentCount += 1
+                }
+            }
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
 
+        }
+    }
+    
+
+    
 }
-

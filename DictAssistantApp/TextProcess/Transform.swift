@@ -25,9 +25,9 @@ struct Transform {
         if highSchoolVocabulary.contains(word) {
             return true
         }
-        if cet4Vocabulary.contains(word) {
-            return true
-        }
+//        if cet4Vocabulary.contains(word) {
+//            return true
+//        }
 //        if cet6Vocabulary.contains(word) {
 //            return true
 //        }
