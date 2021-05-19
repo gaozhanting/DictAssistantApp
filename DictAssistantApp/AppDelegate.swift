@@ -52,7 +52,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     return text
                 }
                 modelData.words = Transform.classify(texts)
-                statistic(modelData.words.map { $0.text })
+                statistic(
+                    modelData.words
+                        .filter { $0.translation != nil }
+                        .map { $0.text }
+                )
             }
         }
     }
