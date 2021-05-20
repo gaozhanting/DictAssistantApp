@@ -10,6 +10,7 @@ import SwiftUI
 import Vision
 import DataBases
 import CoreData
+import KeyboardShortcuts
 
 //let smallDictionary = Dictionaries.readSmallDict(from: "small_dictionary.txt")
 //let oxfordDictionary = Dictionaries.readOxfordDict(from: "oxford_dictionary.txt")
@@ -70,13 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        func showWordsView() {
-            wordsWindow.makeKeyAndOrderFront(nil)
-        }
-        func closeWordsView() {
-            wordsWindow.close()
-        }
-        
         func screenCapture(_ timer: Timer) {
             let task = Process()
             task.launchPath = "/usr/sbin/screencapture"
@@ -112,6 +106,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         
+        
+        func showWordsView() {
+            wordsWindow.makeKeyAndOrderFront(nil)
+        }
+        func closeWordsView() {
+            wordsWindow.close()
+        }
+        
         func startScreenCapture() {
             timer = Timer.scheduledTimer(withTimeInterval: withTimeInterval, repeats: true, block: screenCapture(_:))
             screenCapture(timer) // instant execute one time
@@ -139,6 +141,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             saveContext()
         }
+
+        KeyboardShortcuts.onKeyUp(for: .startWordsWindow, action: {
+            showWordsView()
+            startScreenCapture()
+        })
+        
+        KeyboardShortcuts.onKeyUp(for: .pauseWordsWindow, action: {
+            closeWordsView()
+            stopScreenCapture()
+        })
                         
         let popoverView = PopoverView(
             showWordsView: showWordsView,
@@ -223,4 +235,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 
     
+}
+
+extension KeyboardShortcuts.Name {
+    static let startWordsWindow = Self(
+        "startWordsWindow",
+        default: .init(.s, modifiers: [.command, .control]))
+    
+    static let pauseWordsWindow = Self(
+        "pauseWordsWindow",
+        default: .init(.p, modifiers: [.command, .control]))
 }

@@ -18,6 +18,7 @@
 		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D0F7826554DEB004A7173 /* FamiliarWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */; };
 		447D0F7A2655567F004A7173 /* UnFamiliarWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */; };
+		447D0F7D26564415004A7173 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 447D0F7C26564415004A7173 /* KeyboardShortcuts */; };
 		447D619A2643CC2500AB0C1A /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61992643CC2500AB0C1A /* Word.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447D61AD2644114B00AB0C1A /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61AC2644114B00AB0C1A /* Transform.swift */; };
@@ -51,6 +52,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				447D61A72643E5E400AB0C1A /* DataBases in Frameworks */,
+				447D0F7D26564415004A7173 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +157,7 @@
 			name = DictAssistantApp;
 			packageProductDependencies = (
 				447D61A62643E5E400AB0C1A /* DataBases */,
+				447D0F7C26564415004A7173 /* KeyboardShortcuts */,
 			);
 			productName = DictAssistantApp;
 			productReference = 4440EE40262EDCA3007FF470 /* DictAssistantApp.app */;
@@ -183,6 +186,9 @@
 				Base,
 			);
 			mainGroup = 4440EE37262EDCA3007FF470;
+			packageReferences = (
+				447D0F7B26564415004A7173 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+			);
 			productRefGroup = 4440EE41262EDCA3007FF470 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -424,7 +430,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		447D0F7B26564415004A7173 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		447D0F7C26564415004A7173 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 447D0F7B26564415004A7173 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
 		447D61A62643E5E400AB0C1A /* DataBases */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DataBases;
