@@ -9,6 +9,7 @@ import Cocoa
 import SwiftUI
 import Vision
 import DataBases
+import CoreData
 
 //let smallDictionary = Dictionaries.readSmallDict(from: "small_dictionary.txt")
 //let oxfordDictionary = Dictionaries.readOxfordDict(from: "oxford_dictionary.txt")
@@ -51,8 +52,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     return text
                 }
                 modelData.words = Transform.classify(texts)
+                statistic(
+                    modelData.words
+                        .filter { $0.translation != nil }
+                        .map { $0.text }
+                )
             }
         }
+    }
+    
+    func statistic(_ words: [String]) -> Void {
+        for word in words {
+            addPresentCount(for: word)
+        }
+        saveContext()
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -114,8 +127,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             textRecognitionRequest.minimumTextHeight = 0.0
             textRecognitionRequest.usesLanguageCorrection = true
         }
+        
+        func deleteAllWordStaticstics() {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WordStats")
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+            do {
+                try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+            } catch {
+                fatalError("Failed to clear core data: \(error)")
+            }
+            saveContext()
+        }
                         
-        let popoverView = PopoverView(showWordsView: showWordsView, closeWordsView: closeWordsView, startScreenCapture: startScreenCapture, stopScreenCapture: stopScreenCapture)
+        let popoverView = PopoverView(
+            showWordsView: showWordsView,
+            closeWordsView: closeWordsView,
+            startScreenCapture: startScreenCapture,
+            stopScreenCapture: stopScreenCapture,
+            deleteAllWordStaticstics: deleteAllWordStaticstics
+        )
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)
         
@@ -134,7 +165,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                      screen: NSScreen.main)
         wordsWindow.title = "Words"
         
+        let context = persistentContainer.viewContext
         let wordsView = WordsView(modelData: modelData)
+            .environment(\.managedObjectContext, context)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
         statusBar = StatusBarController.init(popover, wordsWindow)
@@ -143,6 +176,51 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "WordStatistics")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
+            }
+        }
+        return container
+    }()
+    
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failed to save context: \(error)")
+            }
+        }
+    }
+    
+    func addPresentCount(for word: String) {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.isEmpty {
+                let newWordStatus = WordStats(context: context)
+                newWordStatus.word = word
+                newWordStatus.presentCount = 1
+            } else {
+                if let wordStats = results.first {
+                    wordStats.presentCount += 1
+                }
+            }
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
 
+        }
+    }
+    
+
+    
 }
-
