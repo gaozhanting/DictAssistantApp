@@ -31,6 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let modelData = ModelData()
     let statusData = StatusData()
+    var previousWords: [Word] = []
 
     var statusBar: StatusBarController?
     var popover = NSPopover.init()
@@ -232,11 +233,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     return text
                 }
                 modelData.words = Transform.classify(texts)
-                statistic(
-                    modelData.words
-                        .filter { $0.translation != nil }
-                        .map { $0.text }
-                )
+                if !modelData.words.elementsEqual(previousWords) {
+                    statistic(
+                        modelData.words
+                            .filter { $0.translation != nil }
+                            .map { $0.text }
+                    )
+                    previousWords = modelData.words
+                }
             }
         }
     }
