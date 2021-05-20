@@ -14,6 +14,8 @@ struct PopoverView: View {
     let stopScreenCapture: () -> Void
     let deleteAllWordStaticstics: () -> Void
     
+    @State private var showingDeleteAlert = false
+    
     @State private var x: String = "0"
     @State private var y: String = "50"
     @State private var w: String = "700"
@@ -64,10 +66,15 @@ struct PopoverView: View {
                 }
             }
             
-            Button(action: {
-                deleteAllWordStaticstics()
-            }) {
-                Text("!! DeleteAllWordStaticstics")
+            Button("DeleteAllWordStaticstics") {
+                showingDeleteAlert = true
+            }
+            .alert(isPresented: $showingDeleteAlert) {
+                Alert(
+                    title: Text("Are you sure you want to delete all word statics information, and reset it to empty?"),
+                    message: Text("Word statics information is stored and accumulated automatically whenever you use the app."),
+                    primaryButton: .destructive(Text("delete"), action: deleteAllWordStaticstics),
+                    secondaryButton: .cancel())
             }
             
             Button(action: {
