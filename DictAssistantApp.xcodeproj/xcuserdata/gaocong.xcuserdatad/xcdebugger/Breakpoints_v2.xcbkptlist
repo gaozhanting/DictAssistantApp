@@ -144,53 +144,5 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A4F52C2E-80B8-429F-95DE-FBFA0FC2491B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DictAssistantApp/Views/WordsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "foundWordsFromServices"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "A4F52C2E-80B8-429F-95DE-FBFA0FC2491B - 18d8e38b0d78d69f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DictAssistantApp.WordsView.foundWordsFromServices.getter : Swift.Array&lt;DictAssistantApp.Word&gt;"
-                  moduleName = "DictAssistantApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaocong/Developer/Mac/app/DictAssistantApp/Views/WordsView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45"
-                  offsetFromSymbolStart = "1912">
-               </Location>
-               <Location
-                  uuid = "A4F52C2E-80B8-429F-95DE-FBFA0FC2491B - 72155882185787f1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (DictAssistantApp.Word) -&gt; Swift.Bool in DictAssistantApp.WordsView.foundWordsFromServices.getter : Swift.Array&lt;DictAssistantApp.Word&gt;"
-                  moduleName = "DictAssistantApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaocong/Developer/Mac/app/DictAssistantApp/Views/WordsView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45"
-                  offsetFromSymbolStart = "130">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

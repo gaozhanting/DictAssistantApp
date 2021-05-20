@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct PopoverView: View {
-    let showWordsView: () -> Void
-    let closeWordsView: () -> Void
-    let startScreenCapture: () -> Void
-    let stopScreenCapture: () -> Void
+    let toggle: () -> Void
+    let exit: () -> Void
     let deleteAllWordStaticstics: () -> Void
     
+    @ObservedObject var StatusData: StatusData
+
     @State private var showingDeleteAlert = false
     
     @State private var x: String = "0"
@@ -23,8 +23,6 @@ struct PopoverView: View {
     
     @State private var interval: String = "2"
 
-    @State private var isPlaying: Bool = false
-    
     var body: some View {
         List {
             HStack {
@@ -50,19 +48,12 @@ struct PopoverView: View {
             }
 
             Button(action: {
-                isPlaying = !isPlaying
-                if !isPlaying {
-                    closeWordsView()
-                    stopScreenCapture()
-                } else {
-                    showWordsView()
-                    startScreenCapture()
-                }
+                toggle()
             }) {
-                if !isPlaying {
-                    Text("Start")
+                if StatusData.isPlaying {
+                    Text("Pause")
                 } else {
-                    Text("Stop")
+                    Text("Start")
                 }
             }
             
@@ -78,7 +69,7 @@ struct PopoverView: View {
             }
             
             Button(action: {
-                NSApplication.shared.terminate(self)
+                exit()
             }) {
                 Text("Exit")
             }
@@ -92,10 +83,8 @@ func emptyFunc() -> Void {
 
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        PopoverView(showWordsView: emptyFunc,
-//                    closeWordsView: emptyFunc,
-//                    startScreenCapture: emptyFunc,
-//                    stopScreenCapture: emptyFunc)
+//        PopoverView(start: emptyFunc,
+//                    pause: emptyFunc)
 //    }
 //}
             
