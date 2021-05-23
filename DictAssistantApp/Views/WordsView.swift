@@ -10,6 +10,15 @@ import DataBases
 
 let familiarThreshold = 50 // todo: make this value customiziable from UI
 
+func openDict(_ word: String) {
+    let task = Process()
+    task.launchPath = "/usr/bin/open"
+    var arguments = [String]();
+    arguments.append("dict://\(word)")
+    task.arguments = arguments
+    task.launch()
+}
+
 struct WordsView: View {
     @ObservedObject var modelData: ModelData
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -76,6 +85,9 @@ struct WordsView: View {
                         Text(word.translation!)
                             .foregroundColor(.secondary)
                             .frame(maxHeight: 60)
+                    }
+                    .onTapGesture {
+                        openDict(word.text)
                     }
                 }
             }
