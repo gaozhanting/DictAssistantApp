@@ -80,8 +80,6 @@ struct WordsView: View {
                     .foregroundColor(.yellow)
                 ForEach(foundWordsFromServices, id: \.self) { word in
                     VStack(alignment: .leading) {
-                        Text(word.text)
-                            .foregroundColor(.green)
                         Text(word.translation!)
                             .foregroundColor(.secondary)
                             .frame(maxHeight: 60)

@@ -19,13 +19,6 @@ public struct DictionaryServices {
         }
 
         let whole = String(definition.takeUnretainedValue())
-        
-        let parts = whole.split(separator: "|")
-        // if whole has phonetic symbol; parts will has 3 part
-        if 2 < parts.count {
-            let translation = String(parts[2])
-            return translation
-        }
         return whole
     }
 }
