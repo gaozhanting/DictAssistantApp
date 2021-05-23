@@ -19,6 +19,7 @@ public struct DictionaryServices {
         }
 
         let whole = String(definition.takeUnretainedValue())
-        return whole
+        let excludeFirstWord = whole.dropFirst(word.count)
+        return String(excludeFirstWord)
     }
 }

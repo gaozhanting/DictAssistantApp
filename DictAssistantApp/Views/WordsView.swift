@@ -65,14 +65,14 @@ struct WordsView: View {
                 Text("FoundWordsFromServices:")
                     .foregroundColor(.yellow)
                 ForEach(foundWordsFromServices, id: \.self) { word in
-                    VStack(alignment: .leading) {
-                        Text(word.translation!)
-                            .foregroundColor(.secondary)
-                            .frame(maxHeight: 60)
-                    }
+                    (Text(word.text)
+                        .foregroundColor(.orange) +
+                    Text(word.translation!)
+                            .foregroundColor(.secondary))
                     .onTapGesture {
                         openDict(word.text)
                     }
+                    .frame(maxHeight: 60)
                 }
             }
 
