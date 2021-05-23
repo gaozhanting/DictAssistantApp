@@ -62,20 +62,6 @@ struct WordsView: View {
                 .foregroundColor(.yellow)
             
             Group {
-                Text("FoundWords:")
-                    .foregroundColor(.yellow)
-                ForEach(foundWords, id: \.self) { word in
-                    HStack {
-                        Text(word.text)
-                            .foregroundColor(.green)
-                        Text(word.translation!)
-                            .foregroundColor(.secondary)
-                    }
-                    .frame(height: 20)
-                }
-            }
-            
-            Group {
                 Text("FoundWordsFromServices:")
                     .foregroundColor(.yellow)
                 ForEach(foundWordsFromServices, id: \.self) { word in
@@ -117,12 +103,8 @@ struct WordsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
-
 
 }
-
-
 
 struct WordsView_Previews: PreviewProvider {
     static let modelData = ModelData()
