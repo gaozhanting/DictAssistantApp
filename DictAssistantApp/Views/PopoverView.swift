@@ -12,7 +12,10 @@ struct PopoverView: View {
     let exit: () -> Void
     let deleteAllWordStaticstics: () -> Void
     
-    @ObservedObject var StatusData: StatusData
+    @ObservedObject var statusData: StatusData
+    
+    let showCropper: () -> Void
+    let closeCropper: () -> Void
 
     @State private var showingDeleteAlert = false
     
@@ -46,11 +49,23 @@ struct PopoverView: View {
                 Text("interval (seconds):")
                 TextField("interval", text: $interval)
             }
+            
+            Button(action: {
+                showCropper()
+            }) {
+                Text("show crop view")
+            }
+            
+            Button(action: {
+                closeCropper()
+            }) {
+                Text("close crop view")
+            }
 
             Button(action: {
                 toggle()
             }) {
-                if StatusData.isPlaying {
+                if statusData.isPlaying {
                     Text("Pause")
                 } else {
                     Text("Start")

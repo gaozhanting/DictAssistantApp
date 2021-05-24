@@ -36,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBar: StatusBarController?
     var popover = NSPopover.init()
     var wordsWindow: NSPanel!
+    var cropperWindow: NSPanel!
     
     var timer: Timer = Timer()
 
@@ -49,11 +50,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         registerGlobalKeyboardShortcuts()
         
+        cropperWindow = NSPanel.init(
+            contentRect: NSMakeRect(0, 0, 10000, 10000),
+            styleMask: [
+                .hudWindow,
+                .utilityWindow,
+                .docModalWindow,
+                .nonactivatingPanel,
+                .fullScreen,
+                .fullSizeContentView
+            ],
+            backing: NSWindow.BackingStoreType.buffered,
+            defer: false,
+            screen: NSScreen.main)
+        let cropView = CropperView()
+        cropperWindow.contentView = NSHostingView(rootView: cropView)
+        
         let popoverView = PopoverView(
             toggle: toggle,
             exit: exit,
             deleteAllWordStaticstics: deleteAllWordStaticstics,
-            StatusData: statusData)
+            statusData: statusData,
+            showCropper: showCropper,
+            closeCropper: closeCropper
+            )
         popover.contentSize = NSSize(width: 360, height: 360)
         popover.contentViewController = NSHostingController(rootView: popoverView)
         
@@ -77,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environment(\.managedObjectContext, context)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
-        statusBar = StatusBarController.init(popover, wordsWindow)
+        statusBar = StatusBarController.init(popover)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -195,6 +215,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     func stopScreenCapture() {
         timer.invalidate()
+    }
+    
+    func showCropper() {
+        self.cropperWindow.makeKeyAndOrderFront(nil) // self no use
+    }
+    func closeCropper() {
+        self.cropperWindow.close()
     }
 
     // MARK: - Screen Capture

@@ -13,7 +13,7 @@ class StatusBarController {
     private var popover: NSPopover
     private var eventMonitor: EventMonitor?
     
-    init(_ popover: NSPopover, _ wordsWindow: NSPanel) {
+    init(_ popover: NSPopover) {
         self.popover = popover
         statusBar = NSStatusBar.init()
         statusItem = statusBar.statusItem(withLength: 28.0)
