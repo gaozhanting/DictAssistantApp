@@ -8,17 +8,6 @@
 import SwiftUI
 import DataBases
 
-let familiarThreshold = 50 // todo: make this value customiziable from UI
-
-func openDict(_ word: String) {
-    let task = Process()
-    task.launchPath = "/usr/bin/open"
-    var arguments = [String]();
-    arguments.append("dict://\(word)")
-    task.arguments = arguments
-    task.launch()
-}
-
 struct WordsView: View {
     @ObservedObject var modelData: ModelData
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -40,10 +29,6 @@ struct WordsView: View {
         modelData.words
     }
     
-    var foundWords: [Word] {
-        words.filter { ($0.translation != nil) && !$0.isTranslationFromDictionaryServices  }
-    }
-    
     var foundWordsFromServices: [Word] {
         words.filter { ($0.translation != nil) && !familiarWordsSet.contains($0.text) && $0.isTranslationFromDictionaryServices  }
     }
@@ -52,33 +37,25 @@ struct WordsView: View {
         words.filter { $0.translation == nil }
     }
     
-    @State private var toggleFamiliarWordsView = false
-    @State private var toggleUnFamiliarWordsView = false
-        
     var body: some View {
 
         List {
-            Text("count = \(words.count)")
-                .foregroundColor(.yellow)
+            Section(header: Text("Count = \(words.count)").foregroundColor(.primary)) {
+                
+            }
             
-            Group {
-                Text("FoundWordsFromServices:")
-                    .foregroundColor(.yellow)
+            Section(header: Text("Found:").foregroundColor(.secondary)) {
                 ForEach(foundWordsFromServices, id: \.self) { word in
-                    (Text(word.text)
-                        .foregroundColor(.orange) +
-                    Text(word.translation!)
-                            .foregroundColor(.secondary))
-                    .onTapGesture {
-                        openDict(word.text)
-                    }
-                    .frame(maxHeight: 60)
+                    (Text(word.text).foregroundColor(.orange) + Text(word.translation!)
+                        .foregroundColor(.secondary))
+                        .onTapGesture {
+                            openDict(word.text)
+                        }
+                        .frame(maxHeight: 60)
                 }
             }
 
-            Group {
-                Text("NotFoundWords:")
-                    .foregroundColor(.yellow)
+            Section(header: Text("NotFound:").foregroundColor(.secondary)) {
                 ForEach(notFoundWords, id: \.self) { word in
                     Text(word.text)
                         .foregroundColor(.secondary)
@@ -86,24 +63,41 @@ struct WordsView: View {
                 }
             }
             
-            Toggle(isOn: $toggleUnFamiliarWordsView) {
-                Text("See UnFamiliar Words")
-            }
-            if toggleUnFamiliarWordsView {
-                UnFamiliarWordsView()
-            }
-            
-            Toggle(isOn: $toggleFamiliarWordsView) {
-                Text("See Familiar Words")
-            }
-            if toggleFamiliarWordsView {
-                FamiliarWordsView()
-            }
-        
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
 
+struct FamiliarWordsToggleViews: View {
+    @State private var toggleFamiliarWordsView = false
+    @State private var toggleUnFamiliarWordsView = false
+    
+    var body: some View {
+        Toggle(isOn: $toggleUnFamiliarWordsView) {
+            Text("See UnFamiliar Words")
+        }
+        if toggleUnFamiliarWordsView {
+            UnFamiliarWordsView()
+        }
+        
+        Toggle(isOn: $toggleFamiliarWordsView) {
+            Text("See Familiar Words")
+        }
+        if toggleFamiliarWordsView {
+            FamiliarWordsView()
+        }
+    }
+}
+
+let familiarThreshold = 50 // todo: make this value customiziable from UI
+
+func openDict(_ word: String) {
+    let task = Process()
+    task.launchPath = "/usr/bin/open"
+    var arguments = [String]();
+    arguments.append("dict://\(word)")
+    task.arguments = arguments
+    task.launch()
 }
 
 struct WordsView_Previews: PreviewProvider {

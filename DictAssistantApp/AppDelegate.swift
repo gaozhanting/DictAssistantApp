@@ -259,7 +259,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let text: String = observation.topCandidates(1)[0].string
                     return text
                 }
-                modelData.words = Transform.classify(texts)
+                withAnimation {
+                    modelData.words = Transform.classify(texts)
+                }
                 if !modelData.words.elementsEqual(previousWords) {
                     statistic(
                         modelData.words
