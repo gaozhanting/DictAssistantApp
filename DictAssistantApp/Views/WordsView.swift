@@ -58,7 +58,7 @@ struct WordsView: View {
             Section(header: Text("NotFound:").foregroundColor(.secondary)) {
                 ForEach(notFoundWords, id: \.self) { word in
                     Text(word.text)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.yellow)
                         .frame(height: 20)
                 }
             }
