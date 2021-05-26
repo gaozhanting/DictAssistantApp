@@ -10,11 +10,10 @@ import SwiftUI
 struct CropperView: View {
     @State private var location = CGPoint(x: 400, y: 200)
     @GestureState private var startLocation: CGPoint? = nil
-//    @State private var sw: CGFloat = 0
-    @GestureState private var w: CGFloat? = nil
     
     @State private var width: CGFloat = 400
     @State private var height: CGFloat = 200
+    @GestureState private var startWidth: CGFloat? = nil
 
     var body: some View {
         ZStack {
@@ -64,7 +63,7 @@ struct CropperView: View {
                 location = newPosition
             }
             .onChanged { value in
-                var newWidth = w ?? width
+                var newWidth = startWidth ?? width
 
                 if cursorNearbyRightEdgeOfRectangle() {
                     newWidth += value.translation.width
@@ -75,8 +74,8 @@ struct CropperView: View {
             .updating($startLocation) { (value, startLocation, transaction) in
                 startLocation = startLocation ?? location
             }
-            .updating($w) { (value, w, transaction) in
-                w = w ?? width
+            .updating($startWidth) { (value, startWidth, transaction) in
+                startWidth = startWidth ?? width
             }
     }
 }
