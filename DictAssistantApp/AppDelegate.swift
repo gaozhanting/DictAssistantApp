@@ -88,13 +88,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
         // Create the window and set the content view.
-        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 360, height: 360), backing: .buffered, defer: false)
+        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 10), backing: .buffered, defer: false)
         entryPanel.title = "Floating Panel Title"
         // Create the SwiftUI view that provides the window contents.
         // I've opted to ignore top safe area as well, since we're hiding the traffic icons
         let entryView = EntryView(
             toggle: toggle,
-            exit: exit,
             deleteAllWordStaticstics: deleteAllWordStaticstics,
             statusData: statusData,
             showCropper: showCropper,

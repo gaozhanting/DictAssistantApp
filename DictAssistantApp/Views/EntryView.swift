@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EntryView: View {
     let toggle: () -> Void
-    let exit: () -> Void
     let deleteAllWordStaticstics: () -> Void
     
     @ObservedObject var statusData: StatusData
@@ -27,68 +26,24 @@ struct EntryView: View {
     @State private var interval: String = "2"
 
     var body: some View {
-        List {
-            HStack {
-                Text("x:")
-                TextField("x", text: $x)
-            }
-            HStack {
-                Text("y:")
-                TextField("y", text: $y)
-            }
-            HStack {
-                Text("w:")
-                TextField("w", text: $w)
-            }
-            HStack {
-                Text("d:")
-                TextField("d", text: $d)
-            }
-            
-            HStack {
-                Text("interval (seconds):")
-                TextField("interval", text: $interval)
-            }
-            
-            Button(action: {
-                showCropper()
-            }) {
-                Text("show crop view")
-            }
-            
-            Button(action: {
-                closeCropper()
-            }) {
-                Text("close crop view")
-            }
+        HStack(alignment: .center, spacing: nil) {
+            Label("More", systemImage: "ellipsis")
 
-            Button(action: {
-                toggle()
-            }) {
-                if statusData.isPlaying {
-                    Text("Pause")
-                } else {
-                    Text("Start")
-                }
-            }
+            Spacer()
             
-            Button("DeleteAllWordStaticstics") {
-                showingDeleteAlert = true
-            }
-            .alert(isPresented: $showingDeleteAlert) {
-                Alert(
-                    title: Text("Are you sure you want to delete all word statics information, and reset it to empty?"),
-                    message: Text("Word statics information is stored and accumulated automatically whenever you use the app."),
-                    primaryButton: .destructive(Text("delete"), action: deleteAllWordStaticstics),
-                    secondaryButton: .cancel())
-            }
-            
-            Button(action: {
-                exit()
-            }) {
-                Text("Exit")
+            if statusData.isPlaying {
+                Label("Stop", systemImage: "stop.fill")
+                    .onTapGesture {
+                        toggle()
+                    }
+            } else {
+                Label("Play", systemImage: "play.fill")
+                    .onTapGesture {
+                        toggle()
+                    }
             }
         }
+        .padding()
     }
 }
 
@@ -96,10 +51,15 @@ func emptyFunc() -> Void {
     
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PopoverView(start: emptyFunc,
-//                    pause: emptyFunc)
-//    }
-//}
+struct EntryView_Previews: PreviewProvider {
+    static var previews: some View {
+        EntryView(
+            toggle: emptyFunc,
+            deleteAllWordStaticstics: emptyFunc,
+            statusData: StatusData(),
+            showCropper: emptyFunc,
+            closeCropper: emptyFunc
+        )
+    }
+}
             
