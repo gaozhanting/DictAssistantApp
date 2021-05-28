@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PopoverView: View {
+struct EntryView: View {
     let toggle: () -> Void
     let exit: () -> Void
     let deleteAllWordStaticstics: () -> Void

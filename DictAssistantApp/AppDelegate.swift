@@ -37,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var popover = NSPopover.init()
     var wordsWindow: NSPanel!
     var cropperWindow: NSPanel!
+    var entryPanel: FloatingPanel!
     
     var timer: Timer = Timer()
 
@@ -65,18 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             screen: NSScreen.main)
         let cropView = CropperView()
         cropperWindow.contentView = NSHostingView(rootView: cropView)
-        
-        let popoverView = PopoverView(
-            toggle: toggle,
-            exit: exit,
-            deleteAllWordStaticstics: deleteAllWordStaticstics,
-            statusData: statusData,
-            showCropper: showCropper,
-            closeCropper: closeCropper
-            )
-        popover.contentSize = NSSize(width: 360, height: 360)
-        popover.contentViewController = NSHostingController(rootView: popoverView)
-        
+                
         let windowStyleMask: NSWindow.StyleMask = [
             .titled,
             .closable,
@@ -97,13 +87,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .environment(\.managedObjectContext, context)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
         
-        statusBar = StatusBarController.init(popover)
+        // Create the window and set the content view.
+        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 360, height: 360), backing: .buffered, defer: false)
+        entryPanel.title = "Floating Panel Title"
+        // Create the SwiftUI view that provides the window contents.
+        // I've opted to ignore top safe area as well, since we're hiding the traffic icons
+        let entryView = EntryView(
+            toggle: toggle,
+            exit: exit,
+            deleteAllWordStaticstics: deleteAllWordStaticstics,
+            statusData: statusData,
+            showCropper: showCropper,
+            closeCropper: closeCropper
+            )
+            .edgesIgnoringSafeArea(.top)
+        entryPanel.contentView = NSHostingView(rootView: entryView)
+        
+        statusBar = StatusBarController.init(entryPanel)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-    
+
     // MARK:- Core Data (WordStatis)
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WordStatistics")

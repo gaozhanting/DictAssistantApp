@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
-		4440EE46262EDCA3007FF470 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE45262EDCA3007FF470 /* PopoverView.swift */; };
+		4440EE46262EDCA3007FF470 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE45262EDCA3007FF470 /* EntryView.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
 		4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE5B262EDFF7007FF470 /* StatusBarController.swift */; };
-		4440EE6C263055E9007FF470 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE6B263055E9007FF470 /* EventMonitor.swift */; };
 		4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE6E26316C5A007FF470 /* WordsView.swift */; };
+		44720C4026611D05005BCFD9 /* FloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44720C3F26611D05005BCFD9 /* FloatingPanel.swift */; };
 		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D0F7826554DEB004A7173 /* FamiliarWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */; };
 		447D0F7A2655567F004A7173 /* UnFamiliarWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */; };
@@ -31,15 +31,15 @@
 /* Begin PBXFileReference section */
 		4440EE40262EDCA3007FF470 /* DictAssistantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DictAssistantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4440EE45262EDCA3007FF470 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		4440EE45262EDCA3007FF470 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4440EE4D262EDCA4007FF470 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4440EE4F262EDCA4007FF470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
 		4440EE5B262EDFF7007FF470 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
-		4440EE6B263055E9007FF470 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		4440EE6E26316C5A007FF470 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
+		44720C3F26611D05005BCFD9 /* FloatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanel.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliarWordsView.swift; sourceTree = "<group>"; };
 		447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnFamiliarWordsView.swift; sourceTree = "<group>"; };
@@ -97,8 +97,8 @@
 				4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */,
 				4440EE49262EDCA4007FF470 /* Preview Content */,
 				4440EE5B262EDFF7007FF470 /* StatusBarController.swift */,
-				4440EE6B263055E9007FF470 /* EventMonitor.swift */,
 				447D0F80265662E2004A7173 /* GlobalKeyBoardShortcuts.swift */,
+				44720C3F26611D05005BCFD9 /* FloatingPanel.swift */,
 			);
 			path = DictAssistantApp;
 			sourceTree = "<group>";
@@ -115,7 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				4440EE6E26316C5A007FF470 /* WordsView.swift */,
-				4440EE45262EDCA3007FF470 /* PopoverView.swift */,
+				4440EE45262EDCA3007FF470 /* EntryView.swift */,
 				447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */,
 				447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */,
 				447D0FD7265A5392004A7173 /* CropperView.swift */,
@@ -225,7 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4440EE46262EDCA3007FF470 /* PopoverView.swift in Sources */,
+				4440EE46262EDCA3007FF470 /* EntryView.swift in Sources */,
 				447D0F7A2655567F004A7173 /* UnFamiliarWordsView.swift in Sources */,
 				4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */,
 				4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */,
@@ -236,7 +236,7 @@
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				447D61AD2644114B00AB0C1A /* Transform.swift in Sources */,
 				447D0FD8265A5392004A7173 /* CropperView.swift in Sources */,
-				4440EE6C263055E9007FF470 /* EventMonitor.swift in Sources */,
+				44720C4026611D05005BCFD9 /* FloatingPanel.swift in Sources */,
 				44BBB00F263BD6E400A5FF50 /* ModelData.swift in Sources */,
 				447D619A2643CC2500AB0C1A /* Word.swift in Sources */,
 			);

@@ -10,11 +10,10 @@ import AppKit
 class StatusBarController {
     private var statusBar: NSStatusBar
     private var statusItem: NSStatusItem
-    private var popover: NSPopover
-    private var eventMonitor: EventMonitor?
+    private var entryPanel: FloatingPanel
     
-    init(_ popover: NSPopover) {
-        self.popover = popover
+    init(_ entryPanel: FloatingPanel) {
+        self.entryPanel = entryPanel
         statusBar = NSStatusBar.init()
         statusItem = statusBar.statusItem(withLength: 28.0)
         
@@ -22,38 +21,21 @@ class StatusBarController {
             statusBarButton.image = #imageLiteral(resourceName: "Assistant")
             statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
             statusBarButton.image?.isTemplate = true
-            statusBarButton.action = #selector(togglePopover(sender:))
+            statusBarButton.action = #selector(toggleEntryPanel(sender:))
             statusBarButton.target = self
         }
-        
-        eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
     }
     
-    @objc func togglePopover(sender: AnyObject) {
-        if (popover.isShown) {
-            hidePopover(sender)
-        }
-        else {
-            showPopover(sender)
-        }
-    }
-    
-    func showPopover(_ sender: AnyObject) {
-        if let statusBarButton = statusItem.button {
-            popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
-            eventMonitor?.start()
+    @objc func toggleEntryPanel(sender: AnyObject) {
+        if entryPanel.isVisible {
+            entryPanel.performClose(sender)
+        } else {
+            // Center doesn't place it in the absolute center, see the documentation for more details
+            entryPanel.center()
+
+            // Shows the panel and makes it active
+            entryPanel.orderFront(nil)
+            entryPanel.makeKey()
         }
     }
-    
-    func hidePopover(_ sender: AnyObject) {
-        popover.performClose(sender)
-        eventMonitor?.stop()
-    }
-    
-    func mouseEventHandler(_ event: NSEvent?) {
-        if (popover.isShown) {
-            hidePopover(event!)
-        }
-    }
-    
 }
