@@ -14,10 +14,10 @@ class FloatingPanel: NSPanel {
   init(contentRect: NSRect, backing: NSWindow.BackingStoreType, defer flag: Bool) {
 
   // Not sure if .titled does affect anything here. Kept it because I think it might help with accessibility but I did not test that.
-    super.init(contentRect: contentRect, styleMask: [.nonactivatingPanel, .titled, .closable, .fullSizeContentView], backing: backing, defer: flag)
+    super.init(contentRect: contentRect, styleMask: [.nonactivatingPanel, .titled, .closable, .fullSizeContentView, .miniaturizable], backing: backing, defer: flag)
 
   // Set this if you want the panel to remember its size/position
-//  self.setFrameAutosaveName("a unique name")
+  //        self.setFrameAutosaveName("a unique name")
 
   // Allow the pannel to be on top of almost all other windows
   self.isFloatingPanel = true
@@ -37,12 +37,14 @@ class FloatingPanel: NSPanel {
   self.isReleasedWhenClosed = false
 
   // Activate this if you want the window to hide once it is no longer focused
-//          self.hidesOnDeactivate = true
+  //        self.hidesOnDeactivate = true
 
   // Hide the traffic icons (standard close, minimize, maximize buttons)
     self.standardWindowButton(.closeButton)?.isHidden = true
     self.standardWindowButton(.miniaturizeButton)?.isHidden = true
     self.standardWindowButton(.zoomButton)?.isHidden = true
+    self.standardWindowButton(.toolbarButton)?.isHidden = true
+
   }
 
   // `canBecomeKey` and `canBecomeMain` are required so that text inputs inside the panel can receive focus

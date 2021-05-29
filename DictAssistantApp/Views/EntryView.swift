@@ -25,26 +25,26 @@ struct EntryView: View {
     
     @State private var interval: String = "2"
 
-    var body: some View {
-        HStack(alignment: .center, spacing: nil) {
-            Image(systemName: "ellipsis")
-
-            Spacer()
-            
-            if statusData.isPlaying {
-                Image(systemName: "stop.fill")
-                    .onTapGesture {
-                        toggle()
-                    }
-            } else {
-                Image(systemName: "play.fill")
-                    .onTapGesture {
-                        toggle()
-                    }
-            }
-            
+    fileprivate func image() -> Image {
+        if statusData.isPlaying {
+            return Image(systemName: "stop.fill")
+        } else {
+            return Image(systemName: "play.fill")
         }
-        .padding()
+    }
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            Image(systemName: "ellipsis")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            image()
+                .onTapGesture {
+                    toggle()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .edgesIgnoringSafeArea(.top)
     }
     
 }
