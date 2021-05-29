@@ -89,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         wordsWindow.delegate = self
         
         // Create the window and set the content view.
-        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 10), backing: .buffered, defer: false)
+        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 50), backing: .buffered, defer: false)
 //        entryPanel.title = "Floating Panel Title"
         // Create the SwiftUI view that provides the window contents.
         // I've opted to ignore top safe area as well, since we're hiding the traffic icons
@@ -102,8 +102,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             )
 //            .edgesIgnoringSafeArea(.top)
         entryPanel.contentView = NSHostingView(rootView: entryView)
-        entryPanel.isOpaque = false
-        entryPanel.backgroundColor = NSColor.clear
         
         statusBar = StatusBarController.init(entryPanel)
     }

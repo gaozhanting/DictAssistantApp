@@ -45,9 +45,6 @@ struct EntryView: View {
             
         }
         .padding()
-        .foregroundColor(.primary)
-        .background(Color.secondary)
-        .clipShape(Capsule())
     }
     
 }
