@@ -32,7 +32,7 @@ class StatusBarController {
 //            entryPanel.close()
         } else {
             // Center doesn't place it in the absolute center, see the documentation for more details
-//            entryPanel.center()
+            entryPanel.center()
 
             // Shows the panel and makes it active
             entryPanel.orderFront(nil)

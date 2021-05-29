@@ -14,10 +14,10 @@ class FloatingPanel: NSPanel {
   init(contentRect: NSRect, backing: NSWindow.BackingStoreType, defer flag: Bool) {
 
   // Not sure if .titled does affect anything here. Kept it because I think it might help with accessibility but I did not test that.
-  super.init(contentRect: contentRect, styleMask: [.nonactivatingPanel, .titled, .closable, .fullSizeContentView], backing: backing, defer: flag)
+    super.init(contentRect: contentRect, styleMask: [.nonactivatingPanel, .closable, .fullSizeContentView], backing: backing, defer: flag)
 
   // Set this if you want the panel to remember its size/position
-  self.setFrameAutosaveName("a unique name")
+//  self.setFrameAutosaveName("a unique name")
 
   // Allow the pannel to be on top of almost all other windows
   self.isFloatingPanel = true
@@ -27,8 +27,8 @@ class FloatingPanel: NSPanel {
   self.collectionBehavior.insert(.fullScreenAuxiliary)
 
   // While we may set a title for the window, don't show it
-  self.titleVisibility = .hidden
-  self.titlebarAppearsTransparent = true
+//  self.titleVisibility = .hidden
+//  self.titlebarAppearsTransparent = true
 
   // Since there is no titlebar make the window moveable by click-dragging on the background
   self.isMovableByWindowBackground = true

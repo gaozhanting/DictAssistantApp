@@ -27,24 +27,29 @@ struct EntryView: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: nil) {
-            Label("More", systemImage: "ellipsis")
+            Image(systemName: "ellipsis")
 
             Spacer()
             
             if statusData.isPlaying {
-                Label("Stop", systemImage: "stop.fill")
+                Image(systemName: "stop.fill")
                     .onTapGesture {
                         toggle()
                     }
             } else {
-                Label("Play", systemImage: "play.fill")
+                Image(systemName: "play.fill")
                     .onTapGesture {
                         toggle()
                     }
             }
+            
         }
         .padding()
+        .foregroundColor(.primary)
+        .background(Color.secondary)
+        .clipShape(Capsule())
     }
+    
 }
 
 func emptyFunc() -> Void {
