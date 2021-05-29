@@ -23,7 +23,7 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 
 //@main
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // Options
     let recognitionLevel = VNRequestTextRecognitionLevel.fast
     let withTimeInterval = 1.0
@@ -86,6 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let wordsView = WordsView(modelData: modelData)
             .environment(\.managedObjectContext, context)
         wordsWindow.contentView = NSHostingView(rootView: wordsView)
+        wordsWindow.delegate = self
         
         // Create the window and set the content view.
         entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 10), backing: .buffered, defer: false)
@@ -107,6 +108,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    // When click esc on wordsWindow, should toggle to stop.
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        toggle()
+        return true
     }
 
     // MARK:- Core Data (WordStatis)

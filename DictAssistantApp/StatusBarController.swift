@@ -28,11 +28,11 @@ class StatusBarController {
     
     @objc func toggleEntryPanel(sender: AnyObject) {
         if entryPanel.isVisible {
-//            entryPanel.performClose(sender)
-            entryPanel.close()
+            entryPanel.performClose(sender)
+//            entryPanel.close()
         } else {
             // Center doesn't place it in the absolute center, see the documentation for more details
-            entryPanel.center()
+//            entryPanel.center()
 
             // Shows the panel and makes it active
             entryPanel.orderFront(nil)
