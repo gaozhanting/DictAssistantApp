@@ -14,24 +14,29 @@ struct CropperView: View {
     @State private var width: CGFloat = 400
     @State private var height: CGFloat = 200
     @GestureState private var startWidth: CGFloat? = nil
-
+    
+    var info: some View {
+        VStack {
+            Text("Location: \(Int(location.x)), \(Int(location.y))")
+            Text("WH: \(Int(width)), \(Int(height))")
+        }
+        .background(Color.yellow)
+        .frame(width: 300, height: 120)
+    }
+    
     var body: some View {
-        ZStack {
+        ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
             curtain
             cropper
-            VStack {
-                Text("Location: \(Int(location.x)), \(Int(location.y))")
-                Text("WH: \(Int(width)), \(Int(height))")
-            }
         }
-        .opacity(0.7)
-        .frame(width: 800, height: 400)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .coordinateSpace(name: "stack")
     }
     
     var curtain: some View {
         Rectangle()
             .fill(Color.gray)
+            .opacity(0)
     }
     
     // Runtime Warning: Invalid frame dimension (negative or non-finite).
@@ -39,6 +44,14 @@ struct CropperView: View {
         Rectangle()
             .border(Color.orange, width: 1)
             .frame(width: width, height: height)
+            .overlay(info, alignment: .bottom)
+            .onHover { hovered in
+                if hovered {
+                    NSCursor.openHand.set()
+                } else {
+                    NSCursor.arrow.set()
+                }
+            }
             .position(location)
             .gesture(drag)
     }

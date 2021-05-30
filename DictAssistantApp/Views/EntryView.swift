@@ -13,8 +13,7 @@ struct EntryView: View {
     
     @ObservedObject var statusData: StatusData
     
-    let showCropper: () -> Void
-    let closeCropper: () -> Void
+    let toggleCropper: () -> Void
 
     @State private var showingDeleteAlert = false
     
@@ -25,26 +24,39 @@ struct EntryView: View {
     
     @State private var interval: String = "2"
 
-    var image: Image {
+    var playingImage: Image {
         if statusData.isPlaying {
             return Image(systemName: "stop.fill")
         } else {
             return Image(systemName: "play.fill")
         }
     }
-    
-    var body: some View {
-        HStack(alignment: .top) {
-            Image(systemName: "ellipsis")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            image
-                .onTapGesture {
-                    toggle()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+    var body: some View {
+        ZStack {
+            HStack(alignment: .top) {
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 35, weight: .regular))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                Image(systemName: "rectangle.dashed.badge.record")
+                    .font(.system(size: 35, weight: .regular))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onTapGesture {
+                        toggleCropper()
+                    }
+
+                playingImage
+                    .font(.system(size: 35, weight: .regular))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onTapGesture {
+                        toggle()
+                    }
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .edgesIgnoringSafeArea(.top)
         }
-        .edgesIgnoringSafeArea(.top)
     }
     
 }
@@ -59,9 +71,8 @@ struct EntryView_Previews: PreviewProvider {
             toggle: emptyFunc,
             deleteAllWordStaticstics: emptyFunc,
             statusData: StatusData(),
-            showCropper: emptyFunc,
-            closeCropper: emptyFunc
-        )
+            toggleCropper: emptyFunc
+        ).frame(width: 300, height: 30)
     }
 }
             

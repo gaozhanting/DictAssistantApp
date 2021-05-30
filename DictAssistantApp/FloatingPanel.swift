@@ -17,7 +17,7 @@ class FloatingPanel: NSPanel {
         super.init(contentRect: contentRect, styleMask: [.nonactivatingPanel, .titled, .closable, .fullSizeContentView, .miniaturizable], backing: backing, defer: flag)
         
         // Set this if you want the panel to remember its size/position
-        self.setFrameAutosaveName("a unique name")
+        self.setFrameAutosaveName("entryPanel")
         
         // Allow the pannel to be on top of almost all other windows
         self.isFloatingPanel = true

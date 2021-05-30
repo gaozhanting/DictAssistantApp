@@ -51,22 +51,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         registerGlobalKeyboardShortcuts()
         
-        cropperWindow = NSPanel.init(
-            contentRect: NSMakeRect(0, 0, 10000, 10000),
-            styleMask: [
-                .hudWindow,
-                .utilityWindow,
-                .docModalWindow,
-                .nonactivatingPanel,
-                .fullScreen,
-                .fullSizeContentView
-            ],
-            backing: NSWindow.BackingStoreType.buffered,
-            defer: false,
-            screen: NSScreen.main)
-        let cropView = CropperView()
-        cropperWindow.contentView = NSHostingView(rootView: cropView)
-                
+        initCropperWindow()
+
         let windowStyleMask: NSWindow.StyleMask = [
             .titled,
             .closable,
@@ -89,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         wordsWindow.delegate = self
         
         // Create the window and set the content view.
-        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 45), backing: .buffered, defer: false)
+        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 30), backing: .buffered, defer: false)
 
         entryPanel.title = "Floating Panel Title"
         // Create the SwiftUI view that provides the window contents.
@@ -98,13 +84,74 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             toggle: toggle,
             deleteAllWordStaticstics: deleteAllWordStaticstics,
             statusData: statusData,
-            showCropper: showCropper,
-            closeCropper: closeCropper
+            toggleCropper: toggleCropper
         )
 
         entryPanel.contentView = NSHostingView(rootView: entryView)
         
         statusBar = StatusBarController.init(entryPanel)
+    }
+    
+    func initCropperWindow() {
+//        cropperWindow = NSPanel.init(
+//            contentRect: NSMakeRect(0, 0, 10000, 10000),
+//            styleMask: [
+//                .hudWindow,
+//                .utilityWindow,
+//                .docModalWindow,
+//                .nonactivatingPanel,
+//                .fullScreen,
+//                .fullSizeContentView
+//            ],
+//            backing: NSWindow.BackingStoreType.buffered,
+//            defer: false,
+//            screen: NSScreen.main)
+                
+        cropperWindow = NSPanel.init(
+            contentRect: NSRect(x: 0, y: 0, width: 100000, height: 100000),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+                .fullSizeContentView],
+            backing: NSWindow.BackingStoreType.buffered,
+            defer: false,
+            screen: NSScreen.main)
+        
+        // Set this if you want the panel to remember its size/position
+        cropperWindow.setFrameAutosaveName("cropper Window")
+        
+        // Allow the pannel to be on top of almost all other windows
+        cropperWindow.isFloatingPanel = true
+        cropperWindow.level = .floating
+        
+        // Allow the pannel to appear in a fullscreen space
+        cropperWindow.collectionBehavior.insert(.fullScreenAuxiliary)
+        
+        // While we may set a title for the window, don't show it
+        cropperWindow.titleVisibility = .hidden
+        cropperWindow.titlebarAppearsTransparent = true
+        
+        // Since there is no titlebar make the window moveable by click-dragging on the background
+//        cropperWindow.isMovableByWindowBackground = true
+        
+        // Keep the panel around after closing since I expect the user to open/close it often
+        cropperWindow.isReleasedWhenClosed = false
+        
+        // Activate this if you want the window to hide once it is no longer focused
+        //        self.hidesOnDeactivate = true
+        
+        // Hide the traffic icons (standard close, minimize, maximize buttons)
+        cropperWindow.standardWindowButton(.closeButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
+        
+        let cropView = CropperView()
+        cropperWindow.contentView = NSHostingView(rootView: cropView)
+        cropperWindow.isOpaque = false
+        cropperWindow.backgroundColor = NSColor.clear
+        cropperWindow.center() // only first time centered
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -235,6 +282,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     func closeCropper() {
         cropperWindow.close()
+    }
+    
+    func toggleCropper() {
+        if cropperWindow.isVisible {
+            closeCropper()
+        } else {
+            showCropper()
+        }
     }
 
     // MARK: - Screen Capture
