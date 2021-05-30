@@ -25,7 +25,7 @@ struct EntryView: View {
     
     @State private var interval: String = "2"
 
-    fileprivate func image() -> Image {
+    var image: Image {
         if statusData.isPlaying {
             return Image(systemName: "stop.fill")
         } else {
@@ -38,7 +38,7 @@ struct EntryView: View {
             Image(systemName: "ellipsis")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            image()
+            image
                 .onTapGesture {
                     toggle()
                 }

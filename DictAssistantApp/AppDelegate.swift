@@ -216,7 +216,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func showWordsView() {
-        wordsWindow.makeKeyAndOrderFront(nil)
+        wordsWindow.orderFrontRegardless()
     }
     func closeWordsView() {
         wordsWindow.close()
@@ -231,10 +231,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func showCropper() {
-        self.cropperWindow.makeKeyAndOrderFront(nil) // self no use
+        cropperWindow.orderFrontRegardless()
     }
     func closeCropper() {
-        self.cropperWindow.close()
+        cropperWindow.close()
     }
 
     // MARK: - Screen Capture
