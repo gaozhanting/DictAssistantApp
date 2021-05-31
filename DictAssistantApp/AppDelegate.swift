@@ -31,6 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     let modelData = ModelData()
     let statusData = StatusData()
+    let cropData = CropData()
+    
     var previousWords: [Word] = []
 
     var statusBar: StatusBarController?
@@ -93,20 +95,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func initCropperWindow() {
-//        cropperWindow = NSPanel.init(
-//            contentRect: NSMakeRect(0, 0, 10000, 10000),
-//            styleMask: [
-//                .hudWindow,
-//                .utilityWindow,
-//                .docModalWindow,
-//                .nonactivatingPanel,
-//                .fullScreen,
-//                .fullSizeContentView
-//            ],
-//            backing: NSWindow.BackingStoreType.buffered,
-//            defer: false,
-//            screen: NSScreen.main)
-                
         cropperWindow = NSPanel.init(
             contentRect: NSRect(x: 0, y: 0, width: 100000, height: 100000),
             styleMask: [
@@ -147,7 +135,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
         cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
         
-        let cropView = CropperView()
+        let cropView = CropperView(
+            cropData: self.cropData
+        )
         cropperWindow.contentView = NSHostingView(rootView: cropView)
         cropperWindow.isOpaque = false
         cropperWindow.backgroundColor = NSColor.clear
@@ -304,8 +294,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         arguments.append("-o")
         arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
 //            arguments.append("-t pdf jpg tiff")
-//            arguments.append("-R 0,50,600,600")
-        arguments.append("-D2")
+        arguments.append("-R 0,50,600,600")
+        arguments.append("-R \(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
+//        arguments.append("-D2")
         arguments.append(imageUrlString)
 
         task.arguments = arguments
