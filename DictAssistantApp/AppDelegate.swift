@@ -24,10 +24,7 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 //@main
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
-    // Options
-    let recognitionLevel = VNRequestTextRecognitionLevel.fast
-    let withTimeInterval = 1.0
-    // End Options
+    let textProcessConfig = TextProcessConfig()
     
     let modelData = ModelData()
     let statusData = StatusData()
@@ -86,7 +83,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             toggle: toggle,
             deleteAllWordStaticstics: deleteAllWordStaticstics,
             statusData: statusData,
-            toggleCropper: toggleCropper
+            toggleCropper: toggleCropper,
+            textProcessConfig: textProcessConfig
         )
 
         entryPanel.contentView = NSHostingView(rootView: entryView)
@@ -260,11 +258,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func startScreenCapture() {
-        timer = Timer.scheduledTimer(withTimeInterval: withTimeInterval, repeats: true, block: screenCapture(_:))
+        timer = Timer.scheduledTimer(withTimeInterval: textProcessConfig.screenCaptureTimeInterval, repeats: true, block: screenCapture(_:))
         screenCapture(timer) // instant execute one time
     }
     func stopScreenCapture() {
         timer.invalidate()
+    }
+    
+    // Todo: currently don't know how to take side effect when ObservableObject var value changed.
+    // Because textProcessConfig.screenCaptureTimeInterva is changing from UI, we don't want to bother to toggle stop&play button, we want it instantly take effect.
+    func onConfigScreenCaptureTimeInterval() {
+        toggle()
     }
     
     func showCropper() {
@@ -347,7 +351,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func resetRequestHandler() {
         requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
         textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = recognitionLevel
+        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
         textRecognitionRequest.minimumTextHeight = 0.0
         textRecognitionRequest.usesLanguageCorrection = true
     }

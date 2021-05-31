@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Vision
 
 struct EntryView: View {
     let toggle: () -> Void
@@ -23,6 +24,8 @@ struct EntryView: View {
     @State private var d: String = "400"
     
     @State private var interval: String = "2"
+    
+    @ObservedObject var textProcessConfig: TextProcessConfig
 
     var playingImage: Image {
         if statusData.isPlaying {
@@ -36,18 +39,32 @@ struct EntryView: View {
         ZStack {
             HStack(alignment: .top) {
                 Image(systemName: "ellipsis")
-                    .font(.system(size: 35, weight: .regular))
+                    .font(.system(size: 20, weight: .regular))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                Menu("Options") {
+                    Picker("TR Level", selection: $textProcessConfig.textRecognitionLevel) {
+                        Text("Fast").tag(VNRequestTextRecognitionLevel.fast)
+                        Text("Accurate").tag(VNRequestTextRecognitionLevel.accurate)
+                    }
+                    Picker("SC Intervel", selection: $textProcessConfig.screenCaptureTimeInterval) {
+                        Text("1 second").tag(1.0)
+                        Text("0.5 second").tag(0.5)
+                        Text("0.3 second").tag(0.3)
+                    }
+                }
+                .menuStyle(BorderlessButtonMenuStyle())
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 Image(systemName: "rectangle.dashed.badge.record")
-                    .font(.system(size: 35, weight: .regular))
+                    .font(.system(size: 20, weight: .regular))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .onTapGesture {
                         toggleCropper()
                     }
 
                 playingImage
-                    .font(.system(size: 35, weight: .regular))
+                    .font(.system(size: 20, weight: .regular))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .onTapGesture {
                         toggle()
@@ -61,17 +78,20 @@ struct EntryView: View {
     
 }
 
-func emptyFunc() -> Void {
+func doNothing() -> Void {
     
 }
 
 struct EntryView_Previews: PreviewProvider {
+    static var textProcessConfig = TextProcessConfig()
+
     static var previews: some View {
         EntryView(
-            toggle: emptyFunc,
-            deleteAllWordStaticstics: emptyFunc,
+            toggle: doNothing,
+            deleteAllWordStaticstics: doNothing,
             statusData: StatusData(),
-            toggleCropper: emptyFunc
+            toggleCropper: doNothing,
+            textProcessConfig: textProcessConfig
         ).frame(width: 300, height: 30)
     }
 }

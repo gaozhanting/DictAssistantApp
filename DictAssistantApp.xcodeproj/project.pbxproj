@@ -26,6 +26,7 @@
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447D61AD2644114B00AB0C1A /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61AC2644114B00AB0C1A /* Transform.swift */; };
 		449581DD2664A6C8005FE507 /* CropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449581DC2664A6C8005FE507 /* CropData.swift */; };
+		449581DF2664F96B005FE507 /* TextProcessConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449581DE2664F96B005FE507 /* TextProcessConfig.swift */; };
 		44BBB00F263BD6E400A5FF50 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BBB00E263BD6E400A5FF50 /* ModelData.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
 		447D61AC2644114B00AB0C1A /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		449581DC2664A6C8005FE507 /* CropData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropData.swift; sourceTree = "<group>"; };
+		449581DE2664F96B005FE507 /* TextProcessConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessConfig.swift; sourceTree = "<group>"; };
 		44BBB00E263BD6E400A5FF50 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 				44BBB00E263BD6E400A5FF50 /* ModelData.swift */,
 				447D0F7E26564D96004A7173 /* StatusData.swift */,
 				449581DC2664A6C8005FE507 /* CropData.swift */,
+				449581DE2664F96B005FE507 /* TextProcessConfig.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				447D61AD2644114B00AB0C1A /* Transform.swift in Sources */,
 				447D0FD8265A5392004A7173 /* CropperView.swift in Sources */,
 				449581DD2664A6C8005FE507 /* CropData.swift in Sources */,
+				449581DF2664F96B005FE507 /* TextProcessConfig.swift in Sources */,
 				44720C4026611D05005BCFD9 /* FloatingPanel.swift in Sources */,
 				44BBB00F263BD6E400A5FF50 /* ModelData.swift in Sources */,
 				447D619A2643CC2500AB0C1A /* Word.swift in Sources */,
