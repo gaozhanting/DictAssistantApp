@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         wordsWindow.delegate = self
         
         // Create the window and set the content view.
-        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 30), backing: .buffered, defer: false)
+        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 50), backing: .buffered, defer: false)
 
         entryPanel.title = "Floating Panel Title"
         // Create the SwiftUI view that provides the window contents.
@@ -98,7 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
-                .closable,
+//                .closable, // disable the behavior of pressing esc key to close cropperWindow, because we want it showing the cropper area always.
                 .fullSizeContentView],
             backing: NSWindow.BackingStoreType.buffered,
             defer: false,

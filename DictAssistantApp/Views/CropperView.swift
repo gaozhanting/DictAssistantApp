@@ -37,14 +37,21 @@ struct CropperView: View {
     var curtain: some View {
         Rectangle()
             .fill(Color.gray)
-            .opacity(0.5)
+            .opacity(0)
     }
     
     // Runtime Warning: Invalid frame dimension (negative or non-finite).
     var cropper: some View {
         Rectangle()
-            .border(Color.orange, width: 1)
+            .fill(Color.secondary)
+            .opacity(0.01)
+//            .border(Color.secondary, width: 0.3)
             .frame(width: cropData.width, height: cropData.height)
+            .overlay(
+                Rectangle()
+                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                    .foregroundColor(.primary)
+            )
             .onHover { hovered in
                 if hovered {
                     NSCursor.openHand.set()
@@ -52,13 +59,14 @@ struct CropperView: View {
                     NSCursor.arrow.set()
                 }
             }
-            .overlay(info, alignment: .center)
+//            .overlay(info, alignment: .center) // for test ?!
             .overlay(
                 Circle()
+                    .opacity(0.01)
                     .frame(width: 30, height: 30)
-                    .foregroundColor(.blue)
-                    .border(Color.green)
-                    .offset(x: 15, y: 15)
+//                    .foregroundColor(.blue)
+//                    .border(Color.green)
+                    .offset(x: 5, y: 5)
                     .gesture(resizeDragGesture),
                 alignment: .bottomTrailing)
             .position(CGPoint(x: cropData.x, y: cropData.y))

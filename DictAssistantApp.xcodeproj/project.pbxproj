@@ -93,7 +93,6 @@
 				447D61912643C89700AB0C1A /* TextProcess */,
 				447D61902643C12F00AB0C1A /* Model */,
 				447D618F2643C11A00AB0C1A /* Views */,
-				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
 				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
 				4440EE47262EDCA4007FF470 /* Assets.xcassets */,
 				4440EE4C262EDCA4007FF470 /* Main.storyboard */,
@@ -119,9 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				4440EE6E26316C5A007FF470 /* WordsView.swift */,
-				4440EE45262EDCA3007FF470 /* EntryView.swift */,
+				449581E026662A39005FE507 /* Entry */,
 				447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */,
 				447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */,
+				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
 				447D0FD7265A5392004A7173 /* CropperView.swift */,
 			);
 			path = Views;
@@ -152,6 +152,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		449581E026662A39005FE507 /* Entry */ = {
+			isa = PBXGroup;
+			children = (
+				4440EE45262EDCA3007FF470 /* EntryView.swift */,
+			);
+			path = Entry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
