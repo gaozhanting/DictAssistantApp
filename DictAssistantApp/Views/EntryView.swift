@@ -48,9 +48,14 @@ struct EntryView: View {
                         Text("Accurate").tag(VNRequestTextRecognitionLevel.accurate)
                     }
                     Picker("SC Intervel", selection: $textProcessConfig.screenCaptureTimeInterval) {
+                        Text("5 seconds").tag(5.0)
+                        Text("2 seconds").tag(2.0)
                         Text("1 second").tag(1.0)
                         Text("0.5 second").tag(0.5)
                         Text("0.3 second").tag(0.3)
+                        Text("0.2 second").tag(0.2)
+                        Text("0.1 second").tag(0.1)
+
                     }
                 }
                 .menuStyle(BorderlessButtonMenuStyle())

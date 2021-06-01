@@ -11,4 +11,5 @@ import Vision
 class TextProcessConfig: ObservableObject {
     @Published var textRecognitionLevel: VNRequestTextRecognitionLevel = .fast
     @Published var screenCaptureTimeInterval: TimeInterval = 1.0
+//    @Published var familiarThreshold: Int = 50
 }

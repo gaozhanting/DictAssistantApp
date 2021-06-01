@@ -322,9 +322,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     let text: String = observation.topCandidates(1)[0].string
                     return text
                 }
-                withAnimation {
+                
+                if textProcessConfig.screenCaptureTimeInterval < 1 {
                     modelData.words = Transform.classify(texts)
+                } else {
+                    withAnimation {
+                        modelData.words = Transform.classify(texts)
+                    }
                 }
+                
                 if !modelData.words.elementsEqual(previousWords) {
                     statistic(
                         modelData.words
