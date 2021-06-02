@@ -48,23 +48,76 @@ struct CropperView: View {
 //                }
 //            }
 //            .overlay(info, alignment: .center) // for test ?!
+            
             .overlay(
                 Rectangle()
-//                    .opacity(0.01)
+                    .opacity(0.005)
                     .frame(width: 25, height: 25)
-                    .foregroundColor(.green)
-                    .border(Color.red)
+//                    .foregroundColor(.green)
+//                    .border(Color.red)
+                    .gesture(move),
+                alignment: .bottomLeading)
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
+                    .frame(width: 25, height: 25)
+//                    .foregroundColor(.green)
+//                    .border(Color.red)
                     .gesture(move),
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
-//                    .opacity(0.01)
+                    .opacity(0.005)
+                    .frame(width: 25, height: 25)
+//                    .foregroundColor(.green)
+//                    .border(Color.red)
+                    .gesture(move),
+                alignment: .topLeading)
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
+                    .frame(width: 25, height: 25)
+//                    .foregroundColor(.green)
+//                    .border(Color.red)
+                    .gesture(move),
+                alignment: .topTrailing)
+            
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
                     .frame(width: 15, height: 15)
-                    .foregroundColor(.blue)
-                    .border(Color.red)
+//                    .foregroundColor(.blue)
+//                    .border(Color.red)
+                    .offset(x: -8, y: 8)
+                    .gesture(scale(-1, 1)),
+                alignment: .bottomLeading)
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
+                    .frame(width: 15, height: 15)
+//                    .foregroundColor(.blue)
+//                    .border(Color.red)
                     .offset(x: 8, y: 8)
-                    .gesture(scale),
+                    .gesture(scale(1, 1)),
                 alignment: .bottomTrailing)
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
+                    .frame(width: 15, height: 15)
+//                    .foregroundColor(.blue)
+//                    .border(Color.red)
+                    .offset(x: -8, y: -8)
+                    .gesture(scale(-1, -1)),
+                alignment: .topLeading)
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
+                    .frame(width: 15, height: 15)
+//                    .foregroundColor(.blue)
+//                    .border(Color.red)
+                    .offset(x: 8, y: -8)
+                    .gesture(scale(1, -1)),
+                alignment: .topTrailing)
             .position(CGPoint(x: cropData.x, y: cropData.y))
     }
     
@@ -80,26 +133,26 @@ struct CropperView: View {
     private let minWidth: CGFloat = 100.0
     private let minHeight: CGFloat = 50.0
     
-    var scale: some Gesture {
+    func scale(_ i: CGFloat, _ j: CGFloat) -> some Gesture {
         DragGesture(coordinateSpace: .named("stack"))
             .onChanged { value in
                 var newWidth = startWidth ?? cropData.width
-                var realTranslationWidth = value.translation.width
+                var realTranslationWidth = i * value.translation.width
                 if (newWidth + realTranslationWidth) < minWidth {
                     realTranslationWidth = minWidth - newWidth
                 }
                 newWidth += realTranslationWidth
 
                 var newHeight = startHeight ?? cropData.height
-                var realTranslationHeight = value.translation.height
+                var realTranslationHeight = j * value.translation.height
                 if (newHeight + realTranslationHeight) < minHeight {
                     realTranslationHeight = minHeight - newHeight
                 }
                 newHeight += realTranslationHeight
 
                 var newPosition = startLocation ?? CGPoint(x: cropData.x, y: cropData.y)
-                newPosition.x += 0.5 * realTranslationWidth
-                newPosition.y += 0.5 * realTranslationHeight
+                newPosition.x += 0.5 * realTranslationWidth * i
+                newPosition.y += 0.5 * realTranslationHeight * j
 
                 cropData.width = newWidth
                 cropData.height = newHeight

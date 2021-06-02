@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 class CropData: ObservableObject {
-    @Published var x: CGFloat = 200
-    @Published var y: CGFloat = 100
+    @Published var x: CGFloat = 200 + 100
+    @Published var y: CGFloat = 100 + 100
     @Published var width: CGFloat = 400
     @Published var height: CGFloat = 200
 }
