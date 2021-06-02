@@ -10,10 +10,10 @@ import AppKit
 class StatusBarController {
     private var statusBar: NSStatusBar
     private var statusItem: NSStatusItem
-    private var entryPanel: FloatingPanel
+    private var contentPanel: NSPanel
     
-    init(_ entryPanel: FloatingPanel) {
-        self.entryPanel = entryPanel
+    init(_ entryPanel: NSPanel) {
+        self.contentPanel = entryPanel
         statusBar = NSStatusBar.init()
         statusItem = statusBar.statusItem(withLength: 28.0)
         
@@ -21,18 +21,16 @@ class StatusBarController {
             statusBarButton.image = #imageLiteral(resourceName: "Assistant")
             statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
             statusBarButton.image?.isTemplate = true
-            statusBarButton.action = #selector(toggleEntryPanel(sender:))
+            statusBarButton.action = #selector(toggleContentPanel(sender:))
             statusBarButton.target = self
         }
     }
     
-    @objc func toggleEntryPanel(sender: AnyObject) {
-        if entryPanel.isVisible {
-            entryPanel.performClose(sender)
+    @objc func toggleContentPanel(sender: AnyObject) {
+        if contentPanel.isVisible {
+            contentPanel.performClose(sender)
         } else {
-            // Shows the panel and makes it active
-            entryPanel.orderFront(nil)
-            entryPanel.makeKey()
+            contentPanel.orderFrontRegardless()
         }
     }
 }

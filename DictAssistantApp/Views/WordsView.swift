@@ -38,7 +38,6 @@ struct WordsView: View {
     }
     
     var body: some View {
-
         List {
             Section(header: Text("Count = \(words.count)").foregroundColor(.primary)) {
                 
@@ -64,7 +63,6 @@ struct WordsView: View {
             }
             
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

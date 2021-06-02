@@ -24,19 +24,19 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 //@main
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
-    let textProcessConfig = TextProcessConfig()
     
     let modelData = ModelData()
     let statusData = StatusData()
+    let textProcessConfig = TextProcessConfig()
+    
     let cropData = CropData()
     
     var previousWords: [Word] = []
 
     var statusBar: StatusBarController?
-    var popover = NSPopover.init()
-    var wordsWindow: NSPanel!
+    
     var cropperWindow: NSPanel!
-    var entryPanel: FloatingPanel!
+    var contentPanel: NSPanel!
     
     var timer: Timer = Timer()
 
@@ -50,46 +50,70 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         registerGlobalKeyboardShortcuts()
         
+        initContentPanel()
+        
         initCropperWindow()
 
-        let windowStyleMask: NSWindow.StyleMask = [
-            .titled,
-            .closable,
-            .miniaturizable,
-            .utilityWindow,
-            .docModalWindow,
-            .nonactivatingPanel
-        ]
-        wordsWindow = NSPanel.init(contentRect: NSMakeRect(700,507,310,600),
-                                  styleMask: windowStyleMask,
-                                    backing: NSWindow.BackingStoreType.buffered,
-                                      defer: false,
-                                     screen: NSScreen.main)
-        wordsWindow.title = "Words"
         
+        statusBar = StatusBarController.init(contentPanel)
+    }
+    
+    func initContentPanel() {
+        contentPanel = NSPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+//                .fullSizeContentView,
+                .miniaturizable,
+//                .fullScreen,
+                .resizable
+            ],
+            backing: .buffered,
+            defer: false)
+        
+        // Set this if you want the panel to remember its size/position
+        contentPanel.setFrameAutosaveName("ContentPanel")
+        
+        // Allow the pannel to be on top of almost all other windows
+        contentPanel.isFloatingPanel = true
+        contentPanel.level = .floating
+        
+        // Allow the pannel to appear in a fullscreen space
+        contentPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        
+        // While we may set a title for the window, don't show it
+//        contentPanel.titleVisibility = .hidden
+//        contentPanel.titlebarAppearsTransparent = true
+        
+        // Since there is no titlebar make the window moveable by click-dragging on the background
+//        contentPanel.isMovableByWindowBackground = true
+        
+        // Keep the panel around after closing since I expect the user to open/close it often
+        contentPanel.isReleasedWhenClosed = false
+        
+        // Hide the traffic icons (standard close, minimize, maximize buttons)
+//        contentPanel.standardWindowButton(.closeButton)?.isHidden = true
+//        contentPanel.standardWindowButton(.miniaturizeButton)?.isHidden = true
+//        contentPanel.standardWindowButton(.zoomButton)?.isHidden = true
+//        contentPanel.standardWindowButton(.toolbarButton)?.isHidden = true
+        
+        contentPanel.title = "ContentPanel"
+
         let context = persistentContainer.viewContext
-        let wordsView = WordsView(modelData: modelData)
-            .environment(\.managedObjectContext, context)
-        wordsWindow.contentView = NSHostingView(rootView: wordsView)
-        wordsWindow.delegate = self
-        
-        // Create the window and set the content view.
-        entryPanel = FloatingPanel(contentRect: NSRect(x: 0, y: 0, width: 300, height: 50), backing: .buffered, defer: false)
-
-        entryPanel.title = "Floating Panel Title"
-        // Create the SwiftUI view that provides the window contents.
-        // I've opted to ignore top safe area as well, since we're hiding the traffic icons
-        let entryView = EntryView(
-            toggle: toggle,
-            deleteAllWordStaticstics: deleteAllWordStaticstics,
+        let contentView = ContentView(
+            modelData: modelData,
             statusData: statusData,
+            textProcessConfig: textProcessConfig,
             toggleCropper: toggleCropper,
-            textProcessConfig: textProcessConfig
+            toggle: toggle,
+            deleteAllWordStaticstics: deleteAllWordStaticstics
         )
+            .environment(\.managedObjectContext, context)
 
-        entryPanel.contentView = NSHostingView(rootView: entryView)
-        
-        statusBar = StatusBarController.init(entryPanel)
+        contentPanel.contentView = NSHostingView(rootView: contentView)
+        contentPanel.delegate = self // for windowShouldClose
     }
     
     func initCropperWindow() {
@@ -99,13 +123,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 .nonactivatingPanel,
                 .titled,
 //                .closable, // disable the behavior of pressing esc key to close cropperWindow, because we want it showing the cropper area always.
-                .fullSizeContentView],
-            backing: NSWindow.BackingStoreType.buffered,
-            defer: false,
-            screen: NSScreen.main)
+                .fullSizeContentView,
+                .fullScreen // we want the background fullScreen, not draw its title bar
+            ],
+            backing: .buffered,
+            defer: false
+//            screen: NSScreen.main
+        )
         
         // Set this if you want the panel to remember its size/position
-        cropperWindow.setFrameAutosaveName("cropper Window")
+        cropperWindow.setFrameAutosaveName("CropperWindow")
         
         // Allow the pannel to be on top of almost all other windows
         cropperWindow.isFloatingPanel = true
@@ -148,7 +175,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // When click esc on wordsWindow, should toggle to stop.
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        toggle()
+        stop()
+        statusData.isPlaying = false
+        closeCropper()
         return true
     }
 
@@ -233,30 +262,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func toggle() {
         if statusData.isPlaying {
-            pause()
+            stop()
         } else {
             start()
         }
         statusData.isPlaying = !statusData.isPlaying
     }
     
-    func start() {
-        showWordsView()
+    private func start() {
+        showContentPanel()
         startScreenCapture()
     }
     
-    func pause() {
-        closeWordsView()
+    private func stop() {
         stopScreenCapture()
     }
     
-    func showWordsView() {
-        wordsWindow.orderFrontRegardless()
+    func showContentPanel() {
+        contentPanel.orderFrontRegardless()
     }
-    func closeWordsView() {
-        wordsWindow.close()
-    }
-    
+
     func startScreenCapture() {
         timer = Timer.scheduledTimer(withTimeInterval: textProcessConfig.screenCaptureTimeInterval, repeats: true, block: screenCapture(_:))
         screenCapture(timer) // instant execute one time
@@ -297,9 +322,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         arguments.append("-d")
         arguments.append("-o")
         arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
-        print("screenCapture -R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
+        print("screenCapture -R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height),\(cropData.width),\(cropData.height)")
         // Notice there is no space between -R and x; just like -D2
-        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
+        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height),\(cropData.width),\(cropData.height)")
 //        arguments.append("-D2")
         arguments.append(imageUrlString)
 

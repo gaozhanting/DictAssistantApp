@@ -38,7 +38,8 @@ struct CropperView: View {
             .frame(width: cropData.width, height: cropData.height)
             .overlay( // this will add a stoke border of cropper
                 Rectangle()
-                    .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [2]))
+                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
+                    .foregroundColor(.green)
             )
 //            .onHover { hovered in // not works
 //                if hovered {

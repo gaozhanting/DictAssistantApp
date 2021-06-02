@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
-		4440EE46262EDCA3007FF470 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE45262EDCA3007FF470 /* EntryView.swift */; };
+		4440EE46262EDCA3007FF470 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE45262EDCA3007FF470 /* ControlView.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
@@ -27,13 +27,14 @@
 		447D61AD2644114B00AB0C1A /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61AC2644114B00AB0C1A /* Transform.swift */; };
 		449581DD2664A6C8005FE507 /* CropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449581DC2664A6C8005FE507 /* CropData.swift */; };
 		449581DF2664F96B005FE507 /* TextProcessConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449581DE2664F96B005FE507 /* TextProcessConfig.swift */; };
+		4495FE6E26678F1100EFC721 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE6D26678F1100EFC721 /* ContentView.swift */; };
 		44BBB00F263BD6E400A5FF50 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BBB00E263BD6E400A5FF50 /* ModelData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4440EE40262EDCA3007FF470 /* DictAssistantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DictAssistantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4440EE45262EDCA3007FF470 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		4440EE45262EDCA3007FF470 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4440EE4D262EDCA4007FF470 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -53,6 +54,7 @@
 		447D61AC2644114B00AB0C1A /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		449581DC2664A6C8005FE507 /* CropData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropData.swift; sourceTree = "<group>"; };
 		449581DE2664F96B005FE507 /* TextProcessConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessConfig.swift; sourceTree = "<group>"; };
+		4495FE6D26678F1100EFC721 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		44BBB00E263BD6E400A5FF50 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +97,7 @@
 				447D618F2643C11A00AB0C1A /* Views */,
 				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
 				4440EE47262EDCA4007FF470 /* Assets.xcassets */,
+				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
 				4440EE4C262EDCA4007FF470 /* Main.storyboard */,
 				4440EE4F262EDCA4007FF470 /* Info.plist */,
 				4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */,
@@ -117,12 +120,12 @@
 		447D618F2643C11A00AB0C1A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4495FE6D26678F1100EFC721 /* ContentView.swift */,
+				4440EE45262EDCA3007FF470 /* ControlView.swift */,
 				4440EE6E26316C5A007FF470 /* WordsView.swift */,
-				449581E026662A39005FE507 /* Entry */,
+				447D0FD7265A5392004A7173 /* CropperView.swift */,
 				447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */,
 				447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */,
-				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
-				447D0FD7265A5392004A7173 /* CropperView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -152,14 +155,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		449581E026662A39005FE507 /* Entry */ = {
-			isa = PBXGroup;
-			children = (
-				4440EE45262EDCA3007FF470 /* EntryView.swift */,
-			);
-			path = Entry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,13 +234,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4440EE46262EDCA3007FF470 /* EntryView.swift in Sources */,
+				4440EE46262EDCA3007FF470 /* ControlView.swift in Sources */,
 				447D0F7A2655567F004A7173 /* UnFamiliarWordsView.swift in Sources */,
 				4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */,
 				4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */,
 				447D0F81265662E2004A7173 /* GlobalKeyBoardShortcuts.swift in Sources */,
 				447D0F7826554DEB004A7173 /* FamiliarWordsView.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
+				4495FE6E26678F1100EFC721 /* ContentView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				447D61AD2644114B00AB0C1A /* Transform.swift in Sources */,

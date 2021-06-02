@@ -8,25 +8,15 @@
 import SwiftUI
 import Vision
 
-struct EntryView: View {
+struct ControlView: View {
+    @ObservedObject var statusData: StatusData
+    @ObservedObject var textProcessConfig: TextProcessConfig
+    let toggleCropper: () -> Void
     let toggle: () -> Void
     let deleteAllWordStaticstics: () -> Void
     
-    @ObservedObject var statusData: StatusData
-    
-    let toggleCropper: () -> Void
-
     @State private var showingDeleteAlert = false
     
-    @State private var x: String = "0"
-    @State private var y: String = "50"
-    @State private var w: String = "700"
-    @State private var d: String = "400"
-    
-    @State private var interval: String = "2"
-    
-    @ObservedObject var textProcessConfig: TextProcessConfig
-
     var playingImage: Image {
         if statusData.isPlaying {
             return Image(systemName: "stop.fill")
@@ -45,16 +35,16 @@ struct EntryView: View {
                 }
             }, label: {
                 Image(systemName: "rectangle.dashed.badge.record")
-                    .font(.system(size: 30, weight: .light))
-                    .padding(.all, 7)
+//                    .font(.system(size: 30, weight: .light))
+//                    .padding(.all, 7)
                     .contentShape(Rectangle())
                     .background(Color.primary.opacity(0.15))
-                    .cornerRadius(10)
+//                    .cornerRadius(10)
             })
             .buttonStyle(PlainButtonStyle())
 //            .padding()
-            .frame(maxHeight: .infinity)
-            .border(Color.green)
+//            .frame(maxHeight: .infinity)
+//            .border(Color.green)
             
             Menu("Options") {
                 Picker("TR Level", selection: $textProcessConfig.textRecognitionLevel) {
@@ -74,21 +64,16 @@ struct EntryView: View {
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .padding(.horizontal, 27)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             playingImage
-                .font(.system(size: 20, weight: .regular))
+//                .font(.system(size: 20, weight: .regular))
                 .padding(.horizontal)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onTapGesture {
                     toggle()
                 }
-            
         }
-//        .padding(.horizontal)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .border(Color.red)
-        .edgesIgnoringSafeArea(.top)
     }
     
 }
@@ -97,17 +82,18 @@ func doNothing() -> Void {
     
 }
 
-struct EntryView_Previews: PreviewProvider {
+struct ControlView_Previews: PreviewProvider {
     static var textProcessConfig = TextProcessConfig()
 
     static var previews: some View {
-        EntryView(
-            toggle: doNothing,
-            deleteAllWordStaticstics: doNothing,
+        ControlView(
             statusData: StatusData(),
+            textProcessConfig: textProcessConfig,
             toggleCropper: doNothing,
-            textProcessConfig: textProcessConfig
-        ).frame(width: 300, height: 50)
+            toggle: doNothing,
+            deleteAllWordStaticstics: doNothing
+        )
+        .frame(width: 300, height: 50)
     }
 }
             
