@@ -68,7 +68,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //                .fullSizeContentView,
                 .miniaturizable,
 //                .fullScreen,
-                .resizable
+//                .docModalWindow,
+                .resizable,
+                .utilityWindow,
             ],
             backing: .buffered,
             defer: false)
@@ -77,8 +79,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         contentPanel.setFrameAutosaveName("ContentPanel")
         
         // Allow the pannel to be on top of almost all other windows
-        contentPanel.isFloatingPanel = true
-        contentPanel.level = .floating
+//        contentPanel.isFloatingPanel = true
+//        contentPanel.level = .floating
         
         // Allow the pannel to appear in a fullscreen space
         contentPanel.collectionBehavior.insert(.fullScreenAuxiliary)
@@ -99,7 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //        contentPanel.standardWindowButton(.zoomButton)?.isHidden = true
 //        contentPanel.standardWindowButton(.toolbarButton)?.isHidden = true
         
-        contentPanel.title = "ContentPanel"
+//        contentPanel.title = "ContentPanel"
 
         let context = persistentContainer.viewContext
         let contentView = ContentView(
