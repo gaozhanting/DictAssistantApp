@@ -17,6 +17,8 @@ struct WordsView: View {
         predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
     ) var familiarWordStatss: FetchedResults<WordStats>
     
+    @State var fontSize: CGFloat = 15
+    
     var familiarWords: [String] {
         familiarWordStatss.map { $0.word! }
     }
@@ -39,18 +41,23 @@ struct WordsView: View {
     
     var body: some View {
         List {
+            Slider(value: $fontSize, in: 0...50) {
+                Text("Font Size")
+            }
+
             Section(header: Text("Count = \(words.count)").foregroundColor(.primary)) {
                 
             }
             
             Section(header: Text("Found:").foregroundColor(.secondary)) {
                 ForEach(foundWordsFromServices, id: \.self) { word in
-                    (Text(word.text).foregroundColor(.orange) + Text(word.translation!)
-                        .foregroundColor(.secondary))
+                    (Text(word.text).foregroundColor(.orange)
+                        + Text(word.translation!).foregroundColor(.secondary))
+                        .font(.system(size: fontSize))
                         .onTapGesture {
                             openDict(word.text)
                         }
-                        .frame(maxHeight: 60)
+//                        .frame(maxHeight: 60)
                 }
             }
 
@@ -58,7 +65,7 @@ struct WordsView: View {
                 ForEach(notFoundWords, id: \.self) { word in
                     Text(word.text)
                         .foregroundColor(.yellow)
-                        .frame(height: 20)
+//                        .frame(height: 20)
                 }
             }
             
