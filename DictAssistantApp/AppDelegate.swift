@@ -178,8 +178,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // When click esc on wordsWindow, should toggle to stop.
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         stop()
-        statusData.isPlaying = false
-        closeCropper()
         return true
     }
 
@@ -268,22 +266,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         } else {
             start()
         }
-        statusData.isPlaying = !statusData.isPlaying
     }
     
     private func start() {
-        showContentPanel()
         startScreenCapture()
+        showContentPanel()
+        showCropper()
+        statusData.isPlaying = true
     }
     
     private func stop() {
         stopScreenCapture()
+        closeContentPanel()
+        closeCropper()
+        statusData.isPlaying = false
     }
     
     func showContentPanel() {
         contentPanel.orderFrontRegardless()
     }
-
+    func closeContentPanel() {
+        contentPanel.close()
+    }
+    
     func startScreenCapture() {
         timer = Timer.scheduledTimer(withTimeInterval: textProcessConfig.screenCaptureTimeInterval, repeats: true, block: screenCapture(_:))
         screenCapture(timer) // instant execute one time
