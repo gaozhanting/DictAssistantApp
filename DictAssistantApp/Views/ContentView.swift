@@ -16,10 +16,12 @@ struct ContentView: View {
     let deleteAllWordStaticstics: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack {
             if statusData.isPlaying {
                 WordsView(modelData: modelData)
-                    .padding(.top, 10)
+//                    .padding(.top, 10)
+                    .frame(maxHeight: .infinity)
+                    .padding(.leading, 10)
                     .border(Color.green)
             }
             
@@ -30,12 +32,14 @@ struct ContentView: View {
                 toggle: toggle,
                 deleteAllWordStaticstics: deleteAllWordStaticstics
             )
-            .frame(height: 35)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 2)
+            .frame(width: 45)
+            .frame(maxHeight: .infinity)
+//            .padding(.horizontal, 10)
+//            .padding(.vertical, 2)
             .border(Color.red)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        .opacity(0.5)
     }
 }
 

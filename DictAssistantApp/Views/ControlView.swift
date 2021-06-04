@@ -28,7 +28,7 @@ struct ControlView: View {
     @State var selectedRadio: String = "ellipsis"
     
     var body: some View {
-        HStack(alignment: .top) {
+        VStack(alignment: .center) {
             Button(action: {
                 withAnimation {
                     toggleCropper()
@@ -42,6 +42,7 @@ struct ControlView: View {
 //                    .cornerRadius(10)
             })
             .buttonStyle(PlainButtonStyle())
+            .frame(maxHeight: .infinity)
 //            .padding()
 //            .frame(maxHeight: .infinity)
 //            .border(Color.green)
@@ -64,6 +65,8 @@ struct ControlView: View {
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .padding(.horizontal, 27)
+            .frame(maxHeight: .infinity)
+
 //            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             playingImage
@@ -73,6 +76,7 @@ struct ControlView: View {
                 .onTapGesture {
                     toggle()
                 }
+                .frame(maxHeight: .infinity)
         }
     }
     

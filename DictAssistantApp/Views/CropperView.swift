@@ -72,8 +72,18 @@ struct CropperView: View {
                     .frame(width: 25, height: 25)
 //                    .foregroundColor(.green)
 //                    .border(Color.red)
-                    .gesture(move),
-                alignment: .topLeading)
+                    .gesture(move)
+                    .onHover { hovered in
+                        if hovered {
+                            NSCursor.openHand.set()
+                        }
+                        else {
+                            NSCursor.arrow.set()
+                        }
+                    }
+                ,
+                alignment: .topLeading
+            )
             .overlay(
                 Rectangle()
                     .opacity(0.005)

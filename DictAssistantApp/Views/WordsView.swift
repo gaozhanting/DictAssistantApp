@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DataBases
+import AppKit
 
 struct WordsView: View {
     @ObservedObject var modelData: ModelData
@@ -17,7 +18,7 @@ struct WordsView: View {
         predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
     ) var familiarWordStatss: FetchedResults<WordStats>
     
-    @State var fontSize: CGFloat = 15
+    @State var fontSize: CGFloat = 24
     
     var familiarWords: [String] {
         familiarWordStatss.map { $0.word! }
@@ -40,36 +41,53 @@ struct WordsView: View {
     }
     
     var body: some View {
-        List {
-            Slider(value: $fontSize, in: 0...50) {
-                Text("Font Size")
-            }
+//        List {
 
-            Section(header: Text("Count = \(words.count)").foregroundColor(.primary)) {
+
+//            Section(header: Text("Count = \(words.count)").foregroundColor(.primary)) {
+//
+//            }
+            
+//            Section(header: Text("Found:").foregroundColor(.secondary)) {
+//                ForEach(foundWordsFromServices, id: \.self) { word in
+//                    (Text(word.text).foregroundColor(.orange)
+//                        + Text(word.translation!).foregroundColor(.secondary))
+//                        .font(.system(size: fontSize))
+//                        .onTapGesture {
+//                            openDict(word.text)
+//                        }
+////                        .frame(maxHeight: 60)
+//                }
                 
-            }
-            
-            Section(header: Text("Found:").foregroundColor(.secondary)) {
-                ForEach(foundWordsFromServices, id: \.self) { word in
-                    (Text(word.text).foregroundColor(.orange)
-                        + Text(word.translation!).foregroundColor(.secondary))
-                        .font(.system(size: fontSize))
-                        .onTapGesture {
-                            openDict(word.text)
+                ScrollView(.horizontal) {
+                    HStack {
+//                        Slider(value: $fontSize, in: 0...50) {
+//                            Text("Font Size")
+//                        }
+//                        .makeVertical()
+                        
+                        ForEach(foundWordsFromServices, id: \.self) { word in
+                            (Text(word.text).foregroundColor(.orange)
+                                + Text(word.translation!).foregroundColor(.white))
+                                .font(.system(size: fontSize))
+                                .onTapGesture {
+                                    openDict(word.text)
+                                }
+                                .frame(maxWidth: 200)
                         }
-//                        .frame(maxHeight: 60)
+                    }
                 }
-            }
+//            }
 
-            Section(header: Text("NotFound:").foregroundColor(.secondary)) {
-                ForEach(notFoundWords, id: \.self) { word in
-                    Text(word.text)
-                        .foregroundColor(.yellow)
-//                        .frame(height: 20)
-                }
-            }
+//            Section(header: Text("NotFound:").foregroundColor(.secondary)) {
+//                ForEach(notFoundWords, id: \.self) { word in
+//                    Text(word.text)
+//                        .foregroundColor(.yellow)
+////                        .frame(height: 20)
+//                }
+//            }
             
-        }
+//        }
     }
 }
 

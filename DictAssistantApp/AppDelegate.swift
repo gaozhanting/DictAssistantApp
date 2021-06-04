@@ -115,6 +115,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.managedObjectContext, context)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
+        contentPanel.isOpaque = false
+        contentPanel.backgroundColor = NSColor.clear
         contentPanel.delegate = self // for windowShouldClose
     }
     
