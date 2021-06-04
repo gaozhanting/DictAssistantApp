@@ -39,6 +39,8 @@ struct ContentView: View {
             .border(Color.red)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.5))
+        
 //        .opacity(0.5)
     }
 }

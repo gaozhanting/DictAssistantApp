@@ -73,7 +73,8 @@ struct WordsView: View {
                                 .onTapGesture {
                                     openDict(word.text)
                                 }
-                                .frame(maxWidth: 200)
+                                .frame(maxWidth: 250)
+                                .padding(.trailing, 5)
                         }
                     }
                 }
