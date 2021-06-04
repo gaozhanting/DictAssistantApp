@@ -60,7 +60,7 @@ struct WordsView: View {
 //                }
                 
                 ScrollView(.horizontal) {
-                    HStack {
+                    HStack(alignment: .top) {
 //                        Slider(value: $fontSize, in: 0...50) {
 //                            Text("Font Size")
 //                        }
