@@ -55,9 +55,9 @@ struct ContentView_Previews: PreviewProvider {
             modelData: modelData,
             statusData: statusData,
             textProcessConfig: textProcessConfig,
-            toggleCropper: doNothing,
-            toggle: doNothing,
-            deleteAllWordStaticstics: doNothing
+            toggleCropper: {},
+            toggle: {},
+            deleteAllWordStaticstics: {}
         )
         .frame(width: 300, height: 600)
     }

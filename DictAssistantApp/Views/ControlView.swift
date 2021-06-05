@@ -82,10 +82,6 @@ struct ControlView: View {
     
 }
 
-func doNothing() -> Void {
-    
-}
-
 struct ControlView_Previews: PreviewProvider {
     static var textProcessConfig = TextProcessConfig()
 
@@ -93,9 +89,9 @@ struct ControlView_Previews: PreviewProvider {
         ControlView(
             statusData: StatusData(),
             textProcessConfig: textProcessConfig,
-            toggleCropper: doNothing,
-            toggle: doNothing,
-            deleteAllWordStaticstics: doNothing
+            toggleCropper: {},
+            toggle: {},
+            deleteAllWordStaticstics: {}
         )
         .frame(width: 300, height: 50)
     }
