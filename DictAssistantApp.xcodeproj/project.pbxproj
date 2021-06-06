@@ -135,8 +135,8 @@
 			children = (
 				44BBB00E263BD6E400A5FF50 /* ModelData.swift */,
 				447D0F7E26564D96004A7173 /* StatusData.swift */,
-				449581DC2664A6C8005FE507 /* CropData.swift */,
 				449581DE2664F96B005FE507 /* TextProcessConfig.swift */,
+				449581DC2664A6C8005FE507 /* CropData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

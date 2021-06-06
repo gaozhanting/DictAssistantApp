@@ -9,8 +9,8 @@ import SwiftUI
 import Vision
 
 struct ControlView: View {
-    @ObservedObject var statusData: StatusData
-    @ObservedObject var textProcessConfig: TextProcessConfig
+    @EnvironmentObject var statusData: StatusData
+    @EnvironmentObject var textProcessConfig: TextProcessConfig
     let toggleCropper: () -> Void
     let toggle: () -> Void
     let deleteAllWordStaticstics: () -> Void
@@ -35,17 +35,11 @@ struct ControlView: View {
                 }
             }, label: {
                 Image(systemName: "rectangle.dashed.badge.record")
-//                    .font(.system(size: 30, weight: .light))
-//                    .padding(.all, 7)
                     .contentShape(Rectangle())
                     .background(Color.primary.opacity(0.15))
-//                    .cornerRadius(10)
             })
             .buttonStyle(PlainButtonStyle())
             .frame(maxHeight: .infinity)
-//            .padding()
-//            .frame(maxHeight: .infinity)
-//            .border(Color.green)
             
             Menu("Options") {
                 Picker("TR Level", selection: $textProcessConfig.textRecognitionLevel) {
@@ -67,12 +61,8 @@ struct ControlView: View {
             .padding(.horizontal, 27)
             .frame(maxHeight: .infinity)
 
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
             playingImage
-//                .font(.system(size: 20, weight: .regular))
                 .padding(.horizontal)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onTapGesture {
                     toggle()
                 }
@@ -87,13 +77,12 @@ struct ControlView_Previews: PreviewProvider {
 
     static var previews: some View {
         ControlView(
-            statusData: StatusData(),
-            textProcessConfig: textProcessConfig,
             toggleCropper: {},
             toggle: {},
             deleteAllWordStaticstics: {}
         )
         .frame(width: 300, height: 50)
+        .environmentObject(StatusData())
+        .environmentObject(TextProcessConfig())
     }
 }
-            

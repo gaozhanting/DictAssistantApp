@@ -12,10 +12,6 @@ import DataBases
 import CoreData
 import KeyboardShortcuts
 
-//let smallDictionary = Dictionaries.readSmallDict(from: "small_dictionary.txt")
-//let oxfordDictionary = Dictionaries.readOxfordDict(from: "oxford_dictionary.txt")
-//
-//
 let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
 let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
 let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
@@ -105,14 +101,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         let context = persistentContainer.viewContext
         let contentView = ContentView(
-            modelData: modelData,
-            statusData: statusData,
-            textProcessConfig: textProcessConfig,
             toggleCropper: toggleCropper,
             toggle: toggle,
             deleteAllWordStaticstics: deleteAllWordStaticstics
         )
-            .environment(\.managedObjectContext, context)
+        .environment(\.managedObjectContext, context)
+        .environmentObject(textProcessConfig)
+        .environmentObject(statusData)
+        .environmentObject(modelData)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
         contentPanel.isOpaque = false
@@ -164,9 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
         cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
         
-        let cropView = CropperView(
-            cropData: self.cropData
-        )
+        let cropView = CropperView().environmentObject(cropData)
         cropperWindow.contentView = NSHostingView(rootView: cropView)
         cropperWindow.isOpaque = false
         cropperWindow.backgroundColor = NSColor.clear

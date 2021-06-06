@@ -154,8 +154,8 @@
             filePath = "DictAssistantApp/Views/CropperView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "cropper"
             landmarkType = "24">
          </BreakpointContent>
@@ -170,8 +170,8 @@
             filePath = "DictAssistantApp/Views/CropperView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "cropper"
             landmarkType = "24">
          </BreakpointContent>

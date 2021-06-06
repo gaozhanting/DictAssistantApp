@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CropperView: View {
-    @ObservedObject var cropData: CropData
+    @EnvironmentObject var cropData: CropData
     
     @GestureState private var startLocation: CGPoint? = nil
     @GestureState private var startWidth: CGFloat? = nil
@@ -26,14 +26,12 @@ struct CropperView: View {
     
     var curtain: some View {
         Rectangle()
-//            .fill(Color.gray)
             .opacity(0) // this will make curtain not response to the cursor scroll event
     }
     
     // Runtime Warning: Invalid frame dimension (negative or non-finite).
     var cropper: some View {
         Rectangle()
-//            .fill(Color.secondary)
             .opacity(0) // this will make cropper not response to the cursor scroll event
             .frame(width: cropData.width, height: cropData.height)
             .overlay( // this will add a stoke border of cropper
@@ -54,24 +52,18 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 25, height: 25)
-//                    .foregroundColor(.green)
-//                    .border(Color.red)
                     .gesture(move),
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 25, height: 25)
-//                    .foregroundColor(.green)
-//                    .border(Color.red)
                     .gesture(move),
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 25, height: 25)
-//                    .foregroundColor(.green)
-//                    .border(Color.red)
                     .gesture(move)
                     .onHover { hovered in
                         if hovered {
@@ -88,8 +80,6 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 25, height: 25)
-//                    .foregroundColor(.green)
-//                    .border(Color.red)
                     .gesture(move),
                 alignment: .topTrailing)
             
@@ -97,8 +87,6 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 15, height: 15)
-//                    .foregroundColor(.blue)
-//                    .border(Color.red)
                     .offset(x: -8, y: 8)
                     .gesture(scale(-1, 1)),
                 alignment: .bottomLeading)
@@ -106,8 +94,6 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 15, height: 15)
-//                    .foregroundColor(.blue)
-//                    .border(Color.red)
                     .offset(x: 8, y: 8)
                     .gesture(scale(1, 1)),
                 alignment: .bottomTrailing)
@@ -115,8 +101,6 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 15, height: 15)
-//                    .foregroundColor(.blue)
-//                    .border(Color.red)
                     .offset(x: -8, y: -8)
                     .gesture(scale(-1, -1)),
                 alignment: .topLeading)
@@ -124,8 +108,6 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: 15, height: 15)
-//                    .foregroundColor(.blue)
-//                    .border(Color.red)
                     .offset(x: 8, y: -8)
                     .gesture(scale(1, -1)),
                 alignment: .topTrailing)
@@ -169,8 +151,6 @@ struct CropperView: View {
                 cropData.height = newHeight
                 cropData.x = newPosition.x
                 cropData.y = newPosition.y
-                
-//                print("scale> x:\(cropData.x), y:\(cropData.y), width:\(cropData.width), height:\(cropData.height)")
             }
             .updating($startLocation) { (value, startLocation, transaction) in
                 startLocation = startLocation ?? CGPoint(x: cropData.x, y: cropData.y)
@@ -191,8 +171,6 @@ struct CropperView: View {
                 newPosition.y += value.translation.height
                 cropData.x = newPosition.x
                 cropData.y = newPosition.y
-                
-//                print("move> x:\(cropData.x), y:\(cropData.y), width:\(cropData.width), height:\(cropData.height)")
             }
             .updating($startLocation) { (value, startLocation, transaction) in
                 startLocation = startLocation ?? CGPoint(x: cropData.x, y: cropData.y)
@@ -203,6 +181,6 @@ struct CropperView: View {
 struct CropView_Previews: PreviewProvider {
     static let cropData = CropData()
     static var previews: some View {
-        CropperView(cropData: cropData)
+        CropperView().environmentObject(cropData)
     }
 }

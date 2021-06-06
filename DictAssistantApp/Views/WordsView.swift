@@ -7,10 +7,9 @@
 
 import SwiftUI
 import DataBases
-import AppKit
 
 struct WordsView: View {
-    @ObservedObject var modelData: ModelData
+    @EnvironmentObject var modelData: ModelData
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
         entity: WordStats.entity(),
@@ -41,54 +40,21 @@ struct WordsView: View {
     }
     
     var body: some View {
-//        List {
-
-
-//            Section(header: Text("Count = \(words.count)").foregroundColor(.primary)) {
-//
-//            }
-            
-//            Section(header: Text("Found:").foregroundColor(.secondary)) {
-//                ForEach(foundWordsFromServices, id: \.self) { word in
-//                    (Text(word.text).foregroundColor(.orange)
-//                        + Text(word.translation!).foregroundColor(.secondary))
-//                        .font(.system(size: fontSize))
-//                        .onTapGesture {
-//                            openDict(word.text)
-//                        }
-////                        .frame(maxHeight: 60)
-//                }
+        ScrollView(.horizontal) {
+            HStack(alignment: .top) {
                 
-                ScrollView(.horizontal) {
-                    HStack(alignment: .top) {
-//                        Slider(value: $fontSize, in: 0...50) {
-//                            Text("Font Size")
-//                        }
-//                        .makeVertical()
-                        
-                        ForEach(foundWordsFromServices, id: \.self) { word in
-                            (Text(word.text).foregroundColor(.orange)
-                                + Text(word.translation!).foregroundColor(.white))
-                                .font(.system(size: fontSize))
-                                .onTapGesture {
-                                    openDict(word.text)
-                                }
-                                .frame(maxWidth: 250)
-                                .padding(.trailing, 5)
+                ForEach(foundWordsFromServices, id: \.self) { word in
+                    (Text(word.text).foregroundColor(.orange)
+                        + Text(word.translation!).foregroundColor(.white))
+                        .font(.system(size: fontSize))
+                        .onTapGesture {
+                            openDict(word.text)
                         }
-                    }
+                        .frame(maxWidth: 250)
+                        .padding(.trailing, 5)
                 }
-//            }
-
-//            Section(header: Text("NotFound:").foregroundColor(.secondary)) {
-//                ForEach(notFoundWords, id: \.self) { word in
-//                    Text(word.text)
-//                        .foregroundColor(.yellow)
-////                        .frame(height: 20)
-//                }
-//            }
-            
-//        }
+            }
+        }
     }
 }
 
@@ -125,10 +91,7 @@ func openDict(_ word: String) {
 }
 
 struct WordsView_Previews: PreviewProvider {
-    static let modelData = ModelData()
-    
     static var previews: some View {
-        WordsView(modelData: modelData)
+        WordsView().environmentObject(ModelData())
     }
 }
-
