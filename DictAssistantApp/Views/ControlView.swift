@@ -11,9 +11,8 @@ import Vision
 struct ControlView: View {
     @EnvironmentObject var statusData: StatusData
     @EnvironmentObject var textProcessConfig: TextProcessConfig
-    let toggleCropper: () -> Void
-    let toggle: () -> Void
-    let deleteAllWordStaticstics: () -> Void
+    @Environment(\.toggleCropper) var toggleCropper
+    @Environment(\.toggleContent) var toggleContent
     
     @State private var showingDeleteAlert = false
     
@@ -64,7 +63,7 @@ struct ControlView: View {
             playingImage
                 .padding(.horizontal)
                 .onTapGesture {
-                    toggle()
+                    toggleContent()
                 }
                 .frame(maxHeight: .infinity)
         }
@@ -73,16 +72,10 @@ struct ControlView: View {
 }
 
 struct ControlView_Previews: PreviewProvider {
-    static var textProcessConfig = TextProcessConfig()
-
     static var previews: some View {
-        ControlView(
-            toggleCropper: {},
-            toggle: {},
-            deleteAllWordStaticstics: {}
-        )
-        .frame(width: 300, height: 50)
-        .environmentObject(StatusData())
-        .environmentObject(TextProcessConfig())
+        ControlView()
+            .frame(width: 300, height: 50)
+            .environmentObject(StatusData())
+            .environmentObject(TextProcessConfig())
     }
 }

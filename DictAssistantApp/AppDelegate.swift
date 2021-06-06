@@ -17,7 +17,6 @@ let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
 let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 //let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
 
-//@main
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
@@ -100,15 +99,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //        contentPanel.title = "ContentPanel"
 
         let context = persistentContainer.viewContext
-        let contentView = ContentView(
-            toggleCropper: toggleCropper,
-            toggle: toggle,
-            deleteAllWordStaticstics: deleteAllWordStaticstics
-        )
-        .environment(\.managedObjectContext, context)
-        .environmentObject(textProcessConfig)
-        .environmentObject(statusData)
-        .environmentObject(modelData)
+        let contentView = ContentView()
+            .environment(\.managedObjectContext, context)
+            .environment(\.toggleCropper, toggleCropper)
+            .environment(\.toggleContent, toggleContent)
+            .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
+            .environmentObject(textProcessConfig)
+            .environmentObject(statusData)
+            .environmentObject(modelData)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
         contentPanel.isOpaque = false
@@ -160,7 +158,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
         cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
         
-        let cropView = CropperView().environmentObject(cropData)
+        let cropView = CropperView()
+            .environmentObject(cropData)
+        
         cropperWindow.contentView = NSHostingView(rootView: cropView)
         cropperWindow.isOpaque = false
         cropperWindow.backgroundColor = NSColor.clear
@@ -244,7 +244,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // MARK: - Global Keyboard Shortcuts
     func registerGlobalKeyboardShortcuts() {
         KeyboardShortcuts.onKeyUp(for: .startOrPause, action: { [self] in
-            toggle()
+            toggleContent()
         })
         KeyboardShortcuts.onKeyUp(for: .exit, action: { [self] in
             exit()
@@ -256,7 +256,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         NSApplication.shared.terminate(self)
     }
 
-    func toggle() {
+    func toggleContent() {
         if statusData.isPlaying {
             stop()
         } else {
@@ -296,7 +296,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // Todo: currently don't know how to take side effect when ObservableObject var value changed.
     // Because textProcessConfig.screenCaptureTimeInterva is changing from UI, we don't want to bother to toggle stop&play button, we want it instantly take effect.
     func onConfigScreenCaptureTimeInterval() {
-        toggle()
+        toggleContent()
     }
     
     func showCropper() {
