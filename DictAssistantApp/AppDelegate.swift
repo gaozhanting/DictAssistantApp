@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         statusBar = StatusBarController.init(contentPanel)
     }
-    
+
     func initContentPanel() {
         contentPanel = NSPanel.init(
             contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
@@ -272,10 +272,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     private func stop() {
+        saveCropData()
         stopScreenCapture()
         closeContentPanel()
         closeCropper()
         statusData.isPlaying = false
+    }
+    
+    private func saveCropData() {
+        UserDefaults.standard.set(cropData.x, forKey: "cropper.x")
+        UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
+        UserDefaults.standard.set(cropData.width, forKey: "cropper.width")
+        UserDefaults.standard.set(cropData.height, forKey: "cropper.height")
     }
     
     func showContentPanel() {
