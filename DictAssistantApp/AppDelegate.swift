@@ -258,7 +258,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // MARK: - View Actions
     func exit() {
-        saveCropData()
+        saveAllUserDefaults()
         NSApplication.shared.terminate(self)
     }
 
@@ -278,7 +278,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     private func stop() {
-        saveCropData()
+        saveAllUserDefaults()
         stopScreenCapture()
         closeContentPanel()
         closeCropper()
@@ -290,6 +290,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
         UserDefaults.standard.set(cropData.width, forKey: "cropper.width")
         UserDefaults.standard.set(cropData.height, forKey: "cropper.height")
+    }
+    
+    private func saveAllUserDefaults() {
+        saveCropData()
+        saveVisualConfig()
+    }
+    
+    private func saveVisualConfig() {
+        UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
     }
     
     func showContentPanel() {

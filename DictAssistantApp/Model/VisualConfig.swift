@@ -20,7 +20,8 @@ class VisualConfig: ObservableObject {
     init(displayMode: DisplayMode = .landscape) {
         if let displayMode = UserDefaults.standard.string(forKey: "visualConfig.displayMode") {
             self.displayMode = DisplayMode(rawValue: displayMode)!
+        } else {
+            self.displayMode = displayMode
         }
-        self.displayMode = displayMode
     }
 }
