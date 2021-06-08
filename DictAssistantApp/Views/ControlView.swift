@@ -9,6 +9,7 @@ import SwiftUI
 import Vision
 
 struct ControlView: View {
+    @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var statusData: StatusData
     @EnvironmentObject var textProcessConfig: TextProcessConfig
     @Environment(\.toggleCropper) var toggleCropper
@@ -23,11 +24,9 @@ struct ControlView: View {
             return Image(systemName: "play.fill")
         }
     }
-
-    @State var selectedRadio: String = "ellipsis"
     
     var body: some View {
-        VStack(alignment: .center) {
+        HStack(alignment: .center) {
             Button(action: {
                 withAnimation {
                     toggleCropper()
@@ -38,8 +37,7 @@ struct ControlView: View {
                     .background(Color.primary.opacity(0.15))
             })
             .buttonStyle(PlainButtonStyle())
-            .frame(maxHeight: .infinity)
-            
+
             Menu("Options") {
                 Picker("TR Level", selection: $textProcessConfig.textRecognitionLevel) {
                     Text("Fast").tag(VNRequestTextRecognitionLevel.fast)
@@ -53,22 +51,22 @@ struct ControlView: View {
                     Text("0.3 second").tag(0.3)
                     Text("0.2 second").tag(0.2)
                     Text("0.1 second").tag(0.1)
-
+                }
+                Picker("DisplayMode", selection: $visualConfig.displayMode) {
+                    Text("Landscape").tag(DisplayMode.landscape)
+                    Text("Portrait").tag(DisplayMode.portrait)
                 }
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .padding(.horizontal, 27)
-            .frame(maxHeight: .infinity)
 
             playingImage
                 .padding(.horizontal)
                 .onTapGesture {
                     toggleContent()
                 }
-                .frame(maxHeight: .infinity)
         }
-        .frame(width: 45)
-        .border(Color.red)
+        .frame(maxWidth: 200, maxHeight: 45)
     }
     
 }
