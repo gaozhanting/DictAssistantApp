@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let recognizedText = RecognizedText()
     let statusData = StatusData()
     let textProcessConfig = TextProcessConfig()
+    let visualConfig = VisualConfig()
     
     let cropData = CropData()
     
@@ -107,6 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.toggleContent, toggleContent)
             .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
             .environmentObject(textProcessConfig)
+            .environmentObject(visualConfig)
             .environmentObject(statusData)
             .environmentObject(recognizedText)
 
