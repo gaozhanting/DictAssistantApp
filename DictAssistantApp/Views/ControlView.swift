@@ -67,6 +67,8 @@ struct ControlView: View {
                 }
                 .frame(maxHeight: .infinity)
         }
+        .frame(width: 45)
+        .border(Color.red)
     }
     
 }

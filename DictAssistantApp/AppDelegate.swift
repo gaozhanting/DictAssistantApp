@@ -60,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 .nonactivatingPanel,
                 .titled,
                 .closable,
-//                .fullSizeContentView,
+                .fullSizeContentView,
                 .miniaturizable,
 //                .fullScreen,
 //                .docModalWindow,
@@ -68,7 +68,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 .utilityWindow,
             ],
             backing: .buffered,
-            defer: false)
+            defer: false
+//            screen: NSScreen.main
+        )
         
         // Set this if you want the panel to remember its size/position
         contentPanel.setFrameAutosaveName("ContentPanel")
@@ -85,7 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //        contentPanel.titlebarAppearsTransparent = true
         
         // Since there is no titlebar make the window moveable by click-dragging on the background
-//        contentPanel.isMovableByWindowBackground = true
+        contentPanel.isMovableByWindowBackground = true
         
         // Keep the panel around after closing since I expect the user to open/close it often
         contentPanel.isReleasedWhenClosed = false
@@ -109,6 +111,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(recognizedText)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
+        contentPanel.titlebarAppearsTransparent = true
         contentPanel.isOpaque = false
         contentPanel.backgroundColor = NSColor.clear
         contentPanel.delegate = self // for windowShouldClose
@@ -122,7 +125,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 .titled,
 //                .closable, // disable the behavior of pressing esc key to close cropperWindow, because we want it showing the cropper area always.
                 .fullSizeContentView,
-                .fullScreen // we want the background fullScreen, not draw its title bar
             ],
             backing: .buffered,
             defer: false
@@ -162,6 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(cropData)
         
         cropperWindow.contentView = NSHostingView(rootView: cropView)
+        cropperWindow.titlebarAppearsTransparent = true
         cropperWindow.isOpaque = false
         cropperWindow.backgroundColor = NSColor.clear
         cropperWindow.center() // only first time centered

@@ -30,6 +30,9 @@
 		4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
 		44BBB00F263BD6E400A5FF50 /* RecognizedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BBB00E263BD6E400A5FF50 /* RecognizedText.swift */; };
 		44FC700A266DEFF80025676B /* SimpleWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* SimpleWordsView.swift */; };
+		44FC700C266F46540025676B /* LandscapeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC700B266F46540025676B /* LandscapeContentView.swift */; };
+		44FC700E266F46680025676B /* PortraitContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC700D266F46680025676B /* PortraitContentView.swift */; };
+		44FC7016266F48730025676B /* VisualConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7015266F48730025676B /* VisualConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentKey.swift; sourceTree = "<group>"; };
 		44BBB00E263BD6E400A5FF50 /* RecognizedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizedText.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* SimpleWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWordsView.swift; sourceTree = "<group>"; };
+		44FC700B266F46540025676B /* LandscapeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeContentView.swift; sourceTree = "<group>"; };
+		44FC700D266F46680025676B /* PortraitContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitContentView.swift; sourceTree = "<group>"; };
+		44FC7015266F48730025676B /* VisualConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,12 +130,14 @@
 			isa = PBXGroup;
 			children = (
 				4495FE6D26678F1100EFC721 /* ContentView.swift */,
+				44FC700B266F46540025676B /* LandscapeContentView.swift */,
 				4440EE6E26316C5A007FF470 /* WordsView.swift */,
-				4440EE45262EDCA3007FF470 /* ControlView.swift */,
 				44FC7009266DEFF80025676B /* SimpleWordsView.swift */,
+				4440EE45262EDCA3007FF470 /* ControlView.swift */,
 				447D0F7726554DEB004A7173 /* FamiliarWordsView.swift */,
 				447D0F792655567F004A7173 /* UnFamiliarWordsView.swift */,
 				447D0FD7265A5392004A7173 /* CropperView.swift */,
+				44FC700D266F46680025676B /* PortraitContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -141,6 +149,7 @@
 				447D0F7E26564D96004A7173 /* StatusData.swift */,
 				449581DE2664F96B005FE507 /* TextProcessConfig.swift */,
 				449581DC2664A6C8005FE507 /* CropData.swift */,
+				44FC7015266F48730025676B /* VisualConfig.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -238,15 +247,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				44FC700A266DEFF80025676B /* SimpleWordsView.swift in Sources */,
+				44FC7016266F48730025676B /* VisualConfig.swift in Sources */,
 				4440EE46262EDCA3007FF470 /* ControlView.swift in Sources */,
 				447D0F7A2655567F004A7173 /* UnFamiliarWordsView.swift in Sources */,
 				4440EE6F26316C5A007FF470 /* WordsView.swift in Sources */,
 				4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */,
+				44FC700C266F46540025676B /* LandscapeContentView.swift in Sources */,
 				447D0F81265662E2004A7173 /* GlobalKeyBoardShortcuts.swift in Sources */,
 				447D0F7826554DEB004A7173 /* FamiliarWordsView.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				4495FE6E26678F1100EFC721 /* ContentView.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
+				44FC700E266F46680025676B /* PortraitContentView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				447D61AD2644114B00AB0C1A /* TextProcess.swift in Sources */,

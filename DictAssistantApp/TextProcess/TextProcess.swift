@@ -22,9 +22,9 @@ struct TextProcess {
 //        if manuallyBasicVocabulary.contains(word) {
 //            return true
 //        }
-//        if highSchoolVocabulary.contains(word) {
-//            return true
-//        }
+        if highSchoolVocabulary.contains(word) {
+            return true
+        }
 //        if cet4Vocabulary.contains(word) {
 //            return true
 //        }

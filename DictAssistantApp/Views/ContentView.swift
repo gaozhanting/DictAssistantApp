@@ -11,18 +11,12 @@ struct ContentView: View {
     @EnvironmentObject var statusData: StatusData
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 10) {
             if statusData.isPlaying {
                 WordsView()
-                    .padding(.leading, 10)
-                    .border(Color.green)
-                    .frame(maxHeight: .infinity)
             }
             
             ControlView()
-                .frame(width: 45)
-                .border(Color.red)
-                .frame(maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.75))
@@ -32,7 +26,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .frame(width: 300, height: 600)
             .environment(\.toggleCropper, {})
             .environmentObject(TextProcessConfig())
             .environmentObject(StatusData(isPlaying: true))

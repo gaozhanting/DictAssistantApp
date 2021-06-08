@@ -9,7 +9,6 @@ import SwiftUI
 import DataBases
 
 struct SimpleWordsView: View {
-    
     let words: [String]
     
     func translation(of word: String) -> String {
@@ -33,21 +32,41 @@ struct SimpleWordsView: View {
                         .frame(maxWidth: 250)
                 }
             }
+            .frame(maxHeight: .infinity)
         }
+        .frame(maxHeight: .infinity)
+        .border(Color.green)
     }
 }
 
 struct SimpleWordsView_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleWordsView(
-            words: [
-                "beautiful",
-                "brave",
-                "braw",
-                "entitle",
-                "goblin",
-                "elf"
-            ]
-        )
+        Group {
+            SimpleWordsView(
+                words: [
+                    "beautiful",
+                    "brave",
+                    "a",
+                    "braw",
+                    "entitle",
+                    "goblin",
+                    "elf"
+                ]
+            )
+            .frame(width: 1000, height: 300)
+            
+            SimpleWordsView(
+                words: [
+                    "beautiful",
+                    "brave",
+                    "a",
+                    "braw",
+                    "entitle",
+                    "goblin",
+                    "elf"
+                ]
+            )
+            .frame(width: 1000, height: 150)
+        }
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 class CropData: ObservableObject {
     @Published var x: CGFloat
