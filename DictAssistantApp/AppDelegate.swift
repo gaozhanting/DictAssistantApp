@@ -20,13 +20,13 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
-    let modelData = ModelData()
+    let recognizedText = RecognizedText()
     let statusData = StatusData()
     let textProcessConfig = TextProcessConfig()
     
     let cropData = CropData()
     
-    var previousWords: [Word] = []
+    var lastReconginzedTexts: [String] = []
 
     var statusBar: StatusBarController?
     
@@ -106,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
             .environmentObject(textProcessConfig)
             .environmentObject(statusData)
-            .environmentObject(modelData)
+            .environmentObject(recognizedText)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
         contentPanel.isOpaque = false
@@ -253,6 +253,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // MARK: - View Actions
     func exit() {
+        saveCropData()
         NSApplication.shared.terminate(self)
     }
 
@@ -358,22 +359,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     let text: String = observation.topCandidates(1)[0].string
                     return text
                 }
-                
+                                
                 if textProcessConfig.screenCaptureTimeInterval < 1 {
-                    modelData.words = Transform.classify(texts)
+                    recognizedText.texts = texts
                 } else {
                     withAnimation {
-                        modelData.words = Transform.classify(texts)
+                        recognizedText.texts = texts
                     }
                 }
-                
-                if !modelData.words.elementsEqual(previousWords) {
-                    statistic(
-                        modelData.words
-                            .filter { $0.translation != nil }
-                            .map { $0.text }
-                    )
-                    previousWords = modelData.words
+
+                if !recognizedText.texts.elementsEqual(lastReconginzedTexts) {
+                    statistic(recognizedText.words)
+                    lastReconginzedTexts = recognizedText.texts
                 }
             }
         }

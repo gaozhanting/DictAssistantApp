@@ -14,15 +14,15 @@ struct ContentView: View {
         HStack {
             if statusData.isPlaying {
                 WordsView()
-                    .frame(maxHeight: .infinity)
                     .padding(.leading, 10)
                     .border(Color.green)
+                    .frame(maxHeight: .infinity)
             }
             
             ControlView()
                 .frame(width: 45)
-                .frame(maxHeight: .infinity)
                 .border(Color.red)
+                .frame(maxHeight: .infinity)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.75))
@@ -35,7 +35,10 @@ struct ContentView_Previews: PreviewProvider {
             .frame(width: 300, height: 600)
             .environment(\.toggleCropper, {})
             .environmentObject(TextProcessConfig())
-            .environmentObject(StatusData())
-            .environmentObject(ModelData())
+            .environmentObject(StatusData(isPlaying: true))
+            .environmentObject(RecognizedText(
+                texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
+            ))
+            .frame(width: 1000, height: 300)
     }
 }

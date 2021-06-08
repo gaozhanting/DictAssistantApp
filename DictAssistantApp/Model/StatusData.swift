@@ -10,4 +10,8 @@ import Combine
 
 class StatusData: ObservableObject {
     @Published var isPlaying: Bool = false
+    
+    init(isPlaying: Bool = false) {
+        self.isPlaying = isPlaying
+    }
 }

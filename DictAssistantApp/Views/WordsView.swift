@@ -9,52 +9,38 @@ import SwiftUI
 import DataBases
 
 struct WordsView: View {
-    @EnvironmentObject var modelData: ModelData
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(
-        entity: WordStats.entity(),
-        sortDescriptors: [],
-        predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
-    ) var familiarWordStatss: FetchedResults<WordStats>
+    @EnvironmentObject var recognizedText: RecognizedText
+//    @Environment(\.managedObjectContext) var managedObjectContext
+//    @FetchRequest(
+//        entity: WordStats.entity(),
+//        sortDescriptors: [],
+//        predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
+//    ) var familiarWordStatss: FetchedResults<WordStats>
     
-    @State var fontSize: CGFloat = 24
+//    @State var fontSize: CGFloat = 24
     
-    var familiarWords: [String] {
-        familiarWordStatss.map { $0.word! }
-    }
-    
-    var familiarWordsSet: Set<String> {
-        Set(familiarWords)
-    }
-    
-    var words: [Word] {
-        modelData.words
-    }
-    
-    var foundWordsFromServices: [Word] {
-        words.filter { ($0.translation != nil) && !familiarWordsSet.contains($0.text) && $0.isTranslationFromDictionaryServices  }
-    }
-    
-    var notFoundWords: [Word] {
-        words.filter { $0.translation == nil }
-    }
+//    var familiarWords: [String] {
+//        familiarWordStatss.map { $0.word! }
+//    }
+//
+//    var familiarWordsSet: Set<String> {
+//        Set(familiarWords)
+//    }
+//
+//    var words: [Word] {
+//        modelData.words
+//    }
+//
+//    var foundWordsFromServices: [Word] {
+//        words.filter { ($0.translation != nil) && !familiarWordsSet.contains($0.text) && $0.isTranslationFromDictionaryServices  }
+//    }
+//
+//    var notFoundWords: [Word] {
+//        words.filter { $0.translation == nil }
+//    }
     
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(alignment: .top) {
-                
-                ForEach(foundWordsFromServices, id: \.self) { word in
-                    (Text(word.text).foregroundColor(.orange)
-                        + Text(word.translation!).foregroundColor(.white))
-                        .font(.system(size: fontSize))
-                        .onTapGesture {
-                            openDict(word.text)
-                        }
-                        .frame(maxWidth: 250)
-                        .padding(.trailing, 5)
-                }
-            }
-        }
+        SimpleWordsView(words: recognizedText.words)
     }
 }
 
@@ -92,6 +78,8 @@ func openDict(_ word: String) {
 
 struct WordsView_Previews: PreviewProvider {
     static var previews: some View {
-        WordsView().environmentObject(ModelData())
+        WordsView().environmentObject(RecognizedText(
+            texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
+        ))
     }
 }

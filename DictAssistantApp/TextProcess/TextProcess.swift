@@ -9,7 +9,7 @@ import Foundation
 import DataBases
 import NaturalLanguage
 
-struct Transform {
+struct TextProcess {
     // to be refined: please use CharacterSet to do trim, filter, search etc
 
     // lookup all English words
@@ -19,12 +19,12 @@ struct Transform {
     }
 
     static func isKnowable(_ word: String) -> Bool {
-        if manuallyBasicVocabulary.contains(word) {
-            return true
-        }
-        if highSchoolVocabulary.contains(word) {
-            return true
-        }
+//        if manuallyBasicVocabulary.contains(word) {
+//            return true
+//        }
+//        if highSchoolVocabulary.contains(word) {
+//            return true
+//        }
 //        if cet4Vocabulary.contains(word) {
 //            return true
 //        }
@@ -44,11 +44,12 @@ struct Transform {
         return (nil, false)
     }
 
+    // texts: [String] -> words: [String]
     // e.g:
     // input: ["I Bookmarks  love you", "I lovee $you i.e. "]
     // middleput: ["i", "bookmarks", "love", "you", "lovee", "i.e."]
     // output: [S..Text(..)]
-    static func classify(_ texts: [String]) -> [Word] {
+    static func extractWords(from texts: [String]) -> [String] {
         let cleanTexts: [String] = texts
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .map { $0.components(separatedBy: .whitespaces) }
@@ -77,16 +78,8 @@ struct Transform {
         print(d)
         
         let orderedNoDuplicates = NSOrderedSet(array: d).map({ $0 as! String })
-
-        return orderedNoDuplicates.map { word in
-            let (translation, isTranslationFromDictionaryServices) = translate(word)
-            return Word(
-                text: word,
-                existence: true,
-                knowable: false,
-                translation: translation,
-                isTranslationFromDictionaryServices: isTranslationFromDictionaryServices)
-        }
+        
+        return orderedNoDuplicates
     }
 
     static func lemm(of text: String) -> [String] {
