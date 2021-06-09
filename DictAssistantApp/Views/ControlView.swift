@@ -75,7 +75,11 @@ struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
         ControlView()
             .frame(width: 300, height: 50)
-            .environmentObject(StatusData())
+            .environmentObject(StatusData(isPlaying: false))
             .environmentObject(TextProcessConfig())
+            .environmentObject(VisualConfig(displayMode: .portrait))
+            .environment(\.toggleCropper, {})
+            .environment(\.toggleContent, {})
+
     }
 }

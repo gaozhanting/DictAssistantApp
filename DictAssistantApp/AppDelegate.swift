@@ -20,12 +20,11 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
-    let recognizedText = RecognizedText()
-    let statusData = StatusData()
+    let recognizedText = RecognizedText(texts: [])
+    let statusData = StatusData(isPlaying: false)
     let textProcessConfig = TextProcessConfig()
-    let visualConfig = VisualConfig()
-    
-    let cropData = CropData()
+    let visualConfig: VisualConfig
+    var cropData: CropData
     
     var lastReconginzedTexts: [String] = []
 
@@ -52,6 +51,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         
         statusBar = StatusBarController.init(contentPanel)
+    }
+    
+    // avoid Option value for UserDefaults
+    // if has no default value, set a default value here
+    override init() {
+        // VisualConfig
+        if UserDefaults.standard.string(forKey: "visualConfig.displayMode") == nil {
+            UserDefaults.standard.setValue("landscape", forKey: "visualConfig.displayMode")
+        }
+        visualConfig = VisualConfig(
+            displayMode: DisplayMode(
+                rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!
+            )!
+        )
+        
+        // CropData
+        if UserDefaults.standard.object(forKey: "cropper.x") == nil {
+            UserDefaults.standard.setValue(300, forKey: "cropper.x")
+        }
+        if UserDefaults.standard.object(forKey: "cropper.y") == nil {
+            UserDefaults.standard.setValue(300, forKey: "cropper.y")
+        }
+        if UserDefaults.standard.object(forKey: "cropper.width") == nil {
+            UserDefaults.standard.setValue(300, forKey: "cropper.width")
+        }
+        if UserDefaults.standard.object(forKey: "cropper.height") == nil {
+            UserDefaults.standard.setValue(300, forKey: "cropper.height")
+        }
+        cropData = CropData(
+            x: CGFloat(UserDefaults.standard.double(forKey: "cropper.x")),
+            y: CGFloat(UserDefaults.standard.double(forKey: "cropper.y")),
+            width: CGFloat(UserDefaults.standard.double(forKey: "cropper.width")),
+            height: CGFloat(UserDefaults.standard.double(forKey: "cropper.height"))
+        )
     }
 
     func initContentPanel() {

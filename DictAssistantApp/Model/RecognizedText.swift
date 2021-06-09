@@ -12,11 +12,11 @@ import DataBases
 class RecognizedText: ObservableObject {
     @Published var texts: [String] = []
     
-    var words: [String] {
+    var words: [String] { // maybe expensive?! add lazy?
         TextProcess.extractWords(from: texts)
     }
     
-    init(texts: [String] = []) {
+    init(texts: [String]) {
         self.texts = texts
     }
 }

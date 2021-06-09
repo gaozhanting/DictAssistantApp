@@ -10,7 +10,7 @@ import Foundation
 class StatusData: ObservableObject {
     @Published var isPlaying: Bool = false
     
-    init(isPlaying: Bool = false) {
+    init(isPlaying: Bool) {
         self.isPlaying = isPlaying
     }
 }

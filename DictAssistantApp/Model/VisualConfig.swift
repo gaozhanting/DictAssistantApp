@@ -17,11 +17,7 @@ enum DisplayMode: String, CaseIterable, Identifiable {
 class VisualConfig: ObservableObject {
     @Published var displayMode: DisplayMode
     
-    init(displayMode: DisplayMode = .landscape) {
-        if let displayMode = UserDefaults.standard.string(forKey: "visualConfig.displayMode") {
-            self.displayMode = DisplayMode(rawValue: displayMode)!
-        } else {
-            self.displayMode = displayMode
-        }
+    init(displayMode: DisplayMode) {
+        self.displayMode = displayMode
     }
 }

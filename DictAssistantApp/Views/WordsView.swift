@@ -8,8 +8,9 @@
 import SwiftUI
 import DataBases
 
+// no use, continue ...
 struct WordsView: View {
-    @EnvironmentObject var recognizedText: RecognizedText
+//    @EnvironmentObject var recognizedText: RecognizedText
 //    @Environment(\.managedObjectContext) var managedObjectContext
 //    @FetchRequest(
 //        entity: WordStats.entity(),
@@ -40,7 +41,7 @@ struct WordsView: View {
 //    }
     
     var body: some View {
-        SimpleWordsView(words: recognizedText.words)
+        SimpleWordsView()
     }
 }
 
@@ -76,10 +77,10 @@ func openDict(_ word: String) {
     task.launch()
 }
 
-struct WordsView_Previews: PreviewProvider {
-    static var previews: some View {
-        WordsView().environmentObject(RecognizedText(
-            texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
-        ))
-    }
-}
+//struct WordsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WordsView().environmentObject(RecognizedText(
+//            texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
+//        ))
+//    }
+//}
