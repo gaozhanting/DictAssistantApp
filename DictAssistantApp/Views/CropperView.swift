@@ -15,11 +15,10 @@ struct CropperView: View {
     @GestureState private var startHeight: CGFloat? = nil
     
     @State private var showPromptDot: Bool = true
-    @State private var showMoveDot: Bool = false
     
     @GestureState private var dotStartLocation: CGPoint? = nil
-    @State private var dotX: CGFloat = 80
-    @State private var dotY: CGFloat = 200
+    @State private var dotX: CGFloat = 0
+    @State private var dotY: CGFloat = 0
     
     @State private var showStrokeBorder: Bool = true
     
@@ -149,7 +148,7 @@ struct CropperView: View {
         
             .overlay(
                 Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
-                    .opacity(showMoveDot ? 1 : 0)
+                    .opacity(showPromptDot ? 0 : 1)
                     .foregroundColor(.green)
                     .font(Font.system(.title2).bold())
                     .onTapGesture {
@@ -167,7 +166,6 @@ struct CropperView: View {
     
     private func toggleDot() {
         showPromptDot.toggle()
-        showMoveDot.toggle()
     }
     
     private func toggleStrokeBorder() {
