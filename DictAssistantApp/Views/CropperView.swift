@@ -17,7 +17,7 @@ struct CropperView: View {
     @State private var showPromptDot: Bool = true
     
     @GestureState private var dotStartLocation: CGPoint? = nil
-    @State private var dotX: CGFloat = 0
+    @State private var dotX: CGFloat = 20
     @State private var dotY: CGFloat = 0
     
     @State private var showStrokeBorder: Bool = true

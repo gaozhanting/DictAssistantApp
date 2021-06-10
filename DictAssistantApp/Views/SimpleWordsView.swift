@@ -31,15 +31,14 @@ struct SimpleWordsView: View {
     
     var body: some View {
         ForEach(recognizedText.words, id: \.self) { word in
-            (Text(word).foregroundColor(.orange) + Text(translation(of: word)).foregroundColor(.white))
+            (Text(word).foregroundColor(.green) + Text(translation(of: word)).foregroundColor(.white))
+                .padding(.all, 4)
                 .font(.system(size: fontSize))
                 .onTapGesture {
                     openDict(word)
                 }
         }
         .layoutDirection(with: visualConfig.displayMode)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.75))
     }
 }
 
@@ -52,19 +51,25 @@ struct LayoutDirection: ViewModifier {
             ScrollView(.horizontal) {
                 HStack(alignment: .top) {
                     content
-                        .frame(width: 130, alignment: .topLeading)
+                        .frame(maxWidth: 190, alignment: .topLeading)
                 }
-                .padding(.leading, 10)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxHeight: .infinity)
+                .background(
+                    Color.black
+                        .opacity(0.75)
+                )
             }
+
         case .portrait:
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
                     content
                         .frame(maxHeight: 150, alignment: .topLeading)
                 }
-                .padding(.top, 7)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(
+                    Color.black
+                        .opacity(0.75)
+                )
             }
         }
     }
@@ -82,11 +87,17 @@ struct SimpleWordsView_Previews: PreviewProvider {
             SimpleWordsView()
                 .frame(width: 1000, height: 220)
                 .environmentObject(RecognizedText(
-                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
+                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
                 ))
                 .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
-                .frame(width: 220, height: 1000)
+                .frame(width: 1000, height: 220)
+                .environmentObject(RecognizedText(
+                    texts: [""]
+                ))
+                .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+            SimpleWordsView()
+                .frame(width: 320, height: 1000)
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))

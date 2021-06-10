@@ -148,10 +148,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         contentPanel.isReleasedWhenClosed = false
         
         // Hide the traffic icons (standard close, minimize, maximize buttons)
-//        contentPanel.standardWindowButton(.closeButton)?.isHidden = true
-//        contentPanel.standardWindowButton(.miniaturizeButton)?.isHidden = true
-//        contentPanel.standardWindowButton(.zoomButton)?.isHidden = true
-//        contentPanel.standardWindowButton(.toolbarButton)?.isHidden = true
+        contentPanel.standardWindowButton(.closeButton)?.isHidden = true
+        contentPanel.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        contentPanel.standardWindowButton(.zoomButton)?.isHidden = true
+        contentPanel.standardWindowButton(.toolbarButton)?.isHidden = true
         
 //        contentPanel.title = "ContentPanel"
 
