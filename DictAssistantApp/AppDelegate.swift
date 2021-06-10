@@ -168,9 +168,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             contentRect: NSRect(x: 0, y: 0, width: 100000, height: 100000),
             styleMask: [
                 .nonactivatingPanel,
-                .titled,
+                .titled, // must be set, otherwise cropper not show!?
 //                .closable, // disable the behavior of pressing esc key to close cropperWindow, because we want it showing the cropper area always.
                 .fullSizeContentView,
+//                .fullScreen // cann't set fullScreen, this will show titlebar (especially using with some fullscreen app) // without this, cropper dimension y should plus 25 which is the height of titlebar // we want the background fullScreen, not draw its title bar
             ],
             backing: .buffered,
             defer: false
@@ -380,9 +381,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         arguments.append("-d")
         arguments.append("-o")
         arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
-        logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height),\(self.cropData.width),\(self.cropData.height)")
+        logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height + 25),\(self.cropData.width),\(self.cropData.height)")
         // Notice there is no space between -R and x; just like -D2
-        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height),\(cropData.width),\(cropData.height)")
+        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
 //        arguments.append("-D2")
         arguments.append(imageUrlString)
 
