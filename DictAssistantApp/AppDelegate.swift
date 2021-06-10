@@ -11,11 +11,14 @@ import Vision
 import DataBases
 import CoreData
 import KeyboardShortcuts
+import os
 
 let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
 let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
 let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 //let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
+
+let logger = Logger()
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
@@ -381,7 +384,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         arguments.append("-d")
         arguments.append("-o")
         arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
-        print("screenCapture -R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height),\(cropData.width),\(cropData.height)")
+        logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height),\(self.cropData.width),\(self.cropData.height)")
         // Notice there is no space between -R and x; just like -D2
         arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height),\(cropData.width),\(cropData.height)")
 //        arguments.append("-D2")
@@ -390,13 +393,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         task.arguments = arguments
         task.terminationHandler = { _ in
             self.textRecognize()
-            print("process run complete.")
+            logger.info("process run complete.")
         }
         
         task.launch()
     }
     
     // MARK: - Text Recogniation
+    func textRecognize() {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
+            do {
+                resetRequestHandler()
+                try requestHandler?.perform([textRecognitionRequest])
+            } catch {
+//                fatalError("TextRecognize failed: \(error)")
+                logger.info("TextRecognize failed: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func resetRequestHandler() {
+        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
+        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
+        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
+        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
+        textRecognitionRequest.minimumTextHeight = 0.0
+        textRecognitionRequest.usesLanguageCorrection = true
+    }
+    
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         DispatchQueue.main.async { [unowned self] in
             results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
@@ -406,7 +430,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     let text: String = observation.topCandidates(1)[0].string
                     return text
                 }
-                                
+                
                 if textProcessConfig.screenCaptureTimeInterval < 1 {
                     recognizedText.texts = texts
                 } else {
@@ -414,7 +438,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                         recognizedText.texts = texts
                     }
                 }
-
+                
                 if !recognizedText.texts.elementsEqual(lastReconginzedTexts) {
                     statistic(recognizedText.words)
                     lastReconginzedTexts = recognizedText.texts
@@ -422,24 +446,4 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         }
     }
-
-    func textRecognize() {
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
-            do {
-                resetRequestHandler()
-                try requestHandler?.perform([textRecognitionRequest])
-            } catch {
-                fatalError("TextRecognize failed: \(error)")
-            }
-        }
-    }
-    
-    func resetRequestHandler() {
-        requestHandler = VNImageRequestHandler(url: URL.init(fileURLWithPath: imageUrlString), options: [:])
-        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
-        textRecognitionRequest.minimumTextHeight = 0.0
-        textRecognitionRequest.usesLanguageCorrection = true
-    }
-    
 }

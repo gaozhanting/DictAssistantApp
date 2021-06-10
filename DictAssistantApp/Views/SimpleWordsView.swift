@@ -84,6 +84,12 @@ struct SimpleWordsView_Previews: PreviewProvider {
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
                 .environmentObject(VisualConfig(displayMode: .portrait))
+            SimpleWordsView()
+                .frame(width: 220, height: 1000)
+                .environmentObject(RecognizedText(
+                    texts: ["A rectangle hovered here"]
+                ))
+                .environmentObject(VisualConfig(displayMode: .portrait))
         }
     }
 }

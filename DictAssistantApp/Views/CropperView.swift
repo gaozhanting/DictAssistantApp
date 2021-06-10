@@ -179,13 +179,12 @@ struct CropperView: View {
 }
 
 struct CropView_Previews: PreviewProvider {
-    static let cropData = CropData(
-        x: 300,
-        y: 300,
-        width: 300,
-        height: 100
-    )
     static var previews: some View {
-        CropperView().environmentObject(cropData)
+        CropperView().environmentObject(CropData(
+            x: 200,
+            y: 200,
+            width: 100,
+            height: 300
+        ))
     }
 }

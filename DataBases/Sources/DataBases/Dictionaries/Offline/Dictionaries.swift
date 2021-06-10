@@ -79,7 +79,7 @@ public struct Dictionaries {
 //                }
 //            }
 //        } catch let error {
-//            print("invalid regex: \(error.localizedDescription)")
+//            logger.info("invalid regex: \(error.localizedDescription)")
 //            return []
 //        }
 //    }

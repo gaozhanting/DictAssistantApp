@@ -65,16 +65,16 @@ struct TextProcess {
             all.append(" ")
         }
         
-        print(">>before lemm")
+        logger.info(">>before lemm")
         print(all)
         
         let b = lemm(of: all)
-        print(">>after lemm")
+        logger.info(">>after lemm")
         print(b)
 
         let c = b.filter { !$0.isEmpty }
         let d = c.filter { !isKnowable($0) }
-        print(">>after filter knowable again")
+        logger.info(">>after filter knowable again")
         print(d)
         
         let orderedNoDuplicates = NSOrderedSet(array: d).map({ $0 as! String })
