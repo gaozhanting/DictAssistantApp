@@ -13,7 +13,22 @@ struct CropperView: View {
     @GestureState private var startLocation: CGPoint? = nil
     @GestureState private var startWidth: CGFloat? = nil
     @GestureState private var startHeight: CGFloat? = nil
-
+    
+    @State private var showPromptDot: Bool = true
+    @State private var showMoveDot: Bool = false
+    
+    @GestureState private var dotStartLocation: CGPoint? = nil
+    @State private var dotX: CGFloat = 80
+    @State private var dotY: CGFloat = 200
+    
+    @State private var showStrokeBorder: Bool = true
+    
+    private let mSize: CGFloat = 18
+    private let sSize: CGFloat = 15
+    private let sOffset: CGFloat = 6
+    private let minWidth: CGFloat = 70.0
+    private let minHeight: CGFloat = 32.0
+    
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
             curtain
@@ -38,6 +53,7 @@ struct CropperView: View {
                 Rectangle()
                     .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
                     .foregroundColor(.green)
+                    .opacity(showStrokeBorder ? 1 : 0)
             )
 //            .onHover { hovered in // not works
 //                if hovered {
@@ -51,19 +67,21 @@ struct CropperView: View {
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: 25, height: 25)
+                    .frame(width: mSize, height: mSize)
                     .gesture(move),
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
+//                    .fill(Color.purple)
                     .opacity(0.005)
-                    .frame(width: 25, height: 25)
+                    .frame(width: mSize, height: mSize)
+//                    .border(Color.pink)
                     .gesture(move),
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: 25, height: 25)
+                    .frame(width: mSize, height: mSize)
                     .gesture(move)
                     .onHover { hovered in
                         if hovered {
@@ -79,39 +97,81 @@ struct CropperView: View {
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: 25, height: 25)
+                    .frame(width: mSize, height: mSize)
                     .gesture(move),
                 alignment: .topTrailing)
             
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: 15, height: 15)
-                    .offset(x: -8, y: 8)
+                    .frame(width: sSize, height: sSize)
+                    .offset(x: -sOffset, y: sOffset)
                     .gesture(scale(-1, 1)),
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
+//                    .fill(Color.blue)
                     .opacity(0.005)
-                    .frame(width: 15, height: 15)
-                    .offset(x: 8, y: 8)
+                    .frame(width: sSize, height: sSize)
+//                    .border(Color.yellow)
+                    .offset(x: sOffset, y: sOffset)
                     .gesture(scale(1, 1)),
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: 15, height: 15)
-                    .offset(x: -8, y: -8)
+                    .frame(width: sSize, height: sSize)
+                    .offset(x: -sOffset, y: -sOffset)
                     .gesture(scale(-1, -1)),
                 alignment: .topLeading)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: 15, height: 15)
-                    .offset(x: 8, y: -8)
+                    .frame(width: sSize, height: 15)
+                    .offset(x: sOffset, y: -sOffset)
                     .gesture(scale(1, -1)),
                 alignment: .topTrailing)
+            
+            .overlay(
+                Image(systemName: "circle.dashed")
+                    .opacity(showPromptDot ? 1 : 0)
+                    .foregroundColor(.green)
+                    .font(Font.system(.title2).bold())
+                    .onTapGesture {
+                        toggleStrokeBorder()
+                    }
+                    .onLongPressGesture(minimumDuration: 1.0) {
+                        toggleDot()
+                    }
+                    .gesture(moveDot)
+                    .position(x: dotX, y: dotY)
+            )
+        
+            .overlay(
+                Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
+                    .opacity(showMoveDot ? 1 : 0)
+                    .foregroundColor(.green)
+                    .font(Font.system(.title2).bold())
+                    .onTapGesture {
+                        toggleStrokeBorder()
+                    }
+                    .onLongPressGesture(minimumDuration: 1.0) {
+                        toggleDot()
+                    }
+                    .gesture(move)
+                    .position(x: dotX, y: dotY)
+            )
+            
             .position(CGPoint(x: cropData.x, y: cropData.y))
+    }
+    
+    private func toggleDot() {
+        showPromptDot.toggle()
+        showMoveDot.toggle()
+    }
+    
+    private func toggleStrokeBorder() {
+        showStrokeBorder.toggle()
     }
     
     var info: some View {
@@ -122,9 +182,6 @@ struct CropperView: View {
         .background(Color.yellow)
         .frame(width: 300, height: 120)
     }
-    
-    private let minWidth: CGFloat = 100.0
-    private let minHeight: CGFloat = 50.0
     
     func scale(_ i: CGFloat, _ j: CGFloat) -> some Gesture {
         DragGesture(coordinateSpace: .named("stack"))
@@ -174,6 +231,20 @@ struct CropperView: View {
             }
             .updating($startLocation) { (value, startLocation, transaction) in
                 startLocation = startLocation ?? CGPoint(x: cropData.x, y: cropData.y)
+            }
+    }
+    
+    var moveDot: some Gesture {
+        DragGesture(coordinateSpace: .named("stack"))
+            .onChanged { value in
+                var newPosition = dotStartLocation ?? CGPoint(x: dotX, y: dotY)
+                newPosition.x += value.translation.width
+                newPosition.y += value.translation.height
+                dotX = newPosition.x
+                dotY = newPosition.y
+            }
+            .updating($dotStartLocation) { (value, dotStartLocation, transaction) in
+                dotStartLocation = dotStartLocation ?? CGPoint(x: dotX, y: dotY)
             }
     }
 }

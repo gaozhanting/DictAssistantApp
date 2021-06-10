@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     override init() {
         // VisualConfig
         if UserDefaults.standard.string(forKey: "visualConfig.displayMode") == nil {
-            UserDefaults.standard.setValue("landscape", forKey: "visualConfig.displayMode")
+            UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         }
         visualConfig = VisualConfig(
             displayMode: DisplayMode(
@@ -71,16 +71,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // CropData
         if UserDefaults.standard.object(forKey: "cropper.x") == nil {
-            UserDefaults.standard.setValue(300, forKey: "cropper.x")
+            UserDefaults.standard.set(300, forKey: "cropper.x")
         }
         if UserDefaults.standard.object(forKey: "cropper.y") == nil {
-            UserDefaults.standard.setValue(300, forKey: "cropper.y")
+            UserDefaults.standard.set(300, forKey: "cropper.y")
         }
         if UserDefaults.standard.object(forKey: "cropper.width") == nil {
-            UserDefaults.standard.setValue(300, forKey: "cropper.width")
+            UserDefaults.standard.set(300, forKey: "cropper.width")
         }
         if UserDefaults.standard.object(forKey: "cropper.height") == nil {
-            UserDefaults.standard.setValue(300, forKey: "cropper.height")
+            UserDefaults.standard.set(300, forKey: "cropper.height")
         }
         cropData = CropData(
             x: CGFloat(UserDefaults.standard.double(forKey: "cropper.x")),
@@ -88,6 +88,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             width: CGFloat(UserDefaults.standard.double(forKey: "cropper.width")),
             height: CGFloat(UserDefaults.standard.double(forKey: "cropper.height"))
         )
+    }
+    
+    private func saveAllUserDefaults() {
+        UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
+        
+        UserDefaults.standard.set(cropData.x, forKey: "cropper.x")
+        UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
+        UserDefaults.standard.set(cropData.width, forKey: "cropper.width")
+        UserDefaults.standard.set(cropData.height, forKey: "cropper.height")
     }
 
     func initContentPanel() {
@@ -235,7 +244,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             do {
                 try context.save()
             } catch {
-                fatalError("Failed to save context: \(error)")
+                logger.info("Failed to save context: \(error.localizedDescription)")
+//                fatalError("Failed to save context: \(error)")
             }
         }
     }
@@ -320,23 +330,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         closeCropper()
         statusData.isPlaying = false
     }
-    
-    private func saveCropData() {
-        UserDefaults.standard.set(cropData.x, forKey: "cropper.x")
-        UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
-        UserDefaults.standard.set(cropData.width, forKey: "cropper.width")
-        UserDefaults.standard.set(cropData.height, forKey: "cropper.height")
-    }
-    
-    private func saveAllUserDefaults() {
-        saveCropData()
-        saveVisualConfig()
-    }
-    
-    private func saveVisualConfig() {
-        UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
-    }
-    
+
     func showContentPanel() {
         contentPanel.orderFrontRegardless()
     }
@@ -358,10 +352,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         toggleContent()
     }
     
-    func showCropper() {
+    private func showCropper() {
         cropperWindow.orderFrontRegardless()
     }
-    func closeCropper() {
+    private func closeCropper() {
         cropperWindow.close()
     }
     
@@ -371,6 +365,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         } else {
             showCropper()
         }
+    }
+    
+    func toggleCropperStrokeBorder() {
+        
     }
 
     // MARK: - Screen Capture
