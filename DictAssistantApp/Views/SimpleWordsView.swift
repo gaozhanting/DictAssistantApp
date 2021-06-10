@@ -43,6 +43,7 @@ struct LayoutDirection: ViewModifier {
                     content
                         .frame(width: 130, alignment: .topLeading)
                 }
+                .padding(.leading, 10)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -53,6 +54,7 @@ struct LayoutDirection: ViewModifier {
                     content
                         .frame(maxHeight: 150, alignment: .topLeading)
                 }
+                .padding(.top, 7)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
