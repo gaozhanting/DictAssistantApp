@@ -52,8 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         initCropperWindow()
 
-        
-        statusBar = StatusBarController.init(contentPanel)
+        statusBar = StatusBarController.init(toggleContent)
     }
     
     // avoid Option value for UserDefaults
@@ -211,7 +210,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(cropData)
         
         cropperWindow.contentView = NSHostingView(rootView: cropView)
-        cropperWindow.titlebarAppearsTransparent = true
         cropperWindow.isOpaque = false
         cropperWindow.backgroundColor = NSColor.clear
         cropperWindow.center() // only first time centered
