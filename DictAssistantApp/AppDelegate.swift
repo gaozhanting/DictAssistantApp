@@ -129,7 +129,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         // While we may set a title for the window, don't show it
 //        contentPanel.titleVisibility = .hidden
-//        contentPanel.titlebarAppearsTransparent = true
+        contentPanel.titlebarAppearsTransparent = true
         
         // Since there is no titlebar make the window moveable by click-dragging on the background
         contentPanel.isMovableByWindowBackground = true
@@ -157,7 +157,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(recognizedText)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
-        contentPanel.titlebarAppearsTransparent = true
         contentPanel.isOpaque = false
         contentPanel.backgroundColor = NSColor.clear
         contentPanel.delegate = self // for windowShouldClose
