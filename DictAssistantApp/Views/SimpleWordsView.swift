@@ -22,13 +22,11 @@ struct SimpleWordsView: View {
     
     var body: some View {
         ForEach(recognizedText.words, id: \.self) { word in
-            (Text(word).foregroundColor(.orange)
-                + Text(translation(of: word)).foregroundColor(.white))
+            (Text(word).foregroundColor(.orange) + Text(translation(of: word)).foregroundColor(.white))
                 .font(.system(size: 20))
                 .onTapGesture {
                     openDict(word)
                 }
-                .frame(maxWidth: 250)
         }
         .layoutDirection(with: visualConfig.displayMode)
     }
@@ -41,8 +39,9 @@ struct LayoutDirection: ViewModifier {
         switch displayMode {
         case .landscape:
             ScrollView(.horizontal) {
-                HStack(alignment: .top, spacing: 10.0) {
+                HStack(alignment: .top) {
                     content
+                        .frame(width: 130, alignment: .topLeading)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -50,8 +49,9 @@ struct LayoutDirection: ViewModifier {
             .background(Color.black.opacity(0.75))
         case .portrait:
             ScrollView(.vertical) {
-                VStack(alignment: .leading, spacing: 1.0) {
+                VStack(alignment: .leading) {
                     content
+                        .frame(maxHeight: 150, alignment: .topLeading)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -71,15 +71,15 @@ struct SimpleWordsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SimpleWordsView()
-                .frame(width: 1000, height: 400)
+                .frame(width: 1000, height: 220)
                 .environmentObject(RecognizedText(
-                    texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
+                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
                 .environmentObject(VisualConfig(displayMode: .landscape))
             SimpleWordsView()
-                .frame(width: 400, height: 1000)
+                .frame(width: 220, height: 1000)
                 .environmentObject(RecognizedText(
-                    texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
+                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
                 .environmentObject(VisualConfig(displayMode: .portrait))
         }

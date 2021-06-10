@@ -428,8 +428,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             do {
                 resetRequestHandler()
                 try requestHandler?.perform([textRecognitionRequest])
-            } catch (_) {
-                print("textRecognize failed")
+            } catch {
+                fatalError("TextRecognize failed: \(error)")
             }
         }
     }
