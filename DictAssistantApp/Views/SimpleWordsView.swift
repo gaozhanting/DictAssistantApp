@@ -19,22 +19,33 @@ struct SimpleWordsView: View {
             return ""
         }
     }
+
+    var fontSize: CGFloat {
+        switch visualConfig.displayMode {
+        case .landscape:
+            return visualConfig.fontSizeOfLandscape
+        case .portrait:
+            return visualConfig.fontSizeOfPortrait
+        }
+    }
     
     var body: some View {
         ForEach(recognizedText.words, id: \.self) { word in
             (Text(word).foregroundColor(.orange) + Text(translation(of: word)).foregroundColor(.white))
-                .font(.system(size: 20))
+                .font(.system(size: fontSize))
                 .onTapGesture {
                     openDict(word)
                 }
         }
         .layoutDirection(with: visualConfig.displayMode)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.75))
     }
 }
 
 struct LayoutDirection: ViewModifier {
     let displayMode: DisplayMode
-    
+
     func body(content: Content) -> some View {
         switch displayMode {
         case .landscape:
@@ -46,8 +57,6 @@ struct LayoutDirection: ViewModifier {
                 .padding(.leading, 10)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.opacity(0.75))
         case .portrait:
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
@@ -57,8 +66,6 @@ struct LayoutDirection: ViewModifier {
                 .padding(.top, 7)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.opacity(0.75))
         }
     }
 }
@@ -77,19 +84,19 @@ struct SimpleWordsView_Previews: PreviewProvider {
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
-                .environmentObject(VisualConfig(displayMode: .landscape))
+                .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
                 .frame(width: 220, height: 1000)
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
-                .environmentObject(VisualConfig(displayMode: .portrait))
+                .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
                 .frame(width: 220, height: 1000)
                 .environmentObject(RecognizedText(
                     texts: ["A rectangle hovered here"]
                 ))
-                .environmentObject(VisualConfig(displayMode: .portrait))
+                .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
         }
     }
 }

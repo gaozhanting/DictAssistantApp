@@ -31,7 +31,7 @@ struct ContentView_Previews: PreviewProvider {
                 .frame(width: 1000, height: 300)
                 .environment(\.toggleCropper, {})
                 .environmentObject(TextProcessConfig())
-                .environmentObject(VisualConfig(displayMode: .landscape))
+                .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
@@ -40,7 +40,7 @@ struct ContentView_Previews: PreviewProvider {
             ContentView()
                 .environment(\.toggleCropper, {})
                 .environmentObject(TextProcessConfig())
-                .environmentObject(VisualConfig(displayMode: .portrait))
+                .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]

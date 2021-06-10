@@ -16,8 +16,12 @@ enum DisplayMode: String, CaseIterable, Identifiable {
 
 class VisualConfig: ObservableObject {
     @Published var displayMode: DisplayMode
+    @Published var fontSizeOfLandscape: CGFloat
+    @Published var fontSizeOfPortrait: CGFloat
     
-    init(displayMode: DisplayMode) {
+    init(displayMode: DisplayMode, fontSizeOfLandscape: CGFloat, fontSizeOfPortrait: CGFloat) {
         self.displayMode = displayMode
+        self.fontSizeOfLandscape = fontSizeOfLandscape
+        self.fontSizeOfPortrait = fontSizeOfPortrait
     }
 }

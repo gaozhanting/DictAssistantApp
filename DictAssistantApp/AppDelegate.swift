@@ -59,13 +59,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // if has no default value, set a default value here
     override init() {
         // VisualConfig
-        if UserDefaults.standard.string(forKey: "visualConfig.displayMode") == nil {
+        if UserDefaults.standard.object(forKey: "visualConfig.displayMode") == nil {
             UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
+        }
+        if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
+            UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
+        }
+        if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
+            UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         }
         visualConfig = VisualConfig(
             displayMode: DisplayMode(
                 rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!
-            )!
+            )!,
+            fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
+            fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait"))
         )
         
         // CropData
@@ -91,6 +99,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     private func saveAllUserDefaults() {
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
+        UserDefaults.standard.set(visualConfig.fontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(visualConfig.fontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
         
         UserDefaults.standard.set(cropData.x, forKey: "cropper.x")
         UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
