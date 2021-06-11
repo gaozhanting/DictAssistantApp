@@ -17,10 +17,8 @@ struct ContentView: View {
             if statusData.isPlaying {
                 SimpleWordsView()
             }
-            
-            ControlView()
+            ControlView().frame(maxWidth: 220, alignment: .trailing)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

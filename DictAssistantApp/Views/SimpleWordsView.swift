@@ -48,28 +48,34 @@ struct LayoutDirection: ViewModifier {
     func body(content: Content) -> some View {
         switch displayMode {
         case .landscape:
-            ScrollView(.horizontal) {
-                HStack(alignment: .top) {
-                    content
-                        .frame(maxWidth: 190, alignment: .topLeading)
+            VStack {
+                Spacer()
+
+                ScrollView(.horizontal) {
+                    HStack(alignment: .top) {
+                        content
+                            .frame(maxWidth: 190, alignment: .topLeading)
+                    }
+                    .background(
+                        Color.black
+                            .opacity(0.75)
+                    )
                 }
-                .frame(maxHeight: .infinity)
-                .background(
-                    Color.black
-                        .opacity(0.75)
-                )
             }
 
         case .portrait:
-            ScrollView(.vertical) {
-                VStack(alignment: .leading) {
-                    content
-                        .frame(maxHeight: 150, alignment: .topLeading)
+            HStack {
+                Spacer()
+                ScrollView(.vertical) {
+                        VStack(alignment: .leading) {
+                            content
+                                .frame(maxHeight: 150, alignment: .topLeading)
+                        }
+                        .background(
+                            Color.black
+                                .opacity(0.75)
+                        )
                 }
-                .background(
-                    Color.black
-                        .opacity(0.75)
-                )
             }
         }
     }
