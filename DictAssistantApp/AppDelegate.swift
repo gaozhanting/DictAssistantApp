@@ -218,6 +218,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         KeyboardShortcuts.onKeyUp(for: .exit, action: { [self] in
             exit()
         })
+        KeyboardShortcuts.onKeyUp(for: .toggleContentPanelOpaque, action: { [self] in
+            toggleContentPanelOpaque()
+        })
     }
     
     // MARK: - View Actions
@@ -231,6 +234,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             stop()
         } else {
             start()
+        }
+    }
+    
+    func toggleContentPanelOpaque() {
+        contentPanel.isOpaque.toggle()
+        if contentPanel.backgroundColor == NSColor.clear {
+            contentPanel.backgroundColor = NSColor.systemGray
+        } else {
+            contentPanel.backgroundColor = NSColor.clear
         }
     }
     
