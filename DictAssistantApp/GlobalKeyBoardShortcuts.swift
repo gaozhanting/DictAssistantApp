@@ -18,4 +18,7 @@ extension KeyboardShortcuts.Name {
     static let toggleContentPanelOpaque = Self(
         "toggleContentPanelOpaque",
         default: .init(.o, modifiers: [.command, .control]))
+    static let toggleCropperWindowOpaque = Self(
+        "toggleCropperWindowOpaque",
+        default: .init(.c, modifiers: [.command, .control]))
 }

@@ -221,6 +221,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         KeyboardShortcuts.onKeyUp(for: .toggleContentPanelOpaque, action: { [self] in
             toggleContentPanelOpaque()
         })
+        KeyboardShortcuts.onKeyUp(for: .toggleCropperWindowOpaque, action: { [self] in
+            toggleCropperWindowOpaque()
+        })
     }
     
     // MARK: - View Actions
@@ -243,6 +246,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             contentPanel.backgroundColor = NSColor.systemGray
         } else {
             contentPanel.backgroundColor = NSColor.clear
+        }
+    }
+    
+    func toggleCropperWindowOpaque() {
+        cropperWindow.isOpaque.toggle()
+        if cropperWindow.backgroundColor == NSColor.clear {
+            cropperWindow.backgroundColor = NSColor.systemBrown
+        } else {
+            cropperWindow.backgroundColor = NSColor.clear
         }
     }
     
