@@ -19,6 +19,7 @@ struct ContentView: View {
             }
             ControlView().frame(maxWidth: 220, alignment: .trailing)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
