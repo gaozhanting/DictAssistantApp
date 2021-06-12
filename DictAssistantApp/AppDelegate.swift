@@ -57,6 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
+    // todo: defaults reset UI
     override init() {
         // VisualConfig
         if UserDefaults.standard.object(forKey: "visualConfig.displayMode") == nil {

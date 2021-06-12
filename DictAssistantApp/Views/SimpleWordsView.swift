@@ -29,9 +29,18 @@ struct SimpleWordsView: View {
         }
     }
     
+    var wordColor: Color {
+        switch visualConfig.displayMode {
+        case .landscape:
+            return .orange
+        case .portrait:
+            return .green
+        }
+    }
+    
     var body: some View {
         ForEach(recognizedText.words, id: \.self) { word in
-            (Text(word).foregroundColor(.green) + Text(translation(of: word)).foregroundColor(.white))
+            (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .padding(.all, 4)
                 .font(.system(size: fontSize))
                 .onTapGesture {
@@ -58,7 +67,7 @@ struct LayoutDirection: ViewModifier {
                     }
                     .background(
                         Color.black
-                            .opacity(0.75)
+                            .opacity(0.55)
                     )
                 }
             }
@@ -67,14 +76,14 @@ struct LayoutDirection: ViewModifier {
             HStack {
                 Spacer()
                 ScrollView(.vertical) {
-                        VStack(alignment: .leading) {
-                            content
-                                .frame(maxHeight: 150, alignment: .topLeading)
-                        }
-                        .background(
-                            Color.black
-                                .opacity(0.75)
-                        )
+                    VStack(alignment: .leading) {
+                        content
+                            .frame(maxHeight: 150, alignment: .topLeading)
+                    }
+                    .background(
+                        Color.black
+                            .opacity(0.75)
+                    )
                 }
             }
         }
