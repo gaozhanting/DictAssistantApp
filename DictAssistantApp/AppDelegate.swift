@@ -110,52 +110,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     func initContentPanel() {
-        contentPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .fullSizeContentView,
-                .miniaturizable,
-//                .fullScreen,
-//                .docModalWindow,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-//            screen: NSScreen.main
-        )
+        contentPanel = ContentPanel.init()
         
-        // Set this if you want the panel to remember its size/position
-        contentPanel.setFrameAutosaveName("ContentPanel")
-        
-        // Allow the pannel to be on top of almost all other windows
-//        contentPanel.isFloatingPanel = true
-//        contentPanel.level = .floating
-        
-        // Allow the pannel to appear in a fullscreen space
-        contentPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-        
-        // While we may set a title for the window, don't show it
-//        contentPanel.titleVisibility = .hidden
-        contentPanel.titlebarAppearsTransparent = true
-        
-        // Since there is no titlebar make the window moveable by click-dragging on the background
-        contentPanel.isMovableByWindowBackground = true
-        
-        // Keep the panel around after closing since I expect the user to open/close it often
-        contentPanel.isReleasedWhenClosed = false
-        
-        // Hide the traffic icons (standard close, minimize, maximize buttons)
-        contentPanel.standardWindowButton(.closeButton)?.isHidden = true
-        contentPanel.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        contentPanel.standardWindowButton(.zoomButton)?.isHidden = true
-        contentPanel.standardWindowButton(.toolbarButton)?.isHidden = true
-        
-//        contentPanel.title = "ContentPanel"
-
         let context = persistentContainer.viewContext
         let contentView = ContentView()
             .environment(\.managedObjectContext, context)
@@ -168,62 +124,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(recognizedText)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
-        contentPanel.isOpaque = false
-        contentPanel.backgroundColor = NSColor.clear
         contentPanel.delegate = self // for windowShouldClose
     }
     
     func initCropperWindow() {
-        cropperWindow = NSPanel.init(
-            contentRect: NSRect(x: 0, y: 0, width: 100000, height: 100000),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled, // must be set, otherwise cropper not show!?
-//                .closable, // disable the behavior of pressing esc key to close cropperWindow, because we want it showing the cropper area always.
-                .fullSizeContentView,
-//                .fullScreen // cann't set fullScreen, this will show titlebar (especially using with some fullscreen app) // without this, cropper dimension y should plus 25 which is the height of titlebar // we want the background fullScreen, not draw its title bar
-            ],
-            backing: .buffered,
-            defer: false
-//            screen: NSScreen.main
-        )
-        
-        // Set this if you want the panel to remember its size/position
-        cropperWindow.setFrameAutosaveName("CropperWindow")
-        
-        // Allow the pannel to be on top of almost all other windows
-        cropperWindow.isFloatingPanel = true
-        cropperWindow.level = .floating
-        
-        // Allow the pannel to appear in a fullscreen space
-        cropperWindow.collectionBehavior.insert(.fullScreenAuxiliary)
-        
-        // While we may set a title for the window, don't show it
-        cropperWindow.titleVisibility = .hidden
-        cropperWindow.titlebarAppearsTransparent = true
-        
-        // Since there is no titlebar make the window moveable by click-dragging on the background
-//        cropperWindow.isMovableByWindowBackground = true
-        
-        // Keep the panel around after closing since I expect the user to open/close it often
-        cropperWindow.isReleasedWhenClosed = false
-        
-        // Activate this if you want the window to hide once it is no longer focused
-        //        self.hidesOnDeactivate = true
-        
-        // Hide the traffic icons (standard close, minimize, maximize buttons)
-        cropperWindow.standardWindowButton(.closeButton)?.isHidden = true
-        cropperWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
-        cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
-        
+        cropperWindow = CropperWindow.init()
         let cropView = CropperView()
             .environmentObject(cropData)
         
         cropperWindow.contentView = NSHostingView(rootView: cropView)
-        cropperWindow.isOpaque = false
-        cropperWindow.backgroundColor = NSColor.clear
-        cropperWindow.center() // only first time centered
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
