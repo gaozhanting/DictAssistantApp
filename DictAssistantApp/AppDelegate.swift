@@ -98,6 +98,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
     }
     
+    // not work for cropper?!
+    func resetUserDefaults() {
+        UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
+        UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+
+        UserDefaults.standard.set(300, forKey: "cropper.x")
+        UserDefaults.standard.set(300, forKey: "cropper.y")
+        UserDefaults.standard.set(300, forKey: "cropper.width")
+        UserDefaults.standard.set(300, forKey: "cropper.height")
+    }
+ 
     private func saveAllUserDefaults() {
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(visualConfig.fontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
@@ -107,6 +119,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
         UserDefaults.standard.set(cropData.width, forKey: "cropper.width")
         UserDefaults.standard.set(cropData.height, forKey: "cropper.height")
+    }
+    
+    func cropperUp() {
+        cropData.y -= cropData.height
+        
+        contentPanel.setFrame(
+            NSMakeRect(
+                contentPanel.frame.minX,
+                contentPanel.frame.minY + cropData.height,
+                contentPanel.frame.width,
+                contentPanel.frame.height
+            ),
+            display: true,
+            animate: true)
+    }
+    
+    func cropperDown() {
+        cropData.y += cropData.height
+        
+        contentPanel.setFrame(
+            NSMakeRect(
+                contentPanel.frame.minX,
+                contentPanel.frame.minY - cropData.height,
+                contentPanel.frame.width,
+                contentPanel.frame.height
+            ),
+            display: true,
+            animate: true)
     }
 
     func initContentPanel() {
@@ -118,6 +158,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.toggleCropper, toggleCropper)
             .environment(\.toggleContent, toggleContent)
             .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
+            .environment(\.resetUserDefaults, resetUserDefaults)
+            .environment(\.cropperUp, cropperUp)
+            .environment(\.cropperDown, cropperDown)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -223,6 +266,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         })
         KeyboardShortcuts.onKeyUp(for: .toggleCropperWindowOpaque, action: { [self] in
             toggleCropperWindowOpaque()
+        })
+        KeyboardShortcuts.onKeyUp(for: .cropperUp, action: { [self] in
+            cropperUp()
+        })
+        KeyboardShortcuts.onKeyUp(for: .cropperDown, action: { [self] in
+            cropperDown()
         })
     }
     

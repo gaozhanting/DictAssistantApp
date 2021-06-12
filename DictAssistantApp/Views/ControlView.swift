@@ -14,7 +14,10 @@ struct ControlView: View {
     @EnvironmentObject var textProcessConfig: TextProcessConfig
     @Environment(\.toggleCropper) var toggleCropper
     @Environment(\.toggleContent) var toggleContent
-    
+    @Environment(\.resetUserDefaults) var resetUserDefaults
+    @Environment(\.cropperUp) var cropperUp
+    @Environment(\.cropperDown) var cropperDown
+
     @State private var showingDeleteAlert = false
     
     var playingImage: Image {
@@ -32,9 +35,30 @@ struct ControlView: View {
                     toggleCropper()
                 }
             }, label: {
-                Image(systemName: "rectangle.dashed.badge.record")
-                    .contentShape(Rectangle())
-                    .background(Color.primary.opacity(0.15))
+                Image(systemName: "rectangle.dashed")
+//                    .contentShape(Rectangle())
+//                    .background(Color.primary.opacity(0.15))
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                resetUserDefaults()
+            }, label: {
+                Image(systemName: "seal")
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                cropperUp()
+            }, label: {
+                Image(systemName: "arrow.up.to.line")
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                cropperDown()
+            }, label: {
+                Image(systemName: "arrow.down.to.line")
             })
             .buttonStyle(PlainButtonStyle())
 
@@ -58,10 +82,11 @@ struct ControlView: View {
                 }
             }
             .menuStyle(BorderlessButtonMenuStyle())
-            .padding(.horizontal, 27)
+            .frame(maxWidth: 60)
+//            .padding(.horizontal, 27)
 
             playingImage
-                .padding(.horizontal)
+//                .padding(.horizontal)
                 .onTapGesture {
                     toggleContent()
                 }

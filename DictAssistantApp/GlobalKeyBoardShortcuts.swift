@@ -21,4 +21,10 @@ extension KeyboardShortcuts.Name {
     static let toggleCropperWindowOpaque = Self(
         "toggleCropperWindowOpaque",
         default: .init(.c, modifiers: [.command, .control]))
+    static let cropperUp = Self(
+        "cropperUp",
+        default: .init(.upArrow, modifiers: [.command, .control]))
+    static let cropperDown = Self(
+        "cropperDown",
+        default: .init(.downArrow, modifiers: [.command, .control]))
 }

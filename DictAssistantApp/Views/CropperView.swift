@@ -18,15 +18,15 @@ struct CropperView: View {
     
     @GestureState private var dotStartLocation: CGPoint? = nil
     @State private var dotX: CGFloat = 20
-    @State private var dotY: CGFloat = 0
+    @State private var dotY: CGFloat = 20
     
     @State private var showStrokeBorder: Bool = true
     
-    private let mSize: CGFloat = 18
-    private let sSize: CGFloat = 15
-    private let sOffset: CGFloat = 6
-    private let minWidth: CGFloat = 70.0
-    private let minHeight: CGFloat = 32.0
+    private let mSize: CGFloat = 13
+    private let sSize: CGFloat = 9
+    private let sOffset: CGFloat = 4
+    private let minWidth: CGFloat = 50.0
+    private let minHeight: CGFloat = 20.0
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
@@ -71,10 +71,10 @@ struct CropperView: View {
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
-//                    .fill(Color.purple)
-                    .opacity(0.005)
+                    .fill(Color.purple)
+//                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
-//                    .border(Color.pink)
+                    .border(Color.pink)
                     .gesture(move),
                 alignment: .bottomTrailing)
             .overlay(
@@ -109,10 +109,10 @@ struct CropperView: View {
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
-//                    .fill(Color.blue)
-                    .opacity(0.005)
+                    .fill(Color.blue)
+//                    .opacity(0.005)
                     .frame(width: sSize, height: sSize)
-//                    .border(Color.yellow)
+                    .border(Color.yellow)
                     .offset(x: sOffset, y: sOffset)
                     .gesture(scale(1, 1)),
                 alignment: .bottomTrailing)
@@ -250,10 +250,10 @@ struct CropperView: View {
 struct CropView_Previews: PreviewProvider {
     static var previews: some View {
         CropperView().environmentObject(CropData(
-            x: 200,
-            y: 200,
-            width: 100,
-            height: 300
+            x: 300,
+            y: 300,
+            width: 300,
+            height: 100
         ))
     }
 }
