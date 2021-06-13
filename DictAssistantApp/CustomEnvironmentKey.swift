@@ -72,3 +72,14 @@ extension EnvironmentValues {
         set { self[CropperDownEnvironmentKey.self] = newValue }
     }
 }
+
+private struct ToggleContentPanelOpaqueEnvironmentKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var toggleContentPanelOpaque: () -> Void {
+        get { self[ToggleContentPanelOpaqueEnvironmentKey].self }
+        set { self[ToggleContentPanelOpaqueEnvironmentKey.self] = newValue }
+    }
+}

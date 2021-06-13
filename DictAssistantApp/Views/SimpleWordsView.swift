@@ -11,6 +11,7 @@ import DataBases
 struct SimpleWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var recognizedText: RecognizedText
+    @Environment(\.toggleContentPanelOpaque) var toggleContentPanelOpaque
     
     func translation(of word: String) -> String {
         if let tr = DictionaryServices.define(word) {
@@ -44,7 +45,7 @@ struct SimpleWordsView: View {
                 .padding(.all, 4)
                 .font(.system(size: fontSize))
                 .onTapGesture {
-                    openDict(word)
+                    toggleContentPanelOpaque()
                 }
         }
         .layoutDirection(with: visualConfig.displayMode)
@@ -59,7 +60,6 @@ struct LayoutDirection: ViewModifier {
         case .landscape:
             VStack {
                 Spacer()
-
                 ScrollView(.horizontal) {
                     HStack(alignment: .top) {
                         content
@@ -104,25 +104,26 @@ struct SimpleWordsView_Previews: PreviewProvider {
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
                 ))
-                .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
                 .frame(width: 1000, height: 220)
                 .environmentObject(RecognizedText(
                     texts: [""]
                 ))
-                .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
                 .frame(width: 320, height: 1000)
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
-                .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
                 .frame(width: 220, height: 1000)
                 .environmentObject(RecognizedText(
                     texts: ["A rectangle hovered here"]
                 ))
-                .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
         }
     }
 }
+

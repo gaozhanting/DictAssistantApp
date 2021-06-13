@@ -39,7 +39,7 @@ class ContentPanel: NSPanel {
         self.collectionBehavior.insert(.fullScreenAuxiliary)
         
         // While we may set a title for the window, don't show it
-        //        self.titleVisibility = .hidden
+        self.titleVisibility = .hidden
         self.titlebarAppearsTransparent = true
         
         // Since there is no titlebar make the window moveable by click-dragging on the background
@@ -56,8 +56,8 @@ class ContentPanel: NSPanel {
         
         //        self.title = "self"
         
-        self.isOpaque = false
-        self.backgroundColor = NSColor.clear
+//        self.isOpaque = false
+//        self.backgroundColor = NSColor.clear
         
         
         

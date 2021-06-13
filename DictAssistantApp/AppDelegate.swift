@@ -70,6 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         }
         visualConfig = VisualConfig(
+            miniMode: false,
             displayMode: DisplayMode(
                 rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!
             )!,
@@ -161,6 +162,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.resetUserDefaults, resetUserDefaults)
             .environment(\.cropperUp, cropperUp)
             .environment(\.cropperDown, cropperDown)
+            .environment(\.toggleContentPanelOpaque, toggleContentPanelOpaque)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -292,9 +294,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func toggleContentPanelOpaque() {
         contentPanel.isOpaque.toggle()
         if contentPanel.backgroundColor == NSColor.clear {
-            contentPanel.backgroundColor = NSColor.systemGray
+            contentPanel.backgroundColor = NSColor.black
         } else {
             contentPanel.backgroundColor = NSColor.clear
+        }
+        withAnimation {
+            visualConfig.miniMode.toggle()
         }
     }
     

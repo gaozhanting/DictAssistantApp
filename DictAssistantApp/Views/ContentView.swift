@@ -11,15 +11,19 @@ import Vision
 
 struct ContentView: View {
     @EnvironmentObject var statusData: StatusData
-    
+    @EnvironmentObject var visualConfig: VisualConfig
+
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
+        VStack {
+            ControlView()
+                .frame(maxWidth: 220, alignment: .trailing)
+                .opacity(visualConfig.miniMode ? 0 : 1)
             if statusData.isPlaying {
                 SimpleWordsView()
             }
-            ControlView().frame(maxWidth: 220, alignment: .trailing)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
     }
 }
 
@@ -30,7 +34,7 @@ struct ContentView_Previews: PreviewProvider {
                 .frame(width: 1000, height: 300)
                 .environment(\.toggleCropper, {})
                 .environmentObject(TextProcessConfig())
-                .environmentObject(VisualConfig(displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
@@ -39,7 +43,7 @@ struct ContentView_Previews: PreviewProvider {
             ContentView()
                 .environment(\.toggleCropper, {})
                 .environmentObject(TextProcessConfig())
-                .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]

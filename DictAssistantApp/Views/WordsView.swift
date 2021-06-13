@@ -41,7 +41,8 @@ struct WordsView: View {
 //    }
     
     var body: some View {
-        SimpleWordsView()
+//        SimpleWordsView()
+        Text("WordsView")
     }
 }
 

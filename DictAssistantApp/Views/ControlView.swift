@@ -102,7 +102,7 @@ struct ControlView_Previews: PreviewProvider {
             .frame(width: 300, height: 50)
             .environmentObject(StatusData(isPlaying: false))
             .environmentObject(TextProcessConfig())
-            .environmentObject(VisualConfig(displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+            .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             .environment(\.toggleCropper, {})
             .environment(\.toggleContent, {})
 
