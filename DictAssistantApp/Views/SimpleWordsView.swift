@@ -43,7 +43,6 @@ struct SimpleWordsView: View {
         ForEach(recognizedText.words, id: \.self) { word in
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .font(.system(size: fontSize))
-                .lineLimit(5)
                 .padding(.all, 4)
                 .onTapGesture {
                     toggleContentPanelOpaque()
