@@ -22,8 +22,8 @@ struct CropperView: View {
     
     @State private var showStrokeBorder: Bool = true
     
-    private let mSize: CGFloat = 13
-    private let sSize: CGFloat = 9
+    private let mSize: CGFloat = 16
+    private let sSize: CGFloat = 12
     private let sOffset: CGFloat = 4
     private let minWidth: CGFloat = 50.0
     private let minHeight: CGFloat = 20.0
@@ -75,21 +75,30 @@ struct CropperView: View {
 //                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
                     .border(Color.pink)
-                    .gesture(move),
+                    .gesture(move)
+                    .onTapGesture {
+                        toggleStrokeBorder()
+                    }
+                ,
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.purple)
+//                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
+                    .border(Color.pink)
                     .gesture(move)
-                    .onHover { hovered in
-                        if hovered {
-                            NSCursor.openHand.set()
-                        }
-                        else {
-                            NSCursor.arrow.set()
-                        }
+                    .onTapGesture {
+                        toggleStrokeBorder()
                     }
+//                    .onHover { hovered in
+//                        if hovered {
+//                            NSCursor.openHand.set()
+//                        }
+//                        else {
+//                            NSCursor.arrow.set()
+//                        }
+//                    }
                 ,
                 alignment: .topLeading
             )
@@ -118,8 +127,10 @@ struct CropperView: View {
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.blue)
+//                    .opacity(0.005)
                     .frame(width: sSize, height: sSize)
+                    .border(Color.yellow)
                     .offset(x: -sOffset, y: -sOffset)
                     .gesture(scale(-1, -1)),
                 alignment: .topLeading)
@@ -131,35 +142,35 @@ struct CropperView: View {
                     .gesture(scale(1, -1)),
                 alignment: .topTrailing)
             
-            .overlay(
-                Image(systemName: "circle.dashed")
-                    .opacity(showPromptDot ? 1 : 0)
-                    .foregroundColor(.green)
-                    .font(Font.system(.title2).bold())
-                    .onTapGesture {
-                        toggleStrokeBorder()
-                    }
-                    .onLongPressGesture(minimumDuration: 1.0) {
-                        toggleDot()
-                    }
-                    .gesture(moveDot)
-                    .position(x: dotX, y: dotY)
-            )
-        
-            .overlay(
-                Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
-                    .opacity(showPromptDot ? 0 : 1)
-                    .foregroundColor(.green)
-                    .font(Font.system(.title2).bold())
-                    .onTapGesture {
-                        toggleStrokeBorder()
-                    }
-                    .onLongPressGesture(minimumDuration: 1.0) {
-                        toggleDot()
-                    }
-                    .gesture(move)
-                    .position(x: dotX, y: dotY)
-            )
+//            .overlay(
+//                Image(systemName: "circle.dashed")
+//                    .opacity(showPromptDot ? 1 : 0)
+//                    .foregroundColor(.green)
+//                    .font(Font.system(.title2).bold())
+//                    .onTapGesture {
+//                        toggleStrokeBorder()
+//                    }
+//                    .onLongPressGesture(minimumDuration: 1.0) {
+//                        toggleDot()
+//                    }
+//                    .gesture(moveDot)
+//                    .position(x: dotX, y: dotY)
+//            )
+//
+//            .overlay(
+//                Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
+//                    .opacity(showPromptDot ? 0 : 1)
+//                    .foregroundColor(.green)
+//                    .font(Font.system(.title2).bold())
+//                    .onTapGesture {
+//                        toggleStrokeBorder()
+//                    }
+//                    .onLongPressGesture(minimumDuration: 1.0) {
+//                        toggleDot()
+//                    }
+//                    .gesture(move)
+//                    .position(x: dotX, y: dotY)
+//            )
             
             .position(CGPoint(x: cropData.x, y: cropData.y))
     }
