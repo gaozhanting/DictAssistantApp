@@ -42,8 +42,9 @@ struct SimpleWordsView: View {
     var body: some View {
         ForEach(recognizedText.words, id: \.self) { word in
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
-                .padding(.all, 4)
                 .font(.system(size: fontSize))
+                .lineLimit(5)
+                .padding(.all, 4)
                 .onTapGesture {
                     toggleContentPanelOpaque()
                 }
@@ -63,7 +64,7 @@ struct LayoutDirection: ViewModifier {
                 ScrollView(.horizontal) {
                     HStack(alignment: .top) {
                         content
-                            .frame(maxWidth: 190, alignment: .topLeading)
+                            .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
                     }
                     .background(
                         Color.black
@@ -106,21 +107,33 @@ struct SimpleWordsView_Previews: PreviewProvider {
                 ))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
+                .frame(width: 1000, height: 120)
+                .environmentObject(RecognizedText(
+                    texts: ["And this massively accelerated our leanring style"]
+                ))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+            SimpleWordsView()
                 .frame(width: 1000, height: 220)
                 .environmentObject(RecognizedText(
                     texts: [""]
                 ))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
-                .frame(width: 320, height: 1000)
+                .frame(width: 320, height: 500)
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             SimpleWordsView()
-                .frame(width: 220, height: 1000)
+                .frame(width: 220, height: 500)
                 .environmentObject(RecognizedText(
                     texts: ["A rectangle hovered here"]
+                ))
+                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+            SimpleWordsView()
+                .frame(width: 220, height: 500)
+                .environmentObject(RecognizedText(
+                    texts: ["And this massively accelerated our leanring curve"]
                 ))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
         }
