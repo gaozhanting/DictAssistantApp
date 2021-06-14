@@ -17,8 +17,18 @@ struct ControlView: View {
     @Environment(\.resetUserDefaults) var resetUserDefaults
     @Environment(\.cropperUp) var cropperUp
     @Environment(\.cropperDown) var cropperDown
+    @Environment(\.restartScreenCaptureWithNewTimeInterval) var restartScreenCaptureWithNewTimeInterval
 
     @State private var showingDeleteAlert = false
+    
+    var screenCaptureTimeIntervalBindingWithSideEffect: Binding<TimeInterval> {
+        Binding.init {
+            textProcessConfig.screenCaptureTimeInterval
+        } set: { newValue in
+            textProcessConfig.screenCaptureTimeInterval = newValue
+            restartScreenCaptureWithNewTimeInterval()
+        }
+    }
     
     var playingImage: Image {
         if statusData.isPlaying {
@@ -67,7 +77,7 @@ struct ControlView: View {
                     Text("Fast").tag(VNRequestTextRecognitionLevel.fast)
                     Text("Accurate").tag(VNRequestTextRecognitionLevel.accurate)
                 }
-                Picker("SC Intervel", selection: $textProcessConfig.screenCaptureTimeInterval) {
+                Picker("SC Intervel", selection: screenCaptureTimeIntervalBindingWithSideEffect) {
                     Text("5 seconds").tag(5.0)
                     Text("3 seconds").tag(3.0)
                     Text("2 seconds").tag(2.0)

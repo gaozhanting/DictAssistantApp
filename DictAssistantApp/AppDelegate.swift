@@ -58,7 +58,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
-    // todo: defaults reset UI
     override init() {
         // VisualConfig
         if UserDefaults.standard.object(forKey: "visualConfig.miniMode") == nil {
@@ -206,6 +205,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.cropperUp, cropperUp)
             .environment(\.cropperDown, cropperDown)
             .environment(\.toggleContentPanelOpaque, toggleContentPanelOpaque)
+            .environment(\.restartScreenCaptureWithNewTimeInterval, restartScreenCaptureWithNewTimeInterval)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -396,8 +396,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         timer.invalidate()
     }
     
-    // Todo: currently don't know how to take side effect when ObservableObject var value changed.
-    // Because textProcessConfig.screenCaptureTimeInterva is changing from UI, we don't want to bother to toggle stop&play button, we want it instantly take effect.
     func restartScreenCaptureWithNewTimeInterval() {
         stopScreenCapture()
         startScreenCapture()
