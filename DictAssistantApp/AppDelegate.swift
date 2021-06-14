@@ -140,6 +140,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         cropData.y = 300.0
         cropData.width = 300.0
         cropData.height = 300.0
+        
+        contentPanel.setFrame(
+            NSRect(x: 200, y: 100, width: 300, height: 600),
+            display: true,
+            animate: true
+        )
     }
  
     private func saveAllUserDefaults() {
