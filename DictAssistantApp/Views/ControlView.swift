@@ -13,7 +13,7 @@ struct ControlView: View {
     @EnvironmentObject var statusData: StatusData
     @EnvironmentObject var textProcessConfig: TextProcessConfig
     @Environment(\.toggleCropper) var toggleCropper
-    @Environment(\.toggleContent) var toggleContent
+    @Environment(\.toggleScreenCapture) var toggleScreenCapture
     @Environment(\.resetUserDefaults) var resetUserDefaults
     @Environment(\.cropperUp) var cropperUp
     @Environment(\.cropperDown) var cropperDown
@@ -99,7 +99,7 @@ struct ControlView: View {
             playingImage
 //                .padding(.horizontal)
                 .onTapGesture {
-                    toggleContent()
+                    toggleScreenCapture()
                 }
         }
         .frame(maxWidth: 200, maxHeight: 45)
@@ -115,6 +115,6 @@ struct ControlView_Previews: PreviewProvider {
             .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
             .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             .environment(\.toggleCropper, {})
-            .environment(\.toggleContent, {})
+            .environment(\.toggleScreenCapture, {})
     }
 }

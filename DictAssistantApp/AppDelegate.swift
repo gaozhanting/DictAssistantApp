@@ -206,6 +206,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.cropperDown, cropperDown)
             .environment(\.toggleContentPanelOpaque, toggleContentPanelOpaque)
             .environment(\.restartScreenCaptureWithNewTimeInterval, restartScreenCaptureWithNewTimeInterval)
+            .environment(\.toggleScreenCapture, toggleScreenCapture)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -335,6 +336,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             stop()
         } else {
             start()
+        }
+    }
+    
+    // when toggle play|stop button on ControlView
+    func toggleScreenCapture() {
+        if statusData.isPlaying {
+            stopScreenCapture()
+            statusData.isPlaying = false
+        } else {
+            statusData.isPlaying = true
+            startScreenCapture()
         }
     }
     

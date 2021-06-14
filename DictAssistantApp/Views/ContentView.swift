@@ -18,9 +18,7 @@ struct ContentView: View {
             ControlView()
                 .frame(maxWidth: 220, alignment: .trailing)
                 .opacity(visualConfig.miniMode ? 0 : 1)
-            if statusData.isPlaying {
-                SimpleWordsView()
-            }
+            SimpleWordsView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()

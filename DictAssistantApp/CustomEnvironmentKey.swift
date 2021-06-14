@@ -94,3 +94,14 @@ extension EnvironmentValues {
         set { self[RestartScreenCaptureWithNewTimeIntervalEnvironmentKey.self] = newValue }
     }
 }
+
+private struct ToggleScreenCaptureEnvironmentKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var toggleScreenCapture: () -> Void {
+        get { self[ToggleScreenCaptureEnvironmentKey].self }
+        set { self[ToggleScreenCaptureEnvironmentKey.self] = newValue }
+    }
+}
