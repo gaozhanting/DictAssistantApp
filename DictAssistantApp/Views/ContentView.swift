@@ -32,8 +32,7 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView()
                 .frame(width: 1000, height: 300)
-                .environment(\.toggleCropper, {})
-                .environmentObject(TextProcessConfig())
+                .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
@@ -42,7 +41,7 @@ struct ContentView_Previews: PreviewProvider {
 
             ContentView()
                 .environment(\.toggleCropper, {})
-                .environmentObject(TextProcessConfig())
+                .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(

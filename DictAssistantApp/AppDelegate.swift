@@ -25,7 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     let recognizedText = RecognizedText(texts: [])
     let statusData = StatusData(isPlaying: false)
-    let textProcessConfig = TextProcessConfig()
+    
+    let textProcessConfig: TextProcessConfig
     let visualConfig: VisualConfig
     var cropData: CropData
     
@@ -78,18 +79,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait"))
         )
         
+        // TextProcessConfig
+        if UserDefaults.standard.object(forKey: "textProcessConfig.textRecognitionLevel") == nil {
+            // refer source code: enum VNRequestTextRecognitionLevel : Int
+            UserDefaults.standard.setValue(1, forKey: "textProcessConfig.textRecognitionLevel")
+        }
+        if UserDefaults.standard.object(forKey: "textProcessConfig.screenCaptureTimeInterval") == nil {
+            UserDefaults.standard.setValue(1.0, forKey: "textProcessConfig.screenCaptureTimeInterval")
+        }
+        textProcessConfig = TextProcessConfig(
+            textRecognitionLevel: VNRequestTextRecognitionLevel(
+                rawValue: UserDefaults.standard.integer(forKey: "textProcessConfig.textRecognitionLevel")
+            )!,
+            screenCaptureTimeInterval: UserDefaults.standard.double(forKey: "textProcessConfig.screenCaptureTimeInterval")
+        )
+        
         // CropData
         if UserDefaults.standard.object(forKey: "cropper.x") == nil {
-            UserDefaults.standard.set(300, forKey: "cropper.x")
+            UserDefaults.standard.set(300.0, forKey: "cropper.x")
         }
         if UserDefaults.standard.object(forKey: "cropper.y") == nil {
-            UserDefaults.standard.set(300, forKey: "cropper.y")
+            UserDefaults.standard.set(300.0, forKey: "cropper.y")
         }
         if UserDefaults.standard.object(forKey: "cropper.width") == nil {
-            UserDefaults.standard.set(300, forKey: "cropper.width")
+            UserDefaults.standard.set(300.0, forKey: "cropper.width")
         }
         if UserDefaults.standard.object(forKey: "cropper.height") == nil {
-            UserDefaults.standard.set(300, forKey: "cropper.height")
+            UserDefaults.standard.set(300.0, forKey: "cropper.height")
         }
         cropData = CropData(
             x: CGFloat(UserDefaults.standard.double(forKey: "cropper.x")),
@@ -104,22 +120,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+        
+        UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
+        UserDefaults.standard.set(1.0 , forKey: "textProcessConfig.screenCaptureTimeInterval")
 
-        UserDefaults.standard.set(300, forKey: "cropper.x")
-        UserDefaults.standard.set(300, forKey: "cropper.y")
-        UserDefaults.standard.set(300, forKey: "cropper.width")
-        UserDefaults.standard.set(300, forKey: "cropper.height")
+        UserDefaults.standard.set(300.0, forKey: "cropper.x")
+        UserDefaults.standard.set(300.0, forKey: "cropper.y")
+        UserDefaults.standard.set(300.0, forKey: "cropper.width")
+        UserDefaults.standard.set(300.0, forKey: "cropper.height")
     }
  
     private func saveAllUserDefaults() {
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
-        UserDefaults.standard.set(visualConfig.fontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
-        UserDefaults.standard.set(visualConfig.fontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
         
-        UserDefaults.standard.set(cropData.x, forKey: "cropper.x")
-        UserDefaults.standard.set(cropData.y, forKey: "cropper.y")
-        UserDefaults.standard.set(cropData.width, forKey: "cropper.width")
-        UserDefaults.standard.set(cropData.height, forKey: "cropper.height")
+        UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
+        UserDefaults.standard.set(Double(textProcessConfig.screenCaptureTimeInterval), forKey: "textProcessConfig.screenCaptureTimeInterval")
+
+        UserDefaults.standard.set(Double(cropData.x), forKey: "cropper.x")
+        UserDefaults.standard.set(Double(cropData.y), forKey: "cropper.y")
+        UserDefaults.standard.set(Double(cropData.width), forKey: "cropper.width")
+        UserDefaults.standard.set(Double(cropData.height), forKey: "cropper.height")
     }
     
     func cropperUp() {

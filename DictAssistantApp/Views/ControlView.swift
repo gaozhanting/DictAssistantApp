@@ -101,10 +101,9 @@ struct ControlView_Previews: PreviewProvider {
         ControlView()
             .frame(width: 300, height: 50)
             .environmentObject(StatusData(isPlaying: false))
-            .environmentObject(TextProcessConfig())
+            .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
             .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
             .environment(\.toggleCropper, {})
             .environment(\.toggleContent, {})
-
     }
 }

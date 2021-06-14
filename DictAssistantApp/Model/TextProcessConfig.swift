@@ -9,7 +9,11 @@ import Foundation
 import Vision
 
 class TextProcessConfig: ObservableObject {
-    @Published var textRecognitionLevel: VNRequestTextRecognitionLevel = .fast
-    @Published var screenCaptureTimeInterval: TimeInterval = 1.0
-//    @Published var familiarThreshold: Int = 50
+    @Published var textRecognitionLevel: VNRequestTextRecognitionLevel
+    @Published var screenCaptureTimeInterval: TimeInterval
+    
+    init(textRecognitionLevel: VNRequestTextRecognitionLevel, screenCaptureTimeInterval: TimeInterval) {
+        self.textRecognitionLevel = textRecognitionLevel
+        self.screenCaptureTimeInterval = screenCaptureTimeInterval
+    }
 }
