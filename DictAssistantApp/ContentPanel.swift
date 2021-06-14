@@ -56,11 +56,6 @@ class ContentPanel: NSPanel {
         
         //        self.title = "self"
         
-//        self.isOpaque = false
-//        self.backgroundColor = NSColor.clear
-        
-        
-        
         //        self.displayIfNeeded()
         //        self.viewsNeedDisplay = false
         //        self.keyDown(with: NSEvent.init())

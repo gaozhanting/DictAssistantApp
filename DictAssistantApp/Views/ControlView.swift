@@ -69,6 +69,7 @@ struct ControlView: View {
                 }
                 Picker("SC Intervel", selection: $textProcessConfig.screenCaptureTimeInterval) {
                     Text("5 seconds").tag(5.0)
+                    Text("3 seconds").tag(3.0)
                     Text("2 seconds").tag(2.0)
                     Text("1 second").tag(1.0)
                     Text("0.5 second").tag(0.5)

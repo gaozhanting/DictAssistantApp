@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     let textProcessConfig: TextProcessConfig
     let visualConfig: VisualConfig
-    var cropData: CropData
+    let cropData: CropData
     
     var lastReconginzedTexts: [String] = []
 
@@ -61,6 +61,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // todo: defaults reset UI
     override init() {
         // VisualConfig
+        if UserDefaults.standard.object(forKey: "visualConfig.miniMode") == nil {
+            UserDefaults.standard.set(false, forKey: "visualConfig.miniMode")
+        }
         if UserDefaults.standard.object(forKey: "visualConfig.displayMode") == nil {
             UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         }
@@ -71,10 +74,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         }
         visualConfig = VisualConfig(
-            miniMode: false,
-            displayMode: DisplayMode(
-                rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!
-            )!,
+            miniMode: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
+            displayMode: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait"))
         )
@@ -115,22 +116,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
     }
     
-    // not work for cropper?!
     func resetUserDefaults() {
+        UserDefaults.standard.set(false, forKey: "visualConfig.miniMode")
         UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+        visualConfig.miniMode = false
+        visualConfig.displayMode = DisplayMode.landscape
+        visualConfig.fontSizeOfLandscape = 20.0
+        visualConfig.fontSizeOfPortrait = 13.0
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
         UserDefaults.standard.set(1.0 , forKey: "textProcessConfig.screenCaptureTimeInterval")
+        textProcessConfig.textRecognitionLevel = .fast
+        textProcessConfig.screenCaptureTimeInterval = 1.0
 
         UserDefaults.standard.set(300.0, forKey: "cropper.x")
         UserDefaults.standard.set(300.0, forKey: "cropper.y")
         UserDefaults.standard.set(300.0, forKey: "cropper.width")
         UserDefaults.standard.set(300.0, forKey: "cropper.height")
+        cropData.x = 300.0
+        cropData.y = 300.0
+        cropData.width = 300.0
+        cropData.height = 300.0
     }
  
     private func saveAllUserDefaults() {
+        UserDefaults.standard.set(visualConfig.miniMode, forKey: "visualConfig.miniMode")
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
@@ -174,6 +186,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func initContentPanel() {
         contentPanel = ContentPanel.init()
+        
+        syncContentPanelFromMiniMode()
         
         let context = persistentContainer.viewContext
         let contentView = ContentView()
@@ -314,14 +328,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func toggleContentPanelOpaque() {
-        contentPanel.isOpaque.toggle()
-        if contentPanel.backgroundColor == NSColor.clear {
-            contentPanel.backgroundColor = NSColor.black
-        } else {
-            contentPanel.backgroundColor = NSColor.clear
-        }
         withAnimation {
             visualConfig.miniMode.toggle()
+            syncContentPanelFromMiniMode() // no effect from withAnimation?!
+        }
+    }
+    
+    // manually call this after mutate miniMode
+    // todo: add to setter?! or something (delegate)?!
+    func syncContentPanelFromMiniMode() {
+        if visualConfig.miniMode {
+            contentPanel.isOpaque = false
+            contentPanel.backgroundColor = NSColor.clear
+        } else {
+            contentPanel.isOpaque = true
+            contentPanel.backgroundColor = NSColor.black
         }
     }
     
