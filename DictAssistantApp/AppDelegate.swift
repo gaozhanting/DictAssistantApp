@@ -122,6 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         visualConfig.miniMode = false
+        syncContentPanelFromMiniMode() // always should call this whenever mutate miniMode (todo: make it auto)
         visualConfig.displayMode = DisplayMode.landscape
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
@@ -311,6 +312,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         KeyboardShortcuts.onKeyUp(for: .cropperDown, action: { [self] in
             cropperDown()
         })
+        KeyboardShortcuts.onKeyUp(for: .resetUserDefaults, action: { [self] in
+            resetUserDefaults()
+        })
+        
     }
     
     // MARK: - View Actions
@@ -387,8 +392,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // Todo: currently don't know how to take side effect when ObservableObject var value changed.
     // Because textProcessConfig.screenCaptureTimeInterva is changing from UI, we don't want to bother to toggle stop&play button, we want it instantly take effect.
-    func onConfigScreenCaptureTimeInterval() {
-        toggleContent()
+    func restartScreenCaptureWithNewTimeInterval() {
+        stopScreenCapture()
+        startScreenCapture()
     }
     
     private func showCropper() {
@@ -404,10 +410,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         } else {
             showCropper()
         }
-    }
-    
-    func toggleCropperStrokeBorder() {
-        
     }
 
     // MARK: - Screen Capture

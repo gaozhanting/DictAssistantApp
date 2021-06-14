@@ -27,4 +27,10 @@ extension KeyboardShortcuts.Name {
     static let cropperDown = Self(
         "cropperDown",
         default: .init(.downArrow, modifiers: [.command, .control]))
+    static let resetUserDefaults = Self(
+        "resetUserDefaults",
+        default: .init(.r, modifiers: [.command, .control]))
 }
+
+// https://support.apple.com/en-us/HT201236
+// Control-Command- T A D F Q
