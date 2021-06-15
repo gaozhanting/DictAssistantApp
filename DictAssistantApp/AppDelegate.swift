@@ -72,12 +72,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
             UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         }
+        if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
+            UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
+        }
         visualConfig = VisualConfig(
             miniMode: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
             displayMode: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
-            fontName: NSFont.systemFont(ofSize: 0.0).fontName
+            fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
         )
         
         // TextProcessConfig
@@ -121,11 +124,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         visualConfig.miniMode = false
         syncContentPanelFromMiniMode() // always should call this whenever mutate miniMode (todo: make it auto)
         visualConfig.displayMode = DisplayMode.landscape
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
+        visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
         UserDefaults.standard.set(1.0 , forKey: "textProcessConfig.screenCaptureTimeInterval")
@@ -153,6 +158,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
         
         UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
         UserDefaults.standard.set(Double(textProcessConfig.screenCaptureTimeInterval), forKey: "textProcessConfig.screenCaptureTimeInterval")
