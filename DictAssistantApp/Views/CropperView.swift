@@ -123,7 +123,10 @@ struct CropperView: View {
                     .frame(width: sSize, height: sSize)
                     .border(Color.yellow)
                     .offset(x: sOffset, y: sOffset)
-                    .gesture(scale(1, 1)),
+                    .gesture(scale(1, 1))
+                    .onTapGesture {
+                        toggleStrokeBorder()
+                    },
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
@@ -132,7 +135,10 @@ struct CropperView: View {
                     .frame(width: sSize, height: sSize)
                     .border(Color.yellow)
                     .offset(x: -sOffset, y: -sOffset)
-                    .gesture(scale(-1, -1)),
+                    .gesture(scale(-1, -1))
+                    .onTapGesture {
+                        toggleStrokeBorder()
+                    },
                 alignment: .topLeading)
             .overlay(
                 Rectangle()

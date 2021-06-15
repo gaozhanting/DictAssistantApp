@@ -18,6 +18,7 @@ struct ControlView: View {
     @Environment(\.cropperUp) var cropperUp
     @Environment(\.cropperDown) var cropperDown
     @Environment(\.restartScreenCaptureWithNewTimeInterval) var restartScreenCaptureWithNewTimeInterval
+    @Environment(\.changeFont) var changeFont
 
     @State private var showingDeleteAlert = false
     
@@ -113,7 +114,7 @@ struct ControlView_Previews: PreviewProvider {
             .frame(width: 300, height: 50)
             .environmentObject(StatusData(isPlaying: false))
             .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
-            .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13))
+            .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
             .environment(\.toggleCropper, {})
             .environment(\.toggleScreenCapture, {})
     }

@@ -76,7 +76,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             miniMode: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
             displayMode: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
-            fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait"))
+            fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
+            fontName: NSFont.systemFont(ofSize: 0.0).fontName
         )
         
         // TextProcessConfig
@@ -207,6 +208,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.toggleContentPanelOpaque, toggleContentPanelOpaque)
             .environment(\.restartScreenCaptureWithNewTimeInterval, restartScreenCaptureWithNewTimeInterval)
             .environment(\.toggleScreenCapture, toggleScreenCapture)
+            .environment(\.changeFont, changeFont)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -232,6 +234,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         stop()
         return true
+    }
+    
+    // MARK:- Appearance
+//    override func changeFont(_ sender: Any?) {
+//        
+//    }
+    
+    //Todo: called but not display FontPanel unless debuging (maybe this panel not show panel?!)
+    // maybe trigger from a Preferences Panel?!
+    // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
+//    func showFonts(_ sender: Any?) {
+////        let name = UserDefaults.standard[.fontName]
+////        let size = UserDefaults.standard[.fontSize]
+//        let font = NSFont(name: visualConfig.fontName, size: 13.0) ?? NSFont.userFont(ofSize: 13.0)!
+//
+//        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
+////        NSFontManager.shared.orderFrontFontPanel(sender)
+////
+////        NSFontManager.shared.target = self
+//
+//        NSFontPanel.shared.isAccessibilityFrontmost()
+//        NSFontPanel.shared.makeKeyAndOrderFront(self)
+//    }
+    
+    // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
+    @IBAction func changeFont(_ sender: NSFontManager?) {
+        guard let sender = sender else { return assertionFailure() }
+        let newFont = sender.convert(.systemFont(ofSize: 0))
+        visualConfig.fontName = newFont.fontName
     }
 
     // MARK:- Core Data (WordStatis)
@@ -486,7 +517,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     return text
                 }
                 
-                if textProcessConfig.screenCaptureTimeInterval < 1 {
+                if textProcessConfig.screenCaptureTimeInterval < 0.5 {
                     recognizedText.texts = texts
                 } else {
                     withAnimation {

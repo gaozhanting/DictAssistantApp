@@ -19,11 +19,13 @@ class VisualConfig: ObservableObject {
     @Published var displayMode: DisplayMode
     @Published var fontSizeOfLandscape: CGFloat
     @Published var fontSizeOfPortrait: CGFloat
+    @Published var fontName: String
     
-    init(miniMode: Bool, displayMode: DisplayMode, fontSizeOfLandscape: CGFloat, fontSizeOfPortrait: CGFloat) {
+    init(miniMode: Bool, displayMode: DisplayMode, fontSizeOfLandscape: CGFloat, fontSizeOfPortrait: CGFloat, fontName: String) {
         self.miniMode = miniMode
         self.displayMode = displayMode
         self.fontSizeOfLandscape = fontSizeOfLandscape
         self.fontSizeOfPortrait = fontSizeOfPortrait
+        self.fontName = fontName
     }
 }
