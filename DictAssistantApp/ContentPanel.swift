@@ -56,6 +56,8 @@ class ContentPanel: NSPanel {
         
         //        self.title = "self"
         
+        self.hasShadow = false
+        
         //        self.displayIfNeeded()
         //        self.viewsNeedDisplay = false
         //        self.keyDown(with: NSEvent.init())
