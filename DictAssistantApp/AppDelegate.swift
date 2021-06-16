@@ -402,14 +402,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             contentPanel.backgroundColor = NSColor.clear
         } else {
             contentPanel.isOpaque = true
-            contentPanel.backgroundColor = NSColor.black
+            contentPanel.backgroundColor = NSColor.windowBackgroundColor
         }
     }
     
     func toggleCropperWindowOpaque() {
         cropperWindow.isOpaque.toggle()
         if cropperWindow.backgroundColor == NSColor.clear {
-            cropperWindow.backgroundColor = NSColor.systemBrown
+            cropperWindow.backgroundColor = NSColor.windowBackgroundColor
         } else {
             cropperWindow.backgroundColor = NSColor.clear
         }
