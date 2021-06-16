@@ -46,37 +46,8 @@ struct WordsView: View {
     }
 }
 
-struct FamiliarWordsToggleViews: View {
-    @State private var toggleFamiliarWordsView = false
-    @State private var toggleUnFamiliarWordsView = false
-    
-    var body: some View {
-        Toggle(isOn: $toggleUnFamiliarWordsView) {
-            Text("See UnFamiliar Words")
-        }
-        if toggleUnFamiliarWordsView {
-            UnFamiliarWordsView()
-        }
-        
-        Toggle(isOn: $toggleFamiliarWordsView) {
-            Text("See Familiar Words")
-        }
-        if toggleFamiliarWordsView {
-            FamiliarWordsView()
-        }
-    }
-}
 
-let familiarThreshold = 50 // todo: make this value customiziable from UI
 
-func openDict(_ word: String) {
-    let task = Process()
-    task.launchPath = "/usr/bin/open"
-    var arguments = [String]();
-    arguments.append("dict://\(word)")
-    task.arguments = arguments
-    task.launch()
-}
 
 //struct WordsView_Previews: PreviewProvider {
 //    static var previews: some View {

@@ -12,13 +12,23 @@ import Vision
 struct ContentView: View {
     @EnvironmentObject var statusData: StatusData
     @EnvironmentObject var visualConfig: VisualConfig
+    
+    @State var showHistoryDrawer: Bool = false
 
     var body: some View {
         VStack {
-            ControlView()
+            ControlView(showHistoryDrawer: $showHistoryDrawer)
                 .frame(maxWidth: 220, alignment: .trailing)
                 .opacity(visualConfig.miniMode ? 0 : 1)
-            SimpleWordsView()
+            
+            if showHistoryDrawer {
+                HistoryWordsView()
+            } else if statusData.isPlaying {
+                SimpleWordsView()
+            } else {
+                Spacer()
+            }
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()

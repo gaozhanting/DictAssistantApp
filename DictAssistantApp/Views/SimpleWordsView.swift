@@ -12,6 +12,25 @@ struct SimpleWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var recognizedText: RecognizedText
     @Environment(\.toggleContentPanelOpaque) var toggleContentPanelOpaque
+    @FetchRequest(
+        entity: WordStats.entity(),
+        sortDescriptors: [],
+        predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
+    ) var familiarWordStatss: FetchedResults<WordStats>
+    
+    var familiarWords: [String] {
+        familiarWordStatss.map { $0.word! }
+    }
+    
+    var familiarWordsSet: Set<String> {
+        Set(familiarWords)
+    }
+    
+    var nonFamiliarWordFromRecognizedTextWords: [String] {
+        recognizedText.words.filter { word in
+            !familiarWordsSet.contains(word)
+        }
+    }
     
     func translation(of word: String) -> String {
         if let tr = DictionaryServices.define(word) {
@@ -40,7 +59,7 @@ struct SimpleWordsView: View {
     }
     
     var body: some View {
-        ForEach(recognizedText.words, id: \.self) { word in
+        ForEach(nonFamiliarWordFromRecognizedTextWords, id: \.self) { word in
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)

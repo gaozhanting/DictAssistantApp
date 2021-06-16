@@ -23,6 +23,8 @@ struct ControlView: View {
 
     @State private var showingDeleteAlert = false
     
+    @Binding var showHistoryDrawer: Bool
+    
     var screenCaptureTimeIntervalBindingWithSideEffect: Binding<TimeInterval> {
         Binding.init {
             textProcessConfig.screenCaptureTimeInterval
@@ -80,6 +82,15 @@ struct ControlView: View {
                 Image(systemName: "f.circle")
             })
             .buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                withAnimation {
+                    showHistoryDrawer.toggle()
+                }
+            }, label: {
+                Image(systemName: "clock")
+            })
+            .buttonStyle(PlainButtonStyle())
 
             Menu("Options") {
                 Picker("TR Level", selection: $textProcessConfig.textRecognitionLevel) {
@@ -111,14 +122,14 @@ struct ControlView: View {
                     toggleScreenCapture()
                 }
         }
-        .frame(maxWidth: 200, maxHeight: 45)
+        .frame(maxWidth: 250, maxHeight: 45)
     }
     
 }
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView()
+        ControlView(showHistoryDrawer: .constant(false))
             .frame(width: 300, height: 50)
             .environmentObject(StatusData(isPlaying: false))
             .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
