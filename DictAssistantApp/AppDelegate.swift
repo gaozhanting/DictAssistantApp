@@ -214,6 +214,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.toggleContentPanelOpaque, toggleContentPanelOpaque)
             .environment(\.restartScreenCaptureWithNewTimeInterval, restartScreenCaptureWithNewTimeInterval)
             .environment(\.toggleScreenCapture, toggleScreenCapture)
+            .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
@@ -247,22 +248,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //        
 //    }
     
-    //Todo: called but not display FontPanel unless debuging (maybe this panel not show panel?!)
-    // maybe trigger from a Preferences Panel?!
     // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
-//    func showFonts(_ sender: Any?) {
-////        let name = UserDefaults.standard[.fontName]
-////        let size = UserDefaults.standard[.fontSize]
+    // And: My App must be the main App (when macOS menu is my app menu), otherwise, you can't see FontPanel when you click icon from ControlViews
+    func showFonts(_ sender: Any?) {
+//        let name = UserDefaults.standard[.fontName]
+//        let size = UserDefaults.standard[.fontSize]
 //        let font = NSFont(name: visualConfig.fontName, size: 13.0) ?? NSFont.userFont(ofSize: 13.0)!
-//
+
 //        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
-////        NSFontManager.shared.orderFrontFontPanel(sender)
-////
-////        NSFontManager.shared.target = self
+        NSFontManager.shared.orderFrontFontPanel(sender)
 //
+//        NSFontManager.shared.target = self
+
 //        NSFontPanel.shared.isAccessibilityFrontmost()
 //        NSFontPanel.shared.makeKeyAndOrderFront(self)
-//    }
+    }
     
     // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
     @IBAction func changeFont(_ sender: NSFontManager?) {

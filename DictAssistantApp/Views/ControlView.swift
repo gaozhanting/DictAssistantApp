@@ -19,6 +19,7 @@ struct ControlView: View {
     @Environment(\.cropperDown) var cropperDown
     @Environment(\.restartScreenCaptureWithNewTimeInterval) var restartScreenCaptureWithNewTimeInterval
     @Environment(\.changeFont) var changeFont
+    @Environment(\.showFonts) var showFonts
 
     @State private var showingDeleteAlert = false
     
@@ -70,6 +71,13 @@ struct ControlView: View {
                 cropperDown()
             }, label: {
                 Image(systemName: "arrow.down.to.line")
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                showFonts(nil)
+            }, label: {
+                Image(systemName: "f.circle")
             })
             .buttonStyle(PlainButtonStyle())
 

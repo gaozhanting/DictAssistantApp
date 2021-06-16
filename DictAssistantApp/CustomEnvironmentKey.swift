@@ -106,16 +106,16 @@ extension EnvironmentValues {
     }
 }
 
-//private struct ShowFontsEnvironmentKey: EnvironmentKey {
-//    static let defaultValue: (Any?) -> Void = {_ in }
-//}
-//
-//extension EnvironmentValues {
-//    var showFonts: (Any?) -> Void {
-//        get { self[ShowFontsEnvironmentKey].self }
-//        set { self[ShowFontsEnvironmentKey.self] = newValue }
-//    }
-//}
+private struct ShowFontsEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (Any?) -> Void = {_ in }
+}
+
+extension EnvironmentValues {
+    var showFonts: (Any?) -> Void {
+        get { self[ShowFontsEnvironmentKey].self }
+        set { self[ShowFontsEnvironmentKey.self] = newValue }
+    }
+}
 
 private struct ChangeFontEnvironmentKey: EnvironmentKey {
     static let defaultValue: (NSFontManager?) -> Void = {_ in }
