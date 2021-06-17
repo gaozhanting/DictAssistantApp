@@ -126,8 +126,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         visualConfig.miniMode = false
-        syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
         visualConfig.displayMode = DisplayMode.landscape
+        syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
