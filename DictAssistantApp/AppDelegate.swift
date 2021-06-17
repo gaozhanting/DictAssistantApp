@@ -398,8 +398,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // todo: add to setter?! or something (delegate)?!
     func syncContentPanelFromVisualConfig() {
         if visualConfig.miniMode {
+            contentPanel.isOpaque = false
             contentPanel.backgroundColor = NSColor.clear
         } else {
+            contentPanel.isOpaque = true
             contentPanel.backgroundColor = NSColor.windowBackgroundColor
         }
 
@@ -407,6 +409,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if visualConfig.displayMode == .portrait && visualConfig.miniMode {
             // the shadow of the window still exist sometimes!
             contentPanel.hasShadow = true
+            contentPanel.invalidateShadow()
         } else {
             contentPanel.hasShadow = false
         }
