@@ -128,6 +128,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         visualConfig.miniMode = false
         syncContentPanelFromMiniMode() // always should call this whenever mutate miniMode (todo: make it auto)
         visualConfig.displayMode = DisplayMode.landscape
+        syncContentPanelFromDisplayMode()
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
@@ -201,6 +202,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         contentPanel = ContentPanel.init()
         
         syncContentPanelFromMiniMode()
+        syncContentPanelFromDisplayMode()
         
         let context = persistentContainer.viewContext
         let contentView = ContentView()
@@ -216,6 +218,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.toggleScreenCapture, toggleScreenCapture)
             .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
+            .environment(\.syncContentPanelFromDisplayMode, syncContentPanelFromDisplayMode)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -403,6 +406,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         } else {
             contentPanel.isOpaque = true
             contentPanel.backgroundColor = NSColor.windowBackgroundColor
+        }
+    }
+    
+    // manually call this after mutate displayMode
+    // I like the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
+    func syncContentPanelFromDisplayMode() {
+        switch visualConfig.displayMode {
+        case .landscape:
+            contentPanel.hasShadow = false
+        case .portrait:
+            contentPanel.hasShadow = true
         }
     }
     

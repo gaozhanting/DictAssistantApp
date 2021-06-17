@@ -20,6 +20,7 @@ struct ControlView: View {
     @Environment(\.restartScreenCaptureWithNewTimeInterval) var restartScreenCaptureWithNewTimeInterval
     @Environment(\.changeFont) var changeFont
     @Environment(\.showFonts) var showFonts
+    @Environment(\.syncContentPanelFromDisplayMode) var syncContentPanelFromDisplayMode
 
     @State private var showingDeleteAlert = false
     
@@ -31,6 +32,15 @@ struct ControlView: View {
         } set: { newValue in
             textProcessConfig.screenCaptureTimeInterval = newValue
             restartScreenCaptureWithNewTimeInterval()
+        }
+    }
+    
+    var visualConfigDisplayModeBindingWithSideEffect: Binding<DisplayMode> {
+        Binding.init {
+            visualConfig.displayMode
+        } set: { newValue in
+            visualConfig.displayMode = newValue
+            syncContentPanelFromDisplayMode()
         }
     }
     
@@ -107,7 +117,7 @@ struct ControlView: View {
                     Text("0.2 second").tag(0.2)
                     Text("0.1 second").tag(0.1)
                 }
-                Picker("DisplayMode", selection: $visualConfig.displayMode) {
+                Picker("DisplayMode", selection: visualConfigDisplayModeBindingWithSideEffect) {
                     Text("Landscape").tag(DisplayMode.landscape)
                     Text("Portrait").tag(DisplayMode.portrait)
                 }

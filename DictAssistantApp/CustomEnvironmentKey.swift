@@ -128,3 +128,13 @@ extension EnvironmentValues {
     }
 }
 
+private struct SyncContentPanelFromDisplayModeEnvironmentKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var syncContentPanelFromDisplayMode: () -> Void {
+        get { self[SyncContentPanelFromDisplayModeEnvironmentKey].self }
+        set { self[SyncContentPanelFromDisplayModeEnvironmentKey.self] = newValue }
+    }
+}
