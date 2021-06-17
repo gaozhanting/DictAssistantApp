@@ -32,7 +32,7 @@ struct SimpleWordsView: View {
         let result = recognizedText.words.filter { word in
             !familiarWordsSet.contains(word)
         }
-        if result.isEmpty {
+        if result.isEmpty && visualConfig.miniMode {
             closeContentPanel()
         }
         else {
