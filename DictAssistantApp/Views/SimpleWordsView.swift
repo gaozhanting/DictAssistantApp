@@ -75,9 +75,21 @@ struct SimpleWordsView: View {
                 .onTapGesture {
                     toggleContentPanelMiniMode()
                 }
+                .onLongPressGesture {
+                    say(word: word)
+                }
         }
         .layoutDirection(with: visualConfig.displayMode)
     }
+}
+
+fileprivate func say(word: String) {
+    let task = Process()
+    task.launchPath = "/usr/bin/say"
+    var arguments = [String]();
+    arguments.append(word)
+    task.arguments = arguments
+    task.launch()
 }
 
 struct LayoutDirection: ViewModifier {
