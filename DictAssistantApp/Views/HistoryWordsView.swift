@@ -16,14 +16,16 @@ struct HistoryWordsView: View {
         predicate: NSPredicate(format: "presentCount < \(familiarThreshold)")
     ) var unFamiliarWordStatss: FetchedResults<WordStats>
     
-    var xUnFamiliarWordStatss: [WordStats] {
-        if !searchedWord.isEmpty {
+    var filteredUnFamiliarWordStatss: [WordStats] {
+        switch bar {
+        case .filter:
+            return unFamiliarWordStatss.filter { wordStats in
+                wordStats.presentCount >= low
+            }
+        case .search:
             return unFamiliarWordStatss.filter { wordStats in
                 wordStats.word == searchedWord
             }
-        }
-        return unFamiliarWordStatss.filter { wordStats in
-            wordStats.presentCount >= low
         }
     }
     
@@ -35,23 +37,25 @@ struct HistoryWordsView: View {
         predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
     ) var familiarWordStatss: FetchedResults<WordStats>
     
-    var xFamiliarWordStatss: [WordStats] {
-        if !searchedWord.isEmpty {
+    var filteredFamiliarWordStatss: [WordStats] {
+        switch bar {
+        case .filter:
+            return familiarWordStatss.filter { wordStats in
+                wordStats.presentCount >= low
+            }
+        case .search:
             return familiarWordStatss.filter { wordStats in
                 wordStats.word == searchedWord
             }
         }
-        return familiarWordStatss.filter { wordStats in
-            wordStats.presentCount >= low
-        }
     }
 
-    @State var low: Int = 1
-    let step = 1
-    let range = 1...(5*familiarThreshold)
+    @State fileprivate var bar: Bar = .filter
     
-    @State private var eSearchedWord: String = ""
-    @State private var isEditing = false
+    // filter bar
+    @State var low: Int = 1
+    
+    // search bar
     @State private var searchedWord: String = ""
     
     var body: some View {
@@ -62,33 +66,17 @@ struct HistoryWordsView: View {
                         VStack(alignment: .leading) {
                             Text("All Words Count: \(unFamiliarWordStatss.count + familiarWordStatss.count)")
                             
-                            HStack {
-                                Text("Filter:")
-                                Spacer()
-                                Stepper(value: $low,
-                                        in: range,
-                                        step: step) {
-                                    Text("\(low)")
-                                }
-                            }
-                            
-                            HStack {
-                                Text("Search: ")
-
-                                TextField(
-                                    "",
-                                    text: $eSearchedWord
-                                ) { isEditing in
-                                    self.isEditing = isEditing
-                                } onCommit: {
-                                    searchedWord = eSearchedWord
-                                }
+                            switch bar {
+                            case .filter:
+                                FilterBar(low: $low, bar: $bar)
+                            case .search:
+                                SearchBar(searchedWord: $searchedWord, bar: $bar)
                             }
                         }
                 ) {}
                 
-                Section(header: Text("UnFamiliar Words Count: \(xUnFamiliarWordStatss.count)")) {
-                    ForEach(xUnFamiliarWordStatss, id: \.self) { wordStats in
+                Section(header: Text("UnFamiliar Words Count: \(filteredUnFamiliarWordStatss.count)")) {
+                    ForEach(filteredUnFamiliarWordStatss, id: \.self) { wordStats in
                         Text("\(wordStats.word!): \(wordStats.presentCount)")
                             .foregroundColor(.secondary)
                             .frame(height: 20)
@@ -99,8 +87,8 @@ struct HistoryWordsView: View {
                     }
                 }
                 
-                Section(header: Text("Familiar Words Count: \(xFamiliarWordStatss.count)")) {
-                    ForEach(xFamiliarWordStatss, id: \.self) { wordStats in
+                Section(header: Text("Familiar Words Count: \(filteredFamiliarWordStatss.count)")) {
+                    ForEach(filteredFamiliarWordStatss, id: \.self) { wordStats in
                         Text("\(wordStats.word!): \(wordStats.presentCount)")
                             .foregroundColor(.secondary)
                             .frame(height: 20)
@@ -115,7 +103,86 @@ struct HistoryWordsView: View {
     }
 }
 
-let familiarThreshold = 50 // todo: make this value customiziable from UI
+fileprivate enum Bar {
+    case filter
+    case search
+}
+
+struct FilterBar: View {
+    @Binding var low: Int
+    @Binding fileprivate var bar: Bar
+
+    let step = 1
+    let range = 1...(familiarThreshold * 10)
+    
+    let halfFamiliarThreshold: Int = familiarThreshold / 2
+    let one: Int = 1
+    
+    var body: some View {
+        HStack {
+            Button(action: {
+                withAnimation {
+                    bar = .search
+                }
+            }, label: {
+                Image(systemName: "arrow.2.squarepath")
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            Text("Filter:")
+            
+            Spacer()
+                        
+            // preset for convenience
+            Button(action: { low = one }, label: { Text("\(one)") })
+            Button(action: { low = halfFamiliarThreshold }, label: { Text("\(halfFamiliarThreshold)") })
+            Button(action: { low = familiarThreshold }, label: { Text("\(familiarThreshold)").foregroundColor(Color.accentColor) })
+            Button(action: { low = familiarThreshold * 2 }, label: { Text("\(familiarThreshold * 2)") })
+            Button(action: { low = familiarThreshold * 4 }, label: { Text("\(familiarThreshold * 4)") })
+            Button(action: { low = familiarThreshold * 8 }, label: { Text("\(familiarThreshold * 8)") })
+
+            Stepper(value: $low,
+                    in: range,
+                    step: step) {
+                Text("\(low)")
+            }
+        }
+    }
+}
+
+struct SearchBar: View {
+    @Binding var searchedWord: String
+    @Binding fileprivate var bar: Bar
+    
+    @State private var eSearchedWord: String = ""
+    @State private var isEditing = false
+    
+    var body: some View {
+        HStack {
+            Button(action: {
+                withAnimation {
+                    bar = .filter
+                }
+            }, label: {
+                Image(systemName: "arrow.2.squarepath")
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            Text("Search: ")
+            
+            TextField(
+                "",
+                text: $eSearchedWord
+            ) { isEditing in
+                self.isEditing = isEditing
+            } onCommit: {
+                searchedWord = eSearchedWord
+            }
+        }
+    }
+}
+
+let familiarThreshold: Int = 50 // todo: make this value customiziable from UI
 
 func openDict(_ word: String) {
     let task = Process()
