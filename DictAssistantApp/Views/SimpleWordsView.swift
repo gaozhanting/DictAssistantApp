@@ -12,6 +12,8 @@ struct SimpleWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var recognizedText: RecognizedText
     @Environment(\.toggleContentPanelMiniMode) var toggleContentPanelMiniMode
+    @Environment(\.showContentPanel) var showContentPanel
+    @Environment(\.closeContentPanel) var closeContentPanel
     @FetchRequest(
         entity: WordStats.entity(),
         sortDescriptors: [],
@@ -27,9 +29,16 @@ struct SimpleWordsView: View {
     }
     
     var nonFamiliarWordFromRecognizedTextWords: [String] {
-        recognizedText.words.filter { word in
+        let result = recognizedText.words.filter { word in
             !familiarWordsSet.contains(word)
         }
+        if result.isEmpty {
+            closeContentPanel()
+        }
+        else {
+            showContentPanel()
+        }
+        return result
     }
     
     func translation(of word: String) -> String {

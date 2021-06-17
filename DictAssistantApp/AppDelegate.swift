@@ -217,6 +217,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
             .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
+            .environment(\.showContentPanel, showContentPanel)
+            .environment(\.closeContentPanel, closeContentPanel)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
