@@ -11,7 +11,7 @@ import DataBases
 struct SimpleWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var recognizedText: RecognizedText
-    @Environment(\.toggleContentPanelOpaque) var toggleContentPanelOpaque
+    @Environment(\.toggleContentPanelMiniMode) var toggleContentPanelMiniMode
     @FetchRequest(
         entity: WordStats.entity(),
         sortDescriptors: [],
@@ -64,7 +64,7 @@ struct SimpleWordsView: View {
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)
                 .onTapGesture {
-                    toggleContentPanelOpaque()
+                    toggleContentPanelMiniMode()
                 }
         }
         .layoutDirection(with: visualConfig.displayMode)

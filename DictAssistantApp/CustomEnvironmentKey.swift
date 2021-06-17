@@ -73,14 +73,14 @@ extension EnvironmentValues {
     }
 }
 
-private struct ToggleContentPanelOpaqueEnvironmentKey: EnvironmentKey {
+private struct ToggleContentPanelMiniModeEnvironmentKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}
 }
 
 extension EnvironmentValues {
-    var toggleContentPanelOpaque: () -> Void {
-        get { self[ToggleContentPanelOpaqueEnvironmentKey].self }
-        set { self[ToggleContentPanelOpaqueEnvironmentKey.self] = newValue }
+    var toggleContentPanelMiniMode: () -> Void {
+        get { self[ToggleContentPanelMiniModeEnvironmentKey].self }
+        set { self[ToggleContentPanelMiniModeEnvironmentKey.self] = newValue }
     }
 }
 
@@ -128,13 +128,13 @@ extension EnvironmentValues {
     }
 }
 
-private struct SyncContentPanelFromDisplayModeEnvironmentKey: EnvironmentKey {
+private struct SyncContentPanelFromVisualConfigEnvironmentKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}
 }
 
 extension EnvironmentValues {
-    var syncContentPanelFromDisplayMode: () -> Void {
-        get { self[SyncContentPanelFromDisplayModeEnvironmentKey].self }
-        set { self[SyncContentPanelFromDisplayModeEnvironmentKey.self] = newValue }
+    var syncContentPanelFromVisualConfig: () -> Void {
+        get { self[SyncContentPanelFromVisualConfigEnvironmentKey].self }
+        set { self[SyncContentPanelFromVisualConfigEnvironmentKey.self] = newValue }
     }
 }

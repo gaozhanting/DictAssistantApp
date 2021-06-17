@@ -126,9 +126,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         visualConfig.miniMode = false
-        syncContentPanelFromMiniMode() // always should call this whenever mutate miniMode (todo: make it auto)
+        syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
         visualConfig.displayMode = DisplayMode.landscape
-        syncContentPanelFromDisplayMode()
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
@@ -201,8 +200,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func initContentPanel() {
         contentPanel = ContentPanel.init()
         
-        syncContentPanelFromMiniMode()
-        syncContentPanelFromDisplayMode()
+        syncContentPanelFromVisualConfig()
         
         let context = persistentContainer.viewContext
         let contentView = ContentView()
@@ -213,12 +211,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.resetUserDefaults, resetUserDefaults)
             .environment(\.cropperUp, cropperUp)
             .environment(\.cropperDown, cropperDown)
-            .environment(\.toggleContentPanelOpaque, toggleContentPanelOpaque)
+            .environment(\.toggleContentPanelMiniMode, toggleContentPanelMiniMode)
             .environment(\.restartScreenCaptureWithNewTimeInterval, restartScreenCaptureWithNewTimeInterval)
             .environment(\.toggleScreenCapture, toggleScreenCapture)
             .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
-            .environment(\.syncContentPanelFromDisplayMode, syncContentPanelFromDisplayMode)
+            .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -347,8 +345,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         KeyboardShortcuts.onKeyUp(for: .exit, action: { [self] in
             exit()
         })
-        KeyboardShortcuts.onKeyUp(for: .toggleContentPanelOpaque, action: { [self] in
-            toggleContentPanelOpaque()
+        KeyboardShortcuts.onKeyUp(for: .toggleContentPanelMiniMode, action: { [self] in
+            toggleContentPanelMiniMode()
         })
         KeyboardShortcuts.onKeyUp(for: .toggleCropperWindowOpaque, action: { [self] in
             toggleCropperWindowOpaque()
@@ -390,33 +388,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
     
-    func toggleContentPanelOpaque() {
+    func toggleContentPanelMiniMode() {
         withAnimation {
             visualConfig.miniMode.toggle()
-            syncContentPanelFromMiniMode() // no effect from withAnimation?!
         }
+        syncContentPanelFromVisualConfig()
     }
     
-    // manually call this after mutate miniMode
     // todo: add to setter?! or something (delegate)?!
-    func syncContentPanelFromMiniMode() {
+    func syncContentPanelFromVisualConfig() {
         if visualConfig.miniMode {
-            contentPanel.isOpaque = false
             contentPanel.backgroundColor = NSColor.clear
         } else {
-            contentPanel.isOpaque = true
             contentPanel.backgroundColor = NSColor.windowBackgroundColor
         }
-    }
-    
-    // manually call this after mutate displayMode
-    // I like the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
-    func syncContentPanelFromDisplayMode() {
-        switch visualConfig.displayMode {
-        case .landscape:
-            contentPanel.hasShadow = false
-        case .portrait:
+
+        // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
+        if visualConfig.displayMode == .portrait && visualConfig.miniMode {
+            // the shadow of the window still exist sometimes!
             contentPanel.hasShadow = true
+        } else {
+            contentPanel.hasShadow = false
         }
     }
     

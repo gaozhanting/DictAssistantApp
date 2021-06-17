@@ -15,8 +15,8 @@ extension KeyboardShortcuts.Name {
     static let exit = Self(
         "exit",
         default: .init(.x, modifiers: [.command, .control]))
-    static let toggleContentPanelOpaque = Self(
-        "toggleContentPanelOpaque",
+    static let toggleContentPanelMiniMode = Self(
+        "toggleContentPanelMiniMode",
         default: .init(.o, modifiers: [.command, .control]))
     static let toggleCropperWindowOpaque = Self(
         "toggleCropperWindowOpaque",

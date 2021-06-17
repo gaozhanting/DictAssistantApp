@@ -20,7 +20,7 @@ struct ControlView: View {
     @Environment(\.restartScreenCaptureWithNewTimeInterval) var restartScreenCaptureWithNewTimeInterval
     @Environment(\.changeFont) var changeFont
     @Environment(\.showFonts) var showFonts
-    @Environment(\.syncContentPanelFromDisplayMode) var syncContentPanelFromDisplayMode
+    @Environment(\.toggleContentPanelMiniMode) var toggleContentPanelMiniMode
 
     @State private var showingDeleteAlert = false
     
@@ -40,7 +40,7 @@ struct ControlView: View {
             visualConfig.displayMode
         } set: { newValue in
             visualConfig.displayMode = newValue
-            syncContentPanelFromDisplayMode()
+            toggleContentPanelMiniMode()
         }
     }
     
