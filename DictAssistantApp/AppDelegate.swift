@@ -12,6 +12,7 @@ import DataBases
 import CoreData
 import KeyboardShortcuts
 import os
+import CryptoKit
 
 let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
 let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
@@ -44,6 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var textRecognitionRequest: VNRecognizeTextRequest!
 
     var imageUrlString = NSHomeDirectory() + "/Documents/" + "abc.jpg"
+    var imageDigest: SHA256.Digest? = nil
     
     // MARK: - Application
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -494,7 +496,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         arguments.append(imageUrlString)
 
         task.arguments = arguments
-        task.terminationHandler = { _ in
+        task.terminationHandler = { [self] _ in
+            let imageData = FileManager.default.contents(atPath: imageUrlString)!
+            let imageDigest = SHA256.hash(data: imageData)
+            
+            if imageDigest == self.imageDigest {
+                logger.info("Current ImageDigest is the same as last ImageDigest. So do nothing next!")
+                return
+            }
+            
+            self.imageDigest = imageDigest
+
             self.textRecognize()
             logger.info("process run complete.")
         }
