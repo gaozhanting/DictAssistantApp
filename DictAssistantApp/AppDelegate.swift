@@ -483,11 +483,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let task = Process()
         task.launchPath = "/usr/sbin/screencapture"
         var arguments = [String]();
-        arguments.append("-x")
-        arguments.append("-a")
-        arguments.append("-r")
-        arguments.append("-d")
-        arguments.append("-o")
+        arguments.append("-x") // do not play sounds
+        arguments.append("-a") // do not include windows attached to selected windows
+        arguments.append("-r") // do not add dpi meta data to image
+        arguments.append("-d") // display errors to the user graphically
+        arguments.append("-o") // in window capture mode, do not capture the shadow of the window
         arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
         logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height + 25),\(self.cropData.width),\(self.cropData.height)")
         // Notice there is no space between -R and x; just like -D2
