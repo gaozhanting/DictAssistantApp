@@ -13,6 +13,8 @@ import CoreData
 import KeyboardShortcuts
 import os
 import CryptoKit
+import AVFoundation
+import Foundation
 
 let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
 let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
@@ -22,7 +24,7 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 let logger = Logger()
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     let recognizedText = RecognizedText(texts: [])
     let statusData = StatusData(isPlaying: false)
@@ -450,14 +452,95 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         contentPanel.close()
     }
     
+    private var session: AVCaptureSession = AVCaptureSession()
+    private var screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
+    private var dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
+    private let videoDataOutputQueue = DispatchQueue(
+        label: "CameraFeedDataOutput",
+        qos: .userInitiated,
+        attributes: [],
+        autoreleaseFrequency: .workItem
+    )
+    
     func startScreenCapture() {
-        timer = Timer.scheduledTimer(withTimeInterval: textProcessConfig.screenCaptureTimeInterval, repeats: true, block: screenCapture(_:))
-        screenCapture(timer) // instant execute one time
-    }
-    func stopScreenCapture() {
-        timer.invalidate()
+//        timer = Timer.scheduledTimer(withTimeInterval: textProcessConfig.screenCaptureTimeInterval, repeats: true, block: screenCapture(_:))
+//        screenCapture(timer) // instant execute one time
+        
+        
+//        screenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
+        let videoFramesPerSecond = 30
+        screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
+        screenInput.cropRect = CGRect(
+            x: cropData.x - 0.5*cropData.width,
+            y: cropData.y - 0.5*cropData.height + 25,
+            width: cropData.width,
+            height:cropData.height
+        )
+//        input.scaleFactor = CGFloat(scaleFactor)
+        screenInput.capturesCursor = false
+        screenInput.capturesMouseClicks = false
+        
+//        output = output
+//        output.movieFragmentInterval = .invalid
+        
+
+//        session = AVCaptureSession()
+        session.beginConfiguration()
+        
+        if session.canAddInput(screenInput) {
+            session.addInput(screenInput)
+        } else {
+          print("Could not add video device input to the session")
+        }
+        
+//        dataOutput = AVCaptureVideoDataOutput()
+        if session.canAddOutput(dataOutput) {
+          session.addOutput(dataOutput)
+          // Add a video data output
+          dataOutput.alwaysDiscardsLateVideoFrames = true
+          dataOutput.videoSettings = [
+            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+          ]
+          dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
+        } else {
+          print("Could not add video data output to the session")
+        }
+        let captureConnection = dataOutput.connection(with: .video)
+//        captureConnection?.preferredVideoStabilizationMode = .standard
+//        captureConnection?.videoOrientation = .portrait
+        // Always process the frames
+        captureConnection?.isEnabled = true
+        
+        session.commitConfiguration()
+//        cameraFeedSession = session
+        
+        
+//        if
+//            let videoCodec = videoCodec,
+//            let connection = output.connection(with: .video)
+//        {
+//            output.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
+//        } else {
+//            throw Error.couldNotSetVideoCodec
+//        }
+        
+        session.startRunning()
+        
+//        output.startRecording(to: destination, recordingDelegate: self)
     }
     
+    func stopScreenCapture() {
+//        timer.invalidate()
+        
+        
+        
+//        dataOutput.stopRecording()
+        // This prevents a race condition in Apple's APIs with the above and below calls.
+//        sleep(for: 0.1)
+
+        session.stopRunning()
+    }
+
     func restartScreenCaptureWithNewTimeInterval() {
         stopScreenCapture()
         startScreenCapture()
@@ -479,57 +562,61 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     // MARK: - Screen Capture
-    func screenCapture(_ timer: Timer) {
-        let task = Process()
-        task.launchPath = "/usr/sbin/screencapture"
-        var arguments = [String]();
-        arguments.append("-x") // do not play sounds
-        arguments.append("-a") // do not include windows attached to selected windows
-        arguments.append("-r") // do not add dpi meta data to image
-        arguments.append("-d") // display errors to the user graphically
-        arguments.append("-o") // in window capture mode, do not capture the shadow of the window
-        arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
-        logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height + 25),\(self.cropData.width),\(self.cropData.height)")
-        // Notice there is no space between -R and x; just like -D2
-        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
-//        arguments.append("-D2")
-        arguments.append(imageUrlString)
-
-        task.arguments = arguments
-        task.terminationHandler = { [self] _ in
-            let imageData = FileManager.default.contents(atPath: imageUrlString)!
-            let imageDigest = SHA256.hash(data: imageData)
-            
-            if imageDigest == self.imageDigest {
-                logger.info("Current ImageDigest is the same as last ImageDigest. So do nothing next!")
-                return
-            }
-            
-            self.imageDigest = imageDigest
-
-            self.textRecognize()
-            logger.info("process run complete.")
-        }
-        
-        task.launch()
-    }
+//    func screenCapture(_ timer: Timer) {
+//        let task = Process()
+//        task.launchPath = "/usr/sbin/screencapture"
+//        var arguments = [String]();
+//        arguments.append("-x") // do not play sounds
+//        arguments.append("-a") // do not include windows attached to selected windows
+//        arguments.append("-r") // do not add dpi meta data to image
+//        arguments.append("-d") // display errors to the user graphically
+//        arguments.append("-o") // in window capture mode, do not capture the shadow of the window
+//        arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
+//        logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height + 25),\(self.cropData.width),\(self.cropData.height)")
+//        // Notice there is no space between -R and x; just like -D2
+//        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
+////        arguments.append("-D2")
+//        arguments.append(imageUrlString)
+//
+//        task.arguments = arguments
+//        task.terminationHandler = { [self] _ in
+//            let imageData = FileManager.default.contents(atPath: imageUrlString)!
+//            let imageDigest = SHA256.hash(data: imageData)
+//
+//            if imageDigest == self.imageDigest {
+//                logger.info("Current ImageDigest is the same as last ImageDigest. So do nothing next!")
+//                return
+//            }
+//
+//            self.imageDigest = imageDigest
+//
+//            self.textRecognize()
+//            logger.info("process run complete.")
+//        }
+//
+//        task.launch()
+//    }
     
     // MARK: - Text Recogniation
-    func textRecognize() {
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
-            do {
-                resetRequestHandler()
-                try requestHandler?.perform([textRecognitionRequest])
-            } catch {
-//                fatalError("TextRecognize failed: \(error)")
-                logger.info("TextRecognize failed: \(error.localizedDescription)")
-            }
-        }
-    }
+//    func textRecognize() {
+//        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
+//            do {
+////                resetRequestHandler()
+//                try requestHandler?.perform([textRecognitionRequest])
+//            } catch {
+////                fatalError("TextRecognize failed: \(error)")
+//                logger.info("TextRecognize failed: \(error.localizedDescription)")
+//            }
+//        }
+//    }
     
-    func resetRequestHandler() {
-        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
-        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
+//    func resetRequestHandler() {
+    // AVCaptureVideoDataOutputSampleBufferDelegate
+    // receive output data, and do TextRecognization
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
+//        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
+        requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, orientation: .down)
         textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
         textRecognitionRequest.minimumTextHeight = 0.0
