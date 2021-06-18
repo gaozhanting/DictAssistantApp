@@ -468,14 +468,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         
         
 //        screenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
-        let videoFramesPerSecond = 30
+        let videoFramesPerSecond = 1 // todo
         screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
+//        screenInput.cropRect = CGRect(
+//            x: cropData.x - 0.5*cropData.width,
+//            y: cropData.y - 0.5*cropData.height + 25,
+//            width: cropData.width,
+//            height:cropData.height
+//        )
+        
+        // todo: 1152 get from system (scale ..??)
         screenInput.cropRect = CGRect(
-            x: cropData.x - 0.5*cropData.width,
-            y: cropData.y - 0.5*cropData.height + 25,
-            width: cropData.width,
-            height:cropData.height
+            origin: CGPoint(x: cropData.x - 0.5*cropData.width, y: 1152 - cropData.y - 0.5*cropData.height),
+            size: CGSize(width: cropData.width, height: cropData.height)
         )
+        
 //        input.scaleFactor = CGFloat(scaleFactor)
         screenInput.capturesCursor = false
         screenInput.capturesMouseClicks = false
@@ -498,18 +505,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
           session.addOutput(dataOutput)
           // Add a video data output
           dataOutput.alwaysDiscardsLateVideoFrames = true
-          dataOutput.videoSettings = [
-            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
-          ]
+//          dataOutput.videoSettings = [
+//            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+//          ]
           dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
         } else {
           print("Could not add video data output to the session")
         }
-        let captureConnection = dataOutput.connection(with: .video)
+//        let captureConnection = dataOutput.connection(with: .video)
 //        captureConnection?.preferredVideoStabilizationMode = .standard
 //        captureConnection?.videoOrientation = .portrait
         // Always process the frames
-        captureConnection?.isEnabled = true
+//        captureConnection?.isEnabled = true
         
         session.commitConfiguration()
 //        cameraFeedSession = session
@@ -539,6 +546,53 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 //        sleep(for: 0.1)
 
         session.stopRunning()
+    }
+    
+    //    func resetRequestHandler() {
+    // AVCaptureVideoDataOutputSampleBufferDelegate
+    // receive output data, and do TextRecognization
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        //        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
+        //        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
+        requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
+        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
+        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
+        textRecognitionRequest.minimumTextHeight = 0.0
+        textRecognitionRequest.usesLanguageCorrection = true
+        
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
+            do {
+                try requestHandler?.perform([textRecognitionRequest])
+            } catch {
+                logger.info("TextRecognize failed: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func recognizeTextHandler(request: VNRequest, error: Error?) {
+        DispatchQueue.main.async { [unowned self] in
+            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
+            
+            if let results = results {
+                let texts: [String] = results.map { observation in
+                    let text: String = observation.topCandidates(1)[0].string
+                    return text
+                }
+                
+                if textProcessConfig.screenCaptureTimeInterval < 0.5 {
+                    recognizedText.texts = texts
+                } else {
+                    withAnimation {
+                        recognizedText.texts = texts
+                    }
+                }
+                
+                if !recognizedText.texts.elementsEqual(lastReconginzedTexts) {
+                    statistic(recognizedText.words)
+                    lastReconginzedTexts = recognizedText.texts
+                }
+            }
+        }
     }
 
     func restartScreenCaptureWithNewTimeInterval() {
@@ -610,42 +664,5 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 //        }
 //    }
     
-//    func resetRequestHandler() {
-    // AVCaptureVideoDataOutputSampleBufferDelegate
-    // receive output data, and do TextRecognization
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
-//        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
-        requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, orientation: .down)
-        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
-        textRecognitionRequest.minimumTextHeight = 0.0
-        textRecognitionRequest.usesLanguageCorrection = true
-    }
-    
-    func recognizeTextHandler(request: VNRequest, error: Error?) {
-        DispatchQueue.main.async { [unowned self] in
-            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
-            
-            if let results = results {
-                let texts: [String] = results.map { observation in
-                    let text: String = observation.topCandidates(1)[0].string
-                    return text
-                }
-                
-                if textProcessConfig.screenCaptureTimeInterval < 0.5 {
-                    recognizedText.texts = texts
-                } else {
-                    withAnimation {
-                        recognizedText.texts = texts
-                    }
-                }
-                
-                if !recognizedText.texts.elementsEqual(lastReconginzedTexts) {
-                    statistic(recognizedText.words)
-                    lastReconginzedTexts = recognizedText.texts
-                }
-            }
-        }
-    }
+
 }

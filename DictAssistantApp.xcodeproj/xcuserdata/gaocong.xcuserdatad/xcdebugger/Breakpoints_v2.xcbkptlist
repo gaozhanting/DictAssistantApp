@@ -67,15 +67,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "209D6305-97F6-4E7D-9C60-BA742B6DB93A"
-            shouldBeEnabled = "Yes"
+            uuid = "EE958B10-48AD-43F8-89C7-D4CA2A80B945"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DictAssistantApp/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "recognizeTextHandler(request:error:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -83,65 +83,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8C6153BC-84FD-4F69-8CFA-FF8687C7D4EE"
-            shouldBeEnabled = "Yes"
+            uuid = "05D26BD1-B948-4A22-9711-3BDB862F3E35"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DictAssistantApp/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "627"
-            endingLineNumber = "627"
-            landmarkName = "recognizeTextHandler(request:error:)"
+            startingLineNumber = "484"
+            endingLineNumber = "484"
+            landmarkName = "startScreenCapture()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8C6153BC-84FD-4F69-8CFA-FF8687C7D4EE - 657e1e1bf058e837"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "DictAssistantApp.AppDelegate.recognizeTextHandler(request: __C.VNRequest, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
-                  moduleName = "DictAssistantApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaocong/Developer/Mac/app/DictAssistantApp/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "627"
-                  endingLineNumber = "627"
-                  offsetFromSymbolStart = "184">
-               </Location>
-               <Location
-                  uuid = "8C6153BC-84FD-4F69-8CFA-FF8687C7D4EE - da214a8fc6fb0f37"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in DictAssistantApp.AppDelegate.recognizeTextHandler(request: __C.VNRequest, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
-                  moduleName = "DictAssistantApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaocong/Developer/Mac/app/DictAssistantApp/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "627"
-                  endingLineNumber = "627"
-                  offsetFromSymbolStart = "74">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3464C3D4-7362-4758-9264-6483A8E20089"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DictAssistantApp/Model/RecognizedText.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "words"
-            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
