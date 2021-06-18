@@ -24,7 +24,9 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 let logger = Logger()
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
+
+    
     
     let recognizedText = RecognizedText(texts: [])
     let statusData = StatusData(isPlaying: false)
@@ -455,6 +457,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     private var session: AVCaptureSession = AVCaptureSession()
     private var screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
     private var dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
+    private var testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
+    private var testMovie = false
     private let videoDataOutputQueue = DispatchQueue(
         label: "CameraFeedDataOutput",
         qos: .userInitiated,
@@ -470,18 +474,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 //        screenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
         let videoFramesPerSecond = 1 // todo
         screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
-//        screenInput.cropRect = CGRect(
-//            x: cropData.x - 0.5*cropData.width,
-//            y: cropData.y - 0.5*cropData.height + 25,
-//            width: cropData.width,
-//            height:cropData.height
-//        )
-        
-        // todo: 1152 get from system (scale ..??)
         screenInput.cropRect = CGRect(
-            origin: CGPoint(x: cropData.x - 0.5*cropData.width, y: 1152 - cropData.y - 0.5*cropData.height),
-            size: CGSize(width: cropData.width, height: cropData.height)
+            x: cropData.x - 0.5*cropData.width,
+            y: 1152 - cropData.y - 0.5*cropData.height - 25, // this test OK!
+            width: cropData.width,
+            height: cropData.height
         )
+        // todo: 1152 get from system (scale ..??)
         
 //        input.scaleFactor = CGFloat(scaleFactor)
         screenInput.capturesCursor = false
@@ -500,23 +499,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
           print("Could not add video device input to the session")
         }
         
-//        dataOutput = AVCaptureVideoDataOutput()
-        if session.canAddOutput(dataOutput) {
-          session.addOutput(dataOutput)
-          // Add a video data output
-          dataOutput.alwaysDiscardsLateVideoFrames = true
-//          dataOutput.videoSettings = [
-//            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
-//          ]
-          dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-        } else {
-          print("Could not add video data output to the session")
+        if testMovie {
+            if session.canAddOutput(testMovieFileOutput) {
+                session.addOutput(testMovieFileOutput)
+                testMovieFileOutput.movieFragmentInterval = .invalid
+//                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
+            } else {
+                print("Could not add movie file output to the session")
+            }
         }
-//        let captureConnection = dataOutput.connection(with: .video)
-//        captureConnection?.preferredVideoStabilizationMode = .standard
-//        captureConnection?.videoOrientation = .portrait
-        // Always process the frames
-//        captureConnection?.isEnabled = true
+        else {
+            
+            //        dataOutput = AVCaptureVideoDataOutput()
+            if session.canAddOutput(dataOutput) {
+                session.addOutput(dataOutput)
+                // Add a video data output
+                dataOutput.alwaysDiscardsLateVideoFrames = true
+                //          dataOutput.videoSettings = [
+                //            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+                //          ]
+                dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
+            } else {
+                print("Could not add video data output to the session")
+            }
+            //        let captureConnection = dataOutput.connection(with: .video)
+            //        captureConnection?.preferredVideoStabilizationMode = .standard
+            //        captureConnection?.videoOrientation = .portrait
+            // Always process the frames
+            //        captureConnection?.isEnabled = true
+        }
         
         session.commitConfiguration()
 //        cameraFeedSession = session
@@ -533,15 +544,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         
         session.startRunning()
         
+        if testMovie {
+            let movieUrl = URL.init(fileURLWithPath: movieUrlString)
+            testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
+        }
+        
 //        output.startRecording(to: destination, recordingDelegate: self)
     }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+         
+    }
+    
+    var movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
+
     
     func stopScreenCapture() {
 //        timer.invalidate()
         
         
-        
-//        dataOutput.stopRecording()
+        if testMovie {
+            testMovieFileOutput.stopRecording()
+        }
         // This prevents a race condition in Apple's APIs with the above and below calls.
 //        sleep(for: 0.1)
 
