@@ -603,15 +603,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
                     return text
                 }
                 
-                if textProcessConfig.screenCaptureTimeInterval < 0.5 {
+                withAnimation {
                     recognizedText.texts = texts
-                } else {
-                    withAnimation {
-                        recognizedText.texts = texts
-                    }
                 }
                 
-                if !recognizedText.texts.elementsEqual(lastReconginzedTexts) {
+                if recognizedText.texts.elementsEqual(lastReconginzedTexts) {
+                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
+                } else {
+                    logger.info("Do statistic of words")
                     statistic(recognizedText.words)
                     lastReconginzedTexts = recognizedText.texts
                 }
