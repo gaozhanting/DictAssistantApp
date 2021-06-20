@@ -593,7 +593,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     //    func resetRequestHandler() {
     // AVCaptureVideoDataOutputSampleBufferDelegate
     // receive output data, and do TextRecognization
+    
+    var sampleBufferCache: CMSampleBuffer? = nil
+
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+
+        if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
+            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
+            return
+        }
+        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavey cpu works")
+        
+        sampleBufferCache = sampleBuffer
         //        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
         //        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
         requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
