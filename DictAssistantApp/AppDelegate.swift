@@ -225,6 +225,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
             .environment(\.showContentPanel, showContentPanel)
             .environment(\.closeContentPanel, closeContentPanel)
+            .environment(\.enterContentPanelMiniMode, enterContentPanelMiniMode)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -399,6 +400,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     func toggleContentPanelMiniMode() {
         withAnimation {
             visualConfig.miniMode.toggle()
+        }
+        syncContentPanelFromVisualConfig()
+    }
+    
+    func enterContentPanelMiniMode() {
+        withAnimation {
+            visualConfig.miniMode = true
         }
         syncContentPanelFromVisualConfig()
     }

@@ -21,6 +21,7 @@ struct ControlView: View {
     @Environment(\.changeFont) var changeFont
     @Environment(\.showFonts) var showFonts
     @Environment(\.toggleContentPanelMiniMode) var toggleContentPanelMiniMode
+    @Environment(\.enterContentPanelMiniMode) var enterContentPanelMiniMode
 
     @State private var showingDeleteAlert = false
     
@@ -65,31 +66,38 @@ struct ControlView: View {
             })
             .buttonStyle(PlainButtonStyle())
             
-            Button(action: {
-                resetUserDefaults()
-            }, label: {
-                Image(systemName: "seal")
-            })
-            .buttonStyle(PlainButtonStyle())
+//            Button(action: {
+//                resetUserDefaults()
+//            }, label: {
+//                Image(systemName: "seal")
+//            })
+//            .buttonStyle(PlainButtonStyle())
+//
+//            Button(action: {
+//                cropperUp()
+//            }, label: {
+//                Image(systemName: "arrow.up.to.line")
+//            })
+//            .buttonStyle(PlainButtonStyle())
+//
+//            Button(action: {
+//                cropperDown()
+//            }, label: {
+//                Image(systemName: "arrow.down.to.line")
+//            })
+//            .buttonStyle(PlainButtonStyle())
+            
+//            Button(action: {
+//                showFonts(nil)
+//            }, label: {
+//                Image(systemName: "f.circle")
+//            })
+//            .buttonStyle(PlainButtonStyle())
             
             Button(action: {
-                cropperUp()
+                enterContentPanelMiniMode()
             }, label: {
-                Image(systemName: "arrow.up.to.line")
-            })
-            .buttonStyle(PlainButtonStyle())
-            
-            Button(action: {
-                cropperDown()
-            }, label: {
-                Image(systemName: "arrow.down.to.line")
-            })
-            .buttonStyle(PlainButtonStyle())
-            
-            Button(action: {
-                showFonts(nil)
-            }, label: {
-                Image(systemName: "f.circle")
+                Image(systemName: "m.circle")
             })
             .buttonStyle(PlainButtonStyle())
             
