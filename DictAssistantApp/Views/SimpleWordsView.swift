@@ -72,9 +72,9 @@ struct SimpleWordsView: View {
                 .onTapGesture {
                     toggleContentPanelMiniMode()
                 }
-                .onLongPressGesture {
-                    say(word: word)
-                }
+//                .onLongPressGesture { // todo: double click (intentional, no accidental)
+//                    say(word: word)
+//                }
         }
         .layoutDirection(with: visualConfig.displayMode)
     }
