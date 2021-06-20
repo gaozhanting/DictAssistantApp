@@ -17,7 +17,6 @@ struct ControlView: View {
     @Environment(\.resetUserDefaults) var resetUserDefaults
     @Environment(\.cropperUp) var cropperUp
     @Environment(\.cropperDown) var cropperDown
-    @Environment(\.restartScreenCaptureWithNewTimeInterval) var restartScreenCaptureWithNewTimeInterval
     @Environment(\.changeFont) var changeFont
     @Environment(\.showFonts) var showFonts
     @Environment(\.toggleContentPanelMiniMode) var toggleContentPanelMiniMode

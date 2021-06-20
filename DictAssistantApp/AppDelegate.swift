@@ -211,7 +211,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             .environment(\.cropperUp, cropperUp)
             .environment(\.cropperDown, cropperDown)
             .environment(\.toggleContentPanelMiniMode, toggleContentPanelMiniMode)
-            .environment(\.restartScreenCaptureWithNewTimeInterval, restartScreenCaptureWithNewTimeInterval)
             .environment(\.toggleScreenCapture, toggleScreenCapture)
             .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
@@ -564,8 +563,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavey cpu works")
         
         sampleBufferCache = sampleBuffer
-        //        let imageUrl = URL.init(fileURLWithPath: imageUrlString)
-        //        requestHandler = VNImageRequestHandler(url: imageUrl, options: [:])
+
         requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
         textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
@@ -604,11 +602,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
                 }
             }
         }
-    }
-
-    func restartScreenCaptureWithNewTimeInterval() {
-        stopScreenCapture()
-        startScreenCapture()
     }
     
     private func showCropper() {
