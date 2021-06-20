@@ -41,7 +41,15 @@ struct ContentView_Previews: PreviewProvider {
             ContentView()
                 .frame(width: 1000, height: 300)
                 .environmentObject(TextProcessConfig(textRecognitionLevel: .fast))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
@@ -50,8 +58,15 @@ struct ContentView_Previews: PreviewProvider {
             ContentView()
                 .environment(\.toggleCropper, {})
                 .environmentObject(TextProcessConfig(textRecognitionLevel: .fast))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
-                .environmentObject(StatusData(isPlaying: true))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))                .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))

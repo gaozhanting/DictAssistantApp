@@ -86,6 +86,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             displayMode: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
+            colorOfLandscape: .orange,
+            colorOfPortrait: .green,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
         )
         
@@ -132,6 +134,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
+        visualConfig.colorOfLandscape = .orange
+        visualConfig.colorOfPortrait = .green
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
@@ -217,6 +221,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
             .environment(\.showContentPanel, showContentPanel)
             .environment(\.closeContentPanel, closeContentPanel)
+            .environment(\.showColorPanel, showColorPanel)
             .environment(\.enterContentPanelMiniMode, enterContentPanelMiniMode)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
@@ -282,7 +287,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             visualConfig.fontSizeOfPortrait = newFont.pointSize
         }
     }
-
+    
+    func showColorPanel() {
+        let panel = NSColorPanel.shared
+        panel.isRestorable = false
+        panel.delegate = self
+        panel.showsAlpha = true
+        
+        panel.setAction(#selector(selectColor))
+        panel.setTarget(self)
+        
+        panel.orderFront(self)
+    }
+    
+    @IBAction func selectColor(_ sender: NSColorPanel) {
+        switch visualConfig.displayMode {
+        case .landscape:
+            visualConfig.colorOfLandscape = sender.color
+        case .portrait:
+            visualConfig.colorOfPortrait = sender.color
+        }
+    }
     // MARK:- Core Data (WordStatis)
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WordStatistics")

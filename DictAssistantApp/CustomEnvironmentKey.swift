@@ -160,3 +160,14 @@ extension EnvironmentValues {
         set { self[EnterContentPanelMiniModeEnvironmentKey.self] = newValue }
     }
 }
+
+private struct ShowColorPanelEnvironmentKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var showColorPanel: () -> Void {
+        get { self[ShowColorPanelEnvironmentKey].self }
+        set { self[ShowColorPanelEnvironmentKey.self] = newValue }
+    }
+}

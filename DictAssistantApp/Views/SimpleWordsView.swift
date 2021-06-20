@@ -58,9 +58,9 @@ struct SimpleWordsView: View {
     var wordColor: Color {
         switch visualConfig.displayMode {
         case .landscape:
-            return .orange
+            return Color(visualConfig.colorOfLandscape)
         case .portrait:
-            return .green
+            return Color(visualConfig.colorOfPortrait)
         }
     }
     
@@ -141,37 +141,91 @@ struct SimpleWordsView_Previews: PreviewProvider {
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
                 ))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            
             SimpleWordsView()
                 .frame(width: 1000, height: 120)
                 .environmentObject(RecognizedText(
                     texts: ["And this massively accelerated our leanring style"]
                 ))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            
             SimpleWordsView()
                 .frame(width: 1000, height: 220)
                 .environmentObject(RecognizedText(
                     texts: [""]
                 ))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            
             SimpleWordsView()
                 .frame(width: 320, height: 500)
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            
             SimpleWordsView()
                 .frame(width: 220, height: 500)
                 .environmentObject(RecognizedText(
                     texts: ["A rectangle hovered here"]
                 ))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            
             SimpleWordsView()
                 .frame(width: 220, height: 500)
                 .environmentObject(RecognizedText(
                     texts: ["And this massively accelerated our leanring curve"]
                 ))
-                .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(
+                    VisualConfig(
+                        miniMode: false,
+                        displayMode: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            
         }
     }
 }
