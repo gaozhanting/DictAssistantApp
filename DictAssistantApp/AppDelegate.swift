@@ -94,14 +94,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             // refer source code: enum VNRequestTextRecognitionLevel : Int
             UserDefaults.standard.setValue(1, forKey: "textProcessConfig.textRecognitionLevel")
         }
-        if UserDefaults.standard.object(forKey: "textProcessConfig.screenCaptureTimeInterval") == nil {
-            UserDefaults.standard.setValue(1.0, forKey: "textProcessConfig.screenCaptureTimeInterval")
-        }
         textProcessConfig = TextProcessConfig(
             textRecognitionLevel: VNRequestTextRecognitionLevel(
                 rawValue: UserDefaults.standard.integer(forKey: "textProcessConfig.textRecognitionLevel")
-            )!,
-            screenCaptureTimeInterval: UserDefaults.standard.double(forKey: "textProcessConfig.screenCaptureTimeInterval")
+            )!
         )
         
         // CropData
@@ -139,9 +135,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
-        UserDefaults.standard.set(1.0 , forKey: "textProcessConfig.screenCaptureTimeInterval")
         textProcessConfig.textRecognitionLevel = .fast
-        textProcessConfig.screenCaptureTimeInterval = 1.0
 
         UserDefaults.standard.set(300.0, forKey: "cropper.x")
         UserDefaults.standard.set(300.0, forKey: "cropper.y")
@@ -167,7 +161,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
         
         UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
-        UserDefaults.standard.set(Double(textProcessConfig.screenCaptureTimeInterval), forKey: "textProcessConfig.screenCaptureTimeInterval")
 
         UserDefaults.standard.set(Double(cropData.x), forKey: "cropper.x")
         UserDefaults.standard.set(Double(cropData.y), forKey: "cropper.y")
@@ -485,11 +478,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     )
     
     func startScreenCapture() {
-//        timer = Timer.scheduledTimer(withTimeInterval: textProcessConfig.screenCaptureTimeInterval, repeats: true, block: screenCapture(_:))
-//        screenCapture(timer) // instant execute one time
-        
-        
-//        screenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
         let videoFramesPerSecond = 1 // todo
         screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
         screenInput.cropRect = CGRect(
@@ -503,12 +491,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 //        input.scaleFactor = CGFloat(scaleFactor)
         screenInput.capturesCursor = false
         screenInput.capturesMouseClicks = false
-        
-//        output = output
-//        output.movieFragmentInterval = .invalid
-        
 
-//        session = AVCaptureSession()
         session.beginConfiguration()
         
         if session.canAddInput(screenInput) {
@@ -527,8 +510,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             }
         }
         else {
-            
-            //        dataOutput = AVCaptureVideoDataOutput()
             if session.canAddOutput(dataOutput) {
                 session.addOutput(dataOutput)
                 // Add a video data output
@@ -548,17 +529,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         }
         
         session.commitConfiguration()
-//        cameraFeedSession = session
-        
-        
-//        if
-//            let videoCodec = videoCodec,
-//            let connection = output.connection(with: .video)
-//        {
-//            output.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
-//        } else {
-//            throw Error.couldNotSetVideoCodec
-//        }
         
         session.startRunning()
         
@@ -566,33 +536,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             let movieUrl = URL.init(fileURLWithPath: movieUrlString)
             testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
         }
-        
-//        output.startRecording(to: destination, recordingDelegate: self)
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
          
     }
     
+    // need maually delete for testing.
     var movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
 
-    
     func stopScreenCapture() {
-//        timer.invalidate()
-        
-        
         if testMovie {
             testMovieFileOutput.stopRecording()
         }
-        // This prevents a race condition in Apple's APIs with the above and below calls.
-//        sleep(for: 0.1)
 
         session.stopRunning()
     }
-    
-    //    func resetRequestHandler() {
-    // AVCaptureVideoDataOutputSampleBufferDelegate
-    // receive output data, and do TextRecognization
     
     var sampleBufferCache: CMSampleBuffer? = nil
 
@@ -666,55 +625,5 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             showCropper()
         }
     }
-
-    // MARK: - Screen Capture
-//    func screenCapture(_ timer: Timer) {
-//        let task = Process()
-//        task.launchPath = "/usr/sbin/screencapture"
-//        var arguments = [String]();
-//        arguments.append("-x") // do not play sounds
-//        arguments.append("-a") // do not include windows attached to selected windows
-//        arguments.append("-r") // do not add dpi meta data to image
-//        arguments.append("-d") // display errors to the user graphically
-//        arguments.append("-o") // in window capture mode, do not capture the shadow of the window
-//        arguments.append("-tjpg") // picture size:  jpg < pdf < png < tiff
-//        logger.info("screenCapture -R\(self.cropData.x - 0.5*self.cropData.width),\(self.cropData.y - 0.5*self.cropData.height + 25),\(self.cropData.width),\(self.cropData.height)")
-//        // Notice there is no space between -R and x; just like -D2
-//        arguments.append("-R\(cropData.x - 0.5*cropData.width),\(cropData.y - 0.5*cropData.height + 25),\(cropData.width),\(cropData.height)")
-////        arguments.append("-D2")
-//        arguments.append(imageUrlString)
-//
-//        task.arguments = arguments
-//        task.terminationHandler = { [self] _ in
-//            let imageData = FileManager.default.contents(atPath: imageUrlString)!
-//            let imageDigest = SHA256.hash(data: imageData)
-//
-//            if imageDigest == self.imageDigest {
-//                logger.info("Current ImageDigest is the same as last ImageDigest. So do nothing next!")
-//                return
-//            }
-//
-//            self.imageDigest = imageDigest
-//
-//            self.textRecognize()
-//            logger.info("process run complete.")
-//        }
-//
-//        task.launch()
-//    }
-    
-    // MARK: - Text Recogniation
-//    func textRecognize() {
-//        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
-//            do {
-////                resetRequestHandler()
-//                try requestHandler?.perform([textRecognitionRequest])
-//            } catch {
-////                fatalError("TextRecognize failed: \(error)")
-//                logger.info("TextRecognize failed: \(error.localizedDescription)")
-//            }
-//        }
-//    }
-    
 
 }

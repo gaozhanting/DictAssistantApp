@@ -40,7 +40,7 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView()
                 .frame(width: 1000, height: 300)
-                .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
+                .environmentObject(TextProcessConfig(textRecognitionLevel: .fast))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .landscape, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(
@@ -49,7 +49,7 @@ struct ContentView_Previews: PreviewProvider {
 
             ContentView()
                 .environment(\.toggleCropper, {})
-                .environmentObject(TextProcessConfig(textRecognitionLevel: .fast, screenCaptureTimeInterval: 1.0))
+                .environmentObject(TextProcessConfig(textRecognitionLevel: .fast))
                 .environmentObject(VisualConfig(miniMode: false, displayMode: .portrait, fontSizeOfLandscape: 20, fontSizeOfPortrait: 13, fontName: NSFont.systemFont(ofSize: 0.0).fontName))
                 .environmentObject(StatusData(isPlaying: true))
                 .environmentObject(RecognizedText(

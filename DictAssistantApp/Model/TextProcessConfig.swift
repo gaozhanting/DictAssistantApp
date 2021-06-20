@@ -10,10 +10,8 @@ import Vision
 
 class TextProcessConfig: ObservableObject {
     @Published var textRecognitionLevel: VNRequestTextRecognitionLevel
-    @Published var screenCaptureTimeInterval: TimeInterval
     
-    init(textRecognitionLevel: VNRequestTextRecognitionLevel, screenCaptureTimeInterval: TimeInterval) {
+    init(textRecognitionLevel: VNRequestTextRecognitionLevel) {
         self.textRecognitionLevel = textRecognitionLevel
-        self.screenCaptureTimeInterval = screenCaptureTimeInterval
     }
 }
