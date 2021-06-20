@@ -260,18 +260,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     
     // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
     // And: My App must be the main App (when macOS menu is my app menu), otherwise, you can't see FontPanel when you click icon from ControlViews
+    // triggered from font control button; not from font standard menu
     func showFonts(_ sender: Any?) {
-//        let name = UserDefaults.standard[.fontName]
-//        let size = UserDefaults.standard[.fontSize]
-//        let font = NSFont(name: visualConfig.fontName, size: 13.0) ?? NSFont.userFont(ofSize: 13.0)!
+        let name = visualConfig.fontName
+        let size: CGFloat = {
+            switch visualConfig.displayMode {
+            case .landscape:
+                return visualConfig.fontSizeOfLandscape
+            case .portrait:
+                return visualConfig.fontSizeOfPortrait
+            }
+        }()
+        let font = NSFont(name: name, size: size) ?? NSFont.userFont(ofSize: 13.0)!
 
-//        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
+        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
         NSFontManager.shared.orderFrontFontPanel(sender)
-//
-//        NSFontManager.shared.target = self
-
-//        NSFontPanel.shared.isAccessibilityFrontmost()
-//        NSFontPanel.shared.makeKeyAndOrderFront(self)
     }
     
     // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
@@ -279,6 +282,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         guard let sender = sender else { return assertionFailure() }
         let newFont = sender.convert(.systemFont(ofSize: 0))
         visualConfig.fontName = newFont.fontName
+        
+        switch visualConfig.displayMode {
+        case .landscape:
+            visualConfig.fontSizeOfLandscape = newFont.pointSize
+        case .portrait:
+            visualConfig.fontSizeOfPortrait = newFont.pointSize
+        }
     }
 
     // MARK:- Core Data (WordStatis)

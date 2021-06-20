@@ -87,12 +87,12 @@ struct ControlView: View {
 //            })
 //            .buttonStyle(PlainButtonStyle())
             
-//            Button(action: {
-//                showFonts(nil)
-//            }, label: {
-//                Image(systemName: "f.circle")
-//            })
-//            .buttonStyle(PlainButtonStyle())
+            Button(action: {
+                showFonts(nil)
+            }, label: {
+                Image(systemName: "f.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
             
             Button(action: {
                 enterContentPanelMiniMode()
