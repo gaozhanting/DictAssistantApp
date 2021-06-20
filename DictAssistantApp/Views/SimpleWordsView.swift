@@ -20,12 +20,9 @@ struct SimpleWordsView: View {
         predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
     ) var familiarWordStatss: FetchedResults<WordStats>
     
-    var familiarWords: [String] {
-        familiarWordStatss.map { $0.word! }
-    }
-    
     var familiarWordsSet: Set<String> {
-        Set(familiarWords)
+        let familiarWords = familiarWordStatss.map { $0.word! }
+        return Set(familiarWords)
     }
     
     var nonFamiliarWordFromRecognizedTextWords: [String] {

@@ -12,8 +12,19 @@ import DataBases
 class RecognizedText: ObservableObject {
     @Published var texts: [String] = []
     
+    var textsCache: [String] = []
+    var wordsCache: [String] = []
+    
     var words: [String] { // maybe expensive?! add lazy?
-        TextProcess.extractWords(from: texts)
+        if texts.elementsEqual(textsCache) {
+//            logger.info("RecognizedText texts elementsEqual textsCache, so don't do extractWords")
+            return wordsCache
+        }
+        
+        logger.info("RecognizedText texts NOT elementsEqual textsCache, so do extractWords")
+        textsCache = texts
+        wordsCache = TextProcess.extractWords(from: texts)
+        return wordsCache
     }
     
     init(texts: [String]) {

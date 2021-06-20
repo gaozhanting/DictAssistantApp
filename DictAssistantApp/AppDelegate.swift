@@ -557,7 +557,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 
         if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
-            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
+//            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
             return
         }
         logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavey cpu works")
@@ -594,7 +594,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
                 }
                 
                 if recognizedText.texts.elementsEqual(lastReconginzedTexts) {
-                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
+//                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
                 } else {
                     logger.info("Do statistic of words")
                     statistic(recognizedText.words)
