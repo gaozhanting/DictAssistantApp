@@ -271,6 +271,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         let font = NSFont(name: name, size: size) ?? NSFont.userFont(ofSize: 13.0)!
 
         NSFontManager.shared.setSelectedFont(font, isMultiple: false)
+        
+        NSApplication.shared.activate(ignoringOtherApps: true)
         NSFontManager.shared.orderFrontFontPanel(sender)
     }
     
@@ -297,6 +299,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         panel.setAction(#selector(selectColor))
         panel.setTarget(self)
         
+        NSApplication.shared.activate(ignoringOtherApps: true)
         panel.orderFront(self)
     }
     
