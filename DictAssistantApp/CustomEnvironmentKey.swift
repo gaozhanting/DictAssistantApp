@@ -51,28 +51,6 @@ extension EnvironmentValues {
     }
 }
 
-private struct CropperUpEnvironmentKey: EnvironmentKey {
-    static let defaultValue: () -> Void = {}
-}
-
-extension EnvironmentValues {
-    var cropperUp: () -> Void {
-        get { self[CropperUpEnvironmentKey].self }
-        set { self[CropperUpEnvironmentKey.self] = newValue }
-    }
-}
-
-private struct CropperDownEnvironmentKey: EnvironmentKey {
-    static let defaultValue: () -> Void = {}
-}
-
-extension EnvironmentValues {
-    var cropperDown: () -> Void {
-        get { self[CropperDownEnvironmentKey].self }
-        set { self[CropperDownEnvironmentKey.self] = newValue }
-    }
-}
-
 private struct ToggleContentPanelMiniModeEnvironmentKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}
 }

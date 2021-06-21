@@ -18,7 +18,7 @@ class StatusBarController {
         statusItem = statusBar.statusItem(withLength: 28.0)
         
         if let statusBarButton = statusItem.button {
-            statusBarButton.image = #imageLiteral(resourceName: "Assistant")
+            statusBarButton.image = NSImage(systemSymbolName: "character.book.closed", accessibilityDescription: nil)
             statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
             statusBarButton.image?.isTemplate = true
             statusBarButton.action = #selector(toggleTheContent(sender:))
@@ -28,5 +28,8 @@ class StatusBarController {
     
     @objc func toggleTheContent(sender: AnyObject) {
         toggleContent()
+        if let statusBarButton = statusItem.button {
+            statusBarButton.image = NSImage(systemSymbolName: "character.book.closed.fill", accessibilityDescription: nil)
+        }
     }
 }

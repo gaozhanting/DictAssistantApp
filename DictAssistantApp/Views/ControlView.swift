@@ -15,8 +15,6 @@ struct ControlView: View {
     @Environment(\.toggleCropper) var toggleCropper
     @Environment(\.toggleScreenCapture) var toggleScreenCapture
     @Environment(\.resetUserDefaults) var resetUserDefaults
-    @Environment(\.cropperUp) var cropperUp
-    @Environment(\.cropperDown) var cropperDown
     @Environment(\.changeFont) var changeFont
     @Environment(\.showFonts) var showFonts
     @Environment(\.showColorPanel) var showColorPanel
@@ -52,32 +50,9 @@ struct ControlView: View {
                 }
             }, label: {
                 Image(systemName: "rectangle.dashed")
-//                    .contentShape(Rectangle())
-//                    .background(Color.primary.opacity(0.15))
             })
             .buttonStyle(PlainButtonStyle())
-            
-//            Button(action: {
-//                resetUserDefaults()
-//            }, label: {
-//                Image(systemName: "seal")
-//            })
-//            .buttonStyle(PlainButtonStyle())
-//
-//            Button(action: {
-//                cropperUp()
-//            }, label: {
-//                Image(systemName: "arrow.up.to.line")
-//            })
-//            .buttonStyle(PlainButtonStyle())
-//
-//            Button(action: {
-//                cropperDown()
-//            }, label: {
-//                Image(systemName: "arrow.down.to.line")
-//            })
-//            .buttonStyle(PlainButtonStyle())
-            
+
             Button(action: {
                 showFonts(nil)
             }, label: {
@@ -120,10 +95,8 @@ struct ControlView: View {
             }
             .menuStyle(BorderlessButtonMenuStyle())
             .frame(maxWidth: 60)
-//            .padding(.horizontal, 27)
 
             playingImage
-//                .padding(.horizontal)
                 .onTapGesture {
                     toggleScreenCapture()
                 }

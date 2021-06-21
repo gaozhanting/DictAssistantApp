@@ -25,9 +25,6 @@ let logger = Logger()
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
-
-    
-    
     let recognizedText = RecognizedText(texts: [])
     let statusData = StatusData(isPlaying: false)
     
@@ -37,10 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     
     var lastReconginzedTexts: [String] = []
 
-    var statusBar: StatusBarController?
-    
-    var cropperWindow: NSPanel!
-    var contentPanel: NSPanel!
     
     var timer: Timer = Timer()
 
@@ -52,16 +45,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     var imageDigest: SHA256.Digest? = nil
     
     // MARK: - Application
+    var statusBar: StatusBarController?
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        registerGlobalKeyboardShortcuts()
-        
         initContentPanel()
-        
         initCropperWindow()
-
         statusBar = StatusBarController.init(toggleContent)
     }
     
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+    }
+    
+    // When click esc on wordsWindow, should toggle to stop.
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        stop()
+        return true
+    }
+    
+    // MARK: - User Defaults
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
     override init() {
@@ -157,7 +158,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         )
     }
  
-    private func saveAllUserDefaults() {
+    func saveAllUserDefaults() {
         UserDefaults.standard.set(visualConfig.miniMode, forKey: "visualConfig.miniMode")
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
@@ -171,35 +172,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         UserDefaults.standard.set(Double(cropData.width), forKey: "cropper.width")
         UserDefaults.standard.set(Double(cropData.height), forKey: "cropper.height")
     }
-    
-    func cropperUp() {
-        cropData.y -= cropData.height
-        
-        contentPanel.setFrame(
-            NSMakeRect(
-                contentPanel.frame.minX,
-                contentPanel.frame.minY + cropData.height,
-                contentPanel.frame.width,
-                contentPanel.frame.height
-            ),
-            display: true,
-            animate: true)
-    }
-    
-    func cropperDown() {
-        cropData.y += cropData.height
-        
-        contentPanel.setFrame(
-            NSMakeRect(
-                contentPanel.frame.minX,
-                contentPanel.frame.minY - cropData.height,
-                contentPanel.frame.width,
-                contentPanel.frame.height
-            ),
-            display: true,
-            animate: true)
-    }
 
+    // MARK: - contentPanel
+    var contentPanel: NSPanel!
     func initContentPanel() {
         contentPanel = ContentPanel.init()
         
@@ -212,8 +187,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             .environment(\.toggleContent, toggleContent)
             .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
             .environment(\.resetUserDefaults, resetUserDefaults)
-            .environment(\.cropperUp, cropperUp)
-            .environment(\.cropperDown, cropperDown)
             .environment(\.toggleContentPanelMiniMode, toggleContentPanelMiniMode)
             .environment(\.toggleScreenCapture, toggleScreenCapture)
             .environment(\.showFonts, showFonts)
@@ -232,6 +205,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         contentPanel.delegate = self // for windowShouldClose
     }
     
+    // MARK: - cropperWindow
+    var cropperWindow: NSPanel!
     func initCropperWindow() {
         cropperWindow = CropperWindow.init()
         let cropView = CropperView()
@@ -239,22 +214,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         
         cropperWindow.contentView = NSHostingView(rootView: cropView)
     }
+    
+    // MARK:- Appearance (FontPanel & ColorPanel)
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-    
-    // When click esc on wordsWindow, should toggle to stop.
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
-        stop()
-        return true
-    }
-    
-    // MARK:- Appearance
-//    override func changeFont(_ sender: Any?) {
-//        
-//    }
-    
     // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
     // And: My App must be the main App (when macOS menu is my app menu), otherwise, you can't see FontPanel when you click icon from ControlViews
     // triggered from font control button; not from font standard menu
@@ -311,6 +273,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             visualConfig.colorOfPortrait = sender.color
         }
     }
+    
     // MARK:- Core Data (WordStatis)
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WordStatistics")
@@ -375,34 +338,150 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         }
         saveContext()
     }
+    
 
-    // MARK: - Global Keyboard Shortcuts
-    func registerGlobalKeyboardShortcuts() {
-        KeyboardShortcuts.onKeyUp(for: .startOrPause, action: { [self] in
-            toggleContent()
-        })
-        KeyboardShortcuts.onKeyUp(for: .exit, action: { [self] in
-            exit()
-        })
-        KeyboardShortcuts.onKeyUp(for: .toggleContentPanelMiniMode, action: { [self] in
-            toggleContentPanelMiniMode()
-        })
-        KeyboardShortcuts.onKeyUp(for: .toggleCropperWindowOpaque, action: { [self] in
-            toggleCropperWindowOpaque()
-        })
-        KeyboardShortcuts.onKeyUp(for: .cropperUp, action: { [self] in
-            cropperUp()
-        })
-        KeyboardShortcuts.onKeyUp(for: .cropperDown, action: { [self] in
-            cropperDown()
-        })
-        KeyboardShortcuts.onKeyUp(for: .resetUserDefaults, action: { [self] in
-            resetUserDefaults()
-        })
+    // MARK: - AVSession
+    let session: AVCaptureSession = AVCaptureSession()
+    let screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
+    let dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
+    let videoDataOutputQueue = DispatchQueue(
+        label: "CameraFeedDataOutput",
+        qos: .userInitiated,
+        attributes: [],
+        autoreleaseFrequency: .workItem
+    )
+    
+    // for testing mp4 file
+    let testMovie = false
+    let testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
+    // need maually delete for testing.
+    let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
+
+    func startScreenCapture() {
+        let videoFramesPerSecond = 1 // todo
+        screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
+        screenInput.cropRect = CGRect(
+            x: cropData.x - 0.5*cropData.width,
+            y: 1152 - cropData.y - 0.5*cropData.height - 25, // this test OK!
+            width: cropData.width,
+            height: cropData.height
+        )
+        // todo: 1152 get from system (scale ..??)
         
+//        input.scaleFactor = CGFloat(scaleFactor)
+        screenInput.capturesCursor = false
+        screenInput.capturesMouseClicks = false
+
+        session.beginConfiguration()
+        
+        if session.canAddInput(screenInput) {
+            session.addInput(screenInput)
+        } else {
+          print("Could not add video device input to the session")
+        }
+        
+        if testMovie {
+            if session.canAddOutput(testMovieFileOutput) {
+                session.addOutput(testMovieFileOutput)
+                testMovieFileOutput.movieFragmentInterval = .invalid
+//                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
+            } else {
+                print("Could not add movie file output to the session")
+            }
+        }
+        else {
+            if session.canAddOutput(dataOutput) {
+                session.addOutput(dataOutput)
+                // Add a video data output
+                dataOutput.alwaysDiscardsLateVideoFrames = true
+                //          dataOutput.videoSettings = [
+                //            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
+                //          ]
+                dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
+            } else {
+                print("Could not add video data output to the session")
+            }
+            //        let captureConnection = dataOutput.connection(with: .video)
+            //        captureConnection?.preferredVideoStabilizationMode = .standard
+            //        captureConnection?.videoOrientation = .portrait
+            // Always process the frames
+            //        captureConnection?.isEnabled = true
+        }
+        
+        session.commitConfiguration()
+        
+        session.startRunning()
+        
+        if testMovie {
+            let movieUrl = URL.init(fileURLWithPath: movieUrlString)
+            testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
+        }
+    }
+
+    func stopScreenCapture() {
+        if testMovie {
+            testMovieFileOutput.stopRecording()
+        }
+
+        session.stopRunning()
     }
     
-    // MARK: - View Actions
+    var sampleBufferCache: CMSampleBuffer? = nil
+
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
+//            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
+            return
+        }
+        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavey cpu works")
+        
+        sampleBufferCache = sampleBuffer
+
+        requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
+        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
+        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
+        textRecognitionRequest.minimumTextHeight = 0.0
+        textRecognitionRequest.usesLanguageCorrection = true
+        
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
+            do {
+                try requestHandler?.perform([textRecognitionRequest])
+            } catch {
+                logger.info("TextRecognize failed: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // for test mp4
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+    }
+    
+    func recognizeTextHandler(request: VNRequest, error: Error?) {
+        DispatchQueue.main.async { [unowned self] in
+            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
+            
+            if let results = results {
+                let texts: [String] = results.map { observation in
+                    let text: String = observation.topCandidates(1)[0].string
+                    return text
+                }
+                
+                withAnimation {
+                    recognizedText.texts = texts
+                }
+                
+                if recognizedText.texts.elementsEqual(lastReconginzedTexts) {
+//                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
+                } else {
+                    logger.info("Do statistic of words")
+                    statistic(recognizedText.words)
+                    lastReconginzedTexts = recognizedText.texts
+                }
+            }
+        }
+    }
+    
+    // MARK: - Windows & View Actions
     func exit() {
         saveAllUserDefaults()
         NSApplication.shared.terminate(self)
@@ -470,14 +549,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         }
     }
     
-    private func start() {
+    func start() {
         startScreenCapture()
         showContentPanel()
         showCropper()
         statusData.isPlaying = true
     }
     
-    private func stop() {
+    func stop() {
         saveAllUserDefaults()
         stopScreenCapture()
         closeContentPanel()
@@ -492,150 +571,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         contentPanel.close()
     }
     
-    private var session: AVCaptureSession = AVCaptureSession()
-    private var screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
-    private var dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
-    private var testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
-    private var testMovie = false
-    private let videoDataOutputQueue = DispatchQueue(
-        label: "CameraFeedDataOutput",
-        qos: .userInitiated,
-        attributes: [],
-        autoreleaseFrequency: .workItem
-    )
-    
-    func startScreenCapture() {
-        let videoFramesPerSecond = 1 // todo
-        screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
-        screenInput.cropRect = CGRect(
-            x: cropData.x - 0.5*cropData.width,
-            y: 1152 - cropData.y - 0.5*cropData.height - 25, // this test OK!
-            width: cropData.width,
-            height: cropData.height
-        )
-        // todo: 1152 get from system (scale ..??)
-        
-//        input.scaleFactor = CGFloat(scaleFactor)
-        screenInput.capturesCursor = false
-        screenInput.capturesMouseClicks = false
-
-        session.beginConfiguration()
-        
-        if session.canAddInput(screenInput) {
-            session.addInput(screenInput)
-        } else {
-          print("Could not add video device input to the session")
-        }
-        
-        if testMovie {
-            if session.canAddOutput(testMovieFileOutput) {
-                session.addOutput(testMovieFileOutput)
-                testMovieFileOutput.movieFragmentInterval = .invalid
-//                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
-            } else {
-                print("Could not add movie file output to the session")
-            }
-        }
-        else {
-            if session.canAddOutput(dataOutput) {
-                session.addOutput(dataOutput)
-                // Add a video data output
-                dataOutput.alwaysDiscardsLateVideoFrames = true
-                //          dataOutput.videoSettings = [
-                //            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
-                //          ]
-                dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-            } else {
-                print("Could not add video data output to the session")
-            }
-            //        let captureConnection = dataOutput.connection(with: .video)
-            //        captureConnection?.preferredVideoStabilizationMode = .standard
-            //        captureConnection?.videoOrientation = .portrait
-            // Always process the frames
-            //        captureConnection?.isEnabled = true
-        }
-        
-        session.commitConfiguration()
-        
-        session.startRunning()
-        
-        if testMovie {
-            let movieUrl = URL.init(fileURLWithPath: movieUrlString)
-            testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
-        }
-    }
-    
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-         
-    }
-    
-    // need maually delete for testing.
-    var movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
-
-    func stopScreenCapture() {
-        if testMovie {
-            testMovieFileOutput.stopRecording()
-        }
-
-        session.stopRunning()
-    }
-    
-    var sampleBufferCache: CMSampleBuffer? = nil
-
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-
-        if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
-//            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
-            return
-        }
-        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavey cpu works")
-        
-        sampleBufferCache = sampleBuffer
-
-        requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
-        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
-        textRecognitionRequest.minimumTextHeight = 0.0
-        textRecognitionRequest.usesLanguageCorrection = true
-        
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
-            do {
-                try requestHandler?.perform([textRecognitionRequest])
-            } catch {
-                logger.info("TextRecognize failed: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func recognizeTextHandler(request: VNRequest, error: Error?) {
-        DispatchQueue.main.async { [unowned self] in
-            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
-            
-            if let results = results {
-                let texts: [String] = results.map { observation in
-                    let text: String = observation.topCandidates(1)[0].string
-                    return text
-                }
-                
-                withAnimation {
-                    recognizedText.texts = texts
-                }
-                
-                if recognizedText.texts.elementsEqual(lastReconginzedTexts) {
-//                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
-                } else {
-                    logger.info("Do statistic of words")
-                    statistic(recognizedText.words)
-                    lastReconginzedTexts = recognizedText.texts
-                }
-            }
-        }
-    }
-    
-    private func showCropper() {
+    func showCropper() {
         cropperWindow.orderFrontRegardless()
     }
-    private func closeCropper() {
+    func closeCropper() {
         cropperWindow.close()
     }
     
