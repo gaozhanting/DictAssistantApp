@@ -24,7 +24,7 @@ let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
 let logger = Logger()
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
     let recognizedText = RecognizedText(texts: [])
     
     let statusData = StatusData(isPlayingInner: false, sideEffectCode: {})
@@ -61,14 +61,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
             UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         }
+        if UserDefaults.standard.object(forKey: "visualConfig.showStrokeBorder") == nil {
+            UserDefaults.standard.set(true, forKey: "visualConfig.showStrokeBorder")
+        }
         visualConfig = VisualConfig(
-            miniMode: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
+            miniModeInner: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
             displayMode: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
             colorOfLandscape: .orange,
             colorOfPortrait: .green,
-            fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
+            fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!,
+            showStrokeBorder: UserDefaults.standard.bool(forKey: "visualConfig.showStrokeBorder"),
+            setSideEffectCode: {}
         )
         
         // TextProcessConfig
@@ -110,17 +115,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         initCropperWindow()
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
+        visualConfig.setSideEffectCode = constructMenuBar
         constructMenuBar()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-    }
-    
-    // When click esc on wordsWindow, should toggle to stop.
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
-        stop()
-        return true
     }
     
     // MARK: - MenuBar
@@ -134,68 +134,72 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         
         // change item status
         let menu = NSMenu()
+        
         let toggleTitle = "Toggle \(statusData.isPlaying ? "OFF" : "ON")"
         menu.addItem(NSMenuItem(title: toggleTitle, action: #selector(toggleContent), keyEquivalent: ""))
         
-//        menu.addItem(NSMenuItem.separator())
-//        let a = NSMenuItem(title: "Closed", action: #selector(emptyMethod), keyEquivalent: "")
-//        a.state = .on
-//        menu.addItem(a)
-//        menu.addItem(NSMenuItem(title: "Mini", action: #selector(emptyMethod), keyEquivalent: ""))
-//        menu.addItem(NSMenuItem(title: "Normal", action: #selector(emptyMethod), keyEquivalent: ""))
-//        menu.addItem(NSMenuItem.separator())
-//        let b = NSMenuItem(title: "Closed", action: #selector(emptyMethod), keyEquivalent: "")
-//        b.state = .on
-//        menu.addItem(b)
-//        menu.addItem(NSMenuItem(title: "Mini", action: #selector(emptyMethod), keyEquivalent: ""))
-//        menu.addItem(NSMenuItem(title: "Normal", action: #selector(emptyMethod), keyEquivalent: ""))
+        menu.addItem(NSMenuItem.separator())
+        
+        let miniContentPanel = NSMenuItem(title: "Mini", action: #selector(miniContentPanel), keyEquivalent: "")
+        let normalContentPanel = NSMenuItem(title: "Normal", action: #selector(normalContentPanel), keyEquivalent: "")
+        if visualConfig.miniMode {
+            miniContentPanel.state = .on
+            normalContentPanel.state = .off
+        } else {
+            miniContentPanel.state = .off
+            normalContentPanel.state = .on
+        }
+        menu.addItem(miniContentPanel)
+        menu.addItem(normalContentPanel)
+
+        menu.addItem(NSMenuItem.separator())
+        
+        let closeCropperWindow = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
+        let miniCropperWindow = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
+        let normalCropperWindow = NSMenuItem(title: "Normal", action: #selector(normalCropperWindow), keyEquivalent: "")
+        closeCropperWindow.state = .on
+        miniCropperWindow.state = .off
+        normalCropperWindow.state = .off
+        menu.addItem(closeCropperWindow)
+        menu.addItem(miniCropperWindow)
+        menu.addItem(normalCropperWindow)
         
         menu.addItem(NSMenuItem.separator())
+        
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
     }
     
-    @objc func emptyMethod() {
-    }
-    
-    // MARK: - Windows & View Actions
-    @objc func exit() {
-        saveAllUserDefaults()
-        NSApplication.shared.terminate(self)
-    }
-
     @objc func toggleContent() {
-        if statusData.isPlaying {
-            stop()
-        } else {
-            start()
-        }
-    }
-    
-    // when toggle play|stop button on ControlView
-    func toggleScreenCapture() {
-        if statusData.isPlaying {
-            stopScreenCapture()
-            statusData.isPlaying = false
-        } else {
-            statusData.isPlaying = true
+        if !statusData.isPlaying {
             startScreenCapture()
+            contentPanel.orderFrontRegardless()
+            cropperWindow.orderFrontRegardless()
+            statusData.isPlaying = true
+        }
+        else {
+            stopScreenCapture()
+            contentPanel.close()
+            cropperWindow.close()
+            statusData.isPlaying = false
         }
     }
     
-    func toggleContentPanelMiniMode() {
-        withAnimation {
-            visualConfig.miniMode.toggle()
-        }
-        syncContentPanelFromVisualConfig()
-    }
-    
-    func enterContentPanelMiniMode() {
+    @objc func miniContentPanel() {
         withAnimation {
             visualConfig.miniMode = true
         }
         syncContentPanelFromVisualConfig()
+        contentPanel.orderFrontRegardless()
+    }
+    
+    @objc func normalContentPanel() {
+        withAnimation {
+            visualConfig.miniMode = false
+        }
+        syncContentPanelFromVisualConfig()
+        contentPanel.orderFrontRegardless()
     }
     
     // todo: add to setter?! or something (delegate)?!
@@ -218,40 +222,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         }
     }
     
-    func toggleCropperWindowOpaque() {
-        cropperWindow.isOpaque.toggle()
-        if cropperWindow.backgroundColor == NSColor.clear {
-            cropperWindow.backgroundColor = NSColor.windowBackgroundColor
-        } else {
-            cropperWindow.backgroundColor = NSColor.clear
-        }
-    }
-    
-    func start() {
-        startScreenCapture()
-        contentPanel.orderFrontRegardless()
-        cropperWindow.orderFrontRegardless()
-        statusData.isPlaying = true
-    }
-    
-    func stop() {
-        saveAllUserDefaults()
-        
-        stopScreenCapture()
-        contentPanel.close()
+    @objc func closeCropperWindow() {
         cropperWindow.close()
-        statusData.isPlaying = false
     }
     
-    func toggleCropper() {
-        if cropperWindow.isVisible {
-            cropperWindow.close()
-        } else {
-            cropperWindow.orderFrontRegardless()
-        }
+    @objc func miniCropperWindow() {
+        cropperWindow.orderFrontRegardless()
+    }
+    
+    @objc func normalCropperWindow() {
+        cropperWindow.orderFrontRegardless()
+    }
+    
+    @objc func exit() {
+        saveAllUserDefaults()
+        NSApplication.shared.terminate(self)
     }
 
-    
     // MARK: - contentPanel
     var contentPanel: NSPanel!
     func initContentPanel() {
@@ -262,24 +249,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         let context = persistentContainer.viewContext
         let contentView = WordsView()
             .environment(\.managedObjectContext, context)
-            .environment(\.toggleCropper, toggleCropper)
             .environment(\.toggleContent, toggleContent)
             .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
             .environment(\.resetUserDefaults, resetUserDefaults)
-            .environment(\.toggleContentPanelMiniMode, toggleContentPanelMiniMode)
-            .environment(\.toggleScreenCapture, toggleScreenCapture)
             .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
             .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
             .environment(\.showColorPanel, showColorPanel)
-            .environment(\.enterContentPanelMiniMode, enterContentPanelMiniMode)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
             .environmentObject(recognizedText)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
-        contentPanel.delegate = self // for windowShouldClose
     }
     
     // MARK: - cropperWindow
@@ -287,7 +269,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     func initCropperWindow() {
         cropperWindow = CropperWindow.init()
         let cropView = CropperView()
+            .environmentObject(visualConfig)
             .environmentObject(cropData)
+            .environmentObject(statusData)
         
         cropperWindow.contentView = NSHostingView(rootView: cropView)
     }
@@ -301,6 +285,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
+        UserDefaults.standard.set(true, forKey: "visualConfig.showStrokeBorder")
         visualConfig.miniMode = false
         visualConfig.displayMode = DisplayMode.landscape
         syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
@@ -309,6 +294,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         visualConfig.colorOfLandscape = .orange
         visualConfig.colorOfPortrait = .green
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
+        visualConfig.showStrokeBorder = true
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
         textProcessConfig.textRecognitionLevel = .fast
@@ -335,6 +321,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
+        UserDefaults.standard.set(visualConfig.showStrokeBorder, forKey: "visualConfig.showStrokeBorder")
         
         UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
 
@@ -562,7 +549,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 //            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
             return
         }
-        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavey cpu works")
+        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavy cpu works")
         
         sampleBufferCache = sampleBuffer
 

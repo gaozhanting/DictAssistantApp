@@ -11,7 +11,6 @@ import DataBases
 struct WordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var recognizedText: RecognizedText
-    @Environment(\.toggleContentPanelMiniMode) var toggleContentPanelMiniMode
     @FetchRequest(
         entity: WordStats.entity(),
         sortDescriptors: [],
@@ -69,9 +68,6 @@ struct WordsView: View {
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)
-                .onTapGesture {
-                    toggleContentPanelMiniMode()
-                }
 //                .onLongPressGesture { // todo: double click (intentional, no accidental)
 //                    say(word: word)
 //                }
@@ -140,13 +136,16 @@ struct WordsView_Previews: PreviewProvider {
                 ))
                 .environmentObject(
                     VisualConfig(
-                        miniMode: false,
+                        miniModeInner: false,
                         displayMode: .landscape,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+                        showStrokeBorder: false,
+                        setSideEffectCode: {}
+                        ))
             
             WordsView()
                 .frame(width: 200, height: 720)
@@ -155,13 +154,16 @@ struct WordsView_Previews: PreviewProvider {
                 ))
                 .environmentObject(
                     VisualConfig(
-                        miniMode: false,
+                        miniModeInner: false,
                         displayMode: .portrait,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+                        showStrokeBorder: false,
+                        setSideEffectCode: {}
+                        ))
             
 //            WordsView()
 //                .frame(width: 1000, height: 120)

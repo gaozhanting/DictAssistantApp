@@ -51,28 +51,6 @@ extension EnvironmentValues {
     }
 }
 
-private struct ToggleContentPanelMiniModeEnvironmentKey: EnvironmentKey {
-    static let defaultValue: () -> Void = {}
-}
-
-extension EnvironmentValues {
-    var toggleContentPanelMiniMode: () -> Void {
-        get { self[ToggleContentPanelMiniModeEnvironmentKey].self }
-        set { self[ToggleContentPanelMiniModeEnvironmentKey.self] = newValue }
-    }
-}
-
-private struct ToggleScreenCaptureEnvironmentKey: EnvironmentKey {
-    static let defaultValue: () -> Void = {}
-}
-
-extension EnvironmentValues {
-    var toggleScreenCapture: () -> Void {
-        get { self[ToggleScreenCaptureEnvironmentKey].self }
-        set { self[ToggleScreenCaptureEnvironmentKey.self] = newValue }
-    }
-}
-
 private struct ShowFontsEnvironmentKey: EnvironmentKey {
     static let defaultValue: (Any?) -> Void = {_ in }
 }
@@ -103,17 +81,6 @@ extension EnvironmentValues {
     var syncContentPanelFromVisualConfig: () -> Void {
         get { self[SyncContentPanelFromVisualConfigEnvironmentKey].self }
         set { self[SyncContentPanelFromVisualConfigEnvironmentKey.self] = newValue }
-    }
-}
-
-private struct EnterContentPanelMiniModeEnvironmentKey: EnvironmentKey {
-    static let defaultValue: () -> Void = {}
-}
-
-extension EnvironmentValues {
-    var enterContentPanelMiniMode: () -> Void {
-        get { self[EnterContentPanelMiniModeEnvironmentKey].self }
-        set { self[EnterContentPanelMiniModeEnvironmentKey.self] = newValue }
     }
 }
 

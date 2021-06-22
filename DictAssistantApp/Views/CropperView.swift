@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct CropperView: View {
+    @EnvironmentObject var statusData: StatusData
+    var isPlaying: Bool {
+        statusData.isPlaying
+    }
+    
+    @EnvironmentObject var visualConfig: VisualConfig
+
     @EnvironmentObject var cropData: CropData
     
     @GestureState private var startLocation: CGPoint? = nil
     @GestureState private var startWidth: CGFloat? = nil
     @GestureState private var startHeight: CGFloat? = nil
-    
-    @State private var showPromptDot: Bool = true
-    
-    @GestureState private var dotStartLocation: CGPoint? = nil
-    @State private var dotX: CGFloat = 20
-    @State private var dotY: CGFloat = 20
-    
-    @State private var showStrokeBorder: Bool = true
-    
+
     private let mSize: CGFloat = 16
     private let sSize: CGFloat = 12
     private let sOffset: CGFloat = 4
@@ -52,22 +51,14 @@ struct CropperView: View {
                 Rectangle()
                     .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
                     .foregroundColor(.green)
-                    .opacity(showStrokeBorder ? 1 : 0)
+                    .opacity(visualConfig.showStrokeBorder ? 1 : 0)
             )
-//            .onHover { hovered in // not works
-//                if hovered {
-//                    NSCursor.openHand.set()
-//                } else {
-//                    NSCursor.arrow.set()
-//                }
-//            }
-//            .overlay(info, alignment: .center) // for test ?!
             
             .overlay(
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: mSize, height: mSize)
-                    .gesture(move),
+                    .gesture(sealedMove),
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
@@ -75,10 +66,7 @@ struct CropperView: View {
 //                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
                     .border(Color.pink)
-                    .gesture(move)
-                    .onTapGesture {
-                        toggleStrokeBorder()
-                    }
+                    .gesture(sealedMove)
                 ,
                 alignment: .bottomTrailing)
             .overlay(
@@ -87,18 +75,7 @@ struct CropperView: View {
 //                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
                     .border(Color.pink)
-                    .gesture(move)
-                    .onTapGesture {
-                        toggleStrokeBorder()
-                    }
-//                    .onHover { hovered in
-//                        if hovered {
-//                            NSCursor.openHand.set()
-//                        }
-//                        else {
-//                            NSCursor.arrow.set()
-//                        }
-//                    }
+                    .gesture(sealedMove)
                 ,
                 alignment: .topLeading
             )
@@ -106,15 +83,16 @@ struct CropperView: View {
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: mSize, height: mSize)
-                    .gesture(move),
+                    .gesture(sealedMove),
                 alignment: .topTrailing)
+            
             
             .overlay(
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: sSize, height: sSize)
                     .offset(x: -sOffset, y: sOffset)
-                    .gesture(scale(-1, 1)),
+                    .gesture(isPlaying ? nil : scale(-1, 1)),
                 alignment: .bottomLeading)
             .overlay(
                 Rectangle()
@@ -123,10 +101,7 @@ struct CropperView: View {
                     .frame(width: sSize, height: sSize)
                     .border(Color.yellow)
                     .offset(x: sOffset, y: sOffset)
-                    .gesture(scale(1, 1))
-                    .onTapGesture {
-                        toggleStrokeBorder()
-                    },
+                    .gesture(isPlaying ? nil : scale(1, 1)),
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
@@ -135,58 +110,17 @@ struct CropperView: View {
                     .frame(width: sSize, height: sSize)
                     .border(Color.yellow)
                     .offset(x: -sOffset, y: -sOffset)
-                    .gesture(scale(-1, -1))
-                    .onTapGesture {
-                        toggleStrokeBorder()
-                    },
+                    .gesture(isPlaying ? nil : scale(-1, -1)),
                 alignment: .topLeading)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: sSize, height: 15)
                     .offset(x: sOffset, y: -sOffset)
-                    .gesture(scale(1, -1)),
+                    .gesture(isPlaying ? nil : scale(1, -1)),
                 alignment: .topTrailing)
             
-//            .overlay(
-//                Image(systemName: "circle.dashed")
-//                    .opacity(showPromptDot ? 1 : 0)
-//                    .foregroundColor(.green)
-//                    .font(Font.system(.title2).bold())
-//                    .onTapGesture {
-//                        toggleStrokeBorder()
-//                    }
-//                    .onLongPressGesture(minimumDuration: 1.0) {
-//                        toggleDot()
-//                    }
-//                    .gesture(moveDot)
-//                    .position(x: dotX, y: dotY)
-//            )
-//
-//            .overlay(
-//                Image(systemName: "arrow.up.and.down.and.arrow.left.and.right")
-//                    .opacity(showPromptDot ? 0 : 1)
-//                    .foregroundColor(.green)
-//                    .font(Font.system(.title2).bold())
-//                    .onTapGesture {
-//                        toggleStrokeBorder()
-//                    }
-//                    .onLongPressGesture(minimumDuration: 1.0) {
-//                        toggleDot()
-//                    }
-//                    .gesture(move)
-//                    .position(x: dotX, y: dotY)
-//            )
-            
             .position(CGPoint(x: cropData.x, y: cropData.y))
-    }
-    
-    private func toggleDot() {
-        showPromptDot.toggle()
-    }
-    
-    private func toggleStrokeBorder() {
-        showStrokeBorder.toggle()
     }
     
     var info: some View {
@@ -235,6 +169,10 @@ struct CropperView: View {
             }
     }
     
+    var sealedMove: some Gesture {
+        isPlaying ? nil : move
+    }
+    
     var move: some Gesture {
         DragGesture(coordinateSpace: .named("stack"))
             .onChanged { value in
@@ -249,19 +187,6 @@ struct CropperView: View {
             }
     }
     
-    var moveDot: some Gesture {
-        DragGesture(coordinateSpace: .named("stack"))
-            .onChanged { value in
-                var newPosition = dotStartLocation ?? CGPoint(x: dotX, y: dotY)
-                newPosition.x += value.translation.width
-                newPosition.y += value.translation.height
-                dotX = newPosition.x
-                dotY = newPosition.y
-            }
-            .updating($dotStartLocation) { (value, dotStartLocation, transaction) in
-                dotStartLocation = dotStartLocation ?? CGPoint(x: dotX, y: dotY)
-            }
-    }
 }
 
 struct CropView_Previews: PreviewProvider {
