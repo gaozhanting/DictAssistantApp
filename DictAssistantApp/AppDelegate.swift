@@ -273,7 +273,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         saveAllUserDefaults()
         NSApplication.shared.terminate(self)
     }
-
+    
+    // MARK: - Special & Weird Things (Side Effect when running with or without words)
+    func closeContentPanel() {
+        contentPanel.close()
+    }
+    
+    func showContentPanel() {
+        contentPanel.orderFrontRegardless()
+    }
+    
     // MARK: - contentPanel
     var contentPanel: NSPanel!
     func initContentPanel() {
@@ -284,13 +293,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let context = persistentContainer.viewContext
         let contentView = WordsView()
             .environment(\.managedObjectContext, context)
-            .environment(\.toggleContent, toggleContent)
-            .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
-            .environment(\.resetUserDefaults, resetUserDefaults)
-            .environment(\.showFonts, showFonts)
-            .environment(\.changeFont, changeFont)
-            .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
-            .environment(\.showColorPanel, showColorPanel)
+            .environment(\.closeContentPanel, closeContentPanel)
+            .environment(\.showContentPanel, showContentPanel)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)

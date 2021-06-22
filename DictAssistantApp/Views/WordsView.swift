@@ -24,16 +24,22 @@ struct WordsView: View {
     
     let maxWordsCount = 9 // todo: UserDefaults
 
+    @Environment(\.closeContentPanel) var closeContentPanel
+    @Environment(\.showContentPanel) var showContentPanel
+
     var nonFamiliarWordFromRecognizedTextWords: [String] {
         let result = recognizedText.words.filter { word in
             !familiarWordsSet.contains(word)
         }
-//        if result.isEmpty && visualConfig.miniMode {
-//            closeContentPanel()
-//        }
-//        else {
-//            showContentPanel()
-//        }
+        
+        // This is a side effect, making visual and behavior not so confusing! This isn't mutate any state.
+        if result.isEmpty && visualConfig.miniMode {
+            closeContentPanel()
+        }
+        else {
+            showContentPanel()
+        }
+        
         return Array(result.prefix(maxWordsCount))
     }
     
