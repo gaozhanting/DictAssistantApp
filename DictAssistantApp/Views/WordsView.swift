@@ -33,12 +33,12 @@ struct WordsView: View {
         }
         
         // This is a side effect, making visual and behavior not so confusing! This isn't mutate any state.
-        if result.isEmpty && visualConfig.miniMode {
-            closeContentPanel()
-        }
-        else {
-            showContentPanel()
-        }
+//        if result.isEmpty && visualConfig.miniMode {
+//            closeContentPanel()
+//        }
+//        else {
+//            showContentPanel()
+//        }
         
         return Array(result.prefix(maxWordsCount))
     }
