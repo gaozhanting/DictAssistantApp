@@ -15,11 +15,13 @@ enum DisplayMode: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-//enum CropperStyle {
-//    case closed
-//    case mini
-//    case normal
-//}
+enum CropperStyle: String, CaseIterable, Identifiable {
+    case closed
+    case mini
+    case rectangle
+    
+    var id: String { self.rawValue }
+}
 
 class VisualConfig: ObservableObject {
     @Published private var miniModeInner: Bool
@@ -29,8 +31,7 @@ class VisualConfig: ObservableObject {
     @Published var colorOfLandscape: NSColor
     @Published var colorOfPortrait: NSColor
     @Published var fontName: String
-    @Published var showStrokeBorder: Bool // Cropper Style
-//    @Published var cropperStyleInner: CropperStyle
+    @Published var cropperStyleInner: CropperStyle
     
     var miniMode: Bool {
         get {
@@ -38,6 +39,16 @@ class VisualConfig: ObservableObject {
         }
         set {
             miniModeInner = newValue
+            setSideEffectCode()
+        }
+    }
+    
+    var cropperStyle: CropperStyle {
+        get {
+            cropperStyleInner
+        }
+        set {
+            cropperStyleInner = newValue
             setSideEffectCode()
         }
     }
@@ -52,7 +63,7 @@ class VisualConfig: ObservableObject {
         colorOfLandscape: NSColor,
         colorOfPortrait: NSColor,
         fontName: String,
-        showStrokeBorder: Bool,
+        cropperStyleInner: CropperStyle,
         setSideEffectCode: @escaping () -> Void
     ) {
         self.miniModeInner = miniModeInner
@@ -62,7 +73,7 @@ class VisualConfig: ObservableObject {
         self.colorOfLandscape = colorOfLandscape
         self.colorOfPortrait = colorOfPortrait
         self.fontName = fontName
-        self.showStrokeBorder = showStrokeBorder
+        self.cropperStyleInner = cropperStyleInner
         self.setSideEffectCode = setSideEffectCode
     }
 }

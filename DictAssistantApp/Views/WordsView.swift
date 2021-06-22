@@ -143,7 +143,7 @@ struct WordsView_Previews: PreviewProvider {
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        showStrokeBorder: false,
+                        cropperStyleInner: .rectangle,
                         setSideEffectCode: {}
                         ))
             
@@ -161,7 +161,7 @@ struct WordsView_Previews: PreviewProvider {
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        showStrokeBorder: false,
+                        cropperStyleInner: .rectangle,
                         setSideEffectCode: {}
                         ))
             

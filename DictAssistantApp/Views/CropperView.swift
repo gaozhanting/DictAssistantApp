@@ -42,76 +42,89 @@ struct CropperView: View {
             .opacity(0) // this will make curtain not response to the cursor scroll event
     }
     
+    var showStrokeBorder: Bool {
+        switch visualConfig.cropperStyle {
+        case .closed:
+            return false
+        case .mini:
+            return false
+        case .rectangle:
+            return true
+        }
+    }
+    
+    var cropperOpacity: Double {
+        if isPlaying {
+            return 0
+        }
+        
+        switch visualConfig.cropperStyle {
+        case .closed:
+            return 0
+        case .mini:
+            return 0
+        case .rectangle:
+            return 0.1
+        }
+    }
+    
     // Runtime Warning: Invalid frame dimension (negative or non-finite).
     var cropper: some View {
         Rectangle()
-            .opacity(0) // this will make cropper not response to the cursor scroll event
+            .opacity(cropperOpacity) // 0 will make cropper not response to the cursor scroll event
             .frame(width: cropData.width, height: cropData.height)
             .overlay( // this will add a stoke border of cropper
                 Rectangle()
                     .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
                     .foregroundColor(.green)
-                    .opacity(visualConfig.showStrokeBorder ? 1 : 0)
+                    .opacity(showStrokeBorder ? 1 : 0)
             )
+            
             
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.purple)
+                    .border(Color.pink)
                     .frame(width: mSize, height: mSize)
                     .gesture(sealedMove),
-                alignment: .bottomLeading)
+                alignment: .topLeading)
             .overlay(
                 Rectangle()
                     .fill(Color.purple)
-//                    .opacity(0.005)
-                    .frame(width: mSize, height: mSize)
                     .border(Color.pink)
-                    .gesture(sealedMove)
-                ,
+                    .frame(width: mSize, height: mSize)
+                    .gesture(sealedMove),
                 alignment: .bottomTrailing)
-            .overlay(
-                Rectangle()
-                    .fill(Color.purple)
-//                    .opacity(0.005)
-                    .frame(width: mSize, height: mSize)
-                    .border(Color.pink)
-                    .gesture(sealedMove)
-                ,
-                alignment: .topLeading
-            )
             .overlay(
                 Rectangle()
                     .opacity(0.005)
                     .frame(width: mSize, height: mSize)
                     .gesture(sealedMove),
                 alignment: .topTrailing)
-            
-            
             .overlay(
                 Rectangle()
                     .opacity(0.005)
-                    .frame(width: sSize, height: sSize)
-                    .offset(x: -sOffset, y: sOffset)
-                    .gesture(isPlaying ? nil : scale(-1, 1)),
+                    .frame(width: mSize, height: mSize)
+                    .gesture(sealedMove),
                 alignment: .bottomLeading)
+
+            
             .overlay(
                 Rectangle()
                     .fill(Color.blue)
-//                    .opacity(0.005)
-                    .frame(width: sSize, height: sSize)
                     .border(Color.yellow)
-                    .offset(x: sOffset, y: sOffset)
-                    .gesture(isPlaying ? nil : scale(1, 1)),
-                alignment: .bottomTrailing)
-            .overlay(
-                Rectangle()
-                    .fill(Color.blue)
-//                    .opacity(0.005)
                     .frame(width: sSize, height: sSize)
-                    .border(Color.yellow)
                     .offset(x: -sOffset, y: -sOffset)
                     .gesture(isPlaying ? nil : scale(-1, -1)),
                 alignment: .topLeading)
+            .overlay(
+                Rectangle()
+                    .fill(Color.blue)
+                    .border(Color.yellow)
+                    .frame(width: sSize, height: sSize)
+                    .offset(x: sOffset, y: sOffset)
+                    .gesture(isPlaying ? nil : scale(1, 1)),
+                alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
                     .opacity(0.005)
@@ -119,7 +132,15 @@ struct CropperView: View {
                     .offset(x: sOffset, y: -sOffset)
                     .gesture(isPlaying ? nil : scale(1, -1)),
                 alignment: .topTrailing)
-            
+            .overlay(
+                Rectangle()
+                    .opacity(0.005)
+                    .frame(width: sSize, height: sSize)
+                    .offset(x: -sOffset, y: sOffset)
+                    .gesture(isPlaying ? nil : scale(-1, 1)),
+                alignment: .bottomLeading)
+
+            .gesture(sealedMove)
             .position(CGPoint(x: cropData.x, y: cropData.y))
     }
     

@@ -61,8 +61,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
             UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         }
-        if UserDefaults.standard.object(forKey: "visualConfig.showStrokeBorder") == nil {
-            UserDefaults.standard.set(true, forKey: "visualConfig.showStrokeBorder")
+        if UserDefaults.standard.object(forKey: "visualConfig.cropperStyle") == nil {
+            UserDefaults.standard.set("rectangle", forKey: "visualConfig.cropperStyle")
         }
         visualConfig = VisualConfig(
             miniModeInner: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
@@ -72,7 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             colorOfLandscape: .orange,
             colorOfPortrait: .green,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!,
-            showStrokeBorder: UserDefaults.standard.bool(forKey: "visualConfig.showStrokeBorder"),
+            cropperStyleInner: CropperStyle(rawValue: UserDefaults.standard.string(forKey: "visualConfig.cropperStyle")!)!,
             setSideEffectCode: {}
         )
         
@@ -123,7 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         // Insert code here to tear down your application
     }
     
-    // MARK: - MenuBar
+    // MARK: - MenuBar As a side effect code of some state
     func constructMenuBar() {
         // switch menubar button image
         if !statusData.isPlaying {
@@ -156,13 +156,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let closeCropperWindow = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
         let miniCropperWindow = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
-        let normalCropperWindow = NSMenuItem(title: "Normal", action: #selector(normalCropperWindow), keyEquivalent: "")
-        closeCropperWindow.state = .on
-        miniCropperWindow.state = .off
-        normalCropperWindow.state = .off
+        let rectangeCropperWindow = NSMenuItem(title: "Rectangle", action: #selector(normalCropperWindow), keyEquivalent: "")
+        switch visualConfig.cropperStyle {
+        case .closed:
+            closeCropperWindow.state = .on
+            miniCropperWindow.state = .off
+            rectangeCropperWindow.state = .off
+        case .mini:
+            closeCropperWindow.state = .off
+            miniCropperWindow.state = .on
+            rectangeCropperWindow.state = .off
+        case .rectangle:
+            closeCropperWindow.state = .off
+            miniCropperWindow.state = .off
+            rectangeCropperWindow.state = .on
+        }
         menu.addItem(closeCropperWindow)
         menu.addItem(miniCropperWindow)
-        menu.addItem(normalCropperWindow)
+        menu.addItem(rectangeCropperWindow)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -175,13 +186,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if !statusData.isPlaying {
             startScreenCapture()
             contentPanel.orderFrontRegardless()
-            cropperWindow.orderFrontRegardless()
             statusData.isPlaying = true
         }
         else {
             stopScreenCapture()
             contentPanel.close()
-            cropperWindow.close()
             statusData.isPlaying = false
         }
     }
@@ -223,14 +232,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     @objc func closeCropperWindow() {
+        visualConfig.cropperStyle = .closed
         cropperWindow.close()
     }
     
     @objc func miniCropperWindow() {
+        visualConfig.cropperStyle = .mini
         cropperWindow.orderFrontRegardless()
     }
     
     @objc func normalCropperWindow() {
+        visualConfig.cropperStyle = .rectangle
         cropperWindow.orderFrontRegardless()
     }
     
@@ -274,6 +286,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environmentObject(statusData)
         
         cropperWindow.contentView = NSHostingView(rootView: cropView)
+        cropperWindow.orderFrontRegardless()
     }
     
     // MARK: - User Defaults
@@ -285,7 +298,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        UserDefaults.standard.set(true, forKey: "visualConfig.showStrokeBorder")
+        UserDefaults.standard.set("rectange", forKey: "visualConfig.cropperStyle")
         visualConfig.miniMode = false
         visualConfig.displayMode = DisplayMode.landscape
         syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
@@ -294,7 +307,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.colorOfLandscape = .orange
         visualConfig.colorOfPortrait = .green
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
-        visualConfig.showStrokeBorder = true
+        visualConfig.cropperStyle = .rectangle
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
         textProcessConfig.textRecognitionLevel = .fast
@@ -321,7 +334,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
-        UserDefaults.standard.set(visualConfig.showStrokeBorder, forKey: "visualConfig.showStrokeBorder")
+        UserDefaults.standard.set(visualConfig.cropperStyle.rawValue, forKey: "visualConfig.cropperStyle")
         
         UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
 
