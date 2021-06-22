@@ -137,7 +137,7 @@ struct WordsView_Previews: PreviewProvider {
                 .environmentObject(
                     VisualConfig(
                         miniModeInner: false,
-                        displayMode: .landscape,
+                        displayModeInner: .landscape,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
@@ -155,7 +155,7 @@ struct WordsView_Previews: PreviewProvider {
                 .environmentObject(
                     VisualConfig(
                         miniModeInner: false,
-                        displayMode: .portrait,
+                        displayModeInner: .portrait,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,

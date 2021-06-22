@@ -66,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
         visualConfig = VisualConfig(
             miniModeInner: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
-            displayMode: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
+            displayModeInner: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
             colorOfLandscape: .orange,
@@ -176,6 +176,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(rectangeCropperWindow)
         
         menu.addItem(NSMenuItem.separator())
+
+        let landscapeDisplayMode = NSMenuItem(title: "Landscape", action: #selector(landscapeDisplayMode), keyEquivalent: "")
+        let portraitDisplayMode = NSMenuItem(title: "Portrait", action: #selector(portraitDisplayMode), keyEquivalent: "")
+        switch visualConfig.displayMode {
+        case .landscape:
+            landscapeDisplayMode.state = .on
+            portraitDisplayMode.state = .off
+        case .portrait:
+            landscapeDisplayMode.state = .off
+            portraitDisplayMode.state = .on
+        }
+        menu.addItem(landscapeDisplayMode)
+        menu.addItem(portraitDisplayMode)
+        
+        menu.addItem(NSMenuItem.separator())
         
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
@@ -244,6 +259,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     @objc func normalCropperWindow() {
         visualConfig.cropperStyle = .rectangle
         cropperWindow.orderFrontRegardless()
+    }
+    
+    @objc func landscapeDisplayMode() {
+        visualConfig.displayMode = .landscape
+    }
+    
+    @objc func portraitDisplayMode() {
+        visualConfig.displayMode = .portrait
     }
     
     @objc func exit() {
