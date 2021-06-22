@@ -64,7 +64,7 @@ struct WordsView: View {
         }
     }
     
-    var body: some View {
+    var wordsView: some View {
         ForEach(nonFamiliarWordFromRecognizedTextWords, id: \.self) { word in
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
@@ -76,7 +76,48 @@ struct WordsView: View {
 //                    say(word: word)
 //                }
         }
-        .layoutDirection(with: visualConfig.displayMode)
+    }
+    
+    var body: some View {
+        switch visualConfig.displayMode {
+        case .landscape:
+            VStack {
+                VStack {
+                    Spacer()
+                    ScrollView(.horizontal) {
+                        HStack(alignment: .top) {
+                            wordsView
+                                .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
+                        }
+                        .background(
+                            Color.black
+                                .opacity(0.55)
+                        )
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+
+        case .portrait:
+            VStack {
+                HStack {
+                    Spacer()
+                    ScrollView(.vertical) {
+                        VStack(alignment: .leading) {
+                            wordsView
+                                .frame(maxHeight: 150, alignment: .topLeading)
+                        }
+                        .background(
+                            Color.black
+                                .opacity(0.75)
+                        )
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+        }
     }
 }
 
@@ -87,50 +128,6 @@ fileprivate func say(word: String) {
     arguments.append(word)
     task.arguments = arguments
     task.launch()
-}
-
-struct LayoutDirection: ViewModifier {
-    let displayMode: DisplayMode
-
-    func body(content: Content) -> some View {
-        switch displayMode {
-        case .landscape:
-            VStack {
-                Spacer()
-                ScrollView(.horizontal) {
-                    HStack(alignment: .top) {
-                        content
-                            .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
-                    }
-                    .background(
-                        Color.black
-                            .opacity(0.55)
-                    )
-                }
-            }
-
-        case .portrait:
-            HStack {
-                Spacer()
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading) {
-                        content
-                            .frame(maxHeight: 150, alignment: .topLeading)
-                    }
-                    .background(
-                        Color.black
-                            .opacity(0.75)
-                    )
-                }
-            }
-        }
-    }
-}
-
-extension View {
-    func layoutDirection(with displayMode: DisplayMode) -> some View {
-        self.modifier(LayoutDirection(displayMode: displayMode))
-    }
 }
 
 struct WordsView_Previews: PreviewProvider {

@@ -260,7 +260,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         syncContentPanelFromVisualConfig()
         
         let context = persistentContainer.viewContext
-        let contentView = ContentView()
+        let contentView = WordsView()
             .environment(\.managedObjectContext, context)
             .environment(\.toggleCropper, toggleCropper)
             .environment(\.toggleContent, toggleContent)
