@@ -136,6 +136,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         let menu = NSMenu()
         let toggleTitle = "Toggle \(statusData.isPlaying ? "OFF" : "ON")"
         menu.addItem(NSMenuItem(title: toggleTitle, action: #selector(toggleContent), keyEquivalent: ""))
+        
 //        menu.addItem(NSMenuItem.separator())
 //        let a = NSMenuItem(title: "Closed", action: #selector(emptyMethod), keyEquivalent: "")
 //        a.state = .on
@@ -148,8 +149,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 //        menu.addItem(b)
 //        menu.addItem(NSMenuItem(title: "Mini", action: #selector(emptyMethod), keyEquivalent: ""))
 //        menu.addItem(NSMenuItem(title: "Normal", action: #selector(emptyMethod), keyEquivalent: ""))
-//        menu.addItem(NSMenuItem.separator())
-//        menu.addItem(NSMenuItem(title: "Quit Quotes", action: #selector(exit), keyEquivalent: ""))
+        
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
     }
@@ -227,8 +229,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
     
     func start() {
         startScreenCapture()
-        showContentPanel()
-        showCropper()
+        contentPanel.orderFrontRegardless()
+        cropperWindow.orderFrontRegardless()
         statusData.isPlaying = true
     }
     
@@ -236,30 +238,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         saveAllUserDefaults()
         
         stopScreenCapture()
-        closeContentPanel()
-        closeCropper()
-        statusData.isPlaying = false
-    }
-
-    func showContentPanel() {
-        contentPanel.orderFrontRegardless()
-    }
-    func closeContentPanel() {
         contentPanel.close()
-    }
-    
-    func showCropper() {
-        cropperWindow.orderFrontRegardless()
-    }
-    func closeCropper() {
         cropperWindow.close()
+        statusData.isPlaying = false
     }
     
     func toggleCropper() {
         if cropperWindow.isVisible {
-            closeCropper()
+            cropperWindow.close()
         } else {
-            showCropper()
+            cropperWindow.orderFrontRegardless()
         }
     }
 
@@ -283,8 +271,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
             .environment(\.showFonts, showFonts)
             .environment(\.changeFont, changeFont)
             .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
-            .environment(\.showContentPanel, showContentPanel)
-            .environment(\.closeContentPanel, closeContentPanel)
             .environment(\.showColorPanel, showColorPanel)
             .environment(\.enterContentPanelMiniMode, enterContentPanelMiniMode)
             .environmentObject(textProcessConfig)

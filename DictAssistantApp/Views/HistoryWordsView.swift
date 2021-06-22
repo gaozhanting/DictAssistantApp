@@ -182,7 +182,7 @@ struct SearchBar: View {
     }
 }
 
-let familiarThreshold: Int = 50 // todo: make this value customiziable from UI
+let familiarThreshold: Int = 100 // todo: make this value customiziable from UI
 
 func openDict(_ word: String) {
     let task = Process()
