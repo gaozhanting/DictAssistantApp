@@ -110,7 +110,7 @@ struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
         ControlView(showHistoryDrawer: .constant(false))
             .frame(width: 300, height: 50)
-            .environmentObject(StatusData(isPlaying: false))
+            .environmentObject(StatusData(isPlayingInner: false, sideEffectCode: {}))
             .environmentObject(TextProcessConfig(textRecognitionLevel: .fast))
             .environmentObject(
                 VisualConfig(
@@ -120,7 +120,8 @@ struct ControlView_Previews: PreviewProvider {
                     fontSizeOfPortrait: 13,
                     colorOfLandscape: .orange,
                     colorOfPortrait: .green,
-                    fontName: NSFont.systemFont(ofSize: 0.0).fontName))            .environment(\.toggleCropper, {})
+                    fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+            .environment(\.toggleCropper, {})
             .environment(\.toggleScreenCapture, {})
     }
 }

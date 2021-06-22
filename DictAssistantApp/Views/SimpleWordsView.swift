@@ -25,6 +25,8 @@ struct SimpleWordsView: View {
         return Set(familiarWords)
     }
     
+    let maxWordsCount = 9 // todo: UserDefaults
+
     var nonFamiliarWordFromRecognizedTextWords: [String] {
         let result = recognizedText.words.filter { word in
             !familiarWordsSet.contains(word)
@@ -35,7 +37,7 @@ struct SimpleWordsView: View {
         else {
             showContentPanel()
         }
-        return result
+        return Array(result.prefix(maxWordsCount))
     }
     
     func translation(of word: String) -> String {

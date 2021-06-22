@@ -50,7 +50,7 @@ struct ContentView_Previews: PreviewProvider {
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName))
-                .environmentObject(StatusData(isPlaying: true))
+                .environmentObject(StatusData(isPlayingInner: false, sideEffectCode: {}))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))
@@ -66,7 +66,8 @@ struct ContentView_Previews: PreviewProvider {
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))                .environmentObject(StatusData(isPlaying: true))
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName))
+                .environmentObject(StatusData(isPlayingInner: false, sideEffectCode: {}))
                 .environmentObject(RecognizedText(
                     texts: ["Tomorrow - A mystical land where 99% of all human productivity, motivation and achievement are stored"]
                 ))

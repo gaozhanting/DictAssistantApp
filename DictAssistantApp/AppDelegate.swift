@@ -26,15 +26,15 @@ let logger = Logger()
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
     let recognizedText = RecognizedText(texts: [])
-    let statusData = StatusData(isPlaying: false)
     
+    let statusData = StatusData(isPlayingInner: false, sideEffectCode: {})
+
     let textProcessConfig: TextProcessConfig
     let visualConfig: VisualConfig
     let cropData: CropData
     
     var lastReconginzedTexts: [String] = []
 
-    
     var timer: Timer = Timer()
 
     var results: [VNRecognizedTextObservation]?
@@ -43,28 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
 
     var imageUrlString = NSHomeDirectory() + "/Documents/" + "abc.jpg"
     var imageDigest: SHA256.Digest? = nil
-    
-    // MARK: - Application
-    var statusBar: StatusBarController?
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        initContentPanel()
-        initCropperWindow()
-        statusBar = StatusBarController.init(toggleContent)
-    }
-    
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-    
-    // When click esc on wordsWindow, should toggle to stop.
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
-        stop()
-        return true
-    }
-    
-    // MARK: - User Defaults
-    // avoid Option value for UserDefaults
-    // if has no default value, set a default value here
+        
     override init() {
         // VisualConfig
         if UserDefaults.standard.object(forKey: "visualConfig.miniMode") == nil {
@@ -124,6 +103,212 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         )
     }
     
+    // MARK: - Application
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        initContentPanel()
+        initCropperWindow()
+        
+        statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
+        constructMenuBar()
+    }
+    
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+    }
+    
+    // When click esc on wordsWindow, should toggle to stop.
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        stop()
+        return true
+    }
+    
+    // MARK: - MenuBar
+    func constructMenuBar() {
+        // switch menubar button image
+        if !statusData.isPlaying {
+            statusItem.button?.image = NSImage(systemSymbolName: "circle.dashed", accessibilityDescription: nil)
+        } else {
+            statusItem.button?.image = NSImage(systemSymbolName: "circle.dashed.inset.fill", accessibilityDescription: nil)
+        }
+        
+        // change item status
+        let menu = NSMenu()
+        let toggleTitle = "Toggle \(statusData.isPlaying ? "OFF" : "ON")"
+        menu.addItem(NSMenuItem(title: toggleTitle, action: #selector(toggleContent), keyEquivalent: ""))
+//        menu.addItem(NSMenuItem.separator())
+//        let a = NSMenuItem(title: "Closed", action: #selector(emptyMethod), keyEquivalent: "")
+//        a.state = .on
+//        menu.addItem(a)
+//        menu.addItem(NSMenuItem(title: "Mini", action: #selector(emptyMethod), keyEquivalent: ""))
+//        menu.addItem(NSMenuItem(title: "Normal", action: #selector(emptyMethod), keyEquivalent: ""))
+//        menu.addItem(NSMenuItem.separator())
+//        let b = NSMenuItem(title: "Closed", action: #selector(emptyMethod), keyEquivalent: "")
+//        b.state = .on
+//        menu.addItem(b)
+//        menu.addItem(NSMenuItem(title: "Mini", action: #selector(emptyMethod), keyEquivalent: ""))
+//        menu.addItem(NSMenuItem(title: "Normal", action: #selector(emptyMethod), keyEquivalent: ""))
+//        menu.addItem(NSMenuItem.separator())
+//        menu.addItem(NSMenuItem(title: "Quit Quotes", action: #selector(exit), keyEquivalent: ""))
+        
+        statusItem.menu = menu
+    }
+    
+    @objc func emptyMethod() {
+    }
+    
+    // MARK: - Windows & View Actions
+    @objc func exit() {
+        saveAllUserDefaults()
+        NSApplication.shared.terminate(self)
+    }
+
+    @objc func toggleContent() {
+        if statusData.isPlaying {
+            stop()
+        } else {
+            start()
+        }
+    }
+    
+    // when toggle play|stop button on ControlView
+    func toggleScreenCapture() {
+        if statusData.isPlaying {
+            stopScreenCapture()
+            statusData.isPlaying = false
+        } else {
+            statusData.isPlaying = true
+            startScreenCapture()
+        }
+    }
+    
+    func toggleContentPanelMiniMode() {
+        withAnimation {
+            visualConfig.miniMode.toggle()
+        }
+        syncContentPanelFromVisualConfig()
+    }
+    
+    func enterContentPanelMiniMode() {
+        withAnimation {
+            visualConfig.miniMode = true
+        }
+        syncContentPanelFromVisualConfig()
+    }
+    
+    // todo: add to setter?! or something (delegate)?!
+    func syncContentPanelFromVisualConfig() {
+        if visualConfig.miniMode {
+            contentPanel.isOpaque = false
+            contentPanel.backgroundColor = NSColor.clear
+        } else {
+            contentPanel.isOpaque = true
+            contentPanel.backgroundColor = NSColor.windowBackgroundColor
+        }
+
+        // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
+        if visualConfig.displayMode == .portrait && visualConfig.miniMode {
+            // the shadow of the window still exist sometimes!
+            contentPanel.hasShadow = true
+            contentPanel.invalidateShadow()
+        } else {
+            contentPanel.hasShadow = false
+        }
+    }
+    
+    func toggleCropperWindowOpaque() {
+        cropperWindow.isOpaque.toggle()
+        if cropperWindow.backgroundColor == NSColor.clear {
+            cropperWindow.backgroundColor = NSColor.windowBackgroundColor
+        } else {
+            cropperWindow.backgroundColor = NSColor.clear
+        }
+    }
+    
+    func start() {
+        startScreenCapture()
+        showContentPanel()
+        showCropper()
+        statusData.isPlaying = true
+    }
+    
+    func stop() {
+        saveAllUserDefaults()
+        
+        stopScreenCapture()
+        closeContentPanel()
+        closeCropper()
+        statusData.isPlaying = false
+    }
+
+    func showContentPanel() {
+        contentPanel.orderFrontRegardless()
+    }
+    func closeContentPanel() {
+        contentPanel.close()
+    }
+    
+    func showCropper() {
+        cropperWindow.orderFrontRegardless()
+    }
+    func closeCropper() {
+        cropperWindow.close()
+    }
+    
+    func toggleCropper() {
+        if cropperWindow.isVisible {
+            closeCropper()
+        } else {
+            showCropper()
+        }
+    }
+
+    
+    // MARK: - contentPanel
+    var contentPanel: NSPanel!
+    func initContentPanel() {
+        contentPanel = ContentPanel.init()
+        
+        syncContentPanelFromVisualConfig()
+        
+        let context = persistentContainer.viewContext
+        let contentView = ContentView()
+            .environment(\.managedObjectContext, context)
+            .environment(\.toggleCropper, toggleCropper)
+            .environment(\.toggleContent, toggleContent)
+            .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
+            .environment(\.resetUserDefaults, resetUserDefaults)
+            .environment(\.toggleContentPanelMiniMode, toggleContentPanelMiniMode)
+            .environment(\.toggleScreenCapture, toggleScreenCapture)
+            .environment(\.showFonts, showFonts)
+            .environment(\.changeFont, changeFont)
+            .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
+            .environment(\.showContentPanel, showContentPanel)
+            .environment(\.closeContentPanel, closeContentPanel)
+            .environment(\.showColorPanel, showColorPanel)
+            .environment(\.enterContentPanelMiniMode, enterContentPanelMiniMode)
+            .environmentObject(textProcessConfig)
+            .environmentObject(visualConfig)
+            .environmentObject(statusData)
+            .environmentObject(recognizedText)
+
+        contentPanel.contentView = NSHostingView(rootView: contentView)
+        contentPanel.delegate = self // for windowShouldClose
+    }
+    
+    // MARK: - cropperWindow
+    var cropperWindow: NSPanel!
+    func initCropperWindow() {
+        cropperWindow = CropperWindow.init()
+        let cropView = CropperView()
+            .environmentObject(cropData)
+        
+        cropperWindow.contentView = NSHostingView(rootView: cropView)
+    }
+    
+    // MARK: - User Defaults
+    // avoid Option value for UserDefaults
+    // if has no default value, set a default value here
     func resetUserDefaults() {
         UserDefaults.standard.set(false, forKey: "visualConfig.miniMode")
         UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
@@ -173,48 +358,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
         UserDefaults.standard.set(Double(cropData.height), forKey: "cropper.height")
     }
 
-    // MARK: - contentPanel
-    var contentPanel: NSPanel!
-    func initContentPanel() {
-        contentPanel = ContentPanel.init()
-        
-        syncContentPanelFromVisualConfig()
-        
-        let context = persistentContainer.viewContext
-        let contentView = ContentView()
-            .environment(\.managedObjectContext, context)
-            .environment(\.toggleCropper, toggleCropper)
-            .environment(\.toggleContent, toggleContent)
-            .environment(\.deleteAllWordStaticstics, deleteAllWordStaticstics)
-            .environment(\.resetUserDefaults, resetUserDefaults)
-            .environment(\.toggleContentPanelMiniMode, toggleContentPanelMiniMode)
-            .environment(\.toggleScreenCapture, toggleScreenCapture)
-            .environment(\.showFonts, showFonts)
-            .environment(\.changeFont, changeFont)
-            .environment(\.syncContentPanelFromVisualConfig, syncContentPanelFromVisualConfig)
-            .environment(\.showContentPanel, showContentPanel)
-            .environment(\.closeContentPanel, closeContentPanel)
-            .environment(\.showColorPanel, showColorPanel)
-            .environment(\.enterContentPanelMiniMode, enterContentPanelMiniMode)
-            .environmentObject(textProcessConfig)
-            .environmentObject(visualConfig)
-            .environmentObject(statusData)
-            .environmentObject(recognizedText)
-
-        contentPanel.contentView = NSHostingView(rootView: contentView)
-        contentPanel.delegate = self // for windowShouldClose
-    }
-    
-    // MARK: - cropperWindow
-    var cropperWindow: NSPanel!
-    func initCropperWindow() {
-        cropperWindow = CropperWindow.init()
-        let cropView = CropperView()
-            .environmentObject(cropData)
-        
-        cropperWindow.contentView = NSHostingView(rootView: cropView)
-    }
-    
     // MARK:- Appearance (FontPanel & ColorPanel)
 
     // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
@@ -478,111 +621,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, AVCaptureV
                     lastReconginzedTexts = recognizedText.texts
                 }
             }
-        }
-    }
-    
-    // MARK: - Windows & View Actions
-    func exit() {
-        saveAllUserDefaults()
-        NSApplication.shared.terminate(self)
-    }
-
-    func toggleContent() {
-        if statusData.isPlaying {
-            stop()
-        } else {
-            start()
-        }
-    }
-    
-    // when toggle play|stop button on ControlView
-    func toggleScreenCapture() {
-        if statusData.isPlaying {
-            stopScreenCapture()
-            statusData.isPlaying = false
-        } else {
-            statusData.isPlaying = true
-            startScreenCapture()
-        }
-    }
-    
-    func toggleContentPanelMiniMode() {
-        withAnimation {
-            visualConfig.miniMode.toggle()
-        }
-        syncContentPanelFromVisualConfig()
-    }
-    
-    func enterContentPanelMiniMode() {
-        withAnimation {
-            visualConfig.miniMode = true
-        }
-        syncContentPanelFromVisualConfig()
-    }
-    
-    // todo: add to setter?! or something (delegate)?!
-    func syncContentPanelFromVisualConfig() {
-        if visualConfig.miniMode {
-            contentPanel.isOpaque = false
-            contentPanel.backgroundColor = NSColor.clear
-        } else {
-            contentPanel.isOpaque = true
-            contentPanel.backgroundColor = NSColor.windowBackgroundColor
-        }
-
-        // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
-        if visualConfig.displayMode == .portrait && visualConfig.miniMode {
-            // the shadow of the window still exist sometimes!
-            contentPanel.hasShadow = true
-            contentPanel.invalidateShadow()
-        } else {
-            contentPanel.hasShadow = false
-        }
-    }
-    
-    func toggleCropperWindowOpaque() {
-        cropperWindow.isOpaque.toggle()
-        if cropperWindow.backgroundColor == NSColor.clear {
-            cropperWindow.backgroundColor = NSColor.windowBackgroundColor
-        } else {
-            cropperWindow.backgroundColor = NSColor.clear
-        }
-    }
-    
-    func start() {
-        startScreenCapture()
-        showContentPanel()
-        showCropper()
-        statusData.isPlaying = true
-    }
-    
-    func stop() {
-        saveAllUserDefaults()
-        stopScreenCapture()
-        closeContentPanel()
-        closeCropper()
-        statusData.isPlaying = false
-    }
-
-    func showContentPanel() {
-        contentPanel.orderFrontRegardless()
-    }
-    func closeContentPanel() {
-        contentPanel.close()
-    }
-    
-    func showCropper() {
-        cropperWindow.orderFrontRegardless()
-    }
-    func closeCropper() {
-        cropperWindow.close()
-    }
-    
-    func toggleCropper() {
-        if cropperWindow.isVisible {
-            closeCropper()
-        } else {
-            showCropper()
         }
     }
 

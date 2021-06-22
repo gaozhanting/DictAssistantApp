@@ -12,7 +12,6 @@
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
-		4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE5B262EDFF7007FF470 /* StatusBarController.swift */; };
 		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D0F7F26564D96004A7173 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
 		447D0FD8265A5392004A7173 /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0FD7265A5392004A7173 /* CropperView.swift */; };
@@ -39,7 +38,6 @@
 		4440EE4D262EDCA4007FF470 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4440EE4F262EDCA4007FF470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
-		4440EE5B262EDFF7007FF470 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D0F7E26564D96004A7173 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
 		447D0FD7265A5392004A7173 /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 				4440EE4F262EDCA4007FF470 /* Info.plist */,
 				4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */,
 				4440EE49262EDCA4007FF470 /* Preview Content */,
-				4440EE5B262EDFF7007FF470 /* StatusBarController.swift */,
 			);
 			path = DictAssistantApp;
 			sourceTree = "<group>";
@@ -234,7 +231,6 @@
 				44FC7016266F48730025676B /* VisualConfig.swift in Sources */,
 				4440EE46262EDCA3007FF470 /* ControlView.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */,
-				4440EE5C262EDFF7007FF470 /* StatusBarController.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				4495FE6E26678F1100EFC721 /* ContentView.swift in Sources */,
 				44F74BF82679EB1200E459E5 /* HistoryWordsView.swift in Sources */,
