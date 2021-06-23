@@ -140,55 +140,64 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
-        let miniContentPanel = NSMenuItem(title: "Mini", action: #selector(miniContentPanel), keyEquivalent: "")
-        let normalContentPanel = NSMenuItem(title: "Normal", action: #selector(normalContentPanel), keyEquivalent: "")
+        let contentPanelTitleItem = NSMenuItem.init(title: "Words View Style", action: nil, keyEquivalent: "")
+        contentPanelTitleItem.isEnabled = false
+        let miniContentPanelItem = NSMenuItem(title: "Mini", action: #selector(miniContentPanel), keyEquivalent: "")
+        let normalContentPanelItem = NSMenuItem(title: "Normal", action: #selector(normalContentPanel), keyEquivalent: "")
         if visualConfig.miniMode {
-            miniContentPanel.state = .on
-            normalContentPanel.state = .off
+            miniContentPanelItem.state = .on
+            normalContentPanelItem.state = .off
         } else {
-            miniContentPanel.state = .off
-            normalContentPanel.state = .on
+            miniContentPanelItem.state = .off
+            normalContentPanelItem.state = .on
         }
-        menu.addItem(miniContentPanel)
-        menu.addItem(normalContentPanel)
+        menu.addItem(contentPanelTitleItem)
+        menu.addItem(miniContentPanelItem)
+        menu.addItem(normalContentPanelItem)
 
         menu.addItem(NSMenuItem.separator())
         
-        let closeCropperWindow = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
-        let miniCropperWindow = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
-        let rectangeCropperWindow = NSMenuItem(title: "Rectangle", action: #selector(normalCropperWindow), keyEquivalent: "")
+        let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper View Style", action: nil, keyEquivalent: "")
+        cropperWindowTitleItem.isEnabled = false
+        let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
+        let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
+        let rectangeCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(normalCropperWindow), keyEquivalent: "")
         switch visualConfig.cropperStyle {
         case .closed:
-            closeCropperWindow.state = .on
-            miniCropperWindow.state = .off
-            rectangeCropperWindow.state = .off
+            closeCropperWindowItem.state = .on
+            miniCropperWindowItem.state = .off
+            rectangeCropperWindowItem.state = .off
         case .mini:
-            closeCropperWindow.state = .off
-            miniCropperWindow.state = .on
-            rectangeCropperWindow.state = .off
+            closeCropperWindowItem.state = .off
+            miniCropperWindowItem.state = .on
+            rectangeCropperWindowItem.state = .off
         case .rectangle:
-            closeCropperWindow.state = .off
-            miniCropperWindow.state = .off
-            rectangeCropperWindow.state = .on
+            closeCropperWindowItem.state = .off
+            miniCropperWindowItem.state = .off
+            rectangeCropperWindowItem.state = .on
         }
-        menu.addItem(closeCropperWindow)
-        menu.addItem(miniCropperWindow)
-        menu.addItem(rectangeCropperWindow)
+        menu.addItem(cropperWindowTitleItem)
+        menu.addItem(closeCropperWindowItem)
+        menu.addItem(miniCropperWindowItem)
+        menu.addItem(rectangeCropperWindowItem)
         
         menu.addItem(NSMenuItem.separator())
 
-        let landscapeDisplayMode = NSMenuItem(title: "Landscape", action: #selector(landscapeDisplayMode), keyEquivalent: "")
-        let portraitDisplayMode = NSMenuItem(title: "Portrait", action: #selector(portraitDisplayMode), keyEquivalent: "")
+        let displayModeTitleItem = NSMenuItem(title: "Display Mode", action: nil, keyEquivalent: "")
+        displayModeTitleItem.isEnabled = false
+        let landscapeDisplayModeItem = NSMenuItem(title: "Landscape", action: #selector(landscapeDisplayMode), keyEquivalent: "")
+        let portraitDisplayModeItem = NSMenuItem(title: "Portrait", action: #selector(portraitDisplayMode), keyEquivalent: "")
         switch visualConfig.displayMode {
         case .landscape:
-            landscapeDisplayMode.state = .on
-            portraitDisplayMode.state = .off
+            landscapeDisplayModeItem.state = .on
+            portraitDisplayModeItem.state = .off
         case .portrait:
-            landscapeDisplayMode.state = .off
-            portraitDisplayMode.state = .on
+            landscapeDisplayModeItem.state = .off
+            portraitDisplayModeItem.state = .on
         }
-        menu.addItem(landscapeDisplayMode)
-        menu.addItem(portraitDisplayMode)
+        menu.addItem(displayModeTitleItem)
+        menu.addItem(landscapeDisplayModeItem)
+        menu.addItem(portraitDisplayModeItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -196,7 +205,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         statusItem.menu = menu
     }
-    
+        
     @objc func toggleContent() {
         if !statusData.isPlaying {
             startScreenCapture()
