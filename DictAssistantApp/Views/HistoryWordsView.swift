@@ -59,44 +59,42 @@ struct HistoryWordsView: View {
     @State private var searchedWord: String = ""
     
     var body: some View {
-        ScrollViewReader { proxy in
-            List {
-                Section(
-                    header:
-                        VStack(alignment: .leading) {
-                            Text("All Words Count: \(unFamiliarWordStatss.count + familiarWordStatss.count)")
-                            
-                            switch bar {
-                            case .filter:
-                                FilterBar(low: $low, bar: $bar)
-                            case .search:
-                                SearchBar(searchedWord: $searchedWord, bar: $bar)
-                            }
+        List {
+            Section(
+                header:
+                    VStack(alignment: .leading) {
+                        Text("All Words Count: \(unFamiliarWordStatss.count + familiarWordStatss.count)")
+                        
+                        switch bar {
+                        case .filter:
+                            FilterBar(low: $low, bar: $bar)
+                        case .search:
+                            SearchBar(searchedWord: $searchedWord, bar: $bar)
                         }
-                ) {}
-                
-                Section(header: Text("UnFamiliar Words Count: \(filteredUnFamiliarWordStatss.count)")) {
-                    ForEach(filteredUnFamiliarWordStatss, id: \.self) { wordStats in
-                        Text("\(wordStats.word!): \(wordStats.presentCount)")
-                            .foregroundColor(.secondary)
-                            .frame(height: 20)
-                            .onTapGesture {
-                                openDict(wordStats.word!)
-                            }
-                            .id(wordStats)
                     }
+            ) {}
+            
+            Section(header: Text("UnFamiliar Words Count: \(filteredUnFamiliarWordStatss.count)")) {
+                ForEach(filteredUnFamiliarWordStatss, id: \.self) { wordStats in
+                    Text("\(wordStats.word!): \(wordStats.presentCount)")
+                        .foregroundColor(.secondary)
+                        .frame(height: 20)
+                        .onTapGesture {
+                            openDict(wordStats.word!)
+                        }
+                        .id(wordStats)
                 }
-                
-                Section(header: Text("Familiar Words Count: \(filteredFamiliarWordStatss.count)")) {
-                    ForEach(filteredFamiliarWordStatss, id: \.self) { wordStats in
-                        Text("\(wordStats.word!): \(wordStats.presentCount)")
-                            .foregroundColor(.secondary)
-                            .frame(height: 20)
-                            .onTapGesture {
-                                openDict(wordStats.word!)
-                            }
-                            .id(wordStats)
-                    }
+            }
+            
+            Section(header: Text("Familiar Words Count: \(filteredFamiliarWordStatss.count)")) {
+                ForEach(filteredFamiliarWordStatss, id: \.self) { wordStats in
+                    Text("\(wordStats.word!): \(wordStats.presentCount)")
+                        .foregroundColor(.secondary)
+                        .frame(height: 20)
+                        .onTapGesture {
+                            openDict(wordStats.word!)
+                        }
+                        .id(wordStats)
                 }
             }
         }
