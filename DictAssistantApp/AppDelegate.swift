@@ -201,12 +201,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
-        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
+        let showFontItem = NSMenuItem( title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
         let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
-        let showHistoryItem = NSMenuItem(title: "Show History", action: #selector(showHistoryPanel), keyEquivalent: "")
+//        let showHistoryItem = NSMenuItem(title: "Show History", action: #selector(showHistoryPanel), keyEquivalent: "")
         menu.addItem(showFontItem)
         menu.addItem(showColorItem)
-        menu.addItem(showHistoryItem)
+//        menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -346,10 +346,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         historyPanel = NSPanel.init(
             contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
             styleMask: [
-                .nonactivatingPanel,
+//                .nonactivatingPanel,
                 .titled,
                 .closable,
-                .fullSizeContentView,
+//                .fullSizeContentView,
                 .miniaturizable,
                 .resizable,
                 .utilityWindow,
@@ -358,7 +358,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             defer: false
             //            screen: NSScreen.main
         )
-        
+                
         if let historyPanel = historyPanel {
             historyPanel.collectionBehavior.insert(.fullScreenAuxiliary)
             historyPanel.isReleasedWhenClosed = true
