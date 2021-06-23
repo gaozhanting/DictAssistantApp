@@ -201,6 +201,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
+        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
+        let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
+        menu.addItem(showFontItem)
+        menu.addItem(showColorItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
@@ -385,7 +392,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
     // And: My App must be the main App (when macOS menu is my app menu), otherwise, you can't see FontPanel when you click icon from ControlViews
     // triggered from font control button; not from font standard menu
-    func showFonts(_ sender: Any?) {
+    @objc func showFontPanel(_ sender: Any?) {
         let name = visualConfig.fontName
         let size: CGFloat = {
             switch visualConfig.displayMode {
@@ -417,7 +424,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
     }
     
-    func showColorPanel() {
+    @objc func showColorPanel() {
         let panel = NSColorPanel.shared
         panel.isRestorable = false
         panel.delegate = self
