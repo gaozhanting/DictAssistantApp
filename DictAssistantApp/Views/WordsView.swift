@@ -26,6 +26,8 @@ struct WordsView: View {
 
     @Environment(\.closeContentPanel) var closeContentPanel
     @Environment(\.showContentPanel) var showContentPanel
+    
+    @Environment(\.addToFamiliars) var addToFamiliars
 
     var nonFamiliarWordFromRecognizedTextWords: [String] {
         let result = recognizedText.words.filter { word in
@@ -82,6 +84,9 @@ struct WordsView: View {
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)
+                .contextMenu {
+                    Button("Add to familiars", action: { addToFamiliars(word) })
+                }
 //                .onLongPressGesture { // todo: double click (intentional, no accidental)
 //                    say(word: word)
 //                }

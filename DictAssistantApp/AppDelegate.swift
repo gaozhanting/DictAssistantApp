@@ -113,6 +113,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         initContentPanel()
         initCropperWindow()
+        initHistoryPanel()
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
         visualConfig.setSideEffectCode = constructMenuBar
@@ -203,10 +204,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let showFontItem = NSMenuItem( title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
         let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
-//        let showHistoryItem = NSMenuItem(title: "Show History", action: #selector(showHistoryPanel), keyEquivalent: "")
+        let showHistoryItem = NSMenuItem(title: "Show History", action: #selector(showHistoryPanel), keyEquivalent: "")
         menu.addItem(showFontItem)
         menu.addItem(showColorItem)
-//        menu.addItem(showHistoryItem)
+        menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -313,6 +314,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environment(\.managedObjectContext, context)
             .environment(\.closeContentPanel, closeContentPanel)
             .environment(\.showContentPanel, showContentPanel)
+            .environment(\.addToFamiliars, addToFamiliars)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -335,18 +337,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     // MARK: - historyPanel
-    var historyPanel: NSPanel?
-    //todo: this should not synced, should be static, otherwise huge cpu usage when opened (not correct)
-    @objc func showHistoryPanel() {
-//        if historyPanel != nil {
-//            historyPanel?.orderFront(nil) // An uncaught exception was raised
-//            return
-//        }
-        
+    var historyPanel: NSPanel!
+    func initHistoryPanel() {
         historyPanel = NSPanel.init(
             contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
             styleMask: [
-//                .nonactivatingPanel,
+                .nonactivatingPanel,
                 .titled,
                 .closable,
 //                .fullSizeContentView,
@@ -359,18 +355,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             //            screen: NSScreen.main
         )
                 
-        if let historyPanel = historyPanel {
-            historyPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-            historyPanel.isReleasedWhenClosed = true
-            
-            let context = persistentContainer.viewContext
-            let historyView = HistoryWordsView()
-                .environment(\.managedObjectContext, context)
-
-            historyPanel.contentView = NSHostingView(rootView: historyView)
-            
-            historyPanel.orderFrontRegardless()
-        }
+        historyPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        historyPanel.isReleasedWhenClosed = false
+        
+        let context = persistentContainer.viewContext
+        let historyView = HistoryWordsView()
+            .environment(\.managedObjectContext, context)
+        
+        historyPanel.contentView = NSHostingView(rootView: historyView)
+    }
+    
+    //todo: this should not synced, should be static, otherwise huge cpu usage when opened (not correct)
+    @objc func showHistoryPanel() {
+        historyPanel.orderFrontRegardless()
     }
     
     // MARK: - User Defaults
@@ -530,6 +527,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         } catch {
             fatalError("Failed to fetch request: \(error)")
 
+        }
+    }
+    
+    func addToFamiliars(for word: String) {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let wordStats = results.first {
+                wordStats.presentCount = Int64(familiarThreshold)
+            }
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
         }
     }
     

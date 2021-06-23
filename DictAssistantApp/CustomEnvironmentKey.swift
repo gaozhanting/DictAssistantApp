@@ -28,3 +28,14 @@ extension EnvironmentValues {
         set { self[ShowContentPanelEnvironmentKey.self] = newValue }
     }
 }
+
+private struct AddToFamiliarsEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (String) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var addToFamiliars: (String) -> Void {
+        get { self[AddToFamiliarsEnvironmentKey].self }
+        set { self[AddToFamiliarsEnvironmentKey.self] = newValue }
+    }
+}
