@@ -25,7 +25,7 @@ let logger = Logger()
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
-    let recognizedText = RecognizedText(texts: [])
+
     
     let statusData = StatusData(isPlayingInner: false, sideEffectCode: {})
 
@@ -33,7 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let visualConfig: VisualConfig
     let cropData: CropData
     
-    var lastReconginzedTexts: [String] = []
 
     var timer: Timer = Timer()
 
@@ -155,7 +154,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(contentPanelTitleItem)
         menu.addItem(miniContentPanelItem)
         menu.addItem(normalContentPanelItem)
+        
+        menu.addItem(NSMenuItem.separator())
 
+        let displayModeTitleItem = NSMenuItem(title: "Words View Display Mode", action: nil, keyEquivalent: "")
+        displayModeTitleItem.isEnabled = false
+        let landscapeDisplayModeItem = NSMenuItem(title: "Landscape", action: #selector(landscapeDisplayMode), keyEquivalent: "")
+        let portraitDisplayModeItem = NSMenuItem(title: "Portrait", action: #selector(portraitDisplayMode), keyEquivalent: "")
+        switch visualConfig.displayMode {
+        case .landscape:
+            landscapeDisplayModeItem.state = .on
+            portraitDisplayModeItem.state = .off
+        case .portrait:
+            landscapeDisplayModeItem.state = .off
+            portraitDisplayModeItem.state = .on
+        }
+        menu.addItem(displayModeTitleItem)
+        menu.addItem(landscapeDisplayModeItem)
+        menu.addItem(portraitDisplayModeItem)
+        
         menu.addItem(NSMenuItem.separator())
         
         let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper View Style", action: nil, keyEquivalent: "")
@@ -184,24 +201,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
 
-        let displayModeTitleItem = NSMenuItem(title: "Display Mode", action: nil, keyEquivalent: "")
-        displayModeTitleItem.isEnabled = false
-        let landscapeDisplayModeItem = NSMenuItem(title: "Landscape", action: #selector(landscapeDisplayMode), keyEquivalent: "")
-        let portraitDisplayModeItem = NSMenuItem(title: "Portrait", action: #selector(portraitDisplayMode), keyEquivalent: "")
-        switch visualConfig.displayMode {
-        case .landscape:
-            landscapeDisplayModeItem.state = .on
-            portraitDisplayModeItem.state = .off
-        case .portrait:
-            landscapeDisplayModeItem.state = .off
-            portraitDisplayModeItem.state = .on
-        }
-        menu.addItem(displayModeTitleItem)
-        menu.addItem(landscapeDisplayModeItem)
-        menu.addItem(portraitDisplayModeItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
         let showFontItem = NSMenuItem( title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
         let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
         let showHistoryItem = NSMenuItem(title: "Show History", action: #selector(showHistoryPanel), keyEquivalent: "")
@@ -318,7 +317,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
-            .environmentObject(recognizedText)
+            .environmentObject(displayedWords)
 
         contentPanel.contentView = NSHostingView(rootView: contentView)
     }
@@ -526,7 +525,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             }
         } catch {
             fatalError("Failed to fetch request: \(error)")
-
+        }
+    }
+    
+    // todo: how to make it effecient?
+    func queryFamiliars() -> Set<String> {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "presentCount >= \(familiarThreshold)")
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            let familiarWords = results.map { $0.word! }
+            return Set(familiarWords)
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
         }
     }
     
@@ -652,8 +666,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         session.stopRunning()
     }
     
+    // for test mp4
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+    }
+    
     var sampleBufferCache: CMSampleBuffer? = nil
-
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
 //            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
@@ -677,11 +695,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             }
         }
     }
-    
-    // for test mp4
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-    }
-    
+
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         DispatchQueue.main.async { [unowned self] in
             results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
@@ -692,19 +706,50 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     return text
                 }
                 
-                withAnimation {
-                    recognizedText.texts = texts
-                }
-                
-                if recognizedText.texts.elementsEqual(lastReconginzedTexts) {
+                if texts.elementsEqual(lastReconginzedTexts) {
 //                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
                 } else {
-                    logger.info("Do statistic of words")
-                    statistic(recognizedText.words)
-                    lastReconginzedTexts = recognizedText.texts
+                    logger.info("text not equal lastReconginzedTexts")
+                    // words (filter fixed preset known words) (familiars, unfamiliars)
+                    let words = TextProcess.extractWords(from: texts)
+                    
+                    let familiarWordsSet = queryFamiliars()
+//                    print(familiarWordsSet)
+
+                    let familiars = words.filter { word in
+                        familiarWordsSet.contains(word)
+                    }
+                    logger.info(">>familiars")
+                    print(familiars)
+
+                    let unfamiliars = words.filter { word in
+                        !familiarWordsSet.contains(word)
+                    }
+                    logger.info(">>unfamiliars")
+                    print(unfamiliars)
+
+                    let prefixUnfamiliars = Array(unfamiliars.prefix(maxDisplayedWordsCount))
+                    logger.info(">>prefixUnfamiliars")
+                    print(prefixUnfamiliars)
+                    
+                    withAnimation {
+                        displayedWords.words = prefixUnfamiliars
+                    }
+                    
+                    // we only want statistic familiars and prefix maxWordsCount of unfamiliars; don't want statistic unfamiliars words out of displayed!
+//                    logger.info("Do statistic of words")
+//                    statistic(familiars + prefixUnfamiliars) // this write core data and will flush UI (UI becomes not fluent) // how to cache this?! // how to do this?!
+//                    statistic(prefixUnfamiliars)
+                    
+                    lastReconginzedTexts = texts
                 }
             }
         }
     }
-
+    
+    //    let recognizedText = RecognizedText(texts: [])
+    let displayedWords = DisplayedWords()
+    var lastReconginzedTexts: [String] = []
 }
+
+let maxDisplayedWordsCount = 9 // todo: UserDefaults

@@ -10,48 +10,12 @@ import DataBases
 
 struct WordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
-    @EnvironmentObject var recognizedText: RecognizedText
-    @FetchRequest(
-        entity: WordStats.entity(),
-        sortDescriptors: [],
-        predicate: NSPredicate(format: "presentCount >= \(familiarThreshold)")
-    ) var familiarWordStatss: FetchedResults<WordStats>
-    
-    var familiarWordsSet: Set<String> {
-        let familiarWords = familiarWordStatss.map { $0.word! }
-        return Set(familiarWords)
-    }
-    
-    let maxWordsCount = 9 // todo: UserDefaults
+    @EnvironmentObject var displayedWords: DisplayedWords
 
     @Environment(\.closeContentPanel) var closeContentPanel
     @Environment(\.showContentPanel) var showContentPanel
     
     @Environment(\.addToFamiliars) var addToFamiliars
-
-    var nonFamiliarWordFromRecognizedTextWords: [String] {
-        let result = recognizedText.words.filter { word in
-            !familiarWordsSet.contains(word)
-        }
-        
-        // This is a side effect, making visual and behavior not so confusing! This isn't mutate any state.
-//        if result.isEmpty && visualConfig.miniMode {
-//            closeContentPanel()
-//        }
-//        else {
-//            showContentPanel()
-//        }
-        
-        logger.info(">>after filter familiar words")
-        print(result)
-
-        let prefixWords = Array(result.prefix(maxWordsCount))
-        
-        logger.info(">>after prefix \(maxWordsCount)")
-        print(prefixWords)
-        
-        return prefixWords
-    }
     
     func translation(of word: String) -> String {
         if let tr = DictionaryServices.define(word) {
@@ -80,7 +44,7 @@ struct WordsView: View {
     }
     
     var wordsView: some View {
-        ForEach(nonFamiliarWordFromRecognizedTextWords, id: \.self) { word in
+        ForEach(displayedWords.words, id: \.self) { word in
             (Text(word).foregroundColor(wordColor) + Text(translation(of: word)).foregroundColor(.white))
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)
@@ -148,41 +112,41 @@ fileprivate func say(word: String) {
 struct WordsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WordsView()
-                .frame(width: 1000, height: 220)
-                .environmentObject(RecognizedText(
-                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
-                ))
-                .environmentObject(
-                    VisualConfig(
-                        miniModeInner: false,
-                        displayModeInner: .landscape,
-                        fontSizeOfLandscape: 20,
-                        fontSizeOfPortrait: 13,
-                        colorOfLandscape: .orange,
-                        colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        cropperStyleInner: .rectangle,
-                        setSideEffectCode: {}
-                        ))
-            
-            WordsView()
-                .frame(width: 200, height: 720)
-                .environmentObject(RecognizedText(
-                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
-                ))
-                .environmentObject(
-                    VisualConfig(
-                        miniModeInner: false,
-                        displayModeInner: .portrait,
-                        fontSizeOfLandscape: 20,
-                        fontSizeOfPortrait: 13,
-                        colorOfLandscape: .orange,
-                        colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        cropperStyleInner: .rectangle,
-                        setSideEffectCode: {}
-                        ))
+//            WordsView()
+//                .frame(width: 1000, height: 220)
+//                .environmentObject(RecognizedText(
+//                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
+//                ))
+//                .environmentObject(
+//                    VisualConfig(
+//                        miniModeInner: false,
+//                        displayModeInner: .landscape,
+//                        fontSizeOfLandscape: 20,
+//                        fontSizeOfPortrait: 13,
+//                        colorOfLandscape: .orange,
+//                        colorOfPortrait: .green,
+//                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+//                        cropperStyleInner: .rectangle,
+//                        setSideEffectCode: {}
+//                        ))
+//
+//            WordsView()
+//                .frame(width: 200, height: 720)
+//                .environmentObject(RecognizedText(
+//                    texts: ["Tomorrow - A shift mystical land where 99% of all human productivity, motivation and achievement are stored, just a recommendations."]
+//                ))
+//                .environmentObject(
+//                    VisualConfig(
+//                        miniModeInner: false,
+//                        displayModeInner: .portrait,
+//                        fontSizeOfLandscape: 20,
+//                        fontSizeOfPortrait: 13,
+//                        colorOfLandscape: .orange,
+//                        colorOfPortrait: .green,
+//                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+//                        cropperStyleInner: .rectangle,
+//                        setSideEffectCode: {}
+//                        ))
             
 //            WordsView()
 //                .frame(width: 1000, height: 120)
