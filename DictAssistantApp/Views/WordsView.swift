@@ -40,7 +40,15 @@ struct WordsView: View {
 //            showContentPanel()
 //        }
         
-        return Array(result.prefix(maxWordsCount))
+        logger.info(">>after filter familiar words")
+        print(result)
+
+        let prefixWords = Array(result.prefix(maxWordsCount))
+        
+        logger.info(">>after prefix \(maxWordsCount)")
+        print(prefixWords)
+        
+        return prefixWords
     }
     
     func translation(of word: String) -> String {
