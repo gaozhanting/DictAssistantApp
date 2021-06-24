@@ -112,7 +112,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         initContentPanel()
         initCropperWindow()
-        initHistoryPanel()
+        initKnownWordsPanel()
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
         visualConfig.setSideEffectCode = constructMenuBar
@@ -203,7 +203,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 
         let showFontItem = NSMenuItem( title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
         let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
-        let showHistoryItem = NSMenuItem(title: "Show History", action: #selector(showHistoryPanel), keyEquivalent: "")
+        let showHistoryItem = NSMenuItem(title: "Show Known Words", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showFontItem)
         menu.addItem(showColorItem)
         menu.addItem(showHistoryItem)
@@ -313,7 +313,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environment(\.managedObjectContext, context)
             .environment(\.closeContentPanel, closeContentPanel)
             .environment(\.showContentPanel, showContentPanel)
-            .environment(\.addToFamiliars, addToFamiliars)
+            .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
             .environmentObject(statusData)
@@ -326,19 +326,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     var cropperWindow: NSPanel!
     func initCropperWindow() {
         cropperWindow = CropperWindow.init()
-        let cropView = CropperView()
+        let cropperView = CropperView()
             .environmentObject(visualConfig)
             .environmentObject(cropData)
             .environmentObject(statusData)
         
-        cropperWindow.contentView = NSHostingView(rootView: cropView)
+        cropperWindow.contentView = NSHostingView(rootView: cropperView)
         cropperWindow.orderFrontRegardless()
     }
     
-    // MARK: - historyPanel
-    var historyPanel: NSPanel!
-    func initHistoryPanel() {
-        historyPanel = NSPanel.init(
+    // MARK: - Known Words Panel
+    var knownWordsPanel: NSPanel!
+    func initKnownWordsPanel() {
+        knownWordsPanel = NSPanel.init(
             contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
             styleMask: [
                 .nonactivatingPanel,
@@ -353,20 +353,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             defer: false
             //            screen: NSScreen.main
         )
-                
-        historyPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-        historyPanel.isReleasedWhenClosed = false
+        
+        knownWordsPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        knownWordsPanel.isReleasedWhenClosed = false
         
         let context = persistentContainer.viewContext
-        let historyView = HistoryWordsView()
+        let knownWordsView = KnownWordsView()
             .environment(\.managedObjectContext, context)
-        
-        historyPanel.contentView = NSHostingView(rootView: historyView)
+        knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
     }
     
-    //todo: this should not synced, should be static, otherwise huge cpu usage when opened (not correct)
-    @objc func showHistoryPanel() {
-        historyPanel.orderFrontRegardless()
+    @objc func showKnownWordsPanel() {
+        knownWordsPanel.orderFrontRegardless()
     }
     
     // MARK: - User Defaults
@@ -506,7 +504,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
     }
     
-    func addPresentCount(for word: String) {
+    // todo: how to make it effecient?
+    func getAllKnownWordsSet() -> Set<String> {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            let knownWords = results.map { $0.word! }
+            return Set(knownWords)
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
+        }
+    }
+    
+//    // update automatically when core data changed
+//    @observe
+//    let allKnownWordsSet: Set<String>
+    
+    func addToKnownWords(_ word: String) {
         let context = persistentContainer.viewContext
         
         let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
@@ -517,50 +534,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             if results.isEmpty {
                 let newWordStatus = WordStats(context: context)
                 newWordStatus.word = word
-                newWordStatus.presentCount = 1
-            } else {
-                if let wordStats = results.first {
-                    wordStats.presentCount += 1
-                }
             }
         } catch {
             fatalError("Failed to fetch request: \(error)")
         }
     }
     
-    // todo: how to make it effecient?
-    func queryFamiliars() -> Set<String> {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "presentCount >= \(familiarThreshold)")
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            let familiarWords = results.map { $0.word! }
-            return Set(familiarWords)
-        } catch {
-            fatalError("Failed to fetch request: \(error)")
-        }
-    }
-    
-    func addToFamiliars(for word: String) {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let wordStats = results.first {
-                wordStats.presentCount = Int64(familiarThreshold)
-            }
-        } catch {
-            fatalError("Failed to fetch request: \(error)")
-        }
-    }
-    
-    func deleteAllWordStaticstics() {
+    func deleteAllKnownWords() {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WordStats")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
@@ -571,14 +551,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
         saveContext()
     }
-    
-    func statistic(_ words: [String]) -> Void {
-        for word in words {
-            addPresentCount(for: word)
-        }
-        saveContext()
-    }
-    
 
     // MARK: - AVSession
     let session: AVCaptureSession = AVCaptureSession()
@@ -713,33 +685,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     // words (filter fixed preset known words) (familiars, unfamiliars)
                     let words = TextProcess.extractWords(from: texts)
                     
-                    let familiarWordsSet = queryFamiliars()
-//                    print(familiarWordsSet)
+                    let allKnownWordsSet = getAllKnownWordsSet()
 
-                    let familiars = words.filter { word in
-                        familiarWordsSet.contains(word)
+                    let knownWords = words.filter { word in
+                        allKnownWordsSet.contains(word)
                     }
-                    logger.info(">>familiars")
-                    print(familiars)
+                    logger.info(">>knownWords")
+                    print(knownWords)
 
-                    let unfamiliars = words.filter { word in
-                        !familiarWordsSet.contains(word)
+                    let unKnownWords = words.filter { word in
+                        !allKnownWordsSet.contains(word)
                     }
-                    logger.info(">>unfamiliars")
-                    print(unfamiliars)
+                    logger.info(">>unKonwnWords")
+                    print(unKnownWords)
 
-                    let prefixUnfamiliars = Array(unfamiliars.prefix(maxDisplayedWordsCount))
-                    logger.info(">>prefixUnfamiliars")
-                    print(prefixUnfamiliars)
+                    let prefixUnKownWords = Array(unKnownWords.prefix(maxDisplayedWordsCount))
+                    logger.info(">>prefixUnKownWords")
+                    print(prefixUnKownWords)
                     
                     withAnimation {
-                        displayedWords.words = prefixUnfamiliars
+                        displayedWords.words = prefixUnKownWords
                     }
-                    
-                    // we only want statistic familiars and prefix maxWordsCount of unfamiliars; don't want statistic unfamiliars words out of displayed!
-//                    logger.info("Do statistic of words")
-//                    statistic(familiars + prefixUnfamiliars) // this write core data and will flush UI (UI becomes not fluent) // how to cache this?! // how to do this?!
-//                    statistic(prefixUnfamiliars)
                     
                     lastReconginzedTexts = texts
                 }
@@ -753,3 +719,4 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 }
 
 let maxDisplayedWordsCount = 9 // todo: UserDefaults
+let familiarThreshold: Int = 100 // todo: make this value customiziable from UI

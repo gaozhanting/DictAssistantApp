@@ -29,13 +29,13 @@ extension EnvironmentValues {
     }
 }
 
-private struct AddToFamiliarsEnvironmentKey: EnvironmentKey {
+private struct AddToKnownWordsEnvironmentKey: EnvironmentKey {
     static let defaultValue: (String) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-    var addToFamiliars: (String) -> Void {
-        get { self[AddToFamiliarsEnvironmentKey].self }
-        set { self[AddToFamiliarsEnvironmentKey.self] = newValue }
+    var addToKnownWords: (String) -> Void {
+        get { self[AddToKnownWordsEnvironmentKey].self }
+        set { self[AddToKnownWordsEnvironmentKey.self] = newValue }
     }
 }

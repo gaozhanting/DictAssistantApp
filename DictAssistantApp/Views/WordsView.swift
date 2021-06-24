@@ -15,7 +15,7 @@ struct WordsView: View {
     @Environment(\.closeContentPanel) var closeContentPanel
     @Environment(\.showContentPanel) var showContentPanel
     
-    @Environment(\.addToFamiliars) var addToFamiliars
+    @Environment(\.addToKnownWords) var addToKnownWords
     
     func translation(of word: String) -> String {
         if let tr = DictionaryServices.define(word) {
@@ -49,7 +49,7 @@ struct WordsView: View {
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
-                    Button("Add to familiars", action: { addToFamiliars(word) })
+                    Button("Add to familiars", action: { addToKnownWords(word) })
                 }
 //                .onLongPressGesture { // todo: double click (intentional, no accidental)
 //                    say(word: word)
