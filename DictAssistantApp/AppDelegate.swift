@@ -231,6 +231,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             stopScreenCapture()
             contentPanel.close()
             statusData.isPlaying = false
+            displayedWords.words = []
         }
     }
     
