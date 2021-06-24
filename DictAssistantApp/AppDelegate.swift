@@ -693,13 +693,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                         displayedWords.words = prefixUnKownWords
                     }
                     
-                    // MARK: - Special & Weird Things (Side Effect when running with or without words)
-                    if prefixUnKownWords.isEmpty {
-                        contentPanel.close()
-                    } else {
-                        contentPanel.orderFrontRegardless()
-                    }
-                    
                     lastReconginzedTexts = texts
                 }
             }
