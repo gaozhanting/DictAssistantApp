@@ -412,10 +412,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
 
     // MARK:- Appearance (FontPanel & ColorPanel)
-
-    // Found: {Info.plish/Application is agent (UIElement)} should not set to YES, otherwise FontPanel will not showed
-    // And: My App must be the main App (when macOS menu is my app menu), otherwise, you can't see FontPanel when you click icon from ControlViews
-    // triggered from font control button; not from font standard menu
     @objc func showFontPanel(_ sender: Any?) {
         let name = visualConfig.fontName
         let size: CGFloat = {
