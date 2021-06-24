@@ -538,6 +538,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         } catch {
             fatalError("Failed to fetch request: \(error)")
         }
+        saveContext()
     }
     
     func deleteAllKnownWords() {
