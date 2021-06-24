@@ -70,7 +70,7 @@ struct WordsView: View {
                         }
                         .background(
                             Color.black
-                                .opacity(0.55)
+                                .opacity(0.75)
                         )
                     }
                 }
