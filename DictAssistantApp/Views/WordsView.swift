@@ -12,9 +12,6 @@ struct WordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var displayedWords: DisplayedWords
 
-    @Environment(\.closeContentPanel) var closeContentPanel
-    @Environment(\.showContentPanel) var showContentPanel
-    
     @Environment(\.addToKnownWords) var addToKnownWords
     
     func translation(of word: String) -> String {

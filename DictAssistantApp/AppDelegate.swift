@@ -291,16 +291,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         saveAllUserDefaults()
         NSApplication.shared.terminate(self)
     }
-    
-    // MARK: - Special & Weird Things (Side Effect when running with or without words)
-    func closeContentPanel() {
-        contentPanel.close()
-    }
-    
-    func showContentPanel() {
-        contentPanel.orderFrontRegardless()
-    }
-    
+
     // MARK: - contentPanel
     var contentPanel: NSPanel!
     func initContentPanel() {
@@ -311,8 +302,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let context = persistentContainer.viewContext
         let contentView = WordsView()
             .environment(\.managedObjectContext, context)
-            .environment(\.closeContentPanel, closeContentPanel)
-            .environment(\.showContentPanel, showContentPanel)
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
@@ -706,6 +695,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     
                     withAnimation {
                         displayedWords.words = prefixUnKownWords
+                    }
+                    
+                    // MARK: - Special & Weird Things (Side Effect when running with or without words)
+                    if prefixUnKownWords.isEmpty {
+                        contentPanel.close()
+                    } else {
+                        contentPanel.orderFrontRegardless()
                     }
                     
                     lastReconginzedTexts = texts
