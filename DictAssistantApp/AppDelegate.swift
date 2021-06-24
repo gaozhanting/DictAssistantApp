@@ -63,13 +63,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if UserDefaults.standard.object(forKey: "visualConfig.cropperStyle") == nil {
             UserDefaults.standard.set("rectangle", forKey: "visualConfig.cropperStyle")
         }
+        if UserDefaults.standard.object(forKey: "visualConfig.colorOfLandscape") == nil {
+            UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
+        }
+        if UserDefaults.standard.object(forKey: "visualConfig.colorOfPortrait") == nil {
+            UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
+        }
         visualConfig = VisualConfig(
             miniModeInner: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
             displayModeInner: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
-            colorOfLandscape: .orange,
-            colorOfPortrait: .green,
+            colorOfLandscape: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfLandscape")!)!,
+            colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!,
             cropperStyleInner: CropperStyle(rawValue: UserDefaults.standard.string(forKey: "visualConfig.cropperStyle")!)!,
             setSideEffectCode: {}
@@ -364,6 +370,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
+        UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         UserDefaults.standard.set("rectange", forKey: "visualConfig.cropperStyle")
         visualConfig.miniMode = false
@@ -400,6 +408,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
+        UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
         UserDefaults.standard.set(visualConfig.cropperStyle.rawValue, forKey: "visualConfig.cropperStyle")
         
@@ -706,3 +716,4 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 
 let maxDisplayedWordsCount = 9 // todo: UserDefaults
 let familiarThreshold: Int = 100 // todo: make this value customiziable from UI
+
