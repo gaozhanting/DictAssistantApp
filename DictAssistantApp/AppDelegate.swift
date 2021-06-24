@@ -570,7 +570,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
         screenInput.cropRect = CGRect(
             x: cropData.x - 0.5*cropData.width,
-            y: 1152 - cropData.y - 0.5*cropData.height - 25, // this test OK!
+            y: NSScreen.main!.frame.size.height - cropData.y - 0.5*cropData.height - CGFloat(25.0), // this test OK!
+//            y: 1152 - cropData.y - 0.5*cropData.height - 25.0, // this test OK! // 1152 is my iMac display secondary scaled height
             width: cropData.width,
             height: cropData.height
         )
