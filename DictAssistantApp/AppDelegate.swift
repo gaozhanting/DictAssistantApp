@@ -87,9 +87,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             UserDefaults.standard.setValue(1, forKey: "textProcessConfig.textRecognitionLevel")
         }
         textProcessConfig = TextProcessConfig(
-            textRecognitionLevel: VNRequestTextRecognitionLevel(
+            textRecognitionLevelInner: VNRequestTextRecognitionLevel(
                 rawValue: UserDefaults.standard.integer(forKey: "textProcessConfig.textRecognitionLevel")
-            )!
+            )!,
+            setSideEffectCode: {}
         )
         
         // CropData
@@ -122,6 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
         visualConfig.setSideEffectCode = constructMenuBar
+        textProcessConfig.setSideEffectCode = constructMenuBar
         constructMenuBar()
     }
     
@@ -206,8 +208,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(rectangeCropperWindowItem)
         
         menu.addItem(NSMenuItem.separator())
+        
+        let textRecognitionLevelItem = NSMenuItem.init(title: "Text Recognition Level", action: nil, keyEquivalent: "")
+        textRecognitionLevelItem.isEnabled = false
+        let setTextRecognitionLevelFastItem = NSMenuItem(title: "fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
+        let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
+        switch textProcessConfig.textRecognitionLevel {
+        case .fast:
+            setTextRecognitionLevelFastItem.state = .on
+            setTextRecognitionLevelAccurateItem.state = .off
+        case .accurate:
+            setTextRecognitionLevelFastItem.state = .off
+            setTextRecognitionLevelAccurateItem.state = .on
+        @unknown default:
+            setTextRecognitionLevelFastItem.state = .on
+            setTextRecognitionLevelAccurateItem.state = .off
+        }
+        menu.addItem(textRecognitionLevelItem)
+        menu.addItem(setTextRecognitionLevelFastItem)
+        menu.addItem(setTextRecognitionLevelAccurateItem)
 
-        let showFontItem = NSMenuItem( title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
+
+        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
         let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
         let showHistoryItem = NSMenuItem(title: "Show Known Words", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showFontItem)
@@ -271,6 +294,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
     }
     
+    @objc func landscapeDisplayMode() {
+        visualConfig.displayMode = .landscape
+    }
+    
+    @objc func portraitDisplayMode() {
+        visualConfig.displayMode = .portrait
+    }
+    
     @objc func closeCropperWindow() {
         visualConfig.cropperStyle = .closed
         cropperWindow.close()
@@ -286,14 +317,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         cropperWindow.orderFrontRegardless()
     }
     
-    @objc func landscapeDisplayMode() {
-        visualConfig.displayMode = .landscape
+    @objc func setTextRecognitionLevelFast() {
+        textProcessConfig.textRecognitionLevel = .fast
     }
     
-    @objc func portraitDisplayMode() {
-        visualConfig.displayMode = .portrait
+    @objc func setTextRecognitionLevelAccurate() {
+        textProcessConfig.textRecognitionLevel = .accurate
     }
-    
+
     @objc func exit() {
         saveAllUserDefaults()
         NSApplication.shared.terminate(self)
