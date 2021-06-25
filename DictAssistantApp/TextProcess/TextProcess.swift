@@ -9,40 +9,12 @@ import Foundation
 import DataBases
 import NaturalLanguage
 
+let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
+let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
+let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
+
 struct TextProcess {
     // to be refined: please use CharacterSet to do trim, filter, search etc
-
-    // lookup all English words
-    // need an all English vocabulary
-    static func isExist(_ word: String) -> Bool {
-        return true
-    }
-
-    static func isKnowable(_ word: String) -> Bool {
-        if manuallyBasicVocabulary.contains(word) {
-            return true
-        }
-        if highSchoolVocabulary.contains(word) {
-            return true
-        }
-//        if cet4Vocabulary.contains(word) {
-//            return true
-//        }
-//        if cet6Vocabulary.contains(word) {
-//            return true
-//        }
-        return false
-    }
-
-    static func translate(_ word: String) -> (String?, Bool) {
-//        if let translation = oxfordDictionary[word] {
-//            return (translation, false)
-//        }
-        if let translation = DictionaryServices.define(word) {
-            return (translation, true)
-        }
-        return (nil, false)
-    }
 
     // texts: [String] -> words: [String]
     // e.g:
@@ -57,7 +29,6 @@ struct TextProcess {
             .map { $0.lowercased() }
             .map { $0.filter { invalidEnglishWordsCharacterSet.contains($0) } }
             .filter { !$0.isEmpty }
-            .filter { !isKnowable($0) }
         
         var all: String = ""
         for t in cleanTexts {
@@ -73,11 +44,9 @@ struct TextProcess {
         print(b)
 
         let c = b.filter { !$0.isEmpty }
-        let d = c.filter { !isKnowable($0) }
-        logger.info(">>after filter knowable again")
-        print(d)
+        print(c)
         
-        let orderedNoDuplicates = NSOrderedSet(array: d).map({ $0 as! String })
+        let orderedNoDuplicates = NSOrderedSet(array: c).map({ $0 as! String })
         
         return orderedNoDuplicates
     }

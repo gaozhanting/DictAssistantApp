@@ -15,11 +15,6 @@ import CryptoKit
 import AVFoundation
 import Foundation
 
-let manuallyBasicVocabulary = Vocabularies.read(from: "manaually_basic_vocabulary.txt")
-let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
-let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
-//let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
-
 let logger = Logger()
 
 @NSApplicationMain
@@ -244,11 +239,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if !statusData.isPlaying {
             startScreenCapture()
             contentPanel.orderFrontRegardless()
+            cropperWindow.orderFrontRegardless()
+//            visualConfig.cropperStyle = .rectangle
             statusData.isPlaying = true
         }
         else {
             stopScreenCapture()
             contentPanel.close()
+            cropperWindow.close()
+//            visualConfig.cropperStyle = .closed
             statusData.isPlaying = false
             displayedWords.words = []
         }
@@ -292,10 +291,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     
     @objc func landscapeDisplayMode() {
         visualConfig.displayMode = .landscape
+        syncContentPanelFromVisualConfig()
     }
     
     @objc func portraitDisplayMode() {
         visualConfig.displayMode = .portrait
+        syncContentPanelFromVisualConfig()
     }
     
     @objc func closeCropperWindow() {
@@ -382,16 +383,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         knownWordsPanel.collectionBehavior.insert(.fullScreenAuxiliary)
         knownWordsPanel.isReleasedWhenClosed = false
-        
-        let context = persistentContainer.viewContext
-        let knownWordsView = KnownWordsView()
-            .environment(\.managedObjectContext, context)
-            .environment(\.removeFromKnownWords, removeFromKnownWords)
-        
-        knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
     }
     
     @objc func showKnownWordsPanel() {
+        let knownWordsView = KnownWordsView(knownWords: getAllKnownWordsSorted().joined(separator: "\n"))
+            .environment(\.removeFromKnownWords, removeFromKnownWords)
+        
+        knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
         knownWordsPanel.orderFrontRegardless()
     }
     
@@ -544,6 +542,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
     }
     
+    func getAllKnownWordsSorted() -> [String] {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
+        ]
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            let knownWords = results.map { $0.word! }
+            return knownWords
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
+        }
+    }
+    
 //    // update automatically when core data changed
 //    @observe
 //    let allKnownWordsSet: Set<String>
@@ -563,6 +578,47 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             }
         } catch {
             fatalError("Failed to fetch request: \(error)")
+        }
+        saveContext()
+    }
+    
+    func addMultiWords(_ words: Set<String>) {
+        let context = persistentContainer.viewContext
+        
+        for word in words {
+            let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if results.isEmpty {
+                    let newWordStatus = WordStats(context: context)
+                    newWordStatus.word = word
+                }
+            } catch {
+                fatalError("Failed to fetch request: \(error)")
+            }
+        }
+        saveContext()
+    }
+    
+    func removeMultiWords(_ words: Set<String>) {
+        let context = persistentContainer.viewContext
+        
+        for word in words {
+            let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if let result = results.first {
+                    context.delete(result)
+                }
+            } catch {
+                fatalError("Failed to fetch request: \(error)")
+            }
         }
         saveContext()
     }
@@ -731,7 +787,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     // words (filter fixed preset known words) (familiars, unfamiliars)
                     let words = TextProcess.extractWords(from: texts)
                     
+                    logger.info("before getAllKnownWordsSet")
+                    // todo: add a cache?!
                     let allKnownWordsSet = getAllKnownWordsSet()
+                    logger.info("after getAllKnownWordsSet")
 
                     let knownWords = words.filter { word in
                         allKnownWordsSet.contains(word)

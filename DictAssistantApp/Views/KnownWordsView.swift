@@ -10,29 +10,25 @@ import SwiftUI
 struct KnownWordsView: View {
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
 
-    @FetchRequest(
-        entity: WordStats.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
-        ]
-    ) var knownWords: FetchedResults<WordStats>
-    
+    @State var knownWords: String
+
+    // todo: standard MacOS TextEditor (search, ..)
     var body: some View {
-        List {
-            Section(header: Text("Count: \(knownWords.count)")) {
-                ForEach(knownWords, id: \.self) { element in
-                    if let word = element.word {
-                        Text(word)
-                            .onTapGesture {
-                                openDict(word)
-                            }
-                            .contextMenu {
-                                Button("Remove from Known", action: { removeFromKnownWords(word) })
-                            }
-                    }
-                }
-            }
-        }
+        TextEditor(text: $knownWords)
+//        ScrollView(.vertical) {
+//            LazyVStack {
+//                //            Section(header: Text("Count: \(knownWords.count)")) {
+//                ForEach(knownWords, id: \.self) { word in
+//                    Text(word)
+//                        .onTapGesture {
+//                            openDict(word)
+//                        }
+//                        .contextMenu {
+//                            Button("Remove from Known", action: { removeFromKnownWords(word) })
+//                        }
+//                }
+//            }
+//        }
     }
 }
 
@@ -47,6 +43,6 @@ func openDict(_ word: String) {
 
 struct KnownWordsView_Previews: PreviewProvider {
     static var previews: some View {
-        KnownWordsView()
+        KnownWordsView(knownWords: "me\nstatus\nOkay")
     }
 }
