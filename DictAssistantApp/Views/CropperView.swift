@@ -97,13 +97,17 @@ struct CropperView: View {
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.purple)
+                    .border(Color.pink)
+//                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
                     .gesture(sealedMove),
                 alignment: .topTrailing)
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.purple)
+                    .border(Color.pink)
+//                    .opacity(0.005)
                     .frame(width: mSize, height: mSize)
                     .gesture(sealedMove),
                 alignment: .bottomLeading)
@@ -127,14 +131,18 @@ struct CropperView: View {
                 alignment: .bottomTrailing)
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.blue)
+                    .border(Color.yellow)
+//                    .opacity(0.005)
                     .frame(width: sSize, height: 15)
                     .offset(x: sOffset, y: -sOffset)
                     .gesture(isPlaying ? nil : scale(1, -1)),
                 alignment: .topTrailing)
             .overlay(
                 Rectangle()
-                    .opacity(0.005)
+                    .fill(Color.blue)
+                    .border(Color.yellow)
+//                    .opacity(0.005)
                     .frame(width: sSize, height: sSize)
                     .offset(x: -sOffset, y: sOffset)
                     .gesture(isPlaying ? nil : scale(-1, 1)),
