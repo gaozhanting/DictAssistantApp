@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct KnownWordsView: View {
+    @Environment(\.removeFromKnownWords) var removeFromKnownWords
+
     @FetchRequest(
         entity: WordStats.entity(),
         sortDescriptors: [
@@ -18,11 +20,16 @@ struct KnownWordsView: View {
     var body: some View {
         List {
             Section(header: Text("Count: \(knownWords.count)")) {
-                ForEach(knownWords, id: \.self) { word in
-                    Text(word.word!)
-                        .onTapGesture {
-                            openDict(word.word!)
-                        }
+                ForEach(knownWords, id: \.self) { element in
+                    if let word = element.word {
+                        Text(word)
+                            .onTapGesture {
+                                openDict(word)
+                            }
+                            .contextMenu {
+                                Button("Remove from Known", action: { removeFromKnownWords(word) })
+                            }
+                    }
                 }
             }
         }

@@ -46,7 +46,7 @@ struct WordsView: View {
                 .font(Font.custom(visualConfig.fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
-                    Button("Add to familiars", action: { addToKnownWords(word) })
+                    Button("Add to Known", action: { addToKnownWords(word) })
                 }
 //                .onLongPressGesture { // todo: double click (intentional, no accidental)
 //                    say(word: word)

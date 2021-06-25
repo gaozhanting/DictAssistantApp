@@ -386,6 +386,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let context = persistentContainer.viewContext
         let knownWordsView = KnownWordsView()
             .environment(\.managedObjectContext, context)
+            .environment(\.removeFromKnownWords, removeFromKnownWords)
+        
         knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
     }
     
@@ -554,12 +556,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
         
         do {
             let results = try context.fetch(fetchRequest)
             if results.isEmpty {
                 let newWordStatus = WordStats(context: context)
                 newWordStatus.word = word
+            }
+        } catch {
+            fatalError("Failed to fetch request: \(error)")
+        }
+        saveContext()
+    }
+    
+    func removeFromKnownWords(_ word: String) {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
+
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let result = results.first {
+                context.delete(result)
             }
         } catch {
             fatalError("Failed to fetch request: \(error)")

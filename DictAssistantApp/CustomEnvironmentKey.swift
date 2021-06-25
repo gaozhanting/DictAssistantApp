@@ -17,3 +17,14 @@ extension EnvironmentValues {
         set { self[AddToKnownWordsEnvironmentKey.self] = newValue }
     }
 }
+
+private struct RemoveFromKnownWordsEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (String) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var removeFromKnownWords: (String) -> Void {
+        get { self[RemoveFromKnownWordsEnvironmentKey].self }
+        set { self[RemoveFromKnownWordsEnvironmentKey.self] = newValue }
+    }
+}
