@@ -59,9 +59,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
             UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
         }
-        if UserDefaults.standard.object(forKey: "visualConfig.cropperStyle") == nil {
-            UserDefaults.standard.set("rectangle", forKey: "visualConfig.cropperStyle")
-        }
         if UserDefaults.standard.object(forKey: "visualConfig.colorOfLandscape") == nil {
             UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
         }
@@ -76,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             colorOfLandscape: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfLandscape")!)!,
             colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!,
-            cropperStyleInner: CropperStyle(rawValue: UserDefaults.standard.string(forKey: "visualConfig.cropperStyle")!)!,
+            cropperStyleInner: .rectangle,
             setSideEffectCode: {}
         )
         
@@ -309,6 +306,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     @objc func miniCropperWindow() {
         visualConfig.cropperStyle = .mini
         cropperWindow.orderFrontRegardless()
+//        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: false, block: { _ in
+//            self.visualConfig.cropperStyle = .mini
+//        })
     }
     
     @objc func normalCropperWindow() {
@@ -406,7 +406,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
         UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        UserDefaults.standard.set("rectange", forKey: "visualConfig.cropperStyle")
         visualConfig.miniMode = false
         visualConfig.displayMode = DisplayMode.landscape
         syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
@@ -415,7 +414,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.colorOfLandscape = .orange
         visualConfig.colorOfPortrait = .green
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
-        visualConfig.cropperStyle = .rectangle
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
         textProcessConfig.textRecognitionLevel = .fast
@@ -444,7 +442,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
         UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
-        UserDefaults.standard.set(visualConfig.cropperStyle.rawValue, forKey: "visualConfig.cropperStyle")
         
         UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
 
