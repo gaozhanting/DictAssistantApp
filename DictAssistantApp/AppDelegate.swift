@@ -211,8 +211,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let textRecognitionLevelItem = NSMenuItem.init(title: "Text Recognition Level", action: nil, keyEquivalent: "")
         textRecognitionLevelItem.isEnabled = false
-        let setTextRecognitionLevelFastItem = NSMenuItem(title: "fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
-        let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
+        let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
+        let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "Accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
         switch textProcessConfig.textRecognitionLevel {
         case .fast:
             setTextRecognitionLevelFastItem.state = .on
