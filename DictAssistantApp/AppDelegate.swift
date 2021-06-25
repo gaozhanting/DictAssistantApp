@@ -10,7 +10,6 @@ import SwiftUI
 import Vision
 import DataBases
 import CoreData
-import KeyboardShortcuts
 import os
 import CryptoKit
 import AVFoundation
