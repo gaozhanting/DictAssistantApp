@@ -116,6 +116,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.setSideEffectCode = constructMenuBar
         textProcessConfig.setSideEffectCode = constructMenuBar
         constructMenuBar()
+        
+        allKnownWordsSetCache = getAllKnownWordsSet()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -223,9 +225,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 
         let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
         let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
-        let showHistoryItem = NSMenuItem(title: "Show Known Words", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showFontItem)
         menu.addItem(showColorItem)
+        
+        menu.addItem(NSMenuItem.separator())
+
+        let showHistoryItem = NSMenuItem(title: "Show Known Words", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -520,12 +525,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if context.hasChanges {
             do {
                 try context.save()
+                allKnownWordsSetCache = getAllKnownWordsSet()
             } catch {
                 logger.info("Failed to save context: \(error.localizedDescription)")
 //                fatalError("Failed to save context: \(error)")
             }
         }
     }
+    
+    var allKnownWordsSetCache: Set<String> = Set.init()
     
     // todo: how to make it effecient?
     func getAllKnownWordsSet() -> Set<String> {
@@ -786,20 +794,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     logger.info("text not equal lastReconginzedTexts")
                     // words (filter fixed preset known words) (familiars, unfamiliars)
                     let words = TextProcess.extractWords(from: texts)
-                    
-                    logger.info("before getAllKnownWordsSet")
-                    // todo: add a cache?!
-                    let allKnownWordsSet = getAllKnownWordsSet()
-                    logger.info("after getAllKnownWordsSet")
 
                     let knownWords = words.filter { word in
-                        allKnownWordsSet.contains(word)
+                        allKnownWordsSetCache.contains(word)
                     }
                     logger.info(">>knownWords")
                     print(knownWords)
 
                     let unKnownWords = words.filter { word in
-                        !allKnownWordsSet.contains(word)
+                        !allKnownWordsSetCache.contains(word)
                     }
                     logger.info(">>unKonwnWords")
                     print(unKnownWords)
@@ -824,5 +827,3 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 }
 
 let maxDisplayedWordsCount = 9 // todo: UserDefaults
-let familiarThreshold: Int = 100 // todo: make this value customiziable from UI
-
