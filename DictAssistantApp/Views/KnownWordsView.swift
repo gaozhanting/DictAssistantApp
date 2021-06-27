@@ -26,9 +26,6 @@ struct SplitView: NSViewControllerRepresentable {
 
 class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        splitView.dividerStyle = .paneSplitter
-        splitView.isVertical = false
-        
         let topViewController = NSHostingController(rootView: FixedKnownWordsView())
         addSplitViewItem(
             NSSplitViewItem(
@@ -39,6 +36,10 @@ class SplitViewController: NSSplitViewController {
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: bottomViewController))
+        
+        splitView.dividerStyle = .paneSplitter
+        splitView.isVertical = false
+        splitView.setPosition(320, ofDividerAt: 0)
     }
 }
 
@@ -98,12 +99,14 @@ struct EditingView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .disabled(isWordsInvalid)
+                        .help("Add multi words to Known")
                         
                         Button(action: { removeMultiFromKnownWords(Array(words)) }) {
                             Image(systemName: "rectangle.stack.badge.minus")
                         }
                         .buttonStyle(PlainButtonStyle())
                         .disabled(isWordsInvalid)
+                        .help("Remove multi words from Known")
                     }
                     .padding(.horizontal, 10)
                     
@@ -116,6 +119,7 @@ struct EditingView: View {
                                     alignment: .bottomLeading)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .help("Paste HighSchool Vocabulary")
                         
                         Button(action: { text = cet4Vocabulary }) {
                             Image(systemName: "doc.on.clipboard")
@@ -125,6 +129,7 @@ struct EditingView: View {
                                     alignment: .bottomLeading)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .help("Paste CET4 Vocabulary")
                         
                         Button(action: { text = cet6Vocabulary }) {
                             Image(systemName: "doc.on.clipboard")
@@ -134,6 +139,7 @@ struct EditingView: View {
                                     alignment: .bottomLeading)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .help("Paste CET6 Vocabulary")
                     }
                     .padding(.horizontal, 10)
                 }
