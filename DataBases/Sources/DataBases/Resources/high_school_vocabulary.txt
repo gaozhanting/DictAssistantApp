@@ -1,5 +1,3 @@
-A.D.
-A.M.
 AD
 Africa
 African
@@ -20,7 +18,6 @@ Atlantic
 August
 Australia
 Australian
-B.C.
 BBC
 BC
 Barcelona
@@ -80,9 +77,6 @@ Marxism
 May
 Miss
 Monday
-Mr.
-Mrs.
-NO.
 Negro
 New
 New
@@ -91,7 +85,6 @@ O
 Oceania
 October
 Olympic
-P.M.
 Pacific
 Paris
 Russia
@@ -888,7 +881,6 @@ dusty
 duty
 dye
 dying
-e.g.
 each
 eager
 eagerly

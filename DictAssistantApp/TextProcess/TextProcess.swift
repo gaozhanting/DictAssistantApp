@@ -22,6 +22,9 @@ struct TextProcess {
     // middleput: ["i", "bookmarks", "love", "you", "lovee", "i.e."]
     // output: [S..Text(..)]
     static func extractWords(from texts: [String]) -> [String] {
+        logger.info(">>texts")
+        print(texts)
+        
         let cleanTexts: [String] = texts
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .map { $0.components(separatedBy: .whitespaces) }
@@ -55,7 +58,13 @@ struct TextProcess {
         var results: [String] = []
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
-        let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
+        let options: NLTagger.Options = [
+            .omitPunctuation,
+            .omitWhitespace,
+            .omitOther,
+            .joinNames,
+            .joinContractions
+        ]
         tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
             if let tag = tag {
                 if !tag.rawValue.isEmpty {
@@ -77,7 +86,7 @@ struct TextProcess {
             .map { Character($0) }
         characters.append(Character("-"))
         characters.append(Character("'"))
-        characters.append(Character(".")) // currently not work with i.e. , e.g. , etc. , because . is used for punctuation most of the time!)
+//        characters.append(Character(".")) // just very little words we don't care; . will harm lemma // currently not work with i.e. , e.g. , etc. , because . is used for punctuation most of the time!)
         return Set(characters)
     }
 
