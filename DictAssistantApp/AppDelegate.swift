@@ -231,6 +231,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(showColorItem)
         
         menu.addItem(NSMenuItem.separator())
+        
+        let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
+        menu.addItem(resetUserDefaultsItem)
+        
+        menu.addItem(NSMenuItem.separator())
 
         let showHistoryItem = NSMenuItem(title: "Show Known Words", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
@@ -363,7 +368,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func initLandscapeWordsPanel() {
         // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
         landscapeWordsPanel = ContentPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 600, height: 200),
+            contentRect: NSRect(x: 100, y: 100, width: 600, height: 200),
             name: "landscapeWordsPanel"
         )
         
@@ -378,7 +383,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     var portraitWordsPanel: NSPanel!
     func initPortraitWordsPanel() {
         portraitWordsPanel = ContentPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 200, height: 600),
+            contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
             name: "portraitWordsPanel"
         )
                 
@@ -441,7 +446,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // MARK: - User Defaults
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
-    func resetUserDefaults() {
+    @objc func resetUserDefaults() {
         UserDefaults.standard.set(false, forKey: "visualConfig.miniMode")
         UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
@@ -470,8 +475,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         cropData.width = 300.0
         cropData.height = 300.0
         
-        contentPanel.setFrame(
-            NSRect(x: 200, y: 100, width: 300, height: 600),
+        landscapeWordsPanel.setFrame(
+            NSRect(x: 100, y: 100, width: 600, height: 200),
+            display: true,
+            animate: true
+        )
+        portraitWordsPanel.setFrame(
+            NSRect(x: 100, y: 100, width: 200, height: 600),
             display: true,
             animate: true
         )
