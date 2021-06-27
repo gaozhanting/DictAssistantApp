@@ -12,7 +12,7 @@ import Foundation
 // replace:$1
 
 public struct Vocabularies {
-    public static func read(from file: String) -> Set<String> {
+    public static func read(from file: String) -> String {
         guard let url = Bundle.module.url(forResource: file, withExtension: nil)
         else {
             fatalError("Couldn't find \(file) in main bundle.")
@@ -20,7 +20,8 @@ public struct Vocabularies {
         
         do {
             let content = try String(contentsOf: url, encoding: String.Encoding.utf8)
-            return Set(content.components(separatedBy: "\n"))
+            return content
+//            return Set(content.components(separatedBy: "\n"))
         }
         catch(_) {
             fatalError("Couldn't init from \(file)")

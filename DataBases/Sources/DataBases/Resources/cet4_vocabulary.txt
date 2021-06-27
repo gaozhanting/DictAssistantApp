@@ -250,7 +250,6 @@ bathroom
 battery
 battle
 bay
-#B.|C.
 beach
 beam
 bean
@@ -1552,7 +1551,6 @@ identical
 identify
 idiom
 idle
-#i.|e.
 ignorant
 ignore
 illegal

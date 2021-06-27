@@ -28,3 +28,25 @@ extension EnvironmentValues {
         set { self[RemoveFromKnownWordsEnvironmentKey.self] = newValue }
     }
 }
+
+private struct AddMultiToKnownWordsEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ([String]) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var addMultiToKnownWords: ([String]) -> Void {
+        get { self[AddMultiToKnownWordsEnvironmentKey].self }
+        set { self[AddMultiToKnownWordsEnvironmentKey.self] = newValue }
+    }
+}
+
+private struct RemoveMultiFromKnownWordsEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ([String]) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var removeMultiFromKnownWords: ([String]) -> Void {
+        get { self[RemoveMultiFromKnownWordsEnvironmentKey].self }
+        set { self[RemoveMultiFromKnownWordsEnvironmentKey.self] = newValue }
+    }
+}

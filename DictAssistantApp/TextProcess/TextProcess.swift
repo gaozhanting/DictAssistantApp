@@ -27,7 +27,7 @@ struct TextProcess {
             .map { $0.components(separatedBy: .whitespaces) }
             .reduce([], +)
             .map { $0.lowercased() }
-            .map { $0.filter { invalidEnglishWordsCharacterSet.contains($0) } }
+            .map { $0.filter { validEnglishWordsCharacterSet.contains($0) } }
             .filter { !$0.isEmpty }
         
         var all: String = ""
@@ -69,15 +69,15 @@ struct TextProcess {
         return results
     }
     
-    static let invalidEnglishWordsCharacterSet = makeInvalidEnglishWordsCharacterSet()
-    static let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
-    static func makeInvalidEnglishWordsCharacterSet() -> Set<Character> {
+    static let validEnglishWordsCharacterSet = makeValidEnglishWordsCharacterSet()
+    static let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+    static func makeValidEnglishWordsCharacterSet() -> Set<Character> {
         var characters = a_z
             .components(separatedBy: " ")
             .map { Character($0) }
         characters.append(Character("-"))
         characters.append(Character("'"))
-//        characters.append(Character(".")) // currently not work with i.e. , e.g. , etc. , because . is used for punctuation most of the time!)
+        characters.append(Character(".")) // currently not work with i.e. , e.g. , etc. , because . is used for punctuation most of the time!)
         return Set(characters)
     }
 

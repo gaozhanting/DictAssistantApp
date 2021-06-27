@@ -391,9 +391,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     @objc func showKnownWordsPanel() {
-        let knownWordsView = KnownWordsView(knownWords: getAllKnownWordsSorted().joined(separator: "\n"))
-            .environment(\.removeFromKnownWords, removeFromKnownWords)
-        
+        let knownWordsView = KnownWordsView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environment(\.removeMultiFromKnownWords, removeMultiFromKnownWords)
+            .environment(\.addMultiToKnownWords, addMultiToKnownWords)
+
         knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
         knownWordsPanel.orderFrontRegardless()
     }
@@ -567,30 +569,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
     }
     
-//    // update automatically when core data changed
-//    @observe
-//    let allKnownWordsSet: Set<String>
-    
     func addToKnownWords(_ word: String) {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.isEmpty {
-                let newWordStatus = WordStats(context: context)
-                newWordStatus.word = word
-            }
-        } catch {
-            fatalError("Failed to fetch request: \(error)")
-        }
-        saveContext()
+        addMultiToKnownWords([word])
     }
     
-    func addMultiWords(_ words: Set<String>) {
+    func addMultiToKnownWords(_ words: [String]) {
         let context = persistentContainer.viewContext
         
         for word in words {
@@ -611,14 +594,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         saveContext()
     }
     
-    func removeMultiWords(_ words: Set<String>) {
+    func removeFromKnownWords(_ word: String) {
+        removeMultiFromKnownWords([word])
+    }
+    
+    func removeMultiFromKnownWords(_ words: [String]) {
         let context = persistentContainer.viewContext
         
         for word in words {
             let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "word = %@", word)
             fetchRequest.fetchLimit = 1
-            
+
             do {
                 let results = try context.fetch(fetchRequest)
                 if let result = results.first {
@@ -627,24 +614,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             } catch {
                 fatalError("Failed to fetch request: \(error)")
             }
-        }
-        saveContext()
-    }
-    
-    func removeFromKnownWords(_ word: String) {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let result = results.first {
-                context.delete(result)
-            }
-        } catch {
-            fatalError("Failed to fetch request: \(error)")
         }
         saveContext()
     }
