@@ -26,7 +26,7 @@ class CropperWindow: NSPanel {
         )
         
         // Set this if you want the panel to remember its size/position
-        self.setFrameAutosaveName("self")
+        self.setFrameAutosaveName("cropperWindow")
         
         // Allow the pannel to be on top of almost all other windows
         self.isFloatingPanel = true

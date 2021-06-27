@@ -9,9 +9,9 @@ import Foundation
 import Cocoa
 
 class ContentPanel: NSPanel {
-    init() {
+    init(contentRect: NSRect, name: String) {
         super.init(
-            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+            contentRect: contentRect,
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
@@ -29,7 +29,7 @@ class ContentPanel: NSPanel {
         )
         
         // Set this if you want the panel to remember its size/position
-        self.setFrameAutosaveName("self")
+        self.setFrameAutosaveName(name)
         
         // Allow the pannel to be on top of almost all other windows
         //        self.isFloatingPanel = true

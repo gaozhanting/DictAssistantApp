@@ -220,11 +220,30 @@ struct CropperView: View {
 
 struct CropView_Previews: PreviewProvider {
     static var previews: some View {
-        CropperView().environmentObject(CropData(
-            x: 300.0,
-            y: 300.0,
-            width: 300.0,
-            height: 100.0
-        ))
+        CropperView()
+            .environmentObject(CropData(
+                x: 300.0,
+                y: 300.0,
+                width: 300.0,
+                height: 100.0
+            ))
+            .environmentObject(
+                VisualConfig(
+                    miniModeInner: false,
+                    displayModeInner: .landscape,
+                    fontSizeOfLandscape: 20,
+                    fontSizeOfPortrait: 13,
+                    colorOfLandscape: .orange,
+                    colorOfPortrait: .green,
+                    fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+                    cropperStyleInner: .rectangle,
+                    setSideEffectCode: {},
+                    switchWordsPanel: {}
+                    ))
+            .environmentObject(
+                StatusData(
+                    isPlayingInner: false,
+                    sideEffectCode: {}
+                ))
     }
 }

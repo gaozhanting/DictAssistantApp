@@ -10,4 +10,8 @@ import Foundation
 // as a bridge of AppDelegate(and our inner system)(write) and WordsView UI(read)
 class DisplayedWords: ObservableObject {
     @Published var words: [String] = []
+    
+    init(words: [String]) {
+        self.words = words
+    }
 }

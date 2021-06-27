@@ -69,7 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!,
             cropperStyleInner: .rectangle,
-            setSideEffectCode: {}
+            setSideEffectCode: {},
+            switchWordsPanel: {}
         )
         
         // TextProcessConfig
@@ -114,6 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
         visualConfig.setSideEffectCode = constructMenuBar
+        visualConfig.switchWordsPanel = switchWordsPanel
         textProcessConfig.setSideEffectCode = constructMenuBar
         constructMenuBar()
         
@@ -338,20 +340,54 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // MARK: - contentPanel
     var contentPanel: NSPanel!
     func initContentPanel() {
-        contentPanel = ContentPanel.init()
+        initLandscapeWordsPanel()
+        initPortraitWordsPanel()
         
-        syncContentPanelFromVisualConfig()
+        switchWordsPanel()
+    }
+    
+    func switchWordsPanel() {
+        switch visualConfig.displayMode {
+        case .landscape:
+            portraitWordsPanel.close()
+            contentPanel = landscapeWordsPanel
+            contentPanel.orderFrontRegardless()
+        case .portrait:
+            landscapeWordsPanel.close()
+            contentPanel = portraitWordsPanel
+            contentPanel.orderFrontRegardless()
+        }
+    }
+    
+    var landscapeWordsPanel: NSPanel!
+    func initLandscapeWordsPanel() {
+        // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
+        landscapeWordsPanel = ContentPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 600, height: 200),
+            name: "landscapeWordsPanel"
+        )
         
-        let context = persistentContainer.viewContext
-        let contentView = WordsView()
-            .environment(\.managedObjectContext, context)
+        let contentView = LandscapeWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(textProcessConfig)
             .environmentObject(visualConfig)
-            .environmentObject(statusData)
             .environmentObject(displayedWords)
 
-        contentPanel.contentView = NSHostingView(rootView: contentView)
+        landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+    }
+    
+    var portraitWordsPanel: NSPanel!
+    func initPortraitWordsPanel() {
+        portraitWordsPanel = ContentPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 200, height: 600),
+            name: "portraitWordsPanel"
+        )
+                
+        let contentView = PortraitWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
     }
     
     // MARK: - cropperWindow
@@ -385,6 +421,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             defer: false
             //            screen: NSScreen.main
         )
+        
+        knownWordsPanel.setFrameAutosaveName("knownWordsPanel")
         
         knownWordsPanel.collectionBehavior.insert(.fullScreenAuxiliary)
         knownWordsPanel.isReleasedWhenClosed = false
@@ -791,7 +829,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     //    let recognizedText = RecognizedText(texts: [])
-    let displayedWords = DisplayedWords()
+    let displayedWords = DisplayedWords(words: [])
     var lastReconginzedTexts: [String] = []
 }
 

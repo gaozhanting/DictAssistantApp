@@ -60,10 +60,12 @@ class VisualConfig: ObservableObject {
         set {
             displayModeInner = newValue
             setSideEffectCode()
+            switchWordsPanel()
         }
     }
     
     var setSideEffectCode: () -> Void
+    var switchWordsPanel: () -> Void
 
     init(
         miniModeInner: Bool,
@@ -74,7 +76,8 @@ class VisualConfig: ObservableObject {
         colorOfPortrait: NSColor,
         fontName: String,
         cropperStyleInner: CropperStyle,
-        setSideEffectCode: @escaping () -> Void
+        setSideEffectCode: @escaping () -> Void,
+        switchWordsPanel: @escaping () -> Void
     ) {
         self.miniModeInner = miniModeInner
         self.displayModeInner = displayModeInner
@@ -85,5 +88,6 @@ class VisualConfig: ObservableObject {
         self.fontName = fontName
         self.cropperStyleInner = cropperStyleInner
         self.setSideEffectCode = setSideEffectCode
+        self.switchWordsPanel = switchWordsPanel
     }
 }

@@ -147,7 +147,6 @@ struct EditingView: View {
     }
 }
 
-
 func openDict(_ word: String) {
     let task = Process()
     task.launchPath = "/usr/bin/open"
