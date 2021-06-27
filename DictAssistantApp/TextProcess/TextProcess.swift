@@ -47,6 +47,7 @@ struct TextProcess {
         print(b)
 
         let c = b.filter { !$0.isEmpty }
+        logger.info(">>after lemm filter isEmpty")
         print(c)
         
         let orderedNoDuplicates = NSOrderedSet(array: c).map({ $0 as! String })

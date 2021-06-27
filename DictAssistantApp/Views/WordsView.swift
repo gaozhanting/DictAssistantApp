@@ -129,7 +129,7 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "like", "you"]))
+                        words: ["someone", "like", "you", "piss off", "part-time"]))
                 .environmentObject(
                     VisualConfig(
                         miniModeInner: false,
