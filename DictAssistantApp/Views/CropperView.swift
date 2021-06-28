@@ -11,6 +11,7 @@ struct CropperView: View {
     var body: some View {
         Rectangle()
             .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
+            .foregroundColor(.accentColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
     }
