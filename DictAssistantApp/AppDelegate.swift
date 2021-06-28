@@ -25,17 +25,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 
     let textProcessConfig: TextProcessConfig
     let visualConfig: VisualConfig
-    let cropData: CropData
-    
 
     var timer: Timer = Timer()
 
     var results: [VNRecognizedTextObservation]?
     var requestHandler: VNImageRequestHandler?
     var textRecognitionRequest: VNRecognizeTextRequest!
-
-    var imageUrlString = NSHomeDirectory() + "/Documents/" + "abc.jpg"
-    var imageDigest: SHA256.Digest? = nil
         
     override init() {
         // VisualConfig
@@ -84,26 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             )!,
             setSideEffectCode: {}
         )
-        
-        // CropData
-        if UserDefaults.standard.object(forKey: "cropper.x") == nil {
-            UserDefaults.standard.set(300.0, forKey: "cropper.x")
-        }
-        if UserDefaults.standard.object(forKey: "cropper.y") == nil {
-            UserDefaults.standard.set(300.0, forKey: "cropper.y")
-        }
-        if UserDefaults.standard.object(forKey: "cropper.width") == nil {
-            UserDefaults.standard.set(300.0, forKey: "cropper.width")
-        }
-        if UserDefaults.standard.object(forKey: "cropper.height") == nil {
-            UserDefaults.standard.set(300.0, forKey: "cropper.height")
-        }
-        cropData = CropData(
-            x: CGFloat(UserDefaults.standard.double(forKey: "cropper.x")),
-            y: CGFloat(UserDefaults.standard.double(forKey: "cropper.y")),
-            width: CGFloat(UserDefaults.standard.double(forKey: "cropper.width")),
-            height: CGFloat(UserDefaults.standard.double(forKey: "cropper.height"))
-        )
     }
     
     // MARK: - Application
@@ -111,7 +86,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         initContentPanel()
         initCropperWindow()
-        initCropperWindow2()
         initKnownWordsPanel()
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
@@ -252,7 +226,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             cropperWindow.orderFrontRegardless()
 //            visualConfig.cropperStyle = .rectangle
             statusData.isPlaying = true
-            fixCropperWindow2()
+            fixCropperWindow()
         }
         else {
             stopScreenCapture()
@@ -260,7 +234,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             cropperWindow.close()
 //            visualConfig.cropperStyle = .closed
             statusData.isPlaying = false
-            activeCropperWindow2()
+            activeCropperWindow()
             displayedWords.words = []
         }
     }
@@ -396,94 +370,39 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     // MARK: - cropperWindow
-    var cropperWindow: NSPanel!
+    var cropperWindow: NSWindow!
     func initCropperWindow() {
         cropperWindow = CropperWindow.init()
-        let cropperView = CropperView()
-            .environmentObject(visualConfig)
-            .environmentObject(cropData)
-            .environmentObject(statusData)
         
-        cropperWindow.contentView = NSHostingView(rootView: cropperView)
+        let cropper2View = CropperView()
+        cropperWindow.contentView = NSHostingView(rootView: cropper2View)
+        
+        cropperWindow.center()
         cropperWindow.orderFrontRegardless()
-        visualConfig.cropperStyle = .mini
-    }
-    
-    var cropperWindow2: NSWindow!
-    func initCropperWindow2() {
-        cropperWindow2 = NSWindow.init(
-            contentRect: NSRect(x: 200, y: 100, width: 600, height: 200),
-            styleMask: [
-                .titled,
-                .closable,
-                .fullSizeContentView,
-                .resizable
-            ],
-            backing: .buffered,
-            defer: false
-            //            screen: NSScreen.main
-        )
-        
-        // Set this if you want the panel to remember its size/position
-        cropperWindow2.setFrameAutosaveName("cropperWindow2")
-        
-        // Allow the pannel to be on top of almost all other windows
-//        cropperWindow2.isFloatingPanel = true
-        cropperWindow2.level = .floating
-        
-        // Allow the pannel to appear in a fullscreen space
-        cropperWindow2.collectionBehavior.insert(.fullScreenAuxiliary)
-        
-        // While we may set a title for the window, don't show it
-        cropperWindow2.titleVisibility = .hidden
-        cropperWindow2.titlebarAppearsTransparent = true
-        
-        // Since there is no titlebar make the window moveable by click-dragging on the background
-        cropperWindow2.isMovableByWindowBackground = true
-        
-        // Keep the panel around after closing since I expect the user to open/close it often
-        cropperWindow2.isReleasedWhenClosed = false
-        
-        // Hide the traffic icons (standard close, minimize, maximize buttons)
-        cropperWindow2.standardWindowButton(.closeButton)?.isHidden = true
-        cropperWindow2.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        cropperWindow2.standardWindowButton(.zoomButton)?.isHidden = true
-        cropperWindow2.standardWindowButton(.toolbarButton)?.isHidden = true
-                
-        cropperWindow2.hasShadow = false
-        
-        cropperWindow2.isOpaque = false
-        cropperWindow2.backgroundColor = NSColor.clear
-        
-        let cropper2 = Cropper2View()
-        cropperWindow2.contentView = NSHostingView(rootView: cropper2)
-        
-        cropperWindow2.center()
-        cropperWindow2.orderFrontRegardless()
     }
     
     // no resizable, not movable
-    func fixCropperWindow2() {
+    func fixCropperWindow() {
         // remove .resizable otherwise can't mouse through
-        cropperWindow2.styleMask = [
+        cropperWindow.styleMask = [
             .titled,
             .closable,
             .fullSizeContentView
         ]
-        cropperWindow2.isMovable = false
-        cropperWindow2.isMovableByWindowBackground = false
+        cropperWindow.isMovable = false
+        cropperWindow.isMovableByWindowBackground = false
     }
     
     // resizable, movable
-    func activeCropperWindow2() {
-        cropperWindow2.styleMask = [
+    func activeCropperWindow() {
+        cropperWindow.styleMask = [
             .titled,
             .closable,
             .fullSizeContentView,
             .resizable
         ]
-        cropperWindow2.isMovable = true
-        cropperWindow2.isMovableByWindowBackground = true
+        cropperWindow.isMovable = true
+        cropperWindow.isMovableByWindowBackground = true
     }
     
     // MARK: - Known Words Panel
@@ -543,15 +462,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
         textProcessConfig.textRecognitionLevel = .fast
-
-        UserDefaults.standard.set(300.0, forKey: "cropper.x")
-        UserDefaults.standard.set(300.0, forKey: "cropper.y")
-        UserDefaults.standard.set(300.0, forKey: "cropper.width")
-        UserDefaults.standard.set(300.0, forKey: "cropper.height")
-        cropData.x = 300.0
-        cropData.y = 300.0
-        cropData.width = 300.0
-        cropData.height = 300.0
         
         landscapeWordsPanel.setFrame(
             NSRect(x: 100, y: 100, width: 600, height: 200),
@@ -575,11 +485,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
         
         UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
-
-        UserDefaults.standard.set(Double(cropData.x), forKey: "cropper.x")
-        UserDefaults.standard.set(Double(cropData.y), forKey: "cropper.y")
-        UserDefaults.standard.set(Double(cropData.width), forKey: "cropper.width")
-        UserDefaults.standard.set(Double(cropData.height), forKey: "cropper.height")
     }
 
     // MARK:- Appearance (FontPanel & ColorPanel)
@@ -777,15 +682,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let videoFramesPerSecond = 1 // todo
         screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
         
-//        screenInput.cropRect = CGRect(
-//            x: cropData.x - 0.5*cropData.width,
-//            y: NSScreen.main!.frame.size.height - cropData.y - 0.5*cropData.height - CGFloat(25.0), // this test OK!
-////            y: 1152 - cropData.y - 0.5*cropData.height - 25.0, // this test OK! // 1152 is my iMac display secondary scaled height
-//            width: cropData.width,
-//            height: cropData.height
-//        )
-        
-        screenInput.cropRect = cropperWindow2.frame
+        screenInput.cropRect = cropperWindow.frame
 
 //        input.scaleFactor = CGFloat(scaleFactor)
         screenInput.capturesCursor = false
