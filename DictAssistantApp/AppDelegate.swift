@@ -204,6 +204,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
+        let saveUserDefaultsItem = NSMenuItem(title: "Save Settings", action: #selector(saveAllUserDefaults), keyEquivalent: "")
+        menu.addItem(saveUserDefaultsItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
         menu.addItem(resetUserDefaultsItem)
         
@@ -467,7 +472,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         )
     }
  
-    func saveAllUserDefaults() {
+    @objc func saveAllUserDefaults() {
         UserDefaults.standard.set(visualConfig.miniMode, forKey: "visualConfig.miniMode")
         UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
