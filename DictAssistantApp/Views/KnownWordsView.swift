@@ -68,6 +68,8 @@ struct EditingView: View {
 
     @State private var text = ""
     
+    @State private var showInfo = false
+    
     var words: [String] {
         text.split(separator: "\n")
             .map{ String($0) }
@@ -90,7 +92,7 @@ struct EditingView: View {
     }
         
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 HStack {
                     HStack {
@@ -142,10 +144,27 @@ struct EditingView: View {
                         .help("Paste CET6 Vocabulary")
                     }
                     .padding(.horizontal, 10)
+                    
+                    Button(action: {
+                        withAnimation {
+                            showInfo.toggle()
+                        }
+                    }) {
+                        Image(systemName: "info.circle")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .help("Show Info")
+                    .padding(.horizontal, 10)
                 }
                 .padding(.top, 5)
                 
                 Spacer()
+            }
+            
+            if showInfo {
+                Divider()
+                (Text("Edit one word every line; valid character of a word should only be ") + Text("a-z A-Z - '").foregroundColor(.green))
+                    .padding(.leading, 4)
             }
             
             TextEditor(text: $text)
