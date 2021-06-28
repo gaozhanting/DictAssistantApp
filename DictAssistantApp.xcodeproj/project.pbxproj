@@ -114,8 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				44FC7009266DEFF80025676B /* WordsView.swift */,
-				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
+				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

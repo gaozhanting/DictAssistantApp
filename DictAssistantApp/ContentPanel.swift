@@ -53,13 +53,10 @@ class ContentPanel: NSPanel {
         self.standardWindowButton(.miniaturizeButton)?.isHidden = true
         self.standardWindowButton(.zoomButton)?.isHidden = true
         self.standardWindowButton(.toolbarButton)?.isHidden = true
-        
-        //        self.title = "self"
-        
+                
         self.hasShadow = false
         
-        //        self.displayIfNeeded()
-        //        self.viewsNeedDisplay = false
-        //        self.keyDown(with: NSEvent.init())
+        self.isOpaque = false
+        self.backgroundColor = NSColor.clear
     }
 }

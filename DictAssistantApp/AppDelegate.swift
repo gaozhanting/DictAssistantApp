@@ -257,14 +257,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     
     // todo: add to setter?! or something (delegate)?!
     func syncContentPanelFromVisualConfig() {
-        if visualConfig.miniMode {
-            contentPanel.isOpaque = false
-            contentPanel.backgroundColor = NSColor.clear
-        } else {
-            contentPanel.isOpaque = true
-            contentPanel.backgroundColor = NSColor.windowBackgroundColor
-        }
-
         // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
         if visualConfig.displayMode == .portrait && visualConfig.miniMode {
             // the shadow of the window still exist sometimes!

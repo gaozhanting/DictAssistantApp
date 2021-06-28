@@ -34,7 +34,7 @@ struct LandscapeWordsView: View {
     }
     
     var body: some View {
-        VStack {
+        if visualConfig.miniMode {
             VStack {
                 Spacer()
                 ScrollView(.horizontal) {
@@ -42,15 +42,24 @@ struct LandscapeWordsView: View {
                         wordsView
                             .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
                     }
-                    .background(
-                        Color.black
-                            .opacity(0.75)
-                    )
+                    .background(Color.black.opacity(0.75))
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
+        else {
+            ScrollView(.horizontal) {
+                HStack(alignment: .top) {
+                    wordsView
+                        .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .background(Color.black.opacity(0.75))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+        }
     }
 }
 
@@ -62,17 +71,20 @@ struct PortraitWordsView: View {
     
     var wordsView: some View {
         ForEach(displayedWords.words, id: \.self) { word in
-            (Text(word).foregroundColor(Color(visualConfig.colorOfPortrait)) + Text(translation(of: word)).foregroundColor(.white))
-                .font(Font.custom(visualConfig.fontName, size: visualConfig.fontSizeOfPortrait))
-                .padding(.all, 4)
-                .contextMenu {
-                    Button("Add to Known", action: { addToKnownWords(word) })
-                }
+            HStack {
+                (Text(word).foregroundColor(Color(visualConfig.colorOfPortrait)) + Text(translation(of: word)).foregroundColor(.white))
+                    .font(Font.custom(visualConfig.fontName, size: visualConfig.fontSizeOfPortrait))
+                    .padding(.all, 4)
+                    .contextMenu {
+                        Button("Add to Known", action: { addToKnownWords(word) })
+                    }
+                Spacer()
+            }
         }
     }
     
     var body: some View {
-        VStack {
+        if visualConfig.miniMode {
             HStack {
                 Spacer()
                 ScrollView(.vertical) {
@@ -80,15 +92,24 @@ struct PortraitWordsView: View {
                         wordsView
                             .frame(maxHeight: 150, alignment: .topLeading)
                     }
-                    .background(
-                        Color.black
-                            .opacity(0.75)
-                    )
+                    .background(Color.black.opacity(0.75))
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
+        else {
+            ScrollView(.vertical) {
+                VStack(alignment: .leading) {
+                    wordsView
+                        .frame(maxHeight: 150, alignment: .topLeading)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .background(Color.black.opacity(0.75))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+        }
     }
 }
 
@@ -112,6 +133,26 @@ struct WordsView_Previews: PreviewProvider {
                         words: ["someone", "like", "you"]))
                 .environmentObject(
                     VisualConfig(
+                        miniModeInner: true,
+                        displayModeInner: .landscape,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+                        cropperStyleInner: .rectangle,
+                        setSideEffectCode: {},
+                        switchWordsPanel: {}
+                        ))
+            
+            LandscapeWordsView()
+                .frame(width: 1000, height: 220)
+                .environment(\.addToKnownWords, {_ in })
+                .environmentObject(
+                    DisplayedWords(
+                        words: ["someone", "like", "you"]))
+                .environmentObject(
+                    VisualConfig(
                         miniModeInner: false,
                         displayModeInner: .landscape,
                         fontSizeOfLandscape: 20,
@@ -125,11 +166,31 @@ struct WordsView_Previews: PreviewProvider {
                         ))
             
             PortraitWordsView()
-                .frame(width: 220, height: 1000)
+                .frame(width: 220, height: 600)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "like", "you", "piss off", "part-time"]))
+                        words: ["someone"]))
+                .environmentObject(
+                    VisualConfig(
+                        miniModeInner: true,
+                        displayModeInner: .portrait,
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
+                        cropperStyleInner: .rectangle,
+                        setSideEffectCode: {},
+                        switchWordsPanel: {}
+                        ))
+            
+            PortraitWordsView()
+                .frame(width: 220, height: 600)
+                .environment(\.addToKnownWords, {_ in })
+                .environmentObject(
+                    DisplayedWords(
+                        words: ["someone"]))
                 .environmentObject(
                     VisualConfig(
                         miniModeInner: false,
@@ -143,6 +204,7 @@ struct WordsView_Previews: PreviewProvider {
                         setSideEffectCode: {},
                         switchWordsPanel: {}
                         ))
+            
         }
     }
 }
