@@ -108,11 +108,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
         let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
         let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
+        let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
         let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
         let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
         menu.addItem(landscapeNormalItem)
         menu.addItem(landscapeMiniItem)
         menu.addItem(portraitNormalItem)
+        menu.addItem(portraitOnelineItem)
         menu.addItem(portraitMiniItem)
         menu.addItem(closedWordsItem)
         
@@ -233,6 +235,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     
     @objc func portraitNormal() {
         let contentView = PortraitNormalWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+        
+        contentPanel = portraitWordsPanel
+        contentMode = .portrait
+        landscapeWordsPanel.close()
+        contentPanel.orderFrontRegardless()
+        
+        contentPanel.hasShadow = true
+        contentPanel.invalidateShadow()
+    }
+    
+    @objc func portraitOneline() {
+        let contentView = PortraitOnelineWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
@@ -510,7 +529,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 return visualConfig.fontSizeOfPortrait
             }
         }()
-        let font = NSFont(name: name, size: size) ?? NSFont.userFont(ofSize: 13.0)!
+        let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: 13.0)
 
         NSFontManager.shared.setSelectedFont(font, isMultiple: false)
         

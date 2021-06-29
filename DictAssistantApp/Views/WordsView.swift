@@ -16,6 +16,59 @@ fileprivate func translation(of word: String) -> String {
     }
 }
 
+fileprivate func translationOneline(of word: String) -> String {
+    if let tr = DictionaryServices.define(word) {
+        return tr.replacingOccurrences(of: "\n", with: " ")
+    } else {
+        return ""
+    }
+}
+
+fileprivate struct OnelineWordsView: View {
+    @EnvironmentObject var displayedWords: DisplayedWords
+
+    @Environment(\.addToKnownWords) var addToKnownWords
+    
+    let color: NSColor
+    let fontName: String
+    let fontSize: CGFloat
+    
+    var body: some View {
+        ForEach(displayedWords.words, id: \.self) { word in
+            (Text(word).foregroundColor(Color(color)) + Text(translationOneline(of: word)).foregroundColor(.white))
+                .lineLimit(1)
+                .font(Font.custom(fontName, size: fontSize))
+//                .padding(.all, 4)
+                .padding(.horizontal, 4)
+                .contextMenu {
+                    Button("Add to Known", action: { addToKnownWords(word) })
+                }
+        }
+    }
+}
+
+struct PortraitOnelineWordsView: View {
+    @EnvironmentObject var visualConfig: VisualConfig
+
+    var body: some View {
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                OnelineWordsView(
+                    color: visualConfig.colorOfPortrait,
+                    fontName: visualConfig.fontName,
+                    fontSize: visualConfig.fontSizeOfPortrait
+                )
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(Color.black.opacity(0.75))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    }
+}
+
+
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
 
@@ -72,7 +125,7 @@ struct LandscapeMiniWordsView: View {
                         fontName: visualConfig.fontName,
                         fontSize: visualConfig.fontSizeOfLandscape
                     )
-                        .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
+                    .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
                 }
                 .background(Color.black.opacity(0.75))
             }
@@ -93,7 +146,7 @@ struct PortraitNormalWordsView: View {
                     fontName: visualConfig.fontName,
                     fontSize: visualConfig.fontSizeOfPortrait
                 )
-                .frame(maxHeight: 150, alignment: .topLeading)
+                .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -174,6 +227,21 @@ struct WordsView_Previews: PreviewProvider {
                 .environmentObject(
                     DisplayedWords(
                         words: ["someone"]))
+                .environmentObject(
+                    VisualConfig(
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
+                        ))
+            
+            PortraitOnelineWordsView()
+                .frame(width: 420, height: 500)
+                .environment(\.addToKnownWords, {_ in })
+                .environmentObject(
+                    DisplayedWords(
+                        words: ["someone", "somebody"]))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
