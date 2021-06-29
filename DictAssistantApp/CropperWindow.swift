@@ -10,14 +10,13 @@ import Foundation
 import Cocoa
 
 class CropperWindow: NSWindow {
-    init() {
+    init(contentRect: NSRect, name: String) {
         super.init(
-            contentRect: NSRect(x: 200, y: 100, width: 600, height: 200),
+            contentRect: contentRect,
             styleMask: [
                 .titled,
-                .closable,
                 .fullSizeContentView,
-                .resizable
+                .resizable,
             ],
             backing: .buffered,
             defer: false
@@ -25,7 +24,7 @@ class CropperWindow: NSWindow {
         )
         
         // Set this if you want the panel to remember its size/position
-        self.setFrameAutosaveName("cropperWindow")
+        self.setFrameAutosaveName(name)
         
         // Allow the pannel to be on top of almost all other windows
 //        self.isFloatingPanel = true

@@ -235,8 +235,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
         else {
             stopScreenCapture()
-            contentPanel.close()
-            cropperWindow.close()
+//            contentPanel.close()
+//            cropperWindow.close()
 //            visualConfig.cropperStyle = .closed
             statusData.isPlaying = false
             activeCropperWindow()
@@ -283,12 +283,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     @objc func closeCropperWindow() {
-        visualConfig.cropperStyle = .closed
-        cropperWindow.close()
+//        visualConfig.cropperStyle = .closed
+        cropperWindow.contentView = NSHostingView(rootView: ClosedCropperView())
+        cropperWindow.orderFrontRegardless()
+
+//        cropperWindow.close()
     }
     
     @objc func miniCropperWindow() {
-        visualConfig.cropperStyle = .mini
+//        visualConfig.cropperStyle = .mini
+        cropperWindow.contentView = NSHostingView(rootView: MiniCropperView())
         cropperWindow.orderFrontRegardless()
 //        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: false, block: { _ in
 //            self.visualConfig.cropperStyle = .mini
@@ -296,7 +300,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     @objc func normalCropperWindow() {
-        visualConfig.cropperStyle = .rectangle
+//        visualConfig.cropperStyle = .rectangle
+        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
         cropperWindow.orderFrontRegardless()
     }
     
@@ -325,11 +330,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func switchWordsPanel() {
         switch visualConfig.displayMode {
         case .landscape:
-            portraitWordsPanel.close()
+//            portraitWordsPanel.close()
             contentPanel = landscapeWordsPanel
             contentPanel.orderFrontRegardless()
         case .portrait:
-            landscapeWordsPanel.close()
+//            landscapeWordsPanel.close()
             contentPanel = portraitWordsPanel
             contentPanel.orderFrontRegardless()
         }
@@ -369,12 +374,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // MARK: - cropperWindow
     var cropperWindow: NSWindow!
     func initCropperWindow() {
-        cropperWindow = CropperWindow.init()
+        cropperWindow = CropperWindow.init(
+            contentRect: NSRect(x: 200, y: 100, width: 600, height: 200),
+            name: "cropperWindow"
+        )
         
-        let cropper2View = CropperView()
-        cropperWindow.contentView = NSHostingView(rootView: cropper2View)
-        
-        cropperWindow.center()
+        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
         cropperWindow.orderFrontRegardless()
     }
     
@@ -383,7 +388,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         // remove .resizable otherwise can't mouse through
         cropperWindow.styleMask = [
             .titled,
-            .closable,
             .fullSizeContentView
         ]
         cropperWindow.isMovable = false
@@ -394,12 +398,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func activeCropperWindow() {
         cropperWindow.styleMask = [
             .titled,
-            .closable,
             .fullSizeContentView,
-            .resizable
+            .resizable,
         ]
         cropperWindow.isMovable = true
         cropperWindow.isMovableByWindowBackground = true
+        
+        // otherwise three dots appear and zoom button enabled
+        cropperWindow.standardWindowButton(.closeButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
     }
     
     // MARK: - Known Words Panel
@@ -410,7 +419,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
-                .closable,
+//                .closable,
 //                .fullSizeContentView,
                 .miniaturizable,
                 .resizable,

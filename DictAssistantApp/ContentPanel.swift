@@ -15,17 +15,15 @@ class ContentPanel: NSPanel {
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
-                .closable,
+//                .closable,
                 .fullSizeContentView,
                 .miniaturizable,
-                //                .fullScreen,
-                //                .docModalWindow,
                 .resizable,
                 .utilityWindow,
             ],
             backing: .buffered,
             defer: false
-            //            screen: NSScreen.main
+//            screen: NSScreen.main
         )
         
         // Set this if you want the panel to remember its size/position
@@ -33,10 +31,13 @@ class ContentPanel: NSPanel {
         
         // Allow the pannel to be on top of almost all other windows
         //        self.isFloatingPanel = true
-        //        self.level = .floating
+        self.level = .floating
         
         // Allow the pannel to appear in a fullscreen space
         self.collectionBehavior.insert(.fullScreenAuxiliary)
+//        self.collectionBehavior.insert(.moveToActiveSpace)
+//        self.collectionBehavior.insert(.managed)
+//        self.collectionBehavior.insert(.fullScreenAllowsTiling)
         
         // While we may set a title for the window, don't show it
         self.titleVisibility = .hidden
