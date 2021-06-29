@@ -16,100 +16,113 @@ fileprivate func translation(of word: String) -> String {
     }
 }
 
-struct LandscapeWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
+fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
 
     @Environment(\.addToKnownWords) var addToKnownWords
     
-    var wordsView: some View {
+    let color: NSColor
+    let fontName: String
+    let fontSize: CGFloat
+    
+    var body: some View {
         ForEach(displayedWords.words, id: \.self) { word in
-            (Text(word).foregroundColor(Color(visualConfig.colorOfLandscape)) + Text(translation(of: word)).foregroundColor(.white))
-                .font(Font.custom(visualConfig.fontName, size: visualConfig.fontSizeOfLandscape))
+            (Text(word).foregroundColor(Color(color)) + Text(translation(of: word)).foregroundColor(.white))
+                .font(Font.custom(fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
                     Button("Add to Known", action: { addToKnownWords(word) })
                 }
         }
     }
-    
+}
+
+struct LandscapeNormalWordsView: View {
+    @EnvironmentObject var visualConfig: VisualConfig
+
     var body: some View {
-        if visualConfig.miniMode {
-            VStack {
-                Spacer()
-                ScrollView(.horizontal) {
-                    HStack(alignment: .top) {
-                        wordsView
-                            .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
-                    }
-                    .background(Color.black.opacity(0.75))
-                }
+        ScrollView(.horizontal) {
+            HStack(alignment: .top) {
+                WordsView(
+                    color: visualConfig.colorOfLandscape,
+                    fontName: visualConfig.fontName,
+                    fontSize: visualConfig.fontSizeOfLandscape
+                )
+                .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
         }
-        else {
-            ScrollView(.horizontal) {
-                HStack(alignment: .top) {
-                    wordsView
-                        .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .background(Color.black.opacity(0.75))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
-        }
+        .background(Color.black.opacity(0.75))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+        
     }
 }
 
-struct PortraitWordsView: View {
+struct LandscapeMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
-    @EnvironmentObject var displayedWords: DisplayedWords
 
-    @Environment(\.addToKnownWords) var addToKnownWords
-    
-    var wordsView: some View {
-        ForEach(displayedWords.words, id: \.self) { word in
-            HStack {
-                (Text(word).foregroundColor(Color(visualConfig.colorOfPortrait)) + Text(translation(of: word)).foregroundColor(.white))
-                    .font(Font.custom(visualConfig.fontName, size: visualConfig.fontSizeOfPortrait))
-                    .padding(.all, 4)
-                    .contextMenu {
-                        Button("Add to Known", action: { addToKnownWords(word) })
-                    }
-                Spacer()
+    var body: some View {
+        VStack {
+            Spacer()
+            ScrollView(.horizontal) {
+                HStack(alignment: .top) {
+                    WordsView(
+                        color: visualConfig.colorOfLandscape,
+                        fontName: visualConfig.fontName,
+                        fontSize: visualConfig.fontSizeOfLandscape
+                    )
+                        .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
+                }
+                .background(Color.black.opacity(0.75))
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
     }
-    
+}
+
+struct PortraitNormalWordsView: View {
+    @EnvironmentObject var visualConfig: VisualConfig
+
     var body: some View {
-        if visualConfig.miniMode {
-            HStack {
-                Spacer()
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading) {
-                        wordsView
-                            .frame(maxHeight: 150, alignment: .topLeading)
-                    }
-                    .background(Color.black.opacity(0.75))
-                }
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                WordsView(
+                    color: visualConfig.colorOfPortrait,
+                    fontName: visualConfig.fontName,
+                    fontSize: visualConfig.fontSizeOfPortrait
+                )
+                .frame(maxHeight: 150, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
         }
-        else {
+        .background(Color.black.opacity(0.75))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    }
+}
+
+struct PortraitMiniWordsView: View {
+    @EnvironmentObject var visualConfig: VisualConfig
+
+    var body: some View {
+        HStack {
+            Spacer()
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
-                    wordsView
-                        .frame(maxHeight: 150, alignment: .topLeading)
+                    WordsView(
+                        color: visualConfig.colorOfPortrait,
+                        fontName: visualConfig.fontName,
+                        fontSize: visualConfig.fontSizeOfPortrait
+                    )
+                    .frame(maxHeight: 150, alignment: .topLeading)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.75))
             }
-            .background(Color.black.opacity(0.75))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
     }
 }
 
@@ -125,7 +138,7 @@ fileprivate func say(word: String) {
 struct WordsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LandscapeWordsView()
+            LandscapeNormalWordsView()
                 .frame(width: 1000, height: 220)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
@@ -133,19 +146,14 @@ struct WordsView_Previews: PreviewProvider {
                         words: ["someone", "like", "you"]))
                 .environmentObject(
                     VisualConfig(
-                        miniModeInner: true,
-                        displayModeInner: .landscape,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        cropperStyleInner: .rectangle,
-                        setSideEffectCode: {},
-                        switchWordsPanel: {}
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
-            LandscapeWordsView()
+            LandscapeMiniWordsView()
                 .frame(width: 1000, height: 220)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
@@ -153,19 +161,14 @@ struct WordsView_Previews: PreviewProvider {
                         words: ["someone", "like", "you"]))
                 .environmentObject(
                     VisualConfig(
-                        miniModeInner: false,
-                        displayModeInner: .landscape,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        cropperStyleInner: .rectangle,
-                        setSideEffectCode: {},
-                        switchWordsPanel: {}
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
-            PortraitWordsView()
+            PortraitNormalWordsView()
                 .frame(width: 220, height: 600)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
@@ -173,19 +176,14 @@ struct WordsView_Previews: PreviewProvider {
                         words: ["someone"]))
                 .environmentObject(
                     VisualConfig(
-                        miniModeInner: true,
-                        displayModeInner: .portrait,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        cropperStyleInner: .rectangle,
-                        setSideEffectCode: {},
-                        switchWordsPanel: {}
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
-            PortraitWordsView()
+            PortraitMiniWordsView()
                 .frame(width: 220, height: 600)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
@@ -193,16 +191,11 @@ struct WordsView_Previews: PreviewProvider {
                         words: ["someone"]))
                 .environmentObject(
                     VisualConfig(
-                        miniModeInner: false,
-                        displayModeInner: .portrait,
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
                         colorOfLandscape: .orange,
                         colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName,
-                        cropperStyleInner: .rectangle,
-                        setSideEffectCode: {},
-                        switchWordsPanel: {}
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
         }

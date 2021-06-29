@@ -34,12 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
     override init() {
         // VisualConfig
-        if UserDefaults.standard.object(forKey: "visualConfig.miniMode") == nil {
-            UserDefaults.standard.set(false, forKey: "visualConfig.miniMode")
-        }
-        if UserDefaults.standard.object(forKey: "visualConfig.displayMode") == nil {
-            UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
-        }
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
             UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         }
@@ -56,16 +50,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
         }
         visualConfig = VisualConfig(
-            miniModeInner: UserDefaults.standard.bool(forKey: "visualConfig.miniMode"),
-            displayModeInner: DisplayMode(rawValue: UserDefaults.standard.string(forKey: "visualConfig.displayMode")!)!,
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
             colorOfLandscape: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfLandscape")!)!,
             colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
-            fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!,
-            cropperStyleInner: .rectangle,
-            setSideEffectCode: {},
-            switchWordsPanel: {}
+            fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
         )
         
         // TextProcessConfig
@@ -89,8 +78,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         initKnownWordsPanel()
         
         statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
-        visualConfig.setSideEffectCode = constructMenuBar
-        visualConfig.switchWordsPanel = switchWordsPanel
         textProcessConfig.setSideEffectCode = constructMenuBar
         constructMenuBar()
         
@@ -117,36 +104,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(NSMenuItem(title: toggleTitle, action: #selector(toggleContent), keyEquivalent: ""))
         
         menu.addItem(NSMenuItem.separator())
-        
-        let contentPanelTitleItem = NSMenuItem.init(title: "Words View Style", action: nil, keyEquivalent: "")
-        contentPanelTitleItem.isEnabled = false
-        let miniContentPanelItem = NSMenuItem(title: "Mini", action: #selector(miniContentPanel), keyEquivalent: "")
-        let normalContentPanelItem = NSMenuItem(title: "Normal", action: #selector(normalContentPanel), keyEquivalent: "")
-        if visualConfig.miniMode {
-            miniContentPanelItem.state = .on
-            normalContentPanelItem.state = .off
-        } else {
-            miniContentPanelItem.state = .off
-            normalContentPanelItem.state = .on
-        }
-        menu.addItem(contentPanelTitleItem)
-        menu.addItem(miniContentPanelItem)
-        menu.addItem(normalContentPanelItem)
-        
-        menu.addItem(NSMenuItem.separator())
 
-        let landscapeDisplayModeItem = NSMenuItem(title: "Landscape", action: #selector(landscapeDisplayMode), keyEquivalent: "")
-        let portraitDisplayModeItem = NSMenuItem(title: "Portrait", action: #selector(portraitDisplayMode), keyEquivalent: "")
-        switch visualConfig.displayMode {
-        case .landscape:
-            landscapeDisplayModeItem.state = .on
-            portraitDisplayModeItem.state = .off
-        case .portrait:
-            landscapeDisplayModeItem.state = .off
-            portraitDisplayModeItem.state = .on
-        }
-        menu.addItem(landscapeDisplayModeItem)
-        menu.addItem(portraitDisplayModeItem)
+        let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
+        let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
+        let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
+        let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
+        let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
+        menu.addItem(landscapeNormalItem)
+        menu.addItem(landscapeMiniItem)
+        menu.addItem(portraitNormalItem)
+        menu.addItem(portraitMiniItem)
+        menu.addItem(closedWordsItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -218,58 +186,101 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             startScreenCapture()
             contentPanel.orderFrontRegardless()
             cropperWindow.orderFrontRegardless()
-//            visualConfig.cropperStyle = .rectangle
             statusData.isPlaying = true
             fixCropperWindow()
         }
         else {
             stopScreenCapture()
-//            contentPanel.close()
+            contentPanel.close()
 //            cropperWindow.close()
-//            visualConfig.cropperStyle = .closed
             statusData.isPlaying = false
             activeCropperWindow()
             displayedWords.words = []
         }
     }
     
-    @objc func miniContentPanel() {
-        withAnimation {
-            visualConfig.miniMode = true
-        }
-        syncContentPanelFromVisualConfig()
+    @objc func landscapeNormal() {
+        let contentView = LandscapeNormalWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+        
+        contentPanel = landscapeWordsPanel
+        contentMode = .landscape
+        portraitWordsPanel.close()
         contentPanel.orderFrontRegardless()
+        
+        contentPanel.hasShadow = false
     }
     
-    @objc func normalContentPanel() {
-        withAnimation {
-            visualConfig.miniMode = false
-        }
-        syncContentPanelFromVisualConfig()
+    @objc func landscapeMini() {
+        let contentView = LandscapeMiniWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+        
+        contentPanel = landscapeWordsPanel
+        contentMode = .landscape
+        portraitWordsPanel.close()
         contentPanel.orderFrontRegardless()
+        
+        contentPanel.hasShadow = false
+    }
+    
+    @objc func portraitNormal() {
+        let contentView = PortraitNormalWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+        
+        contentPanel = portraitWordsPanel
+        contentMode = .portrait
+        landscapeWordsPanel.close()
+        contentPanel.orderFrontRegardless()
+        
+        contentPanel.hasShadow = true
+        contentPanel.invalidateShadow()
+    }
+    
+    @objc func portraitMini() {
+        let contentView = PortraitMiniWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+        
+        contentPanel = portraitWordsPanel
+        contentMode = .portrait
+        landscapeWordsPanel.close()
+        contentPanel.orderFrontRegardless()
+        
+        contentPanel.hasShadow = true
+        contentPanel.invalidateShadow()
+    }
+    
+    @objc func closeWords() {
+        landscapeWordsPanel.close()
+        portraitWordsPanel.close()
     }
     
     // todo: add to setter?! or something (delegate)?!
-    func syncContentPanelFromVisualConfig() {
-        // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
-        if visualConfig.displayMode == .portrait && visualConfig.miniMode {
-            // the shadow of the window still exist sometimes!
-            contentPanel.hasShadow = true
-            contentPanel.invalidateShadow()
-        } else {
-            contentPanel.hasShadow = false
-        }
-    }
-    
-    @objc func landscapeDisplayMode() {
-        visualConfig.displayMode = .landscape
-        syncContentPanelFromVisualConfig()
-    }
-    
-    @objc func portraitDisplayMode() {
-        visualConfig.displayMode = .portrait
-        syncContentPanelFromVisualConfig()
-    }
+//    func syncContentPanelFromVisualConfig() {
+//        // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
+//        if contentMode == .portrait {
+//            // the shadow of the window still exist sometimes!
+//            contentPanel.hasShadow = true
+//            contentPanel.invalidateShadow()
+//        } else {
+//            contentPanel.hasShadow = false
+//        }
+//    }
 
     @objc func stokeBorderCropperWindow() {
         cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
@@ -318,24 +329,29 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 
     // MARK: - contentPanel
     var contentPanel: NSPanel!
+    var contentMode: ContentMode = .landscape
+    enum ContentMode {
+        case landscape
+        case portrait
+//        case oneline
+    }
     func initContentPanel() {
         initLandscapeWordsPanel()
         initPortraitWordsPanel()
         
-        switchWordsPanel()
-    }
-    
-    func switchWordsPanel() {
-        switch visualConfig.displayMode {
-        case .landscape:
-            portraitWordsPanel.orderOut(nil)
-            contentPanel = landscapeWordsPanel
-            contentPanel.orderFrontRegardless()
-        case .portrait:
-            landscapeWordsPanel.orderOut(nil)
-            contentPanel = portraitWordsPanel
-            contentPanel.orderFrontRegardless()
-        }
+        contentPanel = landscapeWordsPanel
+        contentMode = .landscape
+//        portraitWordsPanel.orderOut(nil)
+        portraitWordsPanel.close()
+        contentPanel.orderFrontRegardless()
+        
+        /*
+        contentPanel = portraitWordsPanel
+        contentMode = .portrait
+//        landscapeWordsPanel.orderOut(nil)
+        landscapeWordsPanel.close()
+        contentPanel.orderFrontRegardless()
+        */
     }
     
     var landscapeWordsPanel: NSPanel!
@@ -346,7 +362,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             name: "landscapeWordsPanel"
         )
         
-        let contentView = LandscapeWordsView()
+        let contentView = LandscapeNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
@@ -361,7 +377,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             name: "portraitWordsPanel"
         )
                 
-        let contentView = PortraitWordsView()
+        let contentView = PortraitNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
@@ -417,8 +433,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
-//                .closable,
-//                .fullSizeContentView,
+                .closable,
                 .miniaturizable,
                 .resizable,
                 .utilityWindow,
@@ -448,16 +463,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
     @objc func resetUserDefaults() {
-        UserDefaults.standard.set(false, forKey: "visualConfig.miniMode")
-        UserDefaults.standard.set("landscape", forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
         UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        visualConfig.miniMode = false
-        visualConfig.displayMode = DisplayMode.landscape
-        syncContentPanelFromVisualConfig() // always should call this whenever mutate visual config (todo: make it auto)
         visualConfig.fontSizeOfLandscape = 20.0
         visualConfig.fontSizeOfPortrait = 13.0
         visualConfig.colorOfLandscape = .orange
@@ -480,8 +490,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
  
     @objc func saveAllUserDefaults() {
-        UserDefaults.standard.set(visualConfig.miniMode, forKey: "visualConfig.miniMode")
-        UserDefaults.standard.set(visualConfig.displayMode.rawValue, forKey: "visualConfig.displayMode")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
@@ -495,7 +503,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     @objc func showFontPanel(_ sender: Any?) {
         let name = visualConfig.fontName
         let size: CGFloat = {
-            switch visualConfig.displayMode {
+            switch contentMode {
             case .landscape:
                 return visualConfig.fontSizeOfLandscape
             case .portrait:
@@ -516,7 +524,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let newFont = sender.convert(.systemFont(ofSize: 0))
         visualConfig.fontName = newFont.fontName
         
-        switch visualConfig.displayMode {
+        switch contentMode {
         case .landscape:
             visualConfig.fontSizeOfLandscape = newFont.pointSize
         case .portrait:
@@ -538,7 +546,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     }
     
     @IBAction func selectColor(_ sender: NSColorPanel) {
-        switch visualConfig.displayMode {
+        switch contentMode {
         case .landscape:
             visualConfig.colorOfLandscape = sender.color
         case .portrait:
