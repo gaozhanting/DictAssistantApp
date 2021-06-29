@@ -7,11 +7,21 @@
 
 import SwiftUI
 
+struct StrokeBorderCropperView: View {
+    var body: some View {
+        Rectangle()
+            .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
+            .foregroundColor(.accentColor)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+    }
+}
+
 struct RectCropperView: View {
     var body: some View {
         Spacer()
             .help("Cropper")
-            .background(Color.black.opacity(0.25))
+            .background(Color.black.opacity(0.35))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
     }
@@ -33,16 +43,18 @@ struct MiniCropperView: View {
 
 struct ClosedCropperView: View {
     var body: some View {
-        Spacer()
-            .help("Cropper")
-            .background(Color.black.opacity(0))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
+        EmptyView()
+
     }
 }
 
-//struct Cropper2View_Previews: PreviewProvider {
-//    static var previews: some View {
-////        CropperView()
-//    }
-//}
+struct CropperView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            StrokeBorderCropperView()
+            RectCropperView()
+            MiniCropperView()
+            ClosedCropperView()
+        }
+    }
+}

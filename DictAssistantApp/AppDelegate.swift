@@ -152,27 +152,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper View Style", action: nil, keyEquivalent: "")
         cropperWindowTitleItem.isEnabled = false
-        let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
+        let strokeBorderCropperWindowItem = NSMenuItem(title: "Stroke Border", action: #selector(stokeBorderCropperWindow), keyEquivalent: "")
+        let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
         let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
-        let rectangeCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(normalCropperWindow), keyEquivalent: "")
-        switch visualConfig.cropperStyle {
-        case .closed:
-            closeCropperWindowItem.state = .on
-            miniCropperWindowItem.state = .off
-            rectangeCropperWindowItem.state = .off
-        case .mini:
-            closeCropperWindowItem.state = .off
-            miniCropperWindowItem.state = .on
-            rectangeCropperWindowItem.state = .off
-        case .rectangle:
-            closeCropperWindowItem.state = .off
-            miniCropperWindowItem.state = .off
-            rectangeCropperWindowItem.state = .on
-        }
+        let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
+
         menu.addItem(cropperWindowTitleItem)
-        menu.addItem(closeCropperWindowItem)
+        menu.addItem(strokeBorderCropperWindowItem)
+        menu.addItem(rectangleCropperWindowItem)
         menu.addItem(miniCropperWindowItem)
-        menu.addItem(rectangeCropperWindowItem)
+        menu.addItem(closeCropperWindowItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -281,28 +270,37 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.displayMode = .portrait
         syncContentPanelFromVisualConfig()
     }
-    
-    @objc func closeCropperWindow() {
-//        visualConfig.cropperStyle = .closed
-        cropperWindow.contentView = NSHostingView(rootView: ClosedCropperView())
-        cropperWindow.orderFrontRegardless()
 
-//        cropperWindow.close()
+    @objc func stokeBorderCropperWindow() {
+        cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
+        cropperWindow.orderFrontRegardless()
+        if !statusData.isPlaying {
+            activeCropperWindow()
+        }
+    }
+    
+    @objc func rectangleCropperWindow() {
+        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
+        cropperWindow.orderFrontRegardless()
+        if !statusData.isPlaying {
+            activeCropperWindow()
+        }
     }
     
     @objc func miniCropperWindow() {
-//        visualConfig.cropperStyle = .mini
         cropperWindow.contentView = NSHostingView(rootView: MiniCropperView())
         cropperWindow.orderFrontRegardless()
-//        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: false, block: { _ in
-//            self.visualConfig.cropperStyle = .mini
-//        })
+        if !statusData.isPlaying {
+            activeCropperWindow()
+        }
     }
     
-    @objc func normalCropperWindow() {
-//        visualConfig.cropperStyle = .rectangle
-        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
+    @objc func closeCropperWindow() {
+        cropperWindow.contentView = NSHostingView(rootView: ClosedCropperView())
         cropperWindow.orderFrontRegardless()
+        if !statusData.isPlaying {
+            fixCropperWindow()
+        }
     }
     
     @objc func setTextRecognitionLevelFast() {
@@ -330,11 +328,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     func switchWordsPanel() {
         switch visualConfig.displayMode {
         case .landscape:
-//            portraitWordsPanel.close()
+            portraitWordsPanel.orderOut(nil)
             contentPanel = landscapeWordsPanel
             contentPanel.orderFrontRegardless()
         case .portrait:
-//            landscapeWordsPanel.close()
+            landscapeWordsPanel.orderOut(nil)
             contentPanel = portraitWordsPanel
             contentPanel.orderFrontRegardless()
         }
@@ -379,7 +377,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             name: "cropperWindow"
         )
         
-        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
+        cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
         cropperWindow.orderFrontRegardless()
     }
     
