@@ -68,6 +68,29 @@ struct PortraitOnelineWordsView: View {
     }
 }
 
+struct PortraitOnelineMiniWordsView: View {
+    @EnvironmentObject var visualConfig: VisualConfig
+
+    var body: some View {
+        VStack {
+            ScrollView(.vertical) {
+                VStack(alignment: .leading) {
+                    OnelineWordsView(
+                        color: visualConfig.colorOfPortrait,
+                        fontName: visualConfig.fontName,
+                        fontSize: visualConfig.fontSizeOfPortrait
+                    )
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                }
+                .background(Color.black.opacity(0.75))
+            }
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    }
+}
+
 
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
@@ -236,6 +259,21 @@ struct WordsView_Previews: PreviewProvider {
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
+            PortraitMiniWordsView()
+                .frame(width: 220, height: 600)
+                .environment(\.addToKnownWords, {_ in })
+                .environmentObject(
+                    DisplayedWords(
+                        words: ["someone"]))
+                .environmentObject(
+                    VisualConfig(
+                        fontSizeOfLandscape: 20,
+                        fontSizeOfPortrait: 13,
+                        colorOfLandscape: .orange,
+                        colorOfPortrait: .green,
+                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
+                        ))
+            
             PortraitOnelineWordsView()
                 .frame(width: 420, height: 500)
                 .environment(\.addToKnownWords, {_ in })
@@ -251,12 +289,12 @@ struct WordsView_Previews: PreviewProvider {
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
-            PortraitMiniWordsView()
-                .frame(width: 220, height: 600)
+            PortraitOnelineMiniWordsView()
+                .frame(width: 420, height: 500)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone"]))
+                        words: ["someone", "somebody"]))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
@@ -265,6 +303,7 @@ struct WordsView_Previews: PreviewProvider {
                         colorOfPortrait: .green,
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
+
             
         }
     }

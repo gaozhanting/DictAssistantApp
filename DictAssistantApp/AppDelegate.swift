@@ -88,6 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
     let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
     let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
+    let portraitOnelineMiniItem = NSMenuItem(title: "Portrait OneLine Mini", action: #selector(portraitOnelineMini), keyEquivalent: "")
     let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
     
     let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper Display Style", action: nil, keyEquivalent: "")
@@ -119,6 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(portraitNormalItem)
         menu.addItem(portraitMiniItem)
         menu.addItem(portraitOnelineItem)
+        menu.addItem(portraitOnelineMiniItem)
         menu.addItem(closedWordsItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -214,6 +216,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     
     @objc func portraitOneline() {
         selectWordsPanel(.portraitOneline, isMini: false)
+    }
+    
+    @objc func portraitOnelineMini() {
+        selectWordsPanel(.portraitOneline, isMini: true)
     }
     
     @objc func closeWords() {
@@ -357,6 +363,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             portraitNormalItem.state = .off
             portraitMiniItem.state = .off
             portraitOnelineItem.state = .off
+            portraitOnelineMiniItem.state = .off
             closedWordsItem.state = .on
             return
         }
@@ -370,6 +377,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     portraitNormalItem.state = .off
                     portraitMiniItem.state = .off
                     portraitOnelineItem.state = .off
+                    portraitOnelineMiniItem.state = .off
                     closedWordsItem.state = .off
                     let contentView = LandscapeMiniWordsView()
                         .environment(\.addToKnownWords, addToKnownWords)
@@ -382,6 +390,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     portraitNormalItem.state = .off
                     portraitMiniItem.state = .off
                     portraitOnelineItem.state = .off
+                    portraitOnelineMiniItem.state = .off
                     closedWordsItem.state = .off
                     let contentView = LandscapeNormalWordsView()
                         .environment(\.addToKnownWords, addToKnownWords)
@@ -403,6 +412,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     portraitNormalItem.state = .off
                     portraitMiniItem.state = .on
                     portraitOnelineItem.state = .off
+                    portraitOnelineMiniItem.state = .off
                     closedWordsItem.state = .off
                     let contentView = PortraitMiniWordsView()
                         .environment(\.addToKnownWords, addToKnownWords)
@@ -415,6 +425,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     portraitNormalItem.state = .on
                     portraitMiniItem.state = .off
                     portraitOnelineItem.state = .off
+                    portraitOnelineMiniItem.state = .off
                     closedWordsItem.state = .off
                     let contentView = PortraitNormalWordsView()
                         .environment(\.addToKnownWords, addToKnownWords)
@@ -431,19 +442,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 contentPanel.invalidateShadow()
                 
             case .portraitOneline:
-                // no mini
-                landscapeNormalItem.state = .off
-                landscapeMiniItem.state = .off
-                portraitNormalItem.state = .off
-                portraitMiniItem.state = .off
-                portraitOnelineItem.state = .on
-                closedWordsItem.state = .off
-                
-                let contentView = PortraitOnelineWordsView()
-                    .environment(\.addToKnownWords, addToKnownWords)
-                    .environmentObject(visualConfig)
-                    .environmentObject(displayedWords)
-                portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+                if isMini {
+                    landscapeNormalItem.state = .off
+                    landscapeMiniItem.state = .off
+                    portraitNormalItem.state = .off
+                    portraitMiniItem.state = .off
+                    portraitOnelineItem.state = .off
+                    portraitOnelineMiniItem.state = .on
+                    closedWordsItem.state = .off
+                    let contentView = PortraitOnelineMiniWordsView()
+                        .environment(\.addToKnownWords, addToKnownWords)
+                        .environmentObject(visualConfig)
+                        .environmentObject(displayedWords)
+                    portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+                } else {
+                    landscapeNormalItem.state = .off
+                    landscapeMiniItem.state = .off
+                    portraitNormalItem.state = .off
+                    portraitMiniItem.state = .off
+                    portraitOnelineItem.state = .on
+                    portraitOnelineMiniItem.state = .off
+                    closedWordsItem.state = .off
+                    let contentView = PortraitOnelineWordsView()
+                        .environment(\.addToKnownWords, addToKnownWords)
+                        .environmentObject(visualConfig)
+                        .environmentObject(displayedWords)
+                    portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+                }
                 
                 contentPanel = portraitOnelineWordsPanel
                 landscapeWordsPanel.close()
