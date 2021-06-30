@@ -96,10 +96,21 @@ fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
 
     @Environment(\.addToKnownWords) var addToKnownWords
+    @Environment(\.removeFromKnownWords) var removeFromKnownWords
     
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
+    
+    @State var displayKnownWords: Bool = false
+    
+    var buttonTitle: String {
+        if !displayKnownWords {
+            return "Display"
+        } else {
+            return "Hidden"
+        }
+    }
     
     var body: some View {
         ForEach(displayedWords.words, id: \.self) { word in
@@ -108,7 +119,18 @@ fileprivate struct WordsView: View {
                 .padding(.all, 4)
                 .contextMenu {
                     Button("Add to Known", action: { addToKnownWords(word) })
+                    Button("\(buttonTitle) current Known", action: { displayKnownWords.toggle() } )
                 }
+        }
+        if displayKnownWords {
+            ForEach(displayedWords.knownWords, id: \.self) { word in
+                (Text(word).foregroundColor(.gray) + Text(translation(of: word)).foregroundColor(.white))
+                    .font(Font.custom(fontName, size: fontSize))
+                    .padding(.all, 4)
+                    .contextMenu {
+                        Button("Remove to Known", action: { removeFromKnownWords(word) })
+                    }
+            }
         }
     }
 }
@@ -219,7 +241,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "like", "you"]))
+                        words: ["someone", "like", "you"],
+                        knownWords: []
+                    ))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
@@ -234,7 +258,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "like", "you"]))
+                        words: ["narrator", "Athenian", "mythical", "Theseus", "marathon"],
+                        knownWords: []
+                    ))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
@@ -249,7 +275,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone"]))
+                        words: ["someone"],
+                        knownWords: []
+                    ))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
@@ -264,7 +292,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone"]))
+                        words: ["someone"],
+                        knownWords: []
+                    ))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
@@ -279,7 +309,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "somebody"]))
+                        words: ["someone", "somebody"],
+                        knownWords: []
+                    ))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,
@@ -294,7 +326,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "somebody"]))
+                        words: ["someone", "somebody"],
+                        knownWords: []
+                    ))
                 .environmentObject(
                     VisualConfig(
                         fontSizeOfLandscape: 20,

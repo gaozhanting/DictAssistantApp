@@ -360,6 +360,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             closedWordsItem.state = .off
             let contentView = LandscapeNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
+                .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
@@ -380,6 +381,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             closedWordsItem.state = .off
             let contentView = LandscapeMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
+                .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
@@ -400,6 +402,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             closedWordsItem.state = .off
             let contentView = PortraitNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
+                .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
             portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
@@ -420,6 +423,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             closedWordsItem.state = .off
             let contentView = PortraitMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
+                .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
             portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
@@ -442,6 +446,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             closedWordsItem.state = .off
             let contentView = PortraitOnelineNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
+                .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
             portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
@@ -462,6 +467,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             closedWordsItem.state = .off
             let contentView = PortraitOnelineMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
+                .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
             portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
@@ -498,6 +504,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let contentView = LandscapeNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
+            .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
 
@@ -513,6 +520,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 
         let contentView = PortraitNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
+            .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
 
@@ -528,6 +536,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let contentView = PortraitOnelineNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
+            .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
 
@@ -1008,6 +1017,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     
                     withAnimation {
                         displayedWords.words = prefixUnKownWords
+                        // bigger then 20 is so long for finding the word, so disable this functionality
+                        if (knownWords.count < 20) {
+                            displayedWords.knownWords = knownWords
+                        } else {
+                            displayedWords.knownWords = []
+                        }
                     }
                     
                     lastReconginzedTexts = texts
@@ -1021,7 +1036,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     var textRecognitionRequest: VNRecognizeTextRequest!
     
     //    let recognizedText = RecognizedText(texts: [])
-    let displayedWords = DisplayedWords(words: [])
+    let displayedWords = DisplayedWords(words: [], knownWords: [])
     var lastReconginzedTexts: [String] = []
 }
 
