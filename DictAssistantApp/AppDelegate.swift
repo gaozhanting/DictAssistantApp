@@ -104,13 +104,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(NSMenuItem(title: toggleTitle, action: #selector(toggleContent), keyEquivalent: ""))
         
         menu.addItem(NSMenuItem.separator())
-
+        
+        let wordsDisplayTitleItem = NSMenuItem.init(title: "Words Display Style", action: nil, keyEquivalent: "")
+        wordsDisplayTitleItem.isEnabled = false
         let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
         let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
         let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
         let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
         let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
         let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
+        menu.addItem(wordsDisplayTitleItem)
         menu.addItem(landscapeNormalItem)
         menu.addItem(landscapeMiniItem)
         menu.addItem(portraitNormalItem)
@@ -408,7 +411,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     var cropperWindow: NSWindow!
     func initCropperWindow() {
         cropperWindow = CropperWindow.init(
-            contentRect: NSRect(x: 200, y: 100, width: 600, height: 200),
+            contentRect: NSRect(x: 300, y: 300, width: 600, height: 200),
             name: "cropperWindow"
         )
         
@@ -503,6 +506,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         )
         portraitWordsPanel.setFrame(
             NSRect(x: 100, y: 100, width: 200, height: 600),
+            display: true,
+            animate: true
+        )
+        cropperWindow.setFrame(
+            NSRect(x: 300, y: 300, width: 600, height: 200),
             display: true,
             animate: true
         )
@@ -851,4 +859,4 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     var lastReconginzedTexts: [String] = []
 }
 
-let maxDisplayedWordsCount = 9 // todo: UserDefaults
+let maxDisplayedWordsCount = 100 // todo: UserDefaults
