@@ -87,7 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
     let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
     let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
-    let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
+    let portraitOnelineNormalItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOnelineNormal), keyEquivalent: "")
     let portraitOnelineMiniItem = NSMenuItem(title: "Portrait OneLine Mini", action: #selector(portraitOnelineMini), keyEquivalent: "")
     let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
     
@@ -119,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(landscapeMiniItem)
         menu.addItem(portraitNormalItem)
         menu.addItem(portraitMiniItem)
-        menu.addItem(portraitOnelineItem)
+        menu.addItem(portraitOnelineNormalItem)
         menu.addItem(portraitOnelineMiniItem)
         menu.addItem(closedWordsItem)
         
@@ -166,6 +166,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         statusItem.menu = menu
     }
         
+    var lastNonContentMode: ContentMode? = nil
     @objc func toggleContent() {
         if !statusData.isPlaying {
             statusData.isPlaying = true
@@ -179,10 +180,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             contentPanel.orderFrontRegardless()
             cropperWindow.orderFrontRegardless()
             fixCropperWindow()
-            selectWordsPanel(.landscape, isMini: false)
+            selectWordsPanel(lastNonContentMode ?? .landscapeNormal)
             selectCropperWindow(.strokeBorder)
         }
         else {
+            lastNonContentMode = contentMode
             statusData.isPlaying = false
             statusItem.button?.image = NSImage(
                 systemSymbolName: "square.dashed",
@@ -193,50 +195,39 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             stopScreenCapture()
             contentPanel.close()
             activeCropperWindow()
-            selectWordsPanel(nil, isMini: false)
+            selectWordsPanel(.closed)
             selectCropperWindow(.closed)
         }
     }
     
     @objc func landscapeNormal() {
-        selectWordsPanel(.landscape, isMini: false)
+        selectWordsPanel(.landscapeNormal)
     }
     
     @objc func landscapeMini() {
-        selectWordsPanel(.landscape, isMini: true)
+        selectWordsPanel(.landscapeMini)
     }
     
     @objc func portraitNormal() {
-        selectWordsPanel(.portrait, isMini: false)
+        selectWordsPanel(.portraitNormal)
     }
 
     @objc func portraitMini() {
-        selectWordsPanel(.portrait, isMini: true)
+        selectWordsPanel(.portraitMini)
     }
     
-    @objc func portraitOneline() {
-        selectWordsPanel(.portraitOneline, isMini: false)
+    @objc func portraitOnelineNormal() {
+        selectWordsPanel(.portraitOnelineNormal)
     }
     
     @objc func portraitOnelineMini() {
-        selectWordsPanel(.portraitOneline, isMini: true)
+        selectWordsPanel(.portraitOnelineMini)
     }
     
     @objc func closeWords() {
-        selectWordsPanel(nil, isMini: false)
+        selectWordsPanel(.closed)
     }
     
-    // todo: add to setter?! or something (delegate)?!
-//    func syncContentPanelFromVisualConfig() {
-//        // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
-//        if contentMode == .portrait {
-//            // the shadow of the window still exist sometimes!
-//            contentPanel.hasShadow = true
-//            contentPanel.invalidateShadow()
-//        } else {
-//            contentPanel.hasShadow = false
-//        }
-//    }
     enum CropperStyle {
         case strokeBorder
         case rectangle
@@ -338,144 +329,162 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 
     // MARK: - contentPanel
     var contentPanel: NSPanel!
-    var contentMode: ContentMode = .landscape
+    var contentMode: ContentMode = .landscapeNormal
     enum ContentMode {
-        case landscape
-        case portrait
-        case portraitOneline
+        case landscapeNormal
+        case landscapeMini
+        case portraitNormal
+        case portraitMini
+        case portraitOnelineNormal
+        case portraitOnelineMini
+        case closed
     }
     func initContentPanel() {
         initLandscapeWordsPanel()
         initPortraitWordsPanel()
         initPortraitOnelineWordsPanel()
         
-        selectWordsPanel(.landscape, isMini: false)
+        selectWordsPanel(.landscapeNormal)
     }
     
-    func selectWordsPanel(_ theContentMode: ContentMode?, isMini: Bool) {
-        if theContentMode == nil {
-            landscapeWordsPanel.close()
+    func selectWordsPanel(_ theContentMode: ContentMode) {
+        contentMode = theContentMode
+        switch contentMode {
+        case .landscapeNormal:
+            landscapeNormalItem.state = .on
+            landscapeMiniItem.state = .off
+            portraitNormalItem.state = .off
+            portraitMiniItem.state = .off
+            portraitOnelineNormalItem.state = .off
+            portraitOnelineMiniItem.state = .off
+            closedWordsItem.state = .off
+            let contentView = LandscapeNormalWordsView()
+                .environment(\.addToKnownWords, addToKnownWords)
+                .environmentObject(visualConfig)
+                .environmentObject(displayedWords)
+            landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+            
+            contentPanel = landscapeWordsPanel
             portraitWordsPanel.close()
             portraitOnelineWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
             
+        case .landscapeMini:
+            landscapeNormalItem.state = .off
+            landscapeMiniItem.state = .on
+            portraitNormalItem.state = .off
+            portraitMiniItem.state = .off
+            portraitOnelineNormalItem.state = .off
+            portraitOnelineMiniItem.state = .off
+            closedWordsItem.state = .off
+            let contentView = LandscapeMiniWordsView()
+                .environment(\.addToKnownWords, addToKnownWords)
+                .environmentObject(visualConfig)
+                .environmentObject(displayedWords)
+            landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+            
+            contentPanel = landscapeWordsPanel
+            portraitWordsPanel.close()
+            portraitOnelineWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+            
+        case .portraitNormal:
+            landscapeNormalItem.state = .off
+            landscapeMiniItem.state = .off
+            portraitNormalItem.state = .on
+            portraitMiniItem.state = .off
+            portraitOnelineNormalItem.state = .off
+            portraitOnelineMiniItem.state = .off
+            closedWordsItem.state = .off
+            let contentView = PortraitNormalWordsView()
+                .environment(\.addToKnownWords, addToKnownWords)
+                .environmentObject(visualConfig)
+                .environmentObject(displayedWords)
+            portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+            
+            contentPanel = portraitWordsPanel
+            landscapeWordsPanel.close()
+            portraitOnelineWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+            
+        case .portraitMini:
+            landscapeNormalItem.state = .off
+            landscapeMiniItem.state = .off
+            portraitNormalItem.state = .off
+            portraitMiniItem.state = .on
+            portraitOnelineNormalItem.state = .off
+            portraitOnelineMiniItem.state = .off
+            closedWordsItem.state = .off
+            let contentView = PortraitMiniWordsView()
+                .environment(\.addToKnownWords, addToKnownWords)
+                .environmentObject(visualConfig)
+                .environmentObject(displayedWords)
+            portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+            
+            contentPanel = portraitWordsPanel
+            landscapeWordsPanel.close()
+            portraitOnelineWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
+            contentPanel.hasShadow = true
+            contentPanel.invalidateShadow()
+            
+        case .portraitOnelineNormal:
             landscapeNormalItem.state = .off
             landscapeMiniItem.state = .off
             portraitNormalItem.state = .off
             portraitMiniItem.state = .off
-            portraitOnelineItem.state = .off
+            portraitOnelineNormalItem.state = .on
+            portraitOnelineMiniItem.state = .off
+            closedWordsItem.state = .off
+            let contentView = PortraitOnelineNormalWordsView()
+                .environment(\.addToKnownWords, addToKnownWords)
+                .environmentObject(visualConfig)
+                .environmentObject(displayedWords)
+            portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+            
+            contentPanel = portraitOnelineWordsPanel
+            landscapeWordsPanel.close()
+            portraitWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+            
+        case .portraitOnelineMini:
+            landscapeNormalItem.state = .off
+            landscapeMiniItem.state = .off
+            portraitNormalItem.state = .off
+            portraitMiniItem.state = .off
+            portraitOnelineNormalItem.state = .off
+            portraitOnelineMiniItem.state = .on
+            closedWordsItem.state = .off
+            let contentView = PortraitOnelineMiniWordsView()
+                .environment(\.addToKnownWords, addToKnownWords)
+                .environmentObject(visualConfig)
+                .environmentObject(displayedWords)
+            portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+            
+            contentPanel = portraitOnelineWordsPanel
+            landscapeWordsPanel.close()
+            portraitWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+            
+        case .closed:
+            landscapeNormalItem.state = .off
+            landscapeMiniItem.state = .off
+            portraitNormalItem.state = .off
+            portraitMiniItem.state = .off
+            portraitOnelineNormalItem.state = .off
             portraitOnelineMiniItem.state = .off
             closedWordsItem.state = .on
-            return
-        }
-        
-        if let contentMode = theContentMode {
-            switch contentMode {
-            case .landscape:
-                if isMini {
-                    landscapeNormalItem.state = .off
-                    landscapeMiniItem.state = .on
-                    portraitNormalItem.state = .off
-                    portraitMiniItem.state = .off
-                    portraitOnelineItem.state = .off
-                    portraitOnelineMiniItem.state = .off
-                    closedWordsItem.state = .off
-                    let contentView = LandscapeMiniWordsView()
-                        .environment(\.addToKnownWords, addToKnownWords)
-                        .environmentObject(visualConfig)
-                        .environmentObject(displayedWords)
-                    landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-                } else {
-                    landscapeNormalItem.state = .on
-                    landscapeMiniItem.state = .off
-                    portraitNormalItem.state = .off
-                    portraitMiniItem.state = .off
-                    portraitOnelineItem.state = .off
-                    portraitOnelineMiniItem.state = .off
-                    closedWordsItem.state = .off
-                    let contentView = LandscapeNormalWordsView()
-                        .environment(\.addToKnownWords, addToKnownWords)
-                        .environmentObject(visualConfig)
-                        .environmentObject(displayedWords)
-                    landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-                }
-                
-                contentPanel = landscapeWordsPanel
-                portraitWordsPanel.close()
-                portraitOnelineWordsPanel.close()
-                contentPanel.orderFrontRegardless()
-                contentPanel.hasShadow = false
-                
-            case .portrait:
-                if isMini {
-                    landscapeNormalItem.state = .off
-                    landscapeMiniItem.state = .off
-                    portraitNormalItem.state = .off
-                    portraitMiniItem.state = .on
-                    portraitOnelineItem.state = .off
-                    portraitOnelineMiniItem.state = .off
-                    closedWordsItem.state = .off
-                    let contentView = PortraitMiniWordsView()
-                        .environment(\.addToKnownWords, addToKnownWords)
-                        .environmentObject(visualConfig)
-                        .environmentObject(displayedWords)
-                    portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-                } else {
-                    landscapeNormalItem.state = .off
-                    landscapeMiniItem.state = .off
-                    portraitNormalItem.state = .on
-                    portraitMiniItem.state = .off
-                    portraitOnelineItem.state = .off
-                    portraitOnelineMiniItem.state = .off
-                    closedWordsItem.state = .off
-                    let contentView = PortraitNormalWordsView()
-                        .environment(\.addToKnownWords, addToKnownWords)
-                        .environmentObject(visualConfig)
-                        .environmentObject(displayedWords)
-                    portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-                }
-                
-                contentPanel = portraitWordsPanel
-                landscapeWordsPanel.close()
-                portraitOnelineWordsPanel.close()
-                contentPanel.orderFrontRegardless()
-                contentPanel.hasShadow = true
-                contentPanel.invalidateShadow()
-                
-            case .portraitOneline:
-                if isMini {
-                    landscapeNormalItem.state = .off
-                    landscapeMiniItem.state = .off
-                    portraitNormalItem.state = .off
-                    portraitMiniItem.state = .off
-                    portraitOnelineItem.state = .off
-                    portraitOnelineMiniItem.state = .on
-                    closedWordsItem.state = .off
-                    let contentView = PortraitOnelineMiniWordsView()
-                        .environment(\.addToKnownWords, addToKnownWords)
-                        .environmentObject(visualConfig)
-                        .environmentObject(displayedWords)
-                    portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
-                } else {
-                    landscapeNormalItem.state = .off
-                    landscapeMiniItem.state = .off
-                    portraitNormalItem.state = .off
-                    portraitMiniItem.state = .off
-                    portraitOnelineItem.state = .on
-                    portraitOnelineMiniItem.state = .off
-                    closedWordsItem.state = .off
-                    let contentView = PortraitOnelineWordsView()
-                        .environment(\.addToKnownWords, addToKnownWords)
-                        .environmentObject(visualConfig)
-                        .environmentObject(displayedWords)
-                    portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
-                }
-                
-                contentPanel = portraitOnelineWordsPanel
-                landscapeWordsPanel.close()
-                portraitWordsPanel.close()
-                contentPanel.orderFrontRegardless()
-                contentPanel.hasShadow = false
-            }
+            
+            landscapeWordsPanel.close()
+            portraitWordsPanel.close()
+            portraitOnelineWordsPanel.close()
+            
         }
     }
     
@@ -517,7 +526,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             name: "portraitOnelineWordsPanel"
         )
         
-        let contentView = PortraitOnelineWordsView()
+        let contentView = PortraitOnelineNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
@@ -653,12 +662,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let name = visualConfig.fontName
         let size: CGFloat = {
             switch contentMode {
-            case .landscape:
+            case .landscapeNormal:
                 return visualConfig.fontSizeOfLandscape
-            case .portrait:
+            case .landscapeMini:
+                return visualConfig.fontSizeOfLandscape
+            case .portraitNormal:
                 return visualConfig.fontSizeOfPortrait
-            case .portraitOneline:
+            case .portraitMini:
                 return visualConfig.fontSizeOfPortrait
+            case .portraitOnelineNormal:
+                return visualConfig.fontSizeOfPortrait
+            case .portraitOnelineMini:
+                return visualConfig.fontSizeOfPortrait
+            case .closed:
+                return visualConfig.fontSizeOfLandscape
             }
         }()
         let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: 13.0)
@@ -676,12 +693,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.fontName = newFont.fontName
         
         switch contentMode {
-        case .landscape:
+        case .landscapeNormal:
             visualConfig.fontSizeOfLandscape = newFont.pointSize
-        case .portrait:
+        case .landscapeMini:
+            visualConfig.fontSizeOfLandscape = newFont.pointSize
+        case .portraitNormal:
             visualConfig.fontSizeOfPortrait = newFont.pointSize
-        case .portraitOneline:
+        case .portraitMini:
             visualConfig.fontSizeOfPortrait = newFont.pointSize
+        case .portraitOnelineNormal:
+            visualConfig.fontSizeOfPortrait = newFont.pointSize
+        case .portraitOnelineMini:
+            visualConfig.fontSizeOfPortrait = newFont.pointSize
+        case .closed:
+            visualConfig.fontSizeOfLandscape = newFont.pointSize
         }
     }
     
@@ -700,12 +725,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     
     @IBAction func selectColor(_ sender: NSColorPanel) {
         switch contentMode {
-        case .landscape:
+        case .landscapeNormal:
             visualConfig.colorOfLandscape = sender.color
-        case .portrait:
+        case .landscapeMini:
+            visualConfig.colorOfLandscape = sender.color
+        case .portraitNormal:
             visualConfig.colorOfPortrait = sender.color
-        case .portraitOneline:
+        case .portraitMini:
             visualConfig.colorOfPortrait = sender.color
+        case .portraitOnelineNormal:
+            visualConfig.colorOfPortrait = sender.color
+        case .portraitOnelineMini:
+            visualConfig.colorOfPortrait = sender.color
+        case .closed:
+            visualConfig.colorOfLandscape = sender.color
         }
     }
     

@@ -47,7 +47,7 @@ fileprivate struct OnelineWordsView: View {
     }
 }
 
-struct PortraitOnelineWordsView: View {
+struct PortraitOnelineNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -274,7 +274,7 @@ struct WordsView_Previews: PreviewProvider {
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
             
-            PortraitOnelineWordsView()
+            PortraitOnelineNormalWordsView()
                 .frame(width: 420, height: 500)
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
