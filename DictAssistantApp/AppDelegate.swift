@@ -20,17 +20,10 @@ let logger = Logger()
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
 
-    
     let statusData = StatusData(isPlayingInner: false, sideEffectCode: {})
 
     let textProcessConfig: TextProcessConfig
     let visualConfig: VisualConfig
-
-    var timer: Timer = Timer()
-
-    var results: [VNRecognizedTextObservation]?
-    var requestHandler: VNImageRequestHandler?
-    var textRecognitionRequest: VNRecognizeTextRequest!
         
     override init() {
         // VisualConfig
@@ -110,15 +103,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
         let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
         let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
-        let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
         let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
+        let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
         let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
         menu.addItem(wordsDisplayTitleItem)
         menu.addItem(landscapeNormalItem)
         menu.addItem(landscapeMiniItem)
         menu.addItem(portraitNormalItem)
-        menu.addItem(portraitOnelineItem)
         menu.addItem(portraitMiniItem)
+        menu.addItem(portraitOnelineItem)
         menu.addItem(closedWordsItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -168,9 +161,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         let saveUserDefaultsItem = NSMenuItem(title: "Save Settings", action: #selector(saveAllUserDefaults), keyEquivalent: "")
         menu.addItem(saveUserDefaultsItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
         let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
         menu.addItem(resetUserDefaultsItem)
         
@@ -197,9 +187,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         else {
             stopScreenCapture()
             contentPanel.close()
-//            cropperWindow.close()
-            statusData.isPlaying = false
             activeCropperWindow()
+            statusData.isPlaying = false
             displayedWords.words = []
         }
     }
@@ -209,15 +198,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
-
         landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-        
-        contentPanel = landscapeWordsPanel
-        contentMode = .landscape
-        portraitWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        
-        contentPanel.hasShadow = false
+        selectWordsPanel(.landscape)
     }
     
     @objc func landscapeMini() {
@@ -225,15 +207,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
-
         landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-        
-        contentPanel = landscapeWordsPanel
-        contentMode = .landscape
-        portraitWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        
-        contentPanel.hasShadow = false
+        selectWordsPanel(.landscape)
     }
     
     @objc func portraitNormal() {
@@ -241,16 +216,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
-
         portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-        
-        contentPanel = portraitWordsPanel
-        contentMode = .portrait
-        landscapeWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        
-        contentPanel.hasShadow = true
-        contentPanel.invalidateShadow()
+        selectWordsPanel(.portrait)
+    }
+
+    @objc func portraitMini() {
+        let contentView = PortraitMiniWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+        selectWordsPanel(.portrait)
     }
     
     @objc func portraitOneline() {
@@ -258,38 +234,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
-
-        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-        
-        contentPanel = portraitWordsPanel
-        contentMode = .portrait
-        landscapeWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        
-        contentPanel.hasShadow = true
-        contentPanel.invalidateShadow()
-    }
-    
-    @objc func portraitMini() {
-        let contentView = PortraitMiniWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-
-        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-        
-        contentPanel = portraitWordsPanel
-        contentMode = .portrait
-        landscapeWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        
-        contentPanel.hasShadow = true
-        contentPanel.invalidateShadow()
+        portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+        selectWordsPanel(.portraitOneline)
     }
     
     @objc func closeWords() {
         landscapeWordsPanel.close()
         portraitWordsPanel.close()
+        portraitOnelineWordsPanel.close()
     }
     
     // todo: add to setter?! or something (delegate)?!
@@ -355,25 +307,39 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     enum ContentMode {
         case landscape
         case portrait
-//        case oneline
+        case portraitOneline
     }
     func initContentPanel() {
         initLandscapeWordsPanel()
         initPortraitWordsPanel()
+        initPortraitOnelineWordsPanel()
         
-        contentPanel = landscapeWordsPanel
-        contentMode = .landscape
-//        portraitWordsPanel.orderOut(nil)
-        portraitWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        
-        /*
-        contentPanel = portraitWordsPanel
-        contentMode = .portrait
-//        landscapeWordsPanel.orderOut(nil)
-        landscapeWordsPanel.close()
-        contentPanel.orderFrontRegardless()
-        */
+        selectWordsPanel(.landscape)
+    }
+    
+    func selectWordsPanel(_ theContentMode: ContentMode) {
+        contentMode = theContentMode
+        switch contentMode {
+        case .landscape:
+            contentPanel = landscapeWordsPanel
+            portraitWordsPanel.close()
+            portraitOnelineWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+        case .portrait:
+            contentPanel = portraitWordsPanel
+            landscapeWordsPanel.close()
+            portraitOnelineWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = true
+            contentPanel.invalidateShadow()
+        case .portraitOneline:
+            contentPanel = portraitOnelineWordsPanel
+            landscapeWordsPanel.close()
+            portraitWordsPanel.close()
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+        }
     }
     
     var landscapeWordsPanel: NSPanel!
@@ -400,6 +366,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         )
                 
         let contentView = PortraitNormalWordsView()
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+
+        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+    }
+    
+    var portraitOnelineWordsPanel: NSPanel!
+    func initPortraitOnelineWordsPanel() {
+        portraitOnelineWordsPanel = ContentPanel.init(
+            contentRect: NSRect(x: 100, y: 100, width: 400, height: 300),
+            name: "portraitOnelineWordsPanel"
+        )
+        
+        let contentView = PortraitOnelineWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
@@ -509,6 +490,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             display: true,
             animate: true
         )
+        portraitOnelineWordsPanel.setFrame(
+            NSRect(x: 100, y: 100, width: 400, height: 300),
+            display: true,
+            animate: true
+        )
         cropperWindow.setFrame(
             NSRect(x: 300, y: 300, width: 600, height: 200),
             display: true,
@@ -535,6 +521,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 return visualConfig.fontSizeOfLandscape
             case .portrait:
                 return visualConfig.fontSizeOfPortrait
+            case .portraitOneline:
+                return visualConfig.fontSizeOfPortrait
             }
         }()
         let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: 13.0)
@@ -555,6 +543,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         case .landscape:
             visualConfig.fontSizeOfLandscape = newFont.pointSize
         case .portrait:
+            visualConfig.fontSizeOfPortrait = newFont.pointSize
+        case .portraitOneline:
             visualConfig.fontSizeOfPortrait = newFont.pointSize
         }
     }
@@ -577,6 +567,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         case .landscape:
             visualConfig.colorOfLandscape = sender.color
         case .portrait:
+            visualConfig.colorOfPortrait = sender.color
+        case .portraitOneline:
             visualConfig.colorOfPortrait = sender.color
         }
     }
@@ -801,6 +793,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
         textRecognitionRequest.minimumTextHeight = 0.0
         textRecognitionRequest.usesLanguageCorrection = true
+        textRecognitionRequest.preferBackgroundProcessing = true
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
             do {
@@ -853,6 +846,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             }
         }
     }
+    
+    var results: [VNRecognizedTextObservation]?
+    var requestHandler: VNImageRequestHandler?
+    var textRecognitionRequest: VNRecognizeTextRequest!
     
     //    let recognizedText = RecognizedText(texts: [])
     let displayedWords = DisplayedWords(words: [])
