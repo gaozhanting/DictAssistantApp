@@ -9,23 +9,9 @@ import Foundation
 import Vision
 
 class TextProcessConfig: ObservableObject {
-    @Published var textRecognitionLevelInner: VNRequestTextRecognitionLevel
-    
-    var textRecognitionLevel: VNRequestTextRecognitionLevel {
-        get {
-            textRecognitionLevelInner
-        }
-        set {
-            textRecognitionLevelInner = newValue
-            setSideEffectCode()
-        }
-    }
-    
-    var setSideEffectCode: () -> Void
+    @Published var textRecognitionLevel: VNRequestTextRecognitionLevel
 
-    
-    init(textRecognitionLevelInner: VNRequestTextRecognitionLevel, setSideEffectCode: @escaping () -> Void) {
-        self.textRecognitionLevelInner = textRecognitionLevelInner
-        self.setSideEffectCode = setSideEffectCode
+    init(textRecognitionLevel: VNRequestTextRecognitionLevel) {
+        self.textRecognitionLevel = textRecognitionLevel
     }
 }

@@ -20,7 +20,7 @@ let logger = Logger()
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
 
-    let statusData = StatusData(isPlayingInner: false, sideEffectCode: {})
+    let statusData = StatusData(isPlaying: false)
 
     let textProcessConfig: TextProcessConfig
     let visualConfig: VisualConfig
@@ -56,10 +56,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             UserDefaults.standard.setValue(1, forKey: "textProcessConfig.textRecognitionLevel")
         }
         textProcessConfig = TextProcessConfig(
-            textRecognitionLevelInner: VNRequestTextRecognitionLevel(
+            textRecognitionLevel: VNRequestTextRecognitionLevel(
                 rawValue: UserDefaults.standard.integer(forKey: "textProcessConfig.textRecognitionLevel")
-            )!,
-            setSideEffectCode: {}
+            )!
         )
     }
     
@@ -70,8 +69,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         initCropperWindow()
         initKnownWordsPanel()
         
-        statusData.setSideEffectCode = constructMenuBar // Notice: it run setSideEffectCode AFTER isPlayingInner is set
-        textProcessConfig.setSideEffectCode = constructMenuBar
         constructMenuBar()
         
         allKnownWordsSetCache = getAllKnownWordsSet()
@@ -81,31 +78,41 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         // Insert code here to tear down your application
     }
     
-    // MARK: - MenuBar As a side effect code of some state
+    // MARK: - MenuBar
+    let menu = NSMenu()
+    
+    let toggleItem = NSMenuItem(title: "Toggle ON", action: #selector(toggleContent), keyEquivalent: "")
+
+    let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
+    let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
+    let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
+    let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
+    let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
+    let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
+    
+    let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper Display Style", action: nil, keyEquivalent: "")
+    let strokeBorderCropperWindowItem = NSMenuItem(title: "Stroke Border", action: #selector(strokeBorderCropperWindow), keyEquivalent: "")
+    let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
+    let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
+    let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
+    
+    let textRecognitionLevelItem = NSMenuItem.init(title: "Text Recognition Level", action: nil, keyEquivalent: "")
+    let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
+    let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "Accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
+    
     func constructMenuBar() {
-        // switch menubar button image
-        if !statusData.isPlaying {
-            statusItem.button?.image = NSImage(systemSymbolName: "circle.dashed", accessibilityDescription: nil)
-        } else {
-            statusItem.button?.image = NSImage(systemSymbolName: "circle.dashed.inset.fill", accessibilityDescription: nil)
-        }
+        statusItem.button?.image = NSImage(
+            systemSymbolName: "square.dashed",
+            accessibilityDescription: nil
+        )
         
-        // change item status
-        let menu = NSMenu()
-        
-        let toggleTitle = "Toggle \(statusData.isPlaying ? "OFF" : "ON")"
-        menu.addItem(NSMenuItem(title: toggleTitle, action: #selector(toggleContent), keyEquivalent: ""))
+        menu.addItem(toggleItem)
         
         menu.addItem(NSMenuItem.separator())
         
         let wordsDisplayTitleItem = NSMenuItem.init(title: "Words Display Style", action: nil, keyEquivalent: "")
         wordsDisplayTitleItem.isEnabled = false
-        let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
-        let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
-        let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
-        let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
-        let portraitOnelineItem = NSMenuItem(title: "Portrait OneLine", action: #selector(portraitOneline), keyEquivalent: "")
-        let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
+
         menu.addItem(wordsDisplayTitleItem)
         menu.addItem(landscapeNormalItem)
         menu.addItem(landscapeMiniItem)
@@ -116,13 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
-        let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper View Style", action: nil, keyEquivalent: "")
         cropperWindowTitleItem.isEnabled = false
-        let strokeBorderCropperWindowItem = NSMenuItem(title: "Stroke Border", action: #selector(stokeBorderCropperWindow), keyEquivalent: "")
-        let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
-        let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
-        let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
-
         menu.addItem(cropperWindowTitleItem)
         menu.addItem(strokeBorderCropperWindowItem)
         menu.addItem(rectangleCropperWindowItem)
@@ -131,24 +132,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
-        let textRecognitionLevelItem = NSMenuItem.init(title: "Text Recognition Level", action: nil, keyEquivalent: "")
         textRecognitionLevelItem.isEnabled = false
-        let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
-        let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "Accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
-        switch textProcessConfig.textRecognitionLevel {
-        case .fast:
-            setTextRecognitionLevelFastItem.state = .on
-            setTextRecognitionLevelAccurateItem.state = .off
-        case .accurate:
-            setTextRecognitionLevelFastItem.state = .off
-            setTextRecognitionLevelAccurateItem.state = .on
-        @unknown default:
-            setTextRecognitionLevelFastItem.state = .on
-            setTextRecognitionLevelAccurateItem.state = .off
-        }
         menu.addItem(textRecognitionLevelItem)
         menu.addItem(setTextRecognitionLevelFastItem)
         menu.addItem(setTextRecognitionLevelAccurateItem)
+        selectTextRecognitionLevel(textProcessConfig.textRecognitionLevel)
 
         menu.addItem(NSMenuItem.separator())
 
@@ -160,8 +148,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(NSMenuItem.separator())
         
         let saveUserDefaultsItem = NSMenuItem(title: "Save Settings", action: #selector(saveAllUserDefaults), keyEquivalent: "")
-        menu.addItem(saveUserDefaultsItem)
         let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
+        menu.addItem(saveUserDefaultsItem)
         menu.addItem(resetUserDefaultsItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -178,70 +166,58 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
     @objc func toggleContent() {
         if !statusData.isPlaying {
+            statusData.isPlaying = true
+            statusItem.button?.image = NSImage(
+                systemSymbolName: "square.dashed.inset.fill",
+                accessibilityDescription: nil
+            )
+            toggleItem.title = "Toggle OFF"
+            displayedWords.words = []
             startScreenCapture()
             contentPanel.orderFrontRegardless()
             cropperWindow.orderFrontRegardless()
-            statusData.isPlaying = true
             fixCropperWindow()
+            selectWordsPanel(.landscape, isMini: false)
+            selectCropperWindow(.strokeBorder)
         }
         else {
+            statusData.isPlaying = false
+            statusItem.button?.image = NSImage(
+                systemSymbolName: "square.dashed",
+                accessibilityDescription: nil
+            )
+            toggleItem.title = "Toggle ON"
+            displayedWords.words = []
             stopScreenCapture()
             contentPanel.close()
             activeCropperWindow()
-            statusData.isPlaying = false
-            displayedWords.words = []
+            selectWordsPanel(nil, isMini: false)
+            selectCropperWindow(.closed)
         }
     }
     
     @objc func landscapeNormal() {
-        let contentView = LandscapeNormalWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-        landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-        selectWordsPanel(.landscape)
+        selectWordsPanel(.landscape, isMini: false)
     }
     
     @objc func landscapeMini() {
-        let contentView = LandscapeMiniWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-        landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-        selectWordsPanel(.landscape)
+        selectWordsPanel(.landscape, isMini: true)
     }
     
     @objc func portraitNormal() {
-        let contentView = PortraitNormalWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-        selectWordsPanel(.portrait)
+        selectWordsPanel(.portrait, isMini: false)
     }
 
     @objc func portraitMini() {
-        let contentView = PortraitMiniWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-        selectWordsPanel(.portrait)
+        selectWordsPanel(.portrait, isMini: true)
     }
     
     @objc func portraitOneline() {
-        let contentView = PortraitOnelineWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-        portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
-        selectWordsPanel(.portraitOneline)
+        selectWordsPanel(.portraitOneline, isMini: false)
     }
     
     @objc func closeWords() {
-        landscapeWordsPanel.close()
-        portraitWordsPanel.close()
-        portraitOnelineWordsPanel.close()
+        selectWordsPanel(nil, isMini: false)
     }
     
     // todo: add to setter?! or something (delegate)?!
@@ -255,45 +231,98 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
 //            contentPanel.hasShadow = false
 //        }
 //    }
-
-    @objc func stokeBorderCropperWindow() {
-        cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
-        cropperWindow.orderFrontRegardless()
-        if !statusData.isPlaying {
-            activeCropperWindow()
-        }
+    enum CropperStyle {
+        case strokeBorder
+        case rectangle
+        case mini
+        case closed
+    }
+    @objc func strokeBorderCropperWindow() {
+        selectCropperWindow(.strokeBorder)
     }
     
     @objc func rectangleCropperWindow() {
-        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
-        cropperWindow.orderFrontRegardless()
-        if !statusData.isPlaying {
-            activeCropperWindow()
-        }
+        selectCropperWindow(.rectangle)
     }
     
     @objc func miniCropperWindow() {
-        cropperWindow.contentView = NSHostingView(rootView: MiniCropperView())
-        cropperWindow.orderFrontRegardless()
-        if !statusData.isPlaying {
-            activeCropperWindow()
-        }
+        selectCropperWindow(.mini)
     }
     
     @objc func closeCropperWindow() {
-        cropperWindow.contentView = NSHostingView(rootView: ClosedCropperView())
-        cropperWindow.orderFrontRegardless()
-        if !statusData.isPlaying {
+        selectCropperWindow(.closed)
+    }
+    
+    func selectCropperWindow(_ cropperStyle: CropperStyle) {
+        switch cropperStyle {
+        case .strokeBorder:
+            cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
+            cropperWindow.orderFrontRegardless()
+            if !statusData.isPlaying {
+                activeCropperWindow()
+            } else {
+                fixCropperWindow()
+            }
+            strokeBorderCropperWindowItem.state = .on
+            rectangleCropperWindowItem.state = .off
+            miniCropperWindowItem.state = .off
+            closeCropperWindowItem.state = .off
+        case .rectangle:
+            cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
+            cropperWindow.orderFrontRegardless()
+            if !statusData.isPlaying {
+                activeCropperWindow()
+            } else {
+                fixCropperWindow()
+            }
+            strokeBorderCropperWindowItem.state = .off
+            rectangleCropperWindowItem.state = .on
+            miniCropperWindowItem.state = .off
+            closeCropperWindowItem.state = .off
+        case .mini:
+            cropperWindow.contentView = NSHostingView(rootView: MiniCropperView())
+            cropperWindow.orderFrontRegardless()
+            if !statusData.isPlaying {
+                activeCropperWindow()
+            } else {
+                fixCropperWindow()
+            }
+            strokeBorderCropperWindowItem.state = .off
+            rectangleCropperWindowItem.state = .off
+            miniCropperWindowItem.state = .on
+            closeCropperWindowItem.state = .off
+        case .closed:
+            cropperWindow.contentView = NSHostingView(rootView: ClosedCropperView())
+            cropperWindow.orderFrontRegardless()
             fixCropperWindow()
+            strokeBorderCropperWindowItem.state = .off
+            rectangleCropperWindowItem.state = .off
+            miniCropperWindowItem.state = .off
+            closeCropperWindowItem.state = .on
         }
     }
     
     @objc func setTextRecognitionLevelFast() {
-        textProcessConfig.textRecognitionLevel = .fast
+        selectTextRecognitionLevel(.fast)
     }
     
     @objc func setTextRecognitionLevelAccurate() {
-        textProcessConfig.textRecognitionLevel = .accurate
+        selectTextRecognitionLevel(.accurate)
+    }
+    
+    func selectTextRecognitionLevel(_ theLevel: VNRequestTextRecognitionLevel) {
+        textProcessConfig.textRecognitionLevel = theLevel
+        switch textProcessConfig.textRecognitionLevel {
+        case .fast:
+            setTextRecognitionLevelFastItem.state = .on
+            setTextRecognitionLevelAccurateItem.state = .off
+        case .accurate:
+            setTextRecognitionLevelFastItem.state = .off
+            setTextRecognitionLevelAccurateItem.state = .on
+        @unknown default:
+            setTextRecognitionLevelFastItem.state = .on
+            setTextRecognitionLevelAccurateItem.state = .off
+        }
     }
 
     @objc func exit() {
@@ -314,31 +343,114 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         initPortraitWordsPanel()
         initPortraitOnelineWordsPanel()
         
-        selectWordsPanel(.landscape)
+        selectWordsPanel(.landscape, isMini: false)
     }
     
-    func selectWordsPanel(_ theContentMode: ContentMode) {
-        contentMode = theContentMode
-        switch contentMode {
-        case .landscape:
-            contentPanel = landscapeWordsPanel
-            portraitWordsPanel.close()
-            portraitOnelineWordsPanel.close()
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
-        case .portrait:
-            contentPanel = portraitWordsPanel
-            landscapeWordsPanel.close()
-            portraitOnelineWordsPanel.close()
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = true
-            contentPanel.invalidateShadow()
-        case .portraitOneline:
-            contentPanel = portraitOnelineWordsPanel
+    func selectWordsPanel(_ theContentMode: ContentMode?, isMini: Bool) {
+        if theContentMode == nil {
             landscapeWordsPanel.close()
             portraitWordsPanel.close()
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
+            portraitOnelineWordsPanel.close()
+            
+            landscapeNormalItem.state = .off
+            landscapeMiniItem.state = .off
+            portraitNormalItem.state = .off
+            portraitMiniItem.state = .off
+            portraitOnelineItem.state = .off
+            closedWordsItem.state = .on
+            return
+        }
+        
+        if let contentMode = theContentMode {
+            switch contentMode {
+            case .landscape:
+                if isMini {
+                    landscapeNormalItem.state = .off
+                    landscapeMiniItem.state = .on
+                    portraitNormalItem.state = .off
+                    portraitMiniItem.state = .off
+                    portraitOnelineItem.state = .off
+                    closedWordsItem.state = .off
+                    let contentView = LandscapeMiniWordsView()
+                        .environment(\.addToKnownWords, addToKnownWords)
+                        .environmentObject(visualConfig)
+                        .environmentObject(displayedWords)
+                    landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+                } else {
+                    landscapeNormalItem.state = .on
+                    landscapeMiniItem.state = .off
+                    portraitNormalItem.state = .off
+                    portraitMiniItem.state = .off
+                    portraitOnelineItem.state = .off
+                    closedWordsItem.state = .off
+                    let contentView = LandscapeNormalWordsView()
+                        .environment(\.addToKnownWords, addToKnownWords)
+                        .environmentObject(visualConfig)
+                        .environmentObject(displayedWords)
+                    landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+                }
+                
+                contentPanel = landscapeWordsPanel
+                portraitWordsPanel.close()
+                portraitOnelineWordsPanel.close()
+                contentPanel.orderFrontRegardless()
+                contentPanel.hasShadow = false
+                
+            case .portrait:
+                if isMini {
+                    landscapeNormalItem.state = .off
+                    landscapeMiniItem.state = .off
+                    portraitNormalItem.state = .off
+                    portraitMiniItem.state = .on
+                    portraitOnelineItem.state = .off
+                    closedWordsItem.state = .off
+                    let contentView = PortraitMiniWordsView()
+                        .environment(\.addToKnownWords, addToKnownWords)
+                        .environmentObject(visualConfig)
+                        .environmentObject(displayedWords)
+                    portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+                } else {
+                    landscapeNormalItem.state = .off
+                    landscapeMiniItem.state = .off
+                    portraitNormalItem.state = .on
+                    portraitMiniItem.state = .off
+                    portraitOnelineItem.state = .off
+                    closedWordsItem.state = .off
+                    let contentView = PortraitNormalWordsView()
+                        .environment(\.addToKnownWords, addToKnownWords)
+                        .environmentObject(visualConfig)
+                        .environmentObject(displayedWords)
+                    portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+                }
+                
+                contentPanel = portraitWordsPanel
+                landscapeWordsPanel.close()
+                portraitOnelineWordsPanel.close()
+                contentPanel.orderFrontRegardless()
+                contentPanel.hasShadow = true
+                contentPanel.invalidateShadow()
+                
+            case .portraitOneline:
+                // no mini
+                landscapeNormalItem.state = .off
+                landscapeMiniItem.state = .off
+                portraitNormalItem.state = .off
+                portraitMiniItem.state = .off
+                portraitOnelineItem.state = .on
+                closedWordsItem.state = .off
+                
+                let contentView = PortraitOnelineWordsView()
+                    .environment(\.addToKnownWords, addToKnownWords)
+                    .environmentObject(visualConfig)
+                    .environmentObject(displayedWords)
+                portraitOnelineWordsPanel.contentView = NSHostingView(rootView: contentView)
+                
+                contentPanel = portraitOnelineWordsPanel
+                landscapeWordsPanel.close()
+                portraitWordsPanel.close()
+                contentPanel.orderFrontRegardless()
+                contentPanel.hasShadow = false
+            }
         }
     }
     
@@ -396,8 +508,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             name: "cropperWindow"
         )
         
-        cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
-        cropperWindow.orderFrontRegardless()
+        selectCropperWindow(.strokeBorder)
     }
     
     // no resizable, not movable
@@ -478,7 +589,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
         
         UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
-        textProcessConfig.textRecognitionLevel = .fast
+        selectTextRecognitionLevel(.fast)
         
         landscapeWordsPanel.setFrame(
             NSRect(x: 100, y: 100, width: 600, height: 200),

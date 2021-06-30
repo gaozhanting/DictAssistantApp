@@ -8,22 +8,9 @@
 import Foundation
 
 class StatusData: ObservableObject {
-    @Published private var isPlayingInner: Bool
+    @Published var isPlaying: Bool
     
-    var setSideEffectCode: () -> Void
-    
-    var isPlaying: Bool {
-        get {
-            isPlayingInner
-        }
-        set {
-            isPlayingInner = newValue
-            setSideEffectCode()
-        }
-    }
-    
-    init(isPlayingInner: Bool, sideEffectCode: @escaping () -> Void) {
-        self.isPlayingInner = isPlayingInner
-        self.setSideEffectCode = sideEffectCode
+    init(isPlaying: Bool) {
+        self.isPlaying = isPlaying
     }
 }
