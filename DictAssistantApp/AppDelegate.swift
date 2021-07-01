@@ -1006,12 +1006,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     
                     withAnimation {
                         displayedWords.words = prefixUnKownWords
-                        // bigger then 20 is so long for finding the word, so disable this functionality
-                        if (knownWords.count < 20) {
-                            displayedWords.knownWords = knownWords
-                        } else {
-                            displayedWords.knownWords = []
-                        }
+                        displayedWords.knownWords = knownWords
                     }
                     
                     lastReconginzedTexts = texts
