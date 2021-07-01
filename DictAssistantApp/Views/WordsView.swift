@@ -38,7 +38,6 @@ fileprivate struct OnelineWordsView: View {
             (Text(word).foregroundColor(Color(color)) + Text(translationOneline(of: word)).foregroundColor(.white))
                 .lineLimit(1)
                 .font(Font.custom(fontName, size: fontSize))
-//                .padding(.all, 4)
                 .padding(.horizontal, 4)
                 .contextMenu {
                     Button("Add to Known", action: { addToKnownWords(word) })
@@ -102,15 +101,7 @@ fileprivate struct WordsView: View {
     let fontName: String
     let fontSize: CGFloat
     
-    @State var displayKnownWords: Bool = false
-    
-    var buttonTitle: String {
-        if !displayKnownWords {
-            return "Display"
-        } else {
-            return "Hidden"
-        }
-    }
+    @Binding var displayKnownWords: Bool
     
     var body: some View {
         ForEach(displayedWords.words, id: \.self) { word in
@@ -119,7 +110,7 @@ fileprivate struct WordsView: View {
                 .padding(.all, 4)
                 .contextMenu {
                     Button("Add to Known", action: { addToKnownWords(word) })
-                    Button("\(buttonTitle) current Known", action: { displayKnownWords.toggle() } )
+                    Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
                 }
         }
         if displayKnownWords {
@@ -128,7 +119,8 @@ fileprivate struct WordsView: View {
                     .font(Font.custom(fontName, size: fontSize))
                     .padding(.all, 4)
                     .contextMenu {
-                        Button("Remove to Known", action: { removeFromKnownWords(word) })
+                        Button("Remove from Known", action: { removeFromKnownWords(word) })
+                        Button("Hidden current Known", action: { displayKnownWords.toggle() } )
                     }
             }
         }
@@ -137,6 +129,9 @@ fileprivate struct WordsView: View {
 
 struct LandscapeNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    @EnvironmentObject var textProcessConfig: TextProcessConfig
+
+    @State var displayKnownWords: Bool = false
 
     var body: some View {
         ScrollView(.horizontal) {
@@ -144,11 +139,32 @@ struct LandscapeNormalWordsView: View {
                 WordsView(
                     color: visualConfig.colorOfLandscape,
                     fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfLandscape
+                    fontSize: visualConfig.fontSizeOfLandscape,
+                    displayKnownWords: $displayKnownWords
                 )
                 .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .contextMenu {
+            Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
+            Menu("MinimumTextHeight") {
+                Button("Increase 0.01", action: {
+                    textProcessConfig.minimumTextHeight += 0.01
+                    if textProcessConfig.minimumTextHeight >= 1/10.0 {
+                        textProcessConfig.minimumTextHeight = 1/10.0
+                    }
+                })
+                Button("Decrease 0.01", action: {
+                    textProcessConfig.minimumTextHeight -= 0.01
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
+                    textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                })
+            }
         }
         .background(Color.black.opacity(0.75))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -159,6 +175,7 @@ struct LandscapeNormalWordsView: View {
 
 struct LandscapeMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    @State var displayKnownWords: Bool = false
 
     var body: some View {
         VStack {
@@ -168,7 +185,8 @@ struct LandscapeMiniWordsView: View {
                     WordsView(
                         color: visualConfig.colorOfLandscape,
                         fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfLandscape
+                        fontSize: visualConfig.fontSizeOfLandscape,
+                        displayKnownWords: $displayKnownWords
                     )
                     .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
                 }
@@ -182,6 +200,7 @@ struct LandscapeMiniWordsView: View {
 
 struct PortraitNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    @State var displayKnownWords: Bool = false
 
     var body: some View {
         ScrollView(.vertical) {
@@ -189,7 +208,8 @@ struct PortraitNormalWordsView: View {
                 WordsView(
                     color: visualConfig.colorOfPortrait,
                     fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfPortrait
+                    fontSize: visualConfig.fontSizeOfPortrait,
+                    displayKnownWords: $displayKnownWords
                 )
                 .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
             }
@@ -203,6 +223,7 @@ struct PortraitNormalWordsView: View {
 
 struct PortraitMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    @State var displayKnownWords: Bool = false
 
     var body: some View {
         HStack {
@@ -212,7 +233,8 @@ struct PortraitMiniWordsView: View {
                     WordsView(
                         color: visualConfig.colorOfPortrait,
                         fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfPortrait
+                        fontSize: visualConfig.fontSizeOfPortrait,
+                        displayKnownWords: $displayKnownWords
                     )
                     .frame(maxHeight: 150, alignment: .topLeading)
                 }

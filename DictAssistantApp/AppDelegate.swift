@@ -17,12 +17,14 @@ import Foundation
 
 let logger = Logger()
 
+let systemDefaultMinimumTextHeight: Float = 0.03125
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
 
     let statusData = StatusData(isPlaying: false)
 
-    let textProcessConfig: TextProcessConfig
+    let textProcessConfig = TextProcessConfig(textRecognitionLevel: .fast, minimumTextHeight: systemDefaultMinimumTextHeight)
     let visualConfig: VisualConfig
         
     override init() {
@@ -48,17 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             colorOfLandscape: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfLandscape")!)!,
             colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
-        )
-        
-        // TextProcessConfig
-        if UserDefaults.standard.object(forKey: "textProcessConfig.textRecognitionLevel") == nil {
-            // refer source code: enum VNRequestTextRecognitionLevel : Int
-            UserDefaults.standard.setValue(1, forKey: "textProcessConfig.textRecognitionLevel")
-        }
-        textProcessConfig = TextProcessConfig(
-            textRecognitionLevel: VNRequestTextRecognitionLevel(
-                rawValue: UserDefaults.standard.integer(forKey: "textProcessConfig.textRecognitionLevel")
-            )!
         )
     }
     
@@ -101,6 +92,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
     let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "Accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
     
+    @objc func adjustTextRecognitionMinimumTextHeight() {}
+    
     func constructMenuBar() {
         statusItem.button?.image = NSImage(
             systemSymbolName: "square.dashed",
@@ -139,7 +132,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         menu.addItem(setTextRecognitionLevelFastItem)
         menu.addItem(setTextRecognitionLevelAccurateItem)
         selectTextRecognitionLevel(textProcessConfig.textRecognitionLevel)
-
+        
         menu.addItem(NSMenuItem.separator())
 
         let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
@@ -363,6 +356,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
+                .environmentObject(textProcessConfig)
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             contentPanel = landscapeWordsPanel
@@ -630,10 +624,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         visualConfig.colorOfLandscape = .orange
         visualConfig.colorOfPortrait = .green
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
-        
-        UserDefaults.standard.set(1, forKey: "textProcessConfig.textRecognitionLevel")
-        selectTextRecognitionLevel(.fast)
-        
+                
         landscapeWordsPanel.setFrame(
             NSRect(x: 100, y: 100, width: 600, height: 200),
             display: true,
@@ -662,8 +653,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
         UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
-        
-        UserDefaults.standard.set(textProcessConfig.textRecognitionLevel.rawValue, forKey: "textProcessConfig.textRecognitionLevel")
     }
 
     // MARK:- Appearance (FontPanel & ColorPanel)
@@ -969,7 +958,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
         textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
-        textRecognitionRequest.minimumTextHeight = 0.0
+        textRecognitionRequest.minimumTextHeight = textProcessConfig.minimumTextHeight
         textRecognitionRequest.usesLanguageCorrection = true
         textRecognitionRequest.preferBackgroundProcessing = true
         

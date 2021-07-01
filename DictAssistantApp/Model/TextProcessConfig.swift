@@ -10,8 +10,10 @@ import Vision
 
 class TextProcessConfig: ObservableObject {
     @Published var textRecognitionLevel: VNRequestTextRecognitionLevel
+    @Published var minimumTextHeight: Float
 
-    init(textRecognitionLevel: VNRequestTextRecognitionLevel) {
+    init(textRecognitionLevel: VNRequestTextRecognitionLevel, minimumTextHeight: Float) {
         self.textRecognitionLevel = textRecognitionLevel
+        self.minimumTextHeight = minimumTextHeight
     }
 }
