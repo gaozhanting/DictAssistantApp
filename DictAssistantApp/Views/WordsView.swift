@@ -8,12 +8,13 @@
 import SwiftUI
 import DataBases
 
-fileprivate func translation(of word: String) -> String {
-    if let tr = DictionaryServices.define(word) {
-        return tr
-    } else {
-        return ""
-    }
+fileprivate func translation(of word: String) -> String? {
+    return DictionaryServices.define(word)
+//    if let tr = DictionaryServices.define(word) {
+//        return tr
+//    } else {
+//        return ""
+//    }
 }
 
 fileprivate func translationOneline(of word: String) -> String {
@@ -90,7 +91,6 @@ struct PortraitOnelineMiniWordsView: View {
     }
 }
 
-
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
 
@@ -103,9 +103,19 @@ fileprivate struct WordsView: View {
     
     @Binding var displayKnownWords: Bool
     
+    func wordWithTranslation(_ words: [String]) -> [(String, String)] {
+        var result: [(String, String)] = []
+        for word in words {
+            if let trans = translation(of: word) {
+                result.append((word, trans))
+            }
+        }
+        return result
+    }
+    
     var body: some View {
-        ForEach(displayedWords.words, id: \.self) { word in
-            (Text(word).foregroundColor(Color(color)) + Text(translation(of: word)).foregroundColor(.white))
+        ForEach(wordWithTranslation(displayedWords.words), id: \.self.0) { (word, trans) in
+            (Text(word).foregroundColor(Color(color)) + Text(trans).foregroundColor(.white))
                 .font(Font.custom(fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
@@ -114,8 +124,8 @@ fileprivate struct WordsView: View {
                 }
         }
         if displayKnownWords {
-            ForEach(displayedWords.knownWords, id: \.self) { word in
-                (Text(word).foregroundColor(.gray) + Text(translation(of: word)).foregroundColor(.white))
+            ForEach(wordWithTranslation(displayedWords.knownWords), id: \.self.0) { (word, trans) in
+                (Text(word).foregroundColor(.gray) + Text(trans).foregroundColor(.white))
                     .font(Font.custom(fontName, size: fontSize))
                     .padding(.all, 4)
                     .contextMenu {
@@ -263,7 +273,7 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "like", "you"],
+                        words: ["narrator", "Athenian", "mythical", "Theseus", "marathon", "narrator", "Athenian", "mythical", "Theseus", "marathon"],
                         knownWords: []
                     ))
                 .environmentObject(
