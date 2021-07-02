@@ -49,7 +49,9 @@ struct NPLSample {
                     results.append(tag.rawValue)
                 }
             } else {
-                
+                let word = String(text[tokenRange])
+                print(">>>lemma with no tag: \(word)")
+                results.append(word)
             }
             return true
         }
