@@ -32,8 +32,10 @@ struct NPLSample {
 
     func lemma(_ text: String) -> [String] {
         var results: [String] = []
+        let range = text.startIndex..<text.endIndex
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
+        tagger.setLanguage(.english, range: range)
         let options: NLTagger.Options = [
             .omitPunctuation,
             .omitWhitespace,
@@ -41,7 +43,7 @@ struct NPLSample {
             .joinNames,
             .joinContractions
         ]
-        tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
+        tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
             if let tag = tag {
                 if !tag.rawValue.isEmpty {
                     results.append(tag.rawValue)
