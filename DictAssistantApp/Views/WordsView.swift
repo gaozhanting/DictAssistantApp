@@ -108,6 +108,8 @@ fileprivate struct WordsView: View {
         for word in words {
             if let trans = translation(of: word) {
                 result.append((word, trans))
+            } else {
+                print(">>>word with no translation: \(word)")
             }
         }
         return result
