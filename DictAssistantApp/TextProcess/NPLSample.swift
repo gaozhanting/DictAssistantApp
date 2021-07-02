@@ -98,13 +98,26 @@ struct NPLSample {
         let lc = withPrint("lC:", lexicalClass(sentence))
         var pResult: [String] = []
         for (index, (word, lexicalClass)) in lc.enumerated() {
-            if lexicalClass == "Preposition" || lexicalClass == "Particle" {
-                if index > 1 {
-                    let (preWord, preLexicalClass) = lc[index-1]
-                    if preLexicalClass == "Verb" {
-                        let phrase = "\(preWord) \(word)"
-                        pResult.append(phrase)
-                    }
+            if index > 2 {
+                let (ppreWord, ppreLexicalClass) = lc[index - 2]
+                let (preWord, preLexicalClass) = lc[index - 1]
+                if (ppreLexicalClass == "Verb" && preLexicalClass == "Adverb" && lexicalClass == "Particle") { // e.g: look forward to
+                    let phrase = "\(ppreWord) \(preWord) \(word)"
+                    pResult.append(phrase)
+                }
+            }
+            
+            if index > 1 {
+                let (preWord, preLexicalClass) = lc[index - 1]
+                if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
+                    || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
+                    || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state
+                    || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
+                    || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
+                    || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
+                    {
+                    let phrase = "\(preWord) \(word)"
+                    pResult.append(phrase)
                 }
             }
         }
