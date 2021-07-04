@@ -163,12 +163,24 @@ struct LandscapeNormalWordsView: View {
             Menu("MinimumTextHeight") {
                 Button("Increase 0.01", action: {
                     textProcessConfig.minimumTextHeight += 0.01
-                    if textProcessConfig.minimumTextHeight >= 1/10.0 {
-                        textProcessConfig.minimumTextHeight = 1/10.0
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
                     }
                 })
                 Button("Decrease 0.01", action: {
                     textProcessConfig.minimumTextHeight -= 0.01
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Increase 0.1", action: {
+                    textProcessConfig.minimumTextHeight += 0.1
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.1", action: {
+                    textProcessConfig.minimumTextHeight -= 0.1
                     if textProcessConfig.minimumTextHeight <= 0.0 {
                         textProcessConfig.minimumTextHeight = 0.0
                     }

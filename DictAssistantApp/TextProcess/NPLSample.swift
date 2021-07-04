@@ -10,14 +10,13 @@ import NaturalLanguage
 
 struct NPLSample {
     func withPrint<T>(_ info: String, _ x: T) -> T {
-        print(info)
-        print(x)
+        print("\(info): \(x)")
         return x
     }
 
-    func tokenize(_ text: String) -> [String] {
+    func tokenize(_ text: String, _ tokenUnit: NLTokenUnit) -> [String] {
         var result: [String] = []
-        let tokenizer = NLTokenizer(unit: .word)
+        let tokenizer = NLTokenizer(unit: tokenUnit)
         tokenizer.string = text
         tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
             result.append(String(text[tokenRange]))
@@ -35,7 +34,7 @@ struct NPLSample {
         let range = text.startIndex..<text.endIndex
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
-        tagger.setLanguage(.english, range: range)
+//        tagger.setLanguage(.english, range: range)
         let options: NLTagger.Options = [
             .omitPunctuation,
             .omitWhitespace,
@@ -50,7 +49,7 @@ struct NPLSample {
                 }
             } else {
                 let word = String(text[tokenRange])
-                print(">>>lemma with no tag: \(word)")
+                print("    >>lemma with no tag: \(word)")
                 results.append(word)
             }
             return true
@@ -88,14 +87,14 @@ struct NPLSample {
     }
 
     func processSingle(_ text: String) -> [String] {
-        let origin = withPrint("origin:", text)
-        let tokens = withPrint("tokenize:", tokenize(origin))
-        let lemma = withPrint("lemma:", lemma(join(tokens)))
+        let origin = withPrint("  sentence:", text)
+        let tokens = withPrint("  tokenize word:", tokenize(origin, .word))
+        let lemma = withPrint("  lemma:", lemma(join(tokens)))
         let sentence = join(lemma)
         
-        let name = withPrint("name:", name(sentence))
+        let name = withPrint("  name:", name(sentence))
         
-        let lc = withPrint("lC:", lexicalClass(sentence))
+        let lc = withPrint("  lC:", lexicalClass(sentence))
         var pResult: [String] = []
         for (index, (word, lexicalClass)) in lc.enumerated() {
             if index > 2 {
@@ -111,6 +110,7 @@ struct NPLSample {
                 let (preWord, preLexicalClass) = lc[index - 1]
                 if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
                     || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
+                    || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
                     || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state
                     || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
                     || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
@@ -121,17 +121,39 @@ struct NPLSample {
                 }
             }
         }
-        let phrases = withPrint("phrases:", pResult)
+        let phrases = withPrint("  phrases:", pResult)
         
-        let result = withPrint("result:", lemma + name + phrases)
+        let result = withPrint("  result:", lemma + name + phrases)
         return result
     }
     
-    func processMulti(_ texts: [String]) -> [String] {
-        let result = processSingle(join(texts))
-        let result2 = NSOrderedSet(array: result).map({ $0 as! String })
-        return result2
+    func process(_ texts: [String]) -> [String] {
+        // for debug
+        for text in texts {
+            print(">>>>text from TR: \(text)")
+        }
+        
+        // transform TR texts into multi sentences
+        let originSentences = join(texts)
+        let sentences = withPrint("  tokenize sentence:", tokenize(originSentences, .sentence))
+        
+        // for every sentence
+        var results: [String] = []
+        print(">>>>NPL process:")
+        for sentence in sentences {
+            let result = processSingle(sentence)
+            print(">>>>sentence: \(sentence)")
+            print(">>>>result: \(result)")
+            results += result
+        }
+
+        // de duplicate
+        let deDuplicated = NSOrderedSet(array: results).map({ $0 as! String })
+        return deDuplicated
     }
+    
 }
+
+
 
 let nplSample = NPLSample()

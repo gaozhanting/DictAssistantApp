@@ -986,7 +986,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 } else {
                     logger.info("text not equal lastReconginzedTexts")
                     // words (filter fixed preset known words) (familiars, unfamiliars)
-                    let words = nplSample.processMulti(texts)
+                    let words = nplSample.process(texts)
 
                     let knownWords = words.filter { word in
                         allKnownWordsSetCache.contains(word)
