@@ -90,11 +90,11 @@ struct NPLSample {
         let origin = withPrint("  sentence:", text)
         let tokens = withPrint("  tokenize word:", tokenize(origin, .word))
         let lemma = withPrint("  lemma:", lemma(join(tokens)))
-        let sentence = join(lemma)
         
-        let name = withPrint("  name:", name(sentence))
+        let lemmaedSentence = join(lemma)
+        let name = withPrint("  name:", name(lemmaedSentence))
         
-        let lc = withPrint("  lC:", lexicalClass(sentence))
+        let lc = withPrint("  lC:", lexicalClass(lemmaedSentence))
         var pResult: [String] = []
         for (index, (word, lexicalClass)) in lc.enumerated() {
             if index > 2 {
