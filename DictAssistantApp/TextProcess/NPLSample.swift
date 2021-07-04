@@ -25,12 +25,8 @@ struct NPLSample {
         return result
     }
 
-    func join(_ tokens: [String]) -> String {
-        tokens.joined(separator: " ")
-    }
-
-    func lemma(_ text: String) -> [String] {
-        var results: [String] = []
+    func lemma(_ text: String) -> [(Range<String.Index>, String)] {
+        var results: [(Range<String.Index>, String)] = []
         let range = text.startIndex..<text.endIndex
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
@@ -45,69 +41,63 @@ struct NPLSample {
         tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
             if let tag = tag {
                 if !tag.rawValue.isEmpty {
-                    results.append(tag.rawValue)
+                    results.append((tokenRange, (tag.rawValue)))
                 }
             } else {
                 let word = String(text[tokenRange])
                 print("    >>lemma with no tag: \(word)")
-                results.append(word)
+                results.append((tokenRange, word))
             }
             return true
         }
         return results
     }
 
-    func name(_ text: String) -> [String] {
-        var results: [String] = []
+    func name(_ text: String) -> [Range<String.Index>:String] {
+        var results: [Range<String.Index>:String] = [:]
         let tagger = NLTagger(tagSchemes: [.nameType])
         tagger.string = text
         let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
         let tags: [NLTag] = [.personalName, .placeName, .organizationName]
         tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
             if let tag = tag, tags.contains(tag) {
-                results.append(String(text[tokenRange]))
+//                results.append(String(text[tokenRange]))
+                results[tokenRange] = String(text[tokenRange])
             }
             return true
         }
         return results
     }
 
-    func lexicalClass(_ text: String) -> [(String, String)] {
-        var result: [(String, String)] = []
+    func lexicalClass(_ text: String) -> [(Range<String.Index>, String, String)] {
+        var result: [(Range<String.Index>, String, String)] = []
         let tagger = NLTagger(tagSchemes: [.lexicalClass])
         tagger.string = text
         let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
         tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
             if let tag = tag {
-                result.append((String(text[tokenRange]), tag.rawValue))
+                result.append((tokenRange, String(text[tokenRange]), tag.rawValue))
             }
             return true
         }
         return result
     }
-
-    func processSingle(_ text: String) -> [String] {
-        let origin = withPrint("  sentence:", text)
-        let tokens = withPrint("  tokenize word:", tokenize(origin, .word))
-        let lemma = withPrint("  lemma:", lemma(join(tokens)))
-        
-        let lemmaedSentence = join(lemma)
-        let name = withPrint("  name:", name(lemmaedSentence))
-        
-        let lc = withPrint("  lC:", lexicalClass(lemmaedSentence))
-        var pResult: [String] = []
-        for (index, (word, lexicalClass)) in lc.enumerated() {
+    
+    func phrase(_ sentence: String) -> [Range<String.Index> : String] {
+        let lc = withPrint("  lC:", lexicalClass(sentence))
+        var pResult: [Range<String.Index>:String] = [:]
+        for (index, (_, word, lexicalClass)) in lc.enumerated() {
             if index > 2 {
-                let (ppreWord, ppreLexicalClass) = lc[index - 2]
-                let (preWord, preLexicalClass) = lc[index - 1]
+                let (ppTokenRange, ppreWord, ppreLexicalClass) = lc[index - 2]
+                let (_, preWord, preLexicalClass) = lc[index - 1]
                 if (ppreLexicalClass == "Verb" && preLexicalClass == "Adverb" && lexicalClass == "Particle") { // e.g: look forward to
                     let phrase = "\(ppreWord) \(preWord) \(word)"
-                    pResult.append(phrase)
+                    pResult[ppTokenRange] = phrase
                 }
             }
             
             if index > 1 {
-                let (preWord, preLexicalClass) = lc[index - 1]
+                let (pTokenRange, preWord, preLexicalClass) = lc[index - 1]
                 if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
                     || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
                     || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
@@ -117,14 +107,45 @@ struct NPLSample {
                     || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
                     {
                     let phrase = "\(preWord) \(word)"
-                    pResult.append(phrase)
+                    pResult[pTokenRange] = phrase
                 }
             }
         }
-        let phrases = withPrint("  phrases:", pResult)
+        return pResult
+    }
+
+    func processSingle(_ text: String) -> [String] {
+        let origin = withPrint("  sentence:", text)
         
-        let result = withPrint("  result:", lemma + name + phrases)
-        return result
+        let tokens = withPrint("  tokenize word:", tokenize(origin, .word))
+        let sentence = tokens.joined(separator: " ")
+        let originName = withPrint("  originName:", name(sentence))
+        let originPhrases = withPrint("  originPhrases:", phrase(sentence))
+
+        let lemma = withPrint("  lemma:", lemma(sentence))
+        let lemmaedSentence = lemma.map{ $0.1 }.joined(separator: " ")
+        let lemmaedName = withPrint("  lemmaedName:", name(lemmaedSentence))
+        let lemmaedPhrases = withPrint("  lemmaedPhrases:", phrase(lemmaedSentence))
+        
+        var result: [String] = []
+        for (tokenRange, token) in lemma {
+            result.append(token)
+            if let nameToken = originName[tokenRange] { // range may diff little?!!!
+                result.append(nameToken)
+            }
+            if let nameToken = lemmaedName[tokenRange] {
+                result.append(nameToken)
+            }
+            if let phraseToken = originPhrases[tokenRange] {
+                result.append(phraseToken)
+            }
+            if let phraseToken = lemmaedPhrases[tokenRange] {
+                result.append(phraseToken)
+            }
+        }
+        
+        let result2 = withPrint("  result:", result)
+        return result2
     }
     
     func process(_ texts: [String]) -> [String] {
@@ -134,7 +155,7 @@ struct NPLSample {
         }
         
         // transform TR texts into multi sentences
-        let originSentences = join(texts)
+        let originSentences = texts.joined(separator: " ")
         let sentences = withPrint("  tokenize sentence:", tokenize(originSentences, .sentence))
         
         // for every sentence
@@ -153,7 +174,5 @@ struct NPLSample {
     }
     
 }
-
-
 
 let nplSample = NPLSample()
