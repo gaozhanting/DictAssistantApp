@@ -8,44 +8,44 @@
 import SwiftUI
 import DataBases
 
-fileprivate func translation(of word: String) -> String? {
-    return DictionaryServices.define(word)
+//fileprivate func translation(of word: String) -> String? {
+//    return DictionaryServices.define(word)
+////    if let tr = DictionaryServices.define(word) {
+////        return tr
+////    } else {
+////        return ""
+////    }
+//}
+//
+//fileprivate func translationOneline(of word: String) -> String {
 //    if let tr = DictionaryServices.define(word) {
-//        return tr
+//        return tr.replacingOccurrences(of: "\n", with: " ")
 //    } else {
 //        return ""
 //    }
-}
-
-fileprivate func translationOneline(of word: String) -> String {
-    if let tr = DictionaryServices.define(word) {
-        return tr.replacingOccurrences(of: "\n", with: " ")
-    } else {
-        return ""
-    }
-}
-
-fileprivate struct OnelineWordsView: View {
-    @EnvironmentObject var displayedWords: DisplayedWords
-
-    @Environment(\.addToKnownWords) var addToKnownWords
-    
-    let color: NSColor
-    let fontName: String
-    let fontSize: CGFloat
-    
-    var body: some View {
-        ForEach(displayedWords.words, id: \.self) { word in
-            (Text(word).foregroundColor(Color(color)) + Text(translationOneline(of: word)).foregroundColor(.white))
-                .lineLimit(1)
-                .font(Font.custom(fontName, size: fontSize))
-                .padding(.horizontal, 4)
-                .contextMenu {
-                    Button("Add to Known", action: { addToKnownWords(word) })
-                }
-        }
-    }
-}
+//}
+//
+//fileprivate struct OnelineWordsView: View {
+//    @EnvironmentObject var displayedWords: DisplayedWords
+//
+//    @Environment(\.addToKnownWords) var addToKnownWords
+//
+//    let color: NSColor
+//    let fontName: String
+//    let fontSize: CGFloat
+//
+//    var body: some View {
+//        ForEach(displayedWords.words, id: \.self) { word in
+//            (Text(word).foregroundColor(Color(color)) + Text(translationOneline(of: word)).foregroundColor(.white))
+//                .lineLimit(1)
+//                .font(Font.custom(fontName, size: fontSize))
+//                .padding(.horizontal, 4)
+//                .contextMenu {
+//                    Button("Add to Known", action: { addToKnownWords(word) })
+//                }
+//        }
+//    }
+//}
 
 struct PortraitOnelineNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
@@ -53,10 +53,11 @@ struct PortraitOnelineNormalWordsView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
-                OnelineWordsView(
+                WordsView(
                     color: visualConfig.colorOfPortrait,
                     fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfPortrait
+                    fontSize: visualConfig.fontSizeOfPortrait,
+                    displayKnownWords: Binding.constant(true)
                 )
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             }
@@ -75,10 +76,11 @@ struct PortraitOnelineMiniWordsView: View {
         VStack {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
-                    OnelineWordsView(
+                    WordsView(
                         color: visualConfig.colorOfPortrait,
                         fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfPortrait
+                        fontSize: visualConfig.fontSizeOfPortrait,
+                        displayKnownWords: Binding.constant(true)
                     )
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
@@ -91,32 +93,30 @@ struct PortraitOnelineMiniWordsView: View {
     }
 }
 
-fileprivate struct WordsView: View {
-    @EnvironmentObject var displayedWords: DisplayedWords
-
+fileprivate struct SingleWordView: View {
     @Environment(\.addToKnownWords) var addToKnownWords
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
     
+    let taggedWordTrans: (String, String, String)
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
-    
     @Binding var displayKnownWords: Bool
+
+    var tag: String {
+        taggedWordTrans.0
+    }
     
-    func wordWithTranslation(_ words: [String]) -> [(String, String)] {
-        var result: [(String, String)] = []
-        for word in words {
-            if let trans = translation(of: word) {
-                result.append((word, trans))
-            } else {
-                print(">>>word with no translation: \(word)")
-            }
-        }
-        return result
+    var word: String {
+        taggedWordTrans.1
+    }
+    
+    var trans: String {
+        taggedWordTrans.2
     }
     
     var body: some View {
-        ForEach(wordWithTranslation(displayedWords.words), id: \.self.0) { (word, trans) in
+        if tag == "unKnown" {
             (Text(word).foregroundColor(Color(color)) + Text(trans).foregroundColor(.white))
                 .font(Font.custom(fontName, size: fontSize))
                 .padding(.all, 4)
@@ -124,16 +124,45 @@ fileprivate struct WordsView: View {
                     Button("Add to Known", action: { addToKnownWords(word) })
                     Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
                 }
+        } else {
+            (Text(word).foregroundColor(.gray) + Text(trans).foregroundColor(.white))
+                .font(Font.custom(fontName, size: fontSize))
+                .padding(.all, 4)
+                .contextMenu {
+                    Button("Remove from Known", action: { removeFromKnownWords(word) })
+                    Button("Hidden current Known", action: { displayKnownWords.toggle() } )
+                }
         }
+    }
+}
+
+fileprivate struct WordsView: View {
+    @EnvironmentObject var displayedWords: DisplayedWords
+
+    let color: NSColor
+    let fontName: String
+    let fontSize: CGFloat
+    
+    @Binding var displayKnownWords: Bool
+    
+    var body: some View {
         if displayKnownWords {
-            ForEach(wordWithTranslation(displayedWords.knownWords), id: \.self.0) { (word, trans) in
-                (Text(word).foregroundColor(.gray) + Text(trans).foregroundColor(.white))
-                    .font(Font.custom(fontName, size: fontSize))
-                    .padding(.all, 4)
-                    .contextMenu {
-                        Button("Remove from Known", action: { removeFromKnownWords(word) })
-                        Button("Hidden current Known", action: { displayKnownWords.toggle() } )
-                    }
+            ForEach(displayedWords.words, id: \.self.1) { taggedWordTrans in
+                SingleWordView(
+                    taggedWordTrans: taggedWordTrans,
+                    color: color,
+                    fontName: fontName,
+                    fontSize: fontSize,
+                    displayKnownWords: $displayKnownWords)
+            }
+        } else {
+            ForEach(displayedWords.words.filter { $0.0 == "unKnown" }, id: \.self.1) { taggedWordTrans in
+                SingleWordView(
+                    taggedWordTrans: taggedWordTrans,
+                    color: color,
+                    fontName: fontName,
+                    fontSize: fontSize,
+                    displayKnownWords: $displayKnownWords)
             }
         }
     }
@@ -287,8 +316,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["narrator", "Athenian", "mythical", "Theseus", "marathon", "narrator", "Athenian", "mythical", "Theseus", "marathon"],
-                        knownWords: []
+                        words: [
+                            ("known", "narrator", "..."),
+                            ("unKnown", "Athenian", "...")]
                     ))
                 .environmentObject(
                     VisualConfig(
@@ -304,8 +334,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["narrator", "Athenian", "mythical", "Theseus", "marathon"],
-                        knownWords: []
+                        words: [
+                            ("known", "narrator", "..."),
+                            ("unKnown", "Athenian", "...")]
                     ))
                 .environmentObject(
                     VisualConfig(
@@ -321,8 +352,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone"],
-                        knownWords: []
+                        words: [
+                            ("known", "narrator", "..."),
+                            ("unKnown", "Athenian", "...")]
                     ))
                 .environmentObject(
                     VisualConfig(
@@ -338,10 +370,12 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone"],
-                        knownWords: []
+                        words: [
+                            ("known", "narrator", "..."),
+                            ("unKnown", "Athenian", "...")]
                     ))
                 .environmentObject(
+       
                     VisualConfig(
                         fontSizeOfLandscape: 20,
                         fontSizeOfPortrait: 13,
@@ -355,8 +389,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "somebody"],
-                        knownWords: []
+                        words: [
+                            ("known", "narrator", "..."),
+                            ("unKnown", "Athenian", "...")]
                     ))
                 .environmentObject(
                     VisualConfig(
@@ -372,8 +407,9 @@ struct WordsView_Previews: PreviewProvider {
                 .environment(\.addToKnownWords, {_ in })
                 .environmentObject(
                     DisplayedWords(
-                        words: ["someone", "somebody"],
-                        knownWords: []
+                        words: [
+                            ("known", "narrator", "..."),
+                            ("unKnown", "Athenian", "...")]
                     ))
                 .environmentObject(
                     VisualConfig(

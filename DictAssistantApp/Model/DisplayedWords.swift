@@ -9,11 +9,9 @@ import Foundation
 
 // as a bridge of AppDelegate(and our inner system)(write) and WordsView UI(read)
 class DisplayedWords: ObservableObject {
-    @Published var words: [String] = []
-    @Published var knownWords: [String] = []
+    @Published var words: [(String, String, String)] = []
     
-    init(words: [String], knownWords: [String]) {
+    init(words: [(String, String, String)]) {
         self.words = words
-        self.knownWords = knownWords
     }
 }

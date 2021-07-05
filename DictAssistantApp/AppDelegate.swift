@@ -986,26 +986,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     logger.info("text not equal lastReconginzedTexts")
                     // words (filter fixed preset known words) (familiars, unfamiliars)
                     let words = nplSample.process(texts)
-
-                    let knownWords = words.filter { word in
-                        allKnownWordsSetCache.contains(word)
+                    
+                    // (known|unKnown, word, trans)
+                    var taggedWordTrans: [(String, String, String)] = []
+                    for word in words {
+                        if allKnownWordsSetCache.contains(word) {
+                            if let trans = DictionaryServices.define(word) {
+                                taggedWordTrans.append(("known", word, trans))
+                            }
+                        } else {
+                            if let trans = DictionaryServices.define(word) {
+                                taggedWordTrans.append(("unKnown", word, trans))
+                            }
+                        }
                     }
-                    logger.info(">>knownWords")
-                    print(knownWords)
-
-                    let unKnownWords = words.filter { word in
-                        !allKnownWordsSetCache.contains(word)
-                    }
-                    logger.info(">>unKonwnWords")
-                    print(unKnownWords)
-
-                    let prefixUnKownWords = Array(unKnownWords.prefix(maxDisplayedWordsCount))
-                    logger.info(">>prefixUnKownWords")
-                    print(prefixUnKownWords)
                     
                     withAnimation {
-                        displayedWords.words = prefixUnKownWords
-                        displayedWords.knownWords = knownWords
+                        displayedWords.words = taggedWordTrans
                     }
                     
                     lastReconginzedTexts = texts
@@ -1019,8 +1016,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     var textRecognitionRequest: VNRecognizeTextRequest!
     
     //    let recognizedText = RecognizedText(texts: [])
-    let displayedWords = DisplayedWords(words: [], knownWords: [])
+    let displayedWords = DisplayedWords(words: [])
     var lastReconginzedTexts: [String] = []
 }
-
-let maxDisplayedWordsCount = 100 // todo: UserDefaults
