@@ -960,7 +960,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
         textRecognitionRequest.minimumTextHeight = textProcessConfig.minimumTextHeight
         textRecognitionRequest.usesLanguageCorrection = true
-        textRecognitionRequest.preferBackgroundProcessing = true
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
             do {

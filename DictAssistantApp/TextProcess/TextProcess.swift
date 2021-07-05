@@ -87,6 +87,8 @@ struct TextProcess {
             .map { Character($0) }
         characters.append(Character("-"))
         characters.append(Character("'"))
+        characters.append(Character("."))
+        characters.append(Character(" "))
 //        characters.append(Character(".")) // just very little words we don't care; . will harm lemma // currently not work with i.e. , e.g. , etc. , because . is used for punctuation most of the time!)
         return Set(characters)
     }

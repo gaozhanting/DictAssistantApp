@@ -7,10 +7,11 @@
 
 import Foundation
 import NaturalLanguage
+import DataBases
 
 struct NPLSample {
     func withPrint<T>(_ info: String, _ x: T) -> T {
-        print("\(info): \(x)")
+//        print("\(info): \(x)")
         return x
     }
 
@@ -30,7 +31,7 @@ struct NPLSample {
         let range = text.startIndex..<text.endIndex
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
-//        tagger.setLanguage(.english, range: range)
+        tagger.setLanguage(.english, range: range)
         let options: NLTagger.Options = [
             .omitPunctuation,
             .omitWhitespace,
@@ -45,8 +46,14 @@ struct NPLSample {
                 }
             } else {
                 let word = String(text[tokenRange])
-                print("    >>lemma with no tag: \(word)")
-                results.append((tokenRange, word))
+                print("    >>lemma with no tag from apple: \(word)")
+                if let lemmaOfWord = lemmaDB[word] {
+                    print("    >>lemma >>>->>->>found-from-db: \(word): \(lemmaOfWord)")
+                    results.append((tokenRange, lemmaOfWord))
+                } else {
+                    print("    >>lemma not-found-even-from-db: \(word)")
+                }
+//                results.append((tokenRange, word)) // this will be invalid word or incorrect (search lemma from database again)
             }
             return true
         }
@@ -101,7 +108,7 @@ struct NPLSample {
                 if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
                     || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
                     || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
-                    || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state
+//                    || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state // Many noise word are recognized as Noun!!
                     || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
                     || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
                     || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
@@ -120,12 +127,16 @@ struct NPLSample {
         let tokens = withPrint("  tokenize word:", tokenize(origin, .word))
         let sentence = tokens.joined(separator: " ")
         let originName = withPrint("  originName:", name(sentence))
+        print("originName:\(originName)")
         let originPhrases = withPrint("  originPhrases:", phrase(sentence))
+        print("originPhrases:\(originPhrases)")
 
         let lemma = withPrint("  lemma:", lemma(sentence))
         let lemmaedSentence = lemma.map{ $0.1 }.joined(separator: " ")
         let lemmaedName = withPrint("  lemmaedName:", name(lemmaedSentence))
+        print("lemmaedName:\(lemmaedName)")
         let lemmaedPhrases = withPrint("  lemmaedPhrases:", phrase(lemmaedSentence))
+        print("lemmaedPhrases:\(lemmaedPhrases)")
         
         var result: [String] = []
         for (tokenRange, token) in lemma {
@@ -167,12 +178,21 @@ struct NPLSample {
             print(">>>>result: \(result)")
             results += result
         }
+        
+        let results2 = results.filter { word in
+            for char in word {
+                if !TextProcess.validEnglishWordsCharacterSet.contains(char) {
+                    print(">>>> invalid word:\(word)")
+                    return false
+                }
+            }
+            return true
+        }
 
         // de duplicate
-        let deDuplicated = NSOrderedSet(array: results).map({ $0 as! String })
+        let deDuplicated = NSOrderedSet(array: results2).map({ $0 as! String })
         return deDuplicated
     }
-    
 }
 
 let nplSample = NPLSample()

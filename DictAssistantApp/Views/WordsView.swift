@@ -203,7 +203,6 @@ struct LandscapeMiniWordsView: View {
 
     var body: some View {
         VStack {
-            Spacer()
             ScrollView(.horizontal) {
                 HStack(alignment: .top) {
                     WordsView(
@@ -216,6 +215,7 @@ struct LandscapeMiniWordsView: View {
                 }
                 .background(Color.black.opacity(0.75))
             }
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()

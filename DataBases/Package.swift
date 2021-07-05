@@ -27,7 +27,8 @@ let package = Package(
                 .process("Resources/oxford_dictionary.txt"),
                 .process("Resources/high_school_vocabulary.txt"),
                 .process("Resources/cet4_vocabulary.txt"),
-                .process("Resources/cet6_vocabulary.txt")
+                .process("Resources/cet6_vocabulary.txt"),
+                .process("Resources/lemma.en.txt")
             ]),
         .testTarget(
             name: "DataBasesTests",
