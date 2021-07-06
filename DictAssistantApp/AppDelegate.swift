@@ -757,6 +757,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             do {
                 try context.save()
                 allKnownWordsSetCache = getAllKnownWordsSet()
+                tagTransAndMutateDisplayedWords()
             } catch {
                 logger.info("Failed to save context: \(error.localizedDescription)")
 //                fatalError("Failed to save context: \(error)")
@@ -985,29 +986,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 } else {
                     logger.info("text not equal lastReconginzedTexts")
                     // words (filter fixed preset known words) (familiars, unfamiliars)
-                    let words = nplSample.process(texts)
+                    words = nplSample.process(texts)
                     
-                    // (known|unKnown, word, trans)
-                    var taggedWordTrans: [(String, String, String)] = []
-                    for word in words {
-                        if allKnownWordsSetCache.contains(word) {
-                            if let trans = DictionaryServices.define(word) {
-                                taggedWordTrans.append(("known", word, trans))
-                            }
-                        } else {
-                            if let trans = DictionaryServices.define(word) {
-                                taggedWordTrans.append(("unKnown", word, trans))
-                            }
-                        }
-                    }
-                    
-                    withAnimation {
-                        displayedWords.words = taggedWordTrans
-                    }
+                    tagTransAndMutateDisplayedWords()
                     
                     lastReconginzedTexts = texts
                 }
             }
+        }
+    }
+    
+    func tagTransAndMutateDisplayedWords() {
+        var taggedWordTrans: [(String, String, String)] = []
+        for word in words {
+            if allKnownWordsSetCache.contains(word) {
+                if let trans = DictionaryServices.define(word) {
+//                                let onelineTrans = trans.replacingOccurrences(of: "\n", with: " ")
+                    taggedWordTrans.append(("known", word, trans))
+                }
+            } else {
+                if let trans = DictionaryServices.define(word) {
+//                                let onelineTrans = trans.replacingOccurrences(of: "\n", with: " ")
+                    taggedWordTrans.append(("unKnown", word, trans))
+                }
+            }
+        }
+        
+        withAnimation {
+            displayedWords.words = taggedWordTrans
         }
     }
     
@@ -1018,4 +1024,5 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     //    let recognizedText = RecognizedText(texts: [])
     let displayedWords = DisplayedWords(words: [])
     var lastReconginzedTexts: [String] = []
+    var words: [String] = []
 }

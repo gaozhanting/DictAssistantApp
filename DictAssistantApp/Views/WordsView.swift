@@ -125,7 +125,7 @@ fileprivate struct SingleWordView: View {
                     Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
                 }
         } else {
-            (Text(word).foregroundColor(.gray) + Text(trans).foregroundColor(.white))
+            Text(word).foregroundColor(.gray) // + Text(trans).foregroundColor(.white))
                 .font(Font.custom(fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
@@ -147,22 +147,24 @@ fileprivate struct WordsView: View {
     
     var body: some View {
         if displayKnownWords {
-            ForEach(displayedWords.words, id: \.self.1) { taggedWordTrans in
+            ForEach(Array(displayedWords.words.enumerated()), id: \.0) { _, taggedWordTrans in
                 SingleWordView(
                     taggedWordTrans: taggedWordTrans,
                     color: color,
                     fontName: fontName,
                     fontSize: fontSize,
                     displayKnownWords: $displayKnownWords)
+//                    .id(index)
             }
         } else {
-            ForEach(displayedWords.words.filter { $0.0 == "unKnown" }, id: \.self.1) { taggedWordTrans in
+            ForEach(Array(displayedWords.words.filter { $0.0 == "unKnown" }.enumerated()), id: \.0) { _, taggedWordTrans in
                 SingleWordView(
                     taggedWordTrans: taggedWordTrans,
                     color: color,
                     fontName: fontName,
                     fontSize: fontSize,
                     displayKnownWords: $displayKnownWords)
+//                    .id(index)
             }
         }
     }
@@ -171,58 +173,71 @@ fileprivate struct WordsView: View {
 struct LandscapeNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var textProcessConfig: TextProcessConfig
+//    @EnvironmentObject var displayedWords: DisplayedWords
 
     @State var displayKnownWords: Bool = false
+    
+//    var lastIndex: Int {
+//        if displayKnownWords {
+//            return displayedWords.words.count
+//        } else {
+//            return displayedWords.words.filter { $0.0 == "unknown" }.count
+//        }
+//    }
 
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(alignment: .top) {
-                WordsView(
-                    color: visualConfig.colorOfLandscape,
-                    fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfLandscape,
-                    displayKnownWords: $displayKnownWords
-                )
-                .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal) {
+                HStack(alignment: .top) {
+                    WordsView(
+                        color: visualConfig.colorOfLandscape,
+                        fontName: visualConfig.fontName,
+                        fontSize: visualConfig.fontSizeOfLandscape,
+                        displayKnownWords: $displayKnownWords
+                    )
+                    .frame(maxWidth: 240, maxHeight: .infinity, alignment: .topLeading)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+//            .onChange(of: displayedWords.words.count) { newCount in
+////                proxy.scrollTo(newCount-1, anchor: .top)
+//            }
+            .contextMenu {
+                Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
+                Menu("MinimumTextHeight") {
+                    Button("Increase 0.01", action: {
+                        textProcessConfig.minimumTextHeight += 0.01
+                        if textProcessConfig.minimumTextHeight >= 1 {
+                            textProcessConfig.minimumTextHeight = 1
+                        }
+                    })
+                    Button("Decrease 0.01", action: {
+                        textProcessConfig.minimumTextHeight -= 0.01
+                        if textProcessConfig.minimumTextHeight <= 0.0 {
+                            textProcessConfig.minimumTextHeight = 0.0
+                        }
+                    })
+                    Button("Increase 0.1", action: {
+                        textProcessConfig.minimumTextHeight += 0.1
+                        if textProcessConfig.minimumTextHeight >= 1 {
+                            textProcessConfig.minimumTextHeight = 1
+                        }
+                    })
+                    Button("Decrease 0.1", action: {
+                        textProcessConfig.minimumTextHeight -= 0.1
+                        if textProcessConfig.minimumTextHeight <= 0.0 {
+                            textProcessConfig.minimumTextHeight = 0.0
+                        }
+                    })
+                    Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
+                        textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                    })
+                }
+            }
+            .background(Color.black.opacity(0.75))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
         }
-        .contextMenu {
-            Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
-            Menu("MinimumTextHeight") {
-                Button("Increase 0.01", action: {
-                    textProcessConfig.minimumTextHeight += 0.01
-                    if textProcessConfig.minimumTextHeight >= 1 {
-                        textProcessConfig.minimumTextHeight = 1
-                    }
-                })
-                Button("Decrease 0.01", action: {
-                    textProcessConfig.minimumTextHeight -= 0.01
-                    if textProcessConfig.minimumTextHeight <= 0.0 {
-                        textProcessConfig.minimumTextHeight = 0.0
-                    }
-                })
-                Button("Increase 0.1", action: {
-                    textProcessConfig.minimumTextHeight += 0.1
-                    if textProcessConfig.minimumTextHeight >= 1 {
-                        textProcessConfig.minimumTextHeight = 1
-                    }
-                })
-                Button("Decrease 0.1", action: {
-                    textProcessConfig.minimumTextHeight -= 0.1
-                    if textProcessConfig.minimumTextHeight <= 0.0 {
-                        textProcessConfig.minimumTextHeight = 0.0
-                    }
-                })
-                Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
-                    textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
-                })
-            }
-        }
-        .background(Color.black.opacity(0.75))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-        
     }
 }
 

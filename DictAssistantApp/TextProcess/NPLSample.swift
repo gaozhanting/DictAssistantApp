@@ -52,7 +52,7 @@ struct NPLSample {
             } else {
                 let word = String(text[tokenRange])
                 print("    >>lemma with no tag from apple: \(word)")
-                if let lemmaOfWord = lemmaDB[word] {
+                if let lemmaOfWord = lemmaDB[word.lowercased()] { // because our lemmadDB is all lowercased words
                     print("    >>lemma >>>->>->>found-from-db: \(word): \(lemmaOfWord)")
                     results.append(Word(token: String(text[tokenRange]), lemma: lemmaOfWord))
                 } else {
@@ -154,15 +154,35 @@ struct NPLSample {
             let lemma = word.lemma
             result.append(lemma)
             if let name = originNames[token] {
+                if name == token {
+                    // don't append when name and token is the same string
+                    continue
+                }
                 result.append(name)
             }
             if let name = lemmaedNames[lemma] {
+                if name == lemma {
+                    // don't append when name and lemma is the same string
+                    continue
+                }
+                if let originName = originNames[lemma] {
+                    if originName == name {
+                        // don't append the same
+                        continue
+                    }
+                }
                 result.append(name)
             }
             if let phrase = originPhrases[token] {
                 result.append(phrase)
             }
             if let phrase = lemmaedPhrases[lemma] {
+                if let originPhrase = originPhrases[lemma] {
+                    if originPhrase == phrase {
+                        // don't append the same
+                        continue
+                    }
+                }
                 result.append(phrase)
             }
         }
@@ -191,19 +211,21 @@ struct NPLSample {
             results += result
         }
         
-        let results2 = results.filter { word in
-            for char in word {
-                if !TextProcess.validEnglishWordsCharacterSet.contains(char) {
-                    print(">>>> invalid word:\(word)")
-                    return false
-                }
-            }
-            return true
-        }
+        return results
 
-        // de duplicate
-        let deDuplicated = NSOrderedSet(array: results2).map({ $0 as! String })
-        return deDuplicated
+//        let results2 = results.filter { word in
+//            for char in word {
+//                if !TextProcess.validEnglishWordsCharacterSet.contains(char) {
+//                    print(">>>> invalid word:\(word)")
+//                    return false
+//                }
+//            }
+//            return true
+//        }
+    
+//        // de duplicate
+//        let deDuplicated = NSOrderedSet(array: results2).map({ $0 as! String })
+//        return deDuplicated
     }
 }
 
