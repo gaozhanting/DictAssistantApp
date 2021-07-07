@@ -125,7 +125,7 @@ fileprivate struct SingleWordView: View {
                     Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
                 }
         } else {
-            Text(word).foregroundColor(.gray) // + Text(trans).foregroundColor(.white))
+            Text(word).foregroundColor(.gray)
                 .font(Font.custom(fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
@@ -175,7 +175,7 @@ struct LandscapeNormalWordsView: View {
     @EnvironmentObject var textProcessConfig: TextProcessConfig
 //    @EnvironmentObject var displayedWords: DisplayedWords
 
-    @State var displayKnownWords: Bool = false
+    @State var displayKnownWords: Bool = true
     
 //    var lastIndex: Int {
 //        if displayKnownWords {
@@ -243,7 +243,8 @@ struct LandscapeNormalWordsView: View {
 
 struct LandscapeMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
-    @State var displayKnownWords: Bool = false
+    @EnvironmentObject var textProcessConfig: TextProcessConfig
+    @State var displayKnownWords: Bool = true
 
     var body: some View {
         VStack {
@@ -258,6 +259,38 @@ struct LandscapeMiniWordsView: View {
                     .frame(maxWidth: 300, maxHeight: .infinity, alignment: .topLeading)
                 }
                 .background(Color.black.opacity(0.75))
+            }
+            .contextMenu {
+                Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
+                Menu("MinimumTextHeight") {
+                    Button("Increase 0.01", action: {
+                        textProcessConfig.minimumTextHeight += 0.01
+                        if textProcessConfig.minimumTextHeight >= 1 {
+                            textProcessConfig.minimumTextHeight = 1
+                        }
+                    })
+                    Button("Decrease 0.01", action: {
+                        textProcessConfig.minimumTextHeight -= 0.01
+                        if textProcessConfig.minimumTextHeight <= 0.0 {
+                            textProcessConfig.minimumTextHeight = 0.0
+                        }
+                    })
+                    Button("Increase 0.1", action: {
+                        textProcessConfig.minimumTextHeight += 0.1
+                        if textProcessConfig.minimumTextHeight >= 1 {
+                            textProcessConfig.minimumTextHeight = 1
+                        }
+                    })
+                    Button("Decrease 0.1", action: {
+                        textProcessConfig.minimumTextHeight -= 0.1
+                        if textProcessConfig.minimumTextHeight <= 0.0 {
+                            textProcessConfig.minimumTextHeight = 0.0
+                        }
+                    })
+                    Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
+                        textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                    })
+                }
             }
             Spacer()
         }

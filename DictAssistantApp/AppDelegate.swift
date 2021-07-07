@@ -378,6 +378,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
+                .environmentObject(textProcessConfig)
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             contentPanel = landscapeWordsPanel

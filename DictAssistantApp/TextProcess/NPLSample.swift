@@ -116,7 +116,7 @@ struct NPLSample {
                 if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
                     || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
                     || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
-//                    || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state // Many noise word are recognized as Noun!!
+                    || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state // Many noise word are recognized as Noun!!
                     || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
                     || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
                     || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
