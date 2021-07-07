@@ -195,7 +195,7 @@ struct LandscapeNormalWordsView: View {
                         fontSize: visualConfig.fontSizeOfLandscape,
                         displayKnownWords: $displayKnownWords
                     )
-                    .frame(maxWidth: 240, maxHeight: .infinity, alignment: .topLeading)
+                    .frame(maxWidth: 300, maxHeight: .infinity, alignment: .topLeading)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -255,7 +255,7 @@ struct LandscapeMiniWordsView: View {
                         fontSize: visualConfig.fontSizeOfLandscape,
                         displayKnownWords: $displayKnownWords
                     )
-                    .frame(maxWidth: 190, maxHeight: .infinity, alignment: .topLeading)
+                    .frame(maxWidth: 300, maxHeight: .infinity, alignment: .topLeading)
                 }
                 .background(Color.black.opacity(0.75))
             }

@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     override init() {
         // VisualConfig
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
-            UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
+            UserDefaults.standard.set(45.0, forKey: "visualConfig.fontSizeOfLandscape")
         }
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
             UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
@@ -614,12 +614,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
     @objc func resetUserDefaults() {
-        UserDefaults.standard.set(20.0, forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(45.0, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
         UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        visualConfig.fontSizeOfLandscape = 20.0
+        visualConfig.fontSizeOfLandscape = 45.0
         visualConfig.fontSizeOfPortrait = 13.0
         visualConfig.colorOfLandscape = .orange
         visualConfig.colorOfPortrait = .green

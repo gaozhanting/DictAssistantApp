@@ -165,11 +165,11 @@ struct NPLSample {
                     // don't append when name and lemma is the same string
                     continue
                 }
-                if let originName = originNames[lemma] {
-                    if originName == name {
+                if originNames[lemma] != nil {
+//                    if originName == name {
                         // don't append the same
                         continue
-                    }
+//                    }
                 }
                 result.append(name)
             }
@@ -177,11 +177,11 @@ struct NPLSample {
                 result.append(phrase)
             }
             if let phrase = lemmaedPhrases[lemma] {
-                if let originPhrase = originPhrases[lemma] {
-                    if originPhrase == phrase {
+                if originPhrases[lemma] != nil { // origin is should cover lemma
+//                    if originPhrase == phrase {
                         // don't append the same
                         continue
-                    }
+//                    }
                 }
                 result.append(phrase)
             }
