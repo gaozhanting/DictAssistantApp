@@ -98,21 +98,33 @@ struct NPLSample {
         return result
     }
     
+    // bug: (may lose phrase because the key is the single token)
+    // in: "in the same way"
+    // in: "in the thick of"
     func phrase(_ sentence: String) -> [String: String] {
         let lc = withPrint("  lC:", lexicalClass(sentence))
         var pResult: [String: String] = [:]
         for (index, (word, lexicalClass)) in lc.enumerated() {
-            if index > 2 {
+            if index >= 2 {
                 let (ppreWord, ppreLexicalClass) = lc[index - 2]
                 let (preWord, preLexicalClass) = lc[index - 1]
+                let phrase = "\(ppreWord) \(preWord) \(word)"
+                if idiomsDB.contains(phrase) {
+                    pResult[ppreWord] = phrase
+                    continue
+                }
                 if ppreLexicalClass == "Verb" && preLexicalClass == "Adverb" && lexicalClass == "Particle" { // e.g: look forward to
-                    let phrase = "\(ppreWord) \(preWord) \(word)"
                     pResult[ppreWord] = phrase
                 }
             }
             
-            if index > 1 {
+            if index >= 1 {
                 let (preWord, preLexicalClass) = lc[index - 1]
+                let phrase = "\(preWord) \(word)"
+                if idiomsDB.contains(phrase) {
+                    pResult[preWord] = phrase
+                    continue
+                }
                 if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
                     || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
                     || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
@@ -121,7 +133,6 @@ struct NPLSample {
                     || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
                     || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
                     {
-                    let phrase = "\(preWord) \(word)"
                     pResult[preWord] = phrase
                 }
             }
