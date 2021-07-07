@@ -1000,10 +1000,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         var taggedWordTrans: [(String, String, String)] = []
         for word in words {
             if allKnownWordsSetCache.contains(word) {
-                if let trans = DictionaryServices.define(word) {
+//                if let trans = DictionaryServices.define(word) { // Don't query known word for reducing cpu usage!
 //                                let onelineTrans = trans.replacingOccurrences(of: "\n", with: " ")
-                    taggedWordTrans.append(("known", word, trans))
-                }
+                    taggedWordTrans.append(("known", word, ""))
+//                }
             } else {
                 if let trans = DictionaryServices.define(word) {
 //                                let onelineTrans = trans.replacingOccurrences(of: "\n", with: " ")
