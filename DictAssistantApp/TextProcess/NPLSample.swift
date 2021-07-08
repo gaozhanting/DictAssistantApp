@@ -10,11 +10,6 @@ import NaturalLanguage
 import DataBases
 
 struct NPLSample {
-    func withPrint<T>(_ info: String, _ x: T) -> T {
-//        print("\(info): \(x)")
-        return x
-    }
-
     func tokenize(_ text: String, _ tokenUnit: NLTokenUnit) -> [String] {
         var result: [String] = []
         let tokenizer = NLTokenizer(unit: tokenUnit)
@@ -58,7 +53,6 @@ struct NPLSample {
                 } else {
                     print("    >>lemma not-found-even-from-db: \(word)")
                 }
-//                results.append((tokenRange, word)) // this will be invalid word or incorrect (search lemma from database again)
             }
             return true
         }
@@ -73,7 +67,6 @@ struct NPLSample {
         let tags: [NLTag] = [.personalName, .placeName, .organizationName]
         tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
             if let tag = tag, tags.contains(tag) {
-//                results.append(String(text[tokenRange]))
                 let name = String(text[tokenRange])
                 let x = name.split(separator: " ", maxSplits: 1) // ?!
                 let firstTokenOfName = String(x[0])
@@ -102,7 +95,7 @@ struct NPLSample {
     // in: "in the same way"
     // in: "in the thick of"
     func phrase(_ sentence: String) -> [String: String] {
-        let lc = withPrint("  lC:", lexicalClass(sentence))
+        let lc = lexicalClass(sentence)
         var pResult: [String: String] = [:]
         for (index, (word, lexicalClass)) in lc.enumerated() {
             if index >= 2 {
@@ -141,22 +134,22 @@ struct NPLSample {
     }
 
     func processSingle(_ text: String) -> [String] {
-        let origin = withPrint("  sentence:", text)
+        let origin = text
         
-        let tokens = withPrint("  tokenize word:", tokenize(origin, .word))
+        let tokens = tokenize(origin, .word)
         let sentence = tokens.joined(separator: " ")
         print("sentence:\(sentence)")
-        let originNames = withPrint("  originName:", name(sentence))
+        let originNames = name(sentence)
         print("originNames:\(originNames)")
-        let originPhrases = withPrint("  originPhrases:", phrase(sentence))
+        let originPhrases = phrase(sentence)
         print("originPhrases:\(originPhrases)")
 
-        let lemmas = withPrint("  lemma:", lemma(sentence))
+        let lemmas = lemma(sentence)
         let lemmaedSentence = lemmas.map{ $0.lemma }.joined(separator: " ")
         print("lemmaedSentence:\(lemmaedSentence)")
-        let lemmaedNames = withPrint("  lemmaedName:", name(lemmaedSentence))
+        let lemmaedNames = name(lemmaedSentence)
         print("lemmaedNames:\(lemmaedNames)")
-        let lemmaedPhrases = withPrint("  lemmaedPhrases:", phrase(lemmaedSentence))
+        let lemmaedPhrases = phrase(lemmaedSentence)
         print("lemmaedPhrases:\(lemmaedPhrases)")
         
         var result: [String] = []
@@ -177,10 +170,8 @@ struct NPLSample {
                     continue
                 }
                 if originNames[lemma] != nil {
-//                    if originName == name {
-                        // don't append the same
-                        continue
-//                    }
+                    // don't append the same
+                    continue
                 }
                 result.append(name)
             }
@@ -189,17 +180,14 @@ struct NPLSample {
             }
             if let phrase = lemmaedPhrases[lemma] {
                 if originPhrases[lemma] != nil { // origin is should cover lemma
-//                    if originPhrase == phrase {
-                        // don't append the same
-                        continue
-//                    }
+                    // don't append the same
+                    continue
                 }
                 result.append(phrase)
             }
         }
         
-        let result2 = withPrint("  result:", result)
-        return result2
+        return result
     }
     
     func process(_ texts: [String]) -> [String] {
@@ -210,7 +198,7 @@ struct NPLSample {
         
         // transform TR texts into multi sentences
         let originSentences = texts.joined(separator: " ")
-        let sentences = withPrint("  tokenize sentence:", tokenize(originSentences, .sentence))
+        let sentences = tokenize(originSentences, .sentence)
         
         // for every sentence
         var results: [String] = []
@@ -223,20 +211,6 @@ struct NPLSample {
         }
         
         return results
-
-//        let results2 = results.filter { word in
-//            for char in word {
-//                if !TextProcess.validEnglishWordsCharacterSet.contains(char) {
-//                    print(">>>> invalid word:\(word)")
-//                    return false
-//                }
-//            }
-//            return true
-//        }
-    
-//        // de duplicate
-//        let deDuplicated = NSOrderedSet(array: results2).map({ $0 as! String })
-//        return deDuplicated
     }
 }
 
