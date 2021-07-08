@@ -163,6 +163,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     @objc func toggleContent() {
         if !statusData.isPlaying {
             statusData.isPlaying = true
+            cachedDict = [:]
             statusItem.button?.image = NSImage(
                 systemSymbolName: "square.dashed.inset.fill",
                 accessibilityDescription: nil
@@ -179,6 +180,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         else {
             lastNonContentMode = contentMode
             statusData.isPlaying = false
+            cachedDict = [:]
             statusItem.button?.image = NSImage(
                 systemSymbolName: "square.dashed",
                 accessibilityDescription: nil
@@ -1006,7 +1008,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                     taggedWordTrans.append(("known", word, ""))
 //                }
             } else {
-                if let trans = DictionaryServices.define(word) {
+                if let trans = cachedDictionaryServicesDefine(word) { // Igonre non-dict word
 //                                let onelineTrans = trans.replacingOccurrences(of: "\n", with: " ")
                     taggedWordTrans.append(("unKnown", word, trans))
                 }
@@ -1016,6 +1018,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         withAnimation {
             displayedWords.words = taggedWordTrans
         }
+    }
+    
+    var cachedDict: [String: String?] = [:]
+    func cachedDictionaryServicesDefine(_ word: String) -> String? {
+        if let trans = cachedDict[word] {
+            return trans
+        }
+        let trans = DictionaryServices.define(word)
+        cachedDict[word] = trans
+        return trans
     }
     
     var results: [VNRecognizedTextObservation]?
