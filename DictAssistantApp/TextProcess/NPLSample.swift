@@ -10,12 +10,13 @@ import NaturalLanguage
 import DataBases
 
 struct NPLSample {
-    func tokenize(_ text: String, _ tokenUnit: NLTokenUnit) -> [String] {
+    func tokenize(_ sentence: String, _ tokenUnit: NLTokenUnit) -> [String] {
         var result: [String] = []
         let tokenizer = NLTokenizer(unit: tokenUnit)
-        tokenizer.string = text
-        tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
-            result.append(String(text[tokenRange]))
+        tokenizer.string = sentence
+        tokenizer.enumerateTokens(in: tokenizer.string!.startIndex..<tokenizer.string!.endIndex) { tokenRange, _ in
+            let token = String(sentence[tokenRange])
+            result.append(token)
             return true
         }
         return result
@@ -26,111 +27,126 @@ struct NPLSample {
         let lemma: String
     }
 
-    func lemma(_ text: String) -> [Word] {
+    func lemma(_ sentence: String) -> [Word] {
         var results: [Word] = []
-        let range = text.startIndex..<text.endIndex
         let tagger = NLTagger(tagSchemes: [.lemma])
-        tagger.string = text
+        tagger.string = sentence
+        let range = tagger.string!.startIndex..<tagger.string!.endIndex
         tagger.setLanguage(.english, range: range)
         let options: NLTagger.Options = [
-            .omitPunctuation,
             .omitWhitespace,
-            .omitOther,
-            .joinNames,
-            .joinContractions
+            .omitOther
         ]
         tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
+            let token = String(sentence[tokenRange])
+
             if let tag = tag {
                 if !tag.rawValue.isEmpty {
-                    results.append(Word(token: String(text[tokenRange]), lemma: tag.rawValue))
-                }
-            } else {
-                let word = String(text[tokenRange])
-                print("    >>lemma with no tag from apple: \(word)")
-                if let lemmaOfWord = lemmaDB[word.lowercased()] { // because our lemmadDB is all lowercased words
-                    print("    >>lemma >>>->>->>found-from-db: \(word): \(lemmaOfWord)")
-                    results.append(Word(token: String(text[tokenRange]), lemma: lemmaOfWord))
+                    let lemma = tag.rawValue
+                    results.append(Word(token: token, lemma: lemma))
                 } else {
-                    print("    >>lemma not-found-even-from-db: \(word)")
+                    print("    >>lemma from apple, but raw value of tag is empty!!") // seems to be impossible
+                    results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
                 }
+                return true
+            }
+            
+            if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
+                print("    >>lemma >>>->>->>found-from-db: \(token): \(lemma)")
+                results.append(Word(token: token, lemma: lemma))
+            } else {
+                print("    >>lemma not-found-even-from-db: \(token)")
+                results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
             }
             return true
         }
         return results
     }
 
-    func name(_ text: String) -> [String: String] {
-        var results: [String: String] = [:]
+    func name(_ sentence: String) -> [Int: String] {
+        var results: [Int: String] = [:]
         let tagger = NLTagger(tagSchemes: [.nameType])
-        tagger.string = text
+        tagger.string = sentence
         let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
         let tags: [NLTag] = [.personalName, .placeName, .organizationName]
-        tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
+        tagger.enumerateTags(in: tagger.string!.startIndex..<tagger.string!.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
+            let token = String(sentence[tokenRange])
+
             if let tag = tag, tags.contains(tag) {
-                let name = String(text[tokenRange])
-                let x = name.split(separator: " ", maxSplits: 1) // ?!
-                let firstTokenOfName = String(x[0])
-                results[firstTokenOfName] = name
+                let name = token
+//                let x = name.split(separator: " ")
+//                let lastTokenOfName = String(x.last!)
+                let untilLastText = sentence[sentence.startIndex..<tokenRange.upperBound]
+                let index = untilLastText.filter { char in
+                    char == " "
+                }.count
+                results[index] = name // for mix order
             }
             return true
         }
         return results
     }
 
-    func lexicalClass(_ text: String) -> [(String, String)] {
+    func lexicalClass(_ sentence: String) -> [(String, String)] {
         var result: [(String, String)] = []
         let tagger = NLTagger(tagSchemes: [.lexicalClass])
-        tagger.string = text
-        let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
-        tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
+        tagger.string = sentence
+        let options: NLTagger.Options = [.omitWhitespace]
+        tagger.enumerateTags(in: tagger.string!.startIndex..<tagger.string!.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
+            let token = String(sentence[tokenRange])
+
             if let tag = tag {
-                result.append((String(text[tokenRange]), tag.rawValue))
+                result.append((token, tag.rawValue)) // this maybe Number; e.g: 16
+            } else {
+                print("    >>lexicalClass with no lexicalClass!!") // this should impossible
             }
             return true
         }
         return result
     }
     
-    // bug: (may lose phrase because the key is the single token)
+    // bug: (may lose phrase because the key is the single token; the key should be the last phrase|name token index of the sentence)
     // in: "in the same way"
     // in: "in the thick of"
-    func phrase(_ sentence: String) -> [String: String] {
+    func phrase(_ sentence: String) -> [Int: String] {
         let lc = lexicalClass(sentence)
-        var pResult: [String: String] = [:]
+        var result: [Int: String] = [:]
         for (index, (word, lexicalClass)) in lc.enumerated() {
+            if index >= 1 {
+                let (preWord, preLexicalClass) = lc[index - 1]
+                let phrase = "\(preWord) \(word)"
+                if idiomsDB.contains(phrase) {
+                    result[index] = phrase
+                }
+                else { // todo: use no lexicalClass to detect phrase or idioms, but use database from truly Dictionary
+                    if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
+                        || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
+                        || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
+                        || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state // Many noise word are recognized as Noun!!
+                        || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
+                        || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
+                        || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
+                    {
+                        result[index] = phrase
+                    }
+                }
+            }
+            
             if index >= 2 {
                 let (ppreWord, ppreLexicalClass) = lc[index - 2]
                 let (preWord, preLexicalClass) = lc[index - 1]
                 let phrase = "\(ppreWord) \(preWord) \(word)"
                 if idiomsDB.contains(phrase) {
-                    pResult[ppreWord] = phrase
-                    continue
+                    result[index] = phrase
                 }
-                if ppreLexicalClass == "Verb" && preLexicalClass == "Adverb" && lexicalClass == "Particle" { // e.g: look forward to
-                    pResult[ppreWord] = phrase
-                }
-            }
-            
-            if index >= 1 {
-                let (preWord, preLexicalClass) = lc[index - 1]
-                let phrase = "\(preWord) \(word)"
-                if idiomsDB.contains(phrase) {
-                    pResult[preWord] = phrase
-                    continue
-                }
-                if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
-                    || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
-                    || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
-                    || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state // Many noise word are recognized as Noun!!
-                    || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
-                    || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
-                    || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
-                    {
-                    pResult[preWord] = phrase
+                else {
+                    if ppreLexicalClass == "Verb" && preLexicalClass == "Adverb" && lexicalClass == "Particle" { // e.g: look forward to
+                        result[index] = phrase
+                    }
                 }
             }
         }
-        return pResult
+        return result
     }
 
     func processSingle(_ text: String) -> [String] {
@@ -145,48 +161,51 @@ struct NPLSample {
         print("originPhrases:\(originPhrases)")
 
         let lemmas = lemma(sentence)
+        
         let lemmaedSentence = lemmas.map{ $0.lemma }.joined(separator: " ")
         print("lemmaedSentence:\(lemmaedSentence)")
+                
         let lemmaedNames = name(lemmaedSentence)
         print("lemmaedNames:\(lemmaedNames)")
+        
         let lemmaedPhrases = phrase(lemmaedSentence)
         print("lemmaedPhrases:\(lemmaedPhrases)")
         
         var result: [String] = []
-        for word in lemmas {
-            let token = word.token
-            let lemma = word.lemma
-            result.append(lemma)
-            if let name = originNames[token] {
-                if name == token {
-                    // don't append when name and token is the same string
-                    continue
+        for (index, word) in lemmas.enumerated() {
+            result.append(word.lemma)
+            
+            if let name = originNames[index] {  // originNames first
+                if name.lowercased() != word.lemma.lowercased() {
+                    result.append(name)
                 }
-                result.append(name)
             }
-            if let name = lemmaedNames[lemma] {
-                if name == lemma {
-                    // don't append when name and lemma is the same string
-                    continue
+            else {
+                if let name = lemmaedNames[index] {
+                    if name.lowercased() != word.lemma.lowercased() {
+                        result.append(name)
+                    }
                 }
-                if originNames[lemma] != nil {
-                    // don't append the same
-                    continue
+            }
+            
+            if let phrase = originPhrases[index] { // originPhrase first
+                let originName = originNames[index] ?? ""
+                let lemmaedName = lemmaedNames[index] ?? ""
+                if (phrase.lowercased() != originName.lowercased()) && (phrase.lowercased() != lemmaedName.lowercased()) { // name first, de-duplicate
+                    result.append(phrase)
                 }
-                result.append(name)
             }
-            if let phrase = originPhrases[token] {
-                result.append(phrase)
-            }
-            if let phrase = lemmaedPhrases[lemma] {
-                if originPhrases[lemma] != nil { // origin is should cover lemma
-                    // don't append the same
-                    continue
+            
+            if let phrase = lemmaedPhrases[index] { // lemmaedPhrase still need to add, here not like name
+                let originName = originNames[index] ?? ""
+                let lemmaedName = lemmaedNames[index] ?? ""
+                let originPhrase = originPhrases[index] ?? ""
+                if (phrase.lowercased() != originName.lowercased()) && (phrase.lowercased() != lemmaedName.lowercased()) && (phrase.lowercased() != originPhrase.lowercased()) { // name first, de-duplicate
+                    result.append(phrase)
                 }
-                result.append(phrase)
             }
+            
         }
-        
         return result
     }
     

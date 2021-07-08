@@ -1,5 +1,5 @@
 be>is,was,are,were,'s,been,being,'re,'m,am,m
-have>had,has,'ve,having,'s,'d,d,ve
+have>had,has,'ve,having,'d,d,ve
 it>its,they
 he>his,him,they
 i>my,me,we,is
