@@ -1794,7 +1794,7 @@ joke>jokes,joking,joked
 bother>bothered,bothering,bothers
 alter>altered,altering,alters
 acknowledge>acknowledged,acknowledges,acknowledging
-rival>rivals,rivalled,rivalling
+rival>rivals,rivalled,rivaled,rivalling
 gaze>gazed,gazing,gazes
 partnership>partnerships
 thinking>thinkings
