@@ -23,15 +23,12 @@ let package = Package(
             dependencies: [],
             resources: [
                 .process("Resources/manaually_basic_vocabulary.txt"),
-                .process("Resources/small_dictionary.txt"),
-                .process("Resources/oxford_dictionary.txt"),
                 .process("Resources/high_school_vocabulary.txt"),
                 .process("Resources/cet4_vocabulary.txt"),
                 .process("Resources/cet6_vocabulary.txt"),
                 .process("Resources/lemma.en.txt"),
-                .process("Resources/idioms_of_two_words.txt"),
-                .process("Resources/idioms_of_three_words.txt"),
-                .process("Resources/idioms_of_four_words.txt")
+                .process("Resources/phrases_and_idioms_extracted_from_brief_oxford_dict.txt"),
+                .process("Resources/phrases_and_idioms_not_in_brief_oxford_dict.txt")
             ]),
         .testTarget(
             name: "DataBasesTests",

@@ -35,7 +35,6 @@ struct LemmaDB {
             fatalError("Couldn't init from \(filename)")
         }
     }
-    
 }
 
 public let lemmaDB = LemmaDB.read(from: "lemma.en.txt")

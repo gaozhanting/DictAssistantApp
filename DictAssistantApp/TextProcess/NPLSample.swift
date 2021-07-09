@@ -74,8 +74,6 @@ struct NPLSample {
 
             if let tag = tag, tags.contains(tag) {
                 let name = token
-//                let x = name.split(separator: " ")
-//                let lastTokenOfName = String(x.last!)
                 let untilLastText = sentence[sentence.startIndex..<tokenRange.upperBound]
                 let index = untilLastText.filter { char in
                     char == " "
@@ -86,63 +84,36 @@ struct NPLSample {
         }
         return results
     }
-
-    func lexicalClass(_ sentence: String) -> [(String, String)] {
-        var result: [(String, String)] = []
-        let tagger = NLTagger(tagSchemes: [.lexicalClass])
-        tagger.string = sentence
-        let options: NLTagger.Options = [.omitWhitespace]
-        tagger.enumerateTags(in: tagger.string!.startIndex..<tagger.string!.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
-            let token = String(sentence[tokenRange])
-
-            if let tag = tag {
-                result.append((token, tag.rawValue)) // this maybe Number; e.g: 16
-            } else {
-                print("    >>lexicalClass with no lexicalClass!!") // this should impossible
-            }
-            return true
-        }
-        return result
-    }
     
-    // bug: (may lose phrase because the key is the single token; the key should be the last phrase|name token index of the sentence)
-    // in: "in the same way"
-    // in: "in the thick of"
-    func phrase(_ sentence: String) -> [Int: String] {
-        let lc = lexicalClass(sentence)
+    func phrase(_ words: [String]) -> [Int: String] {
         var result: [Int: String] = [:]
-        for (index, (word, lexicalClass)) in lc.enumerated() {
+        for (index, word) in words.enumerated() {
+            // notice this way insert result, long phrase will override the shorter phrase of the same index, that seems reasonable.
             if index >= 1 {
-                let (preWord, preLexicalClass) = lc[index - 1]
-                let phrase = "\(preWord) \(word)"
-                if idiomsDB.contains(phrase) {
+                let phrase = "\(words[index-1]) \(word)"
+                if phrasesDB.contains(phrase) {
                     result[index] = phrase
-                }
-                else { // todo: use no lexicalClass to detect phrase or idioms, but use database from truly Dictionary
-                    if (preLexicalClass == "Verb" && lexicalClass == "Preposition") // e.g: take off
-                        || (preLexicalClass == "Verb" && lexicalClass == "Particle") // e.g:
-                        || (preLexicalClass == "Verb" && lexicalClass == "Adverb") // e.g: fall flat
-                        || (preLexicalClass == "Noun" && lexicalClass == "Noun") // e.g: city state // Many noise word are recognized as Noun!!
-                        || (preLexicalClass == "Adjective" && lexicalClass == "Noun") // e.g: open air
-                        || (preLexicalClass == "Preposition" && lexicalClass == "Determiner") // e.g: after all
-                        || (preLexicalClass == "Noun" && lexicalClass == "Preposition") // e.g: sort of
-                    {
-                        result[index] = phrase
-                    }
                 }
             }
             
             if index >= 2 {
-                let (ppreWord, ppreLexicalClass) = lc[index - 2]
-                let (preWord, preLexicalClass) = lc[index - 1]
-                let phrase = "\(ppreWord) \(preWord) \(word)"
-                if idiomsDB.contains(phrase) {
+                let phrase = "\(words[index-2]) \(words[index-1]) \(word)"
+                if phrasesDB.contains(phrase) {
                     result[index] = phrase
                 }
-                else {
-                    if ppreLexicalClass == "Verb" && preLexicalClass == "Adverb" && lexicalClass == "Particle" { // e.g: look forward to
-                        result[index] = phrase
-                    }
+            }
+            
+            if index >= 3 {
+                let phrase = "\(words[index-3]) \(words[index-2]) \(words[index-1]) \(word)"
+                if phrasesDB.contains(phrase) {
+                    result[index] = phrase
+                }
+            }
+            
+            if index >= 4 {
+                let phrase = "\(words[index-4]) \(words[index-3]) \(words[index-2]) \(words[index-1]) \(word)"
+                if phrasesDB.contains(phrase) {
+                    result[index] = phrase
                 }
             }
         }
@@ -155,20 +126,20 @@ struct NPLSample {
         let tokens = tokenize(origin, .word)
         let sentence = tokens.joined(separator: " ")
         print("sentence:\(sentence)")
-        let originNames = name(sentence)
-        print("originNames:\(originNames)")
-        let originPhrases = phrase(sentence)
-        print("originPhrases:\(originPhrases)")
 
         let lemmas = lemma(sentence)
         
         let lemmaedSentence = lemmas.map{ $0.lemma }.joined(separator: " ")
         print("lemmaedSentence:\(lemmaedSentence)")
                 
+        let originNames = name(sentence)
+        print("originNames:\(originNames)")
         let lemmaedNames = name(lemmaedSentence)
         print("lemmaedNames:\(lemmaedNames)")
         
-        let lemmaedPhrases = phrase(lemmaedSentence)
+        let originPhrases = phrase(lemmas.map { $0.token })
+        print("originPhrases:\(originPhrases)")
+        let lemmaedPhrases = phrase(lemmas.map { $0.lemma })
         print("lemmaedPhrases:\(lemmaedPhrases)")
         
         var result: [String] = []

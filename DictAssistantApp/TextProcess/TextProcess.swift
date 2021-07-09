@@ -9,10 +9,6 @@ import Foundation
 import DataBases
 import NaturalLanguage
 
-let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
-let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
-let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
-
 struct TextProcess {
     // to be refined: please use CharacterSet to do trim, filter, search etc
 
