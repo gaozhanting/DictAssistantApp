@@ -19,6 +19,24 @@ let logger = Logger()
 
 let systemDefaultMinimumTextHeight: Float = 0.03125
 
+// global big constants
+/*
+ all contains belows
+ 2 words: all 30828
+ 3 words: 10067
+ 4 words: 4082
+ // ignores belows when do phrase detect programming
+ 5 words: 1443
+ 6 words: 434
+ 7 words: 83
+ 8 words: 9
+ 9 words: 2
+ 10 words: 1
+ */
+var phrasesDB: Set<String> = Set.init()
+var lemmaDB: [String: String] = [:]
+
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
 
@@ -55,7 +73,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     
     // MARK: - Application
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
+        lemmaDB = LemmaDB.read(from: "lemma.en.txt")
+        
         initContentPanel()
         initCropperWindow()
         initKnownWordsPanel()

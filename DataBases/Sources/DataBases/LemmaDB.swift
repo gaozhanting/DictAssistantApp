@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct LemmaDB {
-    static func read(from filename: String) -> [String:String] {
+public struct LemmaDB {
+    public static func read(from filename: String) -> [String:String] {
         guard let path = Bundle.module.url(forResource: filename, withExtension: nil)
         else {
             fatalError("Couldn't find \(filename) in main bundle.")
@@ -36,5 +36,3 @@ struct LemmaDB {
         }
     }
 }
-
-public let lemmaDB = LemmaDB.read(from: "lemma.en.txt")
