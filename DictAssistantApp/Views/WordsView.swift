@@ -115,6 +115,10 @@ fileprivate struct SingleWordView: View {
         taggedWordTrans.2
     }
     
+    var isPhrase: Bool {
+        word.contains(" ")
+    }
+    
     var body: some View {
         if tag == "unKnown" {
             (Text(word).foregroundColor(Color(color)) + Text(trans).foregroundColor(.white))
@@ -125,7 +129,7 @@ fileprivate struct SingleWordView: View {
                     Button("\(!displayKnownWords ? "Display" : "Hidden") current Known", action: { displayKnownWords.toggle() } )
                 }
         } else {
-            Text(word).foregroundColor(.gray)
+            Text(word).foregroundColor(.gray).opacity( isPhrase ? 0.5 : 1)
                 .font(Font.custom(fontName, size: fontSize))
                 .padding(.all, 4)
                 .contextMenu {
