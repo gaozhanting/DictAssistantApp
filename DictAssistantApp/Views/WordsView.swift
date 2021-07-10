@@ -149,9 +149,25 @@ fileprivate struct WordsView: View {
     
     @Binding var displayKnownWords: Bool
     
+    var words: [(String, String, String)] {
+        if displayKnownWords {
+            return displayedWords.words
+        } else {
+            var deDuplicated: [(String, String, String)] = []
+            var tempSet: Set<String> = Set.init()
+            for (tag, word, trans) in displayedWords.words {
+                if !tempSet.contains(word) {
+                    deDuplicated.append((tag, word, trans))
+                    tempSet.insert(word)
+                }
+            }
+            return deDuplicated
+        }
+    }
+    
     var body: some View {
         if displayKnownWords {
-            ForEach(Array(displayedWords.words.enumerated()), id: \.0) { _, taggedWordTrans in
+            ForEach(Array(words.enumerated()), id: \.0) { _, taggedWordTrans in
                 SingleWordView(
                     taggedWordTrans: taggedWordTrans,
                     color: color,
@@ -161,7 +177,7 @@ fileprivate struct WordsView: View {
 //                    .id(index)
             }
         } else {
-            ForEach(Array(displayedWords.words.filter { $0.0 == "unKnown" }.enumerated()), id: \.0) { _, taggedWordTrans in
+            ForEach(Array(words.filter { $0.0 == "unKnown" }.enumerated()), id: \.0) { _, taggedWordTrans in
                 SingleWordView(
                     taggedWordTrans: taggedWordTrans,
                     color: color,
