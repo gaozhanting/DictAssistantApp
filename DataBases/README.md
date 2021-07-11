@@ -23,3 +23,15 @@ todo: Make it installed automatically with My App! (Option to install and select
 4. Open DictUnifier App, and drag the dictionary tar bz2 format files download from step 1 into DicuUnifier, waiting it to process. When done, reopen built-in Dictionary App, open Perferences, and the dict is located at last!
 
 5. My App is always using the first ordered dictionary to do translation, even when running, you can reselect the first dictionary in built-in Dictionary App Preferences.
+
+## About Apple Dictionary Development Kit
+
+[ref: https://apple.stackexchange.com/questions/80099/how-can-i-create-a-dictionary-for-mac-os-x/86065#86065]
+
+Xcode no longer comes with Dictionary Development Kit, but you don't even need Xcode to use it.
+1. Register a free developer account and download the auxiliary tools package from developer.apple.com/downloads. It is now called: Additional Tool for Xcode (look for the latest version)
+2. Move the Dictionary Development Kit folder to /Applications/Utilities/Dictionary Development Kit/, and copy the project_templates folder to ~/Desktop/
+3. Open ~/Desktop/project_templates/Makefile and change DICT_BUILD_TOOL_DIR from /DevTools/Utilities/Dictionary Development Kit to /Applications/Utilities/Dictionary Development Kit
+4. cd ~/Desktop/project_templates/; make && make install
+
+The dictionary should show up in Dictionary.app after you quit and reopen it. After that, try editing MyDictionary.xml or MyDictionary.css. The dictionary name is the same as CFBundleName in the Info.plist, and the bundle name is DICT_NAME in the Makefile.
