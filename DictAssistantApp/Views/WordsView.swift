@@ -11,52 +11,6 @@ import DataBases
 let defaultMaxWidthOfLandscape: CGFloat = 300.0
 let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 
-struct PortraitOnelineNormalWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
-
-    var body: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading) {
-                WordsView(
-                    color: visualConfig.colorOfPortrait,
-                    fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfPortrait,
-                    displayKnownWords: Binding.constant(true)
-                )
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .background(Color.black.opacity(0.75))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-    }
-}
-
-struct PortraitOnelineMiniWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
-
-    var body: some View {
-        VStack {
-            ScrollView(.vertical) {
-                VStack(alignment: .leading) {
-                    WordsView(
-                        color: visualConfig.colorOfPortrait,
-                        fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfPortrait,
-                        displayKnownWords: Binding.constant(true)
-                    )
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                }
-                .background(Color.black.opacity(0.75))
-            }
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-    }
-}
-
 fileprivate struct SingleWordView: View {
     @Environment(\.addToKnownWords) var addToKnownWords
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
@@ -414,43 +368,6 @@ struct WordsView_Previews: PreviewProvider {
                         colorOfPortrait: .green,
                         fontName: NSFont.systemFont(ofSize: 0.0).fontName
                         ))
-            
-            PortraitOnelineNormalWordsView()
-                .frame(width: 420, height: 500)
-                .environment(\.addToKnownWords, {_ in })
-                .environmentObject(
-                    DisplayedWords(
-                        words: [
-                            ("known", "narrator", "..."),
-                            ("unKnown", "Athenian", "...")]
-                    ))
-                .environmentObject(
-                    VisualConfig(
-                        fontSizeOfLandscape: 20,
-                        fontSizeOfPortrait: 13,
-                        colorOfLandscape: .orange,
-                        colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
-                        ))
-            
-            PortraitOnelineMiniWordsView()
-                .frame(width: 420, height: 500)
-                .environment(\.addToKnownWords, {_ in })
-                .environmentObject(
-                    DisplayedWords(
-                        words: [
-                            ("known", "narrator", "..."),
-                            ("unKnown", "Athenian", "...")]
-                    ))
-                .environmentObject(
-                    VisualConfig(
-                        fontSizeOfLandscape: 20,
-                        fontSizeOfPortrait: 13,
-                        colorOfLandscape: .orange,
-                        colorOfPortrait: .green,
-                        fontName: NSFont.systemFont(ofSize: 0.0).fontName
-                        ))
-
             
         }
     }
