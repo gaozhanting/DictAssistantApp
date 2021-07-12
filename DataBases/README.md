@@ -35,3 +35,10 @@ Xcode no longer comes with Dictionary Development Kit, but you don't even need X
 4. cd ~/Desktop/project_templates/; make && make install
 
 The dictionary should show up in Dictionary.app after you quit and reopen it. After that, try editing MyDictionary.xml or MyDictionary.css. The dictionary name is the same as CFBundleName in the Info.plist, and the bundle name is DICT_NAME in the Makefile.
+
+## DictUnifer Replacement (Stardicts -> AppleDict)
+https://github.com/ritou11/dictconv
+
+## More Dict
+* https://mdict.org/categories/english-chinese/
+

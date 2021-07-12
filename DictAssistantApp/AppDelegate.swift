@@ -36,6 +36,8 @@ let systemDefaultMinimumTextHeight: Float = 0.03125
 var phrasesDB: Set<String> = Set.init()
 var lemmaDB: [String: String] = [:]
 
+let defaultFontSizeOfLandscape = 35.0
+let defaultFontSizeOfPortrait = 18.0
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
@@ -48,10 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     override init() {
         // VisualConfig
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
-            UserDefaults.standard.set(45.0, forKey: "visualConfig.fontSizeOfLandscape")
+            UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
         }
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
-            UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+            UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
         }
         if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
             UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
@@ -639,13 +641,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
     @objc func resetUserDefaults() {
-        UserDefaults.standard.set(45.0, forKey: "visualConfig.fontSizeOfLandscape")
-        UserDefaults.standard.set(13.0, forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
         UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        visualConfig.fontSizeOfLandscape = 45.0
-        visualConfig.fontSizeOfPortrait = 13.0
+        visualConfig.fontSizeOfLandscape = CGFloat(defaultFontSizeOfLandscape)
+        visualConfig.fontSizeOfPortrait = CGFloat(defaultFontSizeOfPortrait)
         visualConfig.colorOfLandscape = .orange
         visualConfig.colorOfPortrait = .green
         visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
@@ -701,7 +703,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 return visualConfig.fontSizeOfLandscape
             }
         }()
-        let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: 13.0)
+        let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: CGFloat(defaultFontSizeOfPortrait))
 
         NSFontManager.shared.setSelectedFont(font, isMultiple: false)
         

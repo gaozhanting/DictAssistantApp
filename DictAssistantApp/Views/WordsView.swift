@@ -8,44 +8,8 @@
 import SwiftUI
 import DataBases
 
-//fileprivate func translation(of word: String) -> String? {
-//    return DictionaryServices.define(word)
-////    if let tr = DictionaryServices.define(word) {
-////        return tr
-////    } else {
-////        return ""
-////    }
-//}
-//
-//fileprivate func translationOneline(of word: String) -> String {
-//    if let tr = DictionaryServices.define(word) {
-//        return tr.replacingOccurrences(of: "\n", with: " ")
-//    } else {
-//        return ""
-//    }
-//}
-//
-//fileprivate struct OnelineWordsView: View {
-//    @EnvironmentObject var displayedWords: DisplayedWords
-//
-//    @Environment(\.addToKnownWords) var addToKnownWords
-//
-//    let color: NSColor
-//    let fontName: String
-//    let fontSize: CGFloat
-//
-//    var body: some View {
-//        ForEach(displayedWords.words, id: \.self) { word in
-//            (Text(word).foregroundColor(Color(color)) + Text(translationOneline(of: word)).foregroundColor(.white))
-//                .lineLimit(1)
-//                .font(Font.custom(fontName, size: fontSize))
-//                .padding(.horizontal, 4)
-//                .contextMenu {
-//                    Button("Add to Known", action: { addToKnownWords(word) })
-//                }
-//        }
-//    }
-//}
+let defaultMaxWidthOfLandscape: CGFloat = 300.0
+let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 
 struct PortraitOnelineNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
@@ -121,8 +85,7 @@ fileprivate struct SingleWordView: View {
     
     var body: some View {
         if tag == "unKnown" {
-            (Text(word).foregroundColor(Color(color)) + Text(trans).foregroundColor(.white))
-                .font(Font.custom(fontName, size: fontSize))
+            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(trans).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * 0.9)))
                 .padding(.all, 4)
                 .contextMenu {
                     Button("Add to Known", action: { addToKnownWords(word) })
@@ -215,7 +178,7 @@ struct LandscapeNormalWordsView: View {
                         fontSize: visualConfig.fontSizeOfLandscape,
                         displayKnownWords: $displayKnownWords
                     )
-                    .frame(maxWidth: 300, maxHeight: .infinity, alignment: .topLeading)
+                    .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -276,7 +239,7 @@ struct LandscapeMiniWordsView: View {
                         fontSize: visualConfig.fontSizeOfLandscape,
                         displayKnownWords: $displayKnownWords
                     )
-                    .frame(maxWidth: 300, maxHeight: .infinity, alignment: .topLeading)
+                    .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
                 }
                 .background(Color.black.opacity(0.75))
             }
@@ -332,7 +295,7 @@ struct PortraitNormalWordsView: View {
                     fontSize: visualConfig.fontSizeOfPortrait,
                     displayKnownWords: $displayKnownWords
                 )
-                .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topLeading)
+                .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -357,7 +320,7 @@ struct PortraitMiniWordsView: View {
                         fontSize: visualConfig.fontSizeOfPortrait,
                         displayKnownWords: $displayKnownWords
                     )
-                    .frame(maxHeight: 150, alignment: .topLeading)
+                    .frame(maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
                 }
                 .background(Color.black.opacity(0.75))
             }
