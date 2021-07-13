@@ -425,11 +425,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             
             landscapeWordsPanel.close()
             contentPanel = portraitWordsPanel
+            contentPanel.orderFrontRegardless()
+            contentPanel.hasShadow = false
+            
             // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
             contentPanel.hasShadow = true
             contentPanel.invalidateShadow()
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
             
         case .closed:
             landscapeNormalItem.state = .off
