@@ -21,6 +21,8 @@ let systemDefaultMinimumTextHeight: Float = 0.03125
 
 // global big constants
 /*
+ count is 30828; dict count is 142286|142250(lost some not \t); that is 21.6%
+ 
  all contains belows
  2 words: all 30828
  3 words: 10067
@@ -104,13 +106,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
     let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
     
-    let cropperWindowTitleItem = NSMenuItem.init(title: "Cropper Display Style", action: nil, keyEquivalent: "")
+    let cropperWindowTitleItem = NSMenuItem(title: "Cropper Display Style", action: nil, keyEquivalent: "")
     let strokeBorderCropperWindowItem = NSMenuItem(title: "Stroke Border", action: #selector(strokeBorderCropperWindow), keyEquivalent: "")
     let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
     let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
     let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
     
-    let textRecognitionLevelItem = NSMenuItem.init(title: "Text Recognition Level", action: nil, keyEquivalent: "")
+    let textRecognitionLevelItem = NSMenuItem(title: "Text Recognition Level", action: nil, keyEquivalent: "")
     let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
     let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "Accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
     
@@ -174,9 +176,67 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
+        let downloadAndInstallDict = NSMenuItem(title: "Download and Install Dict", action: #selector(downloadAndInstallDict), keyEquivalent: "")
+        menu.addItem(downloadAndInstallDict)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
+    }
+    
+    @objc func downloadAndInstallDict() {
+        let dictURL = "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip"
+        let task = URLSession.shared.downloadTask(with: URL(string: dictURL)!) { (tempURL, response, error) in
+            if let tempURL = tempURL {
+                do {
+                    let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+                    let zipFile = cache.appendingPathComponent("dict.zip")
+                    try FileManager.default.moveItem(atPath: tempURL.path, toPath: zipFile.path)
+                    
+                    let task = Process()
+                    task.launchPath = "/usr/bin/unzip"
+                    let toZipPath = cache.path
+                    task.arguments = [zipFile.path, "-d", toZipPath]
+                    task.launch()
+                    task.waitUntilExit()
+                    let status = task.terminationStatus
+                     
+                    if status == 0 {
+                        print("Task succeeded.")
+                        let file = cache.appendingPathComponent("oxfordjm-ec.dictionary")
+
+                        DispatchQueue.main.async {
+                            let panel = NSSavePanel()
+                            if panel.runModal() == .OK {
+                                do {
+                                    let distPath = panel.url!.path // [Make it Default]?? MUST input: oxfordjm-ec.dictionary in /Library/Dictionaries
+                                    try FileManager.default.moveItem(atPath: file.path, toPath: distPath)
+                                    
+                                    try FileManager.default.removeItem(atPath: zipFile.path)
+                                    let xx = cache.appendingPathComponent("__MACOSX")
+                                    try FileManager.default.removeItem(atPath: xx.path)
+                                }
+                                catch {
+                                    logger.info("Failed to move file2: \(error.localizedDescription)")
+                                }
+                            }
+                        }
+                    } else {
+                        print("Task failed.")
+                    }
+                    
+                }
+                catch {
+                    logger.info("Failed to move file: \(error.localizedDescription)")
+                }
+            } else {
+                logger.info("Downloaded, but with tempURL is nil!")
+            }
+        }
+
+        task.resume()
     }
         
     var lastNonContentMode: ContentMode? = nil
