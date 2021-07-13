@@ -52,6 +52,9 @@ fileprivate struct SingleWordView: View {
                         })
                     }
                 }
+                .onTapGesture {
+                    openDict(word)
+                }
         } else {
             Text(word).foregroundColor(.gray).opacity( isPhrase ? 0.5 : 1)
                 .font(Font.custom(fontName, size: fontSize))
@@ -59,6 +62,9 @@ fileprivate struct SingleWordView: View {
                 .contextMenu {
                     Button("Remove from Known", action: { removeFromKnownWords(word) })
                     Button("Hidden current Known", action: { displayKnownWords.toggle() } )
+                }
+                .onTapGesture {
+                    openDict(word)
                 }
         }
     }
@@ -275,7 +281,7 @@ struct PortraitMiniWordsView: View {
     }
 }
 
-fileprivate func say(word: String) {
+fileprivate func say(_ word: String) {
     let task = Process()
     task.launchPath = "/usr/bin/say"
     var arguments = [String]();
