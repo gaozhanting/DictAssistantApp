@@ -21,3 +21,21 @@ func dataToColor(_ data: Data) -> NSColor? {
     let color = unarchivedData as NSColor?
     return color
 }
+
+func say(_ word: String) {
+    let task = Process()
+    task.launchPath = "/usr/bin/say"
+    var arguments = [String]();
+    arguments.append(word)
+    task.arguments = arguments
+    task.launch()
+}
+
+func openDict(_ word: String) {
+    let task = Process()
+    task.launchPath = "/usr/bin/open"
+    var arguments = [String]();
+    arguments.append("dict://\(word)")
+    task.arguments = arguments
+    task.launch()
+}

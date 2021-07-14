@@ -50,3 +50,14 @@ extension EnvironmentValues {
         set { self[RemoveMultiFromKnownWordsEnvironmentKey.self] = newValue }
     }
 }
+
+private struct SetSmallConfigEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (CGFloat?, Bool?) -> Void = { _, _ in }
+}
+
+extension EnvironmentValues {
+    var setSmallConfig: (CGFloat?, Bool?) -> Void {
+        get { self[SetSmallConfigEnvironmentKey].self }
+        set { self[SetSmallConfigEnvironmentKey.self] = newValue }
+    }
+}

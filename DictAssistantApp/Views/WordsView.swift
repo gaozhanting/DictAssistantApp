@@ -14,7 +14,9 @@ let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 fileprivate struct SingleWordView: View {
     @Environment(\.addToKnownWords) var addToKnownWords
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
-    
+    @Environment(\.setSmallConfig) var setSmallConfig
+    @EnvironmentObject var smallConfig: SmallConfig
+
     let taggedWordTrans: (String, String, String)
     let color: NSColor
     let fontName: String
@@ -37,9 +39,17 @@ fileprivate struct SingleWordView: View {
         word.contains(" ")
     }
     
+    var transText: String {
+        if smallConfig.addLineBreak {
+            return ("\n" + trans)
+        } else {
+            return trans
+        }
+    }
+    
     var body: some View {
         if tag == "unKnown" {
-            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(trans).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * 0.9)))
+            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * smallConfig.fontRate)))
                 .padding(.all, 4)
                 .contextMenu {
                     Button("Add to Known", action: { addToKnownWords(word) })
@@ -51,9 +61,23 @@ fileprivate struct SingleWordView: View {
                             NSWorkspace.shared.open(url!)
                         })
                     }
+                    Menu("Add line break ?") {
+                        Button("Not Add", action: { setSmallConfig(nil, false) })
+                        Button("Add", action: { setSmallConfig(nil, true) })
+                    }
+                    Menu("Select fontRate") {
+                        Button("0.3", action: { setSmallConfig(0.3, nil) })
+                        Button("0.4", action: { setSmallConfig(0.4, nil) })
+                        Button("0.5", action: { setSmallConfig(0.5, nil) })
+                        Button("0.6", action: { setSmallConfig(0.6, nil) })
+                        Button("0.7", action: { setSmallConfig(0.7, nil) })
+                        Button("0.8", action: { setSmallConfig(0.8, nil) })
+                        Button("0.9", action: { setSmallConfig(0.9, nil) })
+                        Button("1.0", action: { setSmallConfig(1.0, nil) })
+                    }
                 }
                 .onTapGesture {
-                    openDict(word)
+                    openDict(word) // phrase not work!
                 }
         } else {
             Text(word).foregroundColor(.gray).opacity( isPhrase ? 0.5 : 1)
@@ -279,15 +303,6 @@ struct PortraitMiniWordsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
-}
-
-fileprivate func say(_ word: String) {
-    let task = Process()
-    task.launchPath = "/usr/bin/say"
-    var arguments = [String]();
-    arguments.append(word)
-    task.arguments = arguments
-    task.launch()
 }
 
 struct WordsView_Previews: PreviewProvider {

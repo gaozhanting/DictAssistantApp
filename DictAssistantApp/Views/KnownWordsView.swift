@@ -173,15 +173,6 @@ struct EditingView: View {
     }
 }
 
-func openDict(_ word: String) {
-    let task = Process()
-    task.launchPath = "/usr/bin/open"
-    var arguments = [String]();
-    arguments.append("dict://\(word)")
-    task.arguments = arguments
-    task.launch()
-}
-
 struct KnownWordsView_Previews: PreviewProvider {
     static var previews: some View {
         KnownWordsView()

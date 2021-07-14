@@ -47,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let statusData = StatusData(isPlaying: false)
 
     let textProcessConfig = TextProcessConfig(textRecognitionLevel: .fast, minimumTextHeight: systemDefaultMinimumTextHeight)
+    let smallConfig = SmallConfig(fontRate: 0.8, addLineBreak: false)
     let visualConfig: VisualConfig
         
     override init() {
@@ -85,6 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         initContentPanel()
         initCropperWindow()
         initKnownWordsPanel()
+        initDownloadAndInstallDictsPanel()
         
         constructMenuBar()
         
@@ -111,6 +113,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
     let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
     let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
+    
+    enum AnimationStyle {
+        case withAnimation
+        case withoutAnimation
+    }
+    var animationStyle: AnimationStyle = .withAnimation
+    
+    let toggleAnimationTitleItem = NSMenuItem(title: "Toggle Animation", action: nil, keyEquivalent: "")
+    let withAnimationItem = NSMenuItem(title: "with animation", action: #selector(toggleWithAnimation), keyEquivalent: "")
+    let withoutAnimationItem = NSMenuItem(title: "without animation", action: #selector(toggleWithoutAnimation), keyEquivalent: "")
     
     let textRecognitionLevelItem = NSMenuItem(title: "Text Recognition Level", action: nil, keyEquivalent: "")
     let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
@@ -149,6 +161,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
         
+        toggleAnimationTitleItem.isEnabled = false
+        menu.addItem(toggleAnimationTitleItem)
+        menu.addItem(withAnimationItem)
+        menu.addItem(withoutAnimationItem)
+        selectAnimationStyle(animationStyle)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         textRecognitionLevelItem.isEnabled = false
         menu.addItem(textRecognitionLevelItem)
         menu.addItem(setTextRecognitionLevelFastItem)
@@ -171,12 +191,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         
         menu.addItem(NSMenuItem.separator())
 
-        let showHistoryItem = NSMenuItem(title: "Show Known Words", action: #selector(showKnownWordsPanel), keyEquivalent: "")
+        let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
         
-        let downloadAndInstallDict = NSMenuItem(title: "Download and Install Dict", action: #selector(downloadAndInstallDict), keyEquivalent: "")
+        let downloadAndInstallDict = NSMenuItem(title: "Show Download and Install Dicts Panel", action: #selector(showDownloadAndInstallDictsPanel), keyEquivalent: "")
         menu.addItem(downloadAndInstallDict)
         
         menu.addItem(NSMenuItem.separator())
@@ -186,59 +206,53 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         statusItem.menu = menu
     }
     
-    @objc func downloadAndInstallDict() {
-        let dictURL = "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip"
-        let task = URLSession.shared.downloadTask(with: URL(string: dictURL)!) { (tempURL, response, error) in
-            if let tempURL = tempURL {
-                do {
-                    let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-                    let zipFile = cache.appendingPathComponent("dict.zip")
-                    try FileManager.default.moveItem(atPath: tempURL.path, toPath: zipFile.path)
-                    
-                    let task = Process()
-                    task.launchPath = "/usr/bin/unzip"
-                    let toZipPath = cache.path
-                    task.arguments = [zipFile.path, "-d", toZipPath]
-                    task.launch()
-                    task.waitUntilExit()
-                    let status = task.terminationStatus
-                     
-                    if status == 0 {
-                        print("Task succeeded.")
-                        let file = cache.appendingPathComponent("oxfordjm-ec.dictionary")
-
-                        DispatchQueue.main.async {
-                            let panel = NSSavePanel()
-                            if panel.runModal() == .OK {
-                                do {
-                                    let distPath = panel.url!.path // [Make it Default]?? MUST input: oxfordjm-ec.dictionary in /Library/Dictionaries
-                                    try FileManager.default.moveItem(atPath: file.path, toPath: distPath)
-                                    
-                                    try FileManager.default.removeItem(atPath: zipFile.path)
-                                    let xx = cache.appendingPathComponent("__MACOSX")
-                                    try FileManager.default.removeItem(atPath: xx.path)
-                                }
-                                catch {
-                                    logger.info("Failed to move file2: \(error.localizedDescription)")
-                                }
-                            }
-                        }
-                    } else {
-                        print("Task failed.")
-                    }
-                    
-                }
-                catch {
-                    logger.info("Failed to move file: \(error.localizedDescription)")
-                }
-            } else {
-                logger.info("Downloaded, but with tempURL is nil!")
-            }
-        }
-
-        task.resume()
+    @objc func toggleWithAnimation() {
+        selectAnimationStyle(.withAnimation)
     }
+    
+    @objc func toggleWithoutAnimation() {
+        selectAnimationStyle(.withoutAnimation)
+    }
+    
+    func selectAnimationStyle(_ newAnimationStyle: AnimationStyle) {
+        animationStyle = newAnimationStyle
+        switch animationStyle {
+        case .withAnimation:
+            withAnimationItem.state = .on
+            withoutAnimationItem.state = .off
+        case .withoutAnimation:
+            withAnimationItem.state = .off
+            withoutAnimationItem.state = .on
+        }
+    }
+    
+    var downloadAndInstallDictsPanel: NSPanel!
+    func initDownloadAndInstallDictsPanel() {
+        downloadAndInstallDictsPanel = NSPanel.init(
+            contentRect: NSRect(x: 500, y: 100, width: 600, height: 400),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+                .miniaturizable,
+                .resizable,
+                .utilityWindow,
+            ],
+            backing: .buffered,
+            defer: false
+        )
+        downloadAndInstallDictsPanel.setFrameAutosaveName("downloadAndInstallDictsPanel")
         
+        downloadAndInstallDictsPanel.isReleasedWhenClosed = false
+    }
+    
+    @objc func showDownloadAndInstallDictsPanel() {
+        let downloadAndInstallDictsView = DownloadAndInstallDictsView()
+        
+        downloadAndInstallDictsPanel.contentView = NSHostingView(rootView: downloadAndInstallDictsView)
+        downloadAndInstallDictsPanel.orderFrontRegardless()
+    }
+    
     var lastNonContentMode: ContentMode? = nil
     @objc func toggleContent() {
         if !statusData.isPlaying {
@@ -388,6 +402,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             setTextRecognitionLevelAccurateItem.state = .off
         }
     }
+        
+    func setSmallConfig(fontRate: CGFloat?, addLineBreak: Bool?) {
+        if let fontRate = fontRate {
+            smallConfig.fontRate = fontRate
+        }
+        if let addLineBreak = addLineBreak {
+            smallConfig.addLineBreak = addLineBreak
+        }
+    }
 
     @objc func exit() {
         saveAllUserDefaults()
@@ -423,9 +446,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = LandscapeNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
+                .environment(\.setSmallConfig, setSmallConfig)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
+                .environmentObject(smallConfig)
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             portraitWordsPanel.close()
@@ -442,9 +467,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = LandscapeMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
+                .environment(\.setSmallConfig, setSmallConfig)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
+                .environmentObject(smallConfig)
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             portraitWordsPanel.close()
@@ -461,8 +488,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = PortraitNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
+                .environment(\.setSmallConfig, setSmallConfig)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
+                .environmentObject(textProcessConfig)
+                .environmentObject(smallConfig)
             portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             landscapeWordsPanel.close()
@@ -479,8 +509,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = PortraitMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
+                .environment(\.setSmallConfig, setSmallConfig)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
+                .environmentObject(textProcessConfig)
+                .environmentObject(smallConfig)
             portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             landscapeWordsPanel.close()
@@ -516,8 +549,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let contentView = LandscapeNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
+            .environment(\.setSmallConfig, setSmallConfig)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
+            .environmentObject(smallConfig)
 
         landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
     }
@@ -532,8 +567,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let contentView = PortraitNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
+            .environment(\.setSmallConfig, setSmallConfig)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
+            .environmentObject(smallConfig)
 
         portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
     }
@@ -992,7 +1029,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             }
         }
         
-        withAnimation {
+        switch animationStyle {
+        case .withAnimation:
+            withAnimation {
+                displayedWords.words = taggedWordTrans
+            }
+        case .withoutAnimation:
             displayedWords.words = taggedWordTrans
         }
     }

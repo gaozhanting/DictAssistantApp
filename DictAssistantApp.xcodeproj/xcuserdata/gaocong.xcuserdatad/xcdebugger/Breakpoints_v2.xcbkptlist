@@ -17,58 +17,10 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7A86E4B2-30D3-4246-AF3D-412811394F6F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DictAssistantApp/TextProcess/Transform.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "classify(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7A86E4B2-30D3-4246-AF3D-412811394F6F - e9b0177199ed0ee1"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static DictAssistantApp.Transform.classify(Swift.String) -&gt; Swift.Array&lt;DictAssistantApp.Word&gt;"
-                  moduleName = "DictAssistantApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaocong/Developer/Mac/app/DictAssistantApp/TextProcess/Transform.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "605">
-               </Location>
-               <Location
-                  uuid = "7A86E4B2-30D3-4246-AF3D-412811394F6F - 3188f9b91b3ce24c"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 (Swift.String) -&gt; DictAssistantApp.Word in static DictAssistantApp.Transform.classify(Swift.String) -&gt; Swift.Array&lt;DictAssistantApp.Word&gt;"
-                  moduleName = "DictAssistantApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaocong/Developer/Mac/app/DictAssistantApp/TextProcess/Transform.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "67"
-                  endingLineNumber = "67"
-                  offsetFromSymbolStart = "46">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
          <BreakpointContent
             uuid = "33B03BEC-5BB7-455A-8E00-8051E64E1FB1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No">
          </BreakpointContent>
@@ -77,7 +29,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             uuid = "40438AC4-3F4B-452A-B9D4-6580B89B1919"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1"
@@ -89,7 +41,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
             uuid = "D517D49D-B91B-4AE3-9B9A-14BD18C36F82"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             symbolName = ""
@@ -102,7 +54,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.RuntimeIssueBreakpoint">
          <BreakpointContent
             uuid = "947C13FF-E859-41FA-9D22-D740B6A6778B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1"
@@ -113,7 +65,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.IDEConstraintErrorBreakpoint">
          <BreakpointContent
             uuid = "BB84887E-6ED8-4DBD-9437-DCE89E14B2DA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1">
@@ -123,7 +75,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.IDETestFailureBreakpoint">
          <BreakpointContent
             uuid = "AD3B89C7-DC42-45B0-A609-6E74DA1596B1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1">
