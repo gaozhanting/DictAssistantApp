@@ -15,7 +15,7 @@ import CryptoKit
 import AVFoundation
 import Foundation
 
-let logger = Logger()
+let logger = Logger(.disabled)
 
 let systemDefaultMinimumTextHeight: Float = 0.03125
 
@@ -913,7 +913,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         if session.canAddInput(screenInput) {
             session.addInput(screenInput)
         } else {
-          print("Could not add video device input to the session")
+          myPrint("Could not add video device input to the session")
         }
         
         if testMovie {
@@ -922,7 +922,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 testMovieFileOutput.movieFragmentInterval = .invalid
 //                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
             } else {
-                print("Could not add movie file output to the session")
+                myPrint("Could not add movie file output to the session")
             }
         }
         else {
@@ -935,7 +935,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
                 //          ]
                 dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
             } else {
-                print("Could not add video data output to the session")
+                myPrint("Could not add video data output to the session")
             }
             //        let captureConnection = dataOutput.connection(with: .video)
             //        captureConnection?.preferredVideoStabilizationMode = .standard

@@ -45,17 +45,17 @@ struct NPLSample {
                     let lemma = tag.rawValue
                     results.append(Word(token: token, lemma: lemma))
                 } else {
-                    print("    >>lemma from apple, but raw value of tag is empty!!") // seems to be impossible
+                    myPrint("    >>lemma from apple, but raw value of tag is empty!!") // seems to be impossible
                     results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
                 }
                 return true
             }
             
             if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
-                print("    >>lemma >>>->>->>found-from-db: \(token): \(lemma)")
+                myPrint("    >>lemma >>>->>->>found-from-db: \(token): \(lemma)")
                 results.append(Word(token: token, lemma: lemma))
             } else {
-                print("    >>lemma not-found-even-from-db: \(token)")
+                myPrint("    >>lemma not-found-even-from-db: \(token)")
                 results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
             }
             return true
@@ -125,22 +125,22 @@ struct NPLSample {
         
         let tokens = tokenize(origin, .word)
         let sentence = tokens.joined(separator: " ")
-        print("sentence:\(sentence)")
+        myPrint("sentence:\(sentence)")
 
         let lemmas = lemma(sentence)
         
         let lemmaedSentence = lemmas.map{ $0.lemma }.joined(separator: " ")
-        print("lemmaedSentence:\(lemmaedSentence)")
+        myPrint("lemmaedSentence:\(lemmaedSentence)")
                 
         let originNames = name(sentence)
-        print("originNames:\(originNames)")
+        myPrint("originNames:\(originNames)")
         let lemmaedNames = name(lemmaedSentence)
-        print("lemmaedNames:\(lemmaedNames)")
+        myPrint("lemmaedNames:\(lemmaedNames)")
         
         let originPhrases = phrase(lemmas.map { $0.token })
-        print("originPhrases:\(originPhrases)")
+        myPrint("originPhrases:\(originPhrases)")
         let lemmaedPhrases = phrase(lemmas.map { $0.lemma })
-        print("lemmaedPhrases:\(lemmaedPhrases)")
+        myPrint("lemmaedPhrases:\(lemmaedPhrases)")
         
         var result: [String] = []
         for (index, word) in lemmas.enumerated() {
@@ -183,7 +183,7 @@ struct NPLSample {
     func process(_ texts: [String]) -> [String] {
         // for debug
         for text in texts {
-            print(">>>>text from TR: \(text)")
+            myPrint(">>>>text from TR: \(text)")
         }
         
         // transform TR texts into multi sentences
@@ -192,11 +192,11 @@ struct NPLSample {
         
         // for every sentence
         var results: [String] = []
-        print(">>>>NPL process:")
+        myPrint(">>>>NPL process:")
         for sentence in sentences {
             let result = processSingle(sentence)
-            print(">>>>sentence: \(sentence)")
-            print(">>>>result: \(result)")
+            myPrint(">>>>sentence: \(sentence)")
+            myPrint(">>>>result: \(result)")
             results += result
         }
         
@@ -205,3 +205,7 @@ struct NPLSample {
 }
 
 let nplSample = NPLSample()
+
+func myPrint(_ str: String) {
+//    print(str) // or donothing
+}

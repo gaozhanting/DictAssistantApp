@@ -19,7 +19,7 @@ struct TextProcess {
     // output: [S..Text(..)]
     static func extractWords(from texts: [String]) -> [String] {
         logger.info(">>texts")
-        print(texts)
+//        myPrint(texts)
         
         let cleanTexts: [String] = texts
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -36,15 +36,15 @@ struct TextProcess {
         }
         
         logger.info(">>before lemm")
-        print(all)
+        myPrint(all)
         
         let b = lemm(of: all)
         logger.info(">>after lemm")
-        print(b)
+//        myPrint(b)
 
         let c = b.filter { !$0.isEmpty }
         logger.info(">>after lemm filter isEmpty")
-        print(c)
+//        myPrint(c)
         
         let orderedNoDuplicates = NSOrderedSet(array: c).map({ $0 as! String })
         

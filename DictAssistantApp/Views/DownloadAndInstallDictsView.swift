@@ -26,11 +26,11 @@ struct ListItem: View {
             let status = task.terminationStatus
             
             if status != 0 {
-                print("unzip Task failed.")
+                myPrint("unzip Task failed.")
                 return
             }
             
-            print("unzip Task succeeded.")
+            myPrint("unzip Task succeeded.")
             DispatchQueue.main.async {
                 let panel = NSSavePanel()
                 panel.isExtensionHidden = false
