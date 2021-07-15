@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let statusData = StatusData(isPlaying: false)
 
     let textProcessConfig = TextProcessConfig(textRecognitionLevel: .fast, minimumTextHeight: systemDefaultMinimumTextHeight)
-    let smallConfig = SmallConfig(fontRate: 0.8, addLineBreak: false)
+    let smallConfig = SmallConfig(fontRate: 0.7, addLineBreak: true)
     let visualConfig: VisualConfig
         
     override init() {
