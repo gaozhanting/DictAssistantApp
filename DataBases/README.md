@@ -41,4 +41,5 @@ https://github.com/ritou11/dictconv
 
 ## More Dict
 * https://mdict.org/categories/english-chinese/
+* https://github.com/skywind3000/ECDICT/wiki/%E7%AE%80%E6%98%8E%E8%8B%B1%E6%B1%89%E5%AD%97%E5%85%B8%E5%A2%9E%E5%BC%BA%E7%89%88
 

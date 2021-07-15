@@ -114,12 +114,12 @@ struct DownloadAndInstallDictsView: View {
             ListItem(
                 dictName: "牛津简明英汉袖珍辞典 (15.6M)",
                 downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!)
-            ListItem(
-                dictName: "牛津英汉双解美化版 (23.3M)",
-                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
-            ListItem(
-                dictName: "Collins Cobuild 5 (18.7M)",
-                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
+//            ListItem(
+//                dictName: "牛津英汉双解美化版 (23.3M)",
+//                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
+//            ListItem(
+//                dictName: "Collins Cobuild 5 (18.7M)",
+//                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

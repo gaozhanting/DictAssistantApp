@@ -124,6 +124,16 @@ struct EditingView: View {
                         .buttonStyle(PlainButtonStyle())
                         .help("Paste HighSchool Vocabulary")
                         
+                        Button(action: { text = oxford3000Vocabulary }) {
+                            Image(systemName: "doc.on.clipboard")
+                                .overlay(
+                                    Image(systemName: "o.circle.fill")
+                                        .font(.system(size: 6, weight: .bold, design: .serif)),
+                                    alignment: .bottomLeading)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .help("Paste Oxford 3000 Vocabulary")
+                        
                         Button(action: { text = cet4Vocabulary }) {
                             Image(systemName: "doc.on.clipboard")
                                 .overlay(

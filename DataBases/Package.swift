@@ -26,6 +26,7 @@ let package = Package(
                 .process("Resources/high_school_vocabulary.txt"),
                 .process("Resources/cet4_vocabulary.txt"),
                 .process("Resources/cet6_vocabulary.txt"),
+                .process("Resources/oxford_3000.txt"),
                 .process("Resources/lemma.en.txt"),
                 .process("Resources/phrases_and_idioms_extracted_from_brief_oxford_dict.txt"),
                 .process("Resources/phrases_and_idioms_not_in_brief_oxford_dict.txt")
