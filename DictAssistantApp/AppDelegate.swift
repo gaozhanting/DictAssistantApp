@@ -7,13 +7,12 @@
 
 import Cocoa
 import SwiftUI
-import Vision
 import DataBases
 import CoreData
 import os
 import CryptoKit
-import AVFoundation
 import Foundation
+import Vision
 
 let logger = Logger(.disabled)
 
@@ -42,16 +41,25 @@ let defaultFontSizeOfLandscape = 35.0
 let defaultFontSizeOfPortrait = 18.0
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, NSWindowDelegate {
-
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let statusData = StatusData(isPlaying: false)
-
-    let textProcessConfig = TextProcessConfig(textRecognitionLevel: .fast, minimumTextHeight: systemDefaultMinimumTextHeight)
     let smallConfig = SmallConfig(fontRate: 0.7, addLineBreak: true, isDisplayKnownWords: false)
-    let visualConfig: VisualConfig
+    
+    // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
+    let textProcessConfig = TextProcessConfig(
+        textRecognitionLevel: .fast,
+        minimumTextHeight: systemDefaultMinimumTextHeight)
+    var visualConfig: VisualConfig!
+    var aVSessionAndTR: AVSessionAndTR!
+    
+    // MARK: - Application
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    
+    // Notice order!
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
+        lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         
-    override init() {
-        // VisualConfig
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
             UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
         }
@@ -74,14 +82,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
         )
-    }
-    
-    // MARK: - Application
-    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
-        lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         
         initContentPanel()
         initCropperWindow()
@@ -91,6 +91,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         constructMenuBar()
         
         allKnownWordsSetCache = getAllKnownWordsSet()
+
+        aVSessionAndTR = AVSessionAndTR.init(
+            textProcessConfig: textProcessConfig,
+            cropperWindow: cropperWindow,
+            trCallBack: trCallBack
+        )
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -264,7 +270,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             )
             toggleItem.title = "Toggle OFF"
             displayedWords.words = []
-            startScreenCapture()
+            aVSessionAndTR.startScreenCapture()
             contentPanel.orderFrontRegardless()
             cropperWindow.orderFrontRegardless()
             fixCropperWindow()
@@ -281,7 +287,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             )
             toggleItem.title = "Toggle ON"
             displayedWords.words = []
-            stopScreenCapture()
+            aVSessionAndTR.stopScreenCapture()
             contentPanel.close()
             activeCropperWindow()
             selectWordsPanel(.closed)
@@ -909,146 +915,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
         saveContext()
     }
-
-    // MARK: - AVSession
-    let session: AVCaptureSession = AVCaptureSession()
-    let screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
-    let dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
-    let videoDataOutputQueue = DispatchQueue(
-        label: "CameraFeedDataOutput",
-        qos: .userInitiated,
-        attributes: [],
-        autoreleaseFrequency: .workItem
-    )
     
-    // for testing mp4 file
-    let testMovie = false
-    let testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
-    // need maually delete for testing.
-    let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
-
-    func startScreenCapture() {
-        let videoFramesPerSecond = 1 // todo
-        screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
-        
-        screenInput.cropRect = cropperWindow.frame
-
-//        input.scaleFactor = CGFloat(scaleFactor)
-        screenInput.capturesCursor = false
-        screenInput.capturesMouseClicks = false
-
-        session.beginConfiguration()
-        
-        if session.canAddInput(screenInput) {
-            session.addInput(screenInput)
-        } else {
-          myPrint("Could not add video device input to the session")
-        }
-        
-        if testMovie {
-            if session.canAddOutput(testMovieFileOutput) {
-                session.addOutput(testMovieFileOutput)
-                testMovieFileOutput.movieFragmentInterval = .invalid
-//                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
-            } else {
-                myPrint("Could not add movie file output to the session")
-            }
-        }
-        else {
-            if session.canAddOutput(dataOutput) {
-                session.addOutput(dataOutput)
-                // Add a video data output
-                dataOutput.alwaysDiscardsLateVideoFrames = true
-                //          dataOutput.videoSettings = [
-                //            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
-                //          ]
-                dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-            } else {
-                myPrint("Could not add video data output to the session")
-            }
-            //        let captureConnection = dataOutput.connection(with: .video)
-            //        captureConnection?.preferredVideoStabilizationMode = .standard
-            //        captureConnection?.videoOrientation = .portrait
-            // Always process the frames
-            //        captureConnection?.isEnabled = true
-        }
-        
-        session.commitConfiguration()
-        
-        session.startRunning()
-        
-        if testMovie {
-            let movieUrl = URL.init(fileURLWithPath: movieUrlString)
-            testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
-        }
-    }
-
-    func stopScreenCapture() {
-        if testMovie {
-            testMovieFileOutput.stopRecording()
-        }
-
-        session.stopRunning()
-    }
+    // MARK:- Words
+    let displayedWords = DisplayedWords(words: [])
     
-    // for test mp4
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-    }
+    var currentWords: [String] = []
     
-    var sampleBufferCache: CMSampleBuffer? = nil
-    
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
-//            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
-            return
-        }
-        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavy cpu works")
-        
-        sampleBufferCache = sampleBuffer
-
-        requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
-        textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
-        textRecognitionRequest.minimumTextHeight = textProcessConfig.minimumTextHeight
-        textRecognitionRequest.usesLanguageCorrection = true
-        
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
-            do {
-                try requestHandler?.perform([textRecognitionRequest])
-            } catch {
-                logger.info("TextRecognize failed: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    func recognizeTextHandler(request: VNRequest, error: Error?) {
-        DispatchQueue.main.async { [unowned self] in
-            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
-            
-            if let results = results {
-                let texts: [String] = results.map { observation in
-                    let text: String = observation.topCandidates(1)[0].string
-                    return text
-                }
-                
-                if texts.elementsEqual(lastReconginzedTexts) {
-//                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
-                } else {
-                    logger.info("text not equal lastReconginzedTexts")
-                    // words (filter fixed preset known words) (familiars, unfamiliars)
-                    words = nplSample.process(texts)
-                    
-                    tagTransAndMutateDisplayedWords()
-                    
-                    lastReconginzedTexts = texts
-                }
-            }
-        }
+    func trCallBack(texts: [String]) {
+        currentWords = nplSample.process(texts)
+        tagTransAndMutateDisplayedWords()
     }
     
     func tagTransAndMutateDisplayedWords() {
         var taggedWordTrans: [(String, String, String)] = []
-        for word in words {
+        for word in currentWords {
             if allKnownWordsSetCache.contains(word) {
                 taggedWordTrans.append(("known", word, ""))
             } else {
@@ -1077,13 +957,4 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         cachedDict[word] = trans
         return trans
     }
-    
-    var results: [VNRecognizedTextObservation]?
-    var requestHandler: VNImageRequestHandler?
-    var textRecognitionRequest: VNRecognizeTextRequest!
-    
-    //    let recognizedText = RecognizedText(texts: [])
-    let displayedWords = DisplayedWords(words: [])
-    var lastReconginzedTexts: [String] = []
-    var words: [String] = []
 }

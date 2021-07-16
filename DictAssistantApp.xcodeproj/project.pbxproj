@@ -15,6 +15,7 @@
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
+		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D0F7F26564D96004A7173 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
@@ -42,6 +43,7 @@
 		4440EE4D262EDCA4007FF470 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4440EE4F262EDCA4007FF470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
+		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D0F7E26564D96004A7173 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
 				4440EE47262EDCA4007FF470 /* Assets.xcassets */,
 				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
+				4479E35526A1852000764D53 /* AVSessionAndTR.swift */,
 				44FBE4682674EBCE002A7599 /* ContentPanel.swift */,
 				44FBE46A2674ED28002A7599 /* CropperWindow.swift */,
 				4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */,
@@ -247,6 +250,7 @@
 				449581DF2664F96B005FE507 /* TextProcessConfig.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */,
+				4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
