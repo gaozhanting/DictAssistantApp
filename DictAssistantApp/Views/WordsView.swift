@@ -233,6 +233,7 @@ struct LandscapeNormalWordsView: View {
                 )
                 .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .attachContextMenu()
         .background(Color.black.opacity(0.75))
@@ -243,7 +244,6 @@ struct LandscapeNormalWordsView: View {
 
 struct LandscapeMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
-    @EnvironmentObject var textProcessConfig: TextProcessConfig
 
     var body: some View {
         VStack {
@@ -268,9 +268,6 @@ struct LandscapeMiniWordsView: View {
 
 struct PortraitNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
-    @EnvironmentObject var textProcessConfig: TextProcessConfig
-
-    @State var isDisplayKnownWords: Bool = false
 
     var body: some View {
         ScrollView(.vertical) {
@@ -294,7 +291,6 @@ struct PortraitNormalWordsView: View {
 
 struct PortraitMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
-    @EnvironmentObject var textProcessConfig: TextProcessConfig
 
     var body: some View {
         HStack {
