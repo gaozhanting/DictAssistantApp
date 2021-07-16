@@ -10,6 +10,7 @@ import DataBases
 
 fileprivate let defaultMaxWidthOfLandscape: CGFloat = 300.0
 fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
+//fileprivate let spacing: CGFloat = 0
 
 fileprivate enum Style {
     case landscapeNormal
@@ -158,8 +159,8 @@ struct LandscapeNormalWordsView: View {
     @State var isDisplayKnownWords: Bool = true
 
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(alignment: .top, spacing: 0) {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top) {
                 WordsView(
                     color: visualConfig.colorOfLandscape,
                     fontName: visualConfig.fontName,
@@ -225,12 +226,14 @@ struct LandscapeNormalWordsView: View {
 struct LandscapeMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     @EnvironmentObject var textProcessConfig: TextProcessConfig
+    @Environment(\.setSmallConfig) var setSmallConfig
+
     @State var isDisplayKnownWords: Bool = true
 
     var body: some View {
         VStack {
-            ScrollView(.horizontal) {
-                HStack(alignment: .top, spacing: 0) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top) {
                     WordsView(
                         color: visualConfig.colorOfLandscape,
                         fontName: visualConfig.fontName,
@@ -243,6 +246,52 @@ struct LandscapeMiniWordsView: View {
             }
             Spacer()
         }
+        .contextMenu {
+            Button("\(!isDisplayKnownWords ? "Display" : "Hide") current Known", action: { isDisplayKnownWords.toggle() } )
+            Menu("Add line break ?") {
+                Button("Not Add", action: { setSmallConfig(nil, false) })
+                Button("Add", action: { setSmallConfig(nil, true) })
+            }
+            Menu("Select fontRate") {
+                Button("0.3", action: { setSmallConfig(0.3, nil) })
+                Button("0.4", action: { setSmallConfig(0.4, nil) })
+                Button("0.5", action: { setSmallConfig(0.5, nil) })
+                Button("0.6", action: { setSmallConfig(0.6, nil) })
+                Button("0.7", action: { setSmallConfig(0.7, nil) })
+                Button("0.8", action: { setSmallConfig(0.8, nil) })
+                Button("0.9", action: { setSmallConfig(0.9, nil) })
+                Button("1.0", action: { setSmallConfig(1.0, nil) })
+            }
+            Menu("MinimumTextHeight") {
+                Button("Increase 0.01", action: {
+                    textProcessConfig.minimumTextHeight += 0.01
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.01", action: {
+                    textProcessConfig.minimumTextHeight -= 0.01
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Increase 0.1", action: {
+                    textProcessConfig.minimumTextHeight += 0.1
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.1", action: {
+                    textProcessConfig.minimumTextHeight -= 0.1
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
+                    textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                })
+            }
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     }
@@ -250,6 +299,9 @@ struct LandscapeMiniWordsView: View {
 
 struct PortraitNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    @EnvironmentObject var textProcessConfig: TextProcessConfig
+    @Environment(\.setSmallConfig) var setSmallConfig
+
     @State var isDisplayKnownWords: Bool = false
 
     var body: some View {
@@ -266,6 +318,52 @@ struct PortraitNormalWordsView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .contextMenu {
+            Button("\(!isDisplayKnownWords ? "Display" : "Hide") current Known", action: { isDisplayKnownWords.toggle() } )
+            Menu("Add line break ?") {
+                Button("Not Add", action: { setSmallConfig(nil, false) })
+                Button("Add", action: { setSmallConfig(nil, true) })
+            }
+            Menu("Select fontRate") {
+                Button("0.3", action: { setSmallConfig(0.3, nil) })
+                Button("0.4", action: { setSmallConfig(0.4, nil) })
+                Button("0.5", action: { setSmallConfig(0.5, nil) })
+                Button("0.6", action: { setSmallConfig(0.6, nil) })
+                Button("0.7", action: { setSmallConfig(0.7, nil) })
+                Button("0.8", action: { setSmallConfig(0.8, nil) })
+                Button("0.9", action: { setSmallConfig(0.9, nil) })
+                Button("1.0", action: { setSmallConfig(1.0, nil) })
+            }
+            Menu("MinimumTextHeight") {
+                Button("Increase 0.01", action: {
+                    textProcessConfig.minimumTextHeight += 0.01
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.01", action: {
+                    textProcessConfig.minimumTextHeight -= 0.01
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Increase 0.1", action: {
+                    textProcessConfig.minimumTextHeight += 0.1
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.1", action: {
+                    textProcessConfig.minimumTextHeight -= 0.1
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
+                    textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                })
+            }
+        }
         .background(Color.black.opacity(0.75))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
@@ -274,6 +372,9 @@ struct PortraitNormalWordsView: View {
 
 struct PortraitMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    @EnvironmentObject var textProcessConfig: TextProcessConfig
+    @Environment(\.setSmallConfig) var setSmallConfig
+
     @State var isDisplayKnownWords: Bool = false
 
     var body: some View {
@@ -291,6 +392,52 @@ struct PortraitMiniWordsView: View {
                     .frame(maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
                 }
                 .background(Color.black.opacity(0.75))
+            }
+        }
+        .contextMenu {
+            Button("\(!isDisplayKnownWords ? "Display" : "Hide") current Known", action: { isDisplayKnownWords.toggle() } )
+            Menu("Add line break ?") {
+                Button("Not Add", action: { setSmallConfig(nil, false) })
+                Button("Add", action: { setSmallConfig(nil, true) })
+            }
+            Menu("Select fontRate") {
+                Button("0.3", action: { setSmallConfig(0.3, nil) })
+                Button("0.4", action: { setSmallConfig(0.4, nil) })
+                Button("0.5", action: { setSmallConfig(0.5, nil) })
+                Button("0.6", action: { setSmallConfig(0.6, nil) })
+                Button("0.7", action: { setSmallConfig(0.7, nil) })
+                Button("0.8", action: { setSmallConfig(0.8, nil) })
+                Button("0.9", action: { setSmallConfig(0.9, nil) })
+                Button("1.0", action: { setSmallConfig(1.0, nil) })
+            }
+            Menu("MinimumTextHeight") {
+                Button("Increase 0.01", action: {
+                    textProcessConfig.minimumTextHeight += 0.01
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.01", action: {
+                    textProcessConfig.minimumTextHeight -= 0.01
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Increase 0.1", action: {
+                    textProcessConfig.minimumTextHeight += 0.1
+                    if textProcessConfig.minimumTextHeight >= 1 {
+                        textProcessConfig.minimumTextHeight = 1
+                    }
+                })
+                Button("Decrease 0.1", action: {
+                    textProcessConfig.minimumTextHeight -= 0.1
+                    if textProcessConfig.minimumTextHeight <= 0.0 {
+                        textProcessConfig.minimumTextHeight = 0.0
+                    }
+                })
+                Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
+                    textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                })
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
