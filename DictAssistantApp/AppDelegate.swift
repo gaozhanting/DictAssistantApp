@@ -838,23 +838,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
     
-    func getAllKnownWordsSorted() -> [String] {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
-        ]
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            let knownWords = results.map { $0.word! }
-            return knownWords
-        } catch {
-            fatalError("Failed to fetch request: \(error)")
-        }
-    }
-    
     func addToKnownWords(_ word: String) {
         addMultiToKnownWords([word])
     }

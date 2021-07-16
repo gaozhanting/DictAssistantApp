@@ -102,11 +102,11 @@
 				44FBE4682674EBCE002A7599 /* ContentPanel.swift */,
 				44FBE46A2674ED28002A7599 /* CropperWindow.swift */,
 				4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */,
+				44BCEC572684BADD002D3D8C /* Utilities.swift */,
 				4440EE4C262EDCA4007FF470 /* Main.storyboard */,
 				4440EE4F262EDCA4007FF470 /* Info.plist */,
 				4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */,
 				4440EE49262EDCA4007FF470 /* Preview Content */,
-				44BCEC572684BADD002D3D8C /* Utilities.swift */,
 			);
 			path = DictAssistantApp;
 			sourceTree = "<group>";
