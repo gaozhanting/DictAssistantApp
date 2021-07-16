@@ -233,7 +233,7 @@ struct LandscapeNormalWordsView: View {
                 )
                 .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .attachContextMenu()
         .background(Color.black.opacity(0.75))
