@@ -182,33 +182,34 @@ struct AttachContextMenu: ViewModifier {
                 Menu("MinimumTextHeight: \(textProcessConfig.minimumTextHeight)") {
                     Button("Increase 0.01", action: {
                         textProcessConfig.minimumTextHeight += 0.01
-                        if textProcessConfig.minimumTextHeight >= 1 {
-                            textProcessConfig.minimumTextHeight = 1
-                        }
+                        intercepteMutatingMinimumTextHeight()
                     })
                     Button("Decrease 0.01", action: {
                         textProcessConfig.minimumTextHeight -= 0.01
-                        if textProcessConfig.minimumTextHeight <= 0.0 {
-                            textProcessConfig.minimumTextHeight = 0.0
-                        }
+                        intercepteMutatingMinimumTextHeight()
                     })
                     Button("Increase 0.1", action: {
                         textProcessConfig.minimumTextHeight += 0.1
-                        if textProcessConfig.minimumTextHeight >= 1 {
-                            textProcessConfig.minimumTextHeight = 1
-                        }
+                        intercepteMutatingMinimumTextHeight()
                     })
                     Button("Decrease 0.1", action: {
                         textProcessConfig.minimumTextHeight -= 0.1
-                        if textProcessConfig.minimumTextHeight <= 0.0 {
-                            textProcessConfig.minimumTextHeight = 0.0
-                        }
+                        intercepteMutatingMinimumTextHeight()
                     })
                     Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
                         textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
                     })
                 }
             }
+    }
+    
+    func intercepteMutatingMinimumTextHeight() {
+        if textProcessConfig.minimumTextHeight < 0 {
+            textProcessConfig.minimumTextHeight = 0
+        }
+        if textProcessConfig.minimumTextHeight > 1 {
+            textProcessConfig.minimumTextHeight = 1
+        }
     }
 }
 
