@@ -408,32 +408,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             setTextRecognitionLevelAccurateItem.state = .off
         }
     }
-        
-    func setSmallConfig(
-        fontRate: CGFloat? = nil,
-        addLineBreak: Bool? = nil,
-        isDisplayKnownWords: Bool? = nil
-    ) {
-        if let fontRate = fontRate {
-            smallConfig.fontRate = fontRate
-        }
-        if let addLineBreak = addLineBreak {
-            smallConfig.addLineBreak = addLineBreak
-        }
-        if let isDisplayKnownWords = isDisplayKnownWords {
-            smallConfig.isDisplayKnownWords = isDisplayKnownWords
-        }
-    }
-    
-    func setFontRate(_ fontRate: CGFloat) {
-        setSmallConfig(fontRate: fontRate)
-    }
-    func setAddlineBreak(_ addlineBreak: Bool) {
-        setSmallConfig(addLineBreak: addlineBreak)
-    }
-    func setIsDisplayKnownWords(_ isDisplayKnownWords: Bool) {
-        setSmallConfig(isDisplayKnownWords: isDisplayKnownWords)
-    }
 
     @objc func exit() {
         saveAllUserDefaults()
@@ -469,9 +443,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             let contentView = LandscapeNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setFontRate, setFontRate)
-                .environment(\.setAddlineBreak, setAddlineBreak)
-                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -492,9 +463,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             let contentView = LandscapeMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setFontRate, setFontRate)
-                .environment(\.setAddlineBreak, setAddlineBreak)
-                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -515,9 +483,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             let contentView = PortraitNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setFontRate, setFontRate)
-                .environment(\.setAddlineBreak, setAddlineBreak)
-                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -538,9 +503,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             let contentView = PortraitMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setFontRate, setFontRate)
-                .environment(\.setAddlineBreak, setAddlineBreak)
-                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -580,9 +542,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let contentView = LandscapeNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environment(\.setFontRate, setFontRate)
-            .environment(\.setAddlineBreak, setAddlineBreak)
-            .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
             .environmentObject(smallConfig)
@@ -600,9 +559,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let contentView = PortraitNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environment(\.setFontRate, setFontRate)
-            .environment(\.setAddlineBreak, setAddlineBreak)
-            .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
             .environmentObject(smallConfig)

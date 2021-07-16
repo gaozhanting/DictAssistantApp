@@ -157,32 +157,29 @@ fileprivate struct WordsView: View {
 struct AttachContextMenu: ViewModifier {
     @EnvironmentObject var textProcessConfig: TextProcessConfig
     @EnvironmentObject var smallConfig: SmallConfig
-    @Environment(\.setFontRate) var setFontRate
-    @Environment(\.setAddlineBreak) var setAddlineBreak
-    @Environment(\.setIsDisplayKnownWords) var setIsDisplayKnownWords
 
+    let fontRates: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    
     func body(content: Content) -> some View {
         content
             .contextMenu {
                 Button("\(!smallConfig.isDisplayKnownWords ? "Display" : "Hide") current Known", action: {
-                    setIsDisplayKnownWords(!smallConfig.isDisplayKnownWords)
+                    smallConfig.isDisplayKnownWords.toggle()
                 })
-
-                Menu("Add line break ?") {
-                    Button("Not Add", action: { setAddlineBreak(false) })
-                    Button("Add", action: { setAddlineBreak(true) })
+                
+                Picker(selection: $smallConfig.addLineBreak, label: Text("Add line break: \(smallConfig.addLineBreak ? "Add" : "Not Add")")) {
+                    Text("Not Add").tag(false)
+                    Text("Add").tag(true)
                 }
-                Menu("Select fontRate") {
-                    Button("0.3", action: { setFontRate(0.3) })
-                    Button("0.4", action: { setFontRate(0.4) })
-                    Button("0.5", action: { setFontRate(0.5) })
-                    Button("0.6", action: { setFontRate(0.6) })
-                    Button("0.7", action: { setFontRate(0.7) })
-                    Button("0.8", action: { setFontRate(0.8) })
-                    Button("0.9", action: { setFontRate(0.9) })
-                    Button("1.0", action: { setFontRate(1.0) })
+                
+                Picker(selection: $smallConfig.fontRate, label: Text("Select fontRate: \(smallConfig.fontRate, specifier: "%.2f")")) {
+                    ForEach(fontRates, id: \.self) { rate in
+                        Text("\(rate, specifier: "%.2f")").tag(rate)
+                    }
                 }
-                Menu("MinimumTextHeight") {
+                .pickerStyle(MenuPickerStyle())
+                
+                Menu("MinimumTextHeight: \(textProcessConfig.minimumTextHeight)") {
                     Button("Increase 0.01", action: {
                         textProcessConfig.minimumTextHeight += 0.01
                         if textProcessConfig.minimumTextHeight >= 1 {
