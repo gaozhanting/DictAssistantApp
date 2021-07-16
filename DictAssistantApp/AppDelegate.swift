@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
     let statusData = StatusData(isPlaying: false)
 
     let textProcessConfig = TextProcessConfig(textRecognitionLevel: .fast, minimumTextHeight: systemDefaultMinimumTextHeight)
-    let smallConfig = SmallConfig(fontRate: 0.7, addLineBreak: true)
+    let smallConfig = SmallConfig(fontRate: 0.7, addLineBreak: true, isDisplayKnownWords: false)
     let visualConfig: VisualConfig
         
     override init() {
@@ -403,13 +403,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         }
     }
         
-    func setSmallConfig(fontRate: CGFloat?, addLineBreak: Bool?) {
+    func setSmallConfig(
+        fontRate: CGFloat? = nil,
+        addLineBreak: Bool? = nil,
+        isDisplayKnownWords: Bool? = nil
+    ) {
         if let fontRate = fontRate {
             smallConfig.fontRate = fontRate
         }
         if let addLineBreak = addLineBreak {
             smallConfig.addLineBreak = addLineBreak
         }
+        if let isDisplayKnownWords = isDisplayKnownWords {
+            smallConfig.isDisplayKnownWords = isDisplayKnownWords
+        }
+    }
+    
+    func setFontRate(_ fontRate: CGFloat) {
+        setSmallConfig(fontRate: fontRate)
+    }
+    func setAddlineBreak(_ addlineBreak: Bool) {
+        setSmallConfig(addLineBreak: addlineBreak)
+    }
+    func setIsDisplayKnownWords(_ isDisplayKnownWords: Bool) {
+        setSmallConfig(isDisplayKnownWords: isDisplayKnownWords)
     }
 
     @objc func exit() {
@@ -446,7 +463,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = LandscapeNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setSmallConfig, setSmallConfig)
+                .environment(\.setFontRate, setFontRate)
+                .environment(\.setAddlineBreak, setAddlineBreak)
+                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -467,7 +486,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = LandscapeMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setSmallConfig, setSmallConfig)
+                .environment(\.setFontRate, setFontRate)
+                .environment(\.setAddlineBreak, setAddlineBreak)
+                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -488,7 +509,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = PortraitNormalWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setSmallConfig, setSmallConfig)
+                .environment(\.setFontRate, setFontRate)
+                .environment(\.setAddlineBreak, setAddlineBreak)
+                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -509,7 +532,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
             let contentView = PortraitMiniWordsView()
                 .environment(\.addToKnownWords, addToKnownWords)
                 .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environment(\.setSmallConfig, setSmallConfig)
+                .environment(\.setFontRate, setFontRate)
+                .environment(\.setAddlineBreak, setAddlineBreak)
+                .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
                 .environmentObject(visualConfig)
                 .environmentObject(displayedWords)
                 .environmentObject(textProcessConfig)
@@ -549,7 +574,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let contentView = LandscapeNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environment(\.setSmallConfig, setSmallConfig)
+            .environment(\.setFontRate, setFontRate)
+            .environment(\.setAddlineBreak, setAddlineBreak)
+            .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
             .environmentObject(smallConfig)
@@ -567,7 +594,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, AVCaptureVideoDataOutputSamp
         let contentView = PortraitNormalWordsView()
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environment(\.setSmallConfig, setSmallConfig)
+            .environment(\.setFontRate, setFontRate)
+            .environment(\.setAddlineBreak, setAddlineBreak)
+            .environment(\.setIsDisplayKnownWords, setIsDisplayKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
             .environmentObject(smallConfig)

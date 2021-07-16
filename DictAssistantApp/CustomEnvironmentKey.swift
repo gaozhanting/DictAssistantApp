@@ -51,13 +51,35 @@ extension EnvironmentValues {
     }
 }
 
-private struct SetSmallConfigEnvironmentKey: EnvironmentKey {
-    static let defaultValue: (CGFloat?, Bool?) -> Void = { _, _ in }
+private struct SetFontRateEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (CGFloat) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-    var setSmallConfig: (CGFloat?, Bool?) -> Void {
-        get { self[SetSmallConfigEnvironmentKey].self }
-        set { self[SetSmallConfigEnvironmentKey.self] = newValue }
+    var setFontRate: (CGFloat) -> Void {
+        get { self[SetFontRateEnvironmentKey].self }
+        set { self[SetFontRateEnvironmentKey.self] = newValue }
+    }
+}
+
+private struct SetAddlineBreakEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (Bool) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var setAddlineBreak: (Bool) -> Void {
+        get { self[SetAddlineBreakEnvironmentKey].self }
+        set { self[SetAddlineBreakEnvironmentKey.self] = newValue }
+    }
+}
+
+private struct SetIsDisplayKnownWordsEnvironmentKey: EnvironmentKey {
+    static let defaultValue: (Bool) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var setIsDisplayKnownWords: (Bool) -> Void {
+        get { self[SetIsDisplayKnownWordsEnvironmentKey].self }
+        set { self[SetIsDisplayKnownWordsEnvironmentKey.self] = newValue }
     }
 }
