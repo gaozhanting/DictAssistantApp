@@ -18,7 +18,7 @@ struct ListItem: View {
             try FileManager.default.moveItem(at: tempURL, to: zipFileURL)
             
             let task = Process()
-            task.launchPath = "/usr/bin/unzip" // swift API?!
+            task.launchPath = "/usr/bin/unzip" // swift API
             let toZipPath = cacheURL.path
             task.arguments = [zipFileURL.path, "-d", toZipPath]
             task.launch()
@@ -37,19 +37,28 @@ struct ListItem: View {
                 panel.directoryURL = dictionaryURL
                 panel.canCreateDirectories = true
                 panel.nameFieldStringValue = "oxfordjm-ec.dictionary"
-                if panel.runModal() == .OK {
-                    do {
-                        let distURL = panel.url! // [Make it Default]?? MUST input: oxfordjm-ec.dictionary in /Library/Dictionaries
-                        try FileManager.default.moveItem(at: fileURL, to: distURL)
-                        
-                        try FileManager.default.removeItem(at: zipFileURL)
-                        let xxURL = cacheURL.appendingPathComponent("__MACOSX", isDirectory: true) // why?!
-                        try FileManager.default.removeItem(at: xxURL)
-                    }
-                    catch {
-                        logger.info("Failed to move file2: \(error.localizedDescription)")
-                    }
+                
+                if panel.runModal() != .OK {
+                    logger.info("panel runModal not return OK")
+                    return
                 }
+                
+                do {
+                    guard let distURL = panel.url else {
+                        logger.info("panel url is nil")
+                        return
+                    }
+                    //                        let distURL = panel.url! // [Make it Default]?? MUST input: oxfordjm-ec.dictionary in /Library/Dictionaries
+                    try FileManager.default.moveItem(at: fileURL, to: distURL)
+                    
+                    try FileManager.default.removeItem(at: zipFileURL)
+                    let xxURL = cacheURL.appendingPathComponent("__MACOSX", isDirectory: true) // why
+                    try FileManager.default.removeItem(at: xxURL)
+                }
+                catch {
+                    logger.info("Failed to move file2: \(error.localizedDescription)")
+                }
+                
             }
         } catch {
             logger.info("Failed to move file: \(error.localizedDescription)")

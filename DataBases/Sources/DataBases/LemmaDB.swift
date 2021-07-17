@@ -18,7 +18,7 @@ public struct LemmaDB {
             var dict: [String: String] = [:]
             let content = try String(contentsOf: path, encoding: String.Encoding.utf8)
             var lines = content.components(separatedBy: "\n")
-            lines.removeLast() // last is empty string!
+            lines.removeLast() // last is empty string
             for line in lines {
                 let x = line.split(separator: ">", maxSplits: 1)
                 let lemma = String(x[0])

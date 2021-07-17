@@ -55,7 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // MARK: - Application
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
-    // Notice order!
+    // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")

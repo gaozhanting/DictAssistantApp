@@ -45,7 +45,7 @@ struct NPLSample {
                     let lemma = tag.rawValue
                     results.append(Word(token: token, lemma: lemma))
                 } else {
-                    myPrint("    >>lemma from apple, but raw value of tag is empty!!") // seems to be impossible
+                    myPrint("    >>lemma from apple, but raw value of tag is empty") // seems to be impossible
                     results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
                 }
                 return true
