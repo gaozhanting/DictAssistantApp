@@ -20,6 +20,7 @@ fileprivate enum Style {
 }
 
 fileprivate struct SingleWordView: View {
+    @Environment(\.openURL) var openURL
     @Environment(\.addToKnownWords) var addToKnownWords
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
     @EnvironmentObject var smallConfig: SmallConfig
@@ -54,6 +55,16 @@ fileprivate struct SingleWordView: View {
         }
     }
     
+    func openExternalDict(_ word: String) {
+        if isPhrase {
+            return
+        }
+        guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(word)") else {
+            return
+        }
+        openURL(url)
+    }
+    
     var body: some View {
         if tag == "unKnown" {
             VStack {
@@ -63,11 +74,7 @@ fileprivate struct SingleWordView: View {
                     .contextMenu {
                         Button("Add to Known", action: { addToKnownWords(word) })
                         Menu("Online Dict Link") {
-                            Button("Collins", action: {
-                                if isPhrase { return }
-                                let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(word)")
-                                NSWorkspace.shared.open(url!)
-                            })
+                            Button("Collins", action: { openExternalDict(word) })
                         }
                     }
                     .onTapGesture(count: 2) {
