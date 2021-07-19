@@ -174,7 +174,7 @@ struct EditingView: View {
             
             if showInfo {
                 Divider()
-                (Text("Edit one word every line; valid character of a word should only be ") + Text("a-z A-Z - '").foregroundColor(.green))
+                (Text("Edit one word every line; valid character of a word should only be ") + Text("a-z A-Z - ' . or space").foregroundColor(.green))
                     .padding(.leading, 4)
             }
             

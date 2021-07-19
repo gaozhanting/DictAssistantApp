@@ -1401,7 +1401,8 @@ friend
 friendly
 friendship
 frighten
-frighten away/off
+frighten away
+frightern off
 frightened
 frightening
 from
@@ -2274,7 +2275,6 @@ occupy
 occur
 occur to
 ocean
-o’clock
 October
 odd
 oddly
