@@ -238,11 +238,11 @@ struct LandscapeNormalWordsView: View {
                 )
                 .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
             }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer()
         }
-        .attachContextMenu()
-        .background(Color.black.opacity(0.75))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.75))
+        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -265,8 +265,8 @@ struct LandscapeMiniWordsView: View {
             }
             Spacer()
         }
-        .attachContextMenu()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -275,7 +275,7 @@ struct PortraitNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
                 WordsView(
                     color: visualConfig.colorOfPortrait,
@@ -285,11 +285,11 @@ struct PortraitNormalWordsView: View {
                 )
                 .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            Spacer()
         }
-        .attachContextMenu()
-        .background(Color.black.opacity(0.75))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.75))
+        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -313,43 +313,66 @@ struct PortraitMiniWordsView: View {
                 .background(Color.black.opacity(0.75))
             }
         }
-        .attachContextMenu()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
 
 struct WordsView_Previews: PreviewProvider {
+    static let displayedWordsNoWords = DisplayedWords(words: [])
+    static let displayedWordsSample1 = DisplayedWords(words: [
+        ("known", "around", define("around")),
+        ("unKnown", "andros", define("andros")),
+        ("known", "the", define("the")),
+        ("known", "king", define("king")),
+        ("known", "start", define("start")),
+        ("unKnown", "grant", define("grant")),
+        ("unKnown", "s", define("s"))
+    ])
     static var previews: some View {
         Group {
-            LandscapeNormalWordsView()
-                .frame(width: 1000, height: 220)
-                .attachEnv()
+            Group {
+                LandscapeNormalWordsView()
+                    .frame(width: 1000, height: 220)
+                    .attachEnv(displayedWords: displayedWordsSample1)
+                LandscapeNormalWordsView()
+                    .frame(width: 1000, height: 220)
+                    .attachEnv(displayedWords: displayedWordsNoWords)
+            }
+            
+            Group {
+                LandscapeMiniWordsView()
+                    .frame(width: 1000, height: 220)
+                    .attachEnv(displayedWords: displayedWordsSample1)
+                LandscapeMiniWordsView()
+                    .frame(width: 1000, height: 220)
+                    .attachEnv(displayedWords: displayedWordsNoWords)
+            }
 
-            LandscapeMiniWordsView()
-                .frame(width: 1000, height: 220)
-                .attachEnv()
+            Group {
+                PortraitNormalWordsView()
+                    .frame(width: 220, height: 600)
+                    .attachEnv(displayedWords: displayedWordsSample1)
+                PortraitNormalWordsView()
+                    .frame(width: 220, height: 600)
+                    .attachEnv(displayedWords: displayedWordsNoWords)
+            }
 
-            PortraitNormalWordsView()
-                .frame(width: 220, height: 600)
-                .attachEnv()
-
-            PortraitMiniWordsView()
-                .frame(width: 220, height: 600)
-                .attachEnv()
+            Group {
+                PortraitMiniWordsView()
+                    .frame(width: 220, height: 600)
+                    .attachEnv(displayedWords: displayedWordsSample1)
+                PortraitMiniWordsView()
+                    .frame(width: 220, height: 600)
+                    .attachEnv(displayedWords: displayedWordsNoWords)
+            }
         }
     }
 }
 
 struct AttachEnv: ViewModifier {
-    let displayedWords = DisplayedWords(words: [
-        ("known", "around", define("around")),
-        ("unKnown", "andros", define("andros")),
-        ("unKnown", "so", define("so")),
-        ("known", "the", define("the")),
-        ("known", "king", define("king")),
-        ("known", "start", define("start")),
-    ])
+    let displayedWords: DisplayedWords
     let visualConfig = VisualConfig(
         fontSizeOfLandscape: 20,
         fontSizeOfPortrait: 13,
@@ -358,18 +381,23 @@ struct AttachEnv: ViewModifier {
         fontName: NSFont.systemFont(ofSize: 0.0).fontName
     )
     let smallConfig = SmallConfig(fontRate: 1.0, addLineBreak: true, isDisplayKnownWords: true)
+    let textProcessConfig = TextProcessConfig(
+        textRecognitionLevel: .fast,
+        minimumTextHeight: systemDefaultMinimumTextHeight
+    )
     
     func body(content: Content) -> some View {
         content
             .environmentObject(displayedWords)
             .environmentObject(visualConfig)
             .environmentObject(smallConfig)
+            .environmentObject(textProcessConfig)
     }
 }
 
 extension View {
-    func attachEnv() -> some View {
-        self.modifier(AttachEnv())
+    func attachEnv(displayedWords: DisplayedWords) -> some View {
+        self.modifier(AttachEnv(displayedWords: displayedWords))
     }
 }
 
