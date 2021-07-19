@@ -56,10 +56,8 @@ fileprivate struct SingleWordView: View {
     }
     
     func openExternalDict(_ word: String) {
-        if isPhrase {
-            return
-        }
-        guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(word)") else {
+        let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
+        guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(replaceSpaced)") else {
             return
         }
         openURL(url)
