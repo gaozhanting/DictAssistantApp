@@ -48,60 +48,55 @@ fileprivate struct SingleWordView: View {
     }
     
     var transText: String {
-        if smallConfig.addLineBreak {
-            return ("\n" + trans)
-        } else {
-            return trans
-        }
+        smallConfig.addLineBreak ? "\n" + trans : trans
+    }
+    
+    var unKnown: Bool {
+        tag == "unKnown"
+    }
+    
+    var known: Bool {
+        tag == "known"
     }
     
     func openExternalDict(_ word: String) {
         let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
         guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(replaceSpaced)") else {
+            logger.info("invalid external dict url string")
             return
         }
         openURL(url)
     }
     
+    var textView: some View {
+        unKnown ?
+            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * smallConfig.fontRate)))
+            :
+            Text(word).foregroundColor(.gray)
+    }
+    
     var body: some View {
-        if tag == "unKnown" {
-            VStack {
-                (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * smallConfig.fontRate)))
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 6)
-                    .contextMenu {
-                        Button("Add to Known", action: { addToKnownWords(word) })
-                        Menu("Online Dict Link") {
-                            Button("Collins", action: { openExternalDict(word) })
-                        }
+        VStack {
+            textView
+                .opacity( (known && isPhrase) ? 0.5 : 1)
+                .font(Font.custom(fontName, size: fontSize))
+                .padding(.vertical, 4)
+                .padding(.horizontal, 6)
+                .contextMenu {
+                    Button(unKnown ? "Add to Known" : "Remove from known", action: {
+                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
+                    })
+                    Menu("Online Dict Link") {
+                        Button("Collins", action: { openExternalDict(word) })
                     }
-                    .onTapGesture(count: 2) {
-                        openDict(word)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .background(Color.black.opacity(style == .landscapeMini ? 0.75 : 0))
-                
-                Spacer()
-            }
-
-        } else {
-            VStack {
-                Text(word).foregroundColor(.gray).opacity( isPhrase ? 0.5 : 1)
-                    .font(Font.custom(fontName, size: fontSize))
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 6)
-                    .contextMenu {
-                        Button("Remove from Known", action: { removeFromKnownWords(word) })
-                    }
-                    .onTapGesture(count: 2) {
-                        openDict(word)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .background(Color.black.opacity(style == .landscapeMini ? 0.75 : 0))
-
-                Spacer()
-            }
-
+                }
+                .onTapGesture(count: 2) {
+                    openDict(word)
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .background(Color.black.opacity(style == .landscapeMini ? 0.75 : 0))
+            
+            Spacer()
         }
     }
 }
@@ -110,18 +105,13 @@ fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @EnvironmentObject var smallConfig: SmallConfig
     
-    var isDisplayKnownWords: Bool {
-        smallConfig.isDisplayKnownWords
-    }
-    
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
-        
     let style: Style
     
     var words: [(String, String, String)] {
-        if isDisplayKnownWords {
+        if smallConfig.isDisplayKnownWords {
             return displayedWords.words
         } else {
             var deDuplicated: [(String, String, String)] = []
@@ -132,29 +122,18 @@ fileprivate struct WordsView: View {
                     tempSet.insert(word)
                 }
             }
-            return deDuplicated
+            return deDuplicated.filter{ $0.0 == "unKnown" }
         }
     }
     
     var body: some View {
-        if isDisplayKnownWords {
-            ForEach(Array(words.enumerated()), id: \.0) { _, taggedWordTrans in
-                SingleWordView(
-                    taggedWordTrans: taggedWordTrans,
-                    color: color,
-                    fontName: fontName,
-                    fontSize: fontSize,
-                    style: style)
-            }
-        } else {
-            ForEach(Array(words.filter { $0.0 == "unKnown" }.enumerated()), id: \.0) { _, taggedWordTrans in
-                SingleWordView(
-                    taggedWordTrans: taggedWordTrans,
-                    color: color,
-                    fontName: fontName,
-                    fontSize: fontSize,
-                    style: style)
-            }
+        ForEach(words, id: \.1) { taggedWordTrans in
+            SingleWordView(
+                taggedWordTrans: taggedWordTrans,
+                color: color,
+                fontName: fontName,
+                fontSize: fontSize,
+                style: style)
         }
     }
 }
