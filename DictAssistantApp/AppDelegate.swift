@@ -40,6 +40,11 @@ let systemDefaultMinimumTextHeight: Float = 0.03125
 var phrasesDB: Set<String> = Set.init()
 var lemmaDB: [String: String] = [:]
 
+// first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
+// got this should not add it !
+var fixedNoiseVocabulary: Set<String> = Set.init()
+
+
 let defaultFontSizeOfLandscape = 35.0
 let defaultFontSizeOfPortrait = 18.0
 
@@ -62,6 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
+        fixedNoiseVocabulary = makeFixedNoiseVocabulary()
         
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
             UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
@@ -864,7 +870,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var currentWords: [String] = []
     
     func trCallBack(texts: [String]) {
-        currentWords = nplSample.process(texts)
+        let words = nplSample.process(texts)
+        currentWords = words.filter { !fixedNoiseVocabulary.contains($0) }
         tagTransAndMutateDisplayedWords()
     }
     
@@ -874,7 +881,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             if allKnownWordsSetCache.contains(word) {
                 taggedWordTrans.append(("known", word, ""))
             } else {
-                if let trans = cachedDictionaryServicesDefine(word) { // Igonre non-dict word
+                if let trans = cachedDictionaryServicesDefine(word) { // Ignore non-dict word
                     taggedWordTrans.append(("unKnown", word, trans))
                 }
             }

@@ -83,7 +83,7 @@ struct EditingView: View {
         
         for word in words {
             for char in word {
-                if !TextProcess.validEnglishWordsCharacterSet.contains(char) {
+                if !validEnglishWordsCharacterSet.contains(char) {
                     return true
                 }
             }

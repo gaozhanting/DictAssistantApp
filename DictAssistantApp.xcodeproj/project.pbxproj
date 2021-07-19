@@ -19,7 +19,6 @@
 		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D0F7F26564D96004A7173 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
-		447D61AD2644114B00AB0C1A /* TextProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D61AC2644114B00AB0C1A /* TextProcess.swift */; };
 		449581DF2664F96B005FE507 /* TextProcessConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449581DE2664F96B005FE507 /* TextProcessConfig.swift */; };
 		4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
@@ -47,7 +46,6 @@
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D0F7E26564D96004A7173 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
-		447D61AC2644114B00AB0C1A /* TextProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcess.swift; sourceTree = "<group>"; };
 		449581DE2664F96B005FE507 /* TextProcessConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessConfig.swift; sourceTree = "<group>"; };
 		4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentKey.swift; sourceTree = "<group>"; };
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 		447D61912643C89700AB0C1A /* TextProcess */ = {
 			isa = PBXGroup;
 			children = (
-				447D61AC2644114B00AB0C1A /* TextProcess.swift */,
 				440824FB268E178E00EA7EEE /* NPLSample.swift */,
 			);
 			path = TextProcess;
@@ -246,7 +243,6 @@
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
-				447D61AD2644114B00AB0C1A /* TextProcess.swift in Sources */,
 				449581DF2664F96B005FE507 /* TextProcessConfig.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */,

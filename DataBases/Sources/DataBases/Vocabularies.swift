@@ -21,7 +21,6 @@ public struct Vocabularies {
         do {
             let content = try String(contentsOf: url, encoding: String.Encoding.utf8)
             return content
-//            return Set(content.components(separatedBy: "\n"))
         }
         catch(_) {
             fatalError("Couldn't init from \(file)")
