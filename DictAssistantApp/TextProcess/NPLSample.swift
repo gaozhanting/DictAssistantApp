@@ -205,7 +205,3 @@ struct NPLSample {
 }
 
 let nplSample = NPLSample()
-
-func myPrint(_ str: String) {
-//    print(str) // or donothing
-}

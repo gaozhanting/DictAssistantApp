@@ -78,7 +78,7 @@ fileprivate struct SingleWordView: View {
                         }
                     }
                     .onTapGesture(count: 2) {
-                        openDict(word) // phrase not work
+                        openDict(word)
                     }
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     .background(Color.black.opacity(style == .landscapeMini ? 0.75 : 0))

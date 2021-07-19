@@ -29,7 +29,8 @@ let package = Package(
                 .process("Resources/oxford_3000.txt"),
                 .process("Resources/lemma.en.txt"),
                 .process("Resources/phrases_and_idioms_extracted_from_brief_oxford_dict.txt"),
-                .process("Resources/phrases_and_idioms_not_in_brief_oxford_dict.txt")
+                .process("Resources/phrases_and_idioms_not_in_brief_oxford_dict.txt"),
+                .process("Resources/normal_noise_words.txt")
             ]),
         .testTarget(
             name: "DataBasesTests",

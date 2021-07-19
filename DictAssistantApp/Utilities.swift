@@ -32,10 +32,11 @@ func say(_ word: String) {
 }
 
 func openDict(_ word: String) {
+    let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
     let task = Process()
     task.launchPath = "/usr/bin/open"
     var arguments = [String]();
-    arguments.append("dict://\(word)")
+    arguments.append("dict://\(replaceSpaced)")
     task.arguments = arguments
     task.launch()
 }

@@ -14,7 +14,10 @@ import CryptoKit
 import Foundation
 import Vision
 
-let logger = Logger(.disabled)
+let logger = Logger()
+func myPrint(_ str: String) {
+    print(str) // or donothing
+}
 
 let systemDefaultMinimumTextHeight: Float = 0.03125
 
