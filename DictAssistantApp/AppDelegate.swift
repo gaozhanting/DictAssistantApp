@@ -45,7 +45,7 @@ var lemmaDB: [String: String] = [:]
 var fixedNoiseVocabulary: Set<String> = Set.init()
 
 
-let defaultFontSizeOfLandscape = 35.0
+let defaultFontSizeOfLandscape = 30.0
 let defaultFontSizeOfPortrait = 18.0
 
 @NSApplicationMain
@@ -440,6 +440,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         selectWordsPanel(.landscapeNormal)
     }
     
+    @ViewBuilder
+    func attachEnv(_ view: AnyView) -> some View {
+        view
+            .environment(\.addToKnownWords, addToKnownWords)
+            .environment(\.removeFromKnownWords, removeFromKnownWords)
+            .environmentObject(visualConfig)
+            .environmentObject(displayedWords)
+            .environmentObject(textProcessConfig)
+            .environmentObject(smallConfig)
+    }
+    
     func selectWordsPanel(_ theContentMode: ContentMode) {
         contentMode = theContentMode
         switch contentMode {
@@ -449,13 +460,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             portraitNormalItem.state = .off
             portraitMiniItem.state = .off
             closedWordsItem.state = .off
-            let contentView = LandscapeNormalWordsView()
-                .environment(\.addToKnownWords, addToKnownWords)
-                .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environmentObject(visualConfig)
-                .environmentObject(displayedWords)
-                .environmentObject(textProcessConfig)
-                .environmentObject(smallConfig)
+            let contentView = attachEnv(AnyView(LandscapeNormalWordsView()))
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             portraitWordsPanel.close()
@@ -469,13 +474,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             portraitNormalItem.state = .off
             portraitMiniItem.state = .off
             closedWordsItem.state = .off
-            let contentView = LandscapeMiniWordsView()
-                .environment(\.addToKnownWords, addToKnownWords)
-                .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environmentObject(visualConfig)
-                .environmentObject(displayedWords)
-                .environmentObject(textProcessConfig)
-                .environmentObject(smallConfig)
+            let contentView = attachEnv(AnyView(LandscapeMiniWordsView()))
             landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             portraitWordsPanel.close()
@@ -489,13 +488,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             portraitNormalItem.state = .on
             portraitMiniItem.state = .off
             closedWordsItem.state = .off
-            let contentView = PortraitNormalWordsView()
-                .environment(\.addToKnownWords, addToKnownWords)
-                .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environmentObject(visualConfig)
-                .environmentObject(displayedWords)
-                .environmentObject(textProcessConfig)
-                .environmentObject(smallConfig)
+            let contentView = attachEnv(AnyView(PortraitNormalWordsView()))
             portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             landscapeWordsPanel.close()
@@ -509,13 +502,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             portraitNormalItem.state = .off
             portraitMiniItem.state = .on
             closedWordsItem.state = .off
-            let contentView = PortraitMiniWordsView()
-                .environment(\.addToKnownWords, addToKnownWords)
-                .environment(\.removeFromKnownWords, removeFromKnownWords)
-                .environmentObject(visualConfig)
-                .environmentObject(displayedWords)
-                .environmentObject(textProcessConfig)
-                .environmentObject(smallConfig)
+            let contentView = attachEnv(AnyView(PortraitMiniWordsView()))
             portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
             
             landscapeWordsPanel.close()
@@ -548,13 +535,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             name: "landscapeWordsPanel"
         )
         
-        let contentView = LandscapeNormalWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-            .environmentObject(smallConfig)
-
+        let contentView = attachEnv(AnyView(LandscapeNormalWordsView()))
         landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
     }
     
@@ -565,13 +546,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             name: "portraitWordsPanel"
         )
                 
-        let contentView = PortraitNormalWordsView()
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environmentObject(visualConfig)
-            .environmentObject(displayedWords)
-            .environmentObject(smallConfig)
-
+        let contentView = attachEnv(AnyView(PortraitNormalWordsView()))
         portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
     }
     
