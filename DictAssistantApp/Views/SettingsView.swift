@@ -7,26 +7,84 @@
 
 import SwiftUI
 
+//struct SettingsView: View {
+//    var body: some View {
+//        MTabView()
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//    }
+//}
+//
+//struct MTabView: NSViewControllerRepresentable {
+//    func makeNSViewController(context: Context) -> some NSViewController {
+//        let controller = MNSTabViewController()
+//        return controller
+//    }
+//
+//    func updateNSViewController(_ nsViewController: NSViewControllerType, context: Context) {
+//    }
+//}
+//
+//class MNSTabViewController: NSTabViewController {
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        let generalSettingViewController = NSHostingController(rootView: GeneralSettingView())
+//
+//        let appearanceSettingViewController = NSHostingController(rootView: AppearanceSettingView())
+//
+//        tabStyle = .toolbar
+//
+//        let gTabViewItem = NSTabViewItem.init(viewController: generalSettingViewController)
+//        let aTabViewItem = NSTabViewItem.init(viewController: appearanceSettingViewController)
+//        tabViewItems = [gTabViewItem, aTabViewItem]
+//    }
+//}
+//
+//struct GeneralSettingView: View {
+//    var body: some View {
+//        Text("General")
+//    }
+//}
+//
+//struct AppearanceSettingView: View {
+//    var body: some View {
+//        Text("Appearance")
+//    }
+//}
+
 struct SettingsView: View {
+    private let tabs = ["Watch Now", "Movies", "TV Shows", "Kids", "Library"]
+    @State private var selectedTab = 0
     var body: some View {
-        TabView {
-            Text("The First Tab")
-                .tabItem {
-                    Image(systemName: "1.square.fill")
-                    Text("First")
+        VStack {
+            HStack {
+                Spacer()
+                Picker("", selection: $selectedTab) {
+                    ForEach(tabs.indices) { i in
+                        Text(self.tabs[i]).tag(i)
+                    }
                 }
-            Text("Another Tab")
-                .tabItem {
-                    Image(systemName: "2.square.fill")
-                    Text("Second")
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.top, 8)
+                Spacer()
+            }
+            .padding(.horizontal, 100)
+            Divider()
+            GeometryReader { gp in
+                VStack {
+                    ChildTabView(title: self.tabs[self.selectedTab], index: self.selectedTab)
                 }
-            Text("The Last Tab")
-                .tabItem {
-                    Image(systemName: "3.square.fill")
-                    Text("Third")
-                }
+            }
         }
-        .font(.headline)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+struct ChildTabView: View {
+    var title: String
+    var index: Int
+    var body: some View {
+        Text("\(title)")
     }
 }
 

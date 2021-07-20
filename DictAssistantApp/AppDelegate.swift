@@ -216,7 +216,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(downloadAndInstallDict)
         
         menu.addItem(NSMenuItem.separator())
-        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showSettingsPanel), keyEquivalent: "")
+        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showSettingsPanel), keyEquivalent: ",")
         menu.addItem(showSettingsPanelItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -633,22 +633,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var settingsPanel: NSPanel!
     func initSettingsPanel() {
         settingsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 600, height: 400),
+            contentRect: NSRect(x: 500, y: 100, width: 480, height: 300),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
-                .closable
+                .closable,
             ],
             backing: .buffered,
             defer: false
         )
         settingsPanel.setFrameAutosaveName("settingsPanel")
+        settingsPanel.title = "Preferences"
         settingsPanel.isReleasedWhenClosed = false
+        settingsPanel.toolbarStyle = .preference
+        settingsPanel.titlebarAppearsTransparent = true
     }
     
     @objc func showSettingsPanel() {
         let settingsView = SettingsView()
-        
         settingsPanel.contentView = NSHostingView(rootView: settingsView)
         settingsPanel.orderFrontRegardless()
     }
