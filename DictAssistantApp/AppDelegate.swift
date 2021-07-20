@@ -96,6 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         initCropperWindow()
         initKnownWordsPanel()
         initDownloadAndInstallDictsPanel()
+        initSettingsPanel()
         
         constructMenuBar()
         
@@ -215,6 +216,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(downloadAndInstallDict)
         
         menu.addItem(NSMenuItem.separator())
+        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showSettingsPanel), keyEquivalent: "")
+        menu.addItem(showSettingsPanelItem)
+        
+        menu.addItem(NSMenuItem.separator())
         
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
@@ -239,33 +244,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             withAnimationItem.state = .off
             withoutAnimationItem.state = .on
         }
-    }
-    
-    var downloadAndInstallDictsPanel: NSPanel!
-    func initDownloadAndInstallDictsPanel() {
-        downloadAndInstallDictsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 600, height: 400),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-        )
-        downloadAndInstallDictsPanel.setFrameAutosaveName("downloadAndInstallDictsPanel")
-        
-        downloadAndInstallDictsPanel.isReleasedWhenClosed = false
-    }
-    
-    @objc func showDownloadAndInstallDictsPanel() {
-        let downloadAndInstallDictsView = DownloadAndInstallDictsView()
-        
-        downloadAndInstallDictsPanel.contentView = NSHostingView(rootView: downloadAndInstallDictsView)
-        downloadAndInstallDictsPanel.orderFrontRegardless()
     }
     
     var lastNonContentMode: ContentMode? = nil
@@ -621,6 +599,58 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
         knownWordsPanel.orderFrontRegardless()
+    }
+    
+    // MARK: - DownloadAndInstallDicts Panel
+    var downloadAndInstallDictsPanel: NSPanel!
+    func initDownloadAndInstallDictsPanel() {
+        downloadAndInstallDictsPanel = NSPanel.init(
+            contentRect: NSRect(x: 500, y: 100, width: 600, height: 400),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+                .miniaturizable,
+                .resizable,
+                .utilityWindow,
+            ],
+            backing: .buffered,
+            defer: false
+        )
+        downloadAndInstallDictsPanel.setFrameAutosaveName("downloadAndInstallDictsPanel")
+        
+        downloadAndInstallDictsPanel.isReleasedWhenClosed = false
+    }
+    
+    @objc func showDownloadAndInstallDictsPanel() {
+        let downloadAndInstallDictsView = DownloadAndInstallDictsView()
+        
+        downloadAndInstallDictsPanel.contentView = NSHostingView(rootView: downloadAndInstallDictsView)
+        downloadAndInstallDictsPanel.orderFrontRegardless()
+    }
+    
+    // MARK: - Setting Panel
+    var settingsPanel: NSPanel!
+    func initSettingsPanel() {
+        settingsPanel = NSPanel.init(
+            contentRect: NSRect(x: 500, y: 100, width: 600, height: 400),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable
+            ],
+            backing: .buffered,
+            defer: false
+        )
+        settingsPanel.setFrameAutosaveName("settingsPanel")
+        settingsPanel.isReleasedWhenClosed = false
+    }
+    
+    @objc func showSettingsPanel() {
+        let settingsView = SettingsView()
+        
+        settingsPanel.contentView = NSHostingView(rootView: settingsView)
+        settingsPanel.orderFrontRegardless()
     }
     
     // MARK: - User Defaults

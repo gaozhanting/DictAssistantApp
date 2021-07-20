@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NPLSample.swift */; };
+		442134CE26A6C64200963441 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* SettingsView.swift */; };
 		442298B7269EADC1008B410B /* DownloadAndInstallDictsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442298B6269EADC1008B410B /* DownloadAndInstallDictsView.swift */; };
 		442298B9269F13F8008B410B /* SmallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442298B8269F13F8008B410B /* SmallConfig.swift */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		440824FB268E178E00EA7EEE /* NPLSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPLSample.swift; sourceTree = "<group>"; };
+		442134CD26A6C64200963441 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		442298B6269EADC1008B410B /* DownloadAndInstallDictsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAndInstallDictsView.swift; sourceTree = "<group>"; };
 		442298B8269F13F8008B410B /* SmallConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallConfig.swift; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* DictAssistantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DictAssistantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
 				442298B6269EADC1008B410B /* DownloadAndInstallDictsView.swift */,
+				442134CD26A6C64200963441 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				442298B7269EADC1008B410B /* DownloadAndInstallDictsView.swift in Sources */,
 				44FC700A266DEFF80025676B /* WordsView.swift in Sources */,
 				442298B9269F13F8008B410B /* SmallConfig.swift in Sources */,
+				442134CE26A6C64200963441 /* SettingsView.swift in Sources */,
 				44FC7016266F48730025676B /* VisualConfig.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
