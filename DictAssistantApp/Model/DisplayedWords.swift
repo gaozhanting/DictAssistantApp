@@ -7,11 +7,22 @@
 
 import Foundation
 
+enum IsKnown {
+    case known
+    case unKnown
+}
+
+struct WordCell {
+    let word: String
+    let isKnown: IsKnown
+    let trans: String
+}
+
 // as a bridge of AppDelegate(and our inner system)(write) and WordsView UI(read)
 class DisplayedWords: ObservableObject {
-    @Published var words: [(String, String, String)] = []
+    @Published var wordCells: [WordCell] = []
     
-    init(words: [(String, String, String)]) {
-        self.words = words
+    init(wordCells: [WordCell]) {
+        self.wordCells = wordCells
     }
 }

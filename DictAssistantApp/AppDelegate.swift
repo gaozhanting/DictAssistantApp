@@ -278,7 +278,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 accessibilityDescription: nil
             )
             toggleItem.title = "Toggle OFF"
-            displayedWords.words = []
+            displayedWords.wordCells = []
             aVSessionAndTR.startScreenCapture()
             contentPanel.orderFrontRegardless()
             cropperWindow.orderFrontRegardless()
@@ -295,7 +295,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 accessibilityDescription: nil
             )
             toggleItem.title = "Toggle ON"
-            displayedWords.words = []
+            displayedWords.wordCells = []
             aVSessionAndTR.stopScreenCapture()
             contentPanel.close()
             activeCropperWindow()
@@ -840,7 +840,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     // MARK:- Words
-    let displayedWords = DisplayedWords(words: [])
+    let displayedWords = DisplayedWords(wordCells: [])
     
     var currentWords: [String] = []
     
@@ -851,13 +851,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func tagTransAndMutateDisplayedWords() {
-        var taggedWordTrans: [(String, String, String)] = []
+        var taggedWordTrans: [WordCell] = []
         for word in currentWords {
             if allKnownWordsSetCache.contains(word) {
-                taggedWordTrans.append(("known", word, ""))
+                taggedWordTrans.append(WordCell(word: word, isKnown: .known, trans: ""))
             } else {
                 if let trans = cachedDictionaryServicesDefine(word) { // Ignore non-dict word
-                    taggedWordTrans.append(("unKnown", word, trans))
+                    taggedWordTrans.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
                 }
             }
         }
@@ -865,10 +865,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         switch animationStyle {
         case .withAnimation:
             withAnimation {
-                displayedWords.words = taggedWordTrans
+                displayedWords.wordCells = taggedWordTrans
             }
         case .withoutAnimation:
-            displayedWords.words = taggedWordTrans
+            displayedWords.wordCells = taggedWordTrans
         }
     }
     

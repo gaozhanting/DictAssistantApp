@@ -25,40 +25,40 @@ fileprivate struct SingleWordView: View {
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
     @EnvironmentObject var smallConfig: SmallConfig
 
-    let taggedWordTrans: (String, String, String)
+    let wordCell: WordCell
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
     let style: Style
 
-    var tag: String {
-        taggedWordTrans.0
+    var isKnown: IsKnown {
+        wordCell.isKnown
+    }
+    
+    var unKnown: Bool {
+        isKnown == .unKnown
+    }
+    
+    var known: Bool {
+        isKnown == .known
     }
     
     var word: String {
-        taggedWordTrans.1
-    }
-    
-    var trans: String {
-        taggedWordTrans.2
+        wordCell.word
     }
     
     var isPhrase: Bool {
         word.contains(" ")
     }
     
+    var trans: String {
+        wordCell.trans
+    }
+    
     var transText: String {
         smallConfig.addLineBreak ? "\n" + trans : trans
     }
-    
-    var unKnown: Bool {
-        tag == "unKnown"
-    }
-    
-    var known: Bool {
-        tag == "known"
-    }
-    
+
     func openExternalDict(_ word: String) {
         let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
         guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(replaceSpaced)") else {
@@ -110,26 +110,27 @@ fileprivate struct WordsView: View {
     let fontSize: CGFloat
     let style: Style
     
-    var words: [(String, String, String)] {
+    var words: [WordCell] {
         if smallConfig.isDisplayKnownWords {
-            return displayedWords.words
+            return displayedWords.wordCells
         } else {
-            var deDuplicated: [(String, String, String)] = []
+            var deDuplicated: [WordCell] = []
             var tempSet: Set<String> = Set.init()
-            for (tag, word, trans) in displayedWords.words {
+            for wordCell in displayedWords.wordCells {
+                let word = wordCell.word
                 if !tempSet.contains(word) {
-                    deDuplicated.append((tag, word, trans))
+                    deDuplicated.append(wordCell)
                     tempSet.insert(word)
                 }
             }
-            return deDuplicated.filter{ $0.0 == "unKnown" }
+            return deDuplicated.filter{ $0.isKnown == .unKnown }
         }
     }
     
     var body: some View {
-        ForEach(words, id: \.1) { taggedWordTrans in
+        ForEach(words, id: \.word) { wordCell in
             SingleWordView(
-                taggedWordTrans: taggedWordTrans,
+                wordCell: wordCell,
                 color: color,
                 fontName: fontName,
                 fontSize: fontSize,
@@ -299,15 +300,14 @@ struct PortraitMiniWordsView: View {
 }
 
 struct WordsView_Previews: PreviewProvider {
-    static let displayedWordsNoWords = DisplayedWords(words: [])
-    static let displayedWordsSample1 = DisplayedWords(words: [
-        ("known", "around", define("around")),
-        ("unKnown", "andros", define("andros")),
-        ("known", "the", define("the")),
-        ("known", "king", define("king")),
-        ("known", "start", define("start")),
-        ("unKnown", "grant", define("grant")),
-        ("unKnown", "s", define("s"))
+    static let displayedWordsNoWords = DisplayedWords(wordCells: [])
+    static let displayedWordsSample1 = DisplayedWords(wordCells: [
+        WordCell(word: "around", isKnown: .known, trans: define("around")),
+        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
+        WordCell(word: "the", isKnown: .known, trans: define("the")),
+        WordCell(word: "king", isKnown: .known, trans: define("king")),
+        WordCell(word: "grant", isKnown: .unKnown, trans: define("grant")),
+        WordCell(word: "s", isKnown: .unKnown, trans: define("s"))
     ])
     static var previews: some View {
         Group {
