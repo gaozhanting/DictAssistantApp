@@ -262,7 +262,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             cropperWindow.orderFrontRegardless()
             fixCropperWindow()
             selectWordsPanel(lastNonContentMode ?? .landscapeNormal)
-            selectCropperWindow(.strokeBorder)
+            selectCropperWindow(.closed)
         }
         else {
             lastNonContentMode = contentMode
@@ -431,6 +431,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func selectWordsPanel(_ theContentMode: ContentMode) {
         contentMode = theContentMode
+        if contentMode != .closed {
+            lastNonContentMode = contentMode
+        }
         switch contentMode {
         case .landscapeNormal:
             landscapeNormalItem.state = .on
