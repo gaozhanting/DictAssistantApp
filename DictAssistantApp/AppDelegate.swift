@@ -79,7 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         initContentPanel()
         initCropperWindow()
         initKnownWordsPanel()
-        initDownloadAndInstallDictsPanel()
         initSettingsPanel()
         
         constructMenuBar()
@@ -209,11 +208,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let downloadAndInstallDict = NSMenuItem(title: "Show Download and Install Dicts Panel", action: #selector(showDownloadAndInstallDictsPanel), keyEquivalent: "")
-        menu.addItem(downloadAndInstallDict)
         
         menu.addItem(NSMenuItem.separator())
         let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showSettingsPanel), keyEquivalent: ",")
@@ -559,39 +553,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         knownWordsPanel.orderFrontRegardless()
     }
     
-    // MARK: - DownloadAndInstallDicts Panel
-    var downloadAndInstallDictsPanel: NSPanel!
-    func initDownloadAndInstallDictsPanel() {
-        downloadAndInstallDictsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 600, height: 400),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-        )
-        downloadAndInstallDictsPanel.setFrameAutosaveName("downloadAndInstallDictsPanel")
-        
-        downloadAndInstallDictsPanel.isReleasedWhenClosed = false
-    }
-    
-    @objc func showDownloadAndInstallDictsPanel() {
-        let downloadAndInstallDictsView = DownloadAndInstallDictsView()
-        
-        downloadAndInstallDictsPanel.contentView = NSHostingView(rootView: downloadAndInstallDictsView)
-        downloadAndInstallDictsPanel.orderFrontRegardless()
-    }
-    
     // MARK: - Setting Panel
     var settingsPanel: NSPanel!
     func initSettingsPanel() {
         settingsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 500, height: 450),
+            contentRect: NSRect(x: 500, y: 100, width: 500, height: 500),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,

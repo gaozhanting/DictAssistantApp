@@ -10,7 +10,8 @@
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NPLSample.swift */; };
 		442134CE26A6C64200963441 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* SettingsView.swift */; };
-		442298B7269EADC1008B410B /* DownloadAndInstallDictsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442298B6269EADC1008B410B /* DownloadAndInstallDictsView.swift */; };
+		442134D526A9A36A00963441 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingView.swift */; };
+		442298B7269EADC1008B410B /* DictsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442298B6269EADC1008B410B /* DictsView.swift */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
@@ -33,7 +34,8 @@
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		440824FB268E178E00EA7EEE /* NPLSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPLSample.swift; sourceTree = "<group>"; };
 		442134CD26A6C64200963441 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		442298B6269EADC1008B410B /* DownloadAndInstallDictsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAndInstallDictsView.swift; sourceTree = "<group>"; };
+		442134D426A9A36A00963441 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
+		442298B6269EADC1008B410B /* DictsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictsView.swift; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* DictAssistantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DictAssistantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +69,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		442134D326A9A34F00963441 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				442134CD26A6C64200963441 /* SettingsView.swift */,
+				442134D426A9A36A00963441 /* GeneralSettingView.swift */,
+				442298B6269EADC1008B410B /* DictsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		4440EE37262EDCA3007FF470 = {
 			isa = PBXGroup;
 			children = (
@@ -121,8 +133,7 @@
 				44FC7009266DEFF80025676B /* WordsView.swift */,
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
-				442298B6269EADC1008B410B /* DownloadAndInstallDictsView.swift */,
-				442134CD26A6C64200963441 /* SettingsView.swift */,
+				442134D326A9A34F00963441 /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,7 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				442298B7269EADC1008B410B /* DownloadAndInstallDictsView.swift in Sources */,
+				442298B7269EADC1008B410B /* DictsView.swift in Sources */,
 				44FC700A266DEFF80025676B /* WordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* SettingsView.swift in Sources */,
 				44FC7016266F48730025676B /* VisualConfig.swift in Sources */,
@@ -237,6 +248,7 @@
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
+				442134D526A9A36A00963441 /* GeneralSettingView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
