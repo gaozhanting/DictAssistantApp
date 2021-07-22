@@ -194,7 +194,7 @@ fileprivate struct TRMinimumTextHeightSetting: View {
         VStack(alignment: .trailing) {
             
             HStack {
-                Text("minimum text height: \(minimumTextHeight, specifier: "%.4f")")
+                Text("Minimum text height: \(minimumTextHeight, specifier: "%.4f")")
                 Slider(
                     value: $minimumTextHeight,
                     in: 0...1
