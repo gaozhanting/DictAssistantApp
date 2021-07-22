@@ -8,6 +8,7 @@
 import Foundation
 import AppKit.NSColor
 import DataBases
+import os
 
 func colorToData(_ color: NSColor) -> Data? {
     if let data = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) {
@@ -74,3 +75,37 @@ func makeFixedNoiseVocabulary() -> Set<String> {
     let result = Set(allNoiseWords).subtracting(oneLetterRealWords).subtracting(twoLetterRealWords)
     return result
 }
+
+let logger = Logger()
+func myPrint(_ str: String) {
+    print(str) // or donothing
+}
+
+let systemDefaultMinimumTextHeight: Double = 0.03125
+
+// global big constants
+/*
+ count is 30828; dict count is 142286|142250(lost some not \t); that is 21.6%
+ 
+ all contains belows
+ 2 words: all 30828
+ 3 words: 10067
+ 4 words: 4082
+ // ignores belows when do phrase detect programming
+ 5 words: 1443
+ 6 words: 434
+ 7 words: 83
+ 8 words: 9
+ 9 words: 2
+ 10 words: 1
+ */
+var phrasesDB: Set<String> = Set.init()
+var lemmaDB: [String: String] = [:]
+
+// first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
+// got this should not add it !
+var fixedNoiseVocabulary: Set<String> = Set.init()
+
+
+let defaultFontSizeOfLandscape = 30.0
+let defaultFontSizeOfPortrait = 18.0

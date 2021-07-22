@@ -204,7 +204,7 @@ struct AttachContextMenu: ViewModifier {
                         intercepteMutatingMinimumTextHeight()
                     })
                     Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
-                        textProcessConfig.minimumTextHeight = systemDefaultMinimumTextHeight
+                        textProcessConfig.minimumTextHeight = Float(systemDefaultMinimumTextHeight)
                     })
                 }
             }
@@ -384,7 +384,7 @@ struct AttachEnv: ViewModifier {
     let smallConfig = SmallConfig(fontRate: 1.0, addLineBreak: true, isDisplayKnownWords: true)
     let textProcessConfig = TextProcessConfig(
         textRecognitionLevel: .fast,
-        minimumTextHeight: systemDefaultMinimumTextHeight
+        minimumTextHeight: Float(systemDefaultMinimumTextHeight)
     )
     
     func body(content: Content) -> some View {

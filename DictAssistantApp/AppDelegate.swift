@@ -9,44 +9,9 @@ import Cocoa
 import SwiftUI
 import DataBases
 import CoreData
-import os
 import CryptoKit
 import Foundation
 import Vision
-
-let logger = Logger()
-func myPrint(_ str: String) {
-    print(str) // or donothing
-}
-
-let systemDefaultMinimumTextHeight: Float = 0.03125
-
-// global big constants
-/*
- count is 30828; dict count is 142286|142250(lost some not \t); that is 21.6%
- 
- all contains belows
- 2 words: all 30828
- 3 words: 10067
- 4 words: 4082
- // ignores belows when do phrase detect programming
- 5 words: 1443
- 6 words: 434
- 7 words: 83
- 8 words: 9
- 9 words: 2
- 10 words: 1
- */
-var phrasesDB: Set<String> = Set.init()
-var lemmaDB: [String: String] = [:]
-
-// first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
-// got this should not add it !
-var fixedNoiseVocabulary: Set<String> = Set.init()
-
-
-let defaultFontSizeOfLandscape = 30.0
-let defaultFontSizeOfPortrait = 18.0
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
@@ -56,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
     let textProcessConfig = TextProcessConfig(
         textRecognitionLevel: .fast,
-        minimumTextHeight: systemDefaultMinimumTextHeight)
+        minimumTextHeight: Float(systemDefaultMinimumTextHeight))
     var visualConfig: VisualConfig!
     var aVSessionAndTR: AVSessionAndTR!
     
@@ -636,7 +601,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var settingsPanel: NSPanel!
     func initSettingsPanel() {
         settingsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 480, height: 300),
+            contentRect: NSRect(x: 500, y: 100, width: 500, height: 300),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,
