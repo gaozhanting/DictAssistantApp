@@ -109,17 +109,24 @@ struct WordCellWithId: Identifiable {
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @EnvironmentObject var smallConfig: SmallConfig
-    
+    @AppStorage("general:isShowPhrase") private var isShowPhrase: Bool = true // the value only used when the key doesn't exists
+
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
     let style: Style
     
+    var wordCells: [WordCell] {
+        isShowPhrase ?
+            displayedWords.wordCells :
+            displayedWords.wordCells.filter { !$0.word.contains(" ") }
+    }
+    
     var words: [WordCellWithId] {
         if smallConfig.isDisplayKnownWords {
             var attachedId: [WordCellWithId] = []
             var auxiliary: [String:Int] = [:]
-            for wordCell in displayedWords.wordCells {
+            for wordCell in wordCells {
                 let word = wordCell.word
                 auxiliary[word, default: 0] += 1
                 let id = "\(word)_\(auxiliary[word]!)"
@@ -130,7 +137,7 @@ fileprivate struct WordsView: View {
         else {
             var deDuplicated: [WordCellWithId] = []
             var auxiliary: Set<String> = Set.init()
-            for wordCell in displayedWords.wordCells {
+            for wordCell in wordCells {
                 let word = wordCell.word
                 if !auxiliary.contains(word) {
                     deDuplicated.append(WordCellWithId(wordCell: wordCell, id: word))
