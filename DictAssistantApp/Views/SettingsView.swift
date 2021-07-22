@@ -56,21 +56,102 @@ struct ChildTabView: View {
 struct GeneralSettingView: View {
     var body: some View {
         VStack {
-            ShowPhraseToggle()
+            HStack(alignment: .top) {
+                Text("Word display:")
+                
+                VStack(alignment: .leading) {
+                    ShowPhraseToggleSetting()
+                    IsAddLineBreakSetting()
+                    IsShowCurrentKnownSetting()
+                }
+            }
+            Divider()
+            FontRateSetting()
+            Divider()
             TRMinimumTextHeightSetting()
+            Divider()
             TRTextRecognitionLevelSetting()
         }
+        .padding(.horizontal)
     }
 }
 
-fileprivate struct ShowPhraseToggle: View {
-    @AppStorage(IsShowPhraseKey) private var isShowPhrase: Bool = true
+fileprivate struct ShowPhraseToggleSetting: View {
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
     
     var body: some View {
         Toggle(isOn: $isShowPhrase, label: {
-            Text("Show Phrases")
+            Text("Show phrases")
         })
         .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want display all phrase words.")
+    }
+}
+
+fileprivate struct IsAddLineBreakSetting: View {
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreakKey: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isAddLineBreakKey, label: {
+            Text("Add line break")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want add a line break between the word and the translation of the word.")
+    }
+}
+
+fileprivate struct IsShowCurrentKnownSetting: View {
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnownKey: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $isShowCurrentKnownKey, label: {
+            Text("Show current known words")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to display current known words.")
+    }
+}
+
+fileprivate struct FontRateSetting: View {
+    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.6
+    
+    func resetToDefault() {
+        fontRateKey = 0.6
+    }
+    
+    func incrementStep() {
+        fontRateKey += 0.01
+        if fontRateKey > 1 {
+            fontRateKey = 1
+        }
+    }
+    
+    func decrementStep() {
+        fontRateKey -= 0.01
+        if fontRateKey < 0 {
+            fontRateKey = 0
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .trailing) {
+            HStack {
+                Text("Font rate: \(fontRateKey, specifier: "%.2f")")
+                Slider(
+                    value: $fontRateKey,
+                    in: 0...1
+                )
+                .frame(maxWidth: 180)
+                
+                Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
+            }
+            
+            Button("Reset to default: 0.6", action: resetToDefault)
+            
+            Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
+                .font(.subheadline)
+                .frame(maxWidth: 330)
+        }
     }
 }
 
@@ -99,8 +180,7 @@ fileprivate struct TRMinimumTextHeightSetting: View {
         VStack(alignment: .trailing) {
             
             HStack {
-                Text("minimum text height: ")
-                Text("\(minimumTextHeight)")
+                Text("minimum text height: \(minimumTextHeight, specifier: "%.4f")")
                 Slider(
                     value: $minimumTextHeight,
                     in: 0...1
@@ -108,7 +188,6 @@ fileprivate struct TRMinimumTextHeightSetting: View {
                 .frame(maxWidth: 180)
                 
                 Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
-                
             }
             
             Button("Reset to default: 0.0315", action: resetToDefault)
@@ -118,7 +197,6 @@ fileprivate struct TRMinimumTextHeightSetting: View {
                 .frame(maxWidth: 330)
                 .help("Specify a floating-point number relative to the image height. For example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. The default value is 1/32, or 0.03125.")
         }
-        
     }
 }
 
@@ -158,6 +236,6 @@ struct AppearanceSttingView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-            .frame(width: 500, height: 300)
+            .frame(width: 500, height: 450)
     }
 }

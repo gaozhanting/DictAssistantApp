@@ -16,7 +16,6 @@ import Vision
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let statusData = StatusData(isPlaying: false)
-    let smallConfig = SmallConfig(fontRate: 0.7, addLineBreak: true, isDisplayKnownWords: false)
     
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
     var visualConfig: VisualConfig!
@@ -31,8 +30,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
         
-        if UserDefaults.standard.object(forKey: IsShowPhraseKey) == nil {
-            UserDefaults.standard.set(true, forKey: IsShowPhraseKey)
+        if UserDefaults.standard.object(forKey: IsShowPhrasesKey) == nil {
+            UserDefaults.standard.set(true, forKey: IsShowPhrasesKey)
+        }
+        if UserDefaults.standard.object(forKey: IsAddLineBreakKey) == nil {
+            UserDefaults.standard.set(true, forKey: IsAddLineBreakKey)
+        }
+        if UserDefaults.standard.object(forKey: IsShowCurrentKnownKey) == nil {
+            UserDefaults.standard.set(false, forKey: IsShowCurrentKnownKey)
+        }
+        if UserDefaults.standard.object(forKey: FontRateKey) == nil {
+            UserDefaults.standard.set(0.6, forKey: FontRateKey)
         }
         
         if UserDefaults.standard.object(forKey: TRTextRecognitionLevelKey) == nil {
@@ -89,7 +97,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
     @objc func resetUserDefaults() {
-        UserDefaults.standard.set(true, forKey: IsShowPhraseKey)
+        UserDefaults.standard.set(true, forKey: IsShowPhrasesKey)
+        UserDefaults.standard.set(true, forKey: IsAddLineBreakKey)
+        UserDefaults.standard.set(false, forKey: IsShowCurrentKnownKey)
+        UserDefaults.standard.set(0.6, forKey: FontRateKey)
         
         UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
         UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
@@ -407,7 +418,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
-            .environmentObject(smallConfig)
     }
     
     func selectWordsPanel(_ theContentMode: ContentMode) {
@@ -617,7 +627,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var settingsPanel: NSPanel!
     func initSettingsPanel() {
         settingsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 500, height: 300),
+            contentRect: NSRect(x: 500, y: 100, width: 500, height: 450),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,

@@ -23,7 +23,8 @@ fileprivate struct SingleWordView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.addToKnownWords) var addToKnownWords
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
-    @EnvironmentObject var smallConfig: SmallConfig
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    @AppStorage(FontRateKey) private var fontRate: Double = 0.6
 
     let wordCell: WordCell
     let color: NSColor
@@ -56,7 +57,7 @@ fileprivate struct SingleWordView: View {
     }
     
     var transText: String {
-        smallConfig.addLineBreak ? "\n" + trans : trans
+        isAddLineBreak ? "\n" + trans : trans
     }
 
     func openExternalDict(_ word: String) {
@@ -70,7 +71,7 @@ fileprivate struct SingleWordView: View {
     
     var textView: some View {
         unKnown ?
-            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * smallConfig.fontRate)))
+            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * CGFloat(fontRate))))
             :
             Text(word).foregroundColor(.gray)
     }
@@ -108,8 +109,8 @@ struct WordCellWithId: Identifiable {
 
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
-    @EnvironmentObject var smallConfig: SmallConfig
-    @AppStorage(IsShowPhraseKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
 
     let color: NSColor
     let fontName: String
@@ -123,7 +124,7 @@ fileprivate struct WordsView: View {
     }
     
     var words: [WordCellWithId] {
-        if smallConfig.isDisplayKnownWords {
+        if isShowCurrentKnown {
             var attachedId: [WordCellWithId] = []
             var auxiliary: [String:Int] = [:]
             for wordCell in wordCells {
@@ -161,39 +162,6 @@ fileprivate struct WordsView: View {
     }
 }
 
-struct AttachContextMenu: ViewModifier {
-    @EnvironmentObject var smallConfig: SmallConfig
-
-    let fontRates: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    
-    func body(content: Content) -> some View {
-        content
-            .contextMenu {
-                Button("\(!smallConfig.isDisplayKnownWords ? "Display" : "Hide") current Known", action: {
-                    smallConfig.isDisplayKnownWords.toggle()
-                })
-                
-                Picker(selection: $smallConfig.addLineBreak, label: Text("Add line break: \(smallConfig.addLineBreak ? "Add" : "Not Add")")) {
-                    Text("Not Add").tag(false)
-                    Text("Add").tag(true)
-                }
-                
-                Picker(selection: $smallConfig.fontRate, label: Text("Select fontRate: \(smallConfig.fontRate, specifier: "%.2f")")) {
-                    ForEach(fontRates, id: \.self) { rate in
-                        Text("\(rate, specifier: "%.2f")").tag(rate)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-            }
-    }
-}
-
-extension View {
-    func attachContextMenu() -> some View {
-        self.modifier(AttachContextMenu())
-    }
-}
-
 struct LandscapeNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
@@ -212,7 +180,6 @@ struct LandscapeNormalWordsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.75))
-        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -236,7 +203,6 @@ struct LandscapeMiniWordsView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -259,7 +225,6 @@ struct PortraitNormalWordsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.75))
-        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -284,7 +249,6 @@ struct PortraitMiniWordsView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .attachContextMenu()
         .ignoresSafeArea()
     }
 }
@@ -349,13 +313,11 @@ struct AttachEnv: ViewModifier {
         colorOfPortrait: .green,
         fontName: NSFont.systemFont(ofSize: 0.0).fontName
     )
-    let smallConfig = SmallConfig(fontRate: 1.0, addLineBreak: true, isDisplayKnownWords: true)
     
     func body(content: Content) -> some View {
         content
             .environmentObject(displayedWords)
             .environmentObject(visualConfig)
-            .environmentObject(smallConfig)
     }
 }
 

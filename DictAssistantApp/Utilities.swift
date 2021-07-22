@@ -111,7 +111,10 @@ let defaultFontSizeOfLandscape = 30.0
 let defaultFontSizeOfPortrait = 18.0
 
 // UserDefault keys:
-let TRTextRecognitionLevelKey = "TR:TextRecognitionLevel"
-let TRMinimumTextHeightKey = "TR:MinimumTextHeight"
+let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
+let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 
-let IsShowPhraseKey = "isShowPhrase"
+let IsShowPhrasesKey = "IsShowPhrasesKey"
+let IsAddLineBreakKey = "IsAddLineBreakKey"
+let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
+let FontRateKey = "FontRateKey"
