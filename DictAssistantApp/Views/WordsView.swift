@@ -101,6 +101,11 @@ fileprivate struct SingleWordView: View {
     }
 }
 
+struct WordCellWithId: Identifiable {
+    let wordCell: WordCell
+    let id: String
+}
+
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @EnvironmentObject var smallConfig: SmallConfig
@@ -110,25 +115,35 @@ fileprivate struct WordsView: View {
     let fontSize: CGFloat
     let style: Style
     
-    var words: [WordCell] {
+    var words: [WordCellWithId] {
         if smallConfig.isDisplayKnownWords {
-            return displayedWords.wordCells
-        } else {
-            var deDuplicated: [WordCell] = []
-            var tempSet: Set<String> = Set.init()
+            var attachedId: [WordCellWithId] = []
+            var auxiliary: [String:Int] = [:]
             for wordCell in displayedWords.wordCells {
                 let word = wordCell.word
-                if !tempSet.contains(word) {
-                    deDuplicated.append(wordCell)
-                    tempSet.insert(word)
+                auxiliary[word, default: 0] += 1
+                let id = "\(word)_\(auxiliary[word]!)"
+                attachedId.append(WordCellWithId(wordCell: wordCell, id: id))
+            }
+            return attachedId
+        }
+        else {
+            var deDuplicated: [WordCellWithId] = []
+            var auxiliary: Set<String> = Set.init()
+            for wordCell in displayedWords.wordCells {
+                let word = wordCell.word
+                if !auxiliary.contains(word) {
+                    deDuplicated.append(WordCellWithId(wordCell: wordCell, id: word))
+                    auxiliary.insert(word)
                 }
             }
-            return deDuplicated.filter{ $0.isKnown == .unKnown }
+            return deDuplicated.filter{ $0.wordCell.isKnown == .unKnown }
         }
     }
     
     var body: some View {
-        ForEach(words, id: \.word) { wordCell in
+        ForEach(words) { wordCellWithId in
+            let wordCell = wordCellWithId.wordCell
             SingleWordView(
                 wordCell: wordCell,
                 color: color,
