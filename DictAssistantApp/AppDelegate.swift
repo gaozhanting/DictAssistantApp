@@ -31,6 +31,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
         
+        if UserDefaults.standard.object(forKey: IsShowPhraseKey) == nil {
+            UserDefaults.standard.set(true, forKey: IsShowPhraseKey)
+        }
+        
         if UserDefaults.standard.object(forKey: TRTextRecognitionLevelKey) == nil {
             UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey) // 1 fast, 0 accurate
         }
@@ -81,6 +85,51 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // Insert code here to tear down your application
     }
     
+    // MARK: - User Defaults
+    // avoid Option value for UserDefaults
+    // if has no default value, set a default value here
+    @objc func resetUserDefaults() {
+        UserDefaults.standard.set(true, forKey: IsShowPhraseKey)
+        
+        UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
+        UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
+        
+        UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
+        UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
+        UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
+        visualConfig.fontSizeOfLandscape = CGFloat(defaultFontSizeOfLandscape)
+        visualConfig.fontSizeOfPortrait = CGFloat(defaultFontSizeOfPortrait)
+        visualConfig.colorOfLandscape = .orange
+        visualConfig.colorOfPortrait = .green
+        visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
+                
+        landscapeWordsPanel.setFrame(
+            NSRect(x: 100, y: 100, width: 600, height: 200),
+            display: true,
+            animate: true
+        )
+        portraitWordsPanel.setFrame(
+            NSRect(x: 100, y: 100, width: 200, height: 600),
+            display: true,
+            animate: true
+        )
+        cropperWindow.setFrame(
+            NSRect(x: 300, y: 300, width: 600, height: 200),
+            display: true,
+            animate: true
+        )
+    }
+ 
+    @objc func saveAllUserDefaults() {
+        UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
+        UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
+        UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
+        UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
+        UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
+    }
+
     // MARK: - MenuBar
     let menu = NSMenu()
     
@@ -588,49 +637,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let settingsView = SettingsView()
         settingsPanel.contentView = NSHostingView(rootView: settingsView)
         settingsPanel.orderFrontRegardless()
-    }
-    
-    // MARK: - User Defaults
-    // avoid Option value for UserDefaults
-    // if has no default value, set a default value here
-    @objc func resetUserDefaults() {
-        UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
-        UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
-        
-        UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
-        UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
-        UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
-        UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
-        UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        visualConfig.fontSizeOfLandscape = CGFloat(defaultFontSizeOfLandscape)
-        visualConfig.fontSizeOfPortrait = CGFloat(defaultFontSizeOfPortrait)
-        visualConfig.colorOfLandscape = .orange
-        visualConfig.colorOfPortrait = .green
-        visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
-                
-        landscapeWordsPanel.setFrame(
-            NSRect(x: 100, y: 100, width: 600, height: 200),
-            display: true,
-            animate: true
-        )
-        portraitWordsPanel.setFrame(
-            NSRect(x: 100, y: 100, width: 200, height: 600),
-            display: true,
-            animate: true
-        )
-        cropperWindow.setFrame(
-            NSRect(x: 300, y: 300, width: 600, height: 200),
-            display: true,
-            animate: true
-        )
-    }
- 
-    @objc func saveAllUserDefaults() {
-        UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
-        UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
-        UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
-        UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
-        UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
     }
 
     // MARK:- Appearance (FontPanel & ColorPanel)

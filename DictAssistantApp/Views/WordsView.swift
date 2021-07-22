@@ -109,7 +109,7 @@ struct WordCellWithId: Identifiable {
 fileprivate struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @EnvironmentObject var smallConfig: SmallConfig
-    @AppStorage("general:isShowPhrase") private var isShowPhrase: Bool = true // the value only used when the key doesn't exists
+    @AppStorage(IsShowPhraseKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
 
     let color: NSColor
     let fontName: String

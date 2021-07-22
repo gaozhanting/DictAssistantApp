@@ -64,7 +64,7 @@ struct GeneralSettingView: View {
 }
 
 fileprivate struct ShowPhraseToggle: View {
-    @AppStorage("general:isShowPhrase") private var isShowPhrase: Bool = true
+    @AppStorage(IsShowPhraseKey) private var isShowPhrase: Bool = true
     
     var body: some View {
         Toggle(isOn: $isShowPhrase, label: {

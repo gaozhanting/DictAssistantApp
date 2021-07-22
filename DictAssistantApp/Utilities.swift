@@ -114,3 +114,4 @@ let defaultFontSizeOfPortrait = 18.0
 let TRTextRecognitionLevelKey = "TR:TextRecognitionLevel"
 let TRMinimumTextHeightKey = "TR:MinimumTextHeight"
 
+let IsShowPhraseKey = "isShowPhrase"
