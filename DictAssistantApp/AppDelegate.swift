@@ -49,7 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if UserDefaults.standard.object(forKey: TRMinimumTextHeightKey) == nil {
             UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
         }
-        
+        if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
+            UserDefaults.standard.set(true, forKey: IsWithAnimationKey)
+        }
+                
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
             UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
         }
@@ -104,6 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
         UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
+        UserDefaults.standard.set(true, forKey: IsWithAnimationKey)
         
         UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
@@ -157,19 +161,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
     let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
     let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
-    
-    enum AnimationStyle {
-        case withAnimation
-        case withoutAnimation
-    }
-    var animationStyle: AnimationStyle = .withAnimation
-    
-    let toggleAnimationTitleItem = NSMenuItem(title: "Toggle Animation", action: nil, keyEquivalent: "")
-    let withAnimationItem = NSMenuItem(title: "with animation", action: #selector(toggleWithAnimation), keyEquivalent: "")
-    let withoutAnimationItem = NSMenuItem(title: "without animation", action: #selector(toggleWithoutAnimation), keyEquivalent: "")
-    
-    @objc func adjustTextRecognitionMinimumTextHeight() {}
-    
+        
     func constructMenuBar() {
         statusItem.button?.image = NSImage(
             systemSymbolName: "square.dashed",
@@ -198,14 +190,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(rectangleCropperWindowItem)
         menu.addItem(miniCropperWindowItem)
         menu.addItem(closeCropperWindowItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        toggleAnimationTitleItem.isEnabled = false
-        menu.addItem(toggleAnimationTitleItem)
-        menu.addItem(withAnimationItem)
-        menu.addItem(withoutAnimationItem)
-        selectAnimationStyle(animationStyle)
         
         menu.addItem(NSMenuItem.separator())
 
@@ -240,26 +224,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
-    }
-    
-    @objc func toggleWithAnimation() {
-        selectAnimationStyle(.withAnimation)
-    }
-    
-    @objc func toggleWithoutAnimation() {
-        selectAnimationStyle(.withoutAnimation)
-    }
-    
-    func selectAnimationStyle(_ newAnimationStyle: AnimationStyle) {
-        animationStyle = newAnimationStyle
-        switch animationStyle {
-        case .withAnimation:
-            withAnimationItem.state = .on
-            withoutAnimationItem.state = .off
-        case .withoutAnimation:
-            withAnimationItem.state = .off
-            withoutAnimationItem.state = .on
-        }
     }
     
     var lastNonContentMode: ContentMode? = nil
@@ -848,12 +812,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         }
         
-        switch animationStyle {
-        case .withAnimation:
+        // only for debuging
+        if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
+            logger.info("IsWithAnimationKey is nil, impossible!")
+        }
+        
+        let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
+        
+        if isWithAnimation {
             withAnimation {
                 displayedWords.wordCells = taggedWordTrans
             }
-        case .withoutAnimation:
+        }
+        else {
             displayedWords.wordCells = taggedWordTrans
         }
     }

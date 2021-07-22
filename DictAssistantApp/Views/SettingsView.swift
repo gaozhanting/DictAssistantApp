@@ -60,9 +60,10 @@ struct GeneralSettingView: View {
                 Text("Word display:")
                 
                 VStack(alignment: .leading) {
-                    ShowPhraseToggleSetting()
+                    IsShowPhraseToggleSetting()
                     IsAddLineBreakSetting()
                     IsShowCurrentKnownSetting()
+                    IsWithAnimationSetting()
                 }
             }
             Divider()
@@ -76,7 +77,7 @@ struct GeneralSettingView: View {
     }
 }
 
-fileprivate struct ShowPhraseToggleSetting: View {
+fileprivate struct IsShowPhraseToggleSetting: View {
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
     
     var body: some View {
@@ -101,15 +102,28 @@ fileprivate struct IsAddLineBreakSetting: View {
 }
 
 fileprivate struct IsShowCurrentKnownSetting: View {
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnownKey: Bool = false
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     
     var body: some View {
-        Toggle(isOn: $isShowCurrentKnownKey, label: {
+        Toggle(isOn: $isShowCurrentKnown, label: {
             Text("Show current known words")
         })
         .toggleStyle(CheckboxToggleStyle())
         .help("Select it when you want to display current known words.")
     }
+}
+
+fileprivate struct IsWithAnimationSetting: View {
+    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
+        
+    var body: some View {
+        Toggle(isOn: $isWithAnimation, label: {
+            Text("Show animation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you prefer animation for displaying words.")
+    }
+    
 }
 
 fileprivate struct FontRateSetting: View {
