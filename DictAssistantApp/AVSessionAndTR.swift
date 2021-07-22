@@ -108,8 +108,21 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
 
         requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
         textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-        textRecognitionRequest.recognitionLevel = textProcessConfig.textRecognitionLevel
-        textRecognitionRequest.minimumTextHeight = textProcessConfig.minimumTextHeight
+        
+        let textRecognitionLevel = UserDefaults.standard.integer(forKey: TRTextRecognitionLevelKey)
+        let textRecognitionLevelE = VNRequestTextRecognitionLevel.init(rawValue: textRecognitionLevel)
+        let minimumTextHeight = UserDefaults.standard.double(forKey: TRMinimumTextHeightKey)
+//        myPrint(">>>textRecognitionLevel: \(textRecognitionLevel)")
+//        myPrint(">>>minimumTextHeight: \(minimumTextHeight)")
+        if let textRecognitionLevelE = textRecognitionLevelE {
+//            myPrint(">>>textRecognitionLevelE: \(textRecognitionLevelE.rawValue)")
+            textRecognitionRequest.recognitionLevel = textRecognitionLevelE
+        } else { // never this case, because we init it when launch app.
+            logger.info("textRecognitionLevelE is nil, impossible!")
+            textRecognitionRequest.recognitionLevel = .fast
+        }
+        textRecognitionRequest.minimumTextHeight = Float(minimumTextHeight)
+        
         textRecognitionRequest.usesLanguageCorrection = true
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
@@ -151,15 +164,12 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     var lastReconginzedTexts: [String] = []
     
     init(
-        textProcessConfig: TextProcessConfig,
         cropperWindow: NSWindow!,
         trCallBack: @escaping ([String]) -> Void
     ) {
-        self.textProcessConfig = textProcessConfig
         self.cropperWindow = cropperWindow
         self.trCallBack = trCallBack
     }
-    let textProcessConfig: TextProcessConfig
     let cropperWindow: NSWindow!
     var trCallBack: ([String]) -> Void
 }

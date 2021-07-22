@@ -162,7 +162,6 @@ fileprivate struct WordsView: View {
 }
 
 struct AttachContextMenu: ViewModifier {
-    @EnvironmentObject var textProcessConfig: TextProcessConfig
     @EnvironmentObject var smallConfig: SmallConfig
 
     let fontRates: [CGFloat] = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -185,38 +184,7 @@ struct AttachContextMenu: ViewModifier {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-                
-                Menu("MinimumTextHeight: \(textProcessConfig.minimumTextHeight)") {
-                    Button("Increase 0.01", action: {
-                        textProcessConfig.minimumTextHeight += 0.01
-                        intercepteMutatingMinimumTextHeight()
-                    })
-                    Button("Decrease 0.01", action: {
-                        textProcessConfig.minimumTextHeight -= 0.01
-                        intercepteMutatingMinimumTextHeight()
-                    })
-                    Button("Increase 0.1", action: {
-                        textProcessConfig.minimumTextHeight += 0.1
-                        intercepteMutatingMinimumTextHeight()
-                    })
-                    Button("Decrease 0.1", action: {
-                        textProcessConfig.minimumTextHeight -= 0.1
-                        intercepteMutatingMinimumTextHeight()
-                    })
-                    Button("Reset to \(systemDefaultMinimumTextHeight)", action: {
-                        textProcessConfig.minimumTextHeight = Float(systemDefaultMinimumTextHeight)
-                    })
-                }
             }
-    }
-    
-    func intercepteMutatingMinimumTextHeight() {
-        if textProcessConfig.minimumTextHeight < 0 {
-            textProcessConfig.minimumTextHeight = 0
-        }
-        if textProcessConfig.minimumTextHeight > 1 {
-            textProcessConfig.minimumTextHeight = 1
-        }
     }
 }
 
@@ -382,17 +350,12 @@ struct AttachEnv: ViewModifier {
         fontName: NSFont.systemFont(ofSize: 0.0).fontName
     )
     let smallConfig = SmallConfig(fontRate: 1.0, addLineBreak: true, isDisplayKnownWords: true)
-    let textProcessConfig = TextProcessConfig(
-        textRecognitionLevel: .fast,
-        minimumTextHeight: Float(systemDefaultMinimumTextHeight)
-    )
     
     func body(content: Content) -> some View {
         content
             .environmentObject(displayedWords)
             .environmentObject(visualConfig)
             .environmentObject(smallConfig)
-            .environmentObject(textProcessConfig)
     }
 }
 

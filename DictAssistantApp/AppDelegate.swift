@@ -19,9 +19,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let smallConfig = SmallConfig(fontRate: 0.7, addLineBreak: true, isDisplayKnownWords: false)
     
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
-    let textProcessConfig = TextProcessConfig(
-        textRecognitionLevel: .fast,
-        minimumTextHeight: Float(systemDefaultMinimumTextHeight))
     var visualConfig: VisualConfig!
     var aVSessionAndTR: AVSessionAndTR!
     
@@ -33,6 +30,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
+        
+        if UserDefaults.standard.object(forKey: TRTextRecognitionLevelKey) == nil {
+            UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey) // 1 fast, 0 accurate
+        }
+        if UserDefaults.standard.object(forKey: TRMinimumTextHeightKey) == nil {
+            UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
+        }
         
         if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
             UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
@@ -68,7 +72,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         allKnownWordsSetCache = getAllKnownWordsSet()
 
         aVSessionAndTR = AVSessionAndTR.init(
-            textProcessConfig: textProcessConfig,
             cropperWindow: cropperWindow,
             trCallBack: trCallBack
         )
@@ -104,10 +107,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let toggleAnimationTitleItem = NSMenuItem(title: "Toggle Animation", action: nil, keyEquivalent: "")
     let withAnimationItem = NSMenuItem(title: "with animation", action: #selector(toggleWithAnimation), keyEquivalent: "")
     let withoutAnimationItem = NSMenuItem(title: "without animation", action: #selector(toggleWithoutAnimation), keyEquivalent: "")
-    
-    let textRecognitionLevelItem = NSMenuItem(title: "Text Recognition Level", action: nil, keyEquivalent: "")
-    let setTextRecognitionLevelFastItem = NSMenuItem(title: "Fast", action: #selector(setTextRecognitionLevelFast), keyEquivalent: "")
-    let setTextRecognitionLevelAccurateItem = NSMenuItem(title: "Accurate", action: #selector(setTextRecognitionLevelAccurate), keyEquivalent: "")
     
     @objc func adjustTextRecognitionMinimumTextHeight() {}
     
@@ -147,14 +146,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(withAnimationItem)
         menu.addItem(withoutAnimationItem)
         selectAnimationStyle(animationStyle)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        textRecognitionLevelItem.isEnabled = false
-        menu.addItem(textRecognitionLevelItem)
-        menu.addItem(setTextRecognitionLevelFastItem)
-        menu.addItem(setTextRecognitionLevelAccurateItem)
-        selectTextRecognitionLevel(textProcessConfig.textRecognitionLevel)
         
         menu.addItem(NSMenuItem.separator())
 
@@ -337,29 +328,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             closeCropperWindowItem.state = .on
         }
     }
-    
-    @objc func setTextRecognitionLevelFast() {
-        selectTextRecognitionLevel(.fast)
-    }
-    
-    @objc func setTextRecognitionLevelAccurate() {
-        selectTextRecognitionLevel(.accurate)
-    }
-    
-    func selectTextRecognitionLevel(_ theLevel: VNRequestTextRecognitionLevel) {
-        textProcessConfig.textRecognitionLevel = theLevel
-        switch textProcessConfig.textRecognitionLevel {
-        case .fast:
-            setTextRecognitionLevelFastItem.state = .on
-            setTextRecognitionLevelAccurateItem.state = .off
-        case .accurate:
-            setTextRecognitionLevelFastItem.state = .off
-            setTextRecognitionLevelAccurateItem.state = .on
-        @unknown default:
-            setTextRecognitionLevelFastItem.state = .on
-            setTextRecognitionLevelAccurateItem.state = .off
-        }
-    }
 
     @objc func exit() {
         saveAllUserDefaults()
@@ -390,7 +358,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(visualConfig)
             .environmentObject(displayedWords)
-            .environmentObject(textProcessConfig)
             .environmentObject(smallConfig)
     }
     
@@ -627,6 +594,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // avoid Option value for UserDefaults
     // if has no default value, set a default value here
     @objc func resetUserDefaults() {
+        UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
+        UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
+        
         UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
         UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
         UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
