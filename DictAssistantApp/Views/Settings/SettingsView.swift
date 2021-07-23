@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    private let tabs = ["General", "Appearance", "Dicts"]
+    private let tabs = ["General", "Appearance", "Dictionaries"]
     @State private var selectedTabIndex = 0
     
     var body: some View {

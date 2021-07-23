@@ -6707,7 +6707,7 @@ rotor>rotors
 affiliation>affiliations
 carbohydrate>carbohydrates
 cavity>cavities
-conglomerate>conglomerates,conglomerating
+conglomerate>conglomerates,conglomerative,conglomerating,conglomeration
 floppy>floppies,floppier,floppiest
 repeal>repealed,repealing,repeals,repealling
 rift>rifts,rifting,rifted
