@@ -106,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
                     case .portraitNormal:
                         portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        portraitWordsPanel.hasShadow = true
+                        portraitWordsPanel.hasShadow = false
                         portraitWordsPanel.orderFrontRegardless()
                     case .portraitMini:
                         portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
@@ -116,11 +116,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                         portraitWordsPanel.orderFrontRegardless()
                     case .landscapeNormal:
                         landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        landscapeWordsPanel.hasShadow = true
+                        landscapeWordsPanel.hasShadow = false
                         landscapeWordsPanel.orderFrontRegardless()
                     case .landscapeMini:
                         landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        landscapeWordsPanel.hasShadow = true
+                        landscapeWordsPanel.hasShadow = false
                         landscapeWordsPanel.orderFrontRegardless()
                     }
                     
