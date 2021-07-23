@@ -43,8 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         initCropperWindow()
         
-        initPortraitWordsPanel()
-        initLandscapeWordsPanel()
+        initContentWindow()
         
         initKnownWordsPanel()
         initSettingsPanel()
@@ -84,45 +83,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     
                 case .beginSelectContent:
                     let contentViewWithEnv = attachEnv(AnyView(ContentNormalView()))
-                    switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
-                    case .portraitNormal:
-                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        portraitWordsPanel.orderFrontRegardless()
-                    case .portraitMini:
-                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        portraitWordsPanel.orderFrontRegardless()
-                    case .landscapeNormal:
-                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        landscapeWordsPanel.orderFrontRegardless()
-                    case .landscapeMini:
-                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        landscapeWordsPanel.orderFrontRegardless()
-                    }
+                    contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
+                    contentWindow.orderFrontRegardless()
                     
                     flowStep = .ready
                     
                 case .ready:
                     let contentViewWithEnv = attachEnv(AnyView(ContentView()))
-                    switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
-                    case .portraitNormal:
-                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        portraitWordsPanel.hasShadow = false
-                        portraitWordsPanel.orderFrontRegardless()
-                    case .portraitMini:
-                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        // I prefer the shadow effect
-                        portraitWordsPanel.hasShadow = true
-                        portraitWordsPanel.invalidateShadow()
-                        portraitWordsPanel.orderFrontRegardless()
-                    case .landscapeNormal:
-                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        landscapeWordsPanel.hasShadow = false
-                        landscapeWordsPanel.orderFrontRegardless()
-                    case .landscapeMini:
-                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
-                        landscapeWordsPanel.hasShadow = false
-                        landscapeWordsPanel.orderFrontRegardless()
-                    }
+                    
+                    myPreferShadow()
+                    
+                    contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
+                    contentWindow.orderFrontRegardless()
                     
                     switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
                     case .closed:
@@ -139,8 +111,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
             else {
                 cropperWindow.close()
-                portraitWordsPanel.close()
-                landscapeWordsPanel.close()
+                contentWindow.close()
                 stopPlaying()
             }
         }
@@ -148,12 +119,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         KeyboardShortcuts.onKeyUp(for: .cancelUnicornMode) { [self] in
             if !statusData.isPlaying {
                 cropperWindow.close()
-                portraitWordsPanel.close()
-                landscapeWordsPanel.close()
+                contentWindow.close()
                 flowStep = .beginSelectCropper
             } else {
                 
             }
+        }
+    }
+    
+    // I prefer the shadow effect
+    func myPreferShadow() {
+        switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
+        case .portraitNormal:
+            contentWindow.hasShadow = false
+        case .portraitMini:
+            contentWindow.hasShadow = true
+            contentWindow.invalidateShadow()
+        case .landscapeNormal:
+            contentWindow.hasShadow = false
+        case .landscapeMini:
+            contentWindow.hasShadow = false
         }
     }
     
@@ -235,25 +220,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(displayedWords)
     }
     
-    var landscapeWordsPanel: NSPanel!
-    func initLandscapeWordsPanel() {
+    var contentWindow: NSPanel!
+    func initContentWindow() {
         // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
-        landscapeWordsPanel = ContentPanel.init(
-            contentRect: NSRect(x: 100, y: 100, width: 600, height: 200),
-            name: "landscapeWordsPanel"
-        )
-
-        landscapeWordsPanel.close()
-    }
-    
-    var portraitWordsPanel: NSPanel!
-    func initPortraitWordsPanel() {
-        portraitWordsPanel = ContentPanel.init(
+        contentWindow = ContentPanel.init(
             contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
             name: "portraitWordsPanel"
         )
 
-        portraitWordsPanel.close()
+        contentWindow.close()
     }
     
     // MARK: - cropperWindow
