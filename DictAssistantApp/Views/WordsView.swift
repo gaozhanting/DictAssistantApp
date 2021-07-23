@@ -253,6 +253,40 @@ struct PortraitMiniWordsView: View {
     }
 }
 
+struct ContentView: View {
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
+    
+    var body: some View {
+        switch contentStyle {
+        case .portraitNormal:
+            PortraitNormalWordsView()
+        case .portraitMini:
+            PortraitMiniWordsView()
+        case .landscapeNormal:
+            LandscapeNormalWordsView()
+        case .landscapeMini:
+            LandscapeMiniWordsView()
+        }
+    }
+}
+
+struct ContentNormalView: View {
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
+    
+    var body: some View {
+        switch contentStyle {
+        case .portraitNormal:
+            PortraitNormalWordsView()
+        case .portraitMini:
+            PortraitNormalWordsView()
+        case .landscapeNormal:
+            LandscapeNormalWordsView()
+        case .landscapeMini:
+            LandscapeNormalWordsView()
+        }
+    }
+}
+
 struct WordsView_Previews: PreviewProvider {
     static let displayedWordsNoWords = DisplayedWords(wordCells: [])
     static let displayedWordsSample1 = DisplayedWords(wordCells: [

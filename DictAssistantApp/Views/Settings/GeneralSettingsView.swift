@@ -1,5 +1,5 @@
 //
-//  GeneralSettingView.swift
+//  GeneralSettingsView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/7/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Vision
 
-struct GeneralSettingView: View {
+struct GeneralSettingsView: View {
     var body: some View {
         VStack {
             HStack {
@@ -202,6 +202,6 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
 
 struct GeneralSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingView()
+        GeneralSettingsView()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DictsView.swift
+//  DictionariesView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/7/14.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DictsView: View {
+struct DictionariesView: View {
     var body: some View {
         List {
             ListItem(
@@ -163,6 +163,6 @@ class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
 
 struct DictsView_Previews: PreviewProvider {
     static var previews: some View {
-        DictsView()
+        DictionariesView()
     }
 }

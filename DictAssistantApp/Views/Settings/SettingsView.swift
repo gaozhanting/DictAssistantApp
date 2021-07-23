@@ -45,18 +45,12 @@ struct ChildTabView: View {
     
     var body: some View {
         if index == 0 {
-            GeneralSettingView()
+            GeneralSettingsView()
         } else if index == 1 {
-            AppearanceSttingView()
+            AppearanceSettingsView()
         } else if index == 2 {
-            DictsView()
+            DictionariesView()
         }
-    }
-}
-
-struct AppearanceSttingView: View {
-    var body: some View {
-        Text("appearance")
     }
 }
 

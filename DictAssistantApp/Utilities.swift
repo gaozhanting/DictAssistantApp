@@ -109,14 +109,3 @@ var fixedNoiseVocabulary: Set<String> = Set.init()
 
 let defaultFontSizeOfLandscape = 30.0
 let defaultFontSizeOfPortrait = 18.0
-
-// UserDefault keys:
-let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
-let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
-
-let IsWithAnimationKey = "IsWithAnimationKey"
-
-let IsShowPhrasesKey = "IsShowPhrasesKey"
-let IsAddLineBreakKey = "IsAddLineBreakKey"
-let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
-let FontRateKey = "FontRateKey"

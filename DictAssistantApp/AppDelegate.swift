@@ -31,44 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
         
-        if UserDefaults.standard.object(forKey: IsShowPhrasesKey) == nil {
-            UserDefaults.standard.set(true, forKey: IsShowPhrasesKey)
-        }
-        if UserDefaults.standard.object(forKey: IsAddLineBreakKey) == nil {
-            UserDefaults.standard.set(true, forKey: IsAddLineBreakKey)
-        }
-        if UserDefaults.standard.object(forKey: IsShowCurrentKnownKey) == nil {
-            UserDefaults.standard.set(false, forKey: IsShowCurrentKnownKey)
-        }
-        if UserDefaults.standard.object(forKey: FontRateKey) == nil {
-            UserDefaults.standard.set(0.6, forKey: FontRateKey)
-        }
+        initUserDefaultIfEmpty()
         
-        if UserDefaults.standard.object(forKey: TRTextRecognitionLevelKey) == nil {
-            UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey) // 1 fast, 0 accurate
-        }
-        if UserDefaults.standard.object(forKey: TRMinimumTextHeightKey) == nil {
-            UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
-        }
-        if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
-            UserDefaults.standard.set(true, forKey: IsWithAnimationKey)
-        }
-                
-        if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
-            UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
-        }
-        if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
-            UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
-        }
-        if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
-            UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        }
-        if UserDefaults.standard.object(forKey: "visualConfig.colorOfLandscape") == nil {
-            UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
-        }
-        if UserDefaults.standard.object(forKey: "visualConfig.colorOfPortrait") == nil {
-            UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
-        }
         visualConfig = VisualConfig(
             fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
             fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
@@ -77,8 +41,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
         )
         
-        initContentPanel()
         initCropperWindow()
+        
+        initPortraitWordsPanel()
+        initLandscapeWordsPanel()
         
         initKnownWordsPanel()
         initSettingsPanel()
@@ -99,55 +65,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // Insert code here to tear down your application
     }
     
-    // MARK: - User Defaults
-    // avoid Option value for UserDefaults
-    // if has no default value, set a default value here
-    @objc func resetUserDefaults() {
-        UserDefaults.standard.set(true, forKey: IsShowPhrasesKey)
-        UserDefaults.standard.set(true, forKey: IsAddLineBreakKey)
-        UserDefaults.standard.set(false, forKey: IsShowCurrentKnownKey)
-        UserDefaults.standard.set(0.6, forKey: FontRateKey)
-        
-        UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
-        UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
-        UserDefaults.standard.set(true, forKey: IsWithAnimationKey)
-        
-        UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
-        UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
-        UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
-        UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
-        UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-        visualConfig.fontSizeOfLandscape = CGFloat(defaultFontSizeOfLandscape)
-        visualConfig.fontSizeOfPortrait = CGFloat(defaultFontSizeOfPortrait)
-        visualConfig.colorOfLandscape = .orange
-        visualConfig.colorOfPortrait = .green
-        visualConfig.fontName = NSFont.systemFont(ofSize: 0.0).fontName
-                
-        landscapeWordsPanel.setFrame(
-            NSRect(x: 100, y: 100, width: 600, height: 200),
-            display: true,
-            animate: true
-        )
-        portraitWordsPanel.setFrame(
-            NSRect(x: 100, y: 100, width: 200, height: 600),
-            display: true,
-            animate: true
-        )
-        cropperWindow.setFrame(
-            NSRect(x: 300, y: 300, width: 600, height: 200),
-            display: true,
-            animate: true
-        )
-    }
- 
-    @objc func saveAllUserDefaults() {
-        UserDefaults.standard.set(Double(visualConfig.fontSizeOfLandscape), forKey: "visualConfig.fontSizeOfLandscape")
-        UserDefaults.standard.set(Double(visualConfig.fontSizeOfPortrait), forKey: "visualConfig.fontSizeOfPortrait")
-        UserDefaults.standard.set(colorToData(visualConfig.colorOfLandscape)!, forKey: "visualConfig.colorOfLandscape")
-        UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
-        UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
-    }
-    
     // MARK: - Global short cut key
     enum FlowStep {
         case beginSelectCropper
@@ -160,25 +77,79 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             if !statusData.isPlaying {
                 switch flowStep {
                 case .beginSelectCropper:
-                    selectCropperWindow(.rectangle)
+                    cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
+                    cropperWindow.orderFrontRegardless()
+
                     flowStep = .beginSelectContent
+                    
                 case .beginSelectContent:
-                    selectWordsPanel(.portraitNormal)
+                    let contentViewWithEnv = attachEnv(AnyView(ContentNormalView()))
+                    switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
+                    case .portraitNormal:
+                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        portraitWordsPanel.orderFrontRegardless()
+                    case .portraitMini:
+                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        portraitWordsPanel.orderFrontRegardless()
+                    case .landscapeNormal:
+                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        landscapeWordsPanel.orderFrontRegardless()
+                    case .landscapeMini:
+                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        landscapeWordsPanel.orderFrontRegardless()
+                    }
+                    
                     flowStep = .ready
+                    
                 case .ready:
+                    let contentViewWithEnv = attachEnv(AnyView(ContentView()))
+                    switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
+                    case .portraitNormal:
+                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        portraitWordsPanel.hasShadow = true
+                        portraitWordsPanel.orderFrontRegardless()
+                    case .portraitMini:
+                        portraitWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        // I prefer the shadow effect
+                        portraitWordsPanel.hasShadow = true
+                        portraitWordsPanel.invalidateShadow()
+                        portraitWordsPanel.orderFrontRegardless()
+                    case .landscapeNormal:
+                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        landscapeWordsPanel.hasShadow = true
+                        landscapeWordsPanel.orderFrontRegardless()
+                    case .landscapeMini:
+                        landscapeWordsPanel.contentView = NSHostingView(rootView: contentViewWithEnv)
+                        landscapeWordsPanel.hasShadow = true
+                        landscapeWordsPanel.orderFrontRegardless()
+                    }
+                    
+                    switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
+                    case .closed:
+                        cropperWindow.close()
+                    case .rectangle:
+                        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
+                        cropperWindow.orderFrontRegardless()
+                    }
+                    
                     startPlaying()
+                    
                     flowStep = .beginSelectCropper
                 }
             }
             else {
+                cropperWindow.close()
+                portraitWordsPanel.close()
+                landscapeWordsPanel.close()
                 stopPlaying()
             }
         }
         
         KeyboardShortcuts.onKeyUp(for: .cancelUnicornMode) { [self] in
             if !statusData.isPlaying {
-                selectCropperWindow(.closed)
-                selectWordsPanel(.closed)
+                cropperWindow.close()
+                portraitWordsPanel.close()
+                landscapeWordsPanel.close()
                 flowStep = .beginSelectCropper
             } else {
                 
@@ -188,20 +159,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // MARK: - MenuBar
     let menu = NSMenu()
-    
-    let toggleItem = NSMenuItem(title: "Toggle ON", action: #selector(toggleContent), keyEquivalent: "")
-
-    let landscapeNormalItem = NSMenuItem(title: "Landscape Normal", action: #selector(landscapeNormal), keyEquivalent: "")
-    let landscapeMiniItem = NSMenuItem(title: "Landscape Mini", action: #selector(landscapeMini), keyEquivalent: "")
-    let portraitNormalItem = NSMenuItem(title: "Portrait Normal", action: #selector(portraitNormal), keyEquivalent: "")
-    let portraitMiniItem = NSMenuItem(title: "Portrait Mini", action: #selector(portraitMini), keyEquivalent: "")
-    let closedWordsItem = NSMenuItem(title: "Closed", action: #selector(closeWords), keyEquivalent: "")
-    
-    let cropperWindowTitleItem = NSMenuItem(title: "Cropper Display Style", action: nil, keyEquivalent: "")
-    let strokeBorderCropperWindowItem = NSMenuItem(title: "Stroke Border", action: #selector(strokeBorderCropperWindow), keyEquivalent: "")
-    let rectangleCropperWindowItem = NSMenuItem(title: "Rectangle", action: #selector(rectangleCropperWindow), keyEquivalent: "")
-    let miniCropperWindowItem = NSMenuItem(title: "Mini", action: #selector(miniCropperWindow), keyEquivalent: "")
-    let closeCropperWindowItem = NSMenuItem(title: "Closed", action: #selector(closeCropperWindow), keyEquivalent: "")
         
     func constructMenuBar() {
         statusItem.button?.image = NSImage(
@@ -209,44 +166,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             accessibilityDescription: nil
         )
         
-        menu.addItem(toggleItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let wordsDisplayTitleItem = NSMenuItem.init(title: "Words Display Style", action: nil, keyEquivalent: "")
-        wordsDisplayTitleItem.isEnabled = false
+//        menu.addItem(NSMenuItem.separator())
 
-        menu.addItem(wordsDisplayTitleItem)
-        menu.addItem(landscapeNormalItem)
-        menu.addItem(landscapeMiniItem)
-        menu.addItem(portraitNormalItem)
-        menu.addItem(portraitMiniItem)
-        menu.addItem(closedWordsItem)
+//        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
+//        let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
+//        menu.addItem(showFontItem)
+//        menu.addItem(showColorItem)
         
-        menu.addItem(NSMenuItem.separator())
+//        menu.addItem(NSMenuItem.separator())
+//
+//        let saveUserDefaultsItem = NSMenuItem(title: "Save Settings", action: #selector(saveAllUserDefaults), keyEquivalent: "")
+//        let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
+//        menu.addItem(saveUserDefaultsItem)
+//        menu.addItem(resetUserDefaultsItem)
         
-        cropperWindowTitleItem.isEnabled = false
-        menu.addItem(cropperWindowTitleItem)
-        menu.addItem(strokeBorderCropperWindowItem)
-        menu.addItem(rectangleCropperWindowItem)
-        menu.addItem(miniCropperWindowItem)
-        menu.addItem(closeCropperWindowItem)
-        
-        menu.addItem(NSMenuItem.separator())
-
-        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
-        let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
-        menu.addItem(showFontItem)
-        menu.addItem(showColorItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let saveUserDefaultsItem = NSMenuItem(title: "Save Settings", action: #selector(saveAllUserDefaults), keyEquivalent: "")
-        let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
-        menu.addItem(saveUserDefaultsItem)
-        menu.addItem(resetUserDefaultsItem)
-        
-        menu.addItem(NSMenuItem.separator())
+//        menu.addItem(NSMenuItem.separator())
 
         let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
@@ -262,13 +196,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         statusItem.menu = menu
     }
     
-    var lastNonContentMode: ContentMode? = nil
-    @objc func toggleContent() {
-        !statusData.isPlaying ?
-            startPlaying() :
-            stopPlaying()
-    }
-    
     func startPlaying() {
         statusData.isPlaying = true
         cachedDict = [:]
@@ -276,144 +203,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             systemSymbolName: "square.dashed.inset.fill",
             accessibilityDescription: nil
         )
-        toggleItem.title = "Toggle OFF"
         displayedWords.wordCells = []
         aVSessionAndTR.startScreenCapture()
-        contentPanel.orderFrontRegardless()
         cropperWindow.orderFrontRegardless()
         fixCropperWindow()
-        selectWordsPanel(lastNonContentMode ?? .landscapeNormal)
-        selectCropperWindow(.closed)
     }
     
     func stopPlaying() {
-        lastNonContentMode = contentMode
         statusData.isPlaying = false
         cachedDict = [:]
         statusItem.button?.image = NSImage(
             systemSymbolName: "square.dashed",
             accessibilityDescription: nil
         )
-        toggleItem.title = "Toggle ON"
         displayedWords.wordCells = []
         aVSessionAndTR.stopScreenCapture()
-        contentPanel.close()
         activeCropperWindow()
-        selectWordsPanel(.closed)
-        selectCropperWindow(.closed)
-    }
-    
-    @objc func landscapeNormal() {
-        selectWordsPanel(.landscapeNormal)
-    }
-    
-    @objc func landscapeMini() {
-        selectWordsPanel(.landscapeMini)
-    }
-    
-    @objc func portraitNormal() {
-        selectWordsPanel(.portraitNormal)
-    }
-
-    @objc func portraitMini() {
-        selectWordsPanel(.portraitMini)
-    }
-    
-    @objc func closeWords() {
-        selectWordsPanel(.closed)
-    }
-    
-    enum CropperStyle {
-        case strokeBorder
-        case rectangle
-        case mini
-        case closed
-    }
-    @objc func strokeBorderCropperWindow() {
-        selectCropperWindow(.strokeBorder)
-    }
-    
-    @objc func rectangleCropperWindow() {
-        selectCropperWindow(.rectangle)
-    }
-    
-    @objc func miniCropperWindow() {
-        selectCropperWindow(.mini)
-    }
-    
-    @objc func closeCropperWindow() {
-        selectCropperWindow(.closed)
-    }
-    
-    func selectCropperWindow(_ cropperStyle: CropperStyle) {
-        switch cropperStyle {
-        case .strokeBorder:
-            cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
-            cropperWindow.orderFrontRegardless()
-            if !statusData.isPlaying {
-                activeCropperWindow()
-            } else {
-                fixCropperWindow()
-            }
-            strokeBorderCropperWindowItem.state = .on
-            rectangleCropperWindowItem.state = .off
-            miniCropperWindowItem.state = .off
-            closeCropperWindowItem.state = .off
-        case .rectangle:
-            cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
-            cropperWindow.orderFrontRegardless()
-            if !statusData.isPlaying {
-                activeCropperWindow()
-            } else {
-                fixCropperWindow()
-            }
-            strokeBorderCropperWindowItem.state = .off
-            rectangleCropperWindowItem.state = .on
-            miniCropperWindowItem.state = .off
-            closeCropperWindowItem.state = .off
-        case .mini:
-            cropperWindow.contentView = NSHostingView(rootView: MiniCropperView())
-            cropperWindow.orderFrontRegardless()
-            if !statusData.isPlaying {
-                activeCropperWindow()
-            } else {
-                fixCropperWindow()
-            }
-            strokeBorderCropperWindowItem.state = .off
-            rectangleCropperWindowItem.state = .off
-            miniCropperWindowItem.state = .on
-            closeCropperWindowItem.state = .off
-        case .closed:
-            cropperWindow.contentView = NSHostingView(rootView: ClosedCropperView())
-            cropperWindow.orderFrontRegardless()
-            fixCropperWindow()
-            strokeBorderCropperWindowItem.state = .off
-            rectangleCropperWindowItem.state = .off
-            miniCropperWindowItem.state = .off
-            closeCropperWindowItem.state = .on
-        }
     }
 
     @objc func exit() {
         saveAllUserDefaults()
         NSApplication.shared.terminate(self)
-    }
-
-    // MARK: - contentPanel
-    var contentPanel: NSPanel!
-    var contentMode: ContentMode = .landscapeNormal
-    enum ContentMode {
-        case landscapeNormal
-        case landscapeMini
-        case portraitNormal
-        case portraitMini
-        case closed
-    }
-    func initContentPanel() {
-        initLandscapeWordsPanel()
-        initPortraitWordsPanel()
-        
-        selectWordsPanel(.closed)
     }
     
     @ViewBuilder
@@ -425,85 +235,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(displayedWords)
     }
     
-    func selectWordsPanel(_ theContentMode: ContentMode) {
-        contentMode = theContentMode
-        if contentMode != .closed {
-            lastNonContentMode = contentMode
-        }
-        switch contentMode {
-        case .landscapeNormal:
-            landscapeNormalItem.state = .on
-            landscapeMiniItem.state = .off
-            portraitNormalItem.state = .off
-            portraitMiniItem.state = .off
-            closedWordsItem.state = .off
-            let contentView = attachEnv(AnyView(LandscapeNormalWordsView()))
-            landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-            
-            portraitWordsPanel.close()
-            contentPanel = landscapeWordsPanel
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
-            
-        case .landscapeMini:
-            landscapeNormalItem.state = .off
-            landscapeMiniItem.state = .on
-            portraitNormalItem.state = .off
-            portraitMiniItem.state = .off
-            closedWordsItem.state = .off
-            let contentView = attachEnv(AnyView(LandscapeMiniWordsView()))
-            landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
-            
-            portraitWordsPanel.close()
-            contentPanel = landscapeWordsPanel
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
-            
-        case .portraitNormal:
-            landscapeNormalItem.state = .off
-            landscapeMiniItem.state = .off
-            portraitNormalItem.state = .on
-            portraitMiniItem.state = .off
-            closedWordsItem.state = .off
-            let contentView = attachEnv(AnyView(PortraitNormalWordsView()))
-            portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-            
-            landscapeWordsPanel.close()
-            contentPanel = portraitWordsPanel
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
-            
-        case .portraitMini:
-            landscapeNormalItem.state = .off
-            landscapeMiniItem.state = .off
-            portraitNormalItem.state = .off
-            portraitMiniItem.state = .on
-            closedWordsItem.state = .off
-            let contentView = attachEnv(AnyView(PortraitMiniWordsView()))
-            portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
-            
-            landscapeWordsPanel.close()
-            contentPanel = portraitWordsPanel
-            contentPanel.orderFrontRegardless()
-            contentPanel.hasShadow = false
-            
-            // I prefer the shadow effect, BUT it has problem when opacity is lower ( < 0.75 ), especially when landscape
-            contentPanel.hasShadow = true
-            contentPanel.invalidateShadow()
-            
-        case .closed:
-            landscapeNormalItem.state = .off
-            landscapeMiniItem.state = .off
-            portraitNormalItem.state = .off
-            portraitMiniItem.state = .off
-            closedWordsItem.state = .on
-            
-            landscapeWordsPanel.close()
-            portraitWordsPanel.close()
-            
-        }
-    }
-    
     var landscapeWordsPanel: NSPanel!
     func initLandscapeWordsPanel() {
         // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
@@ -511,9 +242,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             contentRect: NSRect(x: 100, y: 100, width: 600, height: 200),
             name: "landscapeWordsPanel"
         )
-        
-        let contentView = attachEnv(AnyView(LandscapeNormalWordsView()))
-        landscapeWordsPanel.contentView = NSHostingView(rootView: contentView)
+
+        landscapeWordsPanel.close()
     }
     
     var portraitWordsPanel: NSPanel!
@@ -522,9 +252,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
             name: "portraitWordsPanel"
         )
-                
-        let contentView = attachEnv(AnyView(PortraitNormalWordsView()))
-        portraitWordsPanel.contentView = NSHostingView(rootView: contentView)
+
+        portraitWordsPanel.close()
     }
     
     // MARK: - cropperWindow
@@ -535,7 +264,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             name: "cropperWindow"
         )
         
-        selectCropperWindow(.closed)
+        cropperWindow.close()
     }
     
     // no resizable, not movable
@@ -626,78 +355,78 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         settingsPanel.orderFrontRegardless()
     }
 
-    // MARK:- Appearance (FontPanel & ColorPanel)
-    @objc func showFontPanel(_ sender: Any?) {
-        let name = visualConfig.fontName
-        let size: CGFloat = {
-            switch contentMode {
-            case .landscapeNormal:
-                return visualConfig.fontSizeOfLandscape
-            case .landscapeMini:
-                return visualConfig.fontSizeOfLandscape
-            case .portraitNormal:
-                return visualConfig.fontSizeOfPortrait
-            case .portraitMini:
-                return visualConfig.fontSizeOfPortrait
-            case .closed:
-                return visualConfig.fontSizeOfLandscape
-            }
-        }()
-        let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: CGFloat(defaultFontSizeOfPortrait))
-
-        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
-        
-        NSApplication.shared.activate(ignoringOtherApps: true)
-        NSFontManager.shared.orderFrontFontPanel(sender)
-    }
-    
-    // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
-    @IBAction func changeFont(_ sender: NSFontManager?) {
-        guard let sender = sender else { return assertionFailure() }
-        let newFont = sender.convert(.systemFont(ofSize: 0))
-        visualConfig.fontName = newFont.fontName
-        
-        switch contentMode {
-        case .landscapeNormal:
-            visualConfig.fontSizeOfLandscape = newFont.pointSize
-        case .landscapeMini:
-            visualConfig.fontSizeOfLandscape = newFont.pointSize
-        case .portraitNormal:
-            visualConfig.fontSizeOfPortrait = newFont.pointSize
-        case .portraitMini:
-            visualConfig.fontSizeOfPortrait = newFont.pointSize
-        case .closed:
-            visualConfig.fontSizeOfLandscape = newFont.pointSize
-        }
-    }
-    
-    @objc func showColorPanel() {
-        let panel = NSColorPanel.shared
-        panel.isRestorable = false
-        panel.delegate = self
-        panel.showsAlpha = true
-        
-        panel.setAction(#selector(selectColor))
-        panel.setTarget(self)
-        
-        NSApplication.shared.activate(ignoringOtherApps: true)
-        panel.orderFront(self)
-    }
-    
-    @IBAction func selectColor(_ sender: NSColorPanel) {
-        switch contentMode {
-        case .landscapeNormal:
-            visualConfig.colorOfLandscape = sender.color
-        case .landscapeMini:
-            visualConfig.colorOfLandscape = sender.color
-        case .portraitNormal:
-            visualConfig.colorOfPortrait = sender.color
-        case .portraitMini:
-            visualConfig.colorOfPortrait = sender.color
-        case .closed:
-            visualConfig.colorOfLandscape = sender.color
-        }
-    }
+//    // MARK:- Appearance (FontPanel & ColorPanel)
+//    @objc func showFontPanel(_ sender: Any?) {
+//        let name = visualConfig.fontName
+//        let size: CGFloat = {
+//            switch contentMode {
+//            case .landscapeNormal:
+//                return visualConfig.fontSizeOfLandscape
+//            case .landscapeMini:
+//                return visualConfig.fontSizeOfLandscape
+//            case .portraitNormal:
+//                return visualConfig.fontSizeOfPortrait
+//            case .portraitMini:
+//                return visualConfig.fontSizeOfPortrait
+//            case .closed:
+//                return visualConfig.fontSizeOfLandscape
+//            }
+//        }()
+//        let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: CGFloat(defaultFontSizeOfPortrait))
+//
+//        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
+//
+//        NSApplication.shared.activate(ignoringOtherApps: true)
+//        NSFontManager.shared.orderFrontFontPanel(sender)
+//    }
+//
+//    // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
+//    @IBAction func changeFont(_ sender: NSFontManager?) {
+//        guard let sender = sender else { return assertionFailure() }
+//        let newFont = sender.convert(.systemFont(ofSize: 0))
+//        visualConfig.fontName = newFont.fontName
+//
+//        switch contentMode {
+//        case .landscapeNormal:
+//            visualConfig.fontSizeOfLandscape = newFont.pointSize
+//        case .landscapeMini:
+//            visualConfig.fontSizeOfLandscape = newFont.pointSize
+//        case .portraitNormal:
+//            visualConfig.fontSizeOfPortrait = newFont.pointSize
+//        case .portraitMini:
+//            visualConfig.fontSizeOfPortrait = newFont.pointSize
+//        case .closed:
+//            visualConfig.fontSizeOfLandscape = newFont.pointSize
+//        }
+//    }
+//
+//    @objc func showColorPanel() {
+//        let panel = NSColorPanel.shared
+//        panel.isRestorable = false
+//        panel.delegate = self
+//        panel.showsAlpha = true
+//
+//        panel.setAction(#selector(selectColor))
+//        panel.setTarget(self)
+//
+//        NSApplication.shared.activate(ignoringOtherApps: true)
+//        panel.orderFront(self)
+//    }
+//
+//    @IBAction func selectColor(_ sender: NSColorPanel) {
+//        switch contentMode {
+//        case .landscapeNormal:
+//            visualConfig.colorOfLandscape = sender.color
+//        case .landscapeMini:
+//            visualConfig.colorOfLandscape = sender.color
+//        case .portraitNormal:
+//            visualConfig.colorOfPortrait = sender.color
+//        case .portraitMini:
+//            visualConfig.colorOfPortrait = sender.color
+//        case .closed:
+//            visualConfig.colorOfLandscape = sender.color
+//        }
+//    }
     
     // MARK:- Core Data (WordStatis)
     lazy var persistentContainer: NSPersistentContainer = {
