@@ -12,6 +12,7 @@ import CoreData
 import CryptoKit
 import Foundation
 import Vision
+import KeyboardShortcuts
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
@@ -78,6 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         initContentPanel()
         initCropperWindow()
+        
         initKnownWordsPanel()
         initSettingsPanel()
         
@@ -89,6 +91,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             cropperWindow: cropperWindow,
             trCallBack: trCallBack
         )
+        
+        registerGlobalKey()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -143,7 +147,45 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.set(colorToData(visualConfig.colorOfPortrait)!, forKey: "visualConfig.colorOfPortrait")
         UserDefaults.standard.set(visualConfig.fontName, forKey: "visualConfig.fontName")
     }
-
+    
+    // MARK: - Global short cut key
+    enum FlowStep {
+        case beginSelectCropper
+        case beginSelectContent
+        case ready
+    }
+    var flowStep: FlowStep = .beginSelectCropper
+    func registerGlobalKey() {
+        KeyboardShortcuts.onKeyUp(for: .toggleUnicornMode) { [self] in
+            if !statusData.isPlaying {
+                switch flowStep {
+                case .beginSelectCropper:
+                    selectCropperWindow(.rectangle)
+                    flowStep = .beginSelectContent
+                case .beginSelectContent:
+                    selectWordsPanel(.portraitNormal)
+                    flowStep = .ready
+                case .ready:
+                    startPlaying()
+                    flowStep = .beginSelectCropper
+                }
+            }
+            else {
+                stopPlaying()
+            }
+        }
+        
+        KeyboardShortcuts.onKeyUp(for: .cancelUnicornMode) { [self] in
+            if !statusData.isPlaying {
+                selectCropperWindow(.closed)
+                selectWordsPanel(.closed)
+                flowStep = .beginSelectCropper
+            } else {
+                
+            }
+        }
+    }
+    
     // MARK: - MenuBar
     let menu = NSMenu()
     
@@ -222,38 +264,43 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     var lastNonContentMode: ContentMode? = nil
     @objc func toggleContent() {
-        if !statusData.isPlaying {
-            statusData.isPlaying = true
-            cachedDict = [:]
-            statusItem.button?.image = NSImage(
-                systemSymbolName: "square.dashed.inset.fill",
-                accessibilityDescription: nil
-            )
-            toggleItem.title = "Toggle OFF"
-            displayedWords.wordCells = []
-            aVSessionAndTR.startScreenCapture()
-            contentPanel.orderFrontRegardless()
-            cropperWindow.orderFrontRegardless()
-            fixCropperWindow()
-            selectWordsPanel(lastNonContentMode ?? .landscapeNormal)
-            selectCropperWindow(.closed)
-        }
-        else {
-            lastNonContentMode = contentMode
-            statusData.isPlaying = false
-            cachedDict = [:]
-            statusItem.button?.image = NSImage(
-                systemSymbolName: "square.dashed",
-                accessibilityDescription: nil
-            )
-            toggleItem.title = "Toggle ON"
-            displayedWords.wordCells = []
-            aVSessionAndTR.stopScreenCapture()
-            contentPanel.close()
-            activeCropperWindow()
-            selectWordsPanel(.closed)
-            selectCropperWindow(.closed)
-        }
+        !statusData.isPlaying ?
+            startPlaying() :
+            stopPlaying()
+    }
+    
+    func startPlaying() {
+        statusData.isPlaying = true
+        cachedDict = [:]
+        statusItem.button?.image = NSImage(
+            systemSymbolName: "square.dashed.inset.fill",
+            accessibilityDescription: nil
+        )
+        toggleItem.title = "Toggle OFF"
+        displayedWords.wordCells = []
+        aVSessionAndTR.startScreenCapture()
+        contentPanel.orderFrontRegardless()
+        cropperWindow.orderFrontRegardless()
+        fixCropperWindow()
+        selectWordsPanel(lastNonContentMode ?? .landscapeNormal)
+        selectCropperWindow(.closed)
+    }
+    
+    func stopPlaying() {
+        lastNonContentMode = contentMode
+        statusData.isPlaying = false
+        cachedDict = [:]
+        statusItem.button?.image = NSImage(
+            systemSymbolName: "square.dashed",
+            accessibilityDescription: nil
+        )
+        toggleItem.title = "Toggle ON"
+        displayedWords.wordCells = []
+        aVSessionAndTR.stopScreenCapture()
+        contentPanel.close()
+        activeCropperWindow()
+        selectWordsPanel(.closed)
+        selectCropperWindow(.closed)
     }
     
     @objc func landscapeNormal() {
@@ -366,7 +413,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         initLandscapeWordsPanel()
         initPortraitWordsPanel()
         
-        selectWordsPanel(.landscapeNormal)
+        selectWordsPanel(.closed)
     }
     
     @ViewBuilder
@@ -488,7 +535,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             name: "cropperWindow"
         )
         
-        selectCropperWindow(.strokeBorder)
+        selectCropperWindow(.closed)
     }
     
     // no resizable, not movable

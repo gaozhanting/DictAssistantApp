@@ -11,6 +11,10 @@ import Vision
 struct GeneralSettingView: View {
     var body: some View {
         VStack {
+            HStack {
+                KeyRecordingView()
+            }
+            Divider()
             HStack(alignment: .top) {
                 Text("Word display:")
                 
