@@ -90,14 +90,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     
                 case .ready:
                     let contentViewWithEnv = attachEnv(AnyView(ContentView()))
-                    
                     myPreferShadow()
-                    
                     contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
                     contentWindow.orderFrontRegardless()
                     
                     switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
                     case .closed:
+                        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
                         cropperWindow.close()
                     case .rectangle:
                         cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
@@ -106,13 +105,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     
                     startPlaying()
                     
+                    fixCropperWindow()
+                    
                     flowStep = .beginSelectCropper
                 }
             }
             else {
                 cropperWindow.close()
                 contentWindow.close()
+                
                 stopPlaying()
+                
+                activeCropperWindow()
             }
         }
         
@@ -190,8 +194,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
         displayedWords.wordCells = []
         aVSessionAndTR.startScreenCapture()
-        cropperWindow.orderFrontRegardless()
-        fixCropperWindow()
     }
     
     func stopPlaying() {
@@ -203,7 +205,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
         displayedWords.wordCells = []
         aVSessionAndTR.stopScreenCapture()
-        activeCropperWindow()
     }
 
     @objc func exit() {
