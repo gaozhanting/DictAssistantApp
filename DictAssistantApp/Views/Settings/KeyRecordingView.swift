@@ -16,8 +16,8 @@ struct KeyRecordingView: View {
                 KeyboardShortcuts.Recorder(for: .toggleUnicornMode)
             }
             HStack(alignment: .firstTextBaseline) {
-                Text("Cancel Unicorn Mode:")
-                KeyboardShortcuts.Recorder(for: .cancelUnicornMode)
+                Text("Toggle Show Current Known Words:")
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
             }
         }
     }

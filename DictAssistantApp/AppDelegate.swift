@@ -120,13 +120,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         }
         
-        KeyboardShortcuts.onKeyUp(for: .cancelUnicornMode) { [self] in
-            if !statusData.isPlaying {
-                cropperWindow.close()
-                contentWindow.close()
-                flowStep = .beginSelectCropper
+        KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnownWords) {
+            if UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey) {
+                UserDefaults.standard.setValue(false, forKey: IsShowCurrentKnownKey)
             } else {
-                
+                UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownKey)
             }
         }
     }

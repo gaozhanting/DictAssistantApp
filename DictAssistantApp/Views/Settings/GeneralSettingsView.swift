@@ -19,10 +19,10 @@ struct GeneralSettingsView: View {
                 Text("Word display:")
                 
                 VStack(alignment: .leading) {
-                    IsShowPhraseToggleSetting()
-                    IsAddLineBreakSetting()
-                    IsShowCurrentKnownSetting()
-                    IsWithAnimationSetting()
+                    ShowCurrentKnownWordsToggle()
+                    ShowPhrasesToggle()
+                    AddLineBreakToggle()
+                    WithAnimationToggle()
                 }
             }
             Divider()
@@ -36,31 +36,7 @@ struct GeneralSettingsView: View {
     }
 }
 
-fileprivate struct IsShowPhraseToggleSetting: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isShowPhrase, label: {
-            Text("Show phrases")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want display all phrase words.")
-    }
-}
-
-fileprivate struct IsAddLineBreakSetting: View {
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreakKey: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isAddLineBreakKey, label: {
-            Text("Add line break")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want add a line break between the word and the translation of the word.")
-    }
-}
-
-fileprivate struct IsShowCurrentKnownSetting: View {
+fileprivate struct ShowCurrentKnownWordsToggle: View {
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     
     var body: some View {
@@ -72,7 +48,31 @@ fileprivate struct IsShowCurrentKnownSetting: View {
     }
 }
 
-fileprivate struct IsWithAnimationSetting: View {
+fileprivate struct ShowPhrasesToggle: View {
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isShowPhrase, label: {
+            Text("Show phrases")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want display all phrase words.")
+    }
+}
+
+fileprivate struct AddLineBreakToggle: View {
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreakKey: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isAddLineBreakKey, label: {
+            Text("Add line break")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want add a line break between the word and the translation of the word.")
+    }
+}
+
+fileprivate struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
         
     var body: some View {
