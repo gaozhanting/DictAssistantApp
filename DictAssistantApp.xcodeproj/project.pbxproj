@@ -84,9 +84,9 @@
 			children = (
 				442134CD26A6C64200963441 /* SettingsView.swift */,
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
+				442134DB26AADCF500963441 /* KeyRecordingView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 				442298B6269EADC1008B410B /* DictionariesView.swift */,
-				442134DB26AADCF500963441 /* KeyRecordingView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";

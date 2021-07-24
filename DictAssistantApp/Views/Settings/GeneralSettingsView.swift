@@ -11,9 +11,7 @@ import Vision
 struct GeneralSettingsView: View {
     var body: some View {
         VStack {
-            HStack {
-                KeyRecordingView()
-            }
+            KeyRecordingView()
             Divider()
             HStack(alignment: .top) {
                 Text("Word display:")
@@ -203,5 +201,6 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
 struct GeneralSettingView_Previews: PreviewProvider {
     static var previews: some View {
         GeneralSettingsView()
+            .frame(width: 500, height: 520)
     }
 }

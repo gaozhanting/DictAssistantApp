@@ -307,7 +307,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var settingsPanel: NSPanel!
     func initSettingsPanel() {
         settingsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 500, height: 500),
+            contentRect: NSRect(x: 500, y: 100, width: 500, height: 520),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,

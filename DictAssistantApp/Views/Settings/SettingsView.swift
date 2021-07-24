@@ -57,6 +57,6 @@ struct ChildTabView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-            .frame(width: 500, height: 500)
+            .frame(width: 500, height: 520)
     }
 }

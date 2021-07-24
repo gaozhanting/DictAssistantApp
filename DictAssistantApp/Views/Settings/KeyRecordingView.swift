@@ -13,10 +13,12 @@ struct KeyRecordingView: View {
         VStack {
             HStack(alignment: .firstTextBaseline) {
                 Text("Toggle Unicorn Mode:")
+                Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleUnicornMode)
             }
             HStack(alignment: .firstTextBaseline) {
                 Text("Toggle Show Current Known Words:")
+                Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
             }
         }
