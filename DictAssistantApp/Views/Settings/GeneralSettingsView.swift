@@ -140,7 +140,7 @@ fileprivate struct FontRateSetting: View {
         
         Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
             .preferenceDescription()
-            .frame(maxWidth: 330)
+            .frame(width: 340, alignment: .leading)
     }
 }
 
@@ -185,7 +185,6 @@ fileprivate struct TRMinimumTextHeightSetting: View {
             Text("The minimum height of the text expected to be recognized, relative to the image height.")
                 .preferenceDescription()
                 .frame(width: 300, height: 30, alignment: .leading)
-                .lineLimit(2)
             
             Button(action: { isShowingPopover = true }, label: {
                 Image(systemName: "info.circle")
@@ -223,13 +222,11 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
             Text("Fast is very fast, and cause low cpu usage, you should use this by default, but terrible when text on screen has tough surrounding!")
                 .preferenceDescription()
                 .frame(width: 300, height: 50, alignment: .leading)
-                .lineLimit(3)
         } else {
             (Text("Accurate is the only rescue when the text is hard to recognized in screen! ")
                  + Text("Accurate will cause high cpu usage!").foregroundColor(.red))
                 .preferenceDescription()
                 .frame(width: 300, height: 50, alignment: .leading)
-                .lineLimit(3)
         }
     }
 }
