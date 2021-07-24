@@ -9,11 +9,16 @@ import SwiftUI
 
 struct AppearanceSettingsView: View {
     var body: some View {
-        VStack {
+        VStack(alignment: .trailing) {
             CropperStyleSettingView()
             ContentStyleSettingView()
+            Group {
+                LandscapeWordColorSettingView()
+                PortraitWordColorSettingView()
+            }
         }
         .padding(.horizontal)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -56,6 +61,32 @@ fileprivate struct ContentStyleSettingView: View {
         .frame(maxWidth: 400)
     }
 }
+
+fileprivate struct LandscapeWordColorSettingView: View {
+    @State private var bgColor =
+        Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
+
+    var body: some View {
+        HStack {
+            Spacer()
+            ColorPicker("Landscape word color: ", selection: $bgColor)
+        }
+    }
+}
+
+fileprivate struct PortraitWordColorSettingView: View {
+    @State private var bgColor =
+        Color(.sRGB, red: 0.18, green: 0.9, blue: 0.2)
+
+    var body: some View {
+        HStack {
+            Spacer()
+            ColorPicker("Portrait word color: ", selection: $bgColor)
+        }
+    }
+}
+
+
 
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
