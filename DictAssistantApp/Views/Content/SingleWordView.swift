@@ -13,12 +13,12 @@ struct SingleWordView: View {
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(FontRateKey) private var fontRate: Double = 0.6
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
 
     let wordCell: WordCell
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
-    let style: Style
 
     var isKnown: IsKnown {
         wordCell.isKnown
@@ -83,7 +83,7 @@ struct SingleWordView: View {
                     openDict(word)
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                .background(Color.black.opacity(style == .landscapeMini ? 0.75 : 0))
+                .background(Color.black.opacity(contentStyle == .landscapeMini ? 0.75 : 0))
             
             Spacer()
         }

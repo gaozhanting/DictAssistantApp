@@ -12,12 +12,6 @@ fileprivate let defaultMaxWidthOfLandscape: CGFloat = 300.0
 fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 //fileprivate let spacing: CGFloat = 0
 
-enum Style {
-    case landscapeNormal
-    case landscapeMini
-    case portraitNormal
-    case portraitMini
-}
 
 struct WordCellWithId: Identifiable {
     let wordCell: WordCell
@@ -33,8 +27,7 @@ fileprivate struct LandscapeNormalWordsView: View {
                 WordsView(
                     color: visualConfig.colorOfLandscape,
                     fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfLandscape,
-                    style: .landscapeNormal
+                    fontSize: visualConfig.fontSizeOfLandscape
                 )
                 .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
             }
@@ -56,8 +49,7 @@ fileprivate struct LandscapeMiniWordsView: View {
                     WordsView(
                         color: visualConfig.colorOfLandscape,
                         fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfLandscape,
-                        style: .landscapeMini
+                        fontSize: visualConfig.fontSizeOfLandscape
                     )
                     .frame(maxWidth: defaultMaxWidthOfLandscape)
                 }
@@ -78,8 +70,7 @@ fileprivate struct PortraitNormalWordsView: View {
                 WordsView(
                     color: visualConfig.colorOfPortrait,
                     fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfPortrait,
-                    style: .portraitNormal
+                    fontSize: visualConfig.fontSizeOfPortrait
                 )
                 .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
             }
@@ -102,8 +93,7 @@ fileprivate struct PortraitMiniWordsView: View {
                     WordsView(
                         color: visualConfig.colorOfPortrait,
                         fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfPortrait,
-                        style: .portraitMini
+                        fontSize: visualConfig.fontSizeOfPortrait
                     )
                     .frame(maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
                 }

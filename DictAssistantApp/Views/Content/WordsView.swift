@@ -15,7 +15,6 @@ struct WordsView: View {
     let color: NSColor
     let fontName: String
     let fontSize: CGFloat
-    let style: Style
     
     var wordCells: [WordCell] {
         isShowPhrase ?
@@ -56,8 +55,8 @@ struct WordsView: View {
                 wordCell: wordCell,
                 color: color,
                 fontName: fontName,
-                fontSize: fontSize,
-                style: style)
+                fontSize: fontSize
+            )
         }
     }
 }
