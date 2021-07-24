@@ -12,7 +12,6 @@ struct AppearanceSettingsView: View {
         VStack {
             CropperStyleSettingView()
             ContentStyleSettingView()
-            Divider()
         }
         .padding(.horizontal)
     }

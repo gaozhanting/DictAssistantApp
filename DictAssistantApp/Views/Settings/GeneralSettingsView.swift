@@ -147,6 +147,8 @@ fileprivate struct TRMinimumTextHeightSetting: View {
         }
     }
     
+    @State private var isShowingPopover = false
+    
     var body: some View {
         VStack(alignment: .trailing) {
             
@@ -163,11 +165,29 @@ fileprivate struct TRMinimumTextHeightSetting: View {
             
             Button("Reset to default: 0.0315", action: resetToDefault)
             
-            Text("The minimum height of the text expected to be recognized, relative to the image height.")
-                .font(.subheadline)
-                .frame(maxWidth: 330)
-                .help("Specify a floating-point number relative to the image height. For example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. The default value is 1/32, or 0.03125.")
+            HStack {
+                Text("The minimum height of the text expected to be recognized, relative to the image height.")
+                    .frame(maxWidth: 330)
+                
+                Button(action: { isShowingPopover = true }, label: {
+                    Image(systemName: "info.circle")
+                })
+                .buttonStyle(PlainButtonStyle())
+                .popover(isPresented: $isShowingPopover, arrowEdge: .trailing, content: {
+                    MiniHeigthInfoPopoverView()
+                })
+            }
+            .font(.subheadline)
         }
+    }
+}
+
+fileprivate struct MiniHeigthInfoPopoverView: View {
+    var body: some View {
+        Text("Specify a floating-point number relative to the image height. \nFor example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. \nThe default value is 1/32, or 0.03125.")
+            .font(.subheadline)
+            .padding()
+            .frame(width: 300, height: 150)
     }
 }
 
@@ -185,12 +205,12 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
             
             if textRecognitionLevel == .fast {
                 VStack(alignment: .trailing) {
-                    Text("Fast is very fast, and cause low cpu usage, you should use this by default.").font(.subheadline).foregroundColor(.green)
-                    Text("Fast recognition is terrible when text on screen has tough surrounding!").font(.subheadline).foregroundColor(.orange)
+                    Text("Fast is very fast, and cause low cpu usage, you should use this by default.").font(.subheadline)
+                    Text("Fast recognition is terrible when text on screen has tough surrounding!").font(.subheadline)
                 }
             } else {
                 VStack(alignment: .trailing) {
-                    Text("Accurate is the only rescue when the text is hard to recognized in screen!").font(.subheadline).foregroundColor(.green)
+                    Text("Accurate is the only rescue when the text is hard to recognized in screen!").font(.subheadline)
                     Text("Accurate will cause high cpu usage!").font(.subheadline).foregroundColor(.red)
                 }
             }
@@ -200,7 +220,11 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
 
 struct GeneralSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingsView()
-            .frame(width: 500, height: 520)
+        Group {
+            GeneralSettingsView()
+                .frame(width: 500, height: 520)
+            
+            MiniHeigthInfoPopoverView()
+        }
     }
 }
