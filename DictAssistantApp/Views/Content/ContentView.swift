@@ -12,94 +12,11 @@ fileprivate let defaultMaxWidthOfLandscape: CGFloat = 300.0
 fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 //fileprivate let spacing: CGFloat = 0
 
-fileprivate enum Style {
+enum Style {
     case landscapeNormal
     case landscapeMini
     case portraitNormal
     case portraitMini
-}
-
-fileprivate struct SingleWordView: View {
-    @Environment(\.openURL) var openURL
-    @Environment(\.addToKnownWords) var addToKnownWords
-    @Environment(\.removeFromKnownWords) var removeFromKnownWords
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    @AppStorage(FontRateKey) private var fontRate: Double = 0.6
-
-    let wordCell: WordCell
-    let color: NSColor
-    let fontName: String
-    let fontSize: CGFloat
-    let style: Style
-
-    var isKnown: IsKnown {
-        wordCell.isKnown
-    }
-    
-    var unKnown: Bool {
-        isKnown == .unKnown
-    }
-    
-    var known: Bool {
-        isKnown == .known
-    }
-    
-    var word: String {
-        wordCell.word
-    }
-    
-    var isPhrase: Bool {
-        word.contains(" ")
-    }
-    
-    var trans: String {
-        wordCell.trans
-    }
-    
-    var transText: String {
-        isAddLineBreak ? "\n" + trans : trans
-    }
-
-    func openExternalDict(_ word: String) {
-        let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
-        guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(replaceSpaced)") else {
-            logger.info("invalid external dict url string")
-            return
-        }
-        openURL(url)
-    }
-    
-    var textView: some View {
-        unKnown ?
-            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * CGFloat(fontRate))))
-            :
-            Text(word).foregroundColor(.gray)
-    }
-    
-    var body: some View {
-        VStack {
-            textView
-                .opacity( (known && isPhrase) ? 0.5 : 1)
-                .font(Font.custom(fontName, size: fontSize))
-                .padding(.vertical, 4)
-                .padding(.horizontal, 6)
-                .contextMenu {
-                    Button(unKnown ? "Add to Known" : "Remove from known", action: {
-                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
-                    })
-                    Menu("Online Dict Link") {
-                        Button("Collins", action: { openExternalDict(word) })
-                    }
-                }
-                .onTapGesture(count: 2) {
-                    openDict(word)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .background(Color.black.opacity(style == .landscapeMini ? 0.75 : 0))
-            
-            Spacer()
-        }
-    }
 }
 
 struct WordCellWithId: Identifiable {
@@ -107,62 +24,7 @@ struct WordCellWithId: Identifiable {
     let id: String
 }
 
-fileprivate struct WordsView: View {
-    @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-
-    let color: NSColor
-    let fontName: String
-    let fontSize: CGFloat
-    let style: Style
-    
-    var wordCells: [WordCell] {
-        isShowPhrase ?
-            displayedWords.wordCells :
-            displayedWords.wordCells.filter { !$0.word.contains(" ") }
-    }
-    
-    var words: [WordCellWithId] {
-        if isShowCurrentKnown {
-            var attachedId: [WordCellWithId] = []
-            var auxiliary: [String:Int] = [:]
-            for wordCell in wordCells {
-                let word = wordCell.word
-                auxiliary[word, default: 0] += 1
-                let id = "\(word)_\(auxiliary[word]!)"
-                attachedId.append(WordCellWithId(wordCell: wordCell, id: id))
-            }
-            return attachedId
-        }
-        else {
-            var deDuplicated: [WordCellWithId] = []
-            var auxiliary: Set<String> = Set.init()
-            for wordCell in wordCells {
-                let word = wordCell.word
-                if !auxiliary.contains(word) {
-                    deDuplicated.append(WordCellWithId(wordCell: wordCell, id: word))
-                    auxiliary.insert(word)
-                }
-            }
-            return deDuplicated.filter{ $0.wordCell.isKnown == .unKnown }
-        }
-    }
-    
-    var body: some View {
-        ForEach(words) { wordCellWithId in
-            let wordCell = wordCellWithId.wordCell
-            SingleWordView(
-                wordCell: wordCell,
-                color: color,
-                fontName: fontName,
-                fontSize: fontSize,
-                style: style)
-        }
-    }
-}
-
-struct LandscapeNormalWordsView: View {
+fileprivate struct LandscapeNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -184,7 +46,7 @@ struct LandscapeNormalWordsView: View {
     }
 }
 
-struct LandscapeMiniWordsView: View {
+fileprivate struct LandscapeMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -207,7 +69,7 @@ struct LandscapeMiniWordsView: View {
     }
 }
 
-struct PortraitNormalWordsView: View {
+fileprivate struct PortraitNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -229,7 +91,7 @@ struct PortraitNormalWordsView: View {
     }
 }
 
-struct PortraitMiniWordsView: View {
+fileprivate struct PortraitMiniWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -287,7 +149,7 @@ struct ContentNormalView: View {
     }
 }
 
-struct WordsView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static let displayedWordsNoWords = DisplayedWords(wordCells: [])
     static let displayedWordsSample1 = DisplayedWords(wordCells: [
         WordCell(word: "around", isKnown: .known, trans: define("around")),

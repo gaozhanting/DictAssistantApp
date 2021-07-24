@@ -144,6 +144,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
     
+    // no resizable, not movable
+    func fixCropperWindow() {
+        // remove .resizable otherwise can't mouse through
+        cropperWindow.styleMask = [
+            .titled,
+            .fullSizeContentView
+        ]
+        cropperWindow.isMovable = false
+        cropperWindow.isMovableByWindowBackground = false
+    }
+    
+    // resizable, movable
+    func activeCropperWindow() {
+        cropperWindow.styleMask = [
+            .titled,
+            .fullSizeContentView,
+            .resizable,
+        ]
+        cropperWindow.isMovable = true
+        cropperWindow.isMovableByWindowBackground = true
+        
+        // otherwise three dots appear and zoom button enabled
+        cropperWindow.standardWindowButton(.closeButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
+        cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
+    }
+    
     // MARK: - MenuBar
     let menu = NSMenu()
         
@@ -239,34 +267,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
         
         cropperWindow.close()
-    }
-    
-    // no resizable, not movable
-    func fixCropperWindow() {
-        // remove .resizable otherwise can't mouse through
-        cropperWindow.styleMask = [
-            .titled,
-            .fullSizeContentView
-        ]
-        cropperWindow.isMovable = false
-        cropperWindow.isMovableByWindowBackground = false
-    }
-    
-    // resizable, movable
-    func activeCropperWindow() {
-        cropperWindow.styleMask = [
-            .titled,
-            .fullSizeContentView,
-            .resizable,
-        ]
-        cropperWindow.isMovable = true
-        cropperWindow.isMovableByWindowBackground = true
-        
-        // otherwise three dots appear and zoom button enabled
-        cropperWindow.standardWindowButton(.closeButton)?.isHidden = true
-        cropperWindow.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        cropperWindow.standardWindowButton(.zoomButton)?.isHidden = true
-        cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
     }
     
     // MARK: - Known Words Panel
