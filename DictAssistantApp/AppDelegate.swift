@@ -13,6 +13,7 @@ import CryptoKit
 import Foundation
 import Vision
 import KeyboardShortcuts
+import Preferences
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
@@ -46,7 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         initContentWindow()
         
         initKnownWordsPanel()
-        initSettingsPanel()
         
         constructMenuBar()
         
@@ -62,6 +62,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    // MARK: - Preferences
+    private lazy var preferencesWindowController = PreferencesWindowController(
+        preferencePanes: [
+            GeneralPreferenceViewController(),
+            AppearancePreferenceViewController(),
+            DictionariesPreferenceViewController()
+        ]
+    )
+    
+    @objc func showPreferences() {
+        preferencesWindowController.show(preferencePane: .general)
+    }
+    
+    @IBAction
+    func preferencesMenuItemActionHandler(_ sender: NSMenuItem) {
+        preferencesWindowController.show()
     }
     
     // MARK: - Global short cut key
@@ -201,7 +219,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
-        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showSettingsPanel), keyEquivalent: ",")
+        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showPreferences), keyEquivalent: ",")
         menu.addItem(showSettingsPanelItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -302,32 +320,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
         knownWordsPanel.orderFrontRegardless()
     }
-    
-    // MARK: - Setting Panel
-    var settingsPanel: NSPanel!
-    func initSettingsPanel() {
-        settingsPanel = NSPanel.init(
-            contentRect: NSRect(x: 500, y: 100, width: 500, height: 520),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-            ],
-            backing: .buffered,
-            defer: false
-        )
-        settingsPanel.setFrameAutosaveName("settingsPanel")
-        settingsPanel.title = "Preferences"
-        settingsPanel.isReleasedWhenClosed = false
-        settingsPanel.toolbarStyle = .preference
-        settingsPanel.titlebarAppearsTransparent = true
-    }
-    
-    @objc func showSettingsPanel() {
-        let settingsView = SettingsView()
-        settingsPanel.contentView = NSHostingView(rootView: settingsView)
-        settingsPanel.orderFrontRegardless()
-    }
+
 
 //    // MARK:- Appearance (FontPanel & ColorPanel)
 //    @objc func showFontPanel(_ sender: Any?) {

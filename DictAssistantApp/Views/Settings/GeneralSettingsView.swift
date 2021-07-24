@@ -7,30 +7,51 @@
 
 import SwiftUI
 import Vision
+import Preferences
+import KeyboardShortcuts
+
+let settingPanelWidth: Double = 600.0
 
 struct GeneralSettingsView: View {
     var body: some View {
-        VStack {
-            KeyRecordingView()
-            Divider()
-            HStack(alignment: .top) {
-                Text("Word display:")
-                
-                VStack(alignment: .leading) {
-                    ShowCurrentKnownWordsToggle()
-                    ShowPhrasesToggle()
-                    AddLineBreakToggle()
-                    WithAnimationToggle()
-                }
+        Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "Short Cut Key:") {
+                KeyRecordingView()
             }
-            Divider()
-            FontRateSetting()
-            Divider()
-            TRMinimumTextHeightSetting()
-            Divider()
-            TRTextRecognitionLevelSetting()
+            Preferences.Section(title: "Words Display Selection:") {
+                ShowCurrentKnownWordsToggle()
+                ShowPhrasesToggle()
+                AddLineBreakToggle()
+                WithAnimationToggle()
+            }
+            Preferences.Section(title: "Translation Font Rate:") {
+                FontRateSetting()
+            }
+            Preferences.Section(title: "Minimum Text Height:") {
+                TRMinimumTextHeightSetting()
+            }
+            Preferences.Section(title: "Text Recognition Level:") {
+                TRTextRecognitionLevelSetting()
+            }
         }
-        .padding(.horizontal)
+    }
+}
+
+fileprivate struct KeyRecordingView: View {
+    var body: some View {
+        Group {
+            HStack {
+                Text("Toggle Unicorn Mode:")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleUnicornMode)
+            }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Toggle Show Current Known Words:")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
+            }
+        }
+        .frame(maxWidth: 380)
     }
 }
 
@@ -80,7 +101,6 @@ fileprivate struct WithAnimationToggle: View {
         .toggleStyle(CheckboxToggleStyle())
         .help("Select it when you prefer animation for displaying words.")
     }
-    
 }
 
 fileprivate struct FontRateSetting: View {
@@ -105,24 +125,22 @@ fileprivate struct FontRateSetting: View {
     }
     
     var body: some View {
-        VStack(alignment: .trailing) {
-            HStack {
-                Text("Font rate: \(fontRateKey, specifier: "%.2f")")
-                Slider(
-                    value: $fontRateKey,
-                    in: 0...1
-                )
-                .frame(maxWidth: 180)
-                
-                Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
-            }
+        HStack {
+            Text("Font rate: \(fontRateKey, specifier: "%.2f")")
+            Slider(
+                value: $fontRateKey,
+                in: 0...1
+            )
+            .frame(maxWidth: 180)
             
-            Button("Reset to default: 0.6", action: resetToDefault)
-            
-            Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
-                .font(.subheadline)
-                .frame(maxWidth: 330)
+            Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
         }
+        
+        Button("Reset to default: 0.6", action: resetToDefault)
+        
+        Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
+            .preferenceDescription()
+            .frame(maxWidth: 330)
     }
 }
 
@@ -150,34 +168,32 @@ fileprivate struct TRMinimumTextHeightSetting: View {
     @State private var isShowingPopover = false
     
     var body: some View {
-        VStack(alignment: .trailing) {
+        HStack {
+            Text("\(minimumTextHeight, specifier: "%.4f")")
+            Slider(
+                value: $minimumTextHeight,
+                in: 0...1
+            )
+            .frame(maxWidth: 180)
             
-            HStack {
-                Text("Minimum text height: \(minimumTextHeight, specifier: "%.4f")")
-                Slider(
-                    value: $minimumTextHeight,
-                    in: 0...1
-                )
-                .frame(maxWidth: 180)
-                
-                Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
-            }
+            Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
+        }
+        
+        Button("Reset to default: 0.0315", action: resetToDefault)
+        
+        HStack {
+            Text("The minimum height of the text expected to be recognized, relative to the image height.")
+                .preferenceDescription()
+                .frame(width: 300, height: 30, alignment: .leading)
+                .lineLimit(2)
             
-            Button("Reset to default: 0.0315", action: resetToDefault)
-            
-            HStack {
-                Text("The minimum height of the text expected to be recognized, relative to the image height.")
-                    .frame(maxWidth: 330)
-                
-                Button(action: { isShowingPopover = true }, label: {
-                    Image(systemName: "info.circle")
-                })
-                .buttonStyle(PlainButtonStyle())
-                .popover(isPresented: $isShowingPopover, arrowEdge: .trailing, content: {
-                    MiniHeigthInfoPopoverView()
-                })
-            }
-            .font(.subheadline)
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "info.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .popover(isPresented: $isShowingPopover, arrowEdge: .trailing, content: {
+                MiniHeigthInfoPopoverView()
+            })
         }
     }
 }
@@ -195,25 +211,25 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
     @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: VNRequestTextRecognitionLevel = .fast // fast 1, accurate 0
     
     var body: some View {
-        VStack(alignment: .trailing) {
-            Picker("Text recognition level: ", selection: $textRecognitionLevel) {
-                Text("fast").tag(VNRequestTextRecognitionLevel.fast)
-                Text("accurate").tag(VNRequestTextRecognitionLevel.accurate)
-            }
-            .pickerStyle(MenuPickerStyle())
-            .frame(maxWidth: 400)
-            
-            if textRecognitionLevel == .fast {
-                VStack(alignment: .trailing) {
-                    Text("Fast is very fast, and cause low cpu usage, you should use this by default.").font(.subheadline)
-                    Text("Fast recognition is terrible when text on screen has tough surrounding!").font(.subheadline)
-                }
-            } else {
-                VStack(alignment: .trailing) {
-                    Text("Accurate is the only rescue when the text is hard to recognized in screen!").font(.subheadline)
-                    Text("Accurate will cause high cpu usage!").font(.subheadline).foregroundColor(.red)
-                }
-            }
+        Picker("", selection: $textRecognitionLevel) {
+            Text("fast").tag(VNRequestTextRecognitionLevel.fast)
+            Text("accurate").tag(VNRequestTextRecognitionLevel.accurate)
+        }
+        .pickerStyle(MenuPickerStyle())
+        .labelsHidden()
+        .frame(width: 160)
+        
+        if textRecognitionLevel == .fast {
+            Text("Fast is very fast, and cause low cpu usage, you should use this by default, but terrible when text on screen has tough surrounding!")
+                .preferenceDescription()
+                .frame(width: 300, height: 50, alignment: .leading)
+                .lineLimit(3)
+        } else {
+            (Text("Accurate is the only rescue when the text is hard to recognized in screen! ")
+                 + Text("Accurate will cause high cpu usage!").foregroundColor(.red))
+                .preferenceDescription()
+                .frame(width: 300, height: 50, alignment: .leading)
+                .lineLimit(3)
         }
     }
 }
@@ -222,7 +238,7 @@ struct GeneralSettingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             GeneralSettingsView()
-                .frame(width: 500, height: 520)
+                .frame(width: 650, height: 500)
             
             MiniHeigthInfoPopoverView()
         }

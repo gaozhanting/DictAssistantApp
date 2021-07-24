@@ -6,25 +6,26 @@
 //
 
 import SwiftUI
+import Preferences
 
 struct DictionariesView: View {
     var body: some View {
-        List {
-            ListItem(
-                dictName: "牛津简明英汉袖珍辞典 (15.6M)",
-                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!)
-                .listRowBackground(Color.secondary)
-            ListItem(
-                dictName: "牛津英汉双解美化版 (23.3M)",
-                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
-                .listRowBackground(Color.secondary.opacity(0.5))
-            ListItem(
-                dictName: "Collins Cobuild 5 (18.7M)",
-                downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
-                .listItemTint(ListItemTint.monochrome)
+        Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "Dictionaries:") {
+                ListItem(
+                    dictName: "牛津简明英汉袖珍辞典 (15.6M)",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!)
+                    .listRowBackground(Color.secondary)
+                ListItem(
+                    dictName: "牛津英汉双解美化版 (23.3M)",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
+                    .listRowBackground(Color.secondary.opacity(0.5))
+                ListItem(
+                    dictName: "Collins Cobuild 5 (18.7M)",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
+                    .listItemTint(ListItemTint.monochrome)
+            }
         }
-        .listStyle(InsetListStyle())
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -105,7 +106,8 @@ struct ListItem: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(dictName).font(.headline)
-                Text("GNU General Public License").font(.footnote)
+                Text("GNU General Public License")
+                    .preferenceDescription()
             }
             
             Spacer()
@@ -135,6 +137,7 @@ struct ListItem: View {
             })
             .disabled(isDownloading)
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -164,5 +167,6 @@ class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
 struct DictsView_Previews: PreviewProvider {
     static var previews: some View {
         DictionariesView()
+            .frame(width: 650, height: 500)
     }
 }
