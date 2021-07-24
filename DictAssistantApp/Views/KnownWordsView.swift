@@ -156,15 +156,15 @@ struct EditingView: View {
                     }
                     .padding(.horizontal, 10)
                     
-                    Button(action: {
-                        withAnimation {
-                            showInfo.toggle()
-                        }
-                    }) {
+                    Spacer()
+                    
+                    Button(action: { showInfo = true }) {
                         Image(systemName: "info.circle")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .help("Show Info")
+                    .popover(isPresented: $showInfo, arrowEdge: .top, content: {
+                        InfoPopoverView()
+                    })
                     .padding(.horizontal, 10)
                 }
                 .padding(.top, 5)
@@ -172,19 +172,24 @@ struct EditingView: View {
                 Spacer()
             }
             
-            if showInfo {
-                Divider()
-                (Text("Edit one word every line; valid character of a word should only be ") + Text("a-z A-Z - ' . or space").foregroundColor(.green))
-                    .padding(.leading, 4)
-            }
-            
             TextEditor(text: $text)
         }
     }
 }
 
+fileprivate struct InfoPopoverView: View {
+    var body: some View {
+        (Text("Edit one word every line; valid character of a word should only be ") + Text("a-z A-Z - ' . or space").foregroundColor(.green))
+            .padding(.leading, 4)
+            .frame(width: 300, height: 50)
+    }
+}
+
 struct KnownWordsView_Previews: PreviewProvider {
     static var previews: some View {
-        KnownWordsView()
+        Group {
+            KnownWordsView()
+            InfoPopoverView()
+        }
     }
 }
