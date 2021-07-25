@@ -79,13 +79,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     )
     
     @objc func showPreferences() {
-        preferencesWindowController.show(preferencePane: .general)
+        preferencesWindowController.show()
     }
     
     func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
-        preferencesWindowController.show(preferencePane: .general)
-        preferencesWindowController.show(preferencePane: .appearance)
         preferencesWindowController.show(preferencePane: .dictionaries)
+        preferencesWindowController.show(preferencePane: .appearance)
+        preferencesWindowController.show(preferencePane: .general)
         preferencesWindowController.close()
     }
     
