@@ -58,6 +58,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         )
         
         registerGlobalKey()
+        
+        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -70,16 +72,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             GeneralPreferenceViewController(),
             AppearancePreferenceViewController(),
             DictionariesPreferenceViewController()
-        ]
+        ],
+        style: .toolbarItems,
+        animated: true,
+        hidesToolbarForSingleItem: true
     )
     
     @objc func showPreferences() {
         preferencesWindowController.show(preferencePane: .general)
     }
     
-    @IBAction
-    func preferencesMenuItemActionHandler(_ sender: NSMenuItem) {
-        preferencesWindowController.show()
+    func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
+        preferencesWindowController.show(preferencePane: .general)
+        preferencesWindowController.show(preferencePane: .appearance)
+        preferencesWindowController.show(preferencePane: .dictionaries)
+        preferencesWindowController.close()
     }
     
     // MARK: - Global short cut key
