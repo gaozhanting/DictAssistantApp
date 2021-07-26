@@ -38,6 +38,10 @@ func initUserDefaultIfEmpty() {
     if UserDefaults.standard.object(forKey: ContentStyleKey) == nil {
         UserDefaults.standard.set(ContentStyle.portraitNormal.rawValue, forKey: ContentStyleKey)
     }
+    
+    if UserDefaults.standard.object(forKey: IsShowWindowShadowKey) == nil {
+        UserDefaults.standard.set(false, forKey: IsShowWindowShadowKey)
+    }
             
     if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
         UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
@@ -68,6 +72,7 @@ func resetUserDefaults() {
     
     UserDefaults.standard.set(CropperStyle.closed.rawValue, forKey: CropperStyleKey)
     UserDefaults.standard.set(ContentStyle.portraitNormal.rawValue, forKey: ContentStyleKey)
+    UserDefaults.standard.set(false, forKey: IsShowWindowShadowKey)
     
     UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
     UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
@@ -118,3 +123,5 @@ let FontRateKey = "FontRateKey"
 
 let CropperStyleKey = "CropperStyleKey"
 let ContentStyleKey = "ContentStyleKey"
+
+let IsShowWindowShadowKey = "IsShowWindowShadowKey"

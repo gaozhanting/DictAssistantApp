@@ -18,6 +18,19 @@ struct WordCellWithId: Identifiable {
     let id: String
 }
 
+let visualEffectView1: NSVisualEffectView = {
+    let ve = NSVisualEffectView()
+    ve.material = .contentBackground
+    return ve
+}()
+
+let visualEffectView2: NSVisualEffectView = {
+    let ve = NSVisualEffectView()
+    ve.material = .underWindowBackground
+    ve.blendingMode = .behindWindow
+    return ve
+}()
+
 fileprivate struct LandscapeNormalWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
@@ -34,7 +47,8 @@ fileprivate struct LandscapeNormalWordsView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.75))
+//        .background(Color.black.opacity(0.75))
+        .background(VisualEffectView(visualEffect: visualEffectView1))
         .ignoresSafeArea()
     }
 }
@@ -54,6 +68,7 @@ fileprivate struct LandscapeMiniWordsView: View {
                     .frame(maxWidth: defaultMaxWidthOfLandscape)
                 }
             }
+            .padding()
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -77,7 +92,7 @@ fileprivate struct PortraitNormalWordsView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.75))
+//        .background(Color.black.opacity(0.75))
         .ignoresSafeArea()
     }
 }
@@ -97,7 +112,7 @@ fileprivate struct PortraitMiniWordsView: View {
                     )
                     .frame(maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
                 }
-                .background(Color.black.opacity(0.75))
+                .background(VisualEffectView(visualEffect: visualEffectView1))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -124,19 +139,23 @@ struct ContentView: View {
 
 struct ContentNormalView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
-    
     var body: some View {
-        switch contentStyle {
-        case .portraitNormal:
-            PortraitNormalWordsView()
-        case .portraitMini:
-            PortraitNormalWordsView()
-        case .landscapeNormal:
-            LandscapeNormalWordsView()
-        case .landscapeMini:
-            LandscapeNormalWordsView()
-        }
+        EmptyView()
+            .background(VisualEffectView(visualEffect: visualEffectView2))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+//    var body2: some View {
+//        switch contentStyle {
+//        case .portraitNormal:
+//            PortraitNormalWordsView()
+//        case .portraitMini:
+//            PortraitNormalWordsView()
+//        case .landscapeNormal:
+//            LandscapeNormalWordsView()
+//        case .landscapeMini:
+//            LandscapeNormalWordsView()
+//        }
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -171,19 +190,24 @@ struct ContentView_Previews: PreviewProvider {
 
             Group {
                 PortraitNormalWordsView()
-                    .frame(width: 220, height: 600)
+                    .frame(width: 220, height: 300)
                     .attachEnv(displayedWords: displayedWordsSample1)
                 PortraitNormalWordsView()
-                    .frame(width: 220, height: 600)
+                    .frame(width: 220, height: 300)
                     .attachEnv(displayedWords: displayedWordsNoWords)
             }
 
             Group {
                 PortraitMiniWordsView()
-                    .frame(width: 220, height: 600)
+                    .frame(width: 220, height: 300)
                     .attachEnv(displayedWords: displayedWordsSample1)
+                    .preferredColorScheme(.light)
                 PortraitMiniWordsView()
-                    .frame(width: 220, height: 600)
+                    .frame(width: 220, height: 300)
+                    .attachEnv(displayedWords: displayedWordsSample1)
+                    .preferredColorScheme(.dark)
+                PortraitMiniWordsView()
+                    .frame(width: 220, height: 300)
                     .attachEnv(displayedWords: displayedWordsNoWords)
             }
         }

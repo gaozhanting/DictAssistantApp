@@ -14,6 +14,7 @@ struct SingleWordView: View {
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(FontRateKey) private var fontRate: Double = 0.6
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
+    @Environment(\.colorScheme) var colorScheme
 
     let wordCell: WordCell
     let color: NSColor
@@ -57,11 +58,18 @@ struct SingleWordView: View {
         openURL(url)
     }
     
+    var transColor: Color {
+        if colorScheme == .light && contentStyle == .portraitMini {
+            return .black
+        }
+        return .white
+    }
+    
     var textView: some View {
         unKnown ?
-            (Text(word).foregroundColor(Color(color)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(.white).font(Font.custom(fontName, size: fontSize * CGFloat(fontRate))))
+            (Text(word).foregroundColor(Color(NSColor.labelColor)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(Color(NSColor.highlightColor)).font(Font.custom(fontName, size: fontSize * CGFloat(fontRate))))
             :
-            Text(word).foregroundColor(.gray)
+            Text(word).foregroundColor(Color(NSColor.tertiaryLabelColor))
     }
     
     var body: some View {
@@ -83,7 +91,9 @@ struct SingleWordView: View {
                     openDict(word)
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                .background(Color.black.opacity(contentStyle == .landscapeMini ? 0.75 : 0))
+//                .background(Color.black.opacity(contentStyle == .landscapeMini ? 0.75 : 0))
+                .background(contentStyle == .landscapeMini ? Color.black.opacity(0.75) : nil)
+//                .background(contentStyle == .landscapeMini ? VisualEffectView(visualEffect: visualEffectView2) : nil)
             
             Spacer()
         }

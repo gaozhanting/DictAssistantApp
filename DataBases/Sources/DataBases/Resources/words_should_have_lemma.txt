@@ -1,3 +1,4 @@
 reconsolidate
 conglomerate
 spurt
+inline

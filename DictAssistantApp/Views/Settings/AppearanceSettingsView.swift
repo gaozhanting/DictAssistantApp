@@ -23,6 +23,10 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Portrait Word Color:") {
                 PortraitWordColorSettingView()
             }
+            Preferences.Section(title: "Content Visual Effect:") {
+                ContentWindowShadowToggle()
+                WithAnimationToggle()
+            }
         }
     }
 }
@@ -82,6 +86,30 @@ fileprivate struct PortraitWordColorSettingView: View {
 
     var body: some View {
         ColorPicker("", selection: $bgColor)
+    }
+}
+
+fileprivate struct ContentWindowShadowToggle: View {
+    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
+    
+    var body: some View {
+        Toggle(isOn: $isShowWindowShadow, label: {
+            Text("Show Content Window Shadow")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you prefer window shadow, notice it may mess up. You should replay to take effect of it.")
+    }
+}
+
+fileprivate struct WithAnimationToggle: View {
+    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
+        
+    var body: some View {
+        Toggle(isOn: $isWithAnimation, label: {
+            Text("Show animation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you prefer animation for displaying words.")
     }
 }
 

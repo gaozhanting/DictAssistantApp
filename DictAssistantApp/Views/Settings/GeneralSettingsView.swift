@@ -22,7 +22,6 @@ struct GeneralSettingsView: View {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
                 AddLineBreakToggle()
-                WithAnimationToggle()
             }
             Preferences.Section(title: "Translation Font Rate:") {
                 FontRateSetting()
@@ -88,18 +87,6 @@ fileprivate struct AddLineBreakToggle: View {
         })
         .toggleStyle(CheckboxToggleStyle())
         .help("Select it when you want add a line break between the word and the translation of the word.")
-    }
-}
-
-fileprivate struct WithAnimationToggle: View {
-    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
-        
-    var body: some View {
-        Toggle(isOn: $isWithAnimation, label: {
-            Text("Show animation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you prefer animation for displaying words.")
     }
 }
 
