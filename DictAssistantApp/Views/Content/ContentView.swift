@@ -84,8 +84,9 @@ fileprivate struct PortraitNormalWordsView: View {
                     fontSize: visualConfig.fontSizeOfPortrait
                 )
                 .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
+
+                HStack { Spacer() }
             }
-            Spacer()
         }
 //        .background(Color.black.opacity(0.75))
     }
