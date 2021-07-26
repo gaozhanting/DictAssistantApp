@@ -131,14 +131,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     flowStep = .beginSelectContent
                     
                 case .beginSelectContent:
-                    let contentViewWithEnv = attachEnv(AnyView(ContentNormalView()))
-                    contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
+                    let emptyView = EmptyView()
+                        .background(VisualEffectView(visualEffect: visualEffectView2))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea()
+                    contentWindow.contentView = NSHostingView(rootView: emptyView)
                     contentWindow.orderFrontRegardless()
                     
                     flowStep = .ready
                     
                 case .ready:
-                    let contentViewWithEnv = attachEnv(AnyView(ContentView()))
+                    let contentView = ContentView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea()
+                    let contentViewWithEnv = attachEnv(AnyView(contentView))
                     contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
                     contentWindow.orderFrontRegardless()
                     

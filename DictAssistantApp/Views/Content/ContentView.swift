@@ -46,10 +46,8 @@ fileprivate struct LandscapeNormalWordsView: View {
             }
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
 //        .background(Color.black.opacity(0.75))
         .background(VisualEffectView(visualEffect: visualEffectView1))
-        .ignoresSafeArea()
     }
 }
 
@@ -71,8 +69,6 @@ fileprivate struct LandscapeMiniWordsView: View {
             .padding()
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
     }
 }
 
@@ -91,9 +87,7 @@ fileprivate struct PortraitNormalWordsView: View {
             }
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
 //        .background(Color.black.opacity(0.75))
-        .ignoresSafeArea()
     }
 }
 
@@ -115,8 +109,6 @@ fileprivate struct PortraitMiniWordsView: View {
                 .background(VisualEffectView(visualEffect: visualEffectView1))
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
     }
 }
 
@@ -135,27 +127,6 @@ struct ContentView: View {
             LandscapeMiniWordsView()
         }
     }
-}
-
-struct ContentNormalView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
-    var body: some View {
-        EmptyView()
-            .background(VisualEffectView(visualEffect: visualEffectView2))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-//    var body2: some View {
-//        switch contentStyle {
-//        case .portraitNormal:
-//            PortraitNormalWordsView()
-//        case .portraitMini:
-//            PortraitNormalWordsView()
-//        case .landscapeNormal:
-//            LandscapeNormalWordsView()
-//        case .landscapeMini:
-//            LandscapeNormalWordsView()
-//        }
-//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
