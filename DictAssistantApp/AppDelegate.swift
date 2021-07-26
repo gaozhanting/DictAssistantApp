@@ -26,6 +26,19 @@ func toggleContentShadow() {
     }
 }
 
+var cropperWindow: NSWindow!
+
+func toggleCropperView() {
+    switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
+    case .closed:
+        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
+        cropperWindow.close()
+    case .rectangle:
+        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
+        cropperWindow.orderFrontRegardless()
+    }
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let statusData = StatusData(isPlaying: false)
@@ -129,14 +142,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
                     contentWindow.orderFrontRegardless()
                     
-                    switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
-                    case .closed:
-                        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
-                        cropperWindow.close()
-                    case .rectangle:
-                        cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
-                        cropperWindow.orderFrontRegardless()
-                    }
+                    toggleCropperView()
                     
                     startPlaying()
                     
@@ -294,7 +300,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     // MARK: - cropperWindow
-    var cropperWindow: NSWindow!
+//    var cropperWindow: NSWindow!
     func initCropperWindow() {
         cropperWindow = CropperWindow.init(
             contentRect: NSRect(x: 300, y: 300, width: 600, height: 200),

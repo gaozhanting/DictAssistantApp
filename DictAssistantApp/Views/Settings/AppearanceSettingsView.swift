@@ -42,13 +42,23 @@ enum CropperStyle: Int {
 fileprivate struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
     
+    var bd: Binding<CropperStyle> {
+        Binding.init {
+            cropperStyle
+        } set: { newValue in
+            cropperStyle = newValue
+            toggleCropperView()
+        }
+    }
+    
     var body: some View {
-        Picker("", selection: $cropperStyle) {
+        Picker("", selection: bd) {
             Text("closed").tag(CropperStyle.closed)
             Text("rectangle").tag(CropperStyle.rectangle)
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(maxWidth: 200)
+        .labelsHidden()
+        .frame(width: 160)
     }
 }
 
@@ -70,7 +80,8 @@ fileprivate struct ContentStyleSettingView: View {
             Text("landscape mini").tag(ContentStyle.landscapeMini)
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(maxWidth: 200)
+        .labelsHidden()
+        .frame(width: 160)
     }
 }
 
@@ -80,6 +91,7 @@ fileprivate struct LandscapeWordColorSettingView: View {
 
     var body: some View {
         ColorPicker("", selection: $bgColor)
+            .labelsHidden()
     }
 }
 
@@ -89,6 +101,7 @@ fileprivate struct PortraitWordColorSettingView: View {
 
     var body: some View {
         ColorPicker("", selection: $bgColor)
+            .labelsHidden()
     }
 }
 
