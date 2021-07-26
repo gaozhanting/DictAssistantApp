@@ -11,10 +11,6 @@ struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-
-    let color: NSColor
-    let fontName: String
-    let fontSize: CGFloat
     
     var wordCells: [WordCell] {
         isShowPhrase ?
@@ -51,12 +47,7 @@ struct WordsView: View {
     var body: some View {
         ForEach(words) { wordCellWithId in
             let wordCell = wordCellWithId.wordCell
-            SingleWordView(
-                wordCell: wordCell,
-                color: color,
-                fontName: fontName,
-                fontSize: fontSize
-            )
+            SingleWordView(wordCell: wordCell)
         }
     }
 }

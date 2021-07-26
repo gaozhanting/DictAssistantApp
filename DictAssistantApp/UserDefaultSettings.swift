@@ -125,3 +125,10 @@ let CropperStyleKey = "CropperStyleKey"
 let ContentStyleKey = "ContentStyleKey"
 
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
+
+let ContentBackgroundDisplayKey = "ContentBackgroundDisplayKey"
+
+let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
+let ContentBackGroundVisualEffectBlendingModeKey = "ContentBackGroundVisualEffectBlendingModeKey"
+let ContentBackGroundVisualEffectIsEmphasizedKey = "ContentBackGroundVisualEffectIsEmphasizedKey"
+let ContentBackGroundVisualEffectStateKey = "ContentBackGroundVisualEffectStateKey"

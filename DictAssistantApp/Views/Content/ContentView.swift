@@ -12,19 +12,25 @@ fileprivate let defaultMaxWidthOfLandscape: CGFloat = 300.0
 fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 //fileprivate let spacing: CGFloat = 0
 
-
 struct WordCellWithId: Identifiable {
     let wordCell: WordCell
     let id: String
 }
 
-let visualEffectView1: NSVisualEffectView = {
+// need replaying -> may be @ViewBuilder to react
+func contentVisualEffect() -> NSVisualEffectView {
     let ve = NSVisualEffectView()
-    ve.material = .contentBackground
+    ve.material = NSVisualEffectView.Material(
+        rawValue: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectMaterialKey))!
+    ve.blendingMode = NSVisualEffectView.BlendingMode(
+        rawValue: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectBlendingModeKey))!
+    ve.isEmphasized = UserDefaults.standard.bool(forKey: ContentBackGroundVisualEffectIsEmphasizedKey)
+    ve.state = NSVisualEffectView.State(
+        rawValue: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectStateKey))!
     return ve
-}()
+}
 
-let visualEffectView2: NSVisualEffectView = {
+let selectionContentVisualEffect: NSVisualEffectView = {
     let ve = NSVisualEffectView()
     ve.material = .underWindowBackground
     ve.blendingMode = .behindWindow
@@ -33,40 +39,49 @@ let visualEffectView2: NSVisualEffectView = {
 
 fileprivate struct LandscapeWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+
+    var bg: some View {
+        contentBackgroundDisplay ?
+            VisualEffectView(visualEffect: contentVisualEffect()) :
+            nil
+    }
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top) {
-                WordsView(
-                    color: visualConfig.colorOfLandscape,
-                    fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfLandscape
-                )
-                .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
+                WordsView()
+                    .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
                 
                 VStack { Spacer() }
             }
         }
-        .background(VisualEffectView(visualEffect: visualEffectView1))
+        .background(bg)
     }
 }
 
 fileprivate struct PortraitWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
+    
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
 
+    var bg: some View {
+        contentBackgroundDisplay ?
+            VisualEffectView(visualEffect: contentVisualEffect()) :
+            nil
+    }
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
-                WordsView(
-                    color: visualConfig.colorOfPortrait,
-                    fontName: visualConfig.fontName,
-                    fontSize: visualConfig.fontSizeOfPortrait
-                )
-                .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
+                WordsView()
+                    .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
 
                 HStack { Spacer() } // avoid animation shrink
             }
         }
+        .background(bg)
     }
 }
 

@@ -17,9 +17,6 @@ struct SingleWordView: View {
     @Environment(\.colorScheme) var colorScheme
 
     let wordCell: WordCell
-    let color: NSColor
-    let fontName: String
-    let fontSize: CGFloat
 
     var isKnown: IsKnown {
         wordCell.isKnown
@@ -60,15 +57,13 @@ struct SingleWordView: View {
     
     var textView: some View {
         unKnown ?
-            (Text(word).foregroundColor(Color(NSColor.labelColor)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(Color(NSColor.highlightColor)).font(Font.custom(fontName, size: fontSize * CGFloat(fontRate))))
-            :
-            Text(word).foregroundColor(Color(NSColor.tertiaryLabelColor))
+            Text(word).foregroundColor(Color(NSColor.labelColor)).font(.title) + Text(transText).foregroundColor(Color(NSColor.highlightColor)).font(.title2) :
+            Text(word).foregroundColor(Color(NSColor.tertiaryLabelColor)).font(.title)
     }
     
     var body: some View {
         textView
             .opacity( (known && isPhrase) ? 0.5 : 1)
-            .font(Font.custom(fontName, size: fontSize))
             .padding(.vertical, 4)
             .padding(.horizontal, 6)
             .contextMenu {

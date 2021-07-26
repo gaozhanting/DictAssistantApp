@@ -20,12 +20,33 @@ struct AppearanceSettingsView: View {
 //            Preferences.Section(title: "Word Color:") {
 //                WordColorSettingView()
 //            }
-            Preferences.Section(title: "Words Display:") {
-                ContentWindowShadowToggle()
-                WithAnimationToggle()
+            Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
                 AddLineBreakToggle()
+            }
+            Preferences.Section(title: "Content Window Shadow Display:") {
+                ContentWindowShadowToggle()
+            }
+            Preferences.Section(title: "Content Animation Display:") {
+                WithAnimationToggle()
+            }
+            
+            Preferences.Section(title: "Content Background Display:") {
+                ContentBackgroundDisplay()
+            }
+            
+            Preferences.Section(title: "Content Background Material:") {
+                ContentBackGroundVisualEffectMaterial()
+            }
+            Preferences.Section(title: "Content Background BlengdingMode:") {
+                ContentBackGroundVisualEffectBlendingMode()
+            }
+            Preferences.Section(title: "Content Background IsEmphasized:") {
+                ContentBackGroundVisualEffectIsEmphasized()
+            }
+            Preferences.Section(title: "Content Background EffectState:") {
+                ContentBackGroundVisualEffectState()
             }
         }
     }
@@ -143,6 +164,101 @@ fileprivate struct ContentWindowShadowToggle: View {
         .help("Select it when you prefer window shadow, notice it may mess up. You should replay to take effect of it.")
     }
 }
+
+fileprivate struct ContentBackgroundDisplay: View {
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $contentBackgroundDisplay, label: {
+            Text("Using Visual Effect")
+        })
+        .toggleStyle(SwitchToggleStyle())
+    }
+}
+
+fileprivate struct ContentBackGroundVisualEffectMaterial: View {
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
+    
+    let allCases: [NSVisualEffectView.Material] = [
+        .titlebar,
+        .selection,
+        .menu,
+        .popover,
+        .sidebar,
+        .headerView,
+        .sheet,
+        .windowBackground,
+        .hudWindow,
+        .fullScreenUI,
+        .toolTip,
+        .contentBackground,
+        .underWindowBackground,
+        .underPageBackground
+    ]
+    
+    var body: some View {
+        Picker("", selection: $contentBackGroundVisualEffectMaterial) {
+            ForEach(allCases, id: \.self) { option in
+                Text("\(option.rawValue)").tag(option)
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .labelsHidden()
+        .frame(width: 160)
+    }
+}
+
+fileprivate struct ContentBackGroundVisualEffectBlendingMode: View {
+    @AppStorage(ContentBackGroundVisualEffectBlendingModeKey) private var contentBackGroundVisualEffectBlendingMode: NSVisualEffectView.BlendingMode = .behindWindow
+    
+    let allCases: [NSVisualEffectView.BlendingMode] = [.behindWindow, .withinWindow]
+    
+    var body: some View {
+        Picker("", selection: $contentBackGroundVisualEffectBlendingMode) {
+            ForEach(allCases, id: \.self) { option in
+                Text(String(option.rawValue)).tag(option)
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .labelsHidden()
+        .frame(width: 160)
+    }
+}
+
+fileprivate struct ContentBackGroundVisualEffectIsEmphasized: View {
+    @AppStorage(ContentBackGroundVisualEffectIsEmphasizedKey) private var contentBackGroundVisualEffectIsEmphasized: Bool = false
+    
+    let allCases: [Bool] = [true, false]
+    
+    var body: some View {
+        Picker("", selection: $contentBackGroundVisualEffectIsEmphasized) {
+            ForEach(allCases, id: \.self) { option in
+                Text(String(option)).tag(option)
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .labelsHidden()
+        .frame(width: 160)
+    }
+}
+
+fileprivate struct ContentBackGroundVisualEffectState: View {
+    @AppStorage(ContentBackGroundVisualEffectStateKey) private var contentBackGroundVisualEffectState: NSVisualEffectView.State = .active
+    
+    let allCases: [NSVisualEffectView.State] = [.active, .inactive, .followsWindowActiveState]
+    
+    var body: some View {
+        Picker("", selection: $contentBackGroundVisualEffectState) {
+            ForEach(allCases, id: \.self) { option in
+                Text(String(option.rawValue)).tag(option)
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .labelsHidden()
+        .frame(width: 160)
+    }
+}
+
 
 fileprivate struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
