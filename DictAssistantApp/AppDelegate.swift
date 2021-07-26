@@ -15,6 +15,17 @@ import Vision
 import KeyboardShortcuts
 import Preferences
 
+var contentWindow: NSPanel!
+
+func toggleContentShadow() {
+    if UserDefaults.standard.bool(forKey: IsShowWindowShadowKey) {
+        contentWindow.hasShadow = true
+        contentWindow.invalidateShadow()
+    } else {
+        contentWindow.hasShadow = false
+    }
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let statusData = StatusData(isPlaying: false)
@@ -115,7 +126,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     
                 case .ready:
                     let contentViewWithEnv = attachEnv(AnyView(ContentView()))
-                    toggleContentShadow()
                     contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
                     contentWindow.orderFrontRegardless()
                     
@@ -151,15 +161,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             } else {
                 UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownKey)
             }
-        }
-    }
-    
-    func toggleContentShadow() {
-        if UserDefaults.standard.bool(forKey: IsShowWindowShadowKey) {
-            contentWindow.hasShadow = true
-//            contentWindow.invalidateShadow() // ??
-        } else {
-            contentWindow.hasShadow = false
         }
     }
     
@@ -281,7 +282,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             .environmentObject(displayedWords)
     }
     
-    var contentWindow: NSPanel!
+//    var contentWindow: NSPanel!
     func initContentWindow() {
         // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
         contentWindow = ContentPanel.init(

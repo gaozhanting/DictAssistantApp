@@ -23,9 +23,12 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Portrait Word Color:") {
                 PortraitWordColorSettingView()
             }
-            Preferences.Section(title: "Content Visual Effect:") {
+            Preferences.Section(title: "Words Display Selection:") {
                 ContentWindowShadowToggle()
                 WithAnimationToggle()
+                ShowCurrentKnownWordsToggle()
+                ShowPhrasesToggle()
+                AddLineBreakToggle()
             }
         }
     }
@@ -89,11 +92,56 @@ fileprivate struct PortraitWordColorSettingView: View {
     }
 }
 
+fileprivate struct ShowCurrentKnownWordsToggle: View {
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $isShowCurrentKnown, label: {
+            Text("Show current known words")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to display current known words.")
+    }
+}
+
+fileprivate struct ShowPhrasesToggle: View {
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isShowPhrase, label: {
+            Text("Show phrases")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want display all phrase words.")
+    }
+}
+
+fileprivate struct AddLineBreakToggle: View {
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreakKey: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isAddLineBreakKey, label: {
+            Text("Add line break")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want add a line break between the word and the translation of the word.")
+    }
+}
+
 fileprivate struct ContentWindowShadowToggle: View {
     @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
     
+    var bd: Binding<Bool> {
+        Binding.init {
+            isShowWindowShadow
+        } set: { newValue in
+            isShowWindowShadow = newValue
+            toggleContentShadow()
+        }
+    }
+    
     var body: some View {
-        Toggle(isOn: $isShowWindowShadow, label: {
+        Toggle(isOn: bd, label: {
             Text("Show Content Window Shadow")
         })
         .toggleStyle(CheckboxToggleStyle())
