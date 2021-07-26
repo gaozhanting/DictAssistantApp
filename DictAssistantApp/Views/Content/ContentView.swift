@@ -8,7 +8,7 @@
 import SwiftUI
 import DataBases
 
-fileprivate let defaultMaxWidthOfLandscape: CGFloat = 300.0
+fileprivate let defaultMaxWidthOfLandscape: CGFloat = 260.0
 fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 //fileprivate let spacing: CGFloat = 0
 
@@ -41,6 +41,9 @@ fileprivate struct LandscapeWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
     
     @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    
+    // no react!
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
 
     var bg: some View {
         contentBackgroundDisplay ?
@@ -84,6 +87,8 @@ fileprivate struct PortraitWordsView: View {
         .background(bg)
     }
 }
+
+// make a modifier for portrait | landscape
 
 struct ContentView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
