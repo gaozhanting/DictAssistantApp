@@ -31,7 +31,7 @@ let visualEffectView2: NSVisualEffectView = {
     return ve
 }()
 
-fileprivate struct LandscapeNormalWordsView: View {
+fileprivate struct LandscapeWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -43,36 +43,15 @@ fileprivate struct LandscapeNormalWordsView: View {
                     fontSize: visualConfig.fontSizeOfLandscape
                 )
                 .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
+                
+                VStack { Spacer() }
             }
-            Spacer()
         }
-//        .background(Color.black.opacity(0.75))
         .background(VisualEffectView(visualEffect: visualEffectView1))
     }
 }
 
-fileprivate struct LandscapeMiniWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
-
-    var body: some View {
-        VStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    WordsView(
-                        color: visualConfig.colorOfLandscape,
-                        fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfLandscape
-                    )
-                    .frame(maxWidth: defaultMaxWidthOfLandscape)
-                }
-            }
-            .padding()
-            Spacer()
-        }
-    }
-}
-
-fileprivate struct PortraitNormalWordsView: View {
+fileprivate struct PortraitWordsView: View {
     @EnvironmentObject var visualConfig: VisualConfig
 
     var body: some View {
@@ -85,47 +64,21 @@ fileprivate struct PortraitNormalWordsView: View {
                 )
                 .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
 
-                HStack { Spacer() }
-            }
-        }
-//        .background(Color.black.opacity(0.75))
-    }
-}
-
-fileprivate struct PortraitMiniWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
-
-    var body: some View {
-        HStack {
-            Spacer()
-            ScrollView(.vertical) {
-                VStack(alignment: .leading) {
-                    WordsView(
-                        color: visualConfig.colorOfPortrait,
-                        fontName: visualConfig.fontName,
-                        fontSize: visualConfig.fontSizeOfPortrait
-                    )
-                    .frame(maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
-                }
-                .background(VisualEffectView(visualEffect: visualEffectView1))
+                HStack { Spacer() } // avoid animation shrink
             }
         }
     }
 }
 
 struct ContentView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
     var body: some View {
         switch contentStyle {
-        case .portraitNormal:
-            PortraitNormalWordsView()
-        case .portraitMini:
-            PortraitMiniWordsView()
-        case .landscapeNormal:
-            LandscapeNormalWordsView()
-        case .landscapeMini:
-            LandscapeMiniWordsView()
+        case .portrait:
+            PortraitWordsView()
+        case .landscape:
+            LandscapeWordsView()
         }
     }
 }
@@ -142,46 +95,13 @@ struct ContentView_Previews: PreviewProvider {
     ])
     static var previews: some View {
         Group {
-            Group {
-                LandscapeNormalWordsView()
-                    .frame(width: 1000, height: 220)
-                    .attachEnv(displayedWords: displayedWordsSample1)
-                LandscapeNormalWordsView()
-                    .frame(width: 1000, height: 220)
-                    .attachEnv(displayedWords: displayedWordsNoWords)
-            }
+            LandscapeWordsView()
+                .frame(width: 1000, height: 220)
+                .attachEnv(displayedWords: displayedWordsSample1)
             
-            Group {
-                LandscapeMiniWordsView()
-                    .frame(width: 1000, height: 220)
-                    .attachEnv(displayedWords: displayedWordsSample1)
-                LandscapeMiniWordsView()
-                    .frame(width: 1000, height: 220)
-                    .attachEnv(displayedWords: displayedWordsNoWords)
-            }
-
-            Group {
-                PortraitNormalWordsView()
-                    .frame(width: 220, height: 300)
-                    .attachEnv(displayedWords: displayedWordsSample1)
-                PortraitNormalWordsView()
-                    .frame(width: 220, height: 300)
-                    .attachEnv(displayedWords: displayedWordsNoWords)
-            }
-
-            Group {
-                PortraitMiniWordsView()
-                    .frame(width: 220, height: 300)
-                    .attachEnv(displayedWords: displayedWordsSample1)
-                    .preferredColorScheme(.light)
-                PortraitMiniWordsView()
-                    .frame(width: 220, height: 300)
-                    .attachEnv(displayedWords: displayedWordsSample1)
-                    .preferredColorScheme(.dark)
-                PortraitMiniWordsView()
-                    .frame(width: 220, height: 300)
-                    .attachEnv(displayedWords: displayedWordsNoWords)
-            }
+            PortraitWordsView()
+                .frame(width: 220, height: 300)
+                .attachEnv(displayedWords: displayedWordsSample1)
         }
     }
 }

@@ -36,28 +36,28 @@ func initUserDefaultIfEmpty() {
         UserDefaults.standard.set(CropperStyle.closed.rawValue, forKey: CropperStyleKey)
     }
     if UserDefaults.standard.object(forKey: ContentStyleKey) == nil {
-        UserDefaults.standard.set(ContentStyle.portraitNormal.rawValue, forKey: ContentStyleKey)
+        UserDefaults.standard.set(ContentStyle.portrait.rawValue, forKey: ContentStyleKey)
     }
     
     if UserDefaults.standard.object(forKey: IsShowWindowShadowKey) == nil {
         UserDefaults.standard.set(false, forKey: IsShowWindowShadowKey)
     }
             
-    if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
-        UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
-    }
-    if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
-        UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
-    }
-    if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
-        UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
-    }
-    if UserDefaults.standard.object(forKey: "visualConfig.colorOfLandscape") == nil {
-        UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
-    }
-    if UserDefaults.standard.object(forKey: "visualConfig.colorOfPortrait") == nil {
-        UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
-    }
+//    if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfLandscape") == nil { // Notice: don't set it Some(0) by mistake
+//        UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
+//    }
+//    if UserDefaults.standard.object(forKey: "visualConfig.fontSizeOfPortrait") == nil {
+//        UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
+//    }
+//    if UserDefaults.standard.object(forKey: "visualConfig.fontName") == nil {
+//        UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
+//    }
+//    if UserDefaults.standard.object(forKey: "visualConfig.colorOfLandscape") == nil {
+//        UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
+//    }
+//    if UserDefaults.standard.object(forKey: "visualConfig.colorOfPortrait") == nil {
+//        UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
+//    }
 }
 
 func resetUserDefaults() {
@@ -71,14 +71,14 @@ func resetUserDefaults() {
     UserDefaults.standard.set(true, forKey: IsWithAnimationKey)
     
     UserDefaults.standard.set(CropperStyle.closed.rawValue, forKey: CropperStyleKey)
-    UserDefaults.standard.set(ContentStyle.portraitNormal.rawValue, forKey: ContentStyleKey)
+    UserDefaults.standard.set(ContentStyle.portrait.rawValue, forKey: ContentStyleKey)
     UserDefaults.standard.set(false, forKey: IsShowWindowShadowKey)
     
-    UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
-    UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
-    UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
-    UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
-    UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
+//    UserDefaults.standard.set(defaultFontSizeOfLandscape, forKey: "visualConfig.fontSizeOfLandscape")
+//    UserDefaults.standard.set(defaultFontSizeOfPortrait, forKey: "visualConfig.fontSizeOfPortrait")
+//    UserDefaults.standard.set(colorToData(NSColor.orange)!, forKey: "visualConfig.colorOfLandscape")
+//    UserDefaults.standard.set(colorToData(NSColor.green)!, forKey: "visualConfig.colorOfPortrait")
+//    UserDefaults.standard.set(NSFont.systemFont(ofSize: 0.0).fontName, forKey: "visualConfig.fontName")
 //    visualConfig.fontSizeOfLandscape = CGFloat(defaultFontSizeOfLandscape)
 //    visualConfig.fontSizeOfPortrait = CGFloat(defaultFontSizeOfPortrait)
 //    visualConfig.colorOfLandscape = .orange

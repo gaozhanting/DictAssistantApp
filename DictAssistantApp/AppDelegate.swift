@@ -31,7 +31,7 @@ var cropperWindow: NSWindow!
 func toggleCropperView() {
     switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
     case .closed:
-        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
+//        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
         cropperWindow.close()
     case .rectangle:
         cropperWindow.contentView = NSHostingView(rootView: RectCropperView())
@@ -175,21 +175,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         }
     }
-    
-    // I prefer the shadow effect
-//    func myPreferShadow() {
-//        switch ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))! {
-//        case .portraitNormal:
-//            contentWindow.hasShadow = false
-//        case .portraitMini:
-//            contentWindow.hasShadow = true
-//            contentWindow.invalidateShadow()
-//        case .landscapeNormal:
-//            contentWindow.hasShadow = false
-//        case .landscapeMini:
-//            contentWindow.hasShadow = false
-//        }
-//    }
     
     // no resizable, not movable
     func fixCropperWindow() {

@@ -13,7 +13,7 @@ struct SingleWordView: View {
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(FontRateKey) private var fontRate: Double = 0.6
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     @Environment(\.colorScheme) var colorScheme
 
     let wordCell: WordCell
@@ -58,13 +58,6 @@ struct SingleWordView: View {
         openURL(url)
     }
     
-    var transColor: Color {
-        if colorScheme == .light && contentStyle == .portraitMini {
-            return .black
-        }
-        return .white
-    }
-    
     var textView: some View {
         unKnown ?
             (Text(word).foregroundColor(Color(NSColor.labelColor)).font(Font.custom(fontName, size: fontSize)) + Text(transText).foregroundColor(Color(NSColor.highlightColor)).font(Font.custom(fontName, size: fontSize * CGFloat(fontRate))))
@@ -73,30 +66,23 @@ struct SingleWordView: View {
     }
     
     var body: some View {
-        VStack {
-            textView
-                .opacity( (known && isPhrase) ? 0.5 : 1)
-                .font(Font.custom(fontName, size: fontSize))
-                .padding(.vertical, 4)
-                .padding(.horizontal, 6)
-                .contextMenu {
-                    Button(unKnown ? "Add to Known" : "Remove from known", action: {
-                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
-                    })
-                    Menu("Online Dict Link") {
-                        Button("Collins", action: { openExternalDict(word) })
-                    }
+        textView
+            .opacity( (known && isPhrase) ? 0.5 : 1)
+            .font(Font.custom(fontName, size: fontSize))
+            .padding(.vertical, 4)
+            .padding(.horizontal, 6)
+            .contextMenu {
+                Button(unKnown ? "Add to Known" : "Remove from known", action: {
+                    unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
+                })
+                Menu("Online Dict Link") {
+                    Button("Collins", action: { openExternalDict(word) })
                 }
-                .onTapGesture(count: 2) {
-                    openDict(word)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-//                .background(Color.black.opacity(contentStyle == .landscapeMini ? 0.75 : 0))
-                .background(contentStyle == .landscapeMini ? Color.black.opacity(0.75) : nil)
-//                .background(contentStyle == .landscapeMini ? VisualEffectView(visualEffect: visualEffectView2) : nil)
-            
-            Spacer()
-        }
+            }
+            .onTapGesture(count: 2) {
+                openDict(word)
+            }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
 

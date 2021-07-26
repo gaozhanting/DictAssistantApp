@@ -17,13 +17,10 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
-            Preferences.Section(title: "Landscape Word Color:") {
-                LandscapeWordColorSettingView()
-            }
-            Preferences.Section(title: "Portrait Word Color:") {
-                PortraitWordColorSettingView()
-            }
-            Preferences.Section(title: "Words Display Selection:") {
+//            Preferences.Section(title: "Word Color:") {
+//                WordColorSettingView()
+//            }
+            Preferences.Section(title: "Words Display:") {
                 ContentWindowShadowToggle()
                 WithAnimationToggle()
                 ShowCurrentKnownWordsToggle()
@@ -63,21 +60,17 @@ fileprivate struct CropperStyleSettingView: View {
 }
 
 enum ContentStyle: Int {
-    case portraitNormal = 0
-    case portraitMini = 1
-    case landscapeNormal = 2
-    case landscapeMini = 3
+    case portrait = 0
+    case landscape = 1
 }
 
 fileprivate struct ContentStyleSettingView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portraitNormal
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
     var body: some View {
         Picker("", selection: $contentStyle) {
-            Text("portrait normal").tag(ContentStyle.portraitNormal)
-            Text("portrait mini").tag(ContentStyle.portraitMini)
-            Text("landscape normal").tag(ContentStyle.landscapeNormal)
-            Text("landscape mini").tag(ContentStyle.landscapeMini)
+            Text("portrait").tag(ContentStyle.portrait)
+            Text("landscape").tag(ContentStyle.landscape)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
@@ -85,25 +78,14 @@ fileprivate struct ContentStyleSettingView: View {
     }
 }
 
-fileprivate struct LandscapeWordColorSettingView: View {
-    @State private var bgColor =
-        Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
-
-    var body: some View {
-        ColorPicker("", selection: $bgColor)
-            .labelsHidden()
-    }
-}
-
-fileprivate struct PortraitWordColorSettingView: View {
-    @State private var bgColor =
-        Color(.sRGB, red: 0.18, green: 0.9, blue: 0.2)
-
-    var body: some View {
-        ColorPicker("", selection: $bgColor)
-            .labelsHidden()
-    }
-}
+//fileprivate struct WordColorSettingView: View {
+//    @State private var color = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
+//
+//    var body: some View {
+//        ColorPicker("", selection: $color)
+//            .labelsHidden()
+//    }
+//}
 
 fileprivate struct ShowCurrentKnownWordsToggle: View {
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
