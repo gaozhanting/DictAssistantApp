@@ -17,48 +17,37 @@ fileprivate struct OriginBody: View {
     }
 }
 
-// this three is the same as Portrait (todo)
-fileprivate struct BackgroundVisualEffectBody: View {
-    var body: some View {
-        OriginBody().background(VisualEffectView(visualEffect: contentVisualEffect()))
-    }
-}
-
-fileprivate struct BackgroundColorBody: View {
+fileprivate struct WithScrollViewBody: View {
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
     var theBackgroundColor: Color {
         Color(dataToColor(backgroundColor)!)
     }
-    var body: some View {
-        OriginBody().background(theBackgroundColor)
-    }
-}
-
-fileprivate struct WithBackgroundBody: View {
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    
     var body: some View {
         if contentBackgroundDisplay {
-            BackgroundVisualEffectBody()
-        } else {
-            BackgroundColorBody()
-        }
-    }
-}
-//
-
-fileprivate struct WithScrollViewBody: View {
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top) {
-                WithBackgroundBody()
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top) {
+                    OriginBody()
+                }
+                .background(VisualEffectView(visualEffect: contentVisualEffect())) // Visual effect mess up when attach mutiple seperate word
             }
+            .padding(.vertical, 10)
+        } else {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top) {
+                    OriginBody()
+                        .background(theBackgroundColor)
+                }
+            }
+            .padding(.vertical, 10)
         }
-        .padding(.vertical, 10)
     }
 }
 
 struct LandscapeWordsView: View {
     @AppStorage(LandscapeCornerKey) private var landscapeCorner: LandscapeCorner = .topLeading
+
     var body: some View {
         switch landscapeCorner {
         case .topLeading:
@@ -66,6 +55,7 @@ struct LandscapeWordsView: View {
                 WithScrollViewBody()
                 Spacer()
             }
+
         case .bottomLeading:
             VStack {
                 Spacer()
