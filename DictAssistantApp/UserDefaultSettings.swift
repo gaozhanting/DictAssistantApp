@@ -132,3 +132,10 @@ let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMat
 let ContentBackGroundVisualEffectBlendingModeKey = "ContentBackGroundVisualEffectBlendingModeKey"
 let ContentBackGroundVisualEffectIsEmphasizedKey = "ContentBackGroundVisualEffectIsEmphasizedKey"
 let ContentBackGroundVisualEffectStateKey = "ContentBackGroundVisualEffectStateKey"
+
+let WordColorKey = "WordColorKey"
+let TransColorKey = "TransColorKey"
+let BackgroundColorKey = "BackgroundColorKey"
+
+let PortraitCornerKey = "PortraitCornerKey"
+let LandscapeCornerKey = "LandscapeCornerKey"

@@ -9,6 +9,18 @@ import SwiftUI
 import Preferences
 
 struct AppearanceSettingsView: View {
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+
+    var body: some View {
+        if contentBackgroundDisplay {
+            AllSelectionsView()
+        } else {
+            UpperSelectionsView()
+        }
+    }
+}
+
+fileprivate struct UpperSelectionsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "Cropper Style:") {
@@ -17,9 +29,52 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
-//            Preferences.Section(title: "Word Color:") {
-//                WordColorSettingView()
-//            }
+            Preferences.Section(title: "Colors:") {
+                VStack(alignment: .trailing) {
+                    WordColorPicker()
+                    TransColorPicker()
+                    BackgroundColorPicker()
+                    RestoreDefaultColors()
+                }
+                .frame(maxWidth: 140)
+            }
+            Preferences.Section(title: "Content Words Display:") {
+                ShowCurrentKnownWordsToggle()
+                ShowPhrasesToggle()
+                AddLineBreakToggle()
+            }
+            Preferences.Section(title: "Content Window Shadow Display:") {
+                ContentWindowShadowToggle()
+            }
+            Preferences.Section(title: "Content Animation Display:") {
+                WithAnimationToggle()
+            }
+            
+            Preferences.Section(title: "Content Background Display:") {
+                ContentBackgroundDisplay()
+            }
+        }
+    }
+}
+
+fileprivate struct AllSelectionsView: View {
+    var body: some View {
+        Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "Cropper Style:") {
+                CropperStyleSettingView()
+            }
+            Preferences.Section(title: "Content Style:") {
+                ContentStyleSettingView()
+            }
+            Preferences.Section(title: "Colors:") {
+                VStack(alignment: .trailing) {
+                    WordColorPicker()
+                    TransColorPicker()
+                    BackgroundColorPicker()
+                    RestoreDefaultColors()
+                }
+                .frame(maxWidth: 140)
+            }
             Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
@@ -36,16 +91,16 @@ struct AppearanceSettingsView: View {
                 ContentBackgroundDisplay()
             }
             
-            Preferences.Section(title: "Content Background Material:") {
+            Preferences.Section(title: "Material:") {
                 ContentBackGroundVisualEffectMaterial()
             }
-            Preferences.Section(title: "Content Background BlengdingMode:") {
+            Preferences.Section(title: "BlengdingMode:") {
                 ContentBackGroundVisualEffectBlendingMode()
             }
-            Preferences.Section(title: "Content Background IsEmphasized:") {
+            Preferences.Section(title: "IsEmphasized:") {
                 ContentBackGroundVisualEffectIsEmphasized()
             }
-            Preferences.Section(title: "Content Background EffectState:") {
+            Preferences.Section(title: "EffectState:") {
                 ContentBackGroundVisualEffectState()
             }
         }
@@ -85,28 +140,118 @@ enum ContentStyle: Int {
     case landscape = 1
 }
 
+enum PortraitCorner: Int {
+    case topLeading = 0
+    case topTrailing = 1
+}
+
+enum LandscapeCorner: Int {
+    case topLeading = 0
+    case bottomLeading = 1
+}
+
 fileprivate struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
+    @AppStorage(LandscapeCornerKey) private var landscapeCorner: LandscapeCorner = .topLeading
+    
     var body: some View {
-        Picker("", selection: $contentStyle) {
-            Text("portrait").tag(ContentStyle.portrait)
-            Text("landscape").tag(ContentStyle.landscape)
+        HStack {
+            Picker("", selection: $contentStyle) {
+                Text("portrait").tag(ContentStyle.portrait)
+                Text("landscape").tag(ContentStyle.landscape)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .labelsHidden()
+            .frame(width: 160)
+            
+            switch contentStyle {
+            case .portrait:
+                Picker("", selection: $portraitCorner) {
+                    Text("topLeading").tag(PortraitCorner.topLeading)
+                    Text("topTrailing").tag(PortraitCorner.topTrailing)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .labelsHidden()
+                .frame(width: 120)
+            case .landscape:
+                Picker("", selection: $landscapeCorner) {
+                    Text("topLeading").tag(LandscapeCorner.topLeading)
+                    Text("bottomLeading").tag(LandscapeCorner.bottomLeading)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .labelsHidden()
+                .frame(width: 120)
+            }
         }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 
-//fileprivate struct WordColorSettingView: View {
-//    @State private var color = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
-//
-//    var body: some View {
-//        ColorPicker("", selection: $color)
-//            .labelsHidden()
-//    }
-//}
+fileprivate struct WordColorPicker: View {
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+        
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(wordColor)!) },
+            set: { newValue in
+                wordColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    var body: some View {
+        ColorPicker("Word:", selection: binding)
+    }
+}
+
+fileprivate struct TransColorPicker: View {
+    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(transColor)!) },
+            set: { newValue in
+                transColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    var body: some View {
+        ColorPicker("Translation:", selection: binding)
+    }
+}
+
+fileprivate struct BackgroundColorPicker: View {
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(backgroundColor)!) },
+            set: { newValue in
+                backgroundColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    var body: some View {
+        ColorPicker("Background:", selection: binding)
+    }
+}
+
+fileprivate struct RestoreDefaultColors: View {
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
+
+    var body: some View {
+        Button("Use default colors", action: {
+            wordColor = colorToData(NSColor.labelColor)!
+            transColor = colorToData(NSColor.highlightColor)!
+            backgroundColor = colorToData(NSColor.clear)!
+        })
+    }
+}
 
 fileprivate struct ShowCurrentKnownWordsToggle: View {
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
@@ -161,7 +306,7 @@ fileprivate struct ContentWindowShadowToggle: View {
             Text("Show Content Window Shadow")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you prefer window shadow, notice it may mess up. You should replay to take effect of it.")
+        .help("Select it when you prefer window shadow, notice it may mess up.")
     }
 }
 

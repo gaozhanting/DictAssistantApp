@@ -8,8 +8,6 @@
 import SwiftUI
 import DataBases
 
-fileprivate let defaultMaxWidthOfLandscape: CGFloat = 260.0
-fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
 //fileprivate let spacing: CGFloat = 0
 
 struct WordCellWithId: Identifiable {
@@ -37,58 +35,7 @@ let selectionContentVisualEffect: NSVisualEffectView = {
     return ve
 }()
 
-fileprivate struct LandscapeWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
-    
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
-    
-    // no react!
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
-
-    var bg: some View {
-        contentBackgroundDisplay ?
-            VisualEffectView(visualEffect: contentVisualEffect()) :
-            nil
-    }
-
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top) {
-                WordsView()
-                    .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: .infinity, alignment: .topLeading)
-                
-                VStack { Spacer() }
-            }
-        }
-        .background(bg)
-    }
-}
-
-fileprivate struct PortraitWordsView: View {
-    @EnvironmentObject var visualConfig: VisualConfig
-    
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
-
-    var bg: some View {
-        contentBackgroundDisplay ?
-            VisualEffectView(visualEffect: contentVisualEffect()) :
-            nil
-    }
-    
-    var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading) {
-                WordsView()
-                    .frame(maxWidth: .infinity, maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
-
-                HStack { Spacer() } // avoid animation shrink
-            }
-        }
-        .background(bg)
-    }
-}
-
-// make a modifier for portrait | landscape
+// how to make portrait word pop out from bottom, not from top
 
 struct ContentView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
@@ -120,7 +67,7 @@ struct ContentView_Previews: PreviewProvider {
                 .attachEnv(displayedWords: displayedWordsSample1)
             
             PortraitWordsView()
-                .frame(width: 220, height: 300)
+                .frame(width: 220, height: 600)
                 .attachEnv(displayedWords: displayedWordsSample1)
         }
     }

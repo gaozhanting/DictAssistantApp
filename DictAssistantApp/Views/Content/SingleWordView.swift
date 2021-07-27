@@ -55,10 +55,25 @@ struct SingleWordView: View {
         openURL(url)
     }
     
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
+    var theWordColor: Color {
+        Color(dataToColor(wordColor)!)
+    }
+    var theKnownWordColor: Color {
+        theWordColor.opacity(0.5)
+    }
+    var theTransColor: Color {
+        Color(dataToColor(transColor)!)
+    }
+
+    // title title2 : landscape
+    // headline callout : portrait
+    
     var textView: some View {
         unKnown ?
-            Text(word).foregroundColor(Color(NSColor.labelColor)).font(.title) + Text(transText).foregroundColor(Color(NSColor.highlightColor)).font(.title2) :
-            Text(word).foregroundColor(Color(NSColor.tertiaryLabelColor)).font(.title)
+            Text(word).foregroundColor(theWordColor).font(.headline) + Text(transText).foregroundColor(theTransColor).font(.callout) :
+            Text(word).foregroundColor(theKnownWordColor).font(.headline)
     }
     
     var body: some View {
@@ -77,7 +92,6 @@ struct SingleWordView: View {
             .onTapGesture(count: 2) {
                 openDict(word)
             }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
 

@@ -24,6 +24,8 @@
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
+		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
+		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
 		447D0F7F26564D96004A7173 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
@@ -57,6 +59,8 @@
 		4440EE4D262EDCA4007FF470 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4440EE4F262EDCA4007FF470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
+		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
+		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D0F7E26564D96004A7173 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				44FC7009266DEFF80025676B /* ContentView.swift */,
+				444AACD426B0417D00791FC2 /* PortraitWordsView.swift */,
+				444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */,
 				442134E426AC32A700963441 /* WordsView.swift */,
 				442134E226AC326100963441 /* SingleWordView.swift */,
 			);
@@ -273,7 +279,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				442298B7269EADC1008B410B /* DictionariesView.swift in Sources */,
+				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
+				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				44FC7016266F48730025676B /* VisualConfig.swift in Sources */,
