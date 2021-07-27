@@ -8,21 +8,20 @@
 import SwiftUI
 
 fileprivate let defaultMaxWidthOfLandscape: CGFloat = 260.0
-fileprivate let defaultMaxHeighOfLandscape: CGFloat = 120.0 // why Text can't auto adjust height?
+//fileprivate let defaultMaxHeighOfLandscape: CGFloat = 120.0 // why Text can't auto adjust height?
 
 fileprivate struct OriginBody: View {
     var body: some View {
         WordsView()
-            .frame(maxWidth: defaultMaxWidthOfLandscape, maxHeight: defaultMaxHeighOfLandscape, alignment: .topLeading)
+            .frame(maxWidth: defaultMaxWidthOfLandscape,
+//                   maxHeight: defaultMaxHeighOfLandscape,
+                   alignment: .topLeading)
     }
 }
 
 fileprivate struct WithScrollViewBody: View {
     @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
-    var theBackgroundColor: Color {
-        Color(dataToColor(backgroundColor)!)
-    }
+
     
     var body: some View {
         if contentBackgroundDisplay {
@@ -37,7 +36,6 @@ fileprivate struct WithScrollViewBody: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
                     OriginBody()
-                        .background(theBackgroundColor)
                 }
             }
             .padding(.vertical, 10)

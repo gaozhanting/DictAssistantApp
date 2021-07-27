@@ -72,11 +72,18 @@ struct SingleWordView: View {
     
     var textView: some View {
         unKnown ?
-            Text(word).foregroundColor(theWordColor).font(.headline) + Text(transText).foregroundColor(theTransColor).font(.callout) :
-            Text(word).foregroundColor(theKnownWordColor).font(.headline)
+            Text(word).foregroundColor(theWordColor).font( contentStyle == .portrait ? .headline : .title) + Text(transText).foregroundColor(theTransColor).font( contentStyle == .portrait ? .callout : .title2) :
+            Text(word).foregroundColor(theKnownWordColor).font( contentStyle == .portrait ? .headline : .title)
     }
     
-    var body: some View {
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
+    var theBackgroundColor: Color {
+        Color(dataToColor(backgroundColor)!)
+    }
+    
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    
+    var TextBody: some View {
         textView
             .opacity( (known && isPhrase) ? 0.5 : 1)
             .padding(.vertical, 4)
@@ -92,6 +99,20 @@ struct SingleWordView: View {
             .onTapGesture(count: 2) {
                 openDict(word)
             }
+            .background(contentBackgroundDisplay ? nil : theBackgroundColor)
+    }
+
+    var body: some View {
+        switch contentStyle {
+        case .portrait:
+            TextBody
+
+        case .landscape:
+            VStack {
+                TextBody
+                Spacer()
+            }
+        }
     }
 }
 
