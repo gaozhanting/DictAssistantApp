@@ -44,6 +44,11 @@ fileprivate struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
             }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Reload Content View:")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .reloadContentView)
+            }
         }
         .frame(maxWidth: 380)
     }
