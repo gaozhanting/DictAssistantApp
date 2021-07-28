@@ -22,12 +22,12 @@ fileprivate struct OriginBody: View {
 fileprivate struct WithScrollViewBody: View {
     @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
 
-    
     var body: some View {
         if contentBackgroundDisplay {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
                     OriginBody()
+                    VStack { Spacer() }
                 }
                 .background(VisualEffectView(visualEffect: contentVisualEffect())) // Visual effect mess up when attach mutiple seperate word
             }
@@ -36,6 +36,7 @@ fileprivate struct WithScrollViewBody: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
                     OriginBody()
+                    VStack { Spacer() }
                 }
             }
             .padding(.vertical, 10)
@@ -44,22 +45,8 @@ fileprivate struct WithScrollViewBody: View {
 }
 
 struct LandscapeWordsView: View {
-    @AppStorage(LandscapeCornerKey) private var landscapeCorner: LandscapeCorner = .topLeading
-
     var body: some View {
-        switch landscapeCorner {
-        case .topLeading:
-            VStack {
-                WithScrollViewBody()
-                Spacer()
-            }
-
-        case .bottomLeading:
-            VStack {
-                Spacer()
-                WithScrollViewBody()
-            }
-        }
+        WithScrollViewBody()
     }
 }
 
