@@ -324,27 +324,27 @@ fileprivate struct ContentBackgroundDisplay: View {
 fileprivate struct ContentBackGroundVisualEffectMaterial: View {
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
     
-    let allCases: [NSVisualEffectView.Material] = [
-        .titlebar,
-        .selection,
-        .menu,
-        .popover,
-        .sidebar,
-        .headerView,
-        .sheet,
-        .windowBackground,
-        .hudWindow,
-        .fullScreenUI,
-        .toolTip,
-        .contentBackground,
-        .underWindowBackground,
-        .underPageBackground
+    let allCases: [(NSVisualEffectView.Material, String)] = [
+        (.titlebar, "titlebar"),
+        (.selection, "selection"),
+        (.menu, "menu"),
+        (.popover, "popover"),
+        (.sidebar, "sidebar"),
+        (.headerView, "headerView"),
+        (.sheet, "sheet"),
+        (.windowBackground, "windowBackground"),
+        (.hudWindow, "hudWindow"),
+        (.fullScreenUI, "fullScreenUI"),
+        (.toolTip, "toolTip"),
+        (.contentBackground, "contentBackground"),
+        (.underWindowBackground, "underWindowBackground"),
+        (.underPageBackground, "underPageBackground")
     ]
     
     var body: some View {
         Picker("", selection: $contentBackGroundVisualEffectMaterial) {
-            ForEach(allCases, id: \.self) { option in
-                Text("\(option.rawValue)").tag(option)
+            ForEach(allCases, id: \.self.0) { option in
+                Text(option.1).tag(option.0)
             }
         }
         .pickerStyle(MenuPickerStyle())
@@ -356,12 +356,15 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
 fileprivate struct ContentBackGroundVisualEffectBlendingMode: View {
     @AppStorage(ContentBackGroundVisualEffectBlendingModeKey) private var contentBackGroundVisualEffectBlendingMode: NSVisualEffectView.BlendingMode = .behindWindow
     
-    let allCases: [NSVisualEffectView.BlendingMode] = [.behindWindow, .withinWindow]
+    let allCases: [(NSVisualEffectView.BlendingMode, String)] = [
+        (.behindWindow, "behindWindow"),
+        (.withinWindow, "withinWindow")
+    ]
     
     var body: some View {
         Picker("", selection: $contentBackGroundVisualEffectBlendingMode) {
-            ForEach(allCases, id: \.self) { option in
-                Text(String(option.rawValue)).tag(option)
+            ForEach(allCases, id: \.self.0) { option in
+                Text(option.1).tag(option.0)
             }
         }
         .pickerStyle(MenuPickerStyle())
@@ -390,12 +393,16 @@ fileprivate struct ContentBackGroundVisualEffectIsEmphasized: View {
 fileprivate struct ContentBackGroundVisualEffectState: View {
     @AppStorage(ContentBackGroundVisualEffectStateKey) private var contentBackGroundVisualEffectState: NSVisualEffectView.State = .active
     
-    let allCases: [NSVisualEffectView.State] = [.active, .inactive, .followsWindowActiveState]
+    let allCases: [(NSVisualEffectView.State, String)] = [
+        (.active, "active"),
+        (.inactive, "inactinve"),
+        (.followsWindowActiveState, "followsWindowActiveState")
+    ]
     
     var body: some View {
         Picker("", selection: $contentBackGroundVisualEffectState) {
-            ForEach(allCases, id: \.self) { option in
-                Text(String(option.rawValue)).tag(option)
+            ForEach(allCases, id: \.self.0) { option in
+                Text(option.1).tag(option.0)
             }
         }
         .pickerStyle(MenuPickerStyle())
