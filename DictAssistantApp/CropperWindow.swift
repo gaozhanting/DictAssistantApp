@@ -14,7 +14,6 @@ class CropperWindow: NSWindow {
         super.init(
             contentRect: contentRect,
             styleMask: [
-                .titled,
                 .fullSizeContentView,
                 .resizable,
             ],

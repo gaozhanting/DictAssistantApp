@@ -51,7 +51,6 @@ fileprivate struct WithScrollViewBody: View {
         ScrollView(.vertical, showsIndicators: false) {
             WithBackgroundBody()
         }
-        .padding(.vertical, 10)
     }
 }
 

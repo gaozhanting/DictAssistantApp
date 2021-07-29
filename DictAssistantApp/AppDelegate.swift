@@ -189,7 +189,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func fixCropperWindow() {
         // remove .resizable otherwise can't mouse through
         cropperWindow.styleMask = [
-            .titled,
             .fullSizeContentView
         ]
         cropperWindow.isMovable = false
@@ -199,7 +198,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // resizable, movable
     func activeCropperWindow() {
         cropperWindow.styleMask = [
-            .titled,
             .fullSizeContentView,
             .resizable,
         ]

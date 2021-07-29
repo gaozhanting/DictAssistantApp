@@ -31,7 +31,6 @@ fileprivate struct WithScrollViewBody: View {
                 }
                 .background(VisualEffectView(visualEffect: contentVisualEffect())) // Visual effect mess up when attach mutiple seperate word
             }
-            .padding(.vertical, 10)
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
@@ -39,7 +38,6 @@ fileprivate struct WithScrollViewBody: View {
                     VStack { Spacer() }
                 }
             }
-            .padding(.vertical, 10)
         }
     }
 }

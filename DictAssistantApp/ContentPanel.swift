@@ -14,12 +14,11 @@ class ContentPanel: NSPanel {
             contentRect: contentRect,
             styleMask: [
                 .nonactivatingPanel,
-                .titled,
-//                .closable,
                 .fullSizeContentView,
                 .miniaturizable,
                 .resizable,
                 .utilityWindow,
+                .borderless,
             ],
             backing: .buffered,
             defer: false

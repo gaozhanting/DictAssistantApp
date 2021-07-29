@@ -44,7 +44,6 @@ struct MiniCropperView: View {
 struct ClosedCropperView: View {
     var body: some View {
         EmptyView()
-
     }
 }
 
