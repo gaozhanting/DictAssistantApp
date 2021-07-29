@@ -145,16 +145,10 @@ enum PortraitCorner: Int {
     case topTrailing = 1
 }
 
-enum LandscapeCorner: Int {
-    case topLeading = 0
-    case bottomLeading = 1
-}
-
 fileprivate struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
-    @AppStorage(LandscapeCornerKey) private var landscapeCorner: LandscapeCorner = .topLeading
     
     var body: some View {
         HStack {
@@ -166,19 +160,10 @@ fileprivate struct ContentStyleSettingView: View {
             .labelsHidden()
             .frame(width: 160)
             
-            switch contentStyle {
-            case .portrait:
+            if contentStyle == .portrait {
                 Picker("", selection: $portraitCorner) {
                     Text("topLeading").tag(PortraitCorner.topLeading)
                     Text("topTrailing").tag(PortraitCorner.topTrailing)
-                }
-                .pickerStyle(MenuPickerStyle())
-                .labelsHidden()
-                .frame(width: 120)
-            case .landscape:
-                Picker("", selection: $landscapeCorner) {
-                    Text("topLeading").tag(LandscapeCorner.topLeading)
-                    Text("bottomLeading").tag(LandscapeCorner.bottomLeading)
                 }
                 .pickerStyle(MenuPickerStyle())
                 .labelsHidden()
