@@ -138,3 +138,5 @@ let TransColorKey = "TransColorKey"
 let BackgroundColorKey = "BackgroundColorKey"
 
 let PortraitCornerKey = "PortraitCornerKey"
+
+let ShowToastToggleKey = "ShowToastToggleKey"

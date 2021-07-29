@@ -39,6 +39,50 @@ func toggleCropperView() {
     }
 }
 
+var toastWindow: NSWindow!
+func initToastWindow() {
+    toastWindow = CropperWindow.init(
+        contentRect: NSRect(x: 300, y: 300, width: 300, height: 300),
+        name: "toastWindow2"
+    )
+    toastWindow.styleMask = [
+        .titled,
+        .fullSizeContentView
+    ]
+    
+    toastWindow.close()
+}
+
+func toastOn() {
+    if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
+        toastWindow.contentView = NSHostingView(
+            rootView: ToastOnView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea())
+        toastWindow.center()
+        toastWindow.orderFrontRegardless()
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+            toastWindow.close()
+        }
+    }
+}
+
+func toastOff() {
+    if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
+        toastWindow.contentView = NSHostingView(
+            rootView: ToastOffView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea())
+        toastWindow.center()
+        toastWindow.orderFrontRegardless()
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+            toastWindow.close()
+        }
+    }
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let statusData = StatusData(isPlaying: false)
@@ -73,6 +117,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         initKnownWordsPanel()
         
         constructMenuBar()
+        
+        initToastWindow()
         
         allKnownWordsSetCache = getAllKnownWordsSet()
 
@@ -251,6 +297,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func startPlaying() {
+        toastOn()
         statusData.isPlaying = true
         cachedDict = [:]
         statusItem.button?.image = NSImage(
@@ -262,6 +309,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func stopPlaying() {
+        toastOff()
         statusData.isPlaying = false
         cachedDict = [:]
         statusItem.button?.image = NSImage(

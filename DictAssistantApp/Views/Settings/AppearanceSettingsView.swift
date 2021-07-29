@@ -23,6 +23,9 @@ struct AppearanceSettingsView: View {
 fileprivate struct UpperSelectionsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "Show Toast:") {
+                ShowToastToggle()
+            }
             Preferences.Section(title: "Cropper Style:") {
                 CropperStyleSettingView()
             }
@@ -60,6 +63,9 @@ fileprivate struct UpperSelectionsView: View {
 fileprivate struct AllSelectionsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "Show Toast:") {
+                ShowToastToggle()
+            }
             Preferences.Section(title: "Cropper Style:") {
                 CropperStyleSettingView()
             }
@@ -104,6 +110,17 @@ fileprivate struct AllSelectionsView: View {
                 ContentBackGroundVisualEffectState()
             }
         }
+    }
+}
+
+fileprivate struct ShowToastToggle: View {
+    @AppStorage(ShowToastToggleKey) private var showToast: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $showToast, label: {
+            Text("Show Toast")
+        })
+        .toggleStyle(CheckboxToggleStyle())
     }
 }
 

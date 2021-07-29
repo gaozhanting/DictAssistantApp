@@ -20,3 +20,17 @@ struct VisualEffectView: NSViewRepresentable {
     func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
     }
 }
+
+let selectionContentVisualEffect: NSVisualEffectView = {
+    let ve = NSVisualEffectView()
+    ve.material = .underWindowBackground
+    ve.blendingMode = .behindWindow
+    return ve
+}()
+
+let toastVisualEffect: NSVisualEffectView = {
+    let ve = NSVisualEffectView()
+    ve.material = .hudWindow
+    ve.blendingMode = .withinWindow
+    return ve
+}()

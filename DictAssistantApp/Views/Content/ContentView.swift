@@ -28,13 +28,6 @@ func contentVisualEffect() -> NSVisualEffectView {
     return ve
 }
 
-let selectionContentVisualEffect: NSVisualEffectView = {
-    let ve = NSVisualEffectView()
-    ve.material = .underWindowBackground
-    ve.blendingMode = .behindWindow
-    return ve
-}()
-
 // how to make portrait word pop out from bottom, not from top
 
 struct ContentView: View {
