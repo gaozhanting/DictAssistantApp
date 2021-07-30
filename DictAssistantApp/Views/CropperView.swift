@@ -13,6 +13,7 @@ struct StrokeBorderCropperView: View {
             .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
             .foregroundColor(.accentColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.primary.opacity(0.1))
             .ignoresSafeArea()
     }
 }
