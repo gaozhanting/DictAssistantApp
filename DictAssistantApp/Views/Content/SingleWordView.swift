@@ -66,14 +66,27 @@ struct SingleWordView: View {
     var theTransColor: Color {
         Color(dataToColor(transColor)!)
     }
+    
+    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: CGFloat(0.0)))!
+    var font: Font {
+        Font(dataToFont(fontData)!)
+    }
 
     // title title2 : landscape
     // headline callout : portrait
     
     var textView: some View {
         unKnown ?
-            Text(word).foregroundColor(theWordColor).font( contentStyle == .portrait ? .headline : .title) + Text(transText).foregroundColor(theTransColor).font( contentStyle == .portrait ? .callout : .title2) :
-            Text(word).foregroundColor(theKnownWordColor).font( contentStyle == .portrait ? .headline : .title)
+            Text(word)
+            .foregroundColor(theWordColor)
+            .font(font) +
+            Text(transText)
+            .foregroundColor(theTransColor)
+            .font(font) :
+            
+            Text(word)
+            .foregroundColor(theKnownWordColor)
+            .font(font)
     }
     
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!

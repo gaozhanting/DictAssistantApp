@@ -24,6 +24,20 @@ func dataToColor(_ data: Data) -> NSColor? {
     return color
 }
 
+func fontToData(_ font: NSFont) -> Data? {
+    if let data = try? NSKeyedArchiver.archivedData(withRootObject: font, requiringSecureCoding: false) {
+        return data
+    } else {
+        return nil
+    }
+}
+
+func dataToFont(_ data: Data) -> NSFont? {
+    let unarchivedData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSFont.self, from: data)
+    let font = unarchivedData as NSFont?
+    return font
+}
+
 func say(_ word: String) {
     let task = Process()
     task.launchPath = "/usr/bin/say"

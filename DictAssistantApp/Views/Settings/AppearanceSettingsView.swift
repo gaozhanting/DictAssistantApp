@@ -32,6 +32,9 @@ fileprivate struct UpperSelectionsView: View {
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
+            Preferences.Section(title: "Font: ") {
+                FontSettingView()
+            }
             Preferences.Section(title: "Colors:") {
                 VStack(alignment: .trailing) {
                     WordColorPicker()
@@ -71,6 +74,9 @@ fileprivate struct AllSelectionsView: View {
             }
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
+            }
+            Preferences.Section(title: "Font: ") {
+                FontSettingView()
             }
             Preferences.Section(title: "Colors:") {
                 VStack(alignment: .trailing) {
@@ -149,6 +155,39 @@ fileprivate struct CropperStyleSettingView: View {
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
+    }
+}
+
+fileprivate struct FontSettingView: View {
+    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: CGFloat(0.0)))!
+    
+    func showFontPanel(_ sender: Any?) {
+        let font = dataToFont(fontData)!
+        
+        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
+        
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        NSFontManager.shared.orderFrontFontPanel(sender)
+    }
+    
+    var font: NSFont {
+        dataToFont(fontData)!
+    }
+    
+    var body: some View {
+        HStack {
+            TextField(
+                "",
+                text: Binding.constant("\(font.displayName!) \(font.pointSize)")
+            )
+            .disabled(true)
+            .textFieldStyle(SquareBorderTextFieldStyle())
+            .frame(maxWidth: 230)
+            
+            Button("Select...") {
+                showFontPanel(nil)
+            }
+        }
     }
 }
 
@@ -429,6 +468,6 @@ fileprivate struct WithAnimationToggle: View {
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         AppearanceSettingsView()
-            .frame(width: 650, height: 500)
+            .frame(width: 650, height: 600)
     }
 }

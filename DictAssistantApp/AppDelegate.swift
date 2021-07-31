@@ -375,51 +375,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         knownWordsPanel.orderFrontRegardless()
     }
 
-
-//    // MARK:- Appearance (FontPanel)
-//    @objc func showFontPanel(_ sender: Any?) {
-//        let name = visualConfig.fontName
-//        let size: CGFloat = {
-//            switch contentMode {
-//            case .landscapeNormal:
-//                return visualConfig.fontSizeOfLandscape
-//            case .landscapeMini:
-//                return visualConfig.fontSizeOfLandscape
-//            case .portraitNormal:
-//                return visualConfig.fontSizeOfPortrait
-//            case .portraitMini:
-//                return visualConfig.fontSizeOfPortrait
-//            case .closed:
-//                return visualConfig.fontSizeOfLandscape
-//            }
-//        }()
-//        let font = NSFont(name: name, size: size) ?? NSFont.systemFont(ofSize: CGFloat(defaultFontSizeOfPortrait))
-//
-//        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
-//
-//        NSApplication.shared.activate(ignoringOtherApps: true)
-//        NSFontManager.shared.orderFrontFontPanel(sender)
-//    }
-//
-//    // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
-//    @IBAction func changeFont(_ sender: NSFontManager?) {
-//        guard let sender = sender else { return assertionFailure() }
-//        let newFont = sender.convert(.systemFont(ofSize: 0))
-//        visualConfig.fontName = newFont.fontName
-//
-//        switch contentMode {
-//        case .landscapeNormal:
-//            visualConfig.fontSizeOfLandscape = newFont.pointSize
-//        case .landscapeMini:
-//            visualConfig.fontSizeOfLandscape = newFont.pointSize
-//        case .portraitNormal:
-//            visualConfig.fontSizeOfPortrait = newFont.pointSize
-//        case .portraitMini:
-//            visualConfig.fontSizeOfPortrait = newFont.pointSize
-//        case .closed:
-//            visualConfig.fontSizeOfLandscape = newFont.pointSize
-//        }
-//    }
+    // MARK:- changeFont trigger from FontPanel
+    // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
+    @IBAction func changeFont(_ sender: NSFontManager?) {
+        guard let sender = sender else { return assertionFailure() }
+        let newFont = sender.convert(.systemFont(ofSize: 0))
+        
+        UserDefaults.standard.setValue(fontToData(newFont)!, forKey: FontKey)
+    }
     
     // MARK:- Core Data (WordStatis)
     lazy var persistentContainer: NSPersistentContainer = {

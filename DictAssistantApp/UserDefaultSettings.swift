@@ -69,3 +69,5 @@ let BackgroundColorKey = "BackgroundColorKey"
 let PortraitCornerKey = "PortraitCornerKey"
 
 let ShowToastToggleKey = "ShowToastToggleKey"
+
+let FontKey = "FontKey"
