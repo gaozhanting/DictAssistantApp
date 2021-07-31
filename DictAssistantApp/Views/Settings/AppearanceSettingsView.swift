@@ -286,8 +286,19 @@ fileprivate struct RestoreDefaultColors: View {
 fileprivate struct TextShadowToggle: View {
     @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
     
+    var binding: Binding<Bool> {
+        Binding(
+            get: { textShadowToggle },
+            set: { newValue in
+                withAnimation {
+                    textShadowToggle = newValue
+                }
+            }
+        )
+    }
+    
     var body: some View {
-        Toggle(isOn: $textShadowToggle, label: {
+        Toggle(isOn: binding, label: {
             Text("Use Text Shadow")
         })
         .toggleStyle(SwitchToggleStyle())
