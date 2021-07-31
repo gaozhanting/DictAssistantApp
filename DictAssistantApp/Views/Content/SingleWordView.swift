@@ -55,7 +55,7 @@ struct SingleWordView: View {
         openURL(url)
     }
     
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
     @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
     var theWordColor: Color {
         Color(dataToColor(wordColor)!)
@@ -71,18 +71,24 @@ struct SingleWordView: View {
     var font: Font {
         Font(dataToFont(fontData)!)
     }
+    
+    var transFont: Font {
+        let font = dataToFont(fontData)!
+        let result = NSFont.init(name: font.fontName, size: font.pointSize * CGFloat(fontRate))!
+        return Font(result)
+    }
 
     // title title2 : landscape
     // headline callout : portrait
     
-    var textView: some View {
+    var textView: Text {
         unKnown ?
             Text(word)
             .foregroundColor(theWordColor)
             .font(font) +
             Text(transText)
             .foregroundColor(theTransColor)
-            .font(font) :
+            .font(transFont) :
             
             Text(word)
             .foregroundColor(theKnownWordColor)
@@ -97,7 +103,7 @@ struct SingleWordView: View {
     @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
     
     var TextBody: some View {
-        textView
+        WithShadowText(textView: textView)
             .opacity( (known && isPhrase) ? 0.5 : 1)
             .padding(.vertical, 4)
             .padding(.horizontal, 6)
@@ -125,6 +131,31 @@ struct SingleWordView: View {
                 TextBody
                 Spacer()
             }
+        }
+    }
+}
+
+fileprivate struct WithShadowText: View {
+    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
+
+    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
+    
+    let textView: Text
+    
+    var body: some View {
+        if textShadowToggle {
+            textView
+                .shadow(
+                    color: Color(dataToColor(shadowColor)!), // Color(NSColor.labelColor.withAlphaComponent(0.3)), /// shadow color
+                    radius: CGFloat(shadowRadius), /// shadow radius
+                    x: CGFloat(shadowXOffset), //0, /// x offset
+                    y: CGFloat(shadowYOffset) //2 /// y offset
+                )
+        } else {
+            textView
         }
     }
 }

@@ -48,7 +48,6 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
-let FontRateKey = "FontRateKey"
 
 let CropperStyleKey = "CropperStyleKey"
 let ContentStyleKey = "ContentStyleKey"
@@ -71,3 +70,11 @@ let PortraitCornerKey = "PortraitCornerKey"
 let ShowToastToggleKey = "ShowToastToggleKey"
 
 let FontKey = "FontKey"
+let FontRateKey = "FontRateKey"
+
+let ShadowColorKey = "ShadowColorKey"
+let ShadowRadiusKey = "ShadowRadiusKey"
+let ShadowXOffSetKey = "ShadowXOffSetKey"
+let ShadowYOffSetKey = "ShadowYOffSetKey"
+
+let TextShadowToggleKey = "TextShadowToggleKey"

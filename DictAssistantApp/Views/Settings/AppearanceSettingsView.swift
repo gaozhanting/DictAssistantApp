@@ -12,54 +12,7 @@ struct AppearanceSettingsView: View {
     @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
 
     var body: some View {
-        if contentBackgroundDisplay {
-            AllSelectionsView()
-        } else {
-            UpperSelectionsView()
-        }
-    }
-}
-
-fileprivate struct UpperSelectionsView: View {
-    var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Show Toast:") {
-                ShowToastToggle()
-            }
-            Preferences.Section(title: "Cropper Style:") {
-                CropperStyleSettingView()
-            }
-            Preferences.Section(title: "Content Style:") {
-                ContentStyleSettingView()
-            }
-            Preferences.Section(title: "Font: ") {
-                FontSettingView()
-            }
-            Preferences.Section(title: "Colors:") {
-                VStack(alignment: .trailing) {
-                    WordColorPicker()
-                    TransColorPicker()
-                    BackgroundColorPicker()
-                    RestoreDefaultColors()
-                }
-                .frame(maxWidth: 140)
-            }
-            Preferences.Section(title: "Content Words Display:") {
-                ShowCurrentKnownWordsToggle()
-                ShowPhrasesToggle()
-                AddLineBreakToggle()
-            }
-            Preferences.Section(title: "Content Window Shadow Display:") {
-                ContentWindowShadowToggle()
-            }
-            Preferences.Section(title: "Content Animation Display:") {
-                WithAnimationToggle()
-            }
-            
-            Preferences.Section(title: "Content Background Display:") {
-                ContentBackgroundDisplay()
-            }
-        }
+        AllSelectionsView()
     }
 }
 
@@ -78,6 +31,9 @@ fileprivate struct AllSelectionsView: View {
             Preferences.Section(title: "Font: ") {
                 FontSettingView()
             }
+            Preferences.Section(title: "Translation Font Rate:") {
+                FontRateSetting()
+            }
             Preferences.Section(title: "Colors:") {
                 VStack(alignment: .trailing) {
                     WordColorPicker()
@@ -86,6 +42,17 @@ fileprivate struct AllSelectionsView: View {
                     RestoreDefaultColors()
                 }
                 .frame(maxWidth: 140)
+            }
+            Preferences.Section(title: "Shadow:") {
+                VStack(alignment: .trailing) {
+                    ShadowColorPicker()
+                    ShadowRadiusPicker()
+                    ShadowXOffSetPicker()
+                    ShadowYOffSetPicker()
+                    RestoreDefaultShadow()
+                    TextShadowToggle()
+                }
+                .frame(maxWidth: 170)
             }
             Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
@@ -98,11 +65,9 @@ fileprivate struct AllSelectionsView: View {
             Preferences.Section(title: "Content Animation Display:") {
                 WithAnimationToggle()
             }
-            
             Preferences.Section(title: "Content Background Display:") {
                 ContentBackgroundDisplay()
             }
-            
             Preferences.Section(title: "Material:") {
                 ContentBackGroundVisualEffectMaterial()
             }
@@ -191,6 +156,47 @@ fileprivate struct FontSettingView: View {
     }
 }
 
+fileprivate struct FontRateSetting: View {
+    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.6
+    
+    func resetToDefault() {
+        fontRateKey = 0.6
+    }
+    
+    func incrementStep() {
+        fontRateKey += 0.01
+        if fontRateKey > 1 {
+            fontRateKey = 1
+        }
+    }
+    
+    func decrementStep() {
+        fontRateKey -= 0.01
+        if fontRateKey < 0 {
+            fontRateKey = 0
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            Text("\(fontRateKey, specifier: "%.2f")")
+            Slider(
+                value: $fontRateKey,
+                in: 0...1
+            )
+            .frame(maxWidth: 180)
+            
+            Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
+        }
+        
+        Button("Reset to default: 0.6", action: resetToDefault)
+        
+        Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
+            .preferenceDescription()
+            .frame(width: 340, alignment: .leading)
+    }
+}
+
 enum ContentStyle: Int {
     case portrait = 0
     case landscape = 1
@@ -230,7 +236,7 @@ fileprivate struct ContentStyleSettingView: View {
 }
 
 fileprivate struct WordColorPicker: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
         
     var binding: Binding<Color> {
         Binding(
@@ -281,7 +287,7 @@ fileprivate struct BackgroundColorPicker: View {
 }
 
 fileprivate struct RestoreDefaultColors: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
     @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
 
@@ -291,6 +297,94 @@ fileprivate struct RestoreDefaultColors: View {
             transColor = colorToData(NSColor.highlightColor)!
             backgroundColor = colorToData(NSColor.clear)!
         })
+    }
+}
+
+fileprivate struct ShadowColorPicker: View {
+    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(shadowColor)!) },
+            set: { newValue in
+                shadowColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    var body: some View {
+        ColorPicker("Color:", selection: binding)
+    }
+}
+
+fileprivate let formatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    return formatter
+}()
+
+fileprivate struct ShadowRadiusPicker: View {
+    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
+    
+    var body: some View {
+        HStack {
+            Spacer()
+            Text("Shadow Radius:")
+            TextField("", value: $shadowRadius, formatter: formatter)
+            .frame(maxWidth: 46)
+        }
+    }
+}
+
+fileprivate struct ShadowXOffSetPicker: View {
+    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
+    var body: some View {
+        HStack {
+            Spacer()
+            Text("Shadow X Offset:")
+            TextField("", value: $shadowXOffset, formatter: formatter)
+            .frame(maxWidth: 46)
+        }
+    }
+}
+
+fileprivate struct ShadowYOffSetPicker: View {
+    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
+
+    var body: some View {
+        HStack {
+            Spacer()
+            Text("Shadow Y Offset:")
+            TextField("", value: $shadowYOffset, formatter: formatter)
+            .frame(maxWidth: 46)
+        }
+    }
+}
+
+fileprivate struct RestoreDefaultShadow: View {
+    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
+    
+    var body: some View {
+        Button("Use default shadow", action: {
+            shadowColor = colorToData(NSColor.labelColor)!
+            shadowRadius = 3
+            shadowXOffset = 0
+            shadowYOffset = 2
+        })
+    }
+}
+
+fileprivate struct TextShadowToggle: View {
+    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $textShadowToggle, label: {
+            Text("Using Text Shadow Effect")
+        })
+        .toggleStyle(SwitchToggleStyle())
     }
 }
 
@@ -468,6 +562,6 @@ fileprivate struct WithAnimationToggle: View {
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         AppearanceSettingsView()
-            .frame(width: 650, height: 600)
+            .frame(width: 650, height: 800)
     }
 }

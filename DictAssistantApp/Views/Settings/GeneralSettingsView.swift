@@ -18,9 +18,6 @@ struct GeneralSettingsView: View {
             Preferences.Section(title: "Short Cut Key:") {
                 KeyRecordingView()
             }
-            Preferences.Section(title: "Translation Font Rate:") {
-                FontRateSetting()
-            }
             Preferences.Section(title: "Minimum Text Height:") {
                 TRMinimumTextHeightSetting()
             }
@@ -51,47 +48,6 @@ fileprivate struct KeyRecordingView: View {
             }
         }
         .frame(maxWidth: 380)
-    }
-}
-
-fileprivate struct FontRateSetting: View {
-    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.6
-    
-    func resetToDefault() {
-        fontRateKey = 0.6
-    }
-    
-    func incrementStep() {
-        fontRateKey += 0.01
-        if fontRateKey > 1 {
-            fontRateKey = 1
-        }
-    }
-    
-    func decrementStep() {
-        fontRateKey -= 0.01
-        if fontRateKey < 0 {
-            fontRateKey = 0
-        }
-    }
-    
-    var body: some View {
-        HStack {
-            Text("Font rate: \(fontRateKey, specifier: "%.2f")")
-            Slider(
-                value: $fontRateKey,
-                in: 0...1
-            )
-            .frame(maxWidth: 180)
-            
-            Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
-        }
-        
-        Button("Reset to default: 0.6", action: resetToDefault)
-        
-        Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
-            .preferenceDescription()
-            .frame(width: 340, alignment: .leading)
     }
 }
 
