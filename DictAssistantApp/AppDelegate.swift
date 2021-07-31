@@ -88,7 +88,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let statusData = StatusData(isPlaying: false)
     
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
-    var visualConfig: VisualConfig!
     var aVSessionAndTR: AVSessionAndTR!
     
     // MARK: - Application
@@ -99,17 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
-        
-        initUserDefaultIfEmpty()
-        
-        visualConfig = VisualConfig(
-            fontSizeOfLandscape: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfLandscape")),
-            fontSizeOfPortrait: CGFloat(UserDefaults.standard.double(forKey: "visualConfig.fontSizeOfPortrait")),
-            colorOfLandscape: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfLandscape")!)!,
-            colorOfPortrait: dataToColor(UserDefaults.standard.data(forKey: "visualConfig.colorOfPortrait")!)!,
-            fontName: UserDefaults.standard.string(forKey: "visualConfig.fontName")!
-        )
-        
+                
         initCropperWindow()
         
         initContentWindow()
@@ -269,9 +258,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //        menu.addItem(NSMenuItem.separator())
 
 //        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
-//        let showColorItem = NSMenuItem(title: "Show Color", action: #selector(showColorPanel), keyEquivalent: "")
 //        menu.addItem(showFontItem)
-//        menu.addItem(showColorItem)
         
 //        menu.addItem(NSMenuItem.separator())
 //
@@ -280,8 +267,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //        menu.addItem(saveUserDefaultsItem)
 //        menu.addItem(resetUserDefaultsItem)
         
-//        menu.addItem(NSMenuItem.separator())
-
         let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
         
@@ -321,7 +306,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     @objc func exit() {
-        saveAllUserDefaults()
         NSApplication.shared.terminate(self)
     }
     
@@ -330,7 +314,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         view
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
-            .environmentObject(visualConfig)
             .environmentObject(displayedWords)
     }
     
@@ -393,7 +376,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
 
-//    // MARK:- Appearance (FontPanel & ColorPanel)
+//    // MARK:- Appearance (FontPanel)
 //    @objc func showFontPanel(_ sender: Any?) {
 //        let name = visualConfig.fontName
 //        let size: CGFloat = {
@@ -435,34 +418,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 //            visualConfig.fontSizeOfPortrait = newFont.pointSize
 //        case .closed:
 //            visualConfig.fontSizeOfLandscape = newFont.pointSize
-//        }
-//    }
-//
-//    @objc func showColorPanel() {
-//        let panel = NSColorPanel.shared
-//        panel.isRestorable = false
-//        panel.delegate = self
-//        panel.showsAlpha = true
-//
-//        panel.setAction(#selector(selectColor))
-//        panel.setTarget(self)
-//
-//        NSApplication.shared.activate(ignoringOtherApps: true)
-//        panel.orderFront(self)
-//    }
-//
-//    @IBAction func selectColor(_ sender: NSColorPanel) {
-//        switch contentMode {
-//        case .landscapeNormal:
-//            visualConfig.colorOfLandscape = sender.color
-//        case .landscapeMini:
-//            visualConfig.colorOfLandscape = sender.color
-//        case .portraitNormal:
-//            visualConfig.colorOfPortrait = sender.color
-//        case .portraitMini:
-//            visualConfig.colorOfPortrait = sender.color
-//        case .closed:
-//            visualConfig.colorOfLandscape = sender.color
 //        }
 //    }
     

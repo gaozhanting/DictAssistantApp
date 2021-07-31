@@ -44,8 +44,10 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let displayedWordsNoWords = DisplayedWords(wordCells: [])
-    static let displayedWordsSample1 = DisplayedWords(wordCells: [
+    static func define(_ word: String) -> String {
+        return DictionaryServices.define(word) ?? ""
+    }
+    static let displayedWords = DisplayedWords(wordCells: [
         WordCell(word: "around", isKnown: .known, trans: define("around")),
         WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
         WordCell(word: "the", isKnown: .known, trans: define("the")),
@@ -56,39 +58,13 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             LandscapeWordsView()
+                .environmentObject(displayedWords)
                 .frame(width: 1000, height: 220)
-                .attachEnv(displayedWords: displayedWordsSample1)
             
             PortraitWordsView()
+                .environmentObject(displayedWords)
                 .frame(width: 220, height: 600)
-                .attachEnv(displayedWords: displayedWordsSample1)
         }
     }
 }
 
-struct AttachEnv: ViewModifier {
-    let displayedWords: DisplayedWords
-    let visualConfig = VisualConfig(
-        fontSizeOfLandscape: 20,
-        fontSizeOfPortrait: 13,
-        colorOfLandscape: .orange,
-        colorOfPortrait: .green,
-        fontName: NSFont.systemFont(ofSize: 0.0).fontName
-    )
-    
-    func body(content: Content) -> some View {
-        content
-            .environmentObject(displayedWords)
-            .environmentObject(visualConfig)
-    }
-}
-
-extension View {
-    func attachEnv(displayedWords: DisplayedWords) -> some View {
-        self.modifier(AttachEnv(displayedWords: displayedWords))
-    }
-}
-
-fileprivate func define(_ word: String) -> String {
-    return DictionaryServices.define(word) ?? ""
-}
