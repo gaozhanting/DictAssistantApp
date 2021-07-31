@@ -9,14 +9,6 @@ import SwiftUI
 import Preferences
 
 struct AppearanceSettingsView: View {
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
-
-    var body: some View {
-        AllSelectionsView()
-    }
-}
-
-fileprivate struct AllSelectionsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "Show Toast:") {
@@ -32,27 +24,27 @@ fileprivate struct AllSelectionsView: View {
                 FontSettingView()
             }
             Preferences.Section(title: "Translation Font Rate:") {
-                FontRateSetting()
-            }
-            Preferences.Section(title: "Colors:") {
-                VStack(alignment: .trailing) {
-                    WordColorPicker()
-                    TransColorPicker()
-                    BackgroundColorPicker()
-                    RestoreDefaultColors()
+                GroupBox {
+                    VStack(alignment: .leading) {
+                        FontRateSetting()
+                    }
                 }
-                .frame(maxWidth: 140)
             }
-            Preferences.Section(title: "Shadow:") {
-                VStack(alignment: .trailing) {
-                    ShadowColorPicker()
-                    ShadowRadiusPicker()
-                    ShadowXOffSetPicker()
-                    ShadowYOffSetPicker()
-                    RestoreDefaultShadow()
-                    TextShadowToggle()
+            Preferences.Section(title: "Colors & Shandow:") {
+                HStack(alignment: .top) {
+                    GroupBox {
+                        VStack(alignment: .trailing) {
+                            WordColorPicker()
+                            TransColorPicker()
+                            BackgroundColorPicker()
+                            RestoreDefaultColors()
+                            TextShadowToggle()
+                        }
+                    }
+                    .frame(width: 170)
+                    
+                    ShadowGroupSettings()
                 }
-                .frame(maxWidth: 170)
             }
             Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
@@ -67,18 +59,7 @@ fileprivate struct AllSelectionsView: View {
             }
             Preferences.Section(title: "Content Background Display:") {
                 ContentBackgroundDisplay()
-            }
-            Preferences.Section(title: "Material:") {
-                ContentBackGroundVisualEffectMaterial()
-            }
-            Preferences.Section(title: "BlengdingMode:") {
-                ContentBackGroundVisualEffectBlendingMode()
-            }
-            Preferences.Section(title: "IsEmphasized:") {
-                ContentBackGroundVisualEffectIsEmphasized()
-            }
-            Preferences.Section(title: "EffectState:") {
-                ContentBackGroundVisualEffectState()
+                VisualEffectGroupSettings()
             }
         }
     }
@@ -300,6 +281,36 @@ fileprivate struct RestoreDefaultColors: View {
     }
 }
 
+fileprivate struct TextShadowToggle: View {
+    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $textShadowToggle, label: {
+            Text("Use Text Shadow")
+        })
+        .toggleStyle(SwitchToggleStyle())
+    }
+}
+
+fileprivate struct ShadowGroupSettings: View {
+    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
+
+    var body: some View {
+        if textShadowToggle {
+            GroupBox {
+                VStack(alignment: .trailing) {
+                    ShadowColorPicker()
+                    ShadowRadiusPicker()
+                    ShadowXOffSetPicker()
+                    ShadowYOffSetPicker()
+                    RestoreDefaultShadow()
+                }
+                .frame(width: 140)
+            }
+        }
+    }
+}
+
 fileprivate struct ShadowColorPicker: View {
     @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
     
@@ -329,9 +340,9 @@ fileprivate struct ShadowRadiusPicker: View {
     var body: some View {
         HStack {
             Spacer()
-            Text("Shadow Radius:")
+            Text("Radius:")
             TextField("", value: $shadowRadius, formatter: formatter)
-            .frame(maxWidth: 46)
+                .frame(maxWidth: 46)
         }
     }
 }
@@ -341,9 +352,9 @@ fileprivate struct ShadowXOffSetPicker: View {
     var body: some View {
         HStack {
             Spacer()
-            Text("Shadow X Offset:")
+            Text("X Offset:")
             TextField("", value: $shadowXOffset, formatter: formatter)
-            .frame(maxWidth: 46)
+                .frame(maxWidth: 46)
         }
     }
 }
@@ -354,9 +365,9 @@ fileprivate struct ShadowYOffSetPicker: View {
     var body: some View {
         HStack {
             Spacer()
-            Text("Shadow Y Offset:")
+            Text("Y Offset:")
             TextField("", value: $shadowYOffset, formatter: formatter)
-            .frame(maxWidth: 46)
+                .frame(maxWidth: 46)
         }
     }
 }
@@ -374,17 +385,6 @@ fileprivate struct RestoreDefaultShadow: View {
             shadowXOffset = 0
             shadowYOffset = 2
         })
-    }
-}
-
-fileprivate struct TextShadowToggle: View {
-    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $textShadowToggle, label: {
-            Text("Using Text Shadow Effect")
-        })
-        .toggleStyle(SwitchToggleStyle())
     }
 }
 
@@ -456,6 +456,24 @@ fileprivate struct ContentBackgroundDisplay: View {
     }
 }
 
+fileprivate struct VisualEffectGroupSettings: View {
+    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+
+    var body: some View {
+        if contentBackgroundDisplay {
+            GroupBox {
+                VStack(alignment: .trailing) {
+                    ContentBackGroundVisualEffectMaterial()
+                    ContentBackGroundVisualEffectBlendingMode()
+                    ContentBackGroundVisualEffectIsEmphasized()
+                    ContentBackGroundVisualEffectState()
+                }
+                .frame(maxWidth: 280)
+            }
+        }
+    }
+}
+
 fileprivate struct ContentBackGroundVisualEffectMaterial: View {
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
     
@@ -477,14 +495,15 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
     ]
     
     var body: some View {
-        Picker("", selection: $contentBackGroundVisualEffectMaterial) {
-            ForEach(allCases, id: \.self.0) { option in
-                Text(option.1).tag(option.0)
+        HStack {
+            Spacer()
+            Picker("Material:", selection: $contentBackGroundVisualEffectMaterial) {
+                ForEach(allCases, id: \.self.0) { option in
+                    Text(option.1).tag(option.0)
+                }
             }
+            .pickerStyle(MenuPickerStyle())
         }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 
@@ -497,14 +516,15 @@ fileprivate struct ContentBackGroundVisualEffectBlendingMode: View {
     ]
     
     var body: some View {
-        Picker("", selection: $contentBackGroundVisualEffectBlendingMode) {
-            ForEach(allCases, id: \.self.0) { option in
-                Text(option.1).tag(option.0)
+        HStack {
+            Spacer()
+            Picker("BlengdingMode:", selection: $contentBackGroundVisualEffectBlendingMode) {
+                ForEach(allCases, id: \.self.0) { option in
+                    Text(option.1).tag(option.0)
+                }
             }
+            .pickerStyle(MenuPickerStyle())
         }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 
@@ -514,14 +534,15 @@ fileprivate struct ContentBackGroundVisualEffectIsEmphasized: View {
     let allCases: [Bool] = [true, false]
     
     var body: some View {
-        Picker("", selection: $contentBackGroundVisualEffectIsEmphasized) {
-            ForEach(allCases, id: \.self) { option in
-                Text(String(option)).tag(option)
+        HStack {
+            Spacer()
+            Picker("IsEmphasized:", selection: $contentBackGroundVisualEffectIsEmphasized) {
+                ForEach(allCases, id: \.self) { option in
+                    Text(String(option)).tag(option)
+                }
             }
+            .pickerStyle(MenuPickerStyle())
         }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 
@@ -535,17 +556,17 @@ fileprivate struct ContentBackGroundVisualEffectState: View {
     ]
     
     var body: some View {
-        Picker("", selection: $contentBackGroundVisualEffectState) {
-            ForEach(allCases, id: \.self.0) { option in
-                Text(option.1).tag(option.0)
+        HStack {
+            Spacer()
+            Picker("EffectState:", selection: $contentBackGroundVisualEffectState) {
+                ForEach(allCases, id: \.self.0) { option in
+                    Text(option.1).tag(option.0)
+                }
             }
+            .pickerStyle(MenuPickerStyle())
         }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
-
 
 fileprivate struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
@@ -562,6 +583,6 @@ fileprivate struct WithAnimationToggle: View {
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         AppearanceSettingsView()
-            .frame(width: 650, height: 800)
+            .frame(width: 650, height: 1000)
     }
 }

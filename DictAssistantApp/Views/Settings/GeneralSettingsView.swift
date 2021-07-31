@@ -19,10 +19,18 @@ struct GeneralSettingsView: View {
                 KeyRecordingView()
             }
             Preferences.Section(title: "Minimum Text Height:") {
-                TRMinimumTextHeightSetting()
+                GroupBox {
+                    VStack(alignment: .leading) {
+                        TRMinimumTextHeightSetting()
+                    }
+                }
             }
             Preferences.Section(title: "Text Recognition Level:") {
-                TRTextRecognitionLevelSetting()
+                GroupBox {
+                    VStack(alignment: .leading) {
+                        TRTextRecognitionLevelSetting()
+                    }
+                }
             }
         }
     }
