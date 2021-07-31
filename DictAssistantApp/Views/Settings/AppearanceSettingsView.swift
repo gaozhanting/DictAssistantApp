@@ -436,12 +436,26 @@ fileprivate struct ContentWindowShadowToggle: View {
         }
     }
     
+    @State private var isShowingPopover = false
+    
     var body: some View {
-        Toggle(isOn: bd, label: {
-            Text("Show Content Window Shadow")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you prefer window shadow, notice it may mess up.")
+        HStack {
+            Toggle(isOn: bd, label: {
+                Text("Show Content Window Shadow")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            .help("Select it when you prefer window shadow")
+            
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "info.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .popover(isPresented: $isShowingPopover, content: {
+                Text("Notice it may mess up.")
+                    .font(.subheadline)
+                    .padding()
+            })
+        }
     }
 }
 
