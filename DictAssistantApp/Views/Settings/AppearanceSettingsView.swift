@@ -31,19 +31,21 @@ struct AppearanceSettingsView: View {
                 }
             }
             Preferences.Section(title: "Colors & Shandow:") {
-                HStack(alignment: .top) {
-                    GroupBox {
-                        VStack(alignment: .trailing) {
-                            WordColorPicker()
-                            TransColorPicker()
-                            BackgroundColorPicker()
-                            RestoreDefaultColors()
-                            TextShadowToggle()
+                GroupBox {
+                    HStack {
+                        GroupBox {
+                            VStack(alignment: .trailing) {
+                                WordColorPicker()
+                                TransColorPicker()
+                                BackgroundColorPicker()
+                                RestoreDefaultColors()
+                                TextShadowToggle()
+                            }
                         }
+                        .frame(width: 170)
+                        
+                        ShadowGroupSettings()
                     }
-                    .frame(width: 170)
-                    
-                    ShadowGroupSettings()
                 }
             }
             Preferences.Section(title: "Content Words Display:") {
