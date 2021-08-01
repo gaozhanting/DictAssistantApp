@@ -109,6 +109,9 @@ fileprivate struct TextBody: View {
             .onTapGesture(count: 2) {
                 openDict(word)
             }
+            .onLongPressGesture {
+                say(word)
+            }
             .background(contentBackgroundDisplay ? nil : theBackgroundColor)
     }
 }
