@@ -79,6 +79,14 @@ fileprivate struct TextBody: View {
     func openLexico(_ word: String) {
         openExternalDict(word, urlPrefix: "https://www.lexico.com/en/definition/")
     }
+    
+    func openDictionary(_ word: String) {
+        openExternalDict(word, urlPrefix: "https://www.dictionary.com/browse/")
+    }
+    
+    func openThesaurus(_ word: String) {
+        openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
+    }
 
     var body: some View {
         TextWithShadow(wordCell: wordCell)
@@ -94,6 +102,8 @@ fileprivate struct TextBody: View {
                     Button("Cambridge", action: { openCambridge(word) })
 //                    Button("MacMillian", action: { openMacMillian(word) })
                     Button("Lexico", action: { openLexico(word) })
+                    Button("Dictionary", action: { openDictionary(word) })
+                    Button("Thesaurus", action: { openThesaurus(word) })
                 }
             }
             .onTapGesture(count: 2) {
