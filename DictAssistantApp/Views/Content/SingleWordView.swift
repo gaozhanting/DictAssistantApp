@@ -55,13 +55,29 @@ fileprivate struct TextBody: View {
     @Environment(\.removeFromKnownWords) var removeFromKnownWords
 
     @Environment(\.openURL) var openURL
-    func openExternalDict(_ word: String) {
+    func openExternalDict(_ word: String, urlPrefix: String) {
         let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
-        guard let url = URL(string: "https://www.collinsdictionary.com/dictionary/english/\(replaceSpaced)") else {
+        guard let url = URL(string: "\(urlPrefix)\(replaceSpaced)") else {
             logger.info("invalid external dict url string")
             return
         }
         openURL(url)
+    }
+    
+    func openCollins(_ word: String) {
+        openExternalDict(word, urlPrefix: "https://www.collinsdictionary.com/dictionary/english/")
+    }
+    
+    func openCambridge(_ word: String) {
+        openExternalDict(word, urlPrefix: "https://dictionary.cambridge.org/dictionary/english/")
+    }
+    
+    func openMacMillian(_ word: String) {
+        openExternalDict(word, urlPrefix: "https://www.macmillandictionary.com/dictionary/british/") // not work for phrase
+    }
+    
+    func openLexico(_ word: String) {
+        openExternalDict(word, urlPrefix: "https://www.lexico.com/en/definition/")
     }
 
     var body: some View {
@@ -74,7 +90,10 @@ fileprivate struct TextBody: View {
                     unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
                 })
                 Menu("Online Dict Link") {
-                    Button("Collins", action: { openExternalDict(word) })
+                    Button("Collins", action: { openCollins(word) })
+                    Button("Cambridge", action: { openCambridge(word) })
+//                    Button("MacMillian", action: { openMacMillian(word) })
+                    Button("Lexico", action: { openLexico(word) })
                 }
             }
             .onTapGesture(count: 2) {
