@@ -78,3 +78,6 @@ let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
 let TextShadowToggleKey = "TextShadowToggleKey"
+
+let PortraitMaxHeightKey = "PortraitMaxHeightKey"
+let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"

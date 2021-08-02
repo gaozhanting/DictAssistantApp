@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-fileprivate let defaultMaxWidthOfLandscape: CGFloat = 260.0
-//fileprivate let defaultMaxHeighOfLandscape: CGFloat = 120.0 // why Text can't auto adjust height?
-
 fileprivate struct OriginBody: View {
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
+
     var body: some View {
         WordsView()
-            .frame(maxWidth: defaultMaxWidthOfLandscape,
+            .frame(maxWidth: CGFloat(landscapeMaxWidth),
 //                   maxHeight: defaultMaxHeighOfLandscape,
                    alignment: .topLeading)
     }

@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-fileprivate let defaultMaxHeigthOfPortrait: CGFloat = 200.0
-
 fileprivate struct OriginBody: View {
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
+
     var body: some View {
         VStack(alignment: .leading) {
             WordsView()
-                .frame(maxHeight: defaultMaxHeigthOfPortrait, alignment: .topLeading)
+                .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
         }
     }
 }

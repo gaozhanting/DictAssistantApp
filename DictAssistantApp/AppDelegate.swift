@@ -27,29 +27,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+//        return // for swiftui preview
+        
         phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
         lemmaDB = LemmaDB.read(from: "lemma.en.txt")
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
-                
+
         initCropperWindow()
-        
+
         initContentWindow()
-        
+
         initKnownWordsPanel()
-        
+
         constructMenuBar()
-        
+
         initToastWindow()
-        
+
         allKnownWordsSetCache = getAllKnownWordsSet()
 
         aVSessionAndTR = AVSessionAndTR.init(
             cropperWindow: cropperWindow,
             trCallBack: trCallBack
         )
-        
+
         registerGlobalKey()
-        
+
         fixFirstTimeLanuchOddAnimationByImplicitlyShowIt()
     }
     

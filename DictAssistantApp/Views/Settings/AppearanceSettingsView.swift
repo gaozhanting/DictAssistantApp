@@ -195,25 +195,46 @@ fileprivate struct ContentStyleSettingView: View {
     
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
     
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
+
     var body: some View {
-        HStack {
-            Picker("", selection: $contentStyle) {
-                Text("portrait").tag(ContentStyle.portrait)
-                Text("landscape").tag(ContentStyle.landscape)
-            }
-            .pickerStyle(MenuPickerStyle())
-            .labelsHidden()
-            .frame(width: 160)
-            
-            if contentStyle == .portrait {
-                Picker("", selection: $portraitCorner) {
-                    Text("topLeading").tag(PortraitCorner.topLeading)
-                    Text("topTrailing").tag(PortraitCorner.topTrailing)
+        VStack(alignment: .leading) {
+            HStack {
+                Picker("", selection: $contentStyle) {
+                    Text("portrait").tag(ContentStyle.portrait)
+                    Text("landscape").tag(ContentStyle.landscape)
                 }
                 .pickerStyle(MenuPickerStyle())
                 .labelsHidden()
-                .frame(width: 120)
+                .frame(width: 160)
+                
+                if contentStyle == .portrait {
+                    Picker("with corner:", selection: $portraitCorner) {
+                        Text("topLeading").tag(PortraitCorner.topLeading)
+                        Text("topTrailing").tag(PortraitCorner.topTrailing)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 200)
+                }
             }
+
+            switch contentStyle {
+            case .portrait:
+                HStack {
+                    Text("max height for one word:")
+                    TextField("", value: $portraitMaxHeight, formatter: formatter)
+                        .frame(width: 46)
+                }
+            case .landscape:
+                HStack {
+                    Text("max width for one word:")
+                    TextField("", value: $landscapeMaxWidth, formatter: formatter)
+                        .frame(width: 46)
+                }
+                
+            }
+                        
         }
     }
 }
@@ -610,6 +631,6 @@ fileprivate struct WithAnimationToggle: View {
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         AppearanceSettingsView()
-            .frame(width: 650, height: 1000)
+            .frame(width: 650, height: 800)
     }
 }
