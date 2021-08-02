@@ -19,9 +19,9 @@ fileprivate struct ToastView: View {
             Text(info)
                 .font(.system(size: 30, weight: .regular))
         }
-        .foregroundColor(Color(NSColor.highlightColor))
+        .foregroundColor(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(VisualEffectView(visualEffect: toastVisualEffect))
+        .background(VisualEffectView(visualEffect: toastVisualEffect).preferredColorScheme(.dark))
     }
 }
 

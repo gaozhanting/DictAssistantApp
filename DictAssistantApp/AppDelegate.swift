@@ -41,14 +41,10 @@ func toggleCropperView() {
 
 var toastWindow: NSWindow!
 func initToastWindow() {
-    toastWindow = CropperWindow.init(
+    toastWindow = ToastWindow.init(
         contentRect: NSRect(x: 300, y: 300, width: 300, height: 300),
         name: "toastWindow2"
     )
-    toastWindow.styleMask = [
-        .titled,
-        .fullSizeContentView
-    ]
     
     toastWindow.close()
 }

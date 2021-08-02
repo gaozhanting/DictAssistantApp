@@ -31,6 +31,6 @@ let selectionContentVisualEffect: NSVisualEffectView = {
 let toastVisualEffect: NSVisualEffectView = {
     let ve = NSVisualEffectView()
     ve.material = .hudWindow
-    ve.blendingMode = .withinWindow
+    ve.blendingMode = .behindWindow
     return ve
 }()
