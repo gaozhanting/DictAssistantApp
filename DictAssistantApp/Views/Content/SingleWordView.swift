@@ -116,8 +116,10 @@ fileprivate struct TextBody: View {
                     say(word)
                 }
             }
-            .background(contentBackgroundDisplay ? nil : theBackgroundColor)
+            .background(!contentBackgroundDisplay && contentStyle == .landscape ? theBackgroundColor : nil)
     }
+    
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
 }
 
 fileprivate struct TextWithShadow: View {
@@ -196,10 +198,12 @@ fileprivate struct TheText: View {
         unKnown ?
             Text(word)
             .foregroundColor(theWordColor)
-            .font(font) +
+            .font(font)
+            +
             Text(transText)
             .foregroundColor(theTransColor)
-            .font(transFont) :
+            .font(transFont)
+            :
             
             Text(word)
             .foregroundColor(theKnownWordColor)

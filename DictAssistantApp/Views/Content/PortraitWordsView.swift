@@ -31,7 +31,7 @@ fileprivate struct BackgroundColorBody: View {
     }
     var body: some View {
         OriginBody()
-//            .background(theBackgroundColor)
+            .background(theBackgroundColor)
     }
 }
 
