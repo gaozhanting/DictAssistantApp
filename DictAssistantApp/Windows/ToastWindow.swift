@@ -36,7 +36,7 @@ class ToastWindow: NSWindow {
         self.titlebarAppearsTransparent = true
         
         // Since there is no titlebar make the window moveable by click-dragging on the background
-        self.isMovableByWindowBackground = true
+//        self.isMovableByWindowBackground = true
         
         // Keep the panel around after closing since I expect the user to open/close it often
         self.isReleasedWhenClosed = false
