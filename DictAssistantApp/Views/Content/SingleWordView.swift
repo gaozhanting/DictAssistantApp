@@ -88,6 +88,8 @@ fileprivate struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
 
+    @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
+
     var body: some View {
         TextWithShadow(wordCell: wordCell)
             .opacity( (known && isPhrase) ? 0.5 : 1)
@@ -110,7 +112,9 @@ fileprivate struct TextBody: View {
                 openDict(word)
             }
             .onLongPressGesture {
-                say(word)
+                if speakWordToggle {
+                    say(word)
+                }
             }
             .background(contentBackgroundDisplay ? nil : theBackgroundColor)
     }

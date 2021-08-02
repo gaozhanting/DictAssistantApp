@@ -11,7 +11,7 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Show Toast:") {
+            Preferences.Section(title: "Toast:") {
                 ShowToastToggle()
             }
             Preferences.Section(title: "Cropper Style:") {
