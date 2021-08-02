@@ -224,6 +224,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             accessibilityDescription: nil
         )
         displayedWords.wordCells = []
+        aVSessionAndTR.lastReconginzedTexts = []
         aVSessionAndTR.startScreenCapture()
     }
     
@@ -236,6 +237,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             accessibilityDescription: nil
         )
         displayedWords.wordCells = []
+        aVSessionAndTR.lastReconginzedTexts = []
         aVSessionAndTR.stopScreenCapture()
     }
 
