@@ -119,7 +119,3 @@ var lemmaDB: [String: String] = [:]
 // first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
 // got this should not add it !
 var fixedNoiseVocabulary: Set<String> = Set.init()
-
-
-let defaultFontSizeOfLandscape = 30.0
-let defaultFontSizeOfPortrait = 18.0
