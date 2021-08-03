@@ -64,12 +64,7 @@ struct FixedKnownWordsView: View {
 }
 
 struct EditingView: View {
-    @Environment(\.removeMultiFromKnownWords) var removeMultiFromKnownWords
-    @Environment(\.addMultiToKnownWords) var addMultiToKnownWords
-
     @State private var text = ""
-    
-    @State private var showInfo = false
     
     var words: [String] {
         text.split(separator: "\n")
@@ -81,13 +76,13 @@ struct EditingView: View {
             return true
         }
         
-        for word in words {
-            for char in word {
-                if !validEnglishWordsCharacterSet.contains(char) {
-                    return true
-                }
-            }
-        }
+//        for word in words {
+//            for char in word {
+//                if !validEnglishWordsCharacterSet.contains(char) {
+//                    return true
+//                }
+//            }
+//        }
         
         return false
     }
@@ -96,80 +91,21 @@ struct EditingView: View {
         VStack(alignment: .leading) {
             HStack {
                 HStack {
-                    HStack {
-                        Button(action: { addMultiToKnownWords(Array(words)) }) {
-                            Image(systemName: "rectangle.stack.badge.plus")
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .disabled(isWordsInvalid)
-                        .help("Add multi words to Known")
-                        
-                        Button(action: { removeMultiFromKnownWords(Array(words)) }) {
-                            Image(systemName: "rectangle.stack.badge.minus")
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .disabled(isWordsInvalid)
-                        .help("Remove multi words from Known")
-                    }
-                    .padding(.horizontal, 10)
-                    
-                    HStack {
-                        Button(action: { text = highSchoolVocabulary }) {
-                            Image(systemName: "doc.on.clipboard")
-                                .overlay(
-                                    Image(systemName: "h.circle.fill")
-                                        .font(.system(size: 6, weight: .bold, design: .serif)),
-                                    alignment: .bottomLeading)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .help("Paste HighSchool Vocabulary")
-                        
-                        Button(action: { text = oxford3000Vocabulary }) {
-                            Image(systemName: "doc.on.clipboard")
-                                .overlay(
-                                    Image(systemName: "o.circle.fill")
-                                        .font(.system(size: 6, weight: .bold, design: .serif)),
-                                    alignment: .bottomLeading)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .help("Paste Oxford 3000 Vocabulary")
-                        
-                        Button(action: { text = cet4Vocabulary }) {
-                            Image(systemName: "doc.on.clipboard")
-                                .overlay(
-                                    Image(systemName: "c.circle.fill")
-                                        .font(.system(size: 6, weight: .bold, design: .serif)),
-                                    alignment: .bottomLeading)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .help("Paste CET4 Vocabulary")
-                        
-                        Button(action: { text = cet6Vocabulary }) {
-                            Image(systemName: "doc.on.clipboard")
-                                .overlay(
-                                    Image(systemName: "d.circle.fill")
-                                        .font(.system(size: 6, weight: .bold, design: .serif)),
-                                    alignment: .bottomLeading)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .help("Paste CET6 Vocabulary")
-                    }
-                    .padding(.horizontal, 10)
-                    
-                    Spacer()
-                    
-                    Button(action: { showInfo = true }) {
-                        Image(systemName: "info.circle")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .popover(isPresented: $showInfo, arrowEdge: .top, content: {
-                        InfoPopoverView()
-                    })
-                    .padding(.horizontal, 10)
+                    AddMultiButton(words: words, isWordsInvalid: isWordsInvalid)
+                    RemoveMultiButton(words: words, isWordsInvalid: isWordsInvalid)
                 }
-                .padding(.top, 5)
+                .padding(.horizontal, 10)
+                
+                HStack {
+                    PasteFirstNWikiWordFrequencyButton(text: $text)
+                    PasteOxford3000Button(text: $text)
+                }
+                .padding(.horizontal, 10)
                 
                 Spacer()
+                
+                ShowInfoIcon()
+                    .padding(.top, 5)
             }
             
             TextEditor(text: $text)
@@ -177,9 +113,126 @@ struct EditingView: View {
     }
 }
 
+fileprivate struct AddMultiButton: View {
+    @Environment(\.addMultiToKnownWords) var addMultiToKnownWords
+    
+    let words: [String]
+    let isWordsInvalid: Bool
+
+    var body: some View {
+        Button(action: { addMultiToKnownWords(Array(words)) }) {
+            Image(systemName: "rectangle.stack.badge.plus")
+        }
+        .buttonStyle(PlainButtonStyle())
+        .disabled(isWordsInvalid)
+        .help("Add multi words to Known")
+    }
+}
+
+fileprivate struct RemoveMultiButton: View {
+    @Environment(\.removeMultiFromKnownWords) var removeMultiFromKnownWords
+
+    let words: [String]
+    let isWordsInvalid: Bool
+
+    var body: some View {
+        Button(action: { removeMultiFromKnownWords(Array(words)) }) {
+            Image(systemName: "rectangle.stack.badge.minus")
+        }
+        .buttonStyle(PlainButtonStyle())
+        .disabled(isWordsInvalid)
+        .help("Remove multi words from Known")
+    }
+}
+
+fileprivate struct PasteOxford3000Button: View {
+    @Binding var text: String
+    
+    var body: some View {
+        Button(action: { text = oxford3000Vocabulary }) {
+            Image(systemName: "doc.on.clipboard")
+                .overlay(
+                    Image(systemName: "o.circle.fill")
+                        .font(.system(size: 6, weight: .bold, design: .serif)),
+                    alignment: .bottomLeading)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .help("Paste Oxford 3000 Vocabulary")
+    }
+}
+
+fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
+    @Binding var text: String
+    
+    @State private var showPopover = false
+    
+    var body: some View {
+        Button(action: { showPopover = true }) {
+            Image(systemName: "doc.on.clipboard")
+                .overlay(
+                    Image(systemName: "w.circle.fill")
+                        .font(.system(size: 6, weight: .bold, design: .serif)),
+                    alignment: .bottomLeading)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .popover(isPresented: $showPopover, arrowEdge: .bottom, content: {
+            FirstNPopoverView(text: $text, showPopover: $showPopover)
+        })
+        .help("Paste first N from first 100_000 of Wiki English word frequency list")
+    }
+}
+
+fileprivate let wikiFrequencyWords: [String] = wikiFrequencyWordsList.split(separator: "\n").map{ String($0) }
+
+fileprivate struct FirstNPopoverView: View {
+    @Binding var text: String
+    
+    @State private var from = 1.0
+    @State private var to = 5000.0
+    
+    @Binding var showPopover: Bool
+    
+    var body: some View {
+        HStack {
+            Text("from")
+            TextField("", value: $from, formatter: formatter)
+                .frame(width: 60)
+            
+            Text("to")
+            TextField("", value: $to, formatter: formatter)
+                .frame(width: 60)
+            
+            Button(action: {
+                text = wikiFrequencyWords[Int(from) ..< Int(to)].joined(separator: "\n")
+                showPopover = false
+            }) {
+                Image(systemName: "doc.on.clipboard")
+            }
+            .help("Type a range, then press paste button to paste these words below.")
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 2)
+    }
+}
+
+fileprivate struct ShowInfoIcon: View {
+    @State private var showInfo = false
+
+    var body: some View {
+        Button(action: { showInfo = true }) {
+            Image(systemName: "info.circle")
+        }
+        .buttonStyle(PlainButtonStyle())
+        .popover(isPresented: $showInfo, arrowEdge: .top, content: {
+            InfoPopoverView()
+        })
+        .padding(.horizontal, 10)
+    }
+}
+
 fileprivate struct InfoPopoverView: View {
     var body: some View {
-        (Text("Edit one word every line; valid character of a word should only be ") + Text("a-z A-Z - ' . or space").foregroundColor(.green))
+        Text("Edit your known English words, one word a line.")
             .padding(.leading, 4)
             .frame(width: 300, height: 50)
     }
@@ -189,6 +242,10 @@ struct KnownWordsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             KnownWordsView()
+                .frame(width: 300, height: 600)
+            
+            FirstNPopoverView(text: Binding.constant(""), showPopover: Binding.constant(false))
+            
             InfoPopoverView()
         }
     }

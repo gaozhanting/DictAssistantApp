@@ -58,8 +58,8 @@ func openDict(_ word: String) {
 }
 
 let validEnglishWordsCharacterSet = makeValidEnglishWordsCharacterSet()
-let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-func makeValidEnglishWordsCharacterSet() -> Set<Character> {
+fileprivate let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+fileprivate func makeValidEnglishWordsCharacterSet() -> Set<Character> {
     var characters = a_z
         .components(separatedBy: " ")
         .map { Character($0) }

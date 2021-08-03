@@ -362,7 +362,7 @@ fileprivate struct ShadowColorPicker: View {
     }
 }
 
-fileprivate let formatter: NumberFormatter = {
+let formatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
     return formatter

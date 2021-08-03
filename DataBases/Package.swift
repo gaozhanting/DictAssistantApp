@@ -27,6 +27,7 @@ let package = Package(
                 .process("Resources/cet4_vocabulary.txt"),
                 .process("Resources/cet6_vocabulary.txt"),
                 .process("Resources/oxford_3000.txt"),
+                .process("Resources/first_100_000_of_enwiki-20190320-words-frequency.txt"),
                 .process("Resources/lemma.en.txt"),
                 .process("Resources/words_should_have_lemma.txt"),
                 .process("Resources/phrases_and_idioms_extracted_from_brief_oxford_dict.txt"),
