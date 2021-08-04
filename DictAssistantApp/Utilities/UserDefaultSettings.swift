@@ -83,3 +83,5 @@ let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
 let SpeakWordToggleKey = "SpeakWordToggleKey"
+
+let TheColorSchemeKey = "TheColorSchemeKey"

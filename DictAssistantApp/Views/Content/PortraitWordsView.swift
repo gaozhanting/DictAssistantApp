@@ -18,9 +18,26 @@ fileprivate struct OriginBody: View {
     }
 }
 
+func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
+    switch theColorScheme {
+    case .light:
+        return .light
+    case .dark:
+        return .dark
+    case .system:
+        return nil
+    }
+}
+
 fileprivate struct BackgroundVisualEffectBody: View {
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+
     var body: some View {
-        OriginBody().background(VisualEffectView(visualEffect: contentVisualEffect()))
+        OriginBody()
+            .background(
+                VisualEffectView(visualEffect: contentVisualEffect())
+                    .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
+            )
     }
 }
 

@@ -17,6 +17,17 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Cropper Style:") {
                 CropperStyleSettingView()
             }
+            Preferences.Section(title: "Content Words Display:") {
+                ShowCurrentKnownWordsToggle()
+                ShowPhrasesToggle()
+                AddLineBreakToggle()
+            }
+            Preferences.Section(title: "Content Window Shadow Display:") {
+                ContentWindowShadowToggle()
+            }
+            Preferences.Section(title: "Content Animation Display:") {
+                WithAnimationToggle()
+            }
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
@@ -29,6 +40,9 @@ struct AppearanceSettingsView: View {
                         FontRateSetting()
                     }
                 }
+            }
+            Preferences.Section(title: "Appearance:") {
+                ColorSchemeSetting()
             }
             Preferences.Section(title: "Colors & Shandow:") {
                 GroupBox {
@@ -47,17 +61,6 @@ struct AppearanceSettingsView: View {
                         ShadowGroupSettings()
                     }
                 }
-            }
-            Preferences.Section(title: "Content Words Display:") {
-                ShowCurrentKnownWordsToggle()
-                ShowPhrasesToggle()
-                AddLineBreakToggle()
-            }
-            Preferences.Section(title: "Content Window Shadow Display:") {
-                ContentWindowShadowToggle()
-            }
-            Preferences.Section(title: "Content Animation Display:") {
-                WithAnimationToggle()
             }
             Preferences.Section(title: "Content Background Display:") {
                 ContentBackgroundVisualEffect()
@@ -182,6 +185,29 @@ fileprivate struct FontRateSetting: View {
         Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
             .preferenceDescription()
             .frame(width: 340, alignment: .leading)
+    }
+}
+
+enum TheColorScheme: String, CaseIterable, Identifiable {
+    case light
+    case dark
+    case system
+
+    var id: String { self.rawValue }
+}
+
+fileprivate struct ColorSchemeSetting: View {
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+
+    var body: some View {
+        Picker("", selection: $theColorScheme) {
+            Text("Light").tag(TheColorScheme.light)
+            Text("Dark").tag(TheColorScheme.dark)
+            Text("System").tag(TheColorScheme.system)
+        }
+        .labelsHidden()
+        .pickerStyle(RadioGroupPickerStyle())
+        .help("This will effect on visual effect background and system colors.")
     }
 }
 

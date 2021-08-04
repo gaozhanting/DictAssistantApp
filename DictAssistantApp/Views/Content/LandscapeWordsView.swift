@@ -20,6 +20,8 @@ fileprivate struct OriginBody: View {
 
 fileprivate struct WithScrollViewBody: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
 
     var body: some View {
         if contentBackgroundVisualEffect {
@@ -28,7 +30,10 @@ fileprivate struct WithScrollViewBody: View {
                     OriginBody()
                     VStack { Spacer() }
                 }
-                .background(VisualEffectView(visualEffect: contentVisualEffect())) // Visual effect mess up when attach mutiple seperate word
+                .background(
+                    VisualEffectView(visualEffect: contentVisualEffect())
+                        .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
+                ) // Visual effect mess up when attach mutiple seperate word
             }
         } else {
             ScrollView(.horizontal, showsIndicators: false) {
