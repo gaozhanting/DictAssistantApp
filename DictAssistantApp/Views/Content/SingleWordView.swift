@@ -163,7 +163,7 @@ fileprivate struct TheText: View {
         Color(dataToColor(transColor)!)
     }
     
-    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: CGFloat(0.0)))!
+    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
     var font: Font {
         Font(dataToFont(fontData)!)
     }

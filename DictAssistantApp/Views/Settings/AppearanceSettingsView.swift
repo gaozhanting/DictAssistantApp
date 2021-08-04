@@ -107,7 +107,7 @@ fileprivate struct CropperStyleSettingView: View {
 }
 
 fileprivate struct FontSettingView: View {
-    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: CGFloat(0.0)))!
+    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
     
     func showFontPanel(_ sender: Any?) {
         let font = dataToFont(fontData)!
@@ -130,10 +130,15 @@ fileprivate struct FontSettingView: View {
             )
             .disabled(true)
             .textFieldStyle(SquareBorderTextFieldStyle())
-            .frame(maxWidth: 230)
+            .frame(maxWidth: 200)
             
             Button("Select...") {
                 showFontPanel(nil)
+            }
+            
+            Button("Use default") {
+                let defaultFont = NSFont.systemFont(ofSize: 18.0)
+                UserDefaults.standard.setValue(fontToData(defaultFont)!, forKey: FontKey)
             }
         }
     }
