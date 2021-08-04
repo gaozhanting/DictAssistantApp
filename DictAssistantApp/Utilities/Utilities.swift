@@ -10,6 +10,10 @@ import AppKit.NSColor
 import DataBases
 import os
 
+func isAPhrase(_ word: String) -> Bool {
+    word.contains(" ")
+}
+
 func colorToData(_ color: NSColor) -> Data? {
     if let data = try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) {
         return data

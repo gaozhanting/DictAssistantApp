@@ -44,6 +44,14 @@ class SplitViewController: NSSplitViewController {
     }
 }
 
+fileprivate enum Flavor: String, CaseIterable, Identifiable {
+    case all
+    case words
+    case phrases
+
+    var id: String { self.rawValue }
+}
+
 struct FixedKnownWordsView: View {
     @FetchRequest(
         entity: WordStats.entity(),
@@ -51,15 +59,38 @@ struct FixedKnownWordsView: View {
             NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
         ]
     ) var fetchedKnownWords: FetchedResults<WordStats>
+
+    @State private var selectedFlavor = Flavor.all
     
-    var knownWords: String {
+    func filter(_ word: String) -> Bool {
+        switch selectedFlavor {
+        case .all:
+            return true
+        case .words:
+            return !isAPhrase(word)
+        case .phrases:
+            return isAPhrase(word)
+        }
+    }
+    
+    var flavorKnownWords: String {
         fetchedKnownWords
             .map { $0.word! }
+            .filter { filter($0) }
             .joined(separator: "\n")
     }
     
     var body: some View {
-        TextEditor(text: Binding.constant(knownWords))
+        VStack(alignment: .trailing) {
+            Picker("Flavor:", selection: $selectedFlavor) {
+                Text("All").tag(Flavor.all)
+                Text("Words").tag(Flavor.words)
+                Text("Phrases").tag(Flavor.phrases)
+            }
+            .frame(maxWidth: 150)
+            
+            TextEditor(text: Binding.constant(flavorKnownWords))
+        }
     }
 }
 
