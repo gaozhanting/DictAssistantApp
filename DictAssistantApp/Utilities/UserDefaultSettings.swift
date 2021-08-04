@@ -54,7 +54,7 @@ let ContentStyleKey = "ContentStyleKey"
 
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 
-let ContentBackgroundDisplayKey = "ContentBackgroundDisplayKey"
+let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
 
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 let ContentBackGroundVisualEffectBlendingModeKey = "ContentBackGroundVisualEffectBlendingModeKey"

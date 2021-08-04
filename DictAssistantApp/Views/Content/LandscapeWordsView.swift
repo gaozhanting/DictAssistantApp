@@ -19,10 +19,10 @@ fileprivate struct OriginBody: View {
 }
 
 fileprivate struct WithScrollViewBody: View {
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
 
     var body: some View {
-        if contentBackgroundDisplay {
+        if contentBackgroundVisualEffect {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
                     OriginBody()

@@ -45,7 +45,7 @@ fileprivate struct TextBody: View {
         wordCell.isKnown == .unKnown
     }
     
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
     var theBackgroundColor: Color {
         Color(dataToColor(backgroundColor)!)
@@ -116,7 +116,7 @@ fileprivate struct TextBody: View {
                     say(word)
                 }
             }
-            .background(!contentBackgroundDisplay && contentStyle == .landscape ? theBackgroundColor : nil)
+            .background(!contentBackgroundVisualEffect && contentStyle == .landscape ? theBackgroundColor : nil)
     }
     
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait

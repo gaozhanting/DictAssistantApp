@@ -36,9 +36,9 @@ fileprivate struct BackgroundColorBody: View {
 }
 
 fileprivate struct WithBackgroundBody: View {
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     var body: some View {
-        if contentBackgroundDisplay {
+        if contentBackgroundVisualEffect {
             BackgroundVisualEffectBody()
         } else {
             BackgroundColorBody()

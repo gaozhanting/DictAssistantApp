@@ -60,7 +60,7 @@ struct AppearanceSettingsView: View {
                 WithAnimationToggle()
             }
             Preferences.Section(title: "Content Background Display:") {
-                ContentBackgroundDisplay()
+                ContentBackgroundVisualEffect()
                 VisualEffectGroupSettings()
             }
         }
@@ -498,11 +498,11 @@ fileprivate struct ContentWindowShadowToggle: View {
     }
 }
 
-fileprivate struct ContentBackgroundDisplay: View {
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+fileprivate struct ContentBackgroundVisualEffect: View {
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
     var body: some View {
-        Toggle(isOn: $contentBackgroundDisplay, label: {
+        Toggle(isOn: $contentBackgroundVisualEffect, label: {
             Text("Using Visual Effect")
         })
         .toggleStyle(SwitchToggleStyle())
@@ -510,10 +510,10 @@ fileprivate struct ContentBackgroundDisplay: View {
 }
 
 fileprivate struct VisualEffectGroupSettings: View {
-    @AppStorage(ContentBackgroundDisplayKey) private var contentBackgroundDisplay: Bool = false
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
 
     var body: some View {
-        if contentBackgroundDisplay {
+        if contentBackgroundVisualEffect {
             GroupBox {
                 VStack(alignment: .trailing) {
                     ContentBackGroundVisualEffectMaterial()
