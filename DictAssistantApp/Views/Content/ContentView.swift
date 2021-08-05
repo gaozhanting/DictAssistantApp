@@ -15,19 +15,6 @@ struct WordCellWithId: Identifiable {
     let id: String
 }
 
-// need replaying -> may be @ViewBuilder to react
-func contentVisualEffect() -> NSVisualEffectView {
-    let ve = NSVisualEffectView()
-    ve.material = NSVisualEffectView.Material(
-        rawValue: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectMaterialKey))!
-    ve.blendingMode = NSVisualEffectView.BlendingMode(
-        rawValue: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectBlendingModeKey))!
-    ve.isEmphasized = UserDefaults.standard.bool(forKey: ContentBackGroundVisualEffectIsEmphasizedKey)
-    ve.state = NSVisualEffectView.State(
-        rawValue: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectStateKey))!
-    return ve
-}
-
 // how to make portrait word pop out from bottom, not from top
 
 struct ContentView: View {

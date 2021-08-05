@@ -57,9 +57,6 @@ let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
 
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
-let ContentBackGroundVisualEffectBlendingModeKey = "ContentBackGroundVisualEffectBlendingModeKey"
-let ContentBackGroundVisualEffectIsEmphasizedKey = "ContentBackGroundVisualEffectIsEmphasizedKey"
-let ContentBackGroundVisualEffectStateKey = "ContentBackGroundVisualEffectStateKey"
 
 let WordColorKey = "WordColorKey"
 let TransColorKey = "TransColorKey"

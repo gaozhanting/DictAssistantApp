@@ -21,7 +21,10 @@ fileprivate struct ToastView: View {
         }
         .foregroundColor(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(VisualEffectView(visualEffect: toastVisualEffect).preferredColorScheme(.dark))
+        .background(
+            VisualEffectView(material: .underWindowBackground)
+                .preferredColorScheme(.dark)
+        )
     }
 }
 

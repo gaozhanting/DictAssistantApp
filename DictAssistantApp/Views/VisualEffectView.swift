@@ -8,29 +8,17 @@
 import SwiftUI
 
 struct VisualEffectView: NSViewRepresentable {
-    let visualEffect: NSVisualEffectView
+    let material: NSVisualEffectView.Material
     
     func makeNSView(context: Context) -> NSVisualEffectView {
-        var visualEffectView = NSVisualEffectView()
-        visualEffectView = visualEffect
+        let visualEffectView = NSVisualEffectView()
+        visualEffectView.material = material
         visualEffectView.state = NSVisualEffectView.State.active
         return visualEffectView
     }
 
     func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
+        visualEffectView.material = material
+        visualEffectView.state = NSVisualEffectView.State.active
     }
 }
-
-let selectionContentVisualEffect: NSVisualEffectView = {
-    let ve = NSVisualEffectView()
-    ve.material = .underWindowBackground
-    ve.blendingMode = .behindWindow
-    return ve
-}()
-
-let toastVisualEffect: NSVisualEffectView = {
-    let ve = NSVisualEffectView()
-    ve.material = .hudWindow
-    ve.blendingMode = .behindWindow
-    return ve
-}()

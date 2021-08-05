@@ -64,7 +64,6 @@ struct AppearanceSettingsView: View {
             }
             Preferences.Section(title: "Content Background Display:") {
                 ContentBackgroundVisualEffect()
-                VisualEffectGroupSettings()
             }
         }
     }
@@ -526,28 +525,17 @@ fileprivate struct ContentWindowShadowToggle: View {
 
 fileprivate struct ContentBackgroundVisualEffect: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $contentBackgroundVisualEffect, label: {
-            Text("Using Visual Effect")
-        })
-        .toggleStyle(SwitchToggleStyle())
-    }
-}
-
-fileprivate struct VisualEffectGroupSettings: View {
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
 
     var body: some View {
-        if contentBackgroundVisualEffect {
-            GroupBox {
-                VStack(alignment: .trailing) {
-                    ContentBackGroundVisualEffectMaterial()
-                    ContentBackGroundVisualEffectBlendingMode()
-                    ContentBackGroundVisualEffectIsEmphasized()
-                    ContentBackGroundVisualEffectState()
-                }
-                .frame(maxWidth: 280)
+        HStack {
+            Toggle(isOn: $contentBackgroundVisualEffect, label: {
+                Text("Using Visual Effect")
+            })
+            .toggleStyle(SwitchToggleStyle())
+            
+            if contentBackgroundVisualEffect {
+                ContentBackGroundVisualEffectMaterial()
+                    .frame(maxWidth: 200)
             }
         }
     }
@@ -574,76 +562,12 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
     ]
     
     var body: some View {
-        HStack {
-            Spacer()
-            Picker("Material:", selection: $contentBackGroundVisualEffectMaterial) {
-                ForEach(allCases, id: \.self.0) { option in
-                    Text(option.1).tag(option.0)
-                }
+        Picker("with material:", selection: $contentBackGroundVisualEffectMaterial) {
+            ForEach(allCases, id: \.self.0) { option in
+                Text(option.1).tag(option.0)
             }
-            .pickerStyle(MenuPickerStyle())
         }
-    }
-}
-
-fileprivate struct ContentBackGroundVisualEffectBlendingMode: View {
-    @AppStorage(ContentBackGroundVisualEffectBlendingModeKey) private var contentBackGroundVisualEffectBlendingMode: NSVisualEffectView.BlendingMode = .behindWindow
-    
-    let allCases: [(NSVisualEffectView.BlendingMode, String)] = [
-        (.behindWindow, "behindWindow"),
-        (.withinWindow, "withinWindow")
-    ]
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Picker("BlengdingMode:", selection: $contentBackGroundVisualEffectBlendingMode) {
-                ForEach(allCases, id: \.self.0) { option in
-                    Text(option.1).tag(option.0)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-        }
-    }
-}
-
-fileprivate struct ContentBackGroundVisualEffectIsEmphasized: View {
-    @AppStorage(ContentBackGroundVisualEffectIsEmphasizedKey) private var contentBackGroundVisualEffectIsEmphasized: Bool = false
-    
-    let allCases: [Bool] = [true, false]
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Picker("IsEmphasized:", selection: $contentBackGroundVisualEffectIsEmphasized) {
-                ForEach(allCases, id: \.self) { option in
-                    Text(String(option)).tag(option)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-        }
-    }
-}
-
-fileprivate struct ContentBackGroundVisualEffectState: View {
-    @AppStorage(ContentBackGroundVisualEffectStateKey) private var contentBackGroundVisualEffectState: NSVisualEffectView.State = .active
-    
-    let allCases: [(NSVisualEffectView.State, String)] = [
-        (.active, "active"),
-        (.inactive, "inactinve"),
-        (.followsWindowActiveState, "followsWindowActiveState")
-    ]
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Picker("EffectState:", selection: $contentBackGroundVisualEffectState) {
-                ForEach(allCases, id: \.self.0) { option in
-                    Text(option.1).tag(option.0)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-        }
+        .pickerStyle(MenuPickerStyle())
     }
 }
 

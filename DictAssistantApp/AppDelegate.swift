@@ -101,7 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     
                 case .beginSelectContent:
                     let emptyView = EmptyView()
-                        .background(VisualEffectView(visualEffect: selectionContentVisualEffect))
+                        .background(VisualEffectView(material: .hudWindow))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                     contentWindow.contentView = NSHostingView(rootView: emptyView)
