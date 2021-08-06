@@ -82,3 +82,6 @@ let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 let SpeakWordToggleKey = "SpeakWordToggleKey"
 
 let TheColorSchemeKey = "TheColorSchemeKey"
+
+// Slots
+let SelectedSlotKey = "SelectedSlotKey"

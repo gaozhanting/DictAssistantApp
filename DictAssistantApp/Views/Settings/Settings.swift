@@ -11,6 +11,7 @@ import Preferences
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
     static let appearance = Self("appearance")
+    static let slots = Self("slots")
     static let dictionaries = Self("dictionaries")
 }
 
@@ -18,7 +19,7 @@ let GeneralPreferenceViewController: () -> PreferencePane = {
     let paneView = Preferences.Pane(
         identifier: .general,
         title: "General",
-        toolbarIcon: NSImage(systemSymbolName: "gearshape", accessibilityDescription: "General preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "General preferences")!
     ) {
         GeneralSettingsView()
     }
@@ -35,6 +36,18 @@ let AppearancePreferenceViewController: () -> PreferencePane = {
         AppearanceSettingsView()
     }
 
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+let SlotsPreferenceViewController: () -> PreferencePane = {
+    let paneView = Preferences.Pane(
+        identifier: .slots,
+        title: "Slots",
+        toolbarIcon: NSImage(systemSymbolName: "cube.fill", accessibilityDescription: "Slots preferences")!
+    ) {
+        SlotsSettingsView()
+    }
+    
     return Preferences.PaneHostingController(pane: paneView)
 }
 

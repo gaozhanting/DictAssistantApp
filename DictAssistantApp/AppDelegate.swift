@@ -64,6 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         preferencePanes: [
             GeneralPreferenceViewController(),
             AppearancePreferenceViewController(),
+            SlotsPreferenceViewController(),
             DictionariesPreferenceViewController()
         ],
         style: .toolbarItems,
@@ -77,6 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
         preferencesWindowController.show(preferencePane: .dictionaries)
+        preferencesWindowController.show(preferencePane: .slots)
         preferencesWindowController.show(preferencePane: .appearance)
         preferencesWindowController.show(preferencePane: .general)
         preferencesWindowController.close()
