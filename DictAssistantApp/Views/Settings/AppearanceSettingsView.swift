@@ -544,21 +544,21 @@ fileprivate struct ContentBackgroundVisualEffect: View {
 fileprivate struct ContentBackGroundVisualEffectMaterial: View {
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
-    let allCases: [(NSVisualEffectView.Material, String)] = [
-        (.titlebar, "titlebar"),
-        (.selection, "selection"),
-        (.menu, "menu"),
-        (.popover, "popover"),
-        (.sidebar, "sidebar"),
-        (.headerView, "headerView"),
-        (.sheet, "sheet"),
-        (.windowBackground, "windowBackground"),
-        (.hudWindow, "hudWindow"),
-        (.fullScreenUI, "fullScreenUI"),
-        (.toolTip, "toolTip"),
-        (.contentBackground, "contentBackground"),
-        (.underWindowBackground, "underWindowBackground"),
-        (.underPageBackground, "underPageBackground")
+    let allCases: [(Int, String)] = [
+        (NSVisualEffectView.Material.titlebar.rawValue, "titlebar"),
+        (NSVisualEffectView.Material.selection.rawValue, "selection"),
+        (NSVisualEffectView.Material.menu.rawValue, "menu"),
+        (NSVisualEffectView.Material.popover.rawValue, "popover"),
+        (NSVisualEffectView.Material.sidebar.rawValue, "sidebar"),
+        (NSVisualEffectView.Material.headerView.rawValue, "headerView"),
+        (NSVisualEffectView.Material.sheet.rawValue, "sheet"),
+        (NSVisualEffectView.Material.windowBackground.rawValue, "windowBackground"),
+        (NSVisualEffectView.Material.hudWindow.rawValue, "hudWindow"),
+        (NSVisualEffectView.Material.fullScreenUI.rawValue, "fullScreenUI"),
+        (NSVisualEffectView.Material.toolTip.rawValue, "toolTip"),
+        (NSVisualEffectView.Material.contentBackground.rawValue, "contentBackground"),
+        (NSVisualEffectView.Material.underWindowBackground.rawValue, "underWindowBackground"),
+        (NSVisualEffectView.Material.underPageBackground.rawValue, "underPageBackground")
     ]
     
     var body: some View {
