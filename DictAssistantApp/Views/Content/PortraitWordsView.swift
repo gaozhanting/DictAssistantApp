@@ -31,12 +31,12 @@ func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
 
 fileprivate struct BackgroundVisualEffectBody: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
     var body: some View {
         OriginBody()
             .background(
-                VisualEffectView(material: contentBackGroundVisualEffectMaterial)
+                VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
                     .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
             )
     }

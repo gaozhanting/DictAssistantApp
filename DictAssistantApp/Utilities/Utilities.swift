@@ -42,12 +42,6 @@ func dataToFont(_ data: Data) -> NSFont? {
     return font
 }
 
-//func dataToSettings(_ data: Data) -> Settings! {
-//    let unarchivedData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: Settings.self, from: data)
-//    let settings = unarchivedData as Settings?
-//    return settings
-//}
-
 func say(_ word: String) {
     let task = Process()
     task.launchPath = "/usr/bin/say"

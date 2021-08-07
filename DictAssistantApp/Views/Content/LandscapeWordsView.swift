@@ -22,7 +22,7 @@ fileprivate struct WithScrollViewBody: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 
     var body: some View {
         if contentBackgroundVisualEffect {
@@ -32,7 +32,7 @@ fileprivate struct WithScrollViewBody: View {
                     VStack { Spacer() }
                 }
                 .background(
-                    VisualEffectView(material: contentBackGroundVisualEffectMaterial)
+                    VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
                         .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
                 ) // Visual effect mess up when attach mutiple seperate word
             }

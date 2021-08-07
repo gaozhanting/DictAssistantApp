@@ -85,3 +85,7 @@ let TheColorSchemeKey = "TheColorSchemeKey"
 
 // Slots
 let SelectedSlotKey = "SelectedSlotKey"
+
+let BlueSettingsKey = "BlueSettingsKey"
+let GreenSettingsKey = "GreenSettingsKey"
+let RedSettingsKey = "RedSettingsKey"

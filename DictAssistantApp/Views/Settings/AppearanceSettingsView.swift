@@ -80,7 +80,7 @@ fileprivate struct ShowToastToggle: View {
     }
 }
 
-enum CropperStyle: Int {
+enum CropperStyle: Int, Codable {
     case closed = 0
     case rectangle = 1
 }
@@ -187,7 +187,7 @@ fileprivate struct FontRateSetting: View {
     }
 }
 
-enum TheColorScheme: String, CaseIterable, Identifiable {
+enum TheColorScheme: String, CaseIterable, Identifiable, Codable {
     case light
     case dark
     case system
@@ -210,12 +210,12 @@ fileprivate struct ColorSchemeSetting: View {
     }
 }
 
-enum ContentStyle: Int {
+enum ContentStyle: Int, Codable {
     case portrait = 0
     case landscape = 1
 }
 
-enum PortraitCorner: Int {
+enum PortraitCorner: Int, Codable {
     case topLeading = 0
     case topTrailing = 1
 }
@@ -542,7 +542,7 @@ fileprivate struct ContentBackgroundVisualEffect: View {
 }
 
 fileprivate struct ContentBackGroundVisualEffectMaterial: View {
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material = .titlebar
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
     let allCases: [(NSVisualEffectView.Material, String)] = [
         (.titlebar, "titlebar"),
