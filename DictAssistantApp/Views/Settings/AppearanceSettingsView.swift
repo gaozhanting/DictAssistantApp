@@ -139,7 +139,7 @@ fileprivate struct FontSettingView: View {
             
             Button("Use default") {
                 let defaultFont = NSFont.systemFont(ofSize: 18.0)
-                UserDefaults.standard.setValue(fontToData(defaultFont)!, forKey: FontKey)
+                fontData = fontToData(defaultFont)!
             }
         }
     }

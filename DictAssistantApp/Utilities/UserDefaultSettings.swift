@@ -8,37 +8,6 @@
 import Foundation
 import Cocoa
 
-func resetUserDefaults() {
-    UserDefaults.standard.set(true, forKey: IsShowPhrasesKey)
-    UserDefaults.standard.set(true, forKey: IsAddLineBreakKey)
-    UserDefaults.standard.set(false, forKey: IsShowCurrentKnownKey)
-    UserDefaults.standard.set(0.6, forKey: FontRateKey)
-    
-    UserDefaults.standard.set(1, forKey: TRTextRecognitionLevelKey)
-    UserDefaults.standard.set(systemDefaultMinimumTextHeight, forKey: TRMinimumTextHeightKey)
-    UserDefaults.standard.set(true, forKey: IsWithAnimationKey)
-    
-    UserDefaults.standard.set(CropperStyle.closed.rawValue, forKey: CropperStyleKey)
-    UserDefaults.standard.set(ContentStyle.portrait.rawValue, forKey: ContentStyleKey)
-    UserDefaults.standard.set(false, forKey: IsShowWindowShadowKey)
-    
-//    landscapeWordsPanel.setFrame(
-//        NSRect(x: 100, y: 100, width: 600, height: 200),
-//        display: true,
-//        animate: true
-//    )
-//    portraitWordsPanel.setFrame(
-//        NSRect(x: 100, y: 100, width: 200, height: 600),
-//        display: true,
-//        animate: true
-//    )
-//    cropperWindow.setFrame(
-//        NSRect(x: 300, y: 300, width: 600, height: 200),
-//        display: true,
-//        animate: true
-//    )
-}
-
 // UserDefault keys:
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"

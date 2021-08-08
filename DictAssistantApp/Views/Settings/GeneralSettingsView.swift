@@ -125,18 +125,18 @@ fileprivate struct MiniHeigthInfoPopoverView: View {
 }
 
 fileprivate struct TRTextRecognitionLevelSetting: View {
-    @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: VNRequestTextRecognitionLevel = .fast // fast 1, accurate 0
+    @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     
     var body: some View {
         Picker("", selection: $textRecognitionLevel) {
-            Text("fast").tag(VNRequestTextRecognitionLevel.fast)
-            Text("accurate").tag(VNRequestTextRecognitionLevel.accurate)
+            Text("fast").tag(VNRequestTextRecognitionLevel.fast.rawValue)
+            Text("accurate").tag(VNRequestTextRecognitionLevel.accurate.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
         
-        if textRecognitionLevel == .fast {
+        if textRecognitionLevel == VNRequestTextRecognitionLevel.fast.rawValue {
             Text("Fast is very fast, and cause low cpu usage, you should use this by default, but terrible when text on screen has tough surrounding!")
                 .preferenceDescription()
                 .frame(width: 300, height: 50, alignment: .leading)

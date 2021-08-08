@@ -191,18 +191,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             accessibilityDescription: nil
         )
         
-//        menu.addItem(NSMenuItem.separator())
-
-//        let showFontItem = NSMenuItem(title: "Show Font", action: #selector(showFontPanel(_:)), keyEquivalent: "")
-//        menu.addItem(showFontItem)
-        
-//        menu.addItem(NSMenuItem.separator())
-//
-//        let saveUserDefaultsItem = NSMenuItem(title: "Save Settings", action: #selector(saveAllUserDefaults), keyEquivalent: "")
-//        let resetUserDefaultsItem = NSMenuItem(title: "Reset Settings", action: #selector(resetUserDefaults), keyEquivalent: "")
-//        menu.addItem(saveUserDefaultsItem)
-//        menu.addItem(resetUserDefaultsItem)
-        
         let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
         

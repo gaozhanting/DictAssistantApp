@@ -25,7 +25,7 @@ fileprivate struct Settings: Codable {
     let backgroundColor: Data
     let portraitCorner: PortraitCorner
     let showToastToggle: Bool
-    let font: Data
+    let fontData: Data
     let fontRate: Double
     let shadowColor: Data
     let shadowRadius: Double
@@ -56,7 +56,7 @@ fileprivate struct Settings: Codable {
         backgroundColor: Data,
         portraitCorner: PortraitCorner,
         showToastToggle: Bool,
-        font: Data,
+        fontData: Data,
         fontRate: Double,
         shadowColor: Data,
         shadowRadius: Double,
@@ -85,7 +85,7 @@ fileprivate struct Settings: Codable {
         self.backgroundColor = backgroundColor
         self.portraitCorner = portraitCorner
         self.showToastToggle = showToastToggle
-        self.font = font
+        self.fontData = fontData
         self.fontRate = fontRate
         self.shadowColor = shadowColor
         self.shadowRadius = shadowRadius
@@ -127,7 +127,7 @@ fileprivate let defaultSettings = Settings(
     backgroundColor: colorToData(NSColor.clear)!,
     portraitCorner: .topLeading,
     showToastToggle: true,
-    font: fontToData(NSFont.systemFont(ofSize: 18.0))!,
+    fontData: fontToData(NSFont.systemFont(ofSize: 18.0))!,
     fontRate: 0.6,
     shadowColor: colorToData(NSColor.labelColor)!,
     shadowRadius: 3,
@@ -159,7 +159,7 @@ fileprivate func getCurrentSettings() -> Settings {
         backgroundColor: UserDefaults.standard.data(forKey: BackgroundColorKey)!,
         portraitCorner: PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))!,
         showToastToggle: UserDefaults.standard.bool(forKey: ShowToastToggleKey),
-        font: UserDefaults.standard.data(forKey: FontKey)!,
+        fontData: UserDefaults.standard.data(forKey: FontKey)!,
         fontRate: UserDefaults.standard.double(forKey: FontRateKey),
         shadowColor: UserDefaults.standard.data(forKey: ShadowColorKey)!,
         shadowRadius: UserDefaults.standard.double(forKey: ShadowRadiusKey),
@@ -201,38 +201,6 @@ fileprivate func theColor(from slot: Slot) -> Color {
     }
 }
 
-// write settings, read slot
-fileprivate func dumpSettings(from s: Settings) {
-    UserDefaults.standard.set(s.tRTextRecognitionLevel, forKey: TRTextRecognitionLevelKey)
-    UserDefaults.standard.set(s.tRMinimumTextHeight, forKey: TRMinimumTextHeightKey)
-    UserDefaults.standard.set(s.isWithAnimation, forKey: IsWithAnimationKey)
-    UserDefaults.standard.set(s.isShowPhrases, forKey: IsShowPhrasesKey)
-    UserDefaults.standard.set(s.isShowCurrentKnown, forKey: IsShowCurrentKnownKey)
-    UserDefaults.standard.set(s.cropperStyle.rawValue, forKey: CropperStyleKey)
-    UserDefaults.standard.set(s.contentStyle.rawValue, forKey: ContentStyleKey)
-    UserDefaults.standard.set(s.isShowWindowShadow, forKey: IsShowWindowShadowKey)
-    UserDefaults.standard.set(s.contentBackgroundVisualEffect, forKey: ContentBackgroundVisualEffectKey)
-    UserDefaults.standard.set(s.contentBackGroundVisualEffectMaterial, forKey: ContentBackgroundVisualEffectKey)
-    UserDefaults.standard.set(s.wordColor, forKey: WordColorKey)
-    UserDefaults.standard.set(s.transColor, forKey: TransColorKey)
-    UserDefaults.standard.set(s.backgroundColor, forKey: BackgroundColorKey)
-    UserDefaults.standard.set(s.portraitCorner.rawValue, forKey: PortraitCornerKey)
-    UserDefaults.standard.set(s.showToastToggle, forKey: ShowToastToggleKey)
-    UserDefaults.standard.set(s.font, forKey: FontKey)
-    UserDefaults.standard.set(s.fontRate, forKey: FontRateKey)
-    UserDefaults.standard.set(s.shadowColor, forKey: ShadowColorKey)
-    UserDefaults.standard.set(s.shadowRadius, forKey: ShadowRadiusKey)
-    UserDefaults.standard.set(s.shadowXOffSet, forKey: ShadowXOffSetKey)
-    UserDefaults.standard.set(s.shadowYOffSet, forKey: ShadowYOffSetKey)
-    UserDefaults.standard.set(s.textShadowToggle, forKey: TextShadowToggleKey)
-    UserDefaults.standard.set(s.portraitMaxHeight, forKey: PortraitMaxHeightKey)
-    UserDefaults.standard.set(s.landscapeMaxWidth, forKey: LandscapeMaxWidthKey)
-    UserDefaults.standard.set(s.speakWordToggle, forKey: SpeakWordToggleKey)
-    UserDefaults.standard.set(s.theColorScheme.rawValue, forKey: TheColorSchemeKey)
-    cropperWindow.setFrame(s.cropperFrame, display: true)
-    contentWindow.setFrame(s.contentFrame, display: true)
-}
-
 struct SlotsSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
@@ -248,32 +216,32 @@ struct SlotsSettingsView: View {
 
 fileprivate struct SlotsSettings: View {
     // isShowStoreButton need these almost all @AppStorage data
-    @AppStorage(TRTextRecognitionLevelKey) private var tRTextRecognitionLevel: VNRequestTextRecognitionLevel = .fast // fast 1, accurate 0
-    @AppStorage(TRMinimumTextHeightKey) private var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrases: Bool = true
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
-    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
-    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
-    @AppStorage(ShowToastToggleKey) private var showToastToggle: Bool = true
-    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
-    @AppStorage(FontRateKey) private var fontRate: Double = 0.6
-    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) private var shadowXOffSet: Double = 0
-    @AppStorage(ShadowYOffSetKey) private var shadowYOffSet: Double = 2
-    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
-    @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+    @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
+    @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
+    @AppStorage(IsShowCurrentKnownKey) var isShowCurrentKnown: Bool = false
+    @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
+    @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
+    @AppStorage(IsShowWindowShadowKey) var isShowWindowShadow = false
+    @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
+    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.clear)!
+    @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topLeading
+    @AppStorage(ShowToastToggleKey) var showToastToggle: Bool = true
+    @AppStorage(FontKey) var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
+    @AppStorage(FontRateKey) var fontRate: Double = 0.6
+    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
+    @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 2
+    @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 200.0
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 260.0
+    @AppStorage(SpeakWordToggleKey) var speakWordToggle: Bool = false
+    @AppStorage(TheColorSchemeKey) var theColorScheme: TheColorScheme = .system
     
     @EnvironmentObject var statusData: StatusData
     var isPlaying: Bool {
@@ -282,23 +250,23 @@ fileprivate struct SlotsSettings: View {
     
     @AppStorage(SelectedSlotKey) private var selectedSlot = Slot.blue
     
-    @AppStorage(BlueLabelKey) private var blueLabel: String = ""
-    @AppStorage(PurpleLabelKey) private var purpleLabel: String = ""
-    @AppStorage(PinkLabelKey) private var pinkLabel: String = ""
-    @AppStorage(RedLabelKey) private var redLabel: String = ""
-    @AppStorage(OrangeLabelKey) private var orangeLabel: String = ""
-    @AppStorage(YellowLabelKey) private var yellowLabel: String = ""
-    @AppStorage(GreenLabelKey) private var greenLabel: String = ""
-    @AppStorage(GrayLabelKey) private var grayLabel: String = "Default"
+    @AppStorage(BlueLabelKey) var blueLabel: String = ""
+    @AppStorage(PurpleLabelKey) var purpleLabel: String = ""
+    @AppStorage(PinkLabelKey) var pinkLabel: String = ""
+    @AppStorage(RedLabelKey) var redLabel: String = ""
+    @AppStorage(OrangeLabelKey) var orangeLabel: String = ""
+    @AppStorage(YellowLabelKey) var yellowLabel: String = ""
+    @AppStorage(GreenLabelKey) var greenLabel: String = ""
+    @AppStorage(GrayLabelKey) var grayLabel: String = "Default"
     
-    @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(PurpleSettingsKey) private var purpleSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(PinkSettingsKey) private var pinkSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(OrangeSettingsKey) private var orangeSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(YellowSettingsKey) private var yellowSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(GraySettingsKey) private var graySettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(BlueSettingsKey) var blueSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(PurpleSettingsKey) var purpleSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(PinkSettingsKey) var pinkSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(RedSettingsKey) var redSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(OrangeSettingsKey) var orangeSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(YellowSettingsKey) var yellowSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(GreenSettingsKey) var greenSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(GraySettingsKey) var graySettingsData: Data = settingsToData(defaultSettings)!
         
     var selectedSettings: Settings {
         switch selectedSlot {
@@ -332,7 +300,7 @@ fileprivate struct SlotsSettings: View {
 
     func isSelectedSlotEqualWithCurrentSettings() -> Bool {
         let s = selectedSettings
-        return s.tRTextRecognitionLevel == tRTextRecognitionLevel.rawValue &&
+        let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
             s.tRMinimumTextHeight == tRMinimumTextHeight &&
             s.isWithAnimation == isWithAnimation &&
             s.isShowPhrases == isShowPhrases &&
@@ -347,7 +315,7 @@ fileprivate struct SlotsSettings: View {
             s.backgroundColor == backgroundColor &&
             s.portraitCorner == portraitCorner &&
             s.showToastToggle == showToastToggle &&
-            s.font == fontData &&
+            s.fontData == fontData &&
             s.fontRate == fontRate &&
             s.shadowColor == shadowColor &&
             s.shadowRadius == shadowRadius &&
@@ -360,12 +328,46 @@ fileprivate struct SlotsSettings: View {
             s.theColorScheme == theColorScheme
 //            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow
 //            s.contentFrame == contentWindow.frame
+        
+        return result
     }
     
     func isShowStoreButton(_ slot: Slot) -> Bool {
         slot != .gray &&
             selectedSlot == slot &&
             !isSelectedSlotEqualWithCurrentSettings()
+    }
+    
+    // write settings, read slot
+    fileprivate func dumpSettings(from s: Settings) {
+        tRTextRecognitionLevel = s.tRTextRecognitionLevel
+        tRMinimumTextHeight = s.tRMinimumTextHeight
+        isWithAnimation = s.isWithAnimation
+        isShowPhrases = s.isShowPhrases
+        isShowCurrentKnown = s.isShowCurrentKnown
+        cropperStyle = s.cropperStyle
+        contentStyle = s.contentStyle
+        isShowWindowShadow = s.isShowWindowShadow
+        contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
+        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial
+        wordColor = s.wordColor
+        transColor = s.transColor
+        backgroundColor = s.backgroundColor
+        portraitCorner = s.portraitCorner
+        showToastToggle = s.showToastToggle
+        fontData = s.fontData
+        fontRate = s.fontRate
+        shadowColor = s.shadowColor
+        shadowRadius = s.shadowRadius
+        shadowXOffSet = s.shadowXOffSet
+        shadowYOffSet = s.shadowYOffSet
+        textShadowToggle = s.textShadowToggle
+        portraitMaxHeight = s.portraitMaxHeight
+        landscapeMaxWidth = s.landscapeMaxWidth
+        speakWordToggle = s.speakWordToggle
+        theColorScheme = s.theColorScheme
+        cropperWindow.setFrame(s.cropperFrame, display: true)
+        contentWindow.setFrame(s.contentFrame, display: true)
     }
     
     var binding: Binding<Slot> {
@@ -394,7 +396,13 @@ fileprivate struct SlotsSettings: View {
     var body: some View {
         Picker("", selection: binding) {
             ForEach(Slot.allCases) { color in
-                SlotItem(color: theColor(from: color),label: getTheLabel(color),isShowStoreButton: isShowStoreButton(color),storeAction: storeSlot(color)).tag(color)
+                SlotItem(
+                    color: theColor(from: color),
+                    label: getTheLabel(color),
+                    isShowStoreButton: isShowStoreButton(color),
+                    storeAction: storeSlot(color)
+                )
+                .tag(color)
             }
         }
         .labelsHidden()
@@ -434,13 +442,19 @@ fileprivate struct SlotItem: View {
 
 fileprivate struct Info: View {
     var body: some View {
-        Text("Slot is a collection of all preferences settings except global shortcut key settings & cropper window frame & content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is immutable a default slot representing default settings.")
+        Text("Slot is a collection of all preferences settings (except global shortcut key settings) & cropper window frame & content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is the immutable default slot.")
+            .font(.callout)
+            .frame(width: 460, height: 100)
     }
 }
 
 struct SlotsSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SlotsSettingsView()
-            .environmentObject(StatusData(isPlaying: false))
+        Group {
+            SlotsSettingsView()
+                .environmentObject(StatusData(isPlaying: false))
+            
+            Info()
+        }
     }
 }
