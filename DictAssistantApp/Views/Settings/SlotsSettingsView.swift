@@ -239,6 +239,9 @@ struct SlotsSettingsView: View {
             Preferences.Section(title: "Slots:") {
                 SlotsSettings()
             }
+            Preferences.Section(title: "Info:") {
+                Info()
+            }
         }
     }
 }
@@ -400,7 +403,7 @@ fileprivate struct SlotsSettings: View {
     }
 }
 
-struct SlotItem: View {
+fileprivate struct SlotItem: View {
     let color: Color
     @Binding var label: String
     let isShowStoreButton: Bool
@@ -426,6 +429,12 @@ struct SlotItem: View {
                 })
             }
         }
+    }
+}
+
+fileprivate struct Info: View {
+    var body: some View {
+        Text("Slot is a collection of all preferences settings except global shortcut key settings & cropper window frame & content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is immutable a default slot representing default settings.")
     }
 }
 
