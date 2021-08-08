@@ -157,6 +157,11 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
+    @EnvironmentObject var statusData: StatusData
+    
+    var isPlaying: Bool {
+        statusData.isPlaying
+    }
     
     var blueSettings: Settings {
         dataToSettings(blueSettingsData)!
@@ -237,6 +242,7 @@ fileprivate struct SlotsSettings: View {
         }
         .labelsHidden()
         .pickerStyle(RadioGroupPickerStyle())
+        .disabled(isPlaying)
     }
 }
 

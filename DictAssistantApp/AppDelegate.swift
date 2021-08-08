@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         preferencePanes: [
             GeneralPreferenceViewController(),
             AppearancePreferenceViewController(),
-            SlotsPreferenceViewController(),
+            SlotsPreferenceViewController(statusData: statusData),
             DictionariesPreferenceViewController()
         ],
         style: .toolbarItems,

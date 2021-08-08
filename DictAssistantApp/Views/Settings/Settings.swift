@@ -15,7 +15,7 @@ extension Preferences.PaneIdentifier {
     static let dictionaries = Self("dictionaries")
 }
 
-let GeneralPreferenceViewController: () -> PreferencePane = {
+func GeneralPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .general,
         title: "General",
@@ -27,7 +27,7 @@ let GeneralPreferenceViewController: () -> PreferencePane = {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-let AppearancePreferenceViewController: () -> PreferencePane = {
+func AppearancePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .appearance,
         title: "Appearance",
@@ -39,19 +39,20 @@ let AppearancePreferenceViewController: () -> PreferencePane = {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-let SlotsPreferenceViewController: () -> PreferencePane = {
+func SlotsPreferenceViewController(statusData: StatusData) -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: "Slots",
         toolbarIcon: NSImage(systemSymbolName: "cube.fill", accessibilityDescription: "Slots preferences")!
     ) {
         SlotsSettingsView()
+            .environmentObject(statusData)
     }
     
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-let DictionariesPreferenceViewController: () -> PreferencePane = {
+func DictionariesPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .dictionaries,
         title: "Dictionaries",
