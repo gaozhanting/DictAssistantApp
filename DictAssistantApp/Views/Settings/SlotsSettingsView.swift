@@ -183,6 +183,7 @@ fileprivate enum Slot: String, CaseIterable, Identifiable {
     case pink
     case orange
     case purple
+    case gray
 
     var id: String { self.rawValue }
 }
@@ -203,6 +204,8 @@ fileprivate func theColor(from slot: Slot) -> Color {
         return Color.orange
     case .purple:
         return Color.purple
+    case .gray:
+        return Color.gray
     }
 }
 
@@ -291,6 +294,7 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(PinkLabelKey) private var pinkLabel: String = ""
     @AppStorage(OrangeLabelKey) private var orangeLabel: String = ""
     @AppStorage(PurpleLabelKey) private var purpleLabel: String = ""
+    @AppStorage(GrayLabelKey) private var grayLabel: String = "Default"
     
     @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
@@ -299,6 +303,7 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(PinkSettingsKey) private var pinkSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(OrangeSettingsKey) private var orangeSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(PurpleSettingsKey) private var purpleSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(GraySettingsKey) private var graySettingsData: Data = settingsToData(defaultSettings)!
         
     var selectedSettings: Settings {
         switch selectedSlot {
@@ -316,6 +321,8 @@ fileprivate struct SlotsSettings: View {
             return dataToSettings(orangeSettingsData)!
         case .purple:
             return dataToSettings(purpleSettingsData)!
+        case .gray:
+            return dataToSettings(graySettingsData)!
         }
     }
     
@@ -338,6 +345,8 @@ fileprivate struct SlotsSettings: View {
                 orangeSettingsData = settingsToData(currentSettings)!
             case .purple:
                 purpleSettingsData = settingsToData(currentSettings)!
+            case .gray:
+                print("gray do nothing")
             }
         }
     }
@@ -375,9 +384,11 @@ fileprivate struct SlotsSettings: View {
     }
     
     func isShowStoreButton(_ slot: Slot) -> Bool {
-        selectedSlot == slot && !isSelectedSlotEqualWithCurrentSettings()
+        slot != .gray &&
+            selectedSlot == slot &&
+            !isSelectedSlotEqualWithCurrentSettings()
     }
-   
+    
     var binding: Binding<Slot> {
         Binding.init(
             get: { selectedSlot },
@@ -397,6 +408,7 @@ fileprivate struct SlotsSettings: View {
         case .pink: return $pinkLabel
         case .orange: return $orangeLabel
         case .purple: return $purpleLabel
+        case .gray: return $grayLabel
         }
     }
     
@@ -427,6 +439,7 @@ struct SlotItem: View {
                 
                 TextField("", text: $label)
                     .frame(width: 110)
+                    .disabled(color == Color.gray)
             }
             
             if isShowStoreButton {
