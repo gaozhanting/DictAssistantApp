@@ -177,12 +177,12 @@ fileprivate func getCurrentSettings() -> Settings {
 
 fileprivate enum Slot: String, CaseIterable, Identifiable {
     case blue
-    case green
-    case red
-    case yellow
-    case pink
-    case orange
     case purple
+    case pink
+    case red
+    case orange
+    case yellow
+    case green
     case gray
 
     var id: String { self.rawValue }
@@ -190,22 +190,14 @@ fileprivate enum Slot: String, CaseIterable, Identifiable {
 
 fileprivate func theColor(from slot: Slot) -> Color {
     switch slot {
-    case .blue:
-        return Color.blue
-    case .green:
-        return Color.green
-    case .red:
-        return Color.red
-    case .yellow:
-        return Color.yellow
-    case .pink:
-        return Color.pink
-    case .orange:
-        return Color.orange
-    case .purple:
-        return Color.purple
-    case .gray:
-        return Color.gray
+    case .blue: return Color.blue
+    case .purple: return Color.purple
+    case .pink: return Color.pink
+    case .red: return Color.red
+    case .orange: return Color.orange
+    case .yellow: return Color.yellow
+    case .green: return Color.green
+    case .gray: return Color.gray
     }
 }
 
@@ -288,41 +280,33 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(SelectedSlotKey) private var selectedSlot = Slot.blue
     
     @AppStorage(BlueLabelKey) private var blueLabel: String = ""
-    @AppStorage(GreenLabelKey) private var greenLabel: String = ""
-    @AppStorage(RedLabelKey) private var redLabel: String = ""
-    @AppStorage(YellowLabelKey) private var yellowLabel: String = ""
-    @AppStorage(PinkLabelKey) private var pinkLabel: String = ""
-    @AppStorage(OrangeLabelKey) private var orangeLabel: String = ""
     @AppStorage(PurpleLabelKey) private var purpleLabel: String = ""
+    @AppStorage(PinkLabelKey) private var pinkLabel: String = ""
+    @AppStorage(RedLabelKey) private var redLabel: String = ""
+    @AppStorage(OrangeLabelKey) private var orangeLabel: String = ""
+    @AppStorage(YellowLabelKey) private var yellowLabel: String = ""
+    @AppStorage(GreenLabelKey) private var greenLabel: String = ""
     @AppStorage(GrayLabelKey) private var grayLabel: String = "Default"
     
     @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(YellowSettingsKey) private var yellowSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(PinkSettingsKey) private var pinkSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(OrangeSettingsKey) private var orangeSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(PurpleSettingsKey) private var purpleSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(PinkSettingsKey) private var pinkSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(OrangeSettingsKey) private var orangeSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(YellowSettingsKey) private var yellowSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(GraySettingsKey) private var graySettingsData: Data = settingsToData(defaultSettings)!
         
     var selectedSettings: Settings {
         switch selectedSlot {
-        case .blue:
-            return dataToSettings(blueSettingsData)!
-        case .green:
-            return dataToSettings(greenSettingsData)!
-        case .red:
-            return dataToSettings(redSettingsData)!
-        case .yellow:
-            return dataToSettings(yellowSettingsData)!
-        case .pink:
-            return dataToSettings(pinkSettingsData)!
-        case .orange:
-            return dataToSettings(orangeSettingsData)!
-        case .purple:
-            return dataToSettings(purpleSettingsData)!
-        case .gray:
-            return dataToSettings(graySettingsData)!
+        case .blue: return dataToSettings(blueSettingsData)!
+        case .purple: return dataToSettings(purpleSettingsData)!
+        case .pink: return dataToSettings(pinkSettingsData)!
+        case .red: return dataToSettings(redSettingsData)!
+        case .orange: return dataToSettings(orangeSettingsData)!
+        case .yellow: return dataToSettings(yellowSettingsData)!
+        case .green: return dataToSettings(greenSettingsData)!
+        case .gray: return dataToSettings(graySettingsData)!
         }
     }
     
@@ -331,22 +315,14 @@ fileprivate struct SlotsSettings: View {
         return {
             let currentSettings = getCurrentSettings()
             switch slot {
-            case .blue:
-                blueSettingsData = settingsToData(currentSettings)!
-            case .green:
-                greenSettingsData = settingsToData(currentSettings)!
-            case .red:
-                redSettingsData = settingsToData(currentSettings)!
-            case .yellow:
-                yellowSettingsData = settingsToData(currentSettings)!
-            case .pink:
-                pinkSettingsData = settingsToData(currentSettings)!
-            case .orange:
-                orangeSettingsData = settingsToData(currentSettings)!
-            case .purple:
-                purpleSettingsData = settingsToData(currentSettings)!
-            case .gray:
-                print("gray do nothing")
+            case .blue: blueSettingsData = settingsToData(currentSettings)!
+            case .purple: purpleSettingsData = settingsToData(currentSettings)!
+            case .pink: pinkSettingsData = settingsToData(currentSettings)!
+            case .red: redSettingsData = settingsToData(currentSettings)!
+            case .orange: orangeSettingsData = settingsToData(currentSettings)!
+            case .yellow: yellowSettingsData = settingsToData(currentSettings)!
+            case .green: greenSettingsData = settingsToData(currentSettings)!
+            case .gray: print("gray do nothing")
             }
         }
     }
@@ -402,12 +378,12 @@ fileprivate struct SlotsSettings: View {
     func getTheLabel(_ slot: Slot) -> Binding<String> {
         switch slot {
         case .blue: return $blueLabel
-        case .green: return $greenLabel
-        case .red: return $redLabel
-        case .yellow: return $yellowLabel
-        case .pink: return $pinkLabel
-        case .orange: return $orangeLabel
         case .purple: return $purpleLabel
+        case .pink: return $pinkLabel
+        case .red: return $redLabel
+        case .orange: return $orangeLabel
+        case .yellow: return $yellowLabel
+        case .green: return $greenLabel
         case .gray: return $grayLabel
         }
     }
