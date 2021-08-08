@@ -89,3 +89,8 @@ let SelectedSlotKey = "SelectedSlotKey"
 let BlueSettingsKey = "BlueSettingsKey"
 let GreenSettingsKey = "GreenSettingsKey"
 let RedSettingsKey = "RedSettingsKey"
+
+let BlueLabelKey = "BlueLabelKey"
+let GreenLabelKey = "GreenLabelKey"
+let RedLabelKey = "RedLabelKey"
+

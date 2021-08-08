@@ -249,6 +249,9 @@ fileprivate enum Slot: String, CaseIterable, Identifiable {
 }
 
 fileprivate struct SlotView: View {
+    @AppStorage(BlueLabelKey) private var blueLabel: String = ""
+    @AppStorage(GreenLabelKey) private var greenLabel: String = ""
+    @AppStorage(RedLabelKey) private var redLabel: String = ""
     @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
     @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
@@ -389,16 +392,34 @@ fileprivate struct SlotView: View {
             s.portraitMaxHeight == portraitMaxHeight &&
             s.landscapeMaxWidth == landscapeMaxWidth &&
             s.speakWordToggle == speakWordToggle &&
-            s.theColorScheme == theColorScheme &&
-            s.cropperFrame == cropperWindow.frame &&
-            s.contentFrame == contentWindow.frame
+            s.theColorScheme == theColorScheme
+//            s.cropperFrame == cropperWindow.frame &&
+//            s.contentFrame == contentWindow.frame
+    }
+   
+    func whichLabel(_ color: Color) -> Binding<String> {
+        switch color {
+        case .blue:
+            return $blueLabel
+        case .green:
+            return $greenLabel
+        case .red:
+            return $redLabel
+        default: // not this case
+            return $blueLabel
+        }
     }
     
     var body: some View {
         HStack {
-            Image(systemName: "cube.fill")
-                .font(.largeTitle)
-                .foregroundColor(color)
+            HStack {
+                Image(systemName: "cube.fill")
+                    .font(.title)
+                    .foregroundColor(color)
+                
+                TextField("", text: whichLabel(color))
+                    .frame(width: 70)
+            }
             
             if isColorSelected() && !isTheSame() {
                 Button("store", action: {
