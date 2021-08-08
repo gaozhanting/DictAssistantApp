@@ -9,16 +9,6 @@ import SwiftUI
 import Preferences
 import Vision
 
-struct SlotsSettingsView: View {
-    var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Slots:") {
-                SlotsSettings()
-            }
-        }
-    }
-}
-
 fileprivate struct Settings: Codable {
     let tRTextRecognitionLevel: Int
     let tRMinimumTextHeight: Double
@@ -152,6 +142,24 @@ fileprivate let defaultSettings = Settings(
     contentFrame: NSRect(x: 300, y: 300, width: 600, height: 200)
 )
 
+fileprivate enum Slot: String, CaseIterable, Identifiable {
+    case blue
+    case green
+    case red
+
+    var id: String { self.rawValue }
+}
+
+struct SlotsSettingsView: View {
+    var body: some View {
+        Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "Slots:") {
+                SlotsSettings()
+            }
+        }
+    }
+}
+
 fileprivate struct SlotsSettings: View {
     @AppStorage(SelectedSlotKey) private var selectedSlot = Slot.blue
     @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
@@ -244,14 +252,6 @@ fileprivate struct SlotsSettings: View {
         .pickerStyle(RadioGroupPickerStyle())
         .disabled(isPlaying)
     }
-}
-
-fileprivate enum Slot: String, CaseIterable, Identifiable {
-    case blue
-    case green
-    case red
-
-    var id: String { self.rawValue }
 }
 
 fileprivate struct SlotView: View {
@@ -439,5 +439,6 @@ fileprivate struct SlotView: View {
 struct SlotsSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SlotsSettingsView()
+            .environmentObject(StatusData(isPlaying: false))
     }
 }
