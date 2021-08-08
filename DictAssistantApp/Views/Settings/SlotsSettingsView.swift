@@ -179,6 +179,10 @@ fileprivate enum Slot: String, CaseIterable, Identifiable {
     case blue
     case green
     case red
+    case yellow
+    case pink
+    case orange
+    case purple
 
     var id: String { self.rawValue }
 }
@@ -191,6 +195,14 @@ fileprivate func theColor(from slot: Slot) -> Color {
         return Color.green
     case .red:
         return Color.red
+    case .yellow:
+        return Color.yellow
+    case .pink:
+        return Color.pink
+    case .orange:
+        return Color.orange
+    case .purple:
+        return Color.purple
     }
 }
 
@@ -237,30 +249,6 @@ struct SlotsSettingsView: View {
 }
 
 fileprivate struct SlotsSettings: View {
-    @AppStorage(SelectedSlotKey) private var selectedSlot = Slot.blue
-    
-    @AppStorage(BlueLabelKey) private var blueLabel: String = ""
-    @AppStorage(GreenLabelKey) private var greenLabel: String = ""
-    @AppStorage(RedLabelKey) private var redLabel: String = ""
-    @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
-    var selectedSettings: Settings {
-        switch selectedSlot {
-        case .blue:
-            return dataToSettings(blueSettingsData)!
-        case .green:
-            return dataToSettings(greenSettingsData)!
-        case .red:
-            return dataToSettings(redSettingsData)!
-        }
-    }
-    
-    @EnvironmentObject var statusData: StatusData
-    var isPlaying: Bool {
-        statusData.isPlaying
-    }
-    
     // isShowStoreButton need these almost all @AppStorage data
     @AppStorage(TRTextRecognitionLevelKey) private var tRTextRecognitionLevel: VNRequestTextRecognitionLevel = .fast // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) private var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
@@ -288,7 +276,49 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
     @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
-
+    
+    @EnvironmentObject var statusData: StatusData
+    var isPlaying: Bool {
+        statusData.isPlaying
+    }
+    
+    @AppStorage(SelectedSlotKey) private var selectedSlot = Slot.blue
+    
+    @AppStorage(BlueLabelKey) private var blueLabel: String = ""
+    @AppStorage(GreenLabelKey) private var greenLabel: String = ""
+    @AppStorage(RedLabelKey) private var redLabel: String = ""
+    @AppStorage(YellowLabelKey) private var yellowLabel: String = ""
+    @AppStorage(PinkLabelKey) private var pinkLabel: String = ""
+    @AppStorage(OrangeLabelKey) private var orangeLabel: String = ""
+    @AppStorage(PurpleLabelKey) private var purpleLabel: String = ""
+    
+    @AppStorage(BlueSettingsKey) private var blueSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(GreenSettingsKey) private var greenSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(RedSettingsKey) private var redSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(YellowSettingsKey) private var yellowSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(PinkSettingsKey) private var pinkSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(OrangeSettingsKey) private var orangeSettingsData: Data = settingsToData(defaultSettings)!
+    @AppStorage(PurpleSettingsKey) private var purpleSettingsData: Data = settingsToData(defaultSettings)!
+        
+    var selectedSettings: Settings {
+        switch selectedSlot {
+        case .blue:
+            return dataToSettings(blueSettingsData)!
+        case .green:
+            return dataToSettings(greenSettingsData)!
+        case .red:
+            return dataToSettings(redSettingsData)!
+        case .yellow:
+            return dataToSettings(yellowSettingsData)!
+        case .pink:
+            return dataToSettings(pinkSettingsData)!
+        case .orange:
+            return dataToSettings(orangeSettingsData)!
+        case .purple:
+            return dataToSettings(purpleSettingsData)!
+        }
+    }
+    
     // write slot, read settings
     func storeSlot(_ slot: Slot) -> () -> Void {
         return {
@@ -300,6 +330,14 @@ fileprivate struct SlotsSettings: View {
                 greenSettingsData = settingsToData(currentSettings)!
             case .red:
                 redSettingsData = settingsToData(currentSettings)!
+            case .yellow:
+                yellowSettingsData = settingsToData(currentSettings)!
+            case .pink:
+                pinkSettingsData = settingsToData(currentSettings)!
+            case .orange:
+                orangeSettingsData = settingsToData(currentSettings)!
+            case .purple:
+                purpleSettingsData = settingsToData(currentSettings)!
             }
         }
     }
@@ -350,31 +388,23 @@ fileprivate struct SlotsSettings: View {
         )
     }
     
+    func getTheLabel(_ slot: Slot) -> Binding<String> {
+        switch slot {
+        case .blue: return $blueLabel
+        case .green: return $greenLabel
+        case .red: return $redLabel
+        case .yellow: return $yellowLabel
+        case .pink: return $pinkLabel
+        case .orange: return $orangeLabel
+        case .purple: return $purpleLabel
+        }
+    }
+    
     var body: some View {
         Picker("", selection: binding) {
-            SlotItem(
-                color: theColor(from: .blue),
-                label: $blueLabel,
-                isShowStoreButton: isShowStoreButton(.blue),
-                storeAction: storeSlot(.blue)
-            )
-            .tag(Slot.blue)
-            
-            SlotItem(
-                color: theColor(from: .green),
-                label: $greenLabel,
-                isShowStoreButton: isShowStoreButton(.green),
-                storeAction: storeSlot(.green)
-            )
-            .tag(Slot.green)
-            
-            SlotItem(
-                color: theColor(from: .red),
-                label: $redLabel,
-                isShowStoreButton: isShowStoreButton(.red),
-                storeAction: storeSlot(.red)
-            )
-            .tag(Slot.red)
+            ForEach(Slot.allCases) { color in
+                SlotItem(color: theColor(from: color),label: getTheLabel(color),isShowStoreButton: isShowStoreButton(color),storeAction: storeSlot(color)).tag(color)
+            }
         }
         .labelsHidden()
         .pickerStyle(RadioGroupPickerStyle())
