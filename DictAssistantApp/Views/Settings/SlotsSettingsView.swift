@@ -442,9 +442,8 @@ fileprivate struct SlotItem: View {
 
 fileprivate struct Info: View {
     var body: some View {
-        Text("Slot is a collection of all preferences settings (except global shortcut key settings) & cropper window frame & content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is the immutable default slot.")
-            .font(.callout)
-            .frame(width: 460, height: 100)
+        Text("Slot is a collection of all preferences settings (except global shortcut key settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is the immutable default slot.")
+            .frame(width: 520, height: 100)
     }
 }
 
