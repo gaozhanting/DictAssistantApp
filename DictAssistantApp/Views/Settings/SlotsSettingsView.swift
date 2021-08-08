@@ -414,7 +414,9 @@ struct SlotItem: View {
                     .foregroundColor(color)
                 
                 TextField("", text: $label)
-                    .frame(width: 110)
+                    .font(.callout)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .frame(width: 150)
                     .disabled(color == Color.gray)
             }
             
