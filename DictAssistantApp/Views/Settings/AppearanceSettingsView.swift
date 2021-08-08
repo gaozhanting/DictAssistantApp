@@ -52,7 +52,6 @@ struct AppearanceSettingsView: View {
                                 WordColorPicker()
                                 TransColorPicker()
                                 BackgroundColorPicker()
-                                RestoreDefaultColors()
                                 TextShadowToggle()
                             }
                         }
@@ -149,10 +148,6 @@ fileprivate struct FontSettingView: View {
 fileprivate struct FontRateSetting: View {
     @AppStorage(FontRateKey) private var fontRateKey: Double = 0.6
     
-    func resetToDefault() {
-        fontRateKey = 0.6
-    }
-    
     func incrementStep() {
         fontRateKey += 0.01
         if fontRateKey > 1 {
@@ -178,9 +173,7 @@ fileprivate struct FontRateSetting: View {
             
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
         }
-        
-        Button("Reset to default: 0.6", action: resetToDefault)
-        
+                
         Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
             .preferenceDescription()
             .frame(width: 340, alignment: .leading)
@@ -320,20 +313,6 @@ fileprivate struct BackgroundColorPicker: View {
     }
 }
 
-fileprivate struct RestoreDefaultColors: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
-    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
-
-    var body: some View {
-        Button("Use default colors", action: {
-            wordColor = colorToData(NSColor.labelColor)!
-            transColor = colorToData(NSColor.highlightColor)!
-            backgroundColor = colorToData(NSColor.clear)!
-        })
-    }
-}
-
 fileprivate struct TextShadowToggle: View {
     @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
     
@@ -367,7 +346,6 @@ fileprivate struct ShadowGroupSettings: View {
                     ShadowRadiusPicker()
                     ShadowXOffSetPicker()
                     ShadowYOffSetPicker()
-                    RestoreDefaultShadow()
                 }
                 .frame(width: 140)
             }
@@ -433,22 +411,6 @@ fileprivate struct ShadowYOffSetPicker: View {
             TextField("", value: $shadowYOffset, formatter: formatter)
                 .frame(maxWidth: 46)
         }
-    }
-}
-
-fileprivate struct RestoreDefaultShadow: View {
-    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
-    
-    var body: some View {
-        Button("Use default shadow", action: {
-            shadowColor = colorToData(NSColor.labelColor)!
-            shadowRadius = 3
-            shadowXOffset = 0
-            shadowYOffset = 2
-        })
     }
 }
 
