@@ -202,15 +202,35 @@ fileprivate func theColor(from slot: Slot) -> Color {
 }
 
 struct SlotsSettingsView: View {
+    @State private var isShowingPopover = false
+
     var body: some View {
+        
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "Slots:") {
                 SlotsSettings()
             }
-            Preferences.Section(title: "Info:") {
-                Info()
-            }
         }
+        .overlay(
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "questionmark").font(.body)
+            })
+            .clipShape(Circle())
+            .padding()
+            .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
+                InfoView()
+            })
+            ,
+            alignment: .bottomTrailing
+        )
+    }
+}
+
+fileprivate struct InfoView: View {
+    var body: some View {
+        Text("Slot is a collection of all preferences settings (except global shortcut key settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is the immutable default slot.")
+            .padding()
+            .frame(width: 520, height: 100)
     }
 }
 
@@ -440,20 +460,13 @@ fileprivate struct SlotItem: View {
     }
 }
 
-fileprivate struct Info: View {
-    var body: some View {
-        Text("Slot is a collection of all preferences settings (except global shortcut key settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is the immutable default slot.")
-            .frame(width: 520, height: 100)
-    }
-}
-
 struct SlotsSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SlotsSettingsView()
                 .environmentObject(StatusData(isPlaying: false))
             
-            Info()
+            InfoView()
         }
     }
 }
