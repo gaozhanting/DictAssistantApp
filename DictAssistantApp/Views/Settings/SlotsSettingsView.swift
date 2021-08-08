@@ -325,7 +325,7 @@ fileprivate struct SlotView: View {
         }
     }
     
-    func isColorSelected() -> Bool {
+    var isColorSelected: Bool {
         if color == .blue {
             return selectedSlot.rawValue == "blue"
         }
@@ -365,7 +365,7 @@ fileprivate struct SlotView: View {
     @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
 
-    func isTheSame() -> Bool {
+    var isTheSame: Bool {
         let s = whichSetting(selectedSlot)
         return s.tRTextRecognitionLevel == tRTextRecognitionLevel.rawValue &&
             s.tRMinimumTextHeight == tRMinimumTextHeight &&
@@ -393,7 +393,7 @@ fileprivate struct SlotView: View {
             s.landscapeMaxWidth == landscapeMaxWidth &&
             s.speakWordToggle == speakWordToggle &&
             s.theColorScheme == theColorScheme
-//            s.cropperFrame == cropperWindow.frame &&
+//            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow
 //            s.contentFrame == contentWindow.frame
     }
    
@@ -421,7 +421,7 @@ fileprivate struct SlotView: View {
                     .frame(width: 70)
             }
             
-            if isColorSelected() && !isTheSame() {
+            if isColorSelected && !isTheSame {
                 Button("store", action: {
                     storeSlot(selectedSlot)
                 })
