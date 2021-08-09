@@ -14,14 +14,18 @@ struct DictionariesView: View {
             Preferences.Section(title: "Dictionaries:") {
                 ListItem(
                     dictName: "牛津简明英汉袖珍辞典 (15.6M)",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!)
+                    dictFileName: "oxfordjm-ec.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!
+                )
                     .listRowBackground(Color.secondary)
                 ListItem(
                     dictName: "牛津英汉双解美化版 (23.3M)",
+                    dictFileName: "mac-oxford-gb-formated.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
                     .listRowBackground(Color.secondary.opacity(0.5))
                 ListItem(
                     dictName: "Collins Cobuild 5 (18.7M)",
+                    dictFileName: "mac-Collins5.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
                     .listItemTint(ListItemTint.monochrome)
             }
@@ -29,78 +33,156 @@ struct DictionariesView: View {
     }
 }
 
-struct ListItem: View {
-    func install(_ tempURL: URL) {
-        do {
-            let cacheURL = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let zipFileURL = cacheURL.appendingPathComponent("dict.zip")
-            let fileURL = cacheURL.appendingPathComponent("oxfordjm-ec.dictionary", isDirectory: true)
-            let userLibraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let dictionaryURL = userLibraryURL.appendingPathComponent("Dictionaries", isDirectory: true)
-            try FileManager.default.moveItem(at: tempURL, to: zipFileURL)
+fileprivate func saveFile(from location: URL, callback: (_ savedURL: URL) -> Void) {
+    // check for and handle errors:
+    // * downloadTask.response should be an HTTPURLResponse with statusCode in 200..<299 ???
+    do {
+        let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        
+        // location.lastPathComponent is for a sample example: "CFNetworkDownload_4PJQBe.tmp"
+        // savedURL is for a sample example: "file:///Users/gaocong/Library/Containers/com.gaozhanting.DictAssistantApp/Data/Documents/CFNetworkDownload_4PJQBe.tmp"
+        let savedURL = documentsURL.appendingPathComponent(location.lastPathComponent + ".zip")
+        
+        // remove dist before move to there; otherwise move may failed with "because an item with the same name already exists" error.
+        if FileManager.default.fileExists(atPath: savedURL.path) {
+            try FileManager.default.removeItem(at: savedURL)
+        }
+        try FileManager.default.moveItem(at: location, to: savedURL)
+        
+        callback(savedURL)
+    } catch {
+        // handle filesystem error
+        print(error.localizedDescription)
+    }
+}
+
+// 0. prompt NSSavePanel to authorize the specified location -> yes or no
+// 1. unzip to the location
+fileprivate func saveDict(_ dictFileName: String, callback: @escaping (_ distURL: URL) -> Void) {
+    do {
+        let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        let dictionariesURL = libraryURL.appendingPathComponent("Dictionaries")
+        
+        DispatchQueue.main.async {
+            let panel = NSSavePanel()
+            panel.isExtensionHidden = false
+            panel.directoryURL = dictionariesURL
+            panel.canCreateDirectories = true
+            panel.nameFieldStringValue = dictFileName // "oxfordjm-ec.dictionary"
             
-            let task = Process()
-            task.launchPath = "/usr/bin/unzip" // swift API
-            let toZipPath = cacheURL.path
-            task.arguments = [zipFileURL.path, "-d", toZipPath]
-            task.launch()
-            task.waitUntilExit()
-            let status = task.terminationStatus
-            
-            if status != 0 {
-                myPrint("unzip Task failed.")
+            guard panel.runModal() == .OK else {
+                logger.info("panel runModal not return OK") // toast
                 return
             }
             
-            myPrint("unzip Task succeeded.")
-            DispatchQueue.main.async {
-                let panel = NSSavePanel()
-                panel.isExtensionHidden = false
-                panel.directoryURL = dictionaryURL
-                panel.canCreateDirectories = true
-                panel.nameFieldStringValue = "oxfordjm-ec.dictionary"
-                
-                if panel.runModal() != .OK {
-                    logger.info("panel runModal not return OK")
-                    return
-                }
-                
-                do {
-                    guard let distURL = panel.url else {
-                        logger.info("panel url is nil")
-                        return
-                    }
-                    //                        let distURL = panel.url! // [Make it Default]?? MUST input: oxfordjm-ec.dictionary in /Library/Dictionaries
-                    try FileManager.default.moveItem(at: fileURL, to: distURL)
-                    
-                    try FileManager.default.removeItem(at: zipFileURL)
-                    let xxURL = cacheURL.appendingPathComponent("__MACOSX", isDirectory: true) // why
-                    try FileManager.default.removeItem(at: xxURL)
-                }
-                catch {
-                    logger.info("Failed to move file2: \(error.localizedDescription)")
-                }
-                
+            guard let distURL = panel.url else {
+                logger.info("panel.url is nil") // toast
+                return
             }
-        } catch {
-            logger.info("Failed to move file: \(error.localizedDescription)")
+            
+            callback(distURL)
+        }
+        
+    } catch {
+        print(error.localizedDescription)
+    }
+}
+
+/*
+ func unzip(from savedURL: URL, to distURL: URL) {
+ guard let data = NSData.init(contentsOf: savedURL) else {
+ // toast
+ return
+ }
+ 
+ do {
+ let uncompressedData = try data.decompressed(using: .zlib)
+ try (uncompressedData as Data).write(to: distURL, options: [.withoutOverwriting]) // failed
+ } catch {
+ print(error.localizedDescription) // The operation couldn’t be completed. (Cocoa error 5377.)
+ }
+ }
+ */
+
+// 1. command line unzip
+// 2. delete zip
+// 3. moveItem
+fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxiliary dictFileName: String, withTest test: Bool) {
+    do {
+        let task = Process()
+        task.launchPath = "/usr/bin/unzip"
+        //        task.arguments = [savedURL.path, "-d", distURL.path]
+        
+        let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        let upperURL = documentsURL.appendingPathComponent("upper", isDirectory: true) // has two folder: __MACOSX & dictFileName
+        
+        task.arguments = [savedURL.path, "-d", upperURL.path]
+        task.launch()
+        task.waitUntilExit()
+        
+        if !test {
+            try FileManager.default.removeItem(at: savedURL)
+        }
+        
+        let status = task.terminationStatus
+        if status != 0 {
+            print("unzip task failed.")
+            return
+        }
+        
+        let dictURL = upperURL.appendingPathComponent(dictFileName)
+        
+        // remove dist before move to there; otherwise move may failed with "because an item with the same name already exists" error.
+        if FileManager.default.fileExists(atPath: distURL.path) {
+            try FileManager.default.removeItem(at: distURL)
+        }
+        try FileManager.default.moveItem(at: dictURL, to: distURL)
+        try FileManager.default.removeItem(at: upperURL)
+        
+    } catch {
+        print(error.localizedDescription)
+    }
+}
+
+fileprivate func install(from location: URL, to dictFileName: String) {
+    saveFile(from: location) { savedURL in
+        saveDict(dictFileName) { distURL in
+            unzipUsingCommandLine(from: savedURL, to: distURL, withAuxiliary: dictFileName, withTest: false)
         }
     }
+}
+
+fileprivate func testInstall(dictFileName: String) {
+    do {
+        let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        
+        let savedURL = documentsURL.appendingPathComponent("CFNetworkDownload_4QD55t.tmp.zip")
+        let testDistURL = documentsURL.appendingPathComponent(dictFileName, isDirectory: true)
+        
+        unzipUsingCommandLine(from: savedURL, to: testDistURL, withAuxiliary: dictFileName, withTest: true)
+    } catch {
+        print(error.localizedDescription)
+    }
+}
     
+struct ListItem: View {
     func receiveProgressUpdateCallback(calculatedProgress: Float) {
         progressValue = calculatedProgress
     }
     
     func finishedDownloadingCallback(location: URL) {
         isDownloading = false
-        install(location)
+        install(from: location, to: dictFileName)
     }
     
-    var dictName: String
-    var downloadURL: URL
+    let dictName: String
+    let dictFileName: String
+    let downloadURL: URL
     
     @State var progressValue: Float = 0.0
     @State var isDownloading: Bool = false
+    
+    @State private var test: Bool = false
     
     var body: some View {
         HStack {
@@ -118,32 +200,47 @@ struct ListItem: View {
                     .frame(minWidth: 40)
             }
             
-            Button(action: {
-                isDownloading = true
-                progressValue = 0.0
-                let downloadDelegate = DownloadDelegate.init(
-                    receiveProgressUpdateCallback: receiveProgressUpdateCallback,
-                    finishedDownloadingCallback: finishedDownloadingCallback
-                )
-                let urlSession = URLSession(
-                    configuration: .default,
-                    delegate: downloadDelegate,
-                    delegateQueue: nil
-                )
-                let downloadTask = urlSession.downloadTask(with: downloadURL)
-                downloadTask.resume()
-            }, label: {
-                Image(systemName: "square.and.arrow.down")
-            })
-            .disabled(isDownloading)
+            if test {
+                Button("test", action: {
+                    testInstall(dictFileName: dictFileName)
+                })
+            } else {
+                Button(action: {
+                    isDownloading = true
+                    progressValue = 0.0
+                    let downloadDelegate = DownloadDelegate.init(
+                        receiveProgressUpdateCallback: receiveProgressUpdateCallback,
+                        finishedDownloadingCallback: finishedDownloadingCallback
+                    )
+                    let urlSession = URLSession(
+                        configuration: .default,
+                        delegate: downloadDelegate,
+                        delegateQueue: nil
+                    )
+                    let downloadTask = urlSession.downloadTask(with: downloadURL)
+                    downloadTask.resume()
+                }, label: {
+                    Image(systemName: "square.and.arrow.down")
+                })
+                .disabled(isDownloading)
+            }
         }
         .frame(maxWidth: .infinity)
     }
 }
 
 class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+    // URLSessionDownloadDelegate
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL) {
         finishedDownloadingCallback(location)
+    }
+    
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
+        
     }
     
     func urlSession(_ session: URLSession,
@@ -153,6 +250,13 @@ class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
                     totalBytesExpectedToWrite: Int64) {
         let calculatedProgress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
         receiveProgressUpdateCallback(calculatedProgress)
+    }
+    
+    // URLSessionTaskDelegate
+    // * client error
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        // toast(error)
+        // stop
     }
     
     let receiveProgressUpdateCallback: (Float) -> Void
