@@ -92,8 +92,8 @@ struct ListItem: View {
     }
     
     func finishedDownloadingCallback(location: URL) {
-        install(location)
         isDownloading = false
+        install(location)
     }
     
     var dictName: String

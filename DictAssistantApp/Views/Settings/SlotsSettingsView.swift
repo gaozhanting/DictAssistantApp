@@ -346,9 +346,9 @@ fileprivate struct SlotsSettings: View {
             s.portraitMaxHeight == portraitMaxHeight &&
             s.landscapeMaxWidth == landscapeMaxWidth &&
             s.speakWordToggle == speakWordToggle &&
-            s.theColorScheme == theColorScheme
-//            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow
-//            s.contentFrame == contentWindow.frame
+            s.theColorScheme == theColorScheme &&
+            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow; this not react, it is isPlaying switch let it react.
+            s.contentFrame == contentWindow.frame
         
         return result
     }
