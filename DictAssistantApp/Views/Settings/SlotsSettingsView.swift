@@ -217,6 +217,7 @@ struct SlotsSettingsView: View {
             })
             .clipShape(Circle())
             .padding()
+            .shadow(radius: 1)
             .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
                 InfoView()
             })
@@ -228,9 +229,9 @@ struct SlotsSettingsView: View {
 
 fileprivate struct InfoView: View {
     var body: some View {
-        Text("Slot is a collection of all preferences settings (except global shortcut key settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can't switch them when playing. The last gray slot is the immutable default slot.")
+        Text("Slot is a collection of all preferences settings (except global shortcut key settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can attach a slot with a text label, by typing text after the icon. You can't switch them when playing. The last gray slot is the immutable default slot.")
             .padding()
-            .frame(width: 520, height: 100)
+            .frame(width: 520, height: 120)
     }
 }
 
