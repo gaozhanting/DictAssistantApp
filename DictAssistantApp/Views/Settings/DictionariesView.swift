@@ -13,21 +13,29 @@ struct DictionariesView: View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "Dictionaries:") {
                 ListItem(
-                    dictName: "牛津简明英汉袖珍辞典 (15.6M)",
+                    dictName: "牛津简明英汉袖珍辞典 (zip: 7.7M) (file: 15.6M)",
+                    dictLicense: "GNU General Public License",
                     dictFileName: "oxfordjm-ec.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!
                 )
                     .listRowBackground(Color.secondary)
                 ListItem(
-                    dictName: "牛津英汉双解美化版 (23.3M)",
+                    dictName: "牛津英汉双解美化版 (zip: 18.9M) (file: 23.3M)",
+                    dictLicense: "GNU General Public License",
                     dictFileName: "mac-oxford-gb-formated.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
                     .listRowBackground(Color.secondary.opacity(0.5))
                 ListItem(
-                    dictName: "Collins Cobuild 5 (18.7M)",
+                    dictName: "Collins Cobuild 5 (zip: 15M) (file: 18.7M)",
+                    dictLicense: "GNU General Public License",
                     dictFileName: "mac-Collins5.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
                     .listItemTint(ListItemTint.monochrome)
+                ListItem(
+                    dictName: "简明英汉字典增强版 (zip: 198.2M) (file: 314.3M)",
+                    dictLicense: "MIT License",
+                    dictFileName: "简明英汉字典增强版.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!)
             }
         }
     }
@@ -195,6 +203,7 @@ struct ListItem: View {
     }
     
     let dictName: String
+    let dictLicense: String
     let dictFileName: String
     let downloadURL: URL
     
@@ -207,7 +216,7 @@ struct ListItem: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(dictName).font(.headline)
-                Text("GNU General Public License")
+                Text(dictLicense)
                     .preferenceDescription()
             }
             
