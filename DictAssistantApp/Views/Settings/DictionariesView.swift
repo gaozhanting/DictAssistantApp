@@ -58,7 +58,11 @@ fileprivate func saveFile(from location: URL, callback: (_ savedURL: URL) -> Voi
 
 // 0. prompt NSSavePanel to authorize the specified location -> yes or no
 // 1. unzip to the location
-fileprivate func saveDict(_ dictFileName: String, callback: @escaping (_ distURL: URL) -> Void) {
+fileprivate func saveDict(
+    _ dictFileName: String,
+    didAuthorized: @escaping (_ distURL: URL) -> Void,
+    didRefused: @escaping () -> Void
+) {
     do {
         let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let dictionariesURL = libraryURL.appendingPathComponent("Dictionaries")
@@ -72,15 +76,17 @@ fileprivate func saveDict(_ dictFileName: String, callback: @escaping (_ distURL
             
             guard panel.runModal() == .OK else {
                 logger.info("panel runModal not return OK") // toast
+                didRefused()
                 return
             }
             
             guard let distURL = panel.url else {
                 logger.info("panel.url is nil") // toast
+                didRefused()
                 return
             }
             
-            callback(distURL)
+            didAuthorized(distURL)
         }
         
     } catch {
@@ -121,7 +127,7 @@ fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, with
         task.waitUntilExit()
         
         if !test {
-            try FileManager.default.removeItem(at: savedURL)
+            deleteSavedURL(savedURL)
         }
         
         let status = task.terminationStatus
@@ -144,11 +150,24 @@ fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, with
     }
 }
 
+fileprivate func deleteSavedURL(_ savedURL: URL) {
+    do {
+        try FileManager.default.removeItem(at: savedURL)
+    } catch {
+        logger.info("deleteSavedUL exception caught: \(error.localizedDescription)")
+    }
+}
+
 fileprivate func install(from location: URL, to dictFileName: String) {
     saveFile(from: location) { savedURL in
-        saveDict(dictFileName) { distURL in
-            unzipUsingCommandLine(from: savedURL, to: distURL, withAuxiliary: dictFileName, withTest: false)
-        }
+        saveDict(dictFileName,
+            didAuthorized: { distURL in
+                unzipUsingCommandLine(from: savedURL, to: distURL, withAuxiliary: dictFileName, withTest: false)
+            },
+            didRefused: {
+                deleteSavedURL(savedURL)
+            }
+        )
     }
 }
 
