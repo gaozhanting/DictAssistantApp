@@ -52,7 +52,7 @@ fileprivate func saveFile(from location: URL, callback: (_ savedURL: URL) -> Voi
         callback(savedURL)
     } catch {
         // handle filesystem error
-        print(error.localizedDescription)
+        logger.info("saveFile exception caught: \(error.localizedDescription)")
     }
 }
 
@@ -90,7 +90,7 @@ fileprivate func saveDict(
         }
         
     } catch {
-        print(error.localizedDescription)
+        logger.info("saveDict exception caught: \(error.localizedDescription)")
     }
 }
 
@@ -132,7 +132,7 @@ fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, with
         
         let status = task.terminationStatus
         if status != 0 {
-            print("unzip task failed.")
+            logger.info("unzip task failed.")
             return
         }
         
@@ -146,7 +146,7 @@ fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, with
         try FileManager.default.removeItem(at: upperURL)
         
     } catch {
-        print(error.localizedDescription)
+        logger.info("unzipUsingCommandLine exception caught: \(error.localizedDescription)")
     }
 }
 
@@ -180,7 +180,7 @@ fileprivate func testInstall(dictFileName: String) {
         
         unzipUsingCommandLine(from: savedURL, to: testDistURL, withAuxiliary: dictFileName, withTest: true)
     } catch {
-        print(error.localizedDescription)
+        logger.info("testInstall exception caught: \(error.localizedDescription)")
     }
 }
     
