@@ -198,7 +198,9 @@ fileprivate struct TheText: View {
     
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     var transText: String {
-        isAddLineBreak ? "\n" + transText0 : trans
+        isAddLineBreak ?
+            "\n" + transText0 :
+            transText0
     }
 
     var body: Text {
