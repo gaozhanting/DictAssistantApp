@@ -209,15 +209,15 @@ enum ContentStyle: Int, Codable {
 }
 
 enum PortraitCorner: Int, Codable {
-    case topLeading = 0
-    case topTrailing = 1
+    case topTrailing = 0
+    case topLeading = 1
     case bottomLeading = 2
 }
 
 fileprivate struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
@@ -235,8 +235,8 @@ fileprivate struct ContentStyleSettingView: View {
                 
                 if contentStyle == .portrait {
                     Picker("with corner:", selection: $portraitCorner) {
-                        Text("topLeading").tag(PortraitCorner.topLeading)
                         Text("topTrailing").tag(PortraitCorner.topTrailing)
+                        Text("topLeading").tag(PortraitCorner.topLeading)
                         Text("bottomLeading").tag(PortraitCorner.bottomLeading)
                     }
                     .pickerStyle(MenuPickerStyle())

@@ -9,7 +9,7 @@ import SwiftUI
 
 fileprivate struct OriginBody: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     
     var body: some View {
         if portraitCorner == .bottomLeading {
@@ -83,18 +83,18 @@ fileprivate struct WithScrollViewBody: View {
 }
 
 struct PortraitWordsView: View {
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     var body: some View {
         switch portraitCorner {
-        case .topLeading:
-            HStack {
-                WithScrollViewBody()
-                Spacer()
-            }
         case .topTrailing:
             HStack {
                 Spacer()
                 WithScrollViewBody()
+            }
+        case .topLeading:
+            HStack {
+                WithScrollViewBody()
+                Spacer()
             }
         case .bottomLeading:
             WithScrollViewBody()

@@ -250,7 +250,7 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
     @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.clear)!
-    @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topLeading
+    @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
     @AppStorage(ShowToastToggleKey) var showToastToggle: Bool = true
     @AppStorage(FontKey) var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
     @AppStorage(FontRateKey) var fontRate: Double = 0.6
