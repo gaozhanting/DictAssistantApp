@@ -189,9 +189,16 @@ fileprivate struct TheText: View {
         wordCell.trans
     }
     
+    @AppStorage(IsTranslationDropFirstWordKey) private var isTranslationDropFirstWord: Bool = true
+    var transText0: String {
+        isTranslationDropFirstWord ?
+            String(trans.dropFirst(word.count)) :
+            trans
+    }
+    
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     var transText: String {
-        isAddLineBreak ? "\n" + trans : trans
+        isAddLineBreak ? "\n" + transText0 : trans
     }
 
     var body: Text {

@@ -20,6 +20,7 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
+                TranslationDropFirstWordToggle()
                 AddLineBreakToggle()
             }
             Preferences.Section(title: "Content Window Shadow Display:") {
@@ -437,6 +438,18 @@ fileprivate struct ShowPhrasesToggle: View {
         })
         .toggleStyle(CheckboxToggleStyle())
         .help("Select it when you want display all phrase words.")
+    }
+}
+
+fileprivate struct TranslationDropFirstWordToggle: View {
+    @AppStorage(IsTranslationDropFirstWordKey) private var isTranslationDropFirstWord: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isTranslationDropFirstWord, label: {
+            Text("Drop first word in translation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to drop the first word, normally the current word from translation text. Some dictionary has not set the word at beginning; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it for a better view in this case.")
     }
 }
 
