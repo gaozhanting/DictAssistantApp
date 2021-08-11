@@ -14,6 +14,7 @@ fileprivate struct Settings: Codable {
     let tRMinimumTextHeight: Double
     let isWithAnimation: Bool
     let isShowPhrases: Bool
+    let isAddLineBreak: Bool
     let isShowCurrentKnown: Bool
     let cropperStyle: CropperStyle
     let contentStyle: ContentStyle
@@ -45,6 +46,7 @@ fileprivate struct Settings: Codable {
         tRMinimumTextHeight: Double,
         isWithAnimation: Bool,
         isShowPhrases: Bool,
+        isAddLineBreak: Bool,
         isShowCurrentKnown: Bool,
         cropperStyle: CropperStyle,
         contentStyle: ContentStyle,
@@ -74,6 +76,7 @@ fileprivate struct Settings: Codable {
         self.tRMinimumTextHeight = tRMinimumTextHeight
         self.isWithAnimation = isWithAnimation
         self.isShowPhrases = isShowPhrases
+        self.isAddLineBreak = isAddLineBreak
         self.isShowCurrentKnown = isShowCurrentKnown
         self.cropperStyle = cropperStyle
         self.contentStyle = contentStyle
@@ -116,6 +119,7 @@ fileprivate let defaultSettings = Settings(
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     isWithAnimation: true,
     isShowPhrases: true,
+    isAddLineBreak: true,
     isShowCurrentKnown: false,
     cropperStyle: .closed,
     contentStyle: .portrait,
@@ -148,6 +152,7 @@ fileprivate func getCurrentSettings() -> Settings {
         tRMinimumTextHeight: UserDefaults.standard.double(forKey: TRMinimumTextHeightKey),
         isWithAnimation: UserDefaults.standard.bool(forKey: IsWithAnimationKey),
         isShowPhrases: UserDefaults.standard.bool(forKey: IsShowPhrasesKey),
+        isAddLineBreak: UserDefaults.standard.bool(forKey: IsAddLineBreakKey),
         isShowCurrentKnown: UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey),
         cropperStyle: CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!,
         contentStyle: ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))!,
@@ -241,6 +246,7 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsShowCurrentKnownKey) var isShowCurrentKnown: Bool = false
     @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
     @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
@@ -325,6 +331,7 @@ fileprivate struct SlotsSettings: View {
             s.tRMinimumTextHeight == tRMinimumTextHeight &&
             s.isWithAnimation == isWithAnimation &&
             s.isShowPhrases == isShowPhrases &&
+            s.isAddLineBreak == isAddLineBreak &&
             s.isShowCurrentKnown == isShowCurrentKnown &&
             s.cropperStyle == cropperStyle &&
             s.contentStyle == contentStyle &&
@@ -365,6 +372,7 @@ fileprivate struct SlotsSettings: View {
         tRMinimumTextHeight = s.tRMinimumTextHeight
         isWithAnimation = s.isWithAnimation
         isShowPhrases = s.isShowPhrases
+        isAddLineBreak = s.isAddLineBreak
         isShowCurrentKnown = s.isShowCurrentKnown
         cropperStyle = s.cropperStyle
         contentStyle = s.contentStyle

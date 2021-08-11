@@ -441,10 +441,10 @@ fileprivate struct ShowPhrasesToggle: View {
 }
 
 fileprivate struct AddLineBreakToggle: View {
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreakKey: Bool = true
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     
     var body: some View {
-        Toggle(isOn: $isAddLineBreakKey, label: {
+        Toggle(isOn: $isAddLineBreak, label: {
             Text("Add line break")
         })
         .toggleStyle(CheckboxToggleStyle())
