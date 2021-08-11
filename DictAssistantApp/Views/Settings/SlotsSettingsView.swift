@@ -456,7 +456,7 @@ fileprivate struct SlotItem: View {
                 TextField("", text: $label)
                     .font(.callout)
                     .textFieldStyle(PlainTextFieldStyle())
-                    .frame(width: 150)
+                    .frame(width: 200)
                     .disabled(color == Color.gray)
             }
             
