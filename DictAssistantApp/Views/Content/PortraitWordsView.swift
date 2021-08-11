@@ -9,11 +9,21 @@ import SwiftUI
 
 fileprivate struct OriginBody: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
-
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topLeading
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            WordsView()
-                .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
+        if portraitCorner == .bottomLeading {
+            VStack(alignment: .leading) {
+                WordsView()
+                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
+                HStack { Spacer() }
+            }
+            .rotationEffect(Angle(degrees: 180))
+        } else {
+            VStack(alignment: .leading) {
+                WordsView()
+                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
+            }
         }
     }
 }
@@ -86,6 +96,9 @@ struct PortraitWordsView: View {
                 Spacer()
                 WithScrollViewBody()
             }
+        case .bottomLeading:
+            WithScrollViewBody()
+                .rotationEffect(Angle(degrees: 180))
         }
     }
 }

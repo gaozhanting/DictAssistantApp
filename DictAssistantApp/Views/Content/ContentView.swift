@@ -51,6 +51,10 @@ struct ContentView_Previews: PreviewProvider {
             PortraitWordsView()
                 .environmentObject(displayedWords)
                 .frame(width: 220, height: 600)
+            
+            PortraitWordsView()
+                .environmentObject(displayedWords)
+                .frame(width: 800, height: 300)
         }
     }
 }
