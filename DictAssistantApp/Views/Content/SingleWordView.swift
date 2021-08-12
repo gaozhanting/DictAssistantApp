@@ -116,9 +116,17 @@ fileprivate struct TextBody: View {
                     say(word)
                 }
             }
-            .background(!contentBackgroundVisualEffect && contentStyle == .landscape ? theBackgroundColor : nil)
+            .background(isAddBackGround ? theBackgroundColor : nil)
     }
     
+    // add background when landscape or portrait-bottomLeading
+    var isAddBackGround: Bool {
+        !contentBackgroundVisualEffect &&
+            (contentStyle == .landscape ||
+                (contentStyle == .portrait && portraitCorner == .bottomLeading))
+    }
+    
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
 }
 

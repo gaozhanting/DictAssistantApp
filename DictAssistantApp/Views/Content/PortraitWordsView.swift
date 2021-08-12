@@ -58,9 +58,14 @@ fileprivate struct BackgroundColorBody: View {
         Color(dataToColor(backgroundColor)!)
     }
     var body: some View {
-        OriginBody()
-            .background(theBackgroundColor)
+        if portraitCorner == .bottomLeading {
+            OriginBody()
+        } else {
+            OriginBody()
+                .background(theBackgroundColor)
+        }
     }
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
 }
 
 fileprivate struct WithBackgroundBody: View {

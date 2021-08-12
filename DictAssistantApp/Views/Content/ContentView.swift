@@ -39,6 +39,7 @@ struct ContentView_Previews: PreviewProvider {
         WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
         WordCell(word: "the", isKnown: .known, trans: define("the")),
         WordCell(word: "king", isKnown: .known, trans: define("king")),
+        WordCell(word: "gotten", isKnown: .unKnown, trans: define("gotten")),
         WordCell(word: "grant", isKnown: .unKnown, trans: define("grant"))
 //        WordCell(word: "s", isKnown: .unKnown, trans: define("s"))
     ])
