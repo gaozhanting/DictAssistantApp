@@ -16,6 +16,7 @@ fileprivate struct OriginBody: View {
             VStack(alignment: .leading) {
                 WordsView()
                     .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
+            
                 HStack { Spacer() }
             }
             .rotationEffect(Angle(degrees: 180))
@@ -58,12 +59,8 @@ fileprivate struct BackgroundColorBody: View {
         Color(dataToColor(backgroundColor)!)
     }
     var body: some View {
-        if portraitCorner == .bottomLeading {
-            OriginBody()
-        } else {
-            OriginBody()
-                .background(theBackgroundColor)
-        }
+        OriginBody()
+            .background(portraitCorner == .bottomLeading ? nil : theBackgroundColor)
     }
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
 }

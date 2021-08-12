@@ -18,38 +18,22 @@ fileprivate struct OriginBody: View {
     }
 }
 
-fileprivate struct WithScrollViewBody: View {
+struct LandscapeWordsView: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 
     var body: some View {
-        if contentBackgroundVisualEffect {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    OriginBody()
-                    VStack { Spacer() }
-                }
-                .background(
-                    VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
-                        .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
-                ) // Visual effect mess up when attach mutiple seperate word
-            }
-        } else {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    OriginBody()
-                    VStack { Spacer() }
-                }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top) {
+                OriginBody()
+                VStack { Spacer() }
             }
         }
-    }
-}
-
-struct LandscapeWordsView: View {
-    var body: some View {
-        WithScrollViewBody()
+        .background(contentBackgroundVisualEffect ?
+                        VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                        nil)
     }
 }
 
