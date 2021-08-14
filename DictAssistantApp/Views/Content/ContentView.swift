@@ -35,13 +35,18 @@ struct ContentView_Previews: PreviewProvider {
         return DictionaryServices.define(word) ?? ""
     }
     static let displayedWords = DisplayedWords(wordCells: [
-        WordCell(word: "around", isKnown: .known, trans: define("around")),
-        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
-        WordCell(word: "the", isKnown: .known, trans: define("the")),
-        WordCell(word: "king", isKnown: .known, trans: define("king")),
-        WordCell(word: "gotten", isKnown: .unKnown, trans: define("gotten")),
-        WordCell(word: "grant", isKnown: .unKnown, trans: define("grant"))
-//        WordCell(word: "s", isKnown: .unKnown, trans: define("s"))
+//        WordCell(word: "around", isKnown: .known, trans: define("around")),
+//        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
+//        WordCell(word: "the", isKnown: .known, trans: define("the")),
+//        WordCell(word: "king", isKnown: .known, trans: define("king")),
+//        WordCell(word: "gotten", isKnown: .unKnown, trans: define("gotten")),
+//        WordCell(word: "grant", isKnown: .unKnown, trans: define("grant")),
+        WordCell(word: "made", isKnown: .unKnown, trans: define("made")),
+        WordCell(word: "make it", isKnown: .unKnown, trans: define("make it")),
+        WordCell(word: "handle", isKnown: .unKnown, trans: define("handle")),
+
+//        WordCell(word: "make up one's mind", isKnown: .unKnown, trans: define("make up one's mind")),
+
     ])
     static var previews: some View {
         Group {
@@ -55,7 +60,7 @@ struct ContentView_Previews: PreviewProvider {
             
             PortraitWordsView()
                 .environmentObject(displayedWords)
-                .frame(width: 800, height: 300)
+                .frame(width: 800, height: 500)
         }
     }
 }
