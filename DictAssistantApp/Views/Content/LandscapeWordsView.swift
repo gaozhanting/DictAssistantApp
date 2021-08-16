@@ -12,9 +12,7 @@ fileprivate struct OriginBody: View {
 
     var body: some View {
         WordsView()
-            .frame(maxWidth: CGFloat(landscapeMaxWidth),
-//                   maxHeight: defaultMaxHeighOfLandscape,
-                   alignment: .topLeading)
+            .frame(maxWidth: CGFloat(landscapeMaxWidth))
     }
 }
 

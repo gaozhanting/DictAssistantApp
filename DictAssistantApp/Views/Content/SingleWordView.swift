@@ -116,6 +116,7 @@ fileprivate struct TextBody: View {
                     say(word)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
             .background(isAddBackGround ? theBackgroundColor : nil)
     }
     
