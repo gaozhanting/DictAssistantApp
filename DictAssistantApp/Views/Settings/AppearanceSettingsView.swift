@@ -21,6 +21,7 @@ struct AppearanceSettingsView: View {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
                 TranslationDropFirstWordToggle()
+                DropTitleWordToggle()
                 AddLineBreakToggle()
             }
             Preferences.Section(title: "Content Window Shadow Display:") {
@@ -450,6 +451,18 @@ fileprivate struct TranslationDropFirstWordToggle: View {
         })
         .toggleStyle(CheckboxToggleStyle())
         .help("Select it when you want to drop the first word, normally the current word from translation text. Some dictionary has not set the word at beginning; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it for a better view in this case.")
+    }
+}
+
+fileprivate struct DropTitleWordToggle: View {
+    @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
+
+    var body: some View {
+        Toggle(isOn: $IsDropTitleWord, label: {
+            Text("Drop title word")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you don't want to show the title word. Some dictionary make the title word not first word, but behind, some dictionary title word include divider, that's hard to remove correctly.")
     }
 }
 

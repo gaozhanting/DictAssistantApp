@@ -16,6 +16,7 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let IsTranslationDropFirstWordKey = "IsTranslationDropFirstWordKey"
+let IsDropTitleWordKey = "IsDropTitleWordKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
 

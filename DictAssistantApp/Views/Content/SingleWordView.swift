@@ -210,21 +210,34 @@ fileprivate struct TheText: View {
             "\n" + transText0 :
             transText0
     }
-
-    var body: Text {
-        unKnown ?
+    
+    @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
+    var unKnownText: Text {
+        !IsDropTitleWord ?
+            
             Text(word)
             .foregroundColor(theWordColor)
             .font(font)
             +
             Text(transText)
             .foregroundColor(theTransColor)
-            .font(transFont)
-            :
+            .font(transFont) :
             
-            Text(word)
+            Text(transText)
+            .foregroundColor(theTransColor)
+            .font(transFont)
+    }
+    
+    var knownText: Text {
+        Text(word)
             .foregroundColor(theKnownWordColor)
             .font(font)
+    }
+    
+    var body: Text {
+        unKnown ?
+            unKnownText :
+            knownText
     }
 }
 
