@@ -90,7 +90,7 @@ fileprivate struct TextBody: View {
 
     @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
 
-    var body: some View {
+    var body0: some View {
         TextWithShadow(wordCell: wordCell)
             .opacity( (known && isPhrase) ? 0.5 : 1)
             .padding(.vertical, 4)
@@ -116,8 +116,17 @@ fileprivate struct TextBody: View {
                     say(word)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .background(isAddBackGround ? theBackgroundColor : nil)
+    }
+    
+    var body: some View {
+        if contentStyle == .landscape {
+            body0
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .background(isAddBackGround ? theBackgroundColor : nil)
+        } else {
+            body0
+                .background(isAddBackGround ? theBackgroundColor : nil)
+        }
     }
     
     // add background when landscape or portrait-bottomLeading
