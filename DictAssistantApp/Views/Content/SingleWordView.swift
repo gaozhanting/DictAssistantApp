@@ -215,10 +215,17 @@ fileprivate struct TheText: View {
     }
     
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    var transText: String {
+    var transText1: String {
         isAddLineBreak ?
             "\n" + transText0 :
             transText0
+    }
+    
+    @AppStorage(IsReplaceTranslationLineBreakToSpaceKey) private var isReplaceTranslationLineBreakToSpace: Bool = false
+    var transText: String {
+        !isReplaceTranslationLineBreakToSpace ?
+            transText1 :
+            transText1.replacingOccurrences(of: "\n", with: " ")
     }
     
     @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false

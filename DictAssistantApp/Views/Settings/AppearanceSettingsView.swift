@@ -20,9 +20,10 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
+                AddLineBreakToggle()
                 TranslationDropFirstWordToggle()
                 DropTitleWordToggle()
-                AddLineBreakToggle()
+                ReplaceTranslationLineBreakToSpaceToggle()
             }
             Preferences.Section(title: "Content Window Shadow Display:") {
                 ContentWindowShadowToggle()
@@ -443,6 +444,18 @@ fileprivate struct ShowPhrasesToggle: View {
     }
 }
 
+fileprivate struct AddLineBreakToggle: View {
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isAddLineBreak, label: {
+            Text("Add line break")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want add a line break between the word and the translation of the word.")
+    }
+}
+
 fileprivate struct TranslationDropFirstWordToggle: View {
     @AppStorage(IsTranslationDropFirstWordKey) private var isTranslationDropFirstWord: Bool = true
     
@@ -467,15 +480,15 @@ fileprivate struct DropTitleWordToggle: View {
     }
 }
 
-fileprivate struct AddLineBreakToggle: View {
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+fileprivate struct ReplaceTranslationLineBreakToSpaceToggle: View {
+    @AppStorage(IsReplaceTranslationLineBreakToSpaceKey) private var isReplaceTranslationLineBreakToSpace: Bool = false
     
     var body: some View {
-        Toggle(isOn: $isAddLineBreak, label: {
-            Text("Add line break")
+        Toggle(isOn: $isReplaceTranslationLineBreakToSpace, label: {
+            Text("Replace new line character(\n) in translation text to space character")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want add a line break between the word and the translation of the word.")
+        .help("Select it when you want to shrink translation text into one line, for better view.")
     }
 }
 

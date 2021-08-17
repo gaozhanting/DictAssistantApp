@@ -12,18 +12,19 @@ import Cocoa
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 
-let IsWithAnimationKey = "IsWithAnimationKey"
-
-let IsShowPhrasesKey = "IsShowPhrasesKey"
-let IsTranslationDropFirstWordKey = "IsTranslationDropFirstWordKey" // not in slot
-let IsDropTitleWordKey = "IsDropTitleWordKey" // no in slot
-let IsAddLineBreakKey = "IsAddLineBreakKey"
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
+let IsShowPhrasesKey = "IsShowPhrasesKey"
+let IsAddLineBreakKey = "IsAddLineBreakKey"
+let IsTranslationDropFirstWordKey = "IsTranslationDropFirstWordKey" // not in slot
+let IsDropTitleWordKey = "IsDropTitleWordKey" // not in slot
+let IsReplaceTranslationLineBreakToSpaceKey = "IsReplaceTranslationLineBreakToSpaceKey" // not in slot
+
+let IsShowWindowShadowKey = "IsShowWindowShadowKey"
+
+let IsWithAnimationKey = "IsWithAnimationKey"
 
 let CropperStyleKey = "CropperStyleKey"
 let ContentStyleKey = "ContentStyleKey"
-
-let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 
 let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
 
