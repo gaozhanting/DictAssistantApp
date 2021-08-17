@@ -200,7 +200,8 @@ fileprivate struct ColorSchemeSetting: View {
             Text("System").tag(TheColorScheme.system)
         }
         .labelsHidden()
-        .pickerStyle(RadioGroupPickerStyle())
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 160)
         .help("This will effect on visual effect background and system colors.")
     }
 }
