@@ -454,7 +454,7 @@ fileprivate struct DropTitleWordToggle: View {
             Text("Drop title word")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, notice some dictionary title word in translation include divider, that's hard to remove correctly.")
+        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could enable this while disable `Drop first word in translation`, that will be better.")
     }
 }
 
@@ -466,7 +466,7 @@ fileprivate struct AddLineBreakBeforeTranslationToggle: View {
             Text("Add line break ahead of translation")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want add a line break between the word and the translation of the word.")
+        .help("Select it when you want to add a line break before the translation of the word.")
     }
 }
 
@@ -478,7 +478,7 @@ fileprivate struct DropFirstTitleWordInTranslationToggle: View {
             Text("Drop first title word in translation")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to drop the first word, normally the current title word from translation text. Some dictionary has not set the title word at the beginning of tranlation; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it for a better view in this case.")
+        .help("Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the tranlation; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct.")
     }
 }
 
@@ -490,7 +490,7 @@ fileprivate struct JoinTranslationLinesToggle: View {
             Text("Join translation lines")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to join translation text into one line, for better view.")
+        .help("Select it when you want to join the translation text into one line, for get a better view.")
     }
 }
 
