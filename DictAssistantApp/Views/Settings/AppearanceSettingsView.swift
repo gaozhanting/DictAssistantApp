@@ -20,10 +20,12 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Words Display:") {
                 ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
-                AddLineBreakToggle()
-                TranslationDropFirstWordToggle()
+                Divider().frame(width: 200)
                 DropTitleWordToggle()
-                ReplaceTranslationLineBreakToSpaceToggle()
+                Divider().frame(width: 150)
+                AddLineBreakBeforeTranslationToggle()
+                DropFirstTitleWordInTranslationToggle()
+                JoinTranslationLinesToggle()
             }
             Preferences.Section(title: "Content Window Shadow Display:") {
                 ContentWindowShadowToggle()
@@ -444,30 +446,6 @@ fileprivate struct ShowPhrasesToggle: View {
     }
 }
 
-fileprivate struct AddLineBreakToggle: View {
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isAddLineBreak, label: {
-            Text("Add line break")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want add a line break between the word and the translation of the word.")
-    }
-}
-
-fileprivate struct TranslationDropFirstWordToggle: View {
-    @AppStorage(IsTranslationDropFirstWordKey) private var isTranslationDropFirstWord: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isTranslationDropFirstWord, label: {
-            Text("Drop first word in translation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to drop the first word, normally the current word from translation text. Some dictionary has not set the word at beginning; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it for a better view in this case.")
-    }
-}
-
 fileprivate struct DropTitleWordToggle: View {
     @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
 
@@ -476,19 +454,43 @@ fileprivate struct DropTitleWordToggle: View {
             Text("Drop title word")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you don't want to show the title word. Some dictionary make the title word not first word, but behind, some dictionary title word include divider, that's hard to remove correctly.")
+        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, notice some dictionary title word in translation include divider, that's hard to remove correctly.")
     }
 }
 
-fileprivate struct ReplaceTranslationLineBreakToSpaceToggle: View {
-    @AppStorage(IsReplaceTranslationLineBreakToSpaceKey) private var isReplaceTranslationLineBreakToSpace: Bool = false
+fileprivate struct AddLineBreakBeforeTranslationToggle: View {
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     
     var body: some View {
-        Toggle(isOn: $isReplaceTranslationLineBreakToSpace, label: {
-            Text("Replace new line character(\n) in translation text to space character")
+        Toggle(isOn: $isAddLineBreak, label: {
+            Text("Add line break ahead of translation")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to shrink translation text into one line, for better view.")
+        .help("Select it when you want add a line break between the word and the translation of the word.")
+    }
+}
+
+fileprivate struct DropFirstTitleWordInTranslationToggle: View {
+    @AppStorage(isDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isDropFirstTitleWordInTranslation, label: {
+            Text("Drop first title word in translation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to drop the first word, normally the current title word from translation text. Some dictionary has not set the title word at the beginning of tranlation; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it for a better view in this case.")
+    }
+}
+
+fileprivate struct JoinTranslationLinesToggle: View {
+    @AppStorage(isJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $isJoinTranslationLines, label: {
+            Text("Join translation lines")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to join translation text into one line, for better view.")
     }
 }
 

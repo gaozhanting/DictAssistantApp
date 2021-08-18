@@ -207,27 +207,15 @@ fileprivate struct TheText: View {
         wordCell.trans
     }
     
-    @AppStorage(IsTranslationDropFirstWordKey) private var isTranslationDropFirstWord: Bool = true
-    var transText0: String {
-        isTranslationDropFirstWord ?
-            String(trans.dropFirst(word.count)) :
-            trans
-    }
-    
+    @AppStorage(isJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(isDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    var transText1: String {
-        isAddLineBreak ?
-            "\n" + transText0 :
-            transText0
+    var translation: String {
+        let step1 = !isJoinTranslationLines ? trans : trans.replacingOccurrences(of: "\n", with: " ")
+        let step2 = isDropFirstTitleWordInTranslation ? String(step1.dropFirst(word.count)) : step1
+        let step3 = isAddLineBreak ? "\n" + step2 : step2
+        return step3
     }
-    
-    @AppStorage(IsReplaceTranslationLineBreakToSpaceKey) private var isReplaceTranslationLineBreakToSpace: Bool = false
-    var transText: String {
-        !isReplaceTranslationLineBreakToSpace ?
-            transText1 :
-            transText1.replacingOccurrences(of: "\n", with: " ")
-    }
-    
     @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
     var unKnownText: Text {
         !IsDropTitleWord ?
@@ -236,11 +224,11 @@ fileprivate struct TheText: View {
             .foregroundColor(theWordColor)
             .font(font)
             +
-            Text(transText)
+            Text(translation)
             .foregroundColor(theTransColor)
             .font(transFont) :
             
-            Text(transText)
+            Text(translation)
             .foregroundColor(theTransColor)
             .font(transFont)
     }
