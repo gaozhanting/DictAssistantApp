@@ -14,25 +14,6 @@ struct DictionariesView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "English - Simplified Chinese:") {
-//                ListItem(
-//                    dictName: "牛津简明英汉袖珍辞典(15.6M)",
-//                    dictLicense: "GNU General Public License",
-//                    dictFileName: "oxfordjm-ec.dictionary",
-//                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!
-//                )
-////                    .listRowBackground(Color.secondary)
-//                ListItem(
-//                    dictName: "牛津英汉双解美化版(23.3M)",
-//                    dictLicense: "GNU General Public License",
-//                    dictFileName: "mac-oxford-gb-formated.dictionary",
-//                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
-////                    .listRowBackground(Color.secondary.opacity(0.5))
-//                ListItem(
-//                    dictName: "Collins Cobuild 5(18.7M)",
-//                    dictLicense: "GNU General Public License",
-//                    dictFileName: "mac-Collins5.dictionary",
-//                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
-////                    .listItemTint(ListItemTint.monochrome)
                 ListItem(
                     name: "简明英汉字典增强版(314.3M)",
                     sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
@@ -40,6 +21,16 @@ struct DictionariesView: View {
                     licenseURL: URL(string: "https://mit-license.org/")!,
                     installedName: "简明英汉字典增强版.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
+                )
+            }
+            Preferences.Section(title: "English - Traditional Chinese:") {
+                ListItem(
+                    name: "CDic(60.6M)",
+                    sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+                    license: "?",
+                    licenseURL: URL(string: "http://cview.com.tw/")!,
+                    installedName: "mac-yinghancidian.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
                 )
             }
             Preferences.Section(title: "English - Japanese:") {
@@ -71,9 +62,9 @@ struct DictionariesView: View {
 
 fileprivate struct InfoView: View {
     var body: some View {
-        Text("These dictionaries files are some free concise dictionaries I searched from the internet and convert to Apple dictionary files for you. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of apple Dictionary.app, is suitable for app because those are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the built-in Apple Dictionary.app dictionaries folder, you need to use the default name. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to select the concise dictionary first, then more detailed dictionary after, and you are free as your wish here.")
+        Text("These dictionaries files are some free concise dictionaries I searched from the internet and convert to Apple dictionary files for you. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of apple Dictionary.app, is suitable for this app because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for apple Dictionary.app. The database of this app is come from these file through apple Dictionary.app. It is local and offline.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
             .padding()
-            .frame(width: 520, height: 260)
+            .frame(width: 520, height: 320)
     }
 }
 
@@ -252,11 +243,25 @@ struct ListItem: View {
     
     @Environment(\.openURL) var openURL
 
+    @State private var isShowingPopoverOfEC = false
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 HStack {
                     Text(name)
+                    if name == "简明英汉字典增强版(314.3M)" {
+                        Button(action: { isShowingPopoverOfEC = true }, label: {
+                            Image(systemName: "info.circle")
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        .popover(isPresented: $isShowingPopoverOfEC, content: {
+                            Text("Notice you can deselect `英文释义` option in Dictionary.app preferences, to get more concise translation.")
+                                .font(.subheadline)
+                                .padding()
+                        })
+                    }
                     Button(action: { openURL(sourceURL) }, label: {
                         Image(systemName: "arrow.right.circle.fill")
                     })
