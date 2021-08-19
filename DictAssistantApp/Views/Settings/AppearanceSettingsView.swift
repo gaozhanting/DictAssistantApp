@@ -454,7 +454,7 @@ fileprivate struct DropTitleWordToggle: View {
             Text("Drop title word")
         })
         .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could enable this while disable `Drop first word in translation`, that will be better.")
+        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better.")
     }
 }
 

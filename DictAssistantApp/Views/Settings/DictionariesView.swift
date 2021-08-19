@@ -9,35 +9,71 @@ import SwiftUI
 import Preferences
 
 struct DictionariesView: View {
+    @State private var isShowingPopover = false
+
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Dictionaries:") {
+            Preferences.Section(title: "English - Simplified Chinese:") {
+//                ListItem(
+//                    dictName: "牛津简明英汉袖珍辞典(15.6M)",
+//                    dictLicense: "GNU General Public License",
+//                    dictFileName: "oxfordjm-ec.dictionary",
+//                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!
+//                )
+////                    .listRowBackground(Color.secondary)
+//                ListItem(
+//                    dictName: "牛津英汉双解美化版(23.3M)",
+//                    dictLicense: "GNU General Public License",
+//                    dictFileName: "mac-oxford-gb-formated.dictionary",
+//                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
+////                    .listRowBackground(Color.secondary.opacity(0.5))
+//                ListItem(
+//                    dictName: "Collins Cobuild 5(18.7M)",
+//                    dictLicense: "GNU General Public License",
+//                    dictFileName: "mac-Collins5.dictionary",
+//                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
+////                    .listItemTint(ListItemTint.monochrome)
                 ListItem(
-                    dictName: "牛津简明英汉袖珍辞典 (zip: 7.7M) (file: 15.6M)",
-                    dictLicense: "GNU General Public License",
-                    dictFileName: "oxfordjm-ec.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/oxfordjm-ec.dictionary.zip")!
+                    name: "简明英汉字典增强版(314.3M)",
+                    sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
+                    license: "MIT License",
+                    licenseURL: URL(string: "https://mit-license.org/")!,
+                    installedName: "简明英汉字典增强版.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
                 )
-                    .listRowBackground(Color.secondary)
+            }
+            Preferences.Section(title: "English - Japanese:") {
                 ListItem(
-                    dictName: "牛津英汉双解美化版 (zip: 18.9M) (file: 23.3M)",
-                    dictLicense: "GNU General Public License",
-                    dictFileName: "mac-oxford-gb-formated.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-oxford-gb-formated.dictionary.zip")!)
-                    .listRowBackground(Color.secondary.opacity(0.5))
-                ListItem(
-                    dictName: "Collins Cobuild 5 (zip: 15M) (file: 18.7M)",
-                    dictLicense: "GNU General Public License",
-                    dictFileName: "mac-Collins5.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/mac-Collins5.dictionary.zip")!)
-                    .listItemTint(ListItemTint.monochrome)
-                ListItem(
-                    dictName: "简明英汉字典增强版 (zip: 198.2M) (file: 314.3M)",
-                    dictLicense: "MIT License",
-                    dictFileName: "简明英汉字典增强版.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!)
+                    name: "JMDict-en-ja dictionary(44.3M)",
+                    sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
+                    license: "The EDRDG Licence",
+                    licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
+                    installedName: "mac-jmdict-en-ja.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
+                )
             }
         }
+        .overlay(
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "questionmark").font(.body)
+            })
+            .clipShape(Circle())
+            .padding()
+            .shadow(radius: 1)
+            .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
+                InfoView()
+            })
+            ,
+            alignment: .bottomTrailing
+        )
+    }
+}
+
+fileprivate struct InfoView: View {
+    var body: some View {
+        Text("These dictionaries files are some free concise dictionaries I searched from the internet and convert to Apple dictionary files for you. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of apple Dictionary.app, is suitable for app because those are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the built-in Apple Dictionary.app dictionaries folder, you need to use the default name. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to select the concise dictionary first, then more detailed dictionary after, and you are free as your wish here.")
+            .padding()
+            .frame(width: 520, height: 260)
     }
 }
 
@@ -199,12 +235,14 @@ struct ListItem: View {
     
     func finishedDownloadingCallback(location: URL) {
         isDownloading = false
-        install(from: location, to: dictFileName)
+        install(from: location, to: installedName)
     }
     
-    let dictName: String
-    let dictLicense: String
-    let dictFileName: String
+    let name: String
+    let sourceURL: URL
+    let license: String
+    let licenseURL: URL
+    let installedName: String
     let downloadURL: URL
     
     @State var progressValue: Float = 0.0
@@ -212,12 +250,27 @@ struct ListItem: View {
     
     @State private var test: Bool = false
     
+    @Environment(\.openURL) var openURL
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(dictName).font(.headline)
-                Text(dictLicense)
-                    .preferenceDescription()
+                HStack {
+                    Text(name)
+                    Button(action: { openURL(sourceURL) }, label: {
+                        Image(systemName: "arrow.right.circle.fill")
+                    })
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .font(.headline)
+                HStack {
+                    Text(license)
+                    Button(action: { openURL(licenseURL) }, label: {
+                        Image(systemName: "arrow.right.circle.fill")
+                    })
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .preferenceDescription()
             }
             
             Spacer()
@@ -230,7 +283,7 @@ struct ListItem: View {
             
             if test {
                 Button("test", action: {
-                    testInstall(dictFileName: dictFileName)
+                    testInstall(dictFileName: installedName)
                 })
             } else {
                 Button(action: {
@@ -253,7 +306,7 @@ struct ListItem: View {
                 .disabled(isDownloading)
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(width: 400)
     }
 }
 
@@ -298,7 +351,11 @@ class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
 
 struct DictsView_Previews: PreviewProvider {
     static var previews: some View {
-        DictionariesView()
-            .frame(width: 650, height: 500)
+        Group {
+            DictionariesView()
+                .frame(width: 650)
+            
+            InfoView()
+        }
     }
 }
