@@ -10,9 +10,15 @@ import Foundation
 import AVFoundation
 import Vision
 
+func getDisplayID(of window: NSWindow) -> CGDirectDisplayID {
+    let screen = window.screen! // nil what case?
+    return screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as! CGDirectDisplayID
+}
+
 class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
-    let session: AVCaptureSession = AVCaptureSession()
-    let screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
+    var session: AVCaptureSession? = nil
+    var screenInput: AVCaptureScreenInput? = nil
+
     let dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
     let videoDataOutputQueue = DispatchQueue(
         label: "CameraFeedDataOutput",
@@ -24,14 +30,43 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     // for testing mp4 file
     let testMovie = false
     let testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
-    // need maually delete for testing.
     let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
 
     func startScreenCapture() {
+        session = AVCaptureSession()
+        guard let session = session else {
+            print("session creation failed")
+            return
+        }
+        
+        let displayID = getDisplayID(of: cropperWindow!)
+        screenInput = AVCaptureScreenInput(displayID: displayID)!
+//        screenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())!
+        guard let screenInput = screenInput else {
+            print("screenInput creation failed")
+            return
+        }
+        
         let videoFramesPerSecond = 1 // todo
+
         screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
         
-        screenInput.cropRect = cropperWindow.frame
+        let cropperWindowFrame = cropperWindow.frame
+        print(">>cropperWindowFrame: \(cropperWindowFrame)")
+        if displayID == CGMainDisplayID() {
+            screenInput.cropRect = cropperWindowFrame // !!! this x should not be negative when cropperWindow in second display monitor !!
+        } else { // get the arrangement of multi monitors??!! Is there a API?
+            let c = cropperWindowFrame
+            let width = NSScreen.screens[1].frame.size.width
+            screenInput.cropRect = CGRect.init(
+                origin: CGPoint(
+                    x: c.origin.x + width,
+                    y: c.origin.y),
+                size: CGSize(
+                    width: c.size.width,
+                    height: c.size.height))
+        }
+        print(">>screenInput.cropRect: \(screenInput.cropRect)")
 
 //        input.scaleFactor = CGFloat(scaleFactor)
         screenInput.capturesCursor = false
@@ -79,15 +114,27 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         
         if testMovie {
             let movieUrl = URL.init(fileURLWithPath: movieUrlString)
+            do {
+                try FileManager.default.removeItem(at: movieUrl)
+            } catch {
+                logger.info("remove movieUrl exception caught: \(error.localizedDescription)")
+            }
             testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
         }
     }
 
     func stopScreenCapture() {
+        guard let session = session else {
+            print("session is nil")
+            return
+        }
+        
         if testMovie {
             testMovieFileOutput.stopRecording()
+            session.removeOutput(testMovieFileOutput)
         }
 
+        session.removeOutput(dataOutput)
         session.stopRunning()
     }
     
