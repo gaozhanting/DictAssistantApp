@@ -16,7 +16,7 @@ struct DictionariesView: View {
             Preferences.Section(title: "🇬🇧➭🇬🇧:") {
                 ListItem(
                     name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
-                    sourceURL: nil,
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
                     license: "?",
                     licenseURL: nil,
                     installedName: "Concise Oxford English Dictionary 11th.dictionary",
@@ -53,6 +53,17 @@ struct DictionariesView: View {
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
                 )
             }
+            Preferences.Section(title: "🇬🇧➭🇪🇸:") {
+                ListItem(
+                    name: "vicon-en-span dictionary", //(size: 49.8M)
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%A5%BF%E7%8F%AD%E7%89%99%E8%AF%AD/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "vicon-en-span.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+                )
+            }
+            
         }
         .overlay(
             Button(action: { isShowingPopover = true }, label: {
