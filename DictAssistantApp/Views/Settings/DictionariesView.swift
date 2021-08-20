@@ -13,9 +13,19 @@ struct DictionariesView: View {
 
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "English - Simplified Chinese:") {
+            Preferences.Section(title: "🇬🇧➭🇬🇧:") {
                 ListItem(
-                    name: "简明英汉字典增强版(314.3M)",
+                    name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
+                    sourceURL: nil,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "Concise Oxford English Dictionary 11th.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
+                )
+            }
+            Preferences.Section(title: "🇬🇧➭🇨🇳:") {
+                ListItem(
+                    name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
                     sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
                     license: "MIT License",
                     licenseURL: URL(string: "https://mit-license.org/")!,
@@ -23,9 +33,9 @@ struct DictionariesView: View {
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
                 )
             }
-            Preferences.Section(title: "English - Traditional Chinese:") {
+            Preferences.Section(title: "🇬🇧➭🇭🇰:") {
                 ListItem(
-                    name: "CDic(60.6M)",
+                    name: "CDic", //(size: 60.6M)
                     sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
                     license: "?",
                     licenseURL: URL(string: "http://cview.com.tw/")!,
@@ -33,9 +43,9 @@ struct DictionariesView: View {
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
                 )
             }
-            Preferences.Section(title: "English - Japanese:") {
+            Preferences.Section(title: "🇬🇧➭🇯🇵:") {
                 ListItem(
-                    name: "JMDict-en-ja dictionary(44.3M)",
+                    name: "JMDict-en-ja dictionary", //(size: 44.3M)
                     sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
                     license: "The EDRDG Licence",
                     licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
@@ -230,9 +240,9 @@ struct ListItem: View {
     }
     
     let name: String
-    let sourceURL: URL
+    let sourceURL: URL?
     let license: String
-    let licenseURL: URL
+    let licenseURL: URL?
     let installedName: String
     let downloadURL: URL
     
@@ -250,6 +260,7 @@ struct ListItem: View {
             VStack(alignment: .leading) {
                 HStack {
                     Text(name)
+                    
                     if name == "简明英汉字典增强版(314.3M)" {
                         Button(action: { isShowingPopoverOfEC = true }, label: {
                             Image(systemName: "info.circle")
@@ -262,18 +273,29 @@ struct ListItem: View {
                                 .padding()
                         })
                     }
-                    Button(action: { openURL(sourceURL) }, label: {
-                        Image(systemName: "arrow.right.circle.fill")
-                    })
-                    .buttonStyle(PlainButtonStyle())
+                    
+                    if let sourceURL = sourceURL {
+                        Button(action: {
+                            openURL(sourceURL)
+                        }, label: {
+                            Image(systemName: "arrow.right.circle.fill")
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                    }
                 }
                 .font(.headline)
+                
                 HStack {
                     Text(license)
-                    Button(action: { openURL(licenseURL) }, label: {
-                        Image(systemName: "arrow.right.circle.fill")
-                    })
-                    .buttonStyle(PlainButtonStyle())
+                    
+                    if let licenseURL = licenseURL {
+                        Button(action: {
+                            openURL(licenseURL)
+                        }, label: {
+                            Image(systemName: "arrow.right.circle.fill")
+                        })
+                        .buttonStyle(PlainButtonStyle())
+                    }
                 }
                 .preferenceDescription()
             }
