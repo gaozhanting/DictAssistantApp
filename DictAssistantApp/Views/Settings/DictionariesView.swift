@@ -153,6 +153,16 @@ struct DictionariesView: View {
                     downloadURL: nil
                 )
             }
+            Preferences.Section(title: "🇬🇧➭🇮🇷:") {
+                ListItem(
+                    name: "Advanced_English-Persian_Dictionary",
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "Advanced_English-Persian_Dictionary.dictionary",
+                    downloadURL: nil
+                )
+            }
         }
         .overlay(
             Button(action: { isShowingPopover = true }, label: {
