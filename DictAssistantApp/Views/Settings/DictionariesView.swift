@@ -407,7 +407,7 @@ struct ListItem: View {
                 HStack {
                     Text(name)
                     
-                    if name == "简明英汉字典增强版(314.3M)" {
+                    if name == "简明英汉字典增强版" {
                         Button(action: { isShowingPopoverOfEC = true }, label: {
                             Image(systemName: "info.circle")
                         })
