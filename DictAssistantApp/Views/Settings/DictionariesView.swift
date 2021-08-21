@@ -63,6 +63,16 @@ struct DictionariesView: View {
                     downloadURL: nil //
                 )
             }
+            Preferences.Section(title: "🇬🇧⬄🇩🇪:") {
+                ListItem(
+                    name: "Babylon-en-ge-en dictionary", //(size: 49.8M)
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%BE%B7%E8%AF%AD/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "Babylon-en-ge-en.dictionary",
+                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+                )
+            }
             Preferences.Section(title: "🇬🇧➭🇪🇸:") {
                 ListItem(
                     name: "vicon-en-span dictionary", //(size: 49.8M)
