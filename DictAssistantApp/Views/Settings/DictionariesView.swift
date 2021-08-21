@@ -32,6 +32,14 @@ struct DictionariesView: View {
                     installedName: "简明英汉字典增强版.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
                 )
+                ListItem(
+                    name: "懒虫简明英汉词典",
+                    sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "mac-lazyworm-ec.dictionary",
+                    downloadURL: nil
+                )
             }
             Preferences.Section(title: "🇬🇧➭🇭🇰:") {
                 ListItem(
@@ -41,6 +49,14 @@ struct DictionariesView: View {
                     licenseURL: URL(string: "http://cview.com.tw/")!,
                     installedName: "mac-yinghancidian.dictionary",
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
+                )
+                ListItem(
+                    name: "懶蟲簡明英漢詞典",
+                    sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "lazyworm-ec-big5.dictionary",
+                    downloadURL: nil
                 )
             }
             Preferences.Section(title: "🇬🇧➭🇯🇵:") {
