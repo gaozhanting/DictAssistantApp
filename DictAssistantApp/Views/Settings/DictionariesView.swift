@@ -113,13 +113,13 @@ struct DictionariesView: View {
                     downloadURL: nil
                 )
             }
-            Preferences.Section(title: "🇬🇧⬄🇷🇺:") {
+            Preferences.Section(title: "🇬🇧➭🇳🇱:") {
                 ListItem(
-                    name: "Babylon ERRE dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E4%BF%84%E8%AF%AD/")!,
+                    name: "Vicon-en-du dictionary",
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%8D%B7%E5%85%B0%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8AVicon%E8%8B%B1%E8%AF%AD%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%8D%E5%85%B8%E3%80%8B%5B129907%5D/")!,
                     license: "?",
                     licenseURL: nil,
-                    installedName: "Babylon-en-ru-en.dictionary",
+                    installedName: "Vicon-en-du.dictionary",
                     downloadURL: nil
                 )
             }
@@ -133,6 +133,16 @@ struct DictionariesView: View {
                     downloadURL: nil
                 )
             }
+            Preferences.Section(title: "🇬🇧⬄🇷🇺:") {
+                ListItem(
+                    name: "Babylon ERRE dictionary",
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E4%BF%84%E8%AF%AD/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "Babylon-en-ru-en.dictionary",
+                    downloadURL: nil
+                )
+            }
             Preferences.Section(title: "🇬🇧⬄🇬🇷:") {
                 ListItem(
                     name: "Vicon-en-gr-en dictionary",
@@ -140,16 +150,6 @@ struct DictionariesView: View {
                     license: "?",
                     licenseURL: nil,
                     installedName: "Vicon-en-gr-en.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇳🇱:") {
-                ListItem(
-                    name: "Vicon-en-du dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%8D%B7%E5%85%B0%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8AVicon%E8%8B%B1%E8%AF%AD%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%8D%E5%85%B8%E3%80%8B%5B129907%5D/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Vicon-en-du.dictionary",
                     downloadURL: nil
                 )
             }
