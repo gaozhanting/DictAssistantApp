@@ -49,3 +49,17 @@ dictconv convert /Users/gaocong/Downloads/stardict-jmdict-en-ja-2.4.2.tar.bz2 .
 * https://mdict.org/categories/english-chinese/
 * https://github.com/skywind3000/ECDICT/wiki/%E7%AE%80%E6%98%8E%E8%8B%B1%E6%B1%89%E5%AD%97%E5%85%B8%E5%A2%9E%E5%BC%BA%E7%89%88
 
+## About MDict convert to AppleDict
+1. search a concise dict, and download it (including mdx, mdd, css, if available) from https://mdx.mdict.org/ or https://downloads.freemdict.com/100G_Super_Big_Collection/
+2. open it using GoldenDict, by adding the file into the specified directory
+3. play with the dict, if it is suitable, then go to 4; otherwise, discard the dict file
+4. convert the MDict into AppleDict source:
+```sh
+cd try_use_pyglossary # assume the pyglossary here
+python3 ./pyglossary-4.0.11/main.py --ui=gtk # to open the pyglossary GUI
+# select input file the MDict file, select the output folder name the same, without .mdx.
+# when done, cd the folder
+make && make install # this will build the apple dict and install it at ~/Library/Dictionaries
+```
+5. upload the dictionary
+6. update the app code of dict list

@@ -53,6 +53,16 @@ struct DictionariesView: View {
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
                 )
             }
+            Preferences.Section(title: "🇬🇧⬄🇰🇷:") {
+                ListItem(
+                    name: "vicon-en-ko-en dictionary",
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%9F%A9%E8%AF%AD/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "vicon-en-ko-en.dictionary",
+                    downloadURL: nil //
+                )
+            }
             Preferences.Section(title: "🇬🇧➭🇪🇸:") {
                 ListItem(
                     name: "vicon-en-span dictionary", //(size: 49.8M)
@@ -63,6 +73,7 @@ struct DictionariesView: View {
                     downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
                 )
             }
+            
             
         }
         .overlay(
@@ -255,7 +266,7 @@ struct ListItem: View {
     let license: String
     let licenseURL: URL?
     let installedName: String
-    let downloadURL: URL
+    let downloadURL: URL?
     
     @State var progressValue: Float = 0.0
     @State var isDownloading: Bool = false
@@ -292,6 +303,8 @@ struct ListItem: View {
                             Image(systemName: "arrow.right.circle.fill")
                         })
                         .buttonStyle(PlainButtonStyle())
+                    } else {
+                        Spacer()
                     }
                 }
                 .font(.headline)
@@ -306,6 +319,8 @@ struct ListItem: View {
                             Image(systemName: "arrow.right.circle.fill")
                         })
                         .buttonStyle(PlainButtonStyle())
+                    } else {
+                        Spacer()
                     }
                 }
                 .preferenceDescription()
@@ -324,24 +339,28 @@ struct ListItem: View {
                     testInstall(dictFileName: installedName)
                 })
             } else {
-                Button(action: {
-                    isDownloading = true
-                    progressValue = 0.0
-                    let downloadDelegate = DownloadDelegate.init(
-                        receiveProgressUpdateCallback: receiveProgressUpdateCallback,
-                        finishedDownloadingCallback: finishedDownloadingCallback
-                    )
-                    let urlSession = URLSession(
-                        configuration: .default,
-                        delegate: downloadDelegate,
-                        delegateQueue: nil
-                    )
-                    let downloadTask = urlSession.downloadTask(with: downloadURL)
-                    downloadTask.resume()
-                }, label: {
-                    Image(systemName: "square.and.arrow.down")
-                })
-                .disabled(isDownloading)
+                if let downloadURL = downloadURL {
+                    Button(action: {
+                        isDownloading = true
+                        progressValue = 0.0
+                        let downloadDelegate = DownloadDelegate.init(
+                            receiveProgressUpdateCallback: receiveProgressUpdateCallback,
+                            finishedDownloadingCallback: finishedDownloadingCallback
+                        )
+                        let urlSession = URLSession(
+                            configuration: .default,
+                            delegate: downloadDelegate,
+                            delegateQueue: nil
+                        )
+                        let downloadTask = urlSession.downloadTask(with: downloadURL)
+                        downloadTask.resume()
+                    }, label: {
+                        Image(systemName: "square.and.arrow.down")
+                    })
+                    .disabled(isDownloading)
+                } else {
+                    Spacer()
+                }
             }
         }
         .frame(width: 400)
