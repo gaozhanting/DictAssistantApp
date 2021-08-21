@@ -24,6 +24,7 @@ struct AppearanceSettingsView: View {
                 DropTitleWordToggle()
                 Divider().frame(width: 150)
                 AddLineBreakBeforeTranslationToggle()
+                AddSpaceBeforeTranslationToggle()
                 DropFirstTitleWordInTranslationToggle()
                 JoinTranslationLinesToggle()
             }
@@ -467,6 +468,18 @@ fileprivate struct AddLineBreakBeforeTranslationToggle: View {
         })
         .toggleStyle(CheckboxToggleStyle())
         .help("Select it when you want to add a line break before the translation of the word.")
+    }
+}
+
+fileprivate struct AddSpaceBeforeTranslationToggle: View {
+    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $isAddSpace, label: {
+            Text("Add space ahead of translation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to add a space before the translation of the word, maybe helpful when view as one line.")
     }
 }
 

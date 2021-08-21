@@ -210,11 +210,13 @@ fileprivate struct TheText: View {
     @AppStorage(isJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
     @AppStorage(isDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     var translation: String {
         let step1 = !isJoinTranslationLines ? trans : trans.replacingOccurrences(of: "\n", with: " ")
         let step2 = isDropFirstTitleWordInTranslation ? String(step1.dropFirst(word.count)) : step1
         let step3 = isAddLineBreak ? "\n" + step2 : step2
-        return step3
+        let step4 = isAddSpace ? " " + step3 : step3
+        return step4
     }
     @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
     var unKnownText: Text {

@@ -15,6 +15,7 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
+let IsAddSpaceKey = "IsAddSpaceKey" // not in slot
 let isDropFirstTitleWordInTranslationKey = "isDropFirstTitleWordInTranslationKey" // not in slot
 let IsDropTitleWordKey = "IsDropTitleWordKey" // not in slot
 let isJoinTranslationLinesKey = "isJoinTranslationLinesKey" // not in slot
