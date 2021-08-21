@@ -143,6 +143,16 @@ struct DictionariesView: View {
                     downloadURL: nil
                 )
             }
+            Preferences.Section(title: "🇬🇧⬄🇹🇷:") {
+                ListItem(
+                    name: "Vicon-en-tur-en dictionary",
+                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%9C%9F%E8%80%B3%E5%85%B6%E8%AF%AD/")!,
+                    license: "?",
+                    licenseURL: nil,
+                    installedName: "Vicon-en-tur-en.dictionary",
+                    downloadURL: nil
+                )
+            }
         }
         .overlay(
             Button(action: { isShowingPopover = true }, label: {
