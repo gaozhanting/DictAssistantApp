@@ -52,14 +52,16 @@ dictconv convert /Users/gaocong/Downloads/stardict-jmdict-en-ja-2.4.2.tar.bz2 .
 ## About MDict convert to AppleDict
 1. search a concise dict, and download it (including mdx, mdd, css, if available) from https://mdx.mdict.org/ or https://downloads.freemdict.com/100G_Super_Big_Collection/
 2. open it using GoldenDict, by adding the file into the specified directory
-3. play with the dict, if it is suitable, then go to 4; otherwise, discard the dict file
+3. play with the dict in GoldenDict.app, if it is suitable, then go to 4; otherwise, discard the dict file
 4. convert the MDict into AppleDict source:
 ```sh
 cd try_use_pyglossary # assume the pyglossary here
 python3 ./pyglossary-4.0.11/main.py --ui=gtk # to open the pyglossary GUI
 # select input file the MDict file, select the output folder name the same, without .mdx.
-# when done, cd the folder
+# when done, cd the folder (maybe need to manually add the dict name by editing the converted plist file CFBundleDisplayName property)
 make && make install # this will build the apple dict and install it at ~/Library/Dictionaries
 ```
-5. upload the dictionary
-6. update the app code of dict list
+5. play with the dict in Apple Dictionary.app
+6. try to play with the app
+7. upload the dictionary
+8. update the app code of dict list
