@@ -75,7 +75,7 @@ fileprivate struct DictsView: View {
         //            }
         //            Preferences.Section(title: "🇬🇧➭🇭🇰:") {
         Dict(
-            name: "CDic", //(size: 60.6M)
+            name: "英漢字典CDic", //(size: 60.6M)
             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
             license: "?",
             licenseURL: URL(string: "http://cview.com.tw/")!,
@@ -93,7 +93,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧➭🇯🇵:") {
         Dict(
-            name: "JMDict-en-ja dictionary", //(size: 44.3M)
+            name: "JMDict Englisth-Japanese dictionary", //(size: 44.3M)
             sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
             license: "The EDRDG Licence",
             licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
@@ -103,7 +103,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇰🇷:") {
         Dict(
-            name: "vicon-en-ko-en dictionary",
+            name: "Vicon English=Korean dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%9F%A9%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -113,7 +113,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇩🇪:") {
         Dict(
-            name: "Babylon-en-ge-en dictionary", //(size: 49.8M)
+            name: "Babylon English=German dictionary", //(size: 49.8M)
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%BE%B7%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -123,7 +123,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇫🇷:") {
         Dict(
-            name: "Babylon-en-fr-en dictionary", //(size: 49.8M)
+            name: "Babylon English=French dictionary", //(size: 49.8M)
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%95%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -133,7 +133,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧➭🇪🇸:") {
         Dict(
-            name: "vicon-en-span dictionary", //(size: 49.8M)
+            name: "Vicon English-Spanish dictionary", //(size: 49.8M)
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%A5%BF%E7%8F%AD%E7%89%99%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -143,7 +143,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇵🇹:") {
         Dict(
-            name: "Vicon-en-po-en dictionary",
+            name: "Vicon English=Portuguese dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%91%A1%E8%90%84%E7%89%99%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -163,7 +163,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧➭🇳🇱:") {
         Dict(
-            name: "Vicon-en-du dictionary",
+            name: "Vicon Englisth-Dutch dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%8D%B7%E5%85%B0%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8AVicon%E8%8B%B1%E8%AF%AD%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%8D%E5%85%B8%E3%80%8B%5B129907%5D/")!,
             license: "?",
             licenseURL: nil,
@@ -173,7 +173,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧➭🇸🇪:") {
         Dict(
-            name: "en-sw dictionary",
+            name: "Vicon English-Swedish dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%91%9E%E5%85%B8%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E7%91%9E%E5%85%B8%E8%AF%AD%E8%BE%9E%E5%85%B8%E3%80%8B%E5%B0%8F%E8%AF%AD%E7%A7%8D%E5%BB%B6%E7%BB%AD%E7%89%88%5B104525%5D%28090604%29/")!,
             license: "?",
             licenseURL: nil,
@@ -183,7 +183,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇷🇺:") {
         Dict(
-            name: "Babylon ERRE dictionary",
+            name: "Babylon English=Russian dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E4%BF%84%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -193,7 +193,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇬🇷:") {
         Dict(
-            name: "Vicon-en-gr-en dictionary",
+            name: "Vicon English=Greek dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%8E%B0%E4%BB%A3%E5%B8%8C%E8%85%8A%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -203,7 +203,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇸🇦:") {
         Dict(
-            name: "Babylon-en-ar-en dictionary",
+            name: "Babylon English=Arabic dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -213,7 +213,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧⬄🇹🇷:") {
         Dict(
-            name: "Vicon-en-tur-en dictionary",
+            name: "Vicon English=Turkish dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%9C%9F%E8%80%B3%E5%85%B6%E8%AF%AD/")!,
             license: "?",
             licenseURL: nil,
@@ -223,7 +223,7 @@ fileprivate struct DictsView: View {
         ////            }
         ////            Preferences.Section(title: "🇬🇧➭🇮🇷:") {
         Dict(
-            name: "Advanced_English-Persian_Dictionary",
+            name: "Advanced English-Persian Dictionary",
             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
             license: "?",
             licenseURL: nil,
