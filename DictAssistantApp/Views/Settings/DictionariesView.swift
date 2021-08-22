@@ -69,7 +69,7 @@ fileprivate struct DictsView: View {
             sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
             license: "?",
             licenseURL: nil,
-            installedName: "mac-lazyworm-ec.dictionary",
+            installedName: "lazyworm-ec.dictionary",
             downloadURL: nil
         ),
         //            }
