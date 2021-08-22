@@ -10,194 +10,11 @@ import Preferences
 
 struct DictionariesView: View {
     @State private var isShowingPopover = false
-
+    
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "🇬🇧➭🇬🇧:") {
-                ListItem(
-                    name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Concise Oxford English Dictionary 11th.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇨🇳:") {
-                ListItem(
-                    name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
-                    sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
-                    license: "MIT License",
-                    licenseURL: URL(string: "https://mit-license.org/")!,
-                    installedName: "简明英汉字典增强版.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
-                )
-                ListItem(
-                    name: "懒虫简明英汉词典",
-                    sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "mac-lazyworm-ec.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇭🇰:") {
-                ListItem(
-                    name: "CDic", //(size: 60.6M)
-                    sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-                    license: "?",
-                    licenseURL: URL(string: "http://cview.com.tw/")!,
-                    installedName: "mac-yinghancidian.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
-                )
-                ListItem(
-                    name: "懶蟲簡明英漢詞典",
-                    sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "lazyworm-ec-big5.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇯🇵:") {
-                ListItem(
-                    name: "JMDict-en-ja dictionary", //(size: 44.3M)
-                    sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
-                    license: "The EDRDG Licence",
-                    licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
-                    installedName: "mac-jmdict-en-ja.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇰🇷:") {
-                ListItem(
-                    name: "vicon-en-ko-en dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%9F%A9%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "vicon-en-ko-en.dictionary",
-                    downloadURL: nil //
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇩🇪:") {
-                ListItem(
-                    name: "Babylon-en-ge-en dictionary", //(size: 49.8M)
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%BE%B7%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Babylon-en-ge-en.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇫🇷:") {
-                ListItem(
-                    name: "Babylon-en-fr-en dictionary", //(size: 49.8M)
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%95%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Babylon-en-fr-en.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇪🇸:") {
-                ListItem(
-                    name: "vicon-en-span dictionary", //(size: 49.8M)
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%A5%BF%E7%8F%AD%E7%89%99%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "vicon-en-span.dictionary",
-                    downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇵🇹:") {
-                ListItem(
-                    name: "Vicon-en-po-en dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%91%A1%E8%90%84%E7%89%99%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Vicon-en-po-en.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇮🇹:") {
-                ListItem(
-                    name: "Babylon English-Italian dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%84%8F%E5%A4%A7%E5%88%A9%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Babylon English-Italian.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇳🇱:") {
-                ListItem(
-                    name: "Vicon-en-du dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%8D%B7%E5%85%B0%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8AVicon%E8%8B%B1%E8%AF%AD%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%8D%E5%85%B8%E3%80%8B%5B129907%5D/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Vicon-en-du.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇸🇪:") {
-                ListItem(
-                    name: "en-sw dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%91%9E%E5%85%B8%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E7%91%9E%E5%85%B8%E8%AF%AD%E8%BE%9E%E5%85%B8%E3%80%8B%E5%B0%8F%E8%AF%AD%E7%A7%8D%E5%BB%B6%E7%BB%AD%E7%89%88%5B104525%5D%28090604%29/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "en-sw.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇷🇺:") {
-                ListItem(
-                    name: "Babylon ERRE dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E4%BF%84%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Babylon-en-ru-en.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇬🇷:") {
-                ListItem(
-                    name: "Vicon-en-gr-en dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%8E%B0%E4%BB%A3%E5%B8%8C%E8%85%8A%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Vicon-en-gr-en.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇸🇦:") {
-                ListItem(
-                    name: "Babylon-en-ar-en dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Babylon-en-ar-en.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧⬄🇹🇷:") {
-                ListItem(
-                    name: "Vicon-en-tur-en dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%9C%9F%E8%80%B3%E5%85%B6%E8%AF%AD/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Vicon-en-tur-en.dictionary",
-                    downloadURL: nil
-                )
-            }
-            Preferences.Section(title: "🇬🇧➭🇮🇷:") {
-                ListItem(
-                    name: "Advanced_English-Persian_Dictionary",
-                    sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
-                    license: "?",
-                    licenseURL: nil,
-                    installedName: "Advanced_English-Persian_Dictionary.dictionary",
-                    downloadURL: nil
-                )
+            Preferences.Section(title: "Dicts:") {
+                DictsView()
             }
         }
         .overlay(
@@ -213,6 +30,219 @@ struct DictionariesView: View {
             ,
             alignment: .bottomTrailing
         )
+    }
+}
+
+fileprivate struct DictsView: View {
+    
+    struct Dict {
+        let name: String
+        let sourceURL: URL?
+        let license: String
+        let licenseURL: URL?
+        let installedName: String
+        let downloadURL: URL?
+    }
+    
+    private let dicts: [Dict] = [
+        //            Preferences.Section(title: "🇬🇧➭🇬🇧:") {
+        Dict(
+            name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
+            sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Concise Oxford English Dictionary 11th.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
+        ),
+        //            }
+        //            Preferences.Section(title: "🇬🇧➭🇨🇳:") {
+        Dict(
+            name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
+            sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
+            license: "MIT License",
+            licenseURL: URL(string: "https://mit-license.org/")!,
+            installedName: "简明英汉字典增强版.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
+        ),
+        Dict(
+            name: "懒虫简明英汉词典",
+            sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "mac-lazyworm-ec.dictionary",
+            downloadURL: nil
+        ),
+        //            }
+        //            Preferences.Section(title: "🇬🇧➭🇭🇰:") {
+        Dict(
+            name: "CDic", //(size: 60.6M)
+            sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+            license: "?",
+            licenseURL: URL(string: "http://cview.com.tw/")!,
+            installedName: "mac-yinghancidian.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
+        ),
+        Dict(
+            name: "懶蟲簡明英漢詞典",
+            sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "lazyworm-ec-big5.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧➭🇯🇵:") {
+        Dict(
+            name: "JMDict-en-ja dictionary", //(size: 44.3M)
+            sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
+            license: "The EDRDG Licence",
+            licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
+            installedName: "mac-jmdict-en-ja.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇰🇷:") {
+        Dict(
+            name: "vicon-en-ko-en dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%9F%A9%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "vicon-en-ko-en.dictionary",
+            downloadURL: nil //
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇩🇪:") {
+        Dict(
+            name: "Babylon-en-ge-en dictionary", //(size: 49.8M)
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%BE%B7%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Babylon-en-ge-en.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇫🇷:") {
+        Dict(
+            name: "Babylon-en-fr-en dictionary", //(size: 49.8M)
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%95%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Babylon-en-fr-en.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧➭🇪🇸:") {
+        Dict(
+            name: "vicon-en-span dictionary", //(size: 49.8M)
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%A5%BF%E7%8F%AD%E7%89%99%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "vicon-en-span.dictionary",
+            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇵🇹:") {
+        Dict(
+            name: "Vicon-en-po-en dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%91%A1%E8%90%84%E7%89%99%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Vicon-en-po-en.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧➭🇮🇹:") {
+        Dict(
+            name: "Babylon English-Italian dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%84%8F%E5%A4%A7%E5%88%A9%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Babylon English-Italian.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧➭🇳🇱:") {
+        Dict(
+            name: "Vicon-en-du dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%8D%B7%E5%85%B0%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8AVicon%E8%8B%B1%E8%AF%AD%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%8D%E5%85%B8%E3%80%8B%5B129907%5D/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Vicon-en-du.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧➭🇸🇪:") {
+        Dict(
+            name: "en-sw dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%91%9E%E5%85%B8%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E7%91%9E%E5%85%B8%E8%AF%AD%E8%BE%9E%E5%85%B8%E3%80%8B%E5%B0%8F%E8%AF%AD%E7%A7%8D%E5%BB%B6%E7%BB%AD%E7%89%88%5B104525%5D%28090604%29/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "en-sw.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇷🇺:") {
+        Dict(
+            name: "Babylon ERRE dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E4%BF%84%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Babylon-en-ru-en.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇬🇷:") {
+        Dict(
+            name: "Vicon-en-gr-en dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%8E%B0%E4%BB%A3%E5%B8%8C%E8%85%8A%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Vicon-en-gr-en.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇸🇦:") {
+        Dict(
+            name: "Babylon-en-ar-en dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Babylon-en-ar-en.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧⬄🇹🇷:") {
+        Dict(
+            name: "Vicon-en-tur-en dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%9C%9F%E8%80%B3%E5%85%B6%E8%AF%AD/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Vicon-en-tur-en.dictionary",
+            downloadURL: nil
+        ),
+        ////            }
+        ////            Preferences.Section(title: "🇬🇧➭🇮🇷:") {
+        Dict(
+            name: "Advanced_English-Persian_Dictionary",
+            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
+            license: "?",
+            licenseURL: nil,
+            installedName: "Advanced_English-Persian_Dictionary.dictionary",
+            downloadURL: nil
+        )
+    ]
+    
+    var body: some View {
+        ForEach(dicts, id:\.self.name) { d in
+            DictItemView(
+                name: d.name,
+                sourceURL: d.sourceURL,
+                license: d.license,
+                licenseURL: d.licenseURL,
+                installedName: d.installedName,
+                downloadURL: d.downloadURL
+            )
+        }
     }
 }
 
@@ -375,7 +405,7 @@ fileprivate func testInstall(dictFileName: String) {
     }
 }
     
-struct ListItem: View {
+struct DictItemView: View {
     func receiveProgressUpdateCallback(calculatedProgress: Float) {
         progressValue = calculatedProgress
     }
@@ -402,8 +432,40 @@ struct ListItem: View {
     @State private var isShowingPopoverOfEC = false
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
+        HStack(alignment: .top) {
+            if test {
+                Button("test", action: {
+                    testInstall(dictFileName: installedName)
+                })
+            } else {
+                if let downloadURL = downloadURL {
+                    Button(action: {
+                        isDownloading = true
+                        progressValue = 0.0
+                        let downloadDelegate = DownloadDelegate.init(
+                            receiveProgressUpdateCallback: receiveProgressUpdateCallback,
+                            finishedDownloadingCallback: finishedDownloadingCallback
+                        )
+                        let urlSession = URLSession(
+                            configuration: .default,
+                            delegate: downloadDelegate,
+                            delegateQueue: nil
+                        )
+                        let downloadTask = urlSession.downloadTask(with: downloadURL)
+                        downloadTask.resume()
+                    }, label: {
+                        Image(systemName: "square.and.arrow.down")
+                    })
+                    .disabled(isDownloading)
+                } else {
+                    Button(action: {}, label: {
+                        Image(systemName: "square.and.arrow.down")
+                    })
+                    .disabled(true)
+                }
+            }
+            
+//            VStack(alignment: .leading) {
                 HStack {
                     Text(name)
                     
@@ -433,22 +495,22 @@ struct ListItem: View {
                 }
                 .font(.headline)
                 
-                HStack {
-                    Text(license)
-                    
-                    if let licenseURL = licenseURL {
-                        Button(action: {
-                            openURL(licenseURL)
-                        }, label: {
-                            Image(systemName: "arrow.right.circle.fill")
-                        })
-                        .buttonStyle(PlainButtonStyle())
-                    } else {
-                        Spacer()
-                    }
-                }
-                .preferenceDescription()
-            }
+//                HStack {
+//                    Text(license)
+//
+//                    if let licenseURL = licenseURL {
+//                        Button(action: {
+//                            openURL(licenseURL)
+//                        }, label: {
+//                            Image(systemName: "arrow.right.circle.fill")
+//                        })
+//                        .buttonStyle(PlainButtonStyle())
+//                    } else {
+//                        Spacer()
+//                    }
+//                }
+//                .preferenceDescription()
+//            }
             
             Spacer()
             
@@ -458,36 +520,7 @@ struct ListItem: View {
                     .frame(minWidth: 40)
             }
             
-            if test {
-                Button("test", action: {
-                    testInstall(dictFileName: installedName)
-                })
-            } else {
-                if let downloadURL = downloadURL {
-                    Button(action: {
-                        isDownloading = true
-                        progressValue = 0.0
-                        let downloadDelegate = DownloadDelegate.init(
-                            receiveProgressUpdateCallback: receiveProgressUpdateCallback,
-                            finishedDownloadingCallback: finishedDownloadingCallback
-                        )
-                        let urlSession = URLSession(
-                            configuration: .default,
-                            delegate: downloadDelegate,
-                            delegateQueue: nil
-                        )
-                        let downloadTask = urlSession.downloadTask(with: downloadURL)
-                        downloadTask.resume()
-                    }, label: {
-                        Image(systemName: "square.and.arrow.down")
-                    })
-                    .disabled(isDownloading)
-                } else {
-                    Spacer()
-                }
-            }
         }
-        .frame(width: 400)
     }
 }
 
