@@ -28,10 +28,10 @@ struct LandscapeWordsView: View {
                 OriginBody()
                 VStack { Spacer() }
             }
+            .background(contentBackgroundVisualEffect ?
+                            VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                            nil)
         }
-        .background(contentBackgroundVisualEffect ?
-                        VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                        nil)
     }
 }
 
