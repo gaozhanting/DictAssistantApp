@@ -40,7 +40,8 @@ struct WordsView: View {
                     auxiliary.insert(word)
                 }
             }
-            return deDuplicated.filter{ $0.wordCell.isKnown == .unKnown }
+            return deDuplicated
+                .filter{ $0.wordCell.isKnown == .unKnown && !$0.wordCell.trans.isEmpty }
         }
     }
     
