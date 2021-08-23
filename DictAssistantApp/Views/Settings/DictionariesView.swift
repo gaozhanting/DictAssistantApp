@@ -52,7 +52,14 @@ fileprivate struct DictsView: View {
              installedName: "Concise Oxford English Dictionary 11th.dictionary",
              downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
         ),
-        
+        Dict(name: "Babylon_English.dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English.dictionary",
+             downloadURL: nil
+        ),
+                
         Dict(name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
              sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
              license: "MIT License",
