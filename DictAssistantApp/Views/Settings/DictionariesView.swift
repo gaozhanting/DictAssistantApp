@@ -215,6 +215,14 @@ fileprivate struct DictsView: View {
              licenseURL: nil,
              installedName: "Advanced_English-Persian_Dictionary.dictionary",
              downloadURL: nil
+        ),
+        
+        Dict(name: "English-Hindi Shabdanjali Dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/misc/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "shabdanjali.dictionary",
+             downloadURL: nil
         )
     ]
     
