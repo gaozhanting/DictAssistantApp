@@ -45,190 +45,169 @@ fileprivate struct DictsView: View {
     }
     
     private let dicts: [Dict] = [
-        //            Preferences.Section(title: "🇬🇧➭🇬🇧:") {
-        Dict(
-            name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
-            sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Concise Oxford English Dictionary 11th.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
+        Dict(name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
+             sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Concise Oxford English Dictionary 11th.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
         ),
-        //            }
-        //            Preferences.Section(title: "🇬🇧➭🇨🇳:") {
-        Dict(
-            name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
-            sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
-            license: "MIT License",
-            licenseURL: URL(string: "https://mit-license.org/")!,
-            installedName: "简明英汉字典增强版.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
+        
+        Dict(name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
+             sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
+             license: "MIT License",
+             licenseURL: URL(string: "https://mit-license.org/")!,
+             installedName: "简明英汉字典增强版.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
         ),
-        Dict(
-            name: "懒虫简明英汉词典",
-            sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "lazyworm-ec.dictionary",
-            downloadURL: nil
+        Dict(name: "懒虫简明英汉词典",
+             sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "lazyworm-ec.dictionary",
+             downloadURL: nil
         ),
-        //            }
-        //            Preferences.Section(title: "🇬🇧➭🇭🇰:") {
-        Dict(
-            name: "英漢字典CDic", //(size: 60.6M)
-            sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-            license: "?",
-            licenseURL: URL(string: "http://cview.com.tw/")!,
-            installedName: "mac-yinghancidian.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
+        
+        Dict(name: "英漢字典CDic",
+             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+             license: "?",
+             licenseURL: URL(string: "http://cview.com.tw/")!,
+             installedName: "mac-yinghancidian.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
         ),
-        Dict(
-            name: "懶蟲簡明英漢詞典",
-            sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "lazyworm-ec-big5.dictionary",
-            downloadURL: nil
+        Dict(name: "懶蟲簡明英漢詞典",
+             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "lazyworm-ec-big5.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧➭🇯🇵:") {
-        Dict(
-            name: "JMDict Englisth-Japanese dictionary", //(size: 44.3M)
-            sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
-            license: "The EDRDG Licence",
-            licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
-            installedName: "mac-jmdict-en-ja.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
+        
+        Dict(name: "JMDict English-Japanese dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
+             license: "The EDRDG Licence",
+             licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
+             installedName: "mac-jmdict-en-ja.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇰🇷:") {
-        Dict(
-            name: "Vicon English=Korean dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%9F%A9%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "vicon-en-ko-en.dictionary",
-            downloadURL: nil //
+        Dict(name: "Babylon English-Japanese",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Japanese.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇩🇪:") {
-        Dict(
-            name: "Babylon English=German dictionary", //(size: 49.8M)
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%BE%B7%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Babylon-en-ge-en.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+        
+        Dict(name: "Babylon English-Korean dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Korean.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇫🇷:") {
-        Dict(
-            name: "Babylon English=French dictionary", //(size: 49.8M)
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%95%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Babylon-en-fr-en.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+        
+        Dict(name: "Babylon English-German dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_German.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧➭🇪🇸:") {
-        Dict(
-            name: "Vicon English-Spanish dictionary", //(size: 49.8M)
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%A5%BF%E7%8F%AD%E7%89%99%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "vicon-en-span.dictionary",
-            downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/vicon-en-span.dictionary.zip")!
+        
+        Dict(name: "Babylon English-French dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_French.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇵🇹:") {
-        Dict(
-            name: "Vicon English=Portuguese dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%91%A1%E8%90%84%E7%89%99%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Vicon-en-po-en.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Spanish dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Spanish.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧➭🇮🇹:") {
-        Dict(
-            name: "Babylon English-Italian dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%84%8F%E5%A4%A7%E5%88%A9%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Babylon English-Italian.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Portuguese dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Portuguese.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧➭🇳🇱:") {
-        Dict(
-            name: "Vicon Englisth-Dutch dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E8%8D%B7%E5%85%B0%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8AVicon%E8%8B%B1%E8%AF%AD%E8%8D%B7%E5%85%B0%E8%AF%AD%E8%AF%8D%E5%85%B8%E3%80%8B%5B129907%5D/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Vicon-en-du.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Italian dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Italian.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧➭🇸🇪:") {
-        Dict(
-            name: "Vicon English-Swedish dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%91%9E%E5%85%B8%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E7%91%9E%E5%85%B8%E8%AF%AD%E8%BE%9E%E5%85%B8%E3%80%8B%E5%B0%8F%E8%AF%AD%E7%A7%8D%E5%BB%B6%E7%BB%AD%E7%89%88%5B104525%5D%28090604%29/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "en-sw.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Dutch dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Dutch.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇷🇺:") {
-        Dict(
-            name: "Babylon English=Russian dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E4%BF%84%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Babylon-en-ru-en.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Swedish dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Swedish.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇬🇷:") {
-        Dict(
-            name: "Vicon English=Greek dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E7%8E%B0%E4%BB%A3%E5%B8%8C%E8%85%8A%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Vicon-en-gr-en.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Russian dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Russian.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇸🇦:") {
-        Dict(
-            name: "Babylon English=Arabic dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Babylon-en-ar-en.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Greek dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Greek.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧⬄🇹🇷:") {
-        Dict(
-            name: "Vicon English=Turkish dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E5%9C%9F%E8%80%B3%E5%85%B6%E8%AF%AD/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Vicon-en-tur-en.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Turkish dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Turkish.dictionary",
+             downloadURL: nil
         ),
-        ////            }
-        ////            Preferences.Section(title: "🇬🇧➭🇮🇷:") {
-        Dict(
-            name: "Advanced English-Persian Dictionary",
-            sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
-            license: "?",
-            licenseURL: nil,
-            installedName: "Advanced_English-Persian_Dictionary.dictionary",
-            downloadURL: nil
+        
+        Dict(name: "Babylon English-Hebrew dictionary",
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon_English_Hebrew.dictionary",
+             downloadURL: nil
+        ),
+        
+        Dict(name: "Babylon English=Arabic dictionary",
+             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Babylon-en-ar-en.dictionary",
+             downloadURL: nil
+        ),
+        
+        Dict(name: "Advanced English-Persian Dictionary",
+             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "Advanced_English-Persian_Dictionary.dictionary",
+             downloadURL: nil
         )
     ]
     
