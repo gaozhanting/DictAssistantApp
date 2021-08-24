@@ -102,13 +102,24 @@ fileprivate struct EditingView: View {
     @State private var text = ""
     
     var words: [String] {
-        text.split(separator: "\n")
+        text.components(separatedBy: "\n")
             .map{ String($0) }
     }
-        
+    
     var isWordsInvalid: Bool {
         if text.isEmpty {
             return true
+        }
+        
+        // if one line (as a word) all spaces or empty, invalid the text, thus can't add or remove
+        for word in words {
+            if word.isEmpty {
+                return true
+            }
+            
+            if word.allSatisfy({ $0.isWhitespace }) {
+                return true
+            }
         }
         
 //        for word in words {
@@ -209,7 +220,7 @@ fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
     }
 }
 
-fileprivate let wikiFrequencyWords: [String] = wikiFrequencyWordsList.split(separator: "\n").map{ String($0) }
+fileprivate let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: "\n").map{ String($0) }
 
 fileprivate struct FirstNPopoverView: View {
     @Binding var text: String
@@ -253,15 +264,14 @@ fileprivate struct ShowInfoIcon: View {
         .popover(isPresented: $showInfo, arrowEdge: .top, content: {
             InfoPopoverView()
         })
-//        .padding(.horizontal, 10)
     }
 }
 
 fileprivate struct InfoPopoverView: View {
     var body: some View {
-        Text("Edit your known English words, one word a line; then add or remove them to or from your known words list.")
+        Text("Edit your known English words, one word or one phrase per line; then add them to or remove them from your known words list.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
             .padding()
-            .frame(width: 300, height: 80)
+            .frame(width: 300, height: 160)
     }
 }
 
