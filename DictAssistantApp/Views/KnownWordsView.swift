@@ -15,7 +15,7 @@ struct KnownWordsView: View {
     }
 }
 
-struct SplitView: NSViewControllerRepresentable {
+fileprivate struct SplitView: NSViewControllerRepresentable {
     func makeNSViewController(context: Context) -> some NSViewController {
         let controller = SplitViewController()
         return controller
@@ -25,7 +25,7 @@ struct SplitView: NSViewControllerRepresentable {
     }
 }
 
-class SplitViewController: NSSplitViewController {
+fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         let topViewController = NSHostingController(rootView: FixedKnownWordsView())
         addSplitViewItem(
@@ -44,7 +44,7 @@ class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate enum Flavor: String, CaseIterable, Identifiable {
+fileprivate enum DisplayFilter: String, CaseIterable, Identifiable {
     case all
     case words
     case phrases
@@ -52,7 +52,7 @@ fileprivate enum Flavor: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-struct FixedKnownWordsView: View {
+fileprivate struct FixedKnownWordsView: View {
     @FetchRequest(
         entity: WordStats.entity(),
         sortDescriptors: [
@@ -60,7 +60,7 @@ struct FixedKnownWordsView: View {
         ]
     ) var fetchedKnownWords: FetchedResults<WordStats>
 
-    @State private var selectedFlavor = Flavor.all
+    @State private var selectedFlavor = DisplayFilter.all
     
     func filter(_ word: String) -> Bool {
         switch selectedFlavor {
@@ -82,11 +82,12 @@ struct FixedKnownWordsView: View {
     
     var body: some View {
         VStack(alignment: .trailing) {
-            Picker("Flavor:", selection: $selectedFlavor) {
-                Text("All").tag(Flavor.all)
-                Text("Words").tag(Flavor.words)
-                Text("Phrases").tag(Flavor.phrases)
+            Picker("Show:", selection: $selectedFlavor) {
+                Text("All").tag(DisplayFilter.all)
+                Text("Words").tag(DisplayFilter.words)
+                Text("Phrases").tag(DisplayFilter.phrases)
             }
+            .padding(.top, 5)
             .frame(maxWidth: 150)
             
             TextEditor(text: Binding.constant(flavorKnownWords))
@@ -94,7 +95,7 @@ struct FixedKnownWordsView: View {
     }
 }
 
-struct EditingView: View {
+fileprivate struct EditingView: View {
     @State private var text = ""
     
     var words: [String] {
