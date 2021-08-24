@@ -81,17 +81,20 @@ fileprivate struct FixedKnownWordsView: View {
     }
     
     var body: some View {
-        VStack(alignment: .trailing) {
-            Picker("Show:", selection: $selectedFlavor) {
-                Text("All").tag(DisplayFilter.all)
-                Text("Words").tag(DisplayFilter.words)
-                Text("Phrases").tag(DisplayFilter.phrases)
-            }
-            .padding(.top, 5)
-            .frame(maxWidth: 150)
-            
-            TextEditor(text: Binding.constant(flavorKnownWords))
-        }
+        TextEditor(text: Binding.constant(flavorKnownWords))
+            .overlay(
+                Picker("", selection: $selectedFlavor) {
+                    Text("All").tag(DisplayFilter.all)
+                    Text("Words").tag(DisplayFilter.words)
+                    Text("Phrases").tag(DisplayFilter.phrases)
+                }
+                .labelsHidden()
+                .frame(maxWidth: 100)
+                ,
+                
+                alignment: .bottomTrailing
+            )
+        
     }
 }
 
@@ -118,30 +121,22 @@ fileprivate struct EditingView: View {
         
         return false
     }
-        
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                HStack {
+        TextEditor(text: $text)
+            .overlay(
+                VStack {
                     AddMultiButton(words: words, isWordsInvalid: isWordsInvalid)
                     RemoveMultiButton(words: words, isWordsInvalid: isWordsInvalid)
-                }
-                .padding(.horizontal, 10)
-                
-                HStack {
+                    
                     PasteFirstNWikiWordFrequencyButton(text: $text)
                     PasteOxford3000Button(text: $text)
+                    
+                    ShowInfoIcon()
                 }
-                .padding(.horizontal, 10)
-                
-                Spacer()
-                
-                ShowInfoIcon()
-                    .padding(.top, 5)
-            }
-            
-            TextEditor(text: $text)
-        }
+                ,
+                alignment: .trailing
+            )
     }
 }
 
@@ -258,15 +253,15 @@ fileprivate struct ShowInfoIcon: View {
         .popover(isPresented: $showInfo, arrowEdge: .top, content: {
             InfoPopoverView()
         })
-        .padding(.horizontal, 10)
+//        .padding(.horizontal, 10)
     }
 }
 
 fileprivate struct InfoPopoverView: View {
     var body: some View {
-        Text("Edit your known English words, one word a line.")
-            .padding(.leading, 4)
-            .frame(width: 300, height: 50)
+        Text("Edit your known English words, one word a line; then add or remove them to or from your known words list.")
+            .padding()
+            .frame(width: 300, height: 80)
     }
 }
 
