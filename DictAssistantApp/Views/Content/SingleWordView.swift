@@ -106,17 +106,18 @@ fileprivate struct TextBody: View {
                     Button("Thesaurus", action: { openThesaurus(word) })
                 }
             }
+            // gesture from the most unaccessible to the most accessible, according to the functionality frequency
             .gesture(
                 TapGesture()
                     .onEnded { _ in
-                        openDict(word)
+                        say(word)
                     }
                     .modifiers(.option)
             )
             .gesture(
                 TapGesture()
                     .onEnded { _ in
-                        say(word)
+                        openDict(word)
                     }
                     .modifiers(.command)
             )
