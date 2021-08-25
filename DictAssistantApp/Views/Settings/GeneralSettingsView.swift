@@ -32,9 +32,6 @@ struct GeneralSettingsView: View {
                     }
                 }
             }
-            Preferences.Section(title: "Speak:") {
-                SpeakWordToggle()
-            }
         }
     }
 }
@@ -146,17 +143,6 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
                 .preferenceDescription()
                 .frame(width: 300, height: 50, alignment: .leading)
         }
-    }
-}
-
-fileprivate struct SpeakWordToggle: View {
-    @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $speakWordToggle, label: {
-            Text("Speak word when long tap")
-        })
-        .toggleStyle(CheckboxToggleStyle())
     }
 }
 

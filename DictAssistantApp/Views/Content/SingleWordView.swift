@@ -88,8 +88,6 @@ fileprivate struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
 
-    @AppStorage(SpeakWordToggleKey) private var speakWordToggle: Bool = false
-
     var body0: some View {
         TextWithShadow(wordCell: wordCell)
             .opacity( (known && isPhrase) ? 0.5 : 1)
@@ -108,14 +106,26 @@ fileprivate struct TextBody: View {
                     Button("Thesaurus", action: { openThesaurus(word) })
                 }
             }
-            .onTapGesture(count: 2) {
-                openDict(word)
-            }
-            .onLongPressGesture {
-                if speakWordToggle {
-                    say(word)
-                }
-            }
+            .gesture(
+                TapGesture()
+                    .onEnded { _ in
+                        openDict(word)
+                    }
+                    .modifiers(.option)
+            )
+            .gesture(
+                TapGesture()
+                    .onEnded { _ in
+                        say(word)
+                    }
+                    .modifiers(.command)
+            )
+            .gesture(
+                TapGesture()
+                    .onEnded { _ in
+                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
+                    }
+            )
     }
     
     var body: some View {

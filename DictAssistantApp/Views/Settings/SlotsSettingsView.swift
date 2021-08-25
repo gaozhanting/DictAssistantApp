@@ -35,7 +35,6 @@ fileprivate struct Settings: Codable {
     let textShadowToggle: Bool
     let portraitMaxHeight: Double
     let landscapeMaxWidth: Double
-    let speakWordToggle: Bool
     let theColorScheme: TheColorScheme
     
     let cropperFrame: NSRect
@@ -67,7 +66,6 @@ fileprivate struct Settings: Codable {
         textShadowToggle: Bool,
         portraitMaxHeight: Double,
         landscapeMaxWidth: Double,
-        speakWordToggle: Bool,
         theColorScheme: TheColorScheme,
         cropperFrame: NSRect,
         contentFrame: NSRect
@@ -97,7 +95,6 @@ fileprivate struct Settings: Codable {
         self.textShadowToggle = textShadowToggle
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeMaxWidth = landscapeMaxWidth
-        self.speakWordToggle = speakWordToggle
         self.theColorScheme = theColorScheme
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
@@ -140,7 +137,6 @@ fileprivate let defaultSettings = Settings(
     textShadowToggle: false,
     portraitMaxHeight: 200.0,
     landscapeMaxWidth: 260.0,
-    speakWordToggle: false,
     theColorScheme: .system,
     cropperFrame: NSRect(x: 100, y: 100, width: 600, height: 200),
     contentFrame: NSRect(x: 300, y: 300, width: 600, height: 200)
@@ -173,7 +169,6 @@ fileprivate func getCurrentSettings() -> Settings {
         textShadowToggle: UserDefaults.standard.bool(forKey: TextShadowToggleKey),
         portraitMaxHeight: UserDefaults.standard.double(forKey: PortraitMaxHeightKey),
         landscapeMaxWidth: UserDefaults.standard.double(forKey: LandscapeMaxWidthKey),
-        speakWordToggle: UserDefaults.standard.bool(forKey: SpeakWordToggleKey),
         theColorScheme: TheColorScheme(rawValue: UserDefaults.standard.string(forKey: TheColorSchemeKey)!)!,
         cropperFrame: cropperWindow.frame,
         contentFrame: contentWindow.frame
@@ -267,7 +262,6 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 200.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 260.0
-    @AppStorage(SpeakWordToggleKey) var speakWordToggle: Bool = false
     @AppStorage(TheColorSchemeKey) var theColorScheme: TheColorScheme = .system
     
     @EnvironmentObject var statusData: StatusData
@@ -352,7 +346,6 @@ fileprivate struct SlotsSettings: View {
             s.textShadowToggle == textShadowToggle &&
             s.portraitMaxHeight == portraitMaxHeight &&
             s.landscapeMaxWidth == landscapeMaxWidth &&
-            s.speakWordToggle == speakWordToggle &&
             s.theColorScheme == theColorScheme &&
             s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow; this not react, it is isPlaying switch let it react.
             s.contentFrame == contentWindow.frame
@@ -393,7 +386,6 @@ fileprivate struct SlotsSettings: View {
         textShadowToggle = s.textShadowToggle
         portraitMaxHeight = s.portraitMaxHeight
         landscapeMaxWidth = s.landscapeMaxWidth
-        speakWordToggle = s.speakWordToggle
         theColorScheme = s.theColorScheme
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
