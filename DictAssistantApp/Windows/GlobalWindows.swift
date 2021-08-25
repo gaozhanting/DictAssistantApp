@@ -1,8 +1,8 @@
 //
-//  windows.swift
+//  GlobalWindows.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/8/2.
+//  Created by Gao Cong on 2021/8/25.
 //
 
 import Foundation
