@@ -13,14 +13,6 @@ import SwiftUI
 
 // MARK: - content window
 var contentWindow: NSPanel!
-func toggleContentShadow() {
-    if UserDefaults.standard.bool(forKey: IsShowWindowShadowKey) {
-        contentWindow.hasShadow = true
-        contentWindow.invalidateShadow()
-    } else {
-        contentWindow.hasShadow = false
-    }
-}
 
 // MARK: - cropper window
 var cropperWindow: NSWindow!
