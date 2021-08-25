@@ -515,7 +515,13 @@ fileprivate struct ContentWindowShadowToggle: View {
             isShowWindowShadow
         } set: { newValue in
             isShowWindowShadow = newValue
-            toggleContentShadow()
+            if isShowWindowShadow {
+                contentWindow.invalidateShadow()
+                contentWindow.hasShadow = true
+            } else {
+                contentWindow.invalidateShadow()
+                contentWindow.hasShadow = false
+            }
         }
     }
     

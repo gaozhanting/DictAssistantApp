@@ -250,8 +250,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
             name: "portraitWordsPanel"
         )
-        
-        toggleContentShadow()
+                
+        if UserDefaults.standard.bool(forKey: IsShowWindowShadowKey) {
+            contentWindow.invalidateShadow()
+            contentWindow.hasShadow = true
+        } else {
+            contentWindow.invalidateShadow()
+            contentWindow.hasShadow = false
+        }
 
         contentWindow.close()
     }
