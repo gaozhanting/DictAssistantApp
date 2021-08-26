@@ -26,7 +26,6 @@ struct LandscapeWordsView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top) {
                 OriginBody()
-                VStack { Spacer() }
             }
             .background(contentBackgroundVisualEffect ?
                             VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :

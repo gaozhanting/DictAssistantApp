@@ -140,7 +140,7 @@ fileprivate struct TextBody: View {
         }
     }
     
-    // add background when landscape or portrait-bottomLeading
+    // Add background when landscape or portrait-bottomLeading, when disabled the visual effect.
     var isAddBackGround: Bool {
         !contentBackgroundVisualEffect &&
             (contentStyle == .landscape ||

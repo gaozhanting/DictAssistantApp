@@ -16,9 +16,8 @@ fileprivate struct OriginBody: View {
             VStack(alignment: .leading) {
                 WordsView()
                     .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
-            
-                HStack { Spacer() }
             }
+            .frame(maxWidth: .infinity)
             .rotationEffect(Angle(degrees: 180))
         } else {
             VStack(alignment: .leading) {
@@ -40,7 +39,7 @@ func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
     }
 }
 
-fileprivate struct BackgroundVisualEffectBody: View {
+fileprivate struct BodyWithVisualEffectBackground: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
@@ -53,7 +52,7 @@ fileprivate struct BackgroundVisualEffectBody: View {
     }
 }
 
-fileprivate struct BackgroundColorBody: View {
+fileprivate struct BodyWithColorBackground: View {
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
     var theBackgroundColor: Color {
         Color(dataToColor(backgroundColor)!)
@@ -65,21 +64,21 @@ fileprivate struct BackgroundColorBody: View {
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
 }
 
-fileprivate struct WithBackgroundBody: View {
+fileprivate struct BodyWithBackground: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     var body: some View {
         if contentBackgroundVisualEffect {
-            BackgroundVisualEffectBody()
+            BodyWithVisualEffectBackground()
         } else {
-            BackgroundColorBody()
+            BodyWithColorBackground()
         }
     }
 }
 
-fileprivate struct WithScrollViewBody: View {
+fileprivate struct BodyEmbeddedInScrollView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            WithBackgroundBody()
+            BodyWithBackground()
         }
     }
 }
@@ -91,15 +90,15 @@ struct PortraitWordsView: View {
         case .topTrailing:
             HStack {
                 Spacer()
-                WithScrollViewBody()
+                BodyEmbeddedInScrollView()
             }
         case .topLeading:
             HStack {
-                WithScrollViewBody()
+                BodyEmbeddedInScrollView()
                 Spacer()
             }
         case .bottomLeading:
-            WithScrollViewBody()
+            BodyEmbeddedInScrollView()
                 .rotationEffect(Angle(degrees: 180))
         }
     }
