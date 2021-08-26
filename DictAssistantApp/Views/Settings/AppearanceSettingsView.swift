@@ -31,9 +31,6 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Window Shadow Display:") {
                 ContentWindowShadowToggle()
             }
-            Preferences.Section(title: "Content Animation Display:") {
-                WithAnimationToggle()
-            }
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
@@ -593,18 +590,6 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
             }
         }
         .pickerStyle(MenuPickerStyle())
-    }
-}
-
-fileprivate struct WithAnimationToggle: View {
-    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
-        
-    var body: some View {
-        Toggle(isOn: $isWithAnimation, label: {
-            Text("Show animation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you prefer animation for displaying words.")
     }
 }
 

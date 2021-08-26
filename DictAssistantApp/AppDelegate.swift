@@ -442,20 +442,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             }
         }
         
-        // only for debuging
-        if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
-            logger.info("IsWithAnimationKey is nil, impossible!")
-        }
-        
-        let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
-        
-        if isWithAnimation {
+        if isWithAnimation() {
             withAnimation {
                 displayedWords.wordCells = taggedWordTrans
             }
         }
         else {
             displayedWords.wordCells = taggedWordTrans
+        }
+    }
+    
+    func isWithAnimation() -> Bool {
+        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
+        let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
+        if (contentStyle == .portrait) && (portraitCorner == .topTrailing || portraitCorner == .topLeading) {
+            return true
+        } else {
+            return false
         }
     }
     
