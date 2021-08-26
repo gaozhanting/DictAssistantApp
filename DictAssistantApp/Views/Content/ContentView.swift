@@ -50,11 +50,16 @@ struct ContentView_Previews: PreviewProvider {
 //        WordCell(word: "effort", isKnown: .unKnown, trans: define("effort")),
 //        WordCell(word: "instilled", isKnown: .unKnown, trans: define("instilled")),
 //        WordCell(word: "instilled", isKnown: .unKnown, trans: define("instilled")),
-        WordCell(word: "fierce", isKnown: .unKnown, trans: define("fierce")),
-
+        
+        
+//        WordCell(word: "fierce", isKnown: .unKnown, trans: define("fierce")),
         WordCell(word: "Dish", isKnown: .unKnown, trans: define("Dish")),
+        
+        WordCell(word: "superstitious", isKnown: .unKnown, trans: define("superstitious")),
+
+        
 //        WordCell(word: "and", isKnown: .known, trans: define("and")),
-        WordCell(word: "recipe", isKnown: .unKnown, trans: define("recipe")),
+//        WordCell(word: "recipe", isKnown: .unKnown, trans: define("recipe")),
 
 //        WordCell(word: "make up one's mind", isKnown: .unKnown, trans: define("make up one's mind")),
 

@@ -14,11 +14,12 @@ fileprivate struct OriginBody: View {
     var body: some View {
         if portraitCorner == .bottomLeading {
             VStack(alignment: .leading) {
-                HStack { Spacer() }
                 WordsView()
-                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
+                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+
                 HStack { Spacer() }
             }
+            .border(Color.red)
             .rotationEffect(Angle(degrees: 180))
         } else {
             VStack(alignment: .leading) {
