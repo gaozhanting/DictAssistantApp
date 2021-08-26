@@ -10,7 +10,7 @@ import DataBases
 
 //fileprivate let spacing: CGFloat = 0
 
-struct WordCellWithId: Identifiable {
+struct WordCellWithId: Identifiable, Equatable {
     let wordCell: WordCell
     let id: String
 }

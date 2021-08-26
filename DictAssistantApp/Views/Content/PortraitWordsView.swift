@@ -9,23 +9,11 @@ import SwiftUI
 
 fileprivate struct OriginBody: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     
     var body: some View {
-        if portraitCorner == .bottomLeading {
-            VStack(alignment: .leading) {
-                WordsView()
-                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
-
-                HStack { Spacer() }
-            }
-            .border(Color.red)
-            .rotationEffect(Angle(degrees: 180))
-        } else {
-            VStack(alignment: .leading) {
-                WordsView()
-                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
-            }
+        VStack(alignment: .leading) {
+            WordsView()
+                .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
         }
     }
 }
@@ -61,9 +49,8 @@ fileprivate struct BodyWithColorBackground: View {
     }
     var body: some View {
         OriginBody()
-            .background(portraitCorner == .bottomLeading ? nil : theBackgroundColor)
+            .background(theBackgroundColor)
     }
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
 }
 
 fileprivate struct BodyWithBackground: View {
@@ -85,6 +72,48 @@ fileprivate struct BodyEmbeddedInScrollView: View {
     }
 }
 
+fileprivate struct PortraitBottomLeadingView: View {
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    
+    var body: some View {
+        GeometryReader { reader in
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading) {
+                        ForEach(words) { wordCellWithId in
+                            SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+                        }
+                        .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+
+                        HStack { Spacer() }
+                    }
+                    .background(contentBackgroundVisualEffect ?
+                                    VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                                    nil)
+                    .frame(minHeight: reader.size.height, alignment: .bottomLeading) // key point
+                }
+                .onChange(of: words) { _ in
+                    proxy.scrollTo(words.last?.id, anchor: .top)
+                }
+                .onAppear {
+                    proxy.scrollTo(words.last?.id, anchor: .top)
+                }
+            }
+        }
+    }
+    
+    @EnvironmentObject var displayedWords: DisplayedWords
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
+    
+    var words: [WordCellWithId] {
+        convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
+    }
+}
+
 struct PortraitWordsView: View {
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     var body: some View {
@@ -100,8 +129,7 @@ struct PortraitWordsView: View {
                 Spacer()
             }
         case .bottomLeading:
-            BodyEmbeddedInScrollView()
-                .rotationEffect(Angle(degrees: 180))
+            PortraitBottomLeadingView()
         }
     }
 }

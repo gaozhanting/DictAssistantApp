@@ -12,7 +12,7 @@ enum IsKnown {
     case unKnown
 }
 
-struct WordCell {
+struct WordCell: Equatable {
     let word: String
     let isKnown: IsKnown
     let trans: String
