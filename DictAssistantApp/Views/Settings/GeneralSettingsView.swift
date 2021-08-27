@@ -10,7 +10,7 @@ import Vision
 import Preferences
 import KeyboardShortcuts
 
-let settingPanelWidth: Double = 600.0
+let settingPanelWidth: Double = 570.0
 
 struct GeneralSettingsView: View {
     var body: some View {

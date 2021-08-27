@@ -200,25 +200,20 @@ struct SlotsSettingsView: View {
     @State private var isShowingPopover = false
 
     var body: some View {
-        
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Slots:") {
-                SlotsSettings()
-            }
-        }
-        .overlay(
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "questionmark").font(.body)
-            })
-            .clipShape(Circle())
-            .padding()
-            .shadow(radius: 1)
-            .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
-                InfoView()
-            })
-            ,
-            alignment: .bottomTrailing
-        )
+        SlotsSettings()
+            .overlay(
+                Button(action: { isShowingPopover = true }, label: {
+                    Image(systemName: "questionmark").font(.body)
+                })
+                .clipShape(Circle())
+                .padding()
+                .shadow(radius: 1)
+                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
+                    InfoView()
+                })
+                ,
+                alignment: .bottomTrailing
+            )
     }
 }
 
@@ -419,6 +414,7 @@ fileprivate struct SlotsSettings: View {
             }
         }
         .labelsHidden()
+        .padding()
         .pickerStyle(RadioGroupPickerStyle())
         .disabled(isPlaying)
     }

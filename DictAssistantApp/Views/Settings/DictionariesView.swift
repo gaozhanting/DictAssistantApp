@@ -12,24 +12,20 @@ struct DictionariesView: View {
     @State private var isShowingPopover = false
     
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Dicts:") {
-                DictsView()
-            }
-        }
-        .overlay(
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "questionmark").font(.body)
-            })
-            .clipShape(Circle())
-            .padding()
-            .shadow(radius: 1)
-            .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
-                InfoView()
-            })
-            ,
-            alignment: .bottomTrailing
-        )
+        DictsView()
+            .overlay(
+                Button(action: { isShowingPopover = true }, label: {
+                    Image(systemName: "questionmark").font(.body)
+                })
+                .clipShape(Circle())
+                .padding()
+                .shadow(radius: 1)
+                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
+                    InfoView()
+                })
+                ,
+                alignment: .bottomTrailing
+            )
     }
 }
 
@@ -237,6 +233,7 @@ fileprivate struct DictsView: View {
                 downloadURL: d.downloadURL
             )
         }
+        .padding()
     }
 }
 
@@ -561,7 +558,7 @@ struct DictsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             DictionariesView()
-                .frame(width: 650)
+                .frame(width: 650, height: 500)
             
             InfoView()
         }
