@@ -111,6 +111,42 @@ fileprivate func dataToSettings(_ data: Data) -> Settings? {
     return settings
 }
 
+let defaultKV: [String: Any] = [
+    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    IsWithAnimationKey: true,
+    IsShowPhrasesKey: true,
+    IsAddLineBreakKey: true,
+    IsShowCurrentKnownKey: false,
+    CropperStyleKey: CropperStyle.closed.rawValue,
+    ContentStyleKey: ContentStyle.portrait.rawValue,
+    IsShowWindowShadowKey: false,
+    ContentBackgroundVisualEffectKey: false,
+    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
+    WordColorKey: colorToData(NSColor.labelColor.withAlphaComponent(0.3))!,
+    TransColorKey: colorToData(NSColor.highlightColor)!,
+    BackgroundColorKey: colorToData(NSColor.clear)!,
+    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
+    ShowToastToggleKey: true,
+    FontKey: fontToData(NSFont.systemFont(ofSize: 18.0))!,
+    FontRateKey: 0.6,
+    ShadowColorKey: colorToData(NSColor.labelColor)!,
+    ShadowRadiusKey: 3,
+    ShadowXOffSetKey: 0.0,
+    ShadowYOffSetKey: 2.0,
+    TextShadowToggleKey: false,
+    PortraitMaxHeightKey: 200.0,
+    LandscapeMaxWidthKey: 260.0,
+    TheColorSchemeKey: TheColorScheme.system.rawValue,
+]
+
+func initUserSettings() {
+    for (key, value) in defaultKV {
+        if UserDefaults.standard.object(forKey: key) == nil {
+            UserDefaults.standard.setValue(value, forKey: key)
+        }
+    }
+}
+
 fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: 1,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
