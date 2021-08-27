@@ -441,9 +441,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 }
             }
         }
+            
+        let myAnimation: Animation =
+            Animation.spring(dampingFraction: 0.5)
+                .speed(2)
         
         if isWithAnimation() {
-            withAnimation {
+            withAnimation(myAnimation) {
                 displayedWords.wordCells = taggedWordTrans
             }
         }
@@ -453,9 +457,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func isWithAnimation() -> Bool {
+//        return false
+        
         let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
-        let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
-        if (contentStyle == .portrait) && (portraitCorner == .topTrailing || portraitCorner == .topLeading) {
+//        let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
+        if contentStyle == .portrait {
             return true
         } else {
             return false
