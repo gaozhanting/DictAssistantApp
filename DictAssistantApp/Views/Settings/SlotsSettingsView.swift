@@ -12,6 +12,7 @@ import Vision
 fileprivate struct Settings: Codable {
     let tRTextRecognitionLevel: Int
     let tRMinimumTextHeight: Double
+    let isWithAnimation: Bool
     let isShowPhrases: Bool
     let isAddLineBreak: Bool
     let isShowCurrentKnown: Bool
@@ -42,6 +43,7 @@ fileprivate struct Settings: Codable {
     init(
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
+        isWithAnimation: Bool,
         isShowPhrases: Bool,
         isAddLineBreak: Bool,
         isShowCurrentKnown: Bool,
@@ -70,6 +72,7 @@ fileprivate struct Settings: Codable {
     ) {
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
+        self.isWithAnimation = isWithAnimation
         self.isShowPhrases = isShowPhrases
         self.isAddLineBreak = isAddLineBreak
         self.isShowCurrentKnown = isShowCurrentKnown
@@ -111,6 +114,7 @@ fileprivate func dataToSettings(_ data: Data) -> Settings? {
 fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: 1,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
+    isWithAnimation: true,
     isShowPhrases: true,
     isAddLineBreak: true,
     isShowCurrentKnown: false,
@@ -142,6 +146,7 @@ fileprivate func getCurrentSettings() -> Settings {
     return Settings(
         tRTextRecognitionLevel: UserDefaults.standard.integer(forKey: TRTextRecognitionLevelKey),
         tRMinimumTextHeight: UserDefaults.standard.double(forKey: TRMinimumTextHeightKey),
+        isWithAnimation: UserDefaults.standard.bool(forKey: IsWithAnimationKey),
         isShowPhrases: UserDefaults.standard.bool(forKey: IsShowPhrasesKey),
         isAddLineBreak: UserDefaults.standard.bool(forKey: IsAddLineBreakKey),
         isShowCurrentKnown: UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey),
@@ -229,6 +234,7 @@ fileprivate struct SlotsSettings: View {
     // isShowStoreButton need these almost all @AppStorage data
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsShowCurrentKnownKey) var isShowCurrentKnown: Bool = false
@@ -312,6 +318,7 @@ fileprivate struct SlotsSettings: View {
         let s = selectedSettings
         let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
             s.tRMinimumTextHeight == tRMinimumTextHeight &&
+            s.isWithAnimation == isWithAnimation &&
             s.isShowPhrases == isShowPhrases &&
             s.isAddLineBreak == isAddLineBreak &&
             s.isShowCurrentKnown == isShowCurrentKnown &&
@@ -351,6 +358,7 @@ fileprivate struct SlotsSettings: View {
     fileprivate func dumpSettings(from s: Settings) {
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
+        isWithAnimation = s.isWithAnimation
         isShowPhrases = s.isShowPhrases
         isAddLineBreak = s.isAddLineBreak
         isShowCurrentKnown = s.isShowCurrentKnown

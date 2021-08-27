@@ -31,6 +31,9 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Content Window Shadow Display:") {
                 ContentWindowShadowToggle()
             }
+            Preferences.Section(title: "Content Animation Display:") {
+                WithAnimationToggle()
+            }
             Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
@@ -537,7 +540,7 @@ fileprivate struct ContentWindowShadowToggle: View {
             })
             .buttonStyle(PlainButtonStyle())
             .popover(isPresented: $isShowingPopover, content: {
-                Text("Notice it may mess up.")
+                Text("Notice window shadow may mess up content.")
                     .font(.subheadline)
                     .padding()
             })
@@ -590,6 +593,32 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
             }
         }
         .pickerStyle(MenuPickerStyle())
+    }
+}
+
+fileprivate struct WithAnimationToggle: View {
+    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
+    
+    @State private var isShowingPopover = false
+
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isWithAnimation, label: {
+                Text("Show animation")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            .help("Select it when you prefer animation for displaying words.")
+            
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "info.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .popover(isPresented: $isShowingPopover, content: {
+                Text("Notice animation will increase cpu usage.")
+                    .font(.subheadline)
+                    .padding()
+            })
+        }
     }
 }
 

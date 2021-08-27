@@ -22,6 +22,8 @@ let isJoinTranslationLinesKey = "isJoinTranslationLinesKey" // not in slot
 
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 
+let IsWithAnimationKey = "IsWithAnimationKey"
+
 let CropperStyleKey = "CropperStyleKey"
 let ContentStyleKey = "ContentStyleKey"
 

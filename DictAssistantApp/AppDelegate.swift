@@ -441,30 +441,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 }
             }
         }
-            
+        
+        
+        // only for debuging
+        if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
+            logger.info("IsWithAnimationKey is nil, impossible!")
+        }
+        
+        let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
+        
         let myAnimation: Animation =
             Animation.spring(dampingFraction: 0.5)
-                .speed(2)
+            .speed(2)
         
-        if isWithAnimation() {
+        if isWithAnimation {
             withAnimation(myAnimation) {
                 displayedWords.wordCells = taggedWordTrans
             }
         }
         else {
             displayedWords.wordCells = taggedWordTrans
-        }
-    }
-    
-    func isWithAnimation() -> Bool {
-//        return false
-        
-        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
-//        let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
-        if contentStyle == .portrait {
-            return true
-        } else {
-            return false
         }
     }
     
