@@ -72,6 +72,7 @@ fileprivate struct BodyEmbeddedInScrollView: View {
     }
 }
 
+/* (not used)
 fileprivate struct PortraitBottomLeadingViewAutoScroll: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
@@ -113,6 +114,7 @@ fileprivate struct PortraitBottomLeadingViewAutoScroll: View {
         convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
     }
 }
+ */
 
 fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
@@ -120,33 +122,30 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
-    var body: some View {
-//        GeometryReader { reader in
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    ForEach(words) { wordCellWithId in
-                        SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-                    }
-                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
-                    
-                    HStack { Spacer() }
-                }
-                .rotationEffect(Angle(degrees: 180))
-                .background(contentBackgroundVisualEffect ?
-                                VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                                nil)
-//                .frame(minHeight: reader.size.height, alignment: .bottomLeading) // key point
-            }
-            .rotationEffect(Angle(degrees: 180))
-//        }
-    }
-    
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     
     var words: [WordCellWithId] {
         convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
+    }
+    
+    var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading) {
+                ForEach(words) { wordCellWithId in
+                    SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+                }
+                .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+                
+                HStack { Spacer() }
+            }
+            .rotationEffect(Angle(degrees: 180))
+            .background(contentBackgroundVisualEffect ?
+                            VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                            nil)
+        }
+        .rotationEffect(Angle(degrees: 180))
     }
 }
 

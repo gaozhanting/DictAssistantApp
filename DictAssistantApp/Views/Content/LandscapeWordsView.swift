@@ -14,33 +14,19 @@ struct LandscapeWordsView: View {
 }
 
 struct LandscapeWordsViewAutoScroll: View {
+    var body: some View {
+        ScrollViewReader { proxy in
+            BodyView(proxy: proxy)
+        }
+    }
+}
+
+fileprivate struct BodyView: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 
-    var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    ForEach(words) { wordCellWithId in
-                        SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-                    }
-                    .frame(maxWidth: CGFloat(landscapeMaxWidth))
-                }
-                .background(contentBackgroundVisualEffect ?
-                                VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                                nil)
-                .onChange(of: words) { _ in
-                    proxy.scrollTo(words.last?.id, anchor: .top)
-                }
-                .onAppear {
-                    proxy.scrollTo(words.last?.id, anchor: .top)
-                }
-            }
-        }
-    }
-    
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
 
     @EnvironmentObject var displayedWords: DisplayedWords
@@ -50,8 +36,31 @@ struct LandscapeWordsViewAutoScroll: View {
     var words: [WordCellWithId] {
         convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
     }
+    
+    let proxy: ScrollViewProxy
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top) {
+                ForEach(words) { wordCellWithId in
+                    SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+                }
+                .frame(maxWidth: CGFloat(landscapeMaxWidth))
+            }
+            .background(contentBackgroundVisualEffect ?
+                            VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                            nil)
+            .onChange(of: words) { _ in
+                proxy.scrollTo(words.last?.id, anchor: .top)
+            }
+            .onAppear {
+                proxy.scrollTo(words.last?.id, anchor: .top)
+            }
+        }
+    }
 }
 
+/* (not used)
 struct LandscapeWordsViewTwoRotation: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
@@ -84,6 +93,7 @@ struct LandscapeWordsViewTwoRotation: View {
         convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
     }
 }
+ */
 
 //struct LandscapeWordsView_Previews: PreviewProvider {
 //    static var previews: some View {
