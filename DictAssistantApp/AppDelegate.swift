@@ -449,9 +449,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             logger.info("IsWithAnimationKey is nil, impossible!")
         }
         
-        let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
-        
-        if isWithAnimation {
+        if isWithAnimation() {
             withAnimation(whichAnimation()) {
                 displayedWords.wordCells = taggedWordTrans
             }
@@ -461,12 +459,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
     
-    func whichAnimation() -> Animation? {
+    func isWithAnimation() -> Bool {
         let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
         if contentStyle == .landscape {
-            return Animation.spring(dampingFraction: 0.5).speed(2)
+            return false
         }
         
+        return UserDefaults.standard.bool(forKey: IsWithAnimationKey)
+    }
+    
+    func whichAnimation() -> Animation? {
         let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
         switch portraitCorner {
         case .topLeading:
@@ -474,7 +476,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         case .topTrailing:
             return Animation.default
         case .bottomLeading:
-            return nil
+            return Animation.spring(dampingFraction: 0.5).speed(2)
         case .none:
             return nil
         }

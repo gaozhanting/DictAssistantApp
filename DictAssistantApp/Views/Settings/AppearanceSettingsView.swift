@@ -614,7 +614,7 @@ fileprivate struct WithAnimationToggle: View {
             })
             .buttonStyle(PlainButtonStyle())
             .popover(isPresented: $isShowingPopover, content: {
-                Text("Notice animation will increase cpu usage.")
+                Text("Notice animation will increase cpu usage. And landscape can't animate.")
                     .font(.subheadline)
                     .padding()
             })
