@@ -26,7 +26,6 @@ fileprivate struct Settings: Codable {
     let backgroundColor: Data
     let portraitCorner: PortraitCorner
     let showToastToggle: Bool
-    let fontData: Data
     let fontRate: Double
     let shadowColor: Data
     let shadowRadius: Double
@@ -57,7 +56,6 @@ fileprivate struct Settings: Codable {
         backgroundColor: Data,
         portraitCorner: PortraitCorner,
         showToastToggle: Bool,
-        fontData: Data,
         fontRate: Double,
         shadowColor: Data,
         shadowRadius: Double,
@@ -86,7 +84,6 @@ fileprivate struct Settings: Codable {
         self.backgroundColor = backgroundColor
         self.portraitCorner = portraitCorner
         self.showToastToggle = showToastToggle
-        self.fontData = fontData
         self.fontRate = fontRate
         self.shadowColor = shadowColor
         self.shadowRadius = shadowRadius
@@ -127,7 +124,8 @@ let defaultKV: [String: Any] = [
     BackgroundColorKey: colorToData(NSColor.clear)!,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
     ShowToastToggleKey: true,
-    FontKey: fontToData(NSFont.systemFont(ofSize: 18.0))!,
+    FontNameKey: defaultFontName,
+    FontSizeKey: 18.0,
     FontRateKey: 0.6,
     ShadowColorKey: colorToData(NSColor.labelColor)!,
     ShadowRadiusKey: 3,
@@ -164,7 +162,6 @@ fileprivate let defaultSettings = Settings(
     backgroundColor: colorToData(NSColor.clear)!,
     portraitCorner: .topLeading,
     showToastToggle: true,
-    fontData: fontToData(NSFont.systemFont(ofSize: 18.0))!,
     fontRate: 0.6,
     shadowColor: colorToData(NSColor.labelColor)!,
     shadowRadius: 3,
@@ -196,7 +193,6 @@ fileprivate func getCurrentSettings() -> Settings {
         backgroundColor: UserDefaults.standard.data(forKey: BackgroundColorKey)!,
         portraitCorner: PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))!,
         showToastToggle: UserDefaults.standard.bool(forKey: ShowToastToggleKey),
-        fontData: UserDefaults.standard.data(forKey: FontKey)!,
         fontRate: UserDefaults.standard.double(forKey: FontRateKey),
         shadowColor: UserDefaults.standard.data(forKey: ShadowColorKey)!,
         shadowRadius: UserDefaults.standard.double(forKey: ShadowRadiusKey),
@@ -284,7 +280,8 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.clear)!
     @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
     @AppStorage(ShowToastToggleKey) var showToastToggle: Bool = true
-    @AppStorage(FontKey) var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
+    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
+    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
     @AppStorage(FontRateKey) var fontRate: Double = 0.6
     @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
@@ -368,7 +365,6 @@ fileprivate struct SlotsSettings: View {
             s.backgroundColor == backgroundColor &&
             s.portraitCorner == portraitCorner &&
             s.showToastToggle == showToastToggle &&
-            s.fontData == fontData &&
             s.fontRate == fontRate &&
             s.shadowColor == shadowColor &&
             s.shadowRadius == shadowRadius &&
@@ -408,7 +404,6 @@ fileprivate struct SlotsSettings: View {
         backgroundColor = s.backgroundColor
         portraitCorner = s.portraitCorner
         showToastToggle = s.showToastToggle
-        fontData = s.fontData
         fontRate = s.fontRate
         shadowColor = s.shadowColor
         shadowRadius = s.shadowRadius

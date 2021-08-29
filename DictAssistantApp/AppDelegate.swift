@@ -313,9 +313,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
     @IBAction func changeFont(_ sender: NSFontManager?) {
         guard let sender = sender else { return assertionFailure() }
-        let newFont = sender.convert(.systemFont(ofSize: 0))
+        let newFont = sender.convert(defaultNSFont)
         
-        UserDefaults.standard.setValue(fontToData(newFont)!, forKey: FontKey)
+        // hack to resolve the FontPanel issue, .SFNS-Regular can't be found in FontPanel, it is auto changed based on ".AppleSystemUIFont", which is wierd.
+        let fontName = newFont.fontName == ".SFNS-Regular" ?
+            defaultFontName :
+            newFont.fontName
+        
+        UserDefaults.standard.setValue(fontName, forKey: FontNameKey)
+        UserDefaults.standard.setValue(newFont.pointSize, forKey: FontSizeKey)
     }
     
     // MARK:- Core Data (WordStatis)

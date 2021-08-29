@@ -192,16 +192,15 @@ fileprivate struct TheText: View {
         Color(dataToColor(transColor)!)
     }
     
-    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
+    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
+    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
     var font: Font {
-        Font(dataToFont(fontData)!)
+        return Font.custom(fontName, size: CGFloat(fontSize))
     }
     
     @AppStorage(FontRateKey) private var fontRate: Double = 0.6
     var transFont: Font {
-        let font = dataToFont(fontData)!
-        let result = NSFont.init(name: font.fontName, size: font.pointSize * CGFloat(fontRate))!
-        return Font(result)
+        return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
     }
     
     let wordCell: WordCell

@@ -39,7 +39,10 @@ let PortraitCornerKey = "PortraitCornerKey"
 
 let ShowToastToggleKey = "ShowToastToggleKey"
 
-let FontKey = "FontKey"
+let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
+let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
+let FontNameKey = "FontNameKey"
+let FontSizeKey = "FontSizeKey"
 let FontRateKey = "FontRateKey"
 
 let ShadowColorKey = "ShadowColorKey"

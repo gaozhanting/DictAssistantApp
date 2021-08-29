@@ -114,26 +114,29 @@ fileprivate struct CropperStyleSettingView: View {
 }
 
 fileprivate struct FontSettingView: View {
-    @AppStorage(FontKey) private var fontData: Data = fontToData(NSFont.systemFont(ofSize: 18.0))!
-    
-    func showFontPanel(_ sender: Any?) {
-        let font = dataToFont(fontData)!
-        
-        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
-        
-        NSApplication.shared.activate(ignoringOtherApps: true)
-        NSFontManager.shared.orderFrontFontPanel(sender)
-    }
+    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
+    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
     
     var font: NSFont {
-        dataToFont(fontData)!
+        if let font = NSFont(name: fontName, size: CGFloat(fontSize)) {
+            return font
+        } else {
+            print("construct 3 font failed: with name:\(fontName), with size:\(fontSize)") // occured when changing default system font size; the FontPanel can't reflect the system font which is unkown why.
+            return NSFont.systemFont(ofSize: 18.0)
+        }
+    }
+
+    func showFontPanel(_ sender: Any?) {
+        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        NSFontManager.shared.orderFrontFontPanel(sender) // why the FontPanel has no system Font (same as CotEditor), but Apple Notes FontPanel does have.
     }
     
     var body: some View {
         HStack {
             TextField(
                 "",
-                text: Binding.constant("\(font.displayName!) \(font.pointSize)")
+                text: Binding.constant("\(fontName) \(fontSize)")
             )
             .disabled(true)
             .textFieldStyle(SquareBorderTextFieldStyle())
@@ -144,8 +147,8 @@ fileprivate struct FontSettingView: View {
             }
             
             Button("Use default") {
-                let defaultFont = NSFont.systemFont(ofSize: 18.0)
-                fontData = fontToData(defaultFont)!
+                fontName = defaultFontName
+                fontSize = 18.0
             }
         }
     }
