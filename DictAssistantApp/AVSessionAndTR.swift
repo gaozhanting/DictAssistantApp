@@ -13,6 +13,7 @@ import Vision
 class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
     let session: AVCaptureSession = AVCaptureSession()
     let screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
+    
     let dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
     let videoDataOutputQueue = DispatchQueue(
         label: "CameraFeedDataOutput",
@@ -22,9 +23,8 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     )
     
     // for testing mp4 file
-    let testMovie = false
+    let testMovie = true
     let testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
-    // need maually delete for testing.
     let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
 
     func startScreenCapture() {
@@ -78,6 +78,13 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         session.startRunning()
         
         if testMovie {
+            do {
+                let movieUrl = URL.init(fileURLWithPath: movieUrlString)
+                try FileManager.default.removeItem(at: movieUrl)
+            } catch {
+                logger.info("remove movieUrl exception caught: \(error.localizedDescription)")
+            }
+
             let movieUrl = URL.init(fileURLWithPath: movieUrlString)
             testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
         }
