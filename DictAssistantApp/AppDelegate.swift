@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // MARK: - Preferences
     private lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
-            GeneralPreferenceViewController(),
+            GeneralPreferenceViewController(statusData: statusData),
             AppearancePreferenceViewController(),
             SlotsPreferenceViewController(statusData: statusData),
             DictionariesPreferenceViewController()

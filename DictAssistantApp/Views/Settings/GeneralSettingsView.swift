@@ -32,6 +32,9 @@ struct GeneralSettingsView: View {
                     }
                 }
             }
+            Preferences.Section(title: "Maximum Frame Rate:") {
+                MaximumFrameRateSetting()
+            }
         }
     }
 }
@@ -146,13 +149,56 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
     }
 }
 
+fileprivate struct MaximumFrameRateSetting: View {
+    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
+    @EnvironmentObject var statusData: StatusData
+    var isPlaying: Bool {
+        statusData.isPlaying
+    }
+    
+    @State private var isShowingPopover = false
+    
+    var body: some View {
+        HStack {
+            TextField("", value: $maximumFrameRate, formatter: formatter)
+                .frame(width: 46)
+                .disabled(isPlaying)
+            
+            Button("Use default") {
+                maximumFrameRate = 4
+            }
+            .disabled(isPlaying)
+            
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "info.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .popover(isPresented: $isShowingPopover, arrowEdge: .trailing, content: {
+                MaximumFrameRateInfoPopoverView()
+            })
+        }
+    }
+}
+
+fileprivate struct MaximumFrameRateInfoPopoverView: View {
+    var body: some View {
+        Text("Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the app react to the cropper screen content changing, but the more cpu it consumes. 4 to 30 is all OK, and number below 4 is useless. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lift in such a little time.")
+            .font(.subheadline)
+            .padding()
+            .frame(width: 300, height: 230)
+    }
+}
+
 struct GeneralSettingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             GeneralSettingsView()
+                .environmentObject(StatusData(isPlaying: false))
                 .frame(width: 650, height: 500)
             
             MiniHeigthInfoPopoverView()
+            
+            MaximumFrameRateInfoPopoverView()
         }
     }
 }

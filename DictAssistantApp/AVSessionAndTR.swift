@@ -23,13 +23,13 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     )
     
     // for testing mp4 file
-    let testMovie = true
+    let testMovie = false
     let testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
     let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
 
     func startScreenCapture() {
-        let videoFramesPerSecond = 1 // todo
-        screenInput.minFrameDuration = CMTime(seconds: 1 / Double(videoFramesPerSecond), preferredTimescale: 600)
+        let maximumFrameRate = UserDefaults.standard.double(forKey: "MaximumFrameRateKey")
+        screenInput.minFrameDuration = CMTime(seconds: Double(1 / maximumFrameRate), preferredTimescale: 600)
         
         screenInput.cropRect = cropperWindow.frame
 
@@ -38,6 +38,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         screenInput.capturesMouseClicks = false
 
         session.beginConfiguration()
+//        session.sessionPreset = .hd1920x1080
         
         if session.canAddInput(screenInput) {
             session.addInput(screenInput)

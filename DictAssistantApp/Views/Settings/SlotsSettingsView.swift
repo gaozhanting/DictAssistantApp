@@ -110,6 +110,7 @@ fileprivate func dataToSettings(_ data: Data) -> Settings? {
 
 let defaultKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    MaximumFrameRateKey: 4,
     IsWithAnimationKey: true,
     IsShowPhrasesKey: true,
     IsAddLineBreakKey: true,

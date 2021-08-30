@@ -12,6 +12,8 @@ import Cocoa
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 
+let MaximumFrameRateKey = "MaximumFrameRateKey"
+
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"

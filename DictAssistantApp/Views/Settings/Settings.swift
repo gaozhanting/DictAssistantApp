@@ -15,13 +15,14 @@ extension Preferences.PaneIdentifier {
     static let dictionaries = Self("dictionaries")
 }
 
-func GeneralPreferenceViewController() -> PreferencePane {
+func GeneralPreferenceViewController(statusData: StatusData) -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .general,
         title: "General",
         toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "General preferences")!
     ) {
         GeneralSettingsView()
+            .environmentObject(statusData)
     }
 
     return Preferences.PaneHostingController(pane: paneView)
