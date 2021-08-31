@@ -466,11 +466,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func isWithAnimation() -> Bool {
-        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
-        if contentStyle == .landscape {
-            return false
-        }
-        
         return UserDefaults.standard.bool(forKey: IsWithAnimationKey)
     }
     
