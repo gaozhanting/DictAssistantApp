@@ -18,7 +18,6 @@ struct AppearanceSettingsView: View {
                 CropperStyleSettingView()
             }
             Preferences.Section(title: "Content Words Display:") {
-                ShowCurrentKnownWordsToggle()
                 ShowPhrasesToggle()
                 Divider().frame(width: 200)
                 DropTitleWordToggle()
@@ -50,7 +49,7 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: "Appearance:") {
                 ColorSchemeSetting()
             }
-            Preferences.Section(title: "Colors & Shandow:") {
+            Preferences.Section(title: "Colors & Shadow:") {
                 GroupBox {
                     HStack {
                         GroupBox {
@@ -426,18 +425,6 @@ fileprivate struct ShadowYOffSetPicker: View {
     }
 }
 
-fileprivate struct ShowCurrentKnownWordsToggle: View {
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $isShowCurrentKnown, label: {
-            Text("Show current known words")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to display current known words.")
-    }
-}
-
 fileprivate struct ShowPhrasesToggle: View {
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
     
@@ -607,7 +594,7 @@ fileprivate struct WithAnimationToggle: View {
     var body: some View {
         HStack {
             Toggle(isOn: $isWithAnimation, label: {
-                Text("Show animation")
+                Text("With animation")
             })
             .toggleStyle(CheckboxToggleStyle())
             .help("Select it when you prefer animation for displaying words.")
