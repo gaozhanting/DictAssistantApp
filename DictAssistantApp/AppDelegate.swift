@@ -147,15 +147,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownKey)
             }
         }
-        
-        KeyboardShortcuts.onKeyUp(for: .reloadContentView) { [self] in
-            let contentView = ContentView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
-            let contentViewWithEnv = attachEnv(AnyView(contentView))
-            contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
-            contentWindow.orderFrontRegardless()
-        }
     }
     
     // no resizable, not movable
