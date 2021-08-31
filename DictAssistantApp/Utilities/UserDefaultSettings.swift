@@ -10,88 +10,110 @@ import Cocoa
 import Vision
 
 // UserDefault keys:
+// -- this three not in slots
+let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
+
+let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
+let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
+let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
+
+let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
+
+// general
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
-
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
-let IsShowCurrentKnownKey = "IsShowCurrentKnownKey"
+// visual
 let IsShowPhrasesKey = "IsShowPhrasesKey"
+
+let CropperStyleKey = "CropperStyleKey"
+
+let IsDropTitleWordKey = "IsDropTitleWordKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
-let IsAddSpaceKey = "IsAddSpaceKey" // not in slot
-let isDropFirstTitleWordInTranslationKey = "isDropFirstTitleWordInTranslationKey" // not in slot
-let IsDropTitleWordKey = "IsDropTitleWordKey" // not in slot
-let isJoinTranslationLinesKey = "isJoinTranslationLinesKey" // not in slot
+let IsAddSpaceKey = "IsAddSpaceKey"
+let IsDropFirstTitleWordInTranslationKey = "IsDropFirstTitleWordInTranslationKey"
+let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
 
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 
 let IsWithAnimationKey = "IsWithAnimationKey"
 
-let CropperStyleKey = "CropperStyleKey"
 let ContentStyleKey = "ContentStyleKey"
+let PortraitCornerKey = "PortraitCornerKey"
+let PortraitMaxHeightKey = "PortraitMaxHeightKey"
+let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
-let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
+let FontSizeKey = "FontSizeKey"
+let FontRateKey = "FontRateKey"
 
-let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
+let TheColorSchemeKey = "TheColorSchemeKey"
 
 let WordColorKey = "WordColorKey"
 let TransColorKey = "TransColorKey"
 let BackgroundColorKey = "BackgroundColorKey"
 
-let PortraitCornerKey = "PortraitCornerKey"
-
-let ShowToastToggleKey = "ShowToastToggleKey"
-
-let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
-let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
-let FontNameKey = "FontNameKey"
-let FontSizeKey = "FontSizeKey"
-let FontRateKey = "FontRateKey"
-
+let TextShadowToggleKey = "TextShadowToggleKey"
 let ShadowColorKey = "ShadowColorKey"
 let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
-let TextShadowToggleKey = "TextShadowToggleKey"
+let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
+let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
-let PortraitMaxHeightKey = "PortraitMaxHeightKey"
-let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
-
-let TheColorSchemeKey = "TheColorSchemeKey"
-
-// defaults
-let defaultKV: [String: Any] = [
+// in slot defaults
+let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,
-    IsWithAnimationKey: true,
+    
     IsShowPhrasesKey: true,
-    IsAddLineBreakKey: true,
-    IsShowCurrentKnownKey: false,
+    
     CropperStyleKey: CropperStyle.closed.rawValue,
+    
+    IsDropTitleWordKey: false,
+    IsAddLineBreakKey: true,
+    IsAddSpaceKey: false,
+    IsDropFirstTitleWordInTranslationKey: true,
+    IsJoinTranslationLinesKey: false,
+    
+    IsShowWindowShadowKey: true,
+    
+    IsWithAnimationKey: true,
+    
     ContentStyleKey: ContentStyle.portrait.rawValue,
-    IsShowWindowShadowKey: false,
-    ContentBackgroundVisualEffectKey: false,
-    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
+    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
+    PortraitMaxHeightKey: 200.0,
+    LandscapeMaxWidthKey: 260.0,
+    
+    FontSizeKey: 18.0,
+    FontRateKey: 0.6,
+    
+    TheColorSchemeKey: TheColorScheme.system.rawValue,
+    
     WordColorKey: colorToData(NSColor.labelColor.withAlphaComponent(0.3))!,
     TransColorKey: colorToData(NSColor.highlightColor)!,
     BackgroundColorKey: colorToData(NSColor.clear)!,
-    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    ShowToastToggleKey: true,
-    FontNameKey: defaultFontName,
-    FontSizeKey: 18.0,
-    FontRateKey: 0.6,
+    
+    TextShadowToggleKey: false,
     ShadowColorKey: colorToData(NSColor.labelColor)!,
     ShadowRadiusKey: 3,
     ShadowXOffSetKey: 0.0,
     ShadowYOffSetKey: 2.0,
-    TextShadowToggleKey: false,
-    PortraitMaxHeightKey: 200.0,
-    LandscapeMaxWidthKey: 260.0,
-    TheColorSchemeKey: TheColorScheme.system.rawValue,
+    
+    ContentBackgroundVisualEffectKey: false,
+    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
 ]
 
-func initUserSettings() {
+// all defaults
+let defaultKV: [String: Any] = defaultSlotKV.merging([
+    IsShowCurrentKnownKey: false,
+    FontNameKey: defaultFontName,
+    ShowToastToggleKey: true
+]) { (current, _) in current }
+
+func initAllUserDefaults() {
     for (key, value) in defaultKV {
         if UserDefaults.standard.object(forKey: key) == nil {
             UserDefaults.standard.setValue(value, forKey: key)

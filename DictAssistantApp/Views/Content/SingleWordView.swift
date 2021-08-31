@@ -217,8 +217,8 @@ fileprivate struct TheText: View {
         wordCell.trans
     }
     
-    @AppStorage(isJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
-    @AppStorage(isDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     var translation: String {
@@ -228,9 +228,9 @@ fileprivate struct TheText: View {
         let step4 = isAddSpace ? " " + step3 : step3
         return step4
     }
-    @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
+    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     var unKnownText: Text {
-        !IsDropTitleWord ?
+        !isDropTitleWord ?
             
             Text(word)
             .foregroundColor(theWordColor)

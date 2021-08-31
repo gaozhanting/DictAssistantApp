@@ -10,86 +10,121 @@ import Preferences
 import Vision
 
 fileprivate struct Settings: Codable {
+    // general and main settings for a slot
     let tRTextRecognitionLevel: Int
     let tRMinimumTextHeight: Double
-    let isWithAnimation: Bool
+    let maximumFrameRate: Double
+    
+    // visual settings for a slot
     let isShowPhrases: Bool
-    let isAddLineBreak: Bool
+    
     let cropperStyle: CropperStyle
-    let contentStyle: ContentStyle
+
+    // -- fine-turning the display of the returned translation text from different dictionaries
+    let isDropTitleWord: Bool
+    let isAddLineBreak: Bool
+    let isAddSpace: Bool
+    let isDropFirstTitleWordInTranslation: Bool
+    let isJoinTranslationLines: Bool
+    
     let isShowWindowShadow: Bool
-    let contentBackgroundVisualEffect: Bool
-    let contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
+    
+    let isWithAnimation: Bool
+    
+    // -- content style & max width & max height
+    let contentStyle: ContentStyle
+    let portraitCorner: PortraitCorner
+    // ---- extra
+    let portraitMaxHeight: Double
+    let landscapeMaxWidth: Double
+    
+    // -- font size & font rate
+    let fontSize: Double
+    let fontRate: Double
+    
+    let theColorScheme: TheColorScheme
+    
+    // -- color & shadow & background
+    // ---- basic three colors
     let wordColor: Data
     let transColor: Data
     let backgroundColor: Data
-    let portraitCorner: PortraitCorner
-    let showToastToggle: Bool
-    let fontRate: Double
+    // ---- text shadow
+    let textShadowToggle: Bool
     let shadowColor: Data
     let shadowRadius: Double
     let shadowXOffSet: Double
     let shadowYOffSet: Double
-    let textShadowToggle: Bool
-    let portraitMaxHeight: Double
-    let landscapeMaxWidth: Double
-    let theColorScheme: TheColorScheme
+    // ---- visual effect background
+    let contentBackgroundVisualEffect: Bool
+    let contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
     
+    // two frames settings for a slot
     let cropperFrame: NSRect
     let contentFrame: NSRect
     
     init(
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
-        isWithAnimation: Bool,
+        maximumFrameRate: Double,
         isShowPhrases: Bool,
-        isAddLineBreak: Bool,
         cropperStyle: CropperStyle,
-        contentStyle: ContentStyle,
+        isDropTitleWord: Bool,
+        isAddLineBreak: Bool,
+        isAddSpace: Bool,
+        isDropFirstTitleWordInTranslation: Bool,
+        isJoinTranslationLines: Bool,
         isShowWindowShadow: Bool,
-        contentBackgroundVisualEffect: Bool,
-        contentBackGroundVisualEffectMaterial: Int, // NSVisualEffectView.Material,
+        isWithAnimation: Bool,
+        contentStyle: ContentStyle,
+        portraitCorner: PortraitCorner,
+        portraitMaxHeight: Double,
+        landscapeMaxWidth: Double,
+        fontSize: Double,
+        fontRate: Double,
+        theColorScheme: TheColorScheme,
         wordColor: Data,
         transColor: Data,
         backgroundColor: Data,
-        portraitCorner: PortraitCorner,
-        showToastToggle: Bool,
-        fontRate: Double,
+        textShadowToggle: Bool,
         shadowColor: Data,
         shadowRadius: Double,
         shadowXOffSet: Double,
         shadowYOffSet: Double,
-        textShadowToggle: Bool,
-        portraitMaxHeight: Double,
-        landscapeMaxWidth: Double,
-        theColorScheme: TheColorScheme,
+        contentBackgroundVisualEffect: Bool,
+        contentBackGroundVisualEffectMaterial: Int, //NSVisualEffectView.Material
         cropperFrame: NSRect,
         contentFrame: NSRect
     ) {
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
-        self.isWithAnimation = isWithAnimation
+        self.maximumFrameRate = maximumFrameRate
         self.isShowPhrases = isShowPhrases
-        self.isAddLineBreak = isAddLineBreak
         self.cropperStyle = cropperStyle
-        self.contentStyle = contentStyle
+        self.isDropTitleWord = isDropTitleWord
+        self.isAddLineBreak = isAddLineBreak
+        self.isAddSpace = isAddSpace
+        self.isDropFirstTitleWordInTranslation = isDropFirstTitleWordInTranslation
+        self.isJoinTranslationLines = isJoinTranslationLines
         self.isShowWindowShadow = isShowWindowShadow
-        self.contentBackgroundVisualEffect = contentBackgroundVisualEffect
-        self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial
+        self.isWithAnimation = isWithAnimation
+        self.contentStyle = contentStyle
+        self.portraitCorner = portraitCorner
+        self.portraitMaxHeight = portraitMaxHeight
+        self.landscapeMaxWidth = landscapeMaxWidth
+        self.fontSize = fontSize
+        self.fontRate = fontRate
+        self.theColorScheme = theColorScheme
         self.wordColor = wordColor
         self.transColor = transColor
         self.backgroundColor = backgroundColor
-        self.portraitCorner = portraitCorner
-        self.showToastToggle = showToastToggle
-        self.fontRate = fontRate
+        self.textShadowToggle = textShadowToggle
         self.shadowColor = shadowColor
         self.shadowRadius = shadowRadius
         self.shadowXOffSet = shadowXOffSet
         self.shadowYOffSet = shadowYOffSet
-        self.textShadowToggle = textShadowToggle
-        self.portraitMaxHeight = portraitMaxHeight
-        self.landscapeMaxWidth = landscapeMaxWidth
-        self.theColorScheme = theColorScheme
+        self.contentBackgroundVisualEffect = contentBackgroundVisualEffect
+        self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
     }
@@ -106,30 +141,35 @@ fileprivate func dataToSettings(_ data: Data) -> Settings? {
 }
 
 fileprivate let defaultSettings = Settings(
-    tRTextRecognitionLevel: 1,
+    tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
-    isWithAnimation: true,
+    maximumFrameRate: 4,
     isShowPhrases: true,
+    cropperStyle: CropperStyle.closed,
+    isDropTitleWord: false,
     isAddLineBreak: true,
-    cropperStyle: .closed,
-    contentStyle: .portrait,
+    isAddSpace: false,
+    isDropFirstTitleWordInTranslation: true,
+    isJoinTranslationLines: false,
     isShowWindowShadow: true,
-    contentBackgroundVisualEffect: false,
-    contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.hudWindow.rawValue,
+    isWithAnimation: true,
+    contentStyle: ContentStyle.portrait,
+    portraitCorner: PortraitCorner.topTrailing,
+    portraitMaxHeight: 200.0,
+    landscapeMaxWidth: 260.0,
+    fontSize: 18.0,
+    fontRate: 0.6,
+    theColorScheme: TheColorScheme.system,
     wordColor: colorToData(NSColor.labelColor.withAlphaComponent(0.3))!,
     transColor: colorToData(NSColor.highlightColor)!,
     backgroundColor: colorToData(NSColor.clear)!,
-    portraitCorner: .topLeading,
-    showToastToggle: true,
-    fontRate: 0.6,
+    textShadowToggle: false,
     shadowColor: colorToData(NSColor.labelColor)!,
     shadowRadius: 3,
-    shadowXOffSet: 0,
-    shadowYOffSet: 2,
-    textShadowToggle: false,
-    portraitMaxHeight: 200.0,
-    landscapeMaxWidth: 260.0,
-    theColorScheme: .system,
+    shadowXOffSet: 0.0,
+    shadowYOffSet: 2.0,
+    contentBackgroundVisualEffect: false,
+    contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
     cropperFrame: NSRect(x: 100, y: 100, width: 600, height: 200),
     contentFrame: NSRect(x: 300, y: 300, width: 600, height: 200)
 )
@@ -138,28 +178,33 @@ fileprivate func getCurrentSettings() -> Settings {
     return Settings(
         tRTextRecognitionLevel: UserDefaults.standard.integer(forKey: TRTextRecognitionLevelKey),
         tRMinimumTextHeight: UserDefaults.standard.double(forKey: TRMinimumTextHeightKey),
-        isWithAnimation: UserDefaults.standard.bool(forKey: IsWithAnimationKey),
+        maximumFrameRate: UserDefaults.standard.double(forKey: MaximumFrameRateKey),
         isShowPhrases: UserDefaults.standard.bool(forKey: IsShowPhrasesKey),
-        isAddLineBreak: UserDefaults.standard.bool(forKey: IsAddLineBreakKey),
         cropperStyle: CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!,
-        contentStyle: ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))!,
+        isDropTitleWord: UserDefaults.standard.bool(forKey: IsDropTitleWordKey),
+        isAddLineBreak: UserDefaults.standard.bool(forKey: IsAddLineBreakKey),
+        isAddSpace: UserDefaults.standard.bool(forKey: IsAddSpaceKey),
+        isDropFirstTitleWordInTranslation: UserDefaults.standard.bool(forKey: IsDropFirstTitleWordInTranslationKey),
+        isJoinTranslationLines: UserDefaults.standard.bool(forKey: IsJoinTranslationLinesKey),
         isShowWindowShadow: UserDefaults.standard.bool(forKey: IsShowWindowShadowKey),
-        contentBackgroundVisualEffect: UserDefaults.standard.bool(forKey: ContentBackgroundVisualEffectKey),
-        contentBackGroundVisualEffectMaterial: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectMaterialKey),
+        isWithAnimation: UserDefaults.standard.bool(forKey: IsWithAnimationKey),
+        contentStyle: ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))!,
+        portraitCorner: PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))!,
+        portraitMaxHeight: UserDefaults.standard.double(forKey: PortraitMaxHeightKey),
+        landscapeMaxWidth: UserDefaults.standard.double(forKey: LandscapeMaxWidthKey),
+        fontSize: UserDefaults.standard.double(forKey: FontSizeKey),
+        fontRate: UserDefaults.standard.double(forKey: FontRateKey),
+        theColorScheme: TheColorScheme(rawValue: UserDefaults.standard.string(forKey: TheColorSchemeKey)!)!,
         wordColor: UserDefaults.standard.data(forKey: WordColorKey)!,
         transColor: UserDefaults.standard.data(forKey: TransColorKey)!,
         backgroundColor: UserDefaults.standard.data(forKey: BackgroundColorKey)!,
-        portraitCorner: PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))!,
-        showToastToggle: UserDefaults.standard.bool(forKey: ShowToastToggleKey),
-        fontRate: UserDefaults.standard.double(forKey: FontRateKey),
+        textShadowToggle: UserDefaults.standard.bool(forKey: TextShadowToggleKey),
         shadowColor: UserDefaults.standard.data(forKey: ShadowColorKey)!,
         shadowRadius: UserDefaults.standard.double(forKey: ShadowRadiusKey),
         shadowXOffSet: UserDefaults.standard.double(forKey: ShadowXOffSetKey),
         shadowYOffSet: UserDefaults.standard.double(forKey: ShadowYOffSetKey),
-        textShadowToggle: UserDefaults.standard.bool(forKey: TextShadowToggleKey),
-        portraitMaxHeight: UserDefaults.standard.double(forKey: PortraitMaxHeightKey),
-        landscapeMaxWidth: UserDefaults.standard.double(forKey: LandscapeMaxWidthKey),
-        theColorScheme: TheColorScheme(rawValue: UserDefaults.standard.string(forKey: TheColorSchemeKey)!)!,
+        contentBackgroundVisualEffect: UserDefaults.standard.bool(forKey: ContentBackgroundVisualEffectKey),
+        contentBackGroundVisualEffectMaterial: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectMaterialKey),
         cropperFrame: cropperWindow.frame,
         contentFrame: contentWindow.frame
     )
@@ -214,7 +259,7 @@ struct SlotsSettingsView: View {
 
 fileprivate struct InfoView: View {
     var body: some View {
-        Text("Slot is a collection of all preferences settings (except global shortcut key settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can attach a slot with a text label, by typing text after the icon. You can't switch them when playing. The last gray slot is the immutable default slot.")
+        Text("Slot is a collection of all preferences settings (except global shortcut key, font name, is show toast, is show current settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can attach a slot with a text label, by typing text after the icon. You can't switch them when playing. The last gray slot is the immutable default slot.")
             .padding()
             .frame(width: 520, height: 120)
     }
@@ -224,30 +269,44 @@ fileprivate struct SlotsSettings: View {
     // isShowStoreButton need these almost all @AppStorage data
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
+    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
+
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    
     @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
+    
+    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+
+    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
+
+    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
+    
     @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
-    @AppStorage(IsShowWindowShadowKey) var isShowWindowShadow = false
-    @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 200.0
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 260.0
+    
+    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
+    @AppStorage(FontRateKey) var fontRate: Double = 0.6
+    
+    @AppStorage(TheColorSchemeKey) var theColorScheme: TheColorScheme = .system
+    
     @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
     @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.clear)!
-    @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
-    @AppStorage(ShowToastToggleKey) var showToastToggle: Bool = true
-    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
-    @AppStorage(FontRateKey) var fontRate: Double = 0.6
+    
+    @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
     @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
     @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
     @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 2
-    @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
-    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 200.0
-    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 260.0
-    @AppStorage(TheColorSchemeKey) var theColorScheme: TheColorScheme = .system
+    
+    @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
     @EnvironmentObject var statusData: StatusData
     var isPlaying: Bool {
@@ -308,28 +367,33 @@ fileprivate struct SlotsSettings: View {
         let s = selectedSettings
         let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
             s.tRMinimumTextHeight == tRMinimumTextHeight &&
-            s.isWithAnimation == isWithAnimation &&
+            s.maximumFrameRate == maximumFrameRate &&
             s.isShowPhrases == isShowPhrases &&
-            s.isAddLineBreak == isAddLineBreak &&
             s.cropperStyle == cropperStyle &&
-            s.contentStyle == contentStyle &&
+            s.isDropTitleWord == isDropTitleWord &&
+            s.isAddLineBreak == isAddLineBreak &&
+            s.isAddSpace == isAddSpace &&
+            s.isDropFirstTitleWordInTranslation == isDropFirstTitleWordInTranslation &&
+            s.isJoinTranslationLines == isJoinTranslationLines &&
             s.isShowWindowShadow == isShowWindowShadow &&
-            s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
-            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial &&
+            s.isWithAnimation == isWithAnimation &&
+            s.contentStyle == contentStyle &&
+            s.portraitCorner == portraitCorner &&
+            s.portraitMaxHeight == portraitMaxHeight &&
+            s.landscapeMaxWidth == landscapeMaxWidth &&
+            s.fontSize == fontSize &&
+            s.fontRate == fontRate &&
+            s.theColorScheme == theColorScheme &&
             s.wordColor == wordColor &&
             s.transColor == transColor &&
             s.backgroundColor == backgroundColor &&
-            s.portraitCorner == portraitCorner &&
-            s.showToastToggle == showToastToggle &&
-            s.fontRate == fontRate &&
+            s.textShadowToggle == textShadowToggle &&
             s.shadowColor == shadowColor &&
             s.shadowRadius == shadowRadius &&
             s.shadowXOffSet == shadowXOffSet &&
             s.shadowYOffSet == shadowYOffSet &&
-            s.textShadowToggle == textShadowToggle &&
-            s.portraitMaxHeight == portraitMaxHeight &&
-            s.landscapeMaxWidth == landscapeMaxWidth &&
-            s.theColorScheme == theColorScheme &&
+            s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
+            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial && //NSVisualEffectView.Material
             s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow; this not react, it is isPlaying switch let it react.
             s.contentFrame == contentWindow.frame
         
@@ -346,28 +410,33 @@ fileprivate struct SlotsSettings: View {
     fileprivate func dumpSettings(from s: Settings) {
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
-        isWithAnimation = s.isWithAnimation
+        maximumFrameRate = s.maximumFrameRate
         isShowPhrases = s.isShowPhrases
-        isAddLineBreak = s.isAddLineBreak
         cropperStyle = s.cropperStyle
-        contentStyle = s.contentStyle
+        isDropTitleWord = s.isDropTitleWord
+        isAddLineBreak = s.isAddLineBreak
+        isAddSpace = s.isAddSpace
+        isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
+        isJoinTranslationLines = s.isJoinTranslationLines
         isShowWindowShadow = s.isShowWindowShadow
-        contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
-        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial
+        isWithAnimation = s.isWithAnimation
+        contentStyle = s.contentStyle
+        portraitCorner = s.portraitCorner
+        portraitMaxHeight = s.portraitMaxHeight
+        landscapeMaxWidth = s.landscapeMaxWidth
+        fontSize = s.fontSize
+        fontRate = s.fontRate
+        theColorScheme = s.theColorScheme
         wordColor = s.wordColor
         transColor = s.transColor
         backgroundColor = s.backgroundColor
-        portraitCorner = s.portraitCorner
-        showToastToggle = s.showToastToggle
-        fontRate = s.fontRate
+        textShadowToggle = s.textShadowToggle
         shadowColor = s.shadowColor
         shadowRadius = s.shadowRadius
         shadowXOffSet = s.shadowXOffSet
         shadowYOffSet = s.shadowYOffSet
-        textShadowToggle = s.textShadowToggle
-        portraitMaxHeight = s.portraitMaxHeight
-        landscapeMaxWidth = s.landscapeMaxWidth
-        theColorScheme = s.theColorScheme
+        contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
+        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
     }

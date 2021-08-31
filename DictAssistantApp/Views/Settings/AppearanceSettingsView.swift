@@ -438,10 +438,10 @@ fileprivate struct ShowPhrasesToggle: View {
 }
 
 fileprivate struct DropTitleWordToggle: View {
-    @AppStorage(IsDropTitleWordKey) private var IsDropTitleWord: Bool = false
+    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
 
     var body: some View {
-        Toggle(isOn: $IsDropTitleWord, label: {
+        Toggle(isOn: $isDropTitleWord, label: {
             Text("Drop title word")
         })
         .toggleStyle(CheckboxToggleStyle())
@@ -474,7 +474,7 @@ fileprivate struct AddSpaceBeforeTranslationToggle: View {
 }
 
 fileprivate struct DropFirstTitleWordInTranslationToggle: View {
-    @AppStorage(isDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
+    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     
     var body: some View {
         Toggle(isOn: $isDropFirstTitleWordInTranslation, label: {
@@ -486,7 +486,7 @@ fileprivate struct DropFirstTitleWordInTranslationToggle: View {
 }
 
 fileprivate struct JoinTranslationLinesToggle: View {
-    @AppStorage(isJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
     
     var body: some View {
         Toggle(isOn: $isJoinTranslationLines, label: {
