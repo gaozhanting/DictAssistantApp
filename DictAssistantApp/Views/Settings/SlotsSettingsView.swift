@@ -15,7 +15,6 @@ fileprivate struct Settings: Codable {
     let isWithAnimation: Bool
     let isShowPhrases: Bool
     let isAddLineBreak: Bool
-    let isShowCurrentKnown: Bool
     let cropperStyle: CropperStyle
     let contentStyle: ContentStyle
     let isShowWindowShadow: Bool
@@ -45,7 +44,6 @@ fileprivate struct Settings: Codable {
         isWithAnimation: Bool,
         isShowPhrases: Bool,
         isAddLineBreak: Bool,
-        isShowCurrentKnown: Bool,
         cropperStyle: CropperStyle,
         contentStyle: ContentStyle,
         isShowWindowShadow: Bool,
@@ -73,7 +71,6 @@ fileprivate struct Settings: Codable {
         self.isWithAnimation = isWithAnimation
         self.isShowPhrases = isShowPhrases
         self.isAddLineBreak = isAddLineBreak
-        self.isShowCurrentKnown = isShowCurrentKnown
         self.cropperStyle = cropperStyle
         self.contentStyle = contentStyle
         self.isShowWindowShadow = isShowWindowShadow
@@ -108,51 +105,12 @@ fileprivate func dataToSettings(_ data: Data) -> Settings? {
     return settings
 }
 
-let defaultKV: [String: Any] = [
-    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
-    MaximumFrameRateKey: 4,
-    IsWithAnimationKey: true,
-    IsShowPhrasesKey: true,
-    IsAddLineBreakKey: true,
-    IsShowCurrentKnownKey: false,
-    CropperStyleKey: CropperStyle.closed.rawValue,
-    ContentStyleKey: ContentStyle.portrait.rawValue,
-    IsShowWindowShadowKey: false,
-    ContentBackgroundVisualEffectKey: false,
-    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
-    WordColorKey: colorToData(NSColor.labelColor.withAlphaComponent(0.3))!,
-    TransColorKey: colorToData(NSColor.highlightColor)!,
-    BackgroundColorKey: colorToData(NSColor.clear)!,
-    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    ShowToastToggleKey: true,
-    FontNameKey: defaultFontName,
-    FontSizeKey: 18.0,
-    FontRateKey: 0.6,
-    ShadowColorKey: colorToData(NSColor.labelColor)!,
-    ShadowRadiusKey: 3,
-    ShadowXOffSetKey: 0.0,
-    ShadowYOffSetKey: 2.0,
-    TextShadowToggleKey: false,
-    PortraitMaxHeightKey: 200.0,
-    LandscapeMaxWidthKey: 260.0,
-    TheColorSchemeKey: TheColorScheme.system.rawValue,
-]
-
-func initUserSettings() {
-    for (key, value) in defaultKV {
-        if UserDefaults.standard.object(forKey: key) == nil {
-            UserDefaults.standard.setValue(value, forKey: key)
-        }
-    }
-}
-
 fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: 1,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     isWithAnimation: true,
     isShowPhrases: true,
     isAddLineBreak: true,
-    isShowCurrentKnown: false,
     cropperStyle: .closed,
     contentStyle: .portrait,
     isShowWindowShadow: true,
@@ -183,7 +141,6 @@ fileprivate func getCurrentSettings() -> Settings {
         isWithAnimation: UserDefaults.standard.bool(forKey: IsWithAnimationKey),
         isShowPhrases: UserDefaults.standard.bool(forKey: IsShowPhrasesKey),
         isAddLineBreak: UserDefaults.standard.bool(forKey: IsAddLineBreakKey),
-        isShowCurrentKnown: UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey),
         cropperStyle: CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!,
         contentStyle: ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))!,
         isShowWindowShadow: UserDefaults.standard.bool(forKey: IsShowWindowShadowKey),
@@ -270,7 +227,6 @@ fileprivate struct SlotsSettings: View {
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    @AppStorage(IsShowCurrentKnownKey) var isShowCurrentKnown: Bool = false
     @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
     @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
     @AppStorage(IsShowWindowShadowKey) var isShowWindowShadow = false
@@ -355,7 +311,6 @@ fileprivate struct SlotsSettings: View {
             s.isWithAnimation == isWithAnimation &&
             s.isShowPhrases == isShowPhrases &&
             s.isAddLineBreak == isAddLineBreak &&
-            s.isShowCurrentKnown == isShowCurrentKnown &&
             s.cropperStyle == cropperStyle &&
             s.contentStyle == contentStyle &&
             s.isShowWindowShadow == isShowWindowShadow &&
@@ -394,7 +349,6 @@ fileprivate struct SlotsSettings: View {
         isWithAnimation = s.isWithAnimation
         isShowPhrases = s.isShowPhrases
         isAddLineBreak = s.isAddLineBreak
-        isShowCurrentKnown = s.isShowCurrentKnown
         cropperStyle = s.cropperStyle
         contentStyle = s.contentStyle
         isShowWindowShadow = s.isShowWindowShadow
