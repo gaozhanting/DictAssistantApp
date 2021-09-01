@@ -18,7 +18,7 @@ struct SingleWordView: View {
             TextBody(wordCell: wordCell)
 
         case .landscape:
-            VStack {
+            VStack(alignment: .leading) {
                 TextBody(wordCell: wordCell)
                 Spacer()
             }

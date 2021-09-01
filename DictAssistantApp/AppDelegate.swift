@@ -461,6 +461,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func whichAnimation() -> Animation? {
+        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
+        if contentStyle == .landscape {
+            return Animation.linear
+        }
+        
         let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
         switch portraitCorner {
         case .topLeading:

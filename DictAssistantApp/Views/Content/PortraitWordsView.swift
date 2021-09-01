@@ -136,6 +136,10 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
                 ForEach(words) { wordCellWithId in
                     SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
                 }
+                .transition(.asymmetric(
+                    insertion: .move(edge: .bottom),
+                    removal: .identity
+                ))
                 .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                 
                 HStack { Spacer() }

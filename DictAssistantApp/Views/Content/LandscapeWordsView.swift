@@ -60,7 +60,7 @@ fileprivate struct BodyView: View {
     }
 }
 
-/* (not used)
+/*  //(not used)
 struct LandscapeWordsViewTwoRotation: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
     
@@ -72,6 +72,10 @@ struct LandscapeWordsViewTwoRotation: View {
             HStack(alignment: .top) {
                 ForEach(words) { wordCellWithId in
                     SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .identity
+                        ))
                 }
                 .frame(maxWidth: CGFloat(landscapeMaxWidth))
             }
@@ -93,7 +97,7 @@ struct LandscapeWordsViewTwoRotation: View {
         convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
     }
 }
- */
+*/
 
 //struct LandscapeWordsView_Previews: PreviewProvider {
 //    static var previews: some View {
