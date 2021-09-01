@@ -466,12 +466,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             return Animation.linear
         }
         
+        let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
+        let duration = Double(1 / maximumFrameRate)
+        
         let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
         switch portraitCorner {
         case .topLeading:
-            return Animation.default
+            return Animation.easeInOut(duration: duration)
         case .topTrailing:
-            return Animation.default
+            return Animation.easeInOut(duration: duration)
         case .bottomLeading:
             return Animation.spring(dampingFraction: 0.5).speed(2)
         case .none:
