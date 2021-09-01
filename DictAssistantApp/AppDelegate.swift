@@ -98,7 +98,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             if !statusData.isPlaying {
                 switch flowStep {
                 case .beginSelectCropper:
-                    cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
+                    cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
                     cropperWindow.orderFrontRegardless()
 
                     flowStep = .beginSelectContent

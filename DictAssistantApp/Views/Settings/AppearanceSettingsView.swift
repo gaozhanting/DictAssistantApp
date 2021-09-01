@@ -87,6 +87,7 @@ fileprivate struct ShowToastToggle: View {
 enum CropperStyle: Int, Codable {
     case closed = 0
     case rectangle = 1
+    case leadingBorder = 2
 }
 
 fileprivate struct CropperStyleSettingView: View {
@@ -105,6 +106,7 @@ fileprivate struct CropperStyleSettingView: View {
         Picker("", selection: bd) {
             Text("closed").tag(CropperStyle.closed)
             Text("rectangle").tag(CropperStyle.rectangle)
+            Text("leadingBorder").tag(CropperStyle.leadingBorder)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
