@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct StrokeBorderCropperView: View {
+    @State private var phase: CGFloat = 0
+    
     var body: some View {
         Rectangle()
-            .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4]))
-            .foregroundColor(.accentColor)
+            .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: phase))
+            .foregroundColor(.black)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.primary.opacity(0.1))
+            .onAppear {
+                withAnimation(.linear.repeatForever(autoreverses: false)) {
+                    phase -= 4 * 2 // dash * 2
+                }
+            }
             .ignoresSafeArea()
     }
 }
