@@ -38,7 +38,7 @@ struct LeadingBorderCropperView: View {
         Spacer()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
-            .border(width: 3, edges: [.leading], color: Color.accentColor)
+            .border(width: 5, edges: [.leading], color: Color.accentColor)
     }
 }
 
