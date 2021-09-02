@@ -185,9 +185,22 @@ fileprivate struct TheText: View {
     var theWordColor: Color {
         Color(dataToColor(wordColor)!)
     }
+    
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
+    @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
+
     var theKnownWordColor: Color {
-        theWordColor.opacity(0.5)
+        if isShowCurrentKnown {
+            return theWordColor.opacity(0.5)
+        }
+        
+        if isShowCurrentKnownButWithOpacity0 {
+            return theWordColor.opacity(0)
+        }
+        
+        return theWordColor.opacity(0) // impossible, refer to func convertToWordCellWithId
     }
+    
     var theTransColor: Color {
         Color(dataToColor(transColor)!)
     }

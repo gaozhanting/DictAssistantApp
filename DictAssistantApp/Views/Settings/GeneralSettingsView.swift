@@ -52,6 +52,11 @@ fileprivate struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
             }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Toggle Conceal Current Known Words:")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
+            }
         }
         .frame(maxWidth: 380)
     }

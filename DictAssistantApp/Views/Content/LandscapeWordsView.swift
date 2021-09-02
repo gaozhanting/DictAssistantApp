@@ -32,9 +32,10 @@ fileprivate struct BodyView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    
+    @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
+
     var words: [WordCellWithId] {
-        convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
+        convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown, isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0)
     }
     
     let proxy: ScrollViewProxy

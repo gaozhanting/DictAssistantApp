@@ -12,6 +12,7 @@ import Vision
 // UserDefault keys:
 // -- this three not in slots
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
+let IsShowCurrentKnownButWithOpacity0Key = "IsShowCurrentKnownButWithOpacity0Key"
 
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
 let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
@@ -63,7 +64,7 @@ let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
 // in slot defaults
-let defaultSlotKV: [String: Any] = [
+fileprivate let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,
@@ -107,8 +108,9 @@ let defaultSlotKV: [String: Any] = [
 ]
 
 // all defaults
-let defaultKV: [String: Any] = defaultSlotKV.merging([
+fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentKnownKey: false,
+    IsShowCurrentKnownButWithOpacity0Key: false,
     FontNameKey: defaultFontName,
     ShowToastToggleKey: true
 ]) { (current, _) in current }

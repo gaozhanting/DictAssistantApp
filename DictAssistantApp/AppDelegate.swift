@@ -147,6 +147,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownKey)
             }
         }
+        
+        KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnownWordsButWithOpacity0) {
+            if UserDefaults.standard.bool(forKey: IsShowCurrentKnownButWithOpacity0Key) {
+                UserDefaults.standard.setValue(false, forKey: IsShowCurrentKnownButWithOpacity0Key)
+            } else {
+                UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownButWithOpacity0Key)
+            }
+        }
     }
     
     // no resizable, not movable
@@ -332,7 +340,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             do {
                 try context.save()
                 allKnownWordsSetCache = getAllKnownWordsSet()
-                tagTransAndMutateDisplayedWords()
+                let taggedWords = tagWords(cleanedWords)
+                mutateDisplayedWords(taggedWords)
             } catch {
                 logger.info("Failed to save context: \(error.localizedDescription)")
 //                fatalError("Failed to save context: \(error)")
@@ -421,26 +430,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // MARK:- Words
     let displayedWords = DisplayedWords(wordCells: [])
     
-    var currentWords: [String] = []
+    var cleanedWords: [String] = [] // for communication with saveContext
     
     func trCallBack(texts: [String]) {
-        let words = nplSample.process(texts)
-        currentWords = words.filter { !fixedNoiseVocabulary.contains($0) }
-        tagTransAndMutateDisplayedWords()
+        let primitiveWords = nplSample.process(texts)
+        cleanedWords = primitiveWords.filter { !fixedNoiseVocabulary.contains($0) }
+        let taggedWords = tagWords(cleanedWords)
+        mutateDisplayedWords(taggedWords)
     }
     
-    func tagTransAndMutateDisplayedWords() {
-        var taggedWordTrans: [WordCell] = []
-        for word in currentWords {
+    func tagWords(_ cleanedWords: [String]) -> [WordCell] {
+        var taggedWords: [WordCell] = []
+        for word in cleanedWords {
             if allKnownWordsSetCache.contains(word) {
-                taggedWordTrans.append(WordCell(word: word, isKnown: .known, trans: ""))
+                taggedWords.append(WordCell(word: word, isKnown: .known, trans: ""))
             } else {
                 if let trans = cachedDictionaryServicesDefine(word) { // Ignore non-dict word
-                    taggedWordTrans.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
+                    taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
                 }
             }
         }
-        
+        return taggedWords
+    }
+     
+    func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {
         // only for debuging
         if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
             logger.info("IsWithAnimationKey is nil, impossible!")
