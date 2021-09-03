@@ -474,13 +474,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func whichAnimation() -> Animation? {
-        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
-        if contentStyle == .landscape {
-            return Animation.linear
-        }
-        
         let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
         let duration = Double(1 / maximumFrameRate)
+        
+        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
+        if contentStyle == .landscape {
+            return Animation.linear(duration: duration)
+        }
         
         let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
         switch portraitCorner {
