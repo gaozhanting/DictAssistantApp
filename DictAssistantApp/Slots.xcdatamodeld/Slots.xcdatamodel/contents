@@ -2,16 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Slot" representedClassName="Slot" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="Binary"/>
-        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="label" optional="YES" attributeType="String"/>
         <attribute name="settings" optional="YES" attributeType="Binary"/>
     </entity>
-    <entity name="WordStats" representedClassName="WordStats" syncable="YES" codeGenerationType="class">
-        <attribute name="word" optional="YES" attributeType="String"/>
-    </entity>
     <elements>
-        <element name="Slot" positionX="0" positionY="54" width="128" height="104"/>
-        <element name="WordStats" positionX="-27" positionY="18" width="128" height="44"/>
+        <element name="Slot" positionX="-45" positionY="0" width="128" height="89"/>
     </elements>
 </model>

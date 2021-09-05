@@ -174,73 +174,11 @@ fileprivate let defaultSettings = Settings(
     contentFrame: NSRect(x: 300, y: 300, width: 600, height: 200)
 )
 
-fileprivate func getCurrentSettings() -> Settings {
-    return Settings(
-        tRTextRecognitionLevel: UserDefaults.standard.integer(forKey: TRTextRecognitionLevelKey),
-        tRMinimumTextHeight: UserDefaults.standard.double(forKey: TRMinimumTextHeightKey),
-        maximumFrameRate: UserDefaults.standard.double(forKey: MaximumFrameRateKey),
-        isShowPhrases: UserDefaults.standard.bool(forKey: IsShowPhrasesKey),
-        cropperStyle: CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!,
-        isDropTitleWord: UserDefaults.standard.bool(forKey: IsDropTitleWordKey),
-        isAddLineBreak: UserDefaults.standard.bool(forKey: IsAddLineBreakKey),
-        isAddSpace: UserDefaults.standard.bool(forKey: IsAddSpaceKey),
-        isDropFirstTitleWordInTranslation: UserDefaults.standard.bool(forKey: IsDropFirstTitleWordInTranslationKey),
-        isJoinTranslationLines: UserDefaults.standard.bool(forKey: IsJoinTranslationLinesKey),
-        isShowWindowShadow: UserDefaults.standard.bool(forKey: IsShowWindowShadowKey),
-        isWithAnimation: UserDefaults.standard.bool(forKey: IsWithAnimationKey),
-        contentStyle: ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))!,
-        portraitCorner: PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))!,
-        portraitMaxHeight: UserDefaults.standard.double(forKey: PortraitMaxHeightKey),
-        landscapeMaxWidth: UserDefaults.standard.double(forKey: LandscapeMaxWidthKey),
-        fontSize: UserDefaults.standard.double(forKey: FontSizeKey),
-        fontRate: UserDefaults.standard.double(forKey: FontRateKey),
-        theColorScheme: TheColorScheme(rawValue: UserDefaults.standard.string(forKey: TheColorSchemeKey)!)!,
-        wordColor: UserDefaults.standard.data(forKey: WordColorKey)!,
-        transColor: UserDefaults.standard.data(forKey: TransColorKey)!,
-        backgroundColor: UserDefaults.standard.data(forKey: BackgroundColorKey)!,
-        textShadowToggle: UserDefaults.standard.bool(forKey: TextShadowToggleKey),
-        shadowColor: UserDefaults.standard.data(forKey: ShadowColorKey)!,
-        shadowRadius: UserDefaults.standard.double(forKey: ShadowRadiusKey),
-        shadowXOffSet: UserDefaults.standard.double(forKey: ShadowXOffSetKey),
-        shadowYOffSet: UserDefaults.standard.double(forKey: ShadowYOffSetKey),
-        contentBackgroundVisualEffect: UserDefaults.standard.bool(forKey: ContentBackgroundVisualEffectKey),
-        contentBackGroundVisualEffectMaterial: UserDefaults.standard.integer(forKey: ContentBackGroundVisualEffectMaterialKey),
-        cropperFrame: cropperWindow.frame,
-        contentFrame: contentWindow.frame
-    )
-}
-
-fileprivate enum Slot: String, CaseIterable, Identifiable {
-    case blue
-    case purple
-    case pink
-    case red
-    case orange
-    case yellow
-    case green
-    case gray
-
-    var id: String { self.rawValue }
-}
-
-fileprivate func theColor(from slot: Slot) -> Color {
-    switch slot {
-    case .blue: return Color.blue
-    case .purple: return Color.purple
-    case .pink: return Color.pink
-    case .red: return Color.red
-    case .orange: return Color.orange
-    case .yellow: return Color.yellow
-    case .green: return Color.green
-    case .gray: return Color.gray
-    }
-}
-
 struct SlotsSettingsView: View {
     @State private var isShowingPopover = false
 
     var body: some View {
-        SlotsSettings()
+        SlotsView()
             .overlay(
                 Button(action: { isShowingPopover = true }, label: {
                     Image(systemName: "questionmark").font(.body)
@@ -265,7 +203,193 @@ fileprivate struct InfoView: View {
     }
 }
 
-fileprivate struct SlotsSettings: View {
+fileprivate struct SlotsView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: Slot.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Slot.createdDate, ascending: true)
+        ]
+    ) var slots: FetchedResults<Slot>
+    
+    func save() {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            List {
+                ForEach(slots, id: \.createdDate) { slot in
+                    let settings = dataToSettings(slot.settings!)!
+                    HStack {
+                        HStack {
+                            Button(action: {
+                                for slot in slots {
+                                    slot.isSelected = false
+                                }
+                                slot.isSelected = true
+                                save()
+                                dumpSettings(from: settings)
+                            }) {
+                                Image(systemName: slot.isSelected ? "cube.fill" : "cube")
+                                    .font(.title)
+                                    .foregroundColor(Color(dataToColor(slot.color!)!))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+
+                            TextField("", text: Binding.init(
+                                get: { slot.label! },
+                                set: { newValue in
+                                    slot.label = newValue
+                                    save()
+                                }
+                            ))
+                            .font(.callout)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .frame(maxWidth: 300)
+                        }
+                        
+                        if slot.isSelected && !isSelectedSlotEqualWithCurrentSettings(settings) {
+                            Button("update", action: {
+                                let currentSettings = getCurrentSettingsX()
+                                slot.settings = settingsToData(currentSettings)!
+                                save()
+                            })
+                        }
+                    }
+                }
+                .onDelete { offsets in
+                    for index in offsets {
+                        let slot = slots[index]
+                        managedObjectContext.delete(slot)
+                    }
+                    save()
+                }
+            }
+            .frame(minWidth: 300, idealWidth: 300, maxWidth: 500, minHeight: 300, idealHeight: 300, maxHeight: 800, alignment: .top)
+            
+            Button("Add") {
+                let slot = Slot(context: managedObjectContext)
+                slot.color = colorToData(NSColor.random())
+                slot.label = ""
+                slot.settings = settingsToData(defaultSettings)
+                slot.createdDate = Date()
+                slot.isSelected = false
+                save()
+            }
+        }
+    }
+    
+    func getCurrentSettingsX() -> Settings {
+        return Settings(
+            tRTextRecognitionLevel: tRTextRecognitionLevel,
+            tRMinimumTextHeight: tRMinimumTextHeight,
+            maximumFrameRate: maximumFrameRate,
+            isShowPhrases: isShowPhrases,
+            cropperStyle: cropperStyle,
+            isDropTitleWord: isDropTitleWord,
+            isAddLineBreak: isAddLineBreak,
+            isAddSpace: isAddSpace,
+            isDropFirstTitleWordInTranslation: isDropFirstTitleWordInTranslation,
+            isJoinTranslationLines: isJoinTranslationLines,
+            isShowWindowShadow: isShowWindowShadow,
+            isWithAnimation: isWithAnimation,
+            contentStyle: contentStyle,
+            portraitCorner: portraitCorner,
+            portraitMaxHeight: portraitMaxHeight,
+            landscapeMaxWidth: landscapeMaxWidth,
+            fontSize: fontSize,
+            fontRate: fontRate,
+            theColorScheme: theColorScheme,
+            wordColor: wordColor,
+            transColor: transColor,
+            backgroundColor: backgroundColor,
+            textShadowToggle: textShadowToggle,
+            shadowColor: shadowColor,
+            shadowRadius: shadowRadius,
+            shadowXOffSet: shadowXOffSet,
+            shadowYOffSet: shadowYOffSet,
+            contentBackgroundVisualEffect: contentBackgroundVisualEffect,
+            contentBackGroundVisualEffectMaterial: contentBackGroundVisualEffectMaterial,
+            cropperFrame: cropperWindow.frame,
+            contentFrame: contentWindow.frame
+        )
+    }
+    
+    func isSelectedSlotEqualWithCurrentSettings(_ s: Settings) -> Bool {
+        let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
+            s.tRMinimumTextHeight == tRMinimumTextHeight &&
+            s.maximumFrameRate == maximumFrameRate &&
+            s.isShowPhrases == isShowPhrases &&
+            s.cropperStyle == cropperStyle &&
+            s.isDropTitleWord == isDropTitleWord &&
+            s.isAddLineBreak == isAddLineBreak &&
+            s.isAddSpace == isAddSpace &&
+            s.isDropFirstTitleWordInTranslation == isDropFirstTitleWordInTranslation &&
+            s.isJoinTranslationLines == isJoinTranslationLines &&
+            s.isShowWindowShadow == isShowWindowShadow &&
+            s.isWithAnimation == isWithAnimation &&
+            s.contentStyle == contentStyle &&
+            s.portraitCorner == portraitCorner &&
+            s.portraitMaxHeight == portraitMaxHeight &&
+            s.landscapeMaxWidth == landscapeMaxWidth &&
+            s.fontSize == fontSize &&
+            s.fontRate == fontRate &&
+            s.theColorScheme == theColorScheme &&
+            s.wordColor == wordColor &&
+            s.transColor == transColor &&
+            s.backgroundColor == backgroundColor &&
+            s.textShadowToggle == textShadowToggle &&
+            s.shadowColor == shadowColor &&
+            s.shadowRadius == shadowRadius &&
+            s.shadowXOffSet == shadowXOffSet &&
+            s.shadowYOffSet == shadowYOffSet &&
+            s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
+            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial && //NSVisualEffectView.Material
+            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow; this not react, it is isPlaying switch let it react.
+            s.contentFrame == contentWindow.frame
+        
+        return result
+    }
+    
+    fileprivate func dumpSettings(from s: Settings) {
+        tRTextRecognitionLevel = s.tRTextRecognitionLevel
+        tRMinimumTextHeight = s.tRMinimumTextHeight
+        maximumFrameRate = s.maximumFrameRate
+        isShowPhrases = s.isShowPhrases
+        cropperStyle = s.cropperStyle
+        isDropTitleWord = s.isDropTitleWord
+        isAddLineBreak = s.isAddLineBreak
+        isAddSpace = s.isAddSpace
+        isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
+        isJoinTranslationLines = s.isJoinTranslationLines
+        isShowWindowShadow = s.isShowWindowShadow
+        isWithAnimation = s.isWithAnimation
+        contentStyle = s.contentStyle
+        portraitCorner = s.portraitCorner
+        portraitMaxHeight = s.portraitMaxHeight
+        landscapeMaxWidth = s.landscapeMaxWidth
+        fontSize = s.fontSize
+        fontRate = s.fontRate
+        theColorScheme = s.theColorScheme
+        wordColor = s.wordColor
+        transColor = s.transColor
+        backgroundColor = s.backgroundColor
+        textShadowToggle = s.textShadowToggle
+        shadowColor = s.shadowColor
+        shadowRadius = s.shadowRadius
+        shadowXOffSet = s.shadowXOffSet
+        shadowYOffSet = s.shadowYOffSet
+        contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
+        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
+        cropperWindow.setFrame(s.cropperFrame, display: true)
+        contentWindow.setFrame(s.contentFrame, display: true)
+    }
+    
     // isShowStoreButton need these almost all @AppStorage data
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
@@ -312,203 +436,21 @@ fileprivate struct SlotsSettings: View {
     var isPlaying: Bool {
         statusData.isPlaying
     }
-    
-    @AppStorage(SelectedSlotKey) private var selectedSlot = Slot.blue
-    
-    @AppStorage(BlueLabelKey) var blueLabel: String = ""
-    @AppStorage(PurpleLabelKey) var purpleLabel: String = ""
-    @AppStorage(PinkLabelKey) var pinkLabel: String = ""
-    @AppStorage(RedLabelKey) var redLabel: String = ""
-    @AppStorage(OrangeLabelKey) var orangeLabel: String = ""
-    @AppStorage(YellowLabelKey) var yellowLabel: String = ""
-    @AppStorage(GreenLabelKey) var greenLabel: String = ""
-    @AppStorage(GrayLabelKey) var grayLabel: String = "Default"
-    
-    @AppStorage(BlueSettingsKey) var blueSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(PurpleSettingsKey) var purpleSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(PinkSettingsKey) var pinkSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(RedSettingsKey) var redSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(OrangeSettingsKey) var orangeSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(YellowSettingsKey) var yellowSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(GreenSettingsKey) var greenSettingsData: Data = settingsToData(defaultSettings)!
-    @AppStorage(GraySettingsKey) var graySettingsData: Data = settingsToData(defaultSettings)!
-        
-    var selectedSettings: Settings {
-        switch selectedSlot {
-        case .blue: return dataToSettings(blueSettingsData)!
-        case .purple: return dataToSettings(purpleSettingsData)!
-        case .pink: return dataToSettings(pinkSettingsData)!
-        case .red: return dataToSettings(redSettingsData)!
-        case .orange: return dataToSettings(orangeSettingsData)!
-        case .yellow: return dataToSettings(yellowSettingsData)!
-        case .green: return dataToSettings(greenSettingsData)!
-        case .gray: return dataToSettings(graySettingsData)!
-        }
-    }
-    
-    // write slot, read settings
-    func storeSlot(_ slot: Slot) -> () -> Void {
-        return {
-            let currentSettings = getCurrentSettings()
-            switch slot {
-            case .blue: blueSettingsData = settingsToData(currentSettings)!
-            case .purple: purpleSettingsData = settingsToData(currentSettings)!
-            case .pink: pinkSettingsData = settingsToData(currentSettings)!
-            case .red: redSettingsData = settingsToData(currentSettings)!
-            case .orange: orangeSettingsData = settingsToData(currentSettings)!
-            case .yellow: yellowSettingsData = settingsToData(currentSettings)!
-            case .green: greenSettingsData = settingsToData(currentSettings)!
-            case .gray: print("gray do nothing")
-            }
-        }
-    }
-
-    func isSelectedSlotEqualWithCurrentSettings() -> Bool {
-        let s = selectedSettings
-        let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
-            s.tRMinimumTextHeight == tRMinimumTextHeight &&
-            s.maximumFrameRate == maximumFrameRate &&
-            s.isShowPhrases == isShowPhrases &&
-            s.cropperStyle == cropperStyle &&
-            s.isDropTitleWord == isDropTitleWord &&
-            s.isAddLineBreak == isAddLineBreak &&
-            s.isAddSpace == isAddSpace &&
-            s.isDropFirstTitleWordInTranslation == isDropFirstTitleWordInTranslation &&
-            s.isJoinTranslationLines == isJoinTranslationLines &&
-            s.isShowWindowShadow == isShowWindowShadow &&
-            s.isWithAnimation == isWithAnimation &&
-            s.contentStyle == contentStyle &&
-            s.portraitCorner == portraitCorner &&
-            s.portraitMaxHeight == portraitMaxHeight &&
-            s.landscapeMaxWidth == landscapeMaxWidth &&
-            s.fontSize == fontSize &&
-            s.fontRate == fontRate &&
-            s.theColorScheme == theColorScheme &&
-            s.wordColor == wordColor &&
-            s.transColor == transColor &&
-            s.backgroundColor == backgroundColor &&
-            s.textShadowToggle == textShadowToggle &&
-            s.shadowColor == shadowColor &&
-            s.shadowRadius == shadowRadius &&
-            s.shadowXOffSet == shadowXOffSet &&
-            s.shadowYOffSet == shadowYOffSet &&
-            s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
-            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial && //NSVisualEffectView.Material
-            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow; this not react, it is isPlaying switch let it react.
-            s.contentFrame == contentWindow.frame
-        
-        return result
-    }
-    
-    func isShowStoreButton(_ slot: Slot) -> Bool {
-        slot != .gray &&
-            selectedSlot == slot &&
-            !isSelectedSlotEqualWithCurrentSettings()
-    }
-    
-    // write settings, read slot
-    fileprivate func dumpSettings(from s: Settings) {
-        tRTextRecognitionLevel = s.tRTextRecognitionLevel
-        tRMinimumTextHeight = s.tRMinimumTextHeight
-        maximumFrameRate = s.maximumFrameRate
-        isShowPhrases = s.isShowPhrases
-        cropperStyle = s.cropperStyle
-        isDropTitleWord = s.isDropTitleWord
-        isAddLineBreak = s.isAddLineBreak
-        isAddSpace = s.isAddSpace
-        isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
-        isJoinTranslationLines = s.isJoinTranslationLines
-        isShowWindowShadow = s.isShowWindowShadow
-        isWithAnimation = s.isWithAnimation
-        contentStyle = s.contentStyle
-        portraitCorner = s.portraitCorner
-        portraitMaxHeight = s.portraitMaxHeight
-        landscapeMaxWidth = s.landscapeMaxWidth
-        fontSize = s.fontSize
-        fontRate = s.fontRate
-        theColorScheme = s.theColorScheme
-        wordColor = s.wordColor
-        transColor = s.transColor
-        backgroundColor = s.backgroundColor
-        textShadowToggle = s.textShadowToggle
-        shadowColor = s.shadowColor
-        shadowRadius = s.shadowRadius
-        shadowXOffSet = s.shadowXOffSet
-        shadowYOffSet = s.shadowYOffSet
-        contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
-        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
-        cropperWindow.setFrame(s.cropperFrame, display: true)
-        contentWindow.setFrame(s.contentFrame, display: true)
-    }
-    
-    var binding: Binding<Slot> {
-        Binding.init(
-            get: { selectedSlot },
-            set: { newValue in
-                selectedSlot = newValue
-                dumpSettings(from: selectedSettings)
-            }
-        )
-    }
-    
-    func getTheLabel(_ slot: Slot) -> Binding<String> {
-        switch slot {
-        case .blue: return $blueLabel
-        case .purple: return $purpleLabel
-        case .pink: return $pinkLabel
-        case .red: return $redLabel
-        case .orange: return $orangeLabel
-        case .yellow: return $yellowLabel
-        case .green: return $greenLabel
-        case .gray: return $grayLabel
-        }
-    }
-    
-    var body: some View {
-        Picker("", selection: binding) {
-            ForEach(Slot.allCases) { color in
-                SlotItem(
-                    color: theColor(from: color),
-                    label: getTheLabel(color),
-                    isShowStoreButton: isShowStoreButton(color),
-                    storeAction: storeSlot(color)
-                )
-                .tag(color)
-            }
-        }
-        .labelsHidden()
-        .padding()
-        .pickerStyle(RadioGroupPickerStyle())
-        .disabled(isPlaying)
-    }
 }
 
-fileprivate struct SlotItem: View {
-    let color: Color
-    @Binding var label: String
-    let isShowStoreButton: Bool
-    let storeAction: () -> Void
-    
-    var body: some View {
-        HStack {
-            HStack {
-                Image(systemName: "cube.fill")
-                    .font(.title)
-                    .foregroundColor(color)
-                
-                TextField("", text: $label)
-                    .font(.callout)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .frame(width: 200)
-                    .disabled(color == Color.gray)
-            }
-            
-            if isShowStoreButton {
-                Button("store", action: {
-                    storeAction()
-                })
-            }
-        }
+extension CGFloat {
+    static func random() -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
+extension NSColor {
+    static func random() -> NSColor {
+        return NSColor(
+           red:   .random(),
+           green: .random(),
+           blue:  .random(),
+           alpha: 1.0
+        )
     }
 }
 

@@ -66,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         preferencePanes: [
             GeneralPreferenceViewController(statusData: statusData),
             AppearancePreferenceViewController(),
-            SlotsPreferenceViewController(statusData: statusData),
+            SlotsPreferenceViewController(statusData: statusData, managedObjectContext: persistentContainer.viewContext),
             DictionariesPreferenceViewController()
         ],
         style: .toolbarItems,
@@ -322,6 +322,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         UserDefaults.standard.setValue(fontName, forKey: FontNameKey)
         UserDefaults.standard.setValue(newFont.pointSize, forKey: FontSizeKey)
     }
+    
+    // MARK:- Core Data (Slots)
+//    lazy var slotsPersistentContainer: NSPersistentContainer = {
+//        let container = NSPersistentContainer(name: "Slots")
+//        container.loadPersistentStores { description, error in
+//            if let error = error {
+//                fatalError("Unable to load persistent stores: \(error)")
+//            }
+//        }
+//        return container
+//    }()
+//    
+//    func getAllKnownWordsSet2() -> Set<String> {
+//        let context = slotsPersistentContainer.viewContext
+//        
+//        let fetchRequest: NSFetchRequest<Slots> = Slots.fetchRequest()
+//    }
     
     // MARK:- Core Data (WordStatis)
     lazy var persistentContainer: NSPersistentContainer = {

@@ -40,7 +40,7 @@ func AppearancePreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func SlotsPreferenceViewController(statusData: StatusData) -> PreferencePane {
+func SlotsPreferenceViewController(statusData: StatusData, managedObjectContext: NSManagedObjectContext) -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: "Slots",
@@ -48,6 +48,7 @@ func SlotsPreferenceViewController(statusData: StatusData) -> PreferencePane {
     ) {
         SlotsSettingsView()
             .environmentObject(statusData)
+            .environment(\.managedObjectContext, managedObjectContext)
     }
     
     return Preferences.PaneHostingController(pane: paneView)
