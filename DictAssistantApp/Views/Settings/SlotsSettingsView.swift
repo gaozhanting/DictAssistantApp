@@ -197,9 +197,9 @@ struct SlotsSettingsView: View {
 
 fileprivate struct InfoView: View {
     var body: some View {
-        Text("Slot is a collection of all preferences settings (except global shortcut key, font name, is show toast, is show current settings), and cropper window frame, and content window frame. This makes you switch them quickly. You can attach a slot with a text label, by typing text after the icon. You can't switch them when playing. The last gray slot is the immutable default slot.")
+        Text("Slot is a stored collection of all preferences settings (except global shortcut key, font name, is show toast option), and cropper window frame, and content window frame. This makes you switch them quickly. \n\nYou can add as many slots as you like. You click the update button to dump current preferences settings and store it into the selected slot. You click the icon to switch and dump the selected slot settings into the current preferences settings. You can swipe right to delete a slot. You can attach a slot with a text label, by typing text after the icon. You can even clone the selected slot.")
             .padding()
-            .frame(width: 520, height: 120)
+            .frame(width: 400, height: 230)
     }
 }
 
@@ -221,66 +221,85 @@ fileprivate struct SlotsView: View {
     }
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(slots, id: \.createdDate) { slot in
-                    let settings = dataToSettings(slot.settings!)!
-                    HStack {
+        VStack(alignment: .leading) {
+            GroupBox {
+                List {
+                    ForEach(slots, id: \.createdDate) { slot in
+                        let settings = dataToSettings(slot.settings!)!
                         HStack {
-                            Button(action: {
-                                for slot in slots {
-                                    slot.isSelected = false
-                                }
-                                slot.isSelected = true
-                                save()
-                                dumpSettings(from: settings)
-                            }) {
-                                Image(systemName: slot.isSelected ? "cube.fill" : "cube")
-                                    .font(.title)
-                                    .foregroundColor(Color(dataToColor(slot.color!)!))
-                            }
-                            .buttonStyle(PlainButtonStyle())
-
-                            TextField("", text: Binding.init(
-                                get: { slot.label! },
-                                set: { newValue in
-                                    slot.label = newValue
+                            HStack {
+                                Button(action: {
+                                    for slot in slots {
+                                        slot.isSelected = false
+                                    }
+                                    slot.isSelected = true
                                     save()
+                                    dumpSettings(from: settings)
+                                }) {
+                                    Image(systemName: slot.isSelected ? "cube.fill" : "cube")
+                                        .font(.title)
+                                        .foregroundColor(Color(dataToColor(slot.color!)!))
                                 }
-                            ))
-                            .font(.callout)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .frame(maxWidth: 300)
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                TextField("", text: Binding.init(
+                                    get: { slot.label! },
+                                    set: { newValue in
+                                        slot.label = newValue
+                                        save()
+                                    }
+                                ))
+                                .font(.callout)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .frame(maxWidth: 300)
+                            }
+                            
+                            if slot.isSelected && !isSelectedSlotEqualWithCurrentSettings(settings) {
+                                Button("update", action: {
+                                    let currentSettings = getCurrentSettingsX()
+                                    slot.settings = settingsToData(currentSettings)!
+                                    save()
+                                })
+                            }
                         }
-                        
-                        if slot.isSelected && !isSelectedSlotEqualWithCurrentSettings(settings) {
-                            Button("update", action: {
-                                let currentSettings = getCurrentSettingsX()
-                                slot.settings = settingsToData(currentSettings)!
-                                save()
-                            })
+                    }
+                    .onDelete { offsets in
+                        for index in offsets {
+                            let slot = slots[index]
+                            managedObjectContext.delete(slot)
                         }
+                        save()
                     }
                 }
-                .onDelete { offsets in
-                    for index in offsets {
-                        let slot = slots[index]
-                        managedObjectContext.delete(slot)
-                    }
+                .listStyle(PlainListStyle())
+                .frame(minWidth: 300, minHeight: 300)
+            }
+            
+            HStack {
+                Button("Add") {
+                    let slot = Slot(context: managedObjectContext)
+                    slot.color = colorToData(NSColor.random())
+                    slot.label = ""
+                    slot.settings = settingsToData(defaultSettings)
+                    slot.createdDate = Date()
+                    slot.isSelected = false
                     save()
                 }
+
+                if let selectedSlot = slots.first { $0.isSelected } {
+                    Button("Clone") {
+                        let slot = Slot(context: managedObjectContext)
+                        slot.color = colorToData(NSColor.random())
+                        slot.label = "\(selectedSlot.label ?? "") cloned"
+                        slot.settings = selectedSlot.settings
+                        slot.createdDate = Date()
+                        slot.isSelected = true
+                        selectedSlot.isSelected = false
+                        save()
+                    }
+                }
             }
-            .frame(minWidth: 300, idealWidth: 300, maxWidth: 500, minHeight: 300, idealHeight: 300, maxHeight: 800, alignment: .top)
-            
-            Button("Add") {
-                let slot = Slot(context: managedObjectContext)
-                slot.color = colorToData(NSColor.random())
-                slot.label = ""
-                slot.settings = settingsToData(defaultSettings)
-                slot.createdDate = Date()
-                slot.isSelected = false
-                save()
-            }
+            .padding()
         }
     }
     
