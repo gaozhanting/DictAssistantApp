@@ -94,9 +94,9 @@ func makeFixedNoiseVocabulary() -> Set<String> {
     return result
 }
 
-let logger = Logger(.disabled)
+let logger = Logger()
 func myPrint(_ str: String) {
-//    print(str) // or donothing
+    print(str) // or donothing
 }
 
 let systemDefaultMinimumTextHeight: Double = 0.03125

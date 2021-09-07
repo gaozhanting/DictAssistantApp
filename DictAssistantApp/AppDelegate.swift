@@ -464,6 +464,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             } else {
                 if let trans = cachedDictionaryServicesDefine(word) { // Ignore non-dict word
                     taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
+                } else {
+                    // todo: always ???
+                    myPrint("!> translation not found from dicts of word: \(word)")
                 }
             }
         }

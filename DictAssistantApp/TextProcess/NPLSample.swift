@@ -55,7 +55,7 @@ struct NPLSample {
                 myPrint("    >>lemma >>>->>->>found-from-db: \(token): \(lemma)")
                 results.append(Word(token: token, lemma: lemma))
             } else {
-                myPrint("    >>lemma not-found-even-from-db: \(token)")
+                myPrint("    !>lemma not-found-even-from-db: \(token)")
                 results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
             }
             return true
