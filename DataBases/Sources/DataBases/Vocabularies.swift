@@ -34,8 +34,5 @@ public struct Vocabularies {
     }
 }
 
-public let highSchoolVocabulary = Vocabularies.read(from: "high_school_vocabulary.txt")
-public let cet4Vocabulary = Vocabularies.read(from: "cet4_vocabulary.txt")
-public let cet6Vocabulary = Vocabularies.read(from: "cet6_vocabulary.txt")
 public let oxford3000Vocabulary = Vocabularies.read(from: "oxford_3000.txt")
 public let wikiFrequencyWordsList = Vocabularies.read(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")

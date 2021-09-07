@@ -22,10 +22,6 @@ let package = Package(
             name: "DataBases",
             dependencies: [],
             resources: [
-                .process("Resources/manaually_basic_vocabulary.txt"),
-                .process("Resources/high_school_vocabulary.txt"),
-                .process("Resources/cet4_vocabulary.txt"),
-                .process("Resources/cet6_vocabulary.txt"),
                 .process("Resources/oxford_3000.txt"),
                 .process("Resources/first_100_000_of_enwiki-20190320-words-frequency.txt"),
                 .process("Resources/lemma.en.txt"),
