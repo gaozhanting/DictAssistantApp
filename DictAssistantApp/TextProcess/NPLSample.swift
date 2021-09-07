@@ -56,7 +56,7 @@ struct NPLSample {
                 results.append(Word(token: token, lemma: lemma))
             } else {
                 myPrint("    !>lemma not-found-even-from-db: \(token)")
-                results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
+                results.append(Word(token: token, lemma: token)) // lemma self as last rescue ===> ignored when can't look up from dictionaries, refer func tagWords
             }
             return true
         }
