@@ -99,6 +99,12 @@ func myPrint(_ str: String) {
     print(str) // or donothing
 }
 
+func timeElapsed(info: String, with closure: () -> Void) {
+    let startingPoint = Date()
+    closure()
+    logger.info(">>time elapsed of \(info): \(-startingPoint.timeIntervalSinceNow) seconds")
+}
+
 let systemDefaultMinimumTextHeight: Double = 0.03125
 
 // global big constants

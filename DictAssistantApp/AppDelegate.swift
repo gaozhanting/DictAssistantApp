@@ -29,8 +29,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
-        phrasesDB = Vocabularies.readToSet(from: "phrases_and_idioms_extracted_from_brief_oxford_dict.txt")
-        lemmaDB = LemmaDB.read(from: "lemma.en.txt")
+        timeElapsed(info: "reading lemma") {
+            phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
+        }
+
+        lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
+
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
 
         initAllUserDefaults()
@@ -45,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         initToastWindow()
 
-        allKnownWordsSetCache = getAllKnownWordsSet()
+        allKnownWordsSetCache = getAllKnownWordsSet() // take 0.02s for 6000 known words
 
         aVSessionAndTR = AVSessionAndTR.init(
             cropperWindow: cropperWindow,
@@ -54,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         registerGlobalKey()
 
-        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt()
+        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // take 0.36s
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
