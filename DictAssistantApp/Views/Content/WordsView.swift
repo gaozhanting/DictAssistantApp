@@ -26,15 +26,9 @@ struct WordsView: View {
 }
 
 func convertToWordCellWithId(from primitiveWordCells: [WordCell], isShowPhrase: Bool, isShowCurrentKnown: Bool, isShowCurrentKnownButWithOpacity0: Bool) -> [WordCellWithId] {
-    let wordCells: [WordCell] = {
-        if (isShowPhrase && !isShowCurrentKnownButWithOpacity0) {
-            return primitiveWordCells
-        }
-        if (isShowPhrase && isShowCurrentKnownButWithOpacity0) {
-            return primitiveWordCells.filter { !$0.word.contains(" ") || $0.isKnown == .unKnown }
-        }
-        return primitiveWordCells.filter { !$0.word.contains(" ") }
-    }()
+    let wordCells: [WordCell] = isShowPhrase ?
+        primitiveWordCells :
+        primitiveWordCells.filter { !$0.word.contains(" ") }
     
     if isShowCurrentKnown || isShowCurrentKnownButWithOpacity0 {
         var attachedId: [WordCellWithId] = []
