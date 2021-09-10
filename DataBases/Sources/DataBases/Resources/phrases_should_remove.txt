@@ -1,10 +1,3 @@
 // this should remove from phrase databases
-to see
 feel about
-went to
-access to
-chance to
 be about // ??
-says you
-to draw // in order to draw focus
-a great way
