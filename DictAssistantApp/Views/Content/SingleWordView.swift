@@ -106,7 +106,13 @@ fileprivate struct TextBody: View {
                     Button("Thesaurus", action: { openThesaurus(word) })
                 }
             }
-            // gesture from the most unaccessible to the most accessible, according to the functionality frequency
+            .gesture(
+                TapGesture()
+                    .onEnded { _ in
+                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
+                    }
+                    .modifiers(.command)
+            )
             .gesture(
                 TapGesture()
                     .onEnded { _ in
@@ -119,14 +125,9 @@ fileprivate struct TextBody: View {
                     .onEnded { _ in
                         openDict(word)
                     }
-                    .modifiers(.command)
+                    .modifiers(.shift)
             )
-            .gesture(
-                TapGesture()
-                    .onEnded { _ in
-                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
-                    }
-            )
+
     }
     
     var body: some View {
