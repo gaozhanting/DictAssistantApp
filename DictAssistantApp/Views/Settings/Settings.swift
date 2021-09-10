@@ -28,13 +28,14 @@ func GeneralPreferenceViewController(statusData: StatusData) -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func AppearancePreferenceViewController() -> PreferencePane {
+func AppearancePreferenceViewController(statusData: StatusData) -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .appearance,
         title: "Appearance",
         toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
     ) {
         AppearanceSettingsView()
+            .environmentObject(statusData)
     }
 
     return Preferences.PaneHostingController(pane: paneView)

@@ -92,13 +92,19 @@ enum CropperStyle: Int, Codable {
 
 fileprivate struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
+    @EnvironmentObject var statusData: StatusData
+    var isPlaying: Bool {
+        statusData.isPlaying
+    }
     
     var bd: Binding<CropperStyle> {
         Binding.init {
             cropperStyle
         } set: { newValue in
             cropperStyle = newValue
-            toggleCropperView()
+            if isPlaying {
+                toggleCropperView()
+            }
         }
     }
     
