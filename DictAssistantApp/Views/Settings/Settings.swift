@@ -53,15 +53,3 @@ func SlotsPreferenceViewController(statusData: StatusData, managedObjectContext:
     
     return Preferences.PaneHostingController(pane: paneView)
 }
-
-func DictionariesPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .dictionaries,
-        title: "Dictionaries",
-        toolbarIcon: NSImage(systemSymbolName: "books.vertical", accessibilityDescription: "Dictionaries preferences")!
-    ) {
-        DictionariesView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}

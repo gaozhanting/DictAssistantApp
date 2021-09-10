@@ -44,6 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         initContentWindow()
 
         initKnownWordsPanel()
+        
+        initExtraDictionariesPanel()
 
         constructMenuBar()
 
@@ -71,7 +73,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             GeneralPreferenceViewController(statusData: statusData),
             AppearancePreferenceViewController(),
             SlotsPreferenceViewController(statusData: statusData, managedObjectContext: persistentContainer.viewContext),
-            DictionariesPreferenceViewController()
         ],
         style: .toolbarItems,
         animated: true,
@@ -83,7 +84,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
-        preferencesWindowController.show(preferencePane: .dictionaries)
         preferencesWindowController.show(preferencePane: .slots)
         preferencesWindowController.show(preferencePane: .appearance)
         preferencesWindowController.show(preferencePane: .general)
@@ -196,12 +196,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             accessibilityDescription: nil
         )
         
+        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showPreferences), keyEquivalent: ",")
+        menu.addItem(showSettingsPanelItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
-        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showPreferences), keyEquivalent: ",")
-        menu.addItem(showSettingsPanelItem)
+        
+        let showExtraDictionariesItem = NSMenuItem(title: "Show Extra Dictionaries Panel", action: #selector(showExtraDictionariesPanel), keyEquivalent: "")
+        menu.addItem(showExtraDictionariesItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -310,6 +316,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
         knownWordsPanel.orderFrontRegardless()
+    }
+    
+    // MARK: - Extra Dictionaries Panel
+    var extraDictionariesPanel: NSPanel!
+    func initExtraDictionariesPanel() {
+        extraDictionariesPanel = NSPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+                .miniaturizable,
+                .resizable,
+                .utilityWindow,
+            ],
+            backing: .buffered,
+            defer: false
+            //            screen: NSScreen.main
+        )
+        
+        extraDictionariesPanel.setFrameAutosaveName("extraDictionariesPanel")
+        
+        extraDictionariesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+    }
+    
+    @objc func showExtraDictionariesPanel() {
+        let extraDictionariesView = DictionariesView()
+        
+        extraDictionariesPanel.contentView = NSHostingView(rootView: extraDictionariesView)
+        extraDictionariesPanel.orderFrontRegardless()
     }
 
     // MARK:- changeFont trigger from FontPanel

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Preferences
 
 struct DictionariesView: View {
     @State private var isShowingPopover = false

@@ -102,7 +102,6 @@
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
-				442298B6269EADC1008B410B /* DictionariesView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -194,6 +193,7 @@
 				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
+				442298B6269EADC1008B410B /* DictionariesView.swift */,
 				442134E126AC324100963441 /* Content */,
 				442134D326A9A34F00963441 /* Settings */,
 			);
