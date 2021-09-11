@@ -162,7 +162,7 @@ fileprivate struct FontSettingView: View {
 }
 
 fileprivate struct FontRateSetting: View {
-    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.6
+    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.75
     
     func incrementStep() {
         fontRateKey += 0.01
@@ -236,8 +236,8 @@ fileprivate struct ContentStyleSettingView: View {
     
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -282,7 +282,7 @@ fileprivate struct ContentStyleSettingView: View {
 }
 
 fileprivate struct WordColorPicker: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
         
     var binding: Binding<Color> {
         Binding(
@@ -299,7 +299,7 @@ fileprivate struct WordColorPicker: View {
 }
 
 fileprivate struct TransColorPicker: View {
-    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     
     var binding: Binding<Color> {
         Binding(
@@ -316,7 +316,7 @@ fileprivate struct TransColorPicker: View {
 }
 
 fileprivate struct BackgroundColorPicker: View {
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
     var binding: Binding<Color> {
         Binding(

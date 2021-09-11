@@ -85,23 +85,23 @@ fileprivate let defaultSlotKV: [String: Any] = [
     
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    PortraitMaxHeightKey: 200.0,
-    LandscapeMaxWidthKey: 260.0,
+    PortraitMaxHeightKey: 100.0,
+    LandscapeMaxWidthKey: 160.0,
     
     FontSizeKey: 18.0,
-    FontRateKey: 0.6,
+    FontRateKey: 0.75,
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
-    WordColorKey: colorToData(NSColor.labelColor.withAlphaComponent(0.3))!,
-    TransColorKey: colorToData(NSColor.highlightColor)!,
-    BackgroundColorKey: colorToData(NSColor.clear)!,
+    WordColorKey: colorToData(NSColor.labelColor)!,
+    TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
+    BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
     
     TextShadowToggleKey: false,
     ShadowColorKey: colorToData(NSColor.labelColor)!,
     ShadowRadiusKey: 3,
     ShadowXOffSetKey: 0.0,
-    ShadowYOffSetKey: 2.0,
+    ShadowYOffSetKey: 0.0,
     
     ContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,

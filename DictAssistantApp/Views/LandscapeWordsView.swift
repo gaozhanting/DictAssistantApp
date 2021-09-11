@@ -27,7 +27,7 @@ fileprivate struct BodyView: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
@@ -88,7 +88,7 @@ struct LandscapeWordsViewTwoRotation: View {
         .rotationEffect(Angle(degrees: 180))
     }
     
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 260.0
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched

@@ -46,7 +46,7 @@ fileprivate struct TextBody: View {
     }
     
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     var theBackgroundColor: Color {
         Color(dataToColor(backgroundColor)!)
     }
@@ -166,7 +166,7 @@ fileprivate struct TextWithShadow: View {
         if textShadowToggle {
             TheText(wordCell: wordCell)
                 .shadow(
-                    color: Color(dataToColor(shadowColor)!), // Color(NSColor.labelColor.withAlphaComponent(0.3)), /// shadow color
+                    color: Color(dataToColor(shadowColor)!),
                     radius: CGFloat(shadowRadius), /// shadow radius
                     x: CGFloat(shadowXOffset), //0, /// x offset
                     y: CGFloat(shadowYOffset) //2 /// y offset
@@ -181,8 +181,8 @@ fileprivate struct TextWithShadow: View {
 // title title2 : landscape
 // headline callout : portrait
 fileprivate struct TheText: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
-    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     var theWordColor: Color {
         Color(dataToColor(wordColor)!)
     }
@@ -212,7 +212,7 @@ fileprivate struct TheText: View {
         return Font.custom(fontName, size: CGFloat(fontSize))
     }
     
-    @AppStorage(FontRateKey) private var fontRate: Double = 0.6
+    @AppStorage(FontRateKey) private var fontRate: Double = 0.75
     var transFont: Font {
         return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
     }

@@ -155,23 +155,23 @@ fileprivate let defaultSettings = Settings(
     isWithAnimation: true,
     contentStyle: ContentStyle.portrait,
     portraitCorner: PortraitCorner.topTrailing,
-    portraitMaxHeight: 200.0,
-    landscapeMaxWidth: 260.0,
+    portraitMaxHeight: 100.0,
+    landscapeMaxWidth: 160.0,
     fontSize: 18.0,
-    fontRate: 0.6,
+    fontRate: 0.75,
     theColorScheme: TheColorScheme.system,
-    wordColor: colorToData(NSColor.labelColor.withAlphaComponent(0.3))!,
-    transColor: colorToData(NSColor.highlightColor)!,
-    backgroundColor: colorToData(NSColor.clear)!,
+    wordColor: colorToData(NSColor.labelColor)!,
+    transColor: colorToData(NSColor.secondaryLabelColor)!,
+    backgroundColor: colorToData(NSColor.windowBackgroundColor)!,
     textShadowToggle: false,
     shadowColor: colorToData(NSColor.labelColor)!,
     shadowRadius: 3,
     shadowXOffSet: 0.0,
-    shadowYOffSet: 2.0,
+    shadowYOffSet: 0.0,
     contentBackgroundVisualEffect: false,
     contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
-    cropperFrame: NSRect(x: 100, y: 100, width: 600, height: 200),
-    contentFrame: NSRect(x: 300, y: 300, width: 600, height: 200)
+    cropperFrame: NSRect(x: 310, y: 500, width: 600, height: 200),
+    contentFrame: NSRect(x: 100, y: 100, width: 200, height: 600)
 )
 
 struct SlotsSettingsView: View {
@@ -430,23 +430,23 @@ fileprivate struct SlotsView: View {
     
     @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
     @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
-    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 200.0
-    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 260.0
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     
     @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
-    @AppStorage(FontRateKey) var fontRate: Double = 0.6
+    @AppStorage(FontRateKey) var fontRate: Double = 0.75
     
     @AppStorage(TheColorSchemeKey) var theColorScheme: TheColorScheme = .system
     
-    @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor.withAlphaComponent(0.3))!
-    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.clear)!
+    @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
     @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
     @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
     @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
-    @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 2
+    @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 0
     
     @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue

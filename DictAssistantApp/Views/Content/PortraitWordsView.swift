@@ -8,7 +8,7 @@
 import SwiftUI
 
 fileprivate struct OriginBody: View {
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -43,7 +43,7 @@ fileprivate struct BodyWithVisualEffectBackground: View {
 }
 
 fileprivate struct BodyWithColorBackground: View {
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.clear)!
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     var theBackgroundColor: Color {
         Color(dataToColor(backgroundColor)!)
     }
@@ -74,7 +74,7 @@ fileprivate struct BodyEmbeddedInScrollView: View {
 
 /* (not used)
 fileprivate struct PortraitBottomLeadingViewAutoScroll: View {
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
@@ -117,7 +117,7 @@ fileprivate struct PortraitBottomLeadingViewAutoScroll: View {
  */
 
 fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 200.0
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
