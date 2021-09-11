@@ -19,6 +19,7 @@ var cropperWindow: NSWindow!
 func toggleCropperView() {
     switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
     case .closed:
+        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
         cropperWindow.close()
     case .rectangle:
         cropperWindow.contentView = NSHostingView(rootView: RectangleCropperView())
