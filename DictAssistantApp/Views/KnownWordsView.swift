@@ -225,27 +225,40 @@ fileprivate let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components
 fileprivate struct FirstNPopoverView: View {
     @Binding var text: String
     
-    @State private var from = 1.0
-    @State private var to = 5000.0
+    @State private var from: Int = 1
+    @State private var to: Int = 5000
     
     @Binding var showPopover: Bool
     
     var body: some View {
         HStack {
             Text("from")
-            TextField("", value: $from, formatter: formatter)
-                .frame(width: 60)
+            TextField("", value: $from, formatter: {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .none // integer, no decimal
+                formatter.minimum = 1
+                formatter.maximum = 100000
+                return formatter
+            }())
+            .frame(width: 60)
             
             Text("to")
-            TextField("", value: $to, formatter: formatter)
-                .frame(width: 60)
+            TextField("", value: $to, formatter: {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .none // integer, no decimal
+                formatter.minimum = 2
+                formatter.maximum = 100000
+                return formatter
+            }())
+            .frame(width: 60)
             
             Button(action: {
-                text = wikiFrequencyWords[Int(from) ..< Int(to)].joined(separator: "\n")
+                text = wikiFrequencyWords[from-1 ..< to].joined(separator: "\n")
                 showPopover = false
             }) {
                 Image(systemName: "doc.on.clipboard")
             }
+            .disabled(from > to)
             .help("Type a range, then press paste button to paste these words below.")
         }
         .padding(.horizontal)

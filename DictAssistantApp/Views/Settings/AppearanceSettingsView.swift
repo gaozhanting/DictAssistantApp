@@ -265,14 +265,26 @@ fileprivate struct ContentStyleSettingView: View {
             case .portrait:
                 HStack {
                     Text("max height for one word:")
-                    TextField("", value: $portraitMaxHeight, formatter: formatter)
-                        .frame(width: 46)
+                    TextField("", value: $portraitMaxHeight, formatter: {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .none // integer, no decimal
+                        formatter.minimum = 1
+                        formatter.maximum = 1000
+                        return formatter
+                    }())
+                    .frame(width: 46)
                 }
             case .landscape:
                 HStack {
                     Text("max width for one word:")
-                    TextField("", value: $landscapeMaxWidth, formatter: formatter)
-                        .frame(width: 46)
+                    TextField("", value: $landscapeMaxWidth, formatter: {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .none // integer, no decimal
+                        formatter.minimum = 1
+                        formatter.maximum = 1000
+                        return formatter
+                    }())
+                    .frame(width: 46)
                 }
                 
             }
@@ -392,6 +404,7 @@ fileprivate struct ShadowColorPicker: View {
 let formatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
+    formatter.minimum = 0.0
     return formatter
 }()
 
