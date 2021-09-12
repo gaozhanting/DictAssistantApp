@@ -16,8 +16,8 @@ var contentWindow: NSPanel!
 
 // MARK: - cropper window
 var cropperWindow: NSWindow!
-func toggleCropperView() {
-    switch CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))! {
+func syncCropperView(from cropperStyle: CropperStyle) {
+    switch cropperStyle {
     case .closed:
         cropperWindow.contentView = NSHostingView(rootView: EmptyView())
         cropperWindow.close()

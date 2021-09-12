@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import Vision
+import Combine
 
 // UserDefault keys:
 // -- this three not in slots
@@ -121,6 +122,36 @@ func initAllUserDefaults() {
             UserDefaults.standard.setValue(value, forKey: key)
         }
     }
+    
+    combineSomeKeys()
+}
+
+extension UserDefaults {
+    @objc var CropperStyleKey: Int {
+        get {
+            return integer(forKey: "CropperStyleKey")
+        }
+        set {
+            set(newValue, forKey: "CropperStyleKey")
+        }
+    }
+}
+
+var subscriptions = Set<AnyCancellable>()
+func combineSomeKeys() {
+    UserDefaults.standard
+        .publisher(for: \.CropperStyleKey)
+        .handleEvents(receiveOutput: { cropperStyle in
+            print("Combine>>handleEvents cropperStyle is: \(cropperStyle)")
+            if statusData.isPlaying {
+                print("Combine>>isPlaying true, syncCropperView")
+                syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
+            } else {
+                print("Combine>>isPlaying false, not syncScropperView")
+            }
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
 }
 
 // Slots

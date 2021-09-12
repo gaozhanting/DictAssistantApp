@@ -15,9 +15,10 @@ import Vision
 import KeyboardShortcuts
 import Preferences
 
+let statusData = StatusData(isPlaying: false)
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
-    let statusData = StatusData(isPlaying: false)
     
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
     var aVSessionAndTR: AVSessionAndTR!
@@ -125,7 +126,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                     contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
                     contentWindow.orderFrontRegardless()
                     
-                    toggleCropperView()
+                    let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
+                    syncCropperView(from: cropperStyle)
                     
                     startPlaying()
                     

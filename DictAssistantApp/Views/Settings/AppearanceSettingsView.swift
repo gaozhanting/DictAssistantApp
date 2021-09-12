@@ -97,19 +97,8 @@ fileprivate struct CropperStyleSettingView: View {
         statusData.isPlaying
     }
     
-    var bd: Binding<CropperStyle> {
-        Binding.init {
-            cropperStyle
-        } set: { newValue in
-            cropperStyle = newValue
-            if isPlaying {
-                toggleCropperView()
-            }
-        }
-    }
-    
     var body: some View {
-        Picker("", selection: bd) {
+        Picker("", selection: $cropperStyle) {
             Text("closed").tag(CropperStyle.closed)
             Text("rectangle").tag(CropperStyle.rectangle)
             Text("leadingBorder").tag(CropperStyle.leadingBorder)

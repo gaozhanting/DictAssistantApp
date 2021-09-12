@@ -272,7 +272,7 @@ fileprivate struct SlotsView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
-                .frame(minWidth: 300, minHeight: 300)
+                .frame(minWidth: 300, minHeight: 400)
             }
             
             HStack {
