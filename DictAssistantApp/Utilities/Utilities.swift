@@ -109,19 +109,14 @@ let systemDefaultMinimumTextHeight: Double = 0.03125
 
 // global big constants
 /*
- count is 30828; dict count is 142286|142250(lost some not \t); that is 21.6%
+ count is 366502
  
  all contains belows
- 2 words: all 30828
- 3 words: 10067
- 4 words: 4082
- // ignores belows when do phrase detect programming
- 5 words: 1443
- 6 words: 434
- 7 words: 83
- 8 words: 9
- 9 words: 2
- 10 words: 1
+ 2 words: 262321 71%
+ 3 words: 74687 20%
+ 4 words: 21620 5%
+ 5 words: 6898 2%
+ // ignores >5 when do phrase detect programming
  */
 var phrasesDB: Set<String> = Set.init()
 var lemmaDB: [String: String] = [:]
