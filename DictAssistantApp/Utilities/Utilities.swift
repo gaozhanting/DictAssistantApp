@@ -118,9 +118,9 @@ let systemDefaultMinimumTextHeight: Double = 0.03125
  5 words: 6898 2%
  // ignores >5 when do phrase detect programming
  */
-var phrasesDB: Set<String> = Set.init()
-var lemmaDB: [String: String] = [:]
+let phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
+let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
 
 // first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
 // got this should not add it !
-var fixedNoiseVocabulary: Set<String> = Set.init()
+let fixedNoiseVocabulary = makeFixedNoiseVocabulary()

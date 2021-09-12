@@ -29,14 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
-        
-        timeElapsed(info: "reading lemma") {
-            phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
-        }
-
-        lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
-
-        fixedNoiseVocabulary = makeFixedNoiseVocabulary()
 
         initAllUserDefaultsIfNil()
         
