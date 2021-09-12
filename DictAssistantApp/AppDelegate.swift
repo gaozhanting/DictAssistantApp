@@ -495,11 +495,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
      
     func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {
-        // only for debuging
-        if UserDefaults.standard.object(forKey: IsWithAnimationKey) == nil {
-            logger.info("IsWithAnimationKey is nil, impossible!")
-        }
-        
         if isWithAnimation() {
             withAnimation(whichAnimation()) {
                 displayedWords.wordCells = taggedWordTrans

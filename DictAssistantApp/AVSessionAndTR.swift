@@ -28,7 +28,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
 
     func startScreenCapture() {
-        let maximumFrameRate = UserDefaults.standard.double(forKey: "MaximumFrameRateKey")
+        let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
         screenInput.minFrameDuration = CMTime(seconds: Double(1 / maximumFrameRate), preferredTimescale: 600)
         
         screenInput.cropRect = cropperWindow.frame
