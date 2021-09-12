@@ -516,18 +516,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
         if contentStyle == .landscape {
             return Animation.linear(duration: duration)
-        }
-        
-        let portraitCorner = PortraitCorner(rawValue: UserDefaults.standard.integer(forKey: PortraitCornerKey))
-        switch portraitCorner {
-        case .topLeading:
+        } else {
             return Animation.easeInOut(duration: duration)
-        case .topTrailing:
-            return Animation.easeInOut(duration: duration)
-        case .bottomLeading:
-            return Animation.spring(dampingFraction: 0.5).speed(2)
-        case .none:
-            return nil
         }
     }
     
