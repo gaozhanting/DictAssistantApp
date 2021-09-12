@@ -38,12 +38,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         fixedNoiseVocabulary = makeFixedNoiseVocabulary()
 
-        initAllUserDefaults()
-
+        initAllUserDefaultsIfNil()
+        
         initCropperWindow()
 
         initContentWindow()
 
+        combineSomeUserDefaults()
+        
         initKnownWordsPanel()
         
         initExtraDictionariesPanel()
@@ -264,13 +266,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             name: "portraitWordsPanel"
         )
                 
-        if UserDefaults.standard.bool(forKey: IsShowWindowShadowKey) {
-            contentWindow.invalidateShadow()
-            contentWindow.hasShadow = true
-        } else {
-            contentWindow.invalidateShadow()
-            contentWindow.hasShadow = false
-        }
+        let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
+        syncContentWindowShadow(from: isShowWindowShadow)
 
         contentWindow.close()
     }

@@ -13,6 +13,15 @@ import SwiftUI
 
 // MARK: - content window
 var contentWindow: NSPanel!
+func syncContentWindowShadow(from isShowWindowShadow: Bool) {
+    if isShowWindowShadow {
+        contentWindow.invalidateShadow()
+        contentWindow.hasShadow = true
+    } else {
+        contentWindow.invalidateShadow()
+        contentWindow.hasShadow = false
+    }
+}
 
 // MARK: - cropper window
 var cropperWindow: NSWindow!

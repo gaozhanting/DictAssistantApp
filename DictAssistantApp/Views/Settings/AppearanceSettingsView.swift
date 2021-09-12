@@ -506,26 +506,11 @@ fileprivate struct JoinTranslationLinesToggle: View {
 fileprivate struct ContentWindowShadowToggle: View {
     @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
     
-    var bd: Binding<Bool> {
-        Binding.init {
-            isShowWindowShadow
-        } set: { newValue in
-            isShowWindowShadow = newValue
-            if isShowWindowShadow {
-                contentWindow.invalidateShadow()
-                contentWindow.hasShadow = true
-            } else {
-                contentWindow.invalidateShadow()
-                contentWindow.hasShadow = false
-            }
-        }
-    }
-    
     @State private var isShowingPopover = false
     
     var body: some View {
         HStack {
-            Toggle(isOn: bd, label: {
+            Toggle(isOn: $isShowWindowShadow, label: {
                 Text("Show Content Window Shadow")
             })
             .toggleStyle(CheckboxToggleStyle())

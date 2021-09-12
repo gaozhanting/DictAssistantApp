@@ -116,14 +116,12 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     ShowToastToggleKey: true
 ]) { (current, _) in current }
 
-func initAllUserDefaults() {
+func initAllUserDefaultsIfNil() {
     for (key, value) in defaultKV {
         if UserDefaults.standard.object(forKey: key) == nil {
             UserDefaults.standard.setValue(value, forKey: key)
         }
     }
-    
-    combineSomeKeys()
 }
 
 extension UserDefaults {
@@ -137,18 +135,33 @@ extension UserDefaults {
     }
 }
 
+extension UserDefaults {
+    @objc var IsShowWindowShadowKey: Bool {
+        get {
+            return bool(forKey: "IsShowWindowShadowKey")
+        }
+        set {
+            set(newValue, forKey: "IsShowWindowShadowKey")
+        }
+    }
+}
+
 var subscriptions = Set<AnyCancellable>()
-func combineSomeKeys() {
+func combineSomeUserDefaults() {
     UserDefaults.standard
         .publisher(for: \.CropperStyleKey)
         .handleEvents(receiveOutput: { cropperStyle in
-            print("Combine>>handleEvents cropperStyle is: \(cropperStyle)")
             if statusData.isPlaying {
-                print("Combine>>isPlaying true, syncCropperView")
                 syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
-            } else {
-                print("Combine>>isPlaying false, not syncScropperView")
             }
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.IsShowWindowShadowKey)
+        .handleEvents(receiveOutput: { isShowWindowShadow in
+            syncContentWindowShadow(from: isShowWindowShadow)
         })
         .sink { _ in }
         .store(in: &subscriptions)
