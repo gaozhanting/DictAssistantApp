@@ -71,9 +71,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // MARK: - Preferences
     private lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
-            GeneralPreferenceViewController(statusData: statusData),
-            AppearancePreferenceViewController(statusData: statusData),
-            SlotsPreferenceViewController(statusData: statusData, managedObjectContext: persistentContainer.viewContext),
+            GeneralPreferenceViewController(),
+            AppearancePreferenceViewController(),
+            SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
         ],
         style: .toolbarItems,
         animated: true,

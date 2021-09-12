@@ -152,9 +152,6 @@ fileprivate struct TRTextRecognitionLevelSetting: View {
 fileprivate struct MaximumFrameRateSetting: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
     @EnvironmentObject var statusData: StatusData
-    var isPlaying: Bool {
-        statusData.isPlaying
-    }
     
     @State private var isShowingPopover = false
     
@@ -168,12 +165,12 @@ fileprivate struct MaximumFrameRateSetting: View {
                 return formatter
             }())
             .frame(width: 46)
-            .disabled(isPlaying)
+            .disabled(statusData.isPlaying)
             
             Button("Use default") {
                 maximumFrameRate = 4
             }
-            .disabled(isPlaying)
+            .disabled(statusData.isPlaying)
             
             Button(action: { isShowingPopover = true }, label: {
                 Image(systemName: "info.circle")

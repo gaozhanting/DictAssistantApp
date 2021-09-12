@@ -15,7 +15,7 @@ extension Preferences.PaneIdentifier {
     static let dictionaries = Self("dictionaries")
 }
 
-func GeneralPreferenceViewController(statusData: StatusData) -> PreferencePane {
+func GeneralPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .general,
         title: "General",
@@ -28,7 +28,7 @@ func GeneralPreferenceViewController(statusData: StatusData) -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func AppearancePreferenceViewController(statusData: StatusData) -> PreferencePane {
+func AppearancePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .appearance,
         title: "Appearance",
@@ -41,7 +41,7 @@ func AppearancePreferenceViewController(statusData: StatusData) -> PreferencePan
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func SlotsPreferenceViewController(statusData: StatusData, managedObjectContext: NSManagedObjectContext) -> PreferencePane {
+func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext) -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: "Slots",

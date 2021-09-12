@@ -92,10 +92,6 @@ enum CropperStyle: Int, Codable {
 
 fileprivate struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
-    @EnvironmentObject var statusData: StatusData
-    var isPlaying: Bool {
-        statusData.isPlaying
-    }
     
     var body: some View {
         Picker("", selection: $cropperStyle) {

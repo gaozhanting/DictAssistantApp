@@ -450,11 +450,6 @@ fileprivate struct SlotsView: View {
     
     @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    
-    @EnvironmentObject var statusData: StatusData
-    var isPlaying: Bool {
-        statusData.isPlaying
-    }
 }
 
 extension CGFloat {
