@@ -412,7 +412,8 @@ struct DictItemView: View {
     @Environment(\.openURL) var openURL
 
     @State private var isShowingPopoverOfEC = false
-
+    @State private var isShowingPopover = false
+    
     var body: some View {
         HStack(alignment: .top) {
             if test {
@@ -447,54 +448,55 @@ struct DictItemView: View {
                 }
             }
             
-//            VStack(alignment: .leading) {
-                HStack {
-                    Text(name)
-                    
-                    if name == "简明英汉字典增强版" {
-                        Button(action: { isShowingPopoverOfEC = true }, label: {
-                            Image(systemName: "info.circle")
-                                .font(.footnote)
-                        })
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        .popover(isPresented: $isShowingPopoverOfEC, content: {
-                            Text("Notice you can deselect `英文释义` option in Dictionary.app preferences, to get more concise translation.")
-                                .font(.callout)
-                                .padding()
-                        })
-                    }
-                    
-                    if let sourceURL = sourceURL {
-                        Button(action: {
-                            openURL(sourceURL)
-                        }, label: {
-                            Image(systemName: "arrow.right.circle.fill")
-                                .font(.footnote)
-                        })
-                        .buttonStyle(PlainButtonStyle())
-                    } else {
-                        Spacer()
-                    }
-                }
-                .font(.headline)
+            HStack {
+                Text(name)
                 
-//                HStack {
-//                    Text(license)
-//
-//                    if let licenseURL = licenseURL {
-//                        Button(action: {
-//                            openURL(licenseURL)
-//                        }, label: {
-//                            Image(systemName: "arrow.right.circle.fill")
-//                        })
-//                        .buttonStyle(PlainButtonStyle())
-//                    } else {
-//                        Spacer()
-//                    }
-//                }
-//                .preferenceDescription()
-//            }
+                if name == "简明英汉字典增强版" {
+                    Button(action: { isShowingPopoverOfEC = true }, label: {
+                        Image(systemName: "info.circle.fill")
+                            .font(.footnote)
+                    })
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    .popover(isPresented: $isShowingPopoverOfEC, content: {
+                        Text("Notice you can deselect `英文释义` option in Dictionary.app preferences, to get more concise translation.")
+                            .font(.callout)
+                            .padding()
+                    })
+                }
+                
+                if let sourceURL = sourceURL, let downloadURL = downloadURL {
+                    Button(action: { isShowingPopover = true }, label: {
+                        Image(systemName: "info.circle")
+                            .font(.footnote)
+                    })
+                    .buttonStyle(PlainButtonStyle())
+                    .popover(isPresented: $isShowingPopover) {
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Text("sourceURL:")
+                                Button(action: { openURL(sourceURL) }, label: {
+                                    Image(systemName: "arrow.right.circle")
+                                        .font(.footnote)
+                                })
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                            HStack {
+                                Text("downloadURL:")
+                                Button(action: { openURL(downloadURL) }, label: {
+                                    Image(systemName: "arrow.right.circle")
+                                        .font(.footnote)
+                                })
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding()
+                    }
+                } else {
+                    Spacer()
+                }
+            }
+            .font(.headline)
             
             Spacer()
             
