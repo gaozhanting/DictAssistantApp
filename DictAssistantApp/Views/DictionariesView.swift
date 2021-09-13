@@ -52,7 +52,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English.dictionary.zip")!
         ),
                 
         Dict(name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
@@ -60,7 +60,7 @@ fileprivate struct DictsView: View {
              license: "MIT License",
              licenseURL: URL(string: "https://mit-license.org/")!,
              installedName: "简明英汉字典增强版.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleDicts/raw/main/jm-ec-enhanced-version.dictionary.zip")!
+             downloadURL: nil
         ),
         Dict(name: "懒虫简明英汉词典",
              sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
@@ -97,7 +97,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Japanese.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Japanese.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Korean dictionary",
@@ -105,7 +105,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Korean.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Korean.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-German dictionary",
@@ -113,7 +113,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_German.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_German.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-French dictionary",
@@ -121,7 +121,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_French.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_French.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Spanish dictionary",
@@ -129,7 +129,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Spanish.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Spanish.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Portuguese dictionary",
@@ -137,7 +137,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Portuguese.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Portuguese.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Italian dictionary",
@@ -145,7 +145,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Italian.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Italian.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Dutch dictionary",
@@ -153,7 +153,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Dutch.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Dutch.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Swedish dictionary",
@@ -161,7 +161,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Swedish.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Swedish.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Russian dictionary",
@@ -169,7 +169,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Russian.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Russian.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Greek dictionary",
@@ -177,7 +177,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Greek.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Greek.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Turkish dictionary",
@@ -185,7 +185,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Turkish.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Turkish.dictionary.zip")!
         ),
         
         Dict(name: "Babylon English-Hebrew dictionary",
@@ -193,23 +193,15 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Hebrew.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Hebrew.dictionary.zip")!
         ),
         
-        Dict(name: "Babylon English=Arabic dictionary",
+        Dict(name: "Babylon English-Arabic dictionary",
              sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
              license: "?",
              licenseURL: nil,
-             installedName: "Babylon-en-ar-en.dictionary",
-             downloadURL: nil
-        ),
-        
-        Dict(name: "Advanced English-Persian Dictionary",
-             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E6%B3%A2%E6%96%AF%E8%AF%AD/%5B%E5%85%B6%E4%BB%96%E8%AF%AD%E7%A7%8D%5D%20%E3%80%8A%E8%8B%B1%E8%AF%AD%E6%B3%A2%E6%96%AF%E8%AF%AD%E3%80%8B%5B52120%5D%28090827%29/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Advanced_English-Persian_Dictionary.dictionary",
-             downloadURL: nil
+             installedName: "Babylon_English_Arabic.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Arabic.dictionary.zip")!
         ),
         
         Dict(name: "English-Hindi Shabdanjali Dictionary",
@@ -217,7 +209,7 @@ fileprivate struct DictsView: View {
              license: "?",
              licenseURL: nil,
              installedName: "shabdanjali.dictionary",
-             downloadURL: nil
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/shabdanjali.dictionary.zip")!
         )
     ]
     
@@ -238,9 +230,9 @@ fileprivate struct DictsView: View {
 
 fileprivate struct InfoView: View {
     var body: some View {
-        Text("These dictionaries files are some free concise dictionaries I searched from the internet and convert to Apple dictionary format files for you. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this app because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this app is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
+        Text("These dictionaries files are some free concise dictionaries I searched from the internet and convert to Apple dictionary format files using pyglossary tool for you. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this app because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this app is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
             .padding()
-            .frame(width: 520, height: 320)
+            .frame(width: 520, height: 340)
     }
 }
 
@@ -462,12 +454,13 @@ struct DictItemView: View {
                     if name == "简明英汉字典增强版" {
                         Button(action: { isShowingPopoverOfEC = true }, label: {
                             Image(systemName: "info.circle")
+                                .font(.footnote)
                         })
                         .buttonStyle(PlainButtonStyle())
                         
                         .popover(isPresented: $isShowingPopoverOfEC, content: {
                             Text("Notice you can deselect `英文释义` option in Dictionary.app preferences, to get more concise translation.")
-                                .font(.subheadline)
+                                .font(.callout)
                                 .padding()
                         })
                     }
@@ -477,6 +470,7 @@ struct DictItemView: View {
                             openURL(sourceURL)
                         }, label: {
                             Image(systemName: "arrow.right.circle.fill")
+                                .font(.footnote)
                         })
                         .buttonStyle(PlainButtonStyle())
                     } else {
