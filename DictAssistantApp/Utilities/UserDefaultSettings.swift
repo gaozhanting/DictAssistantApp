@@ -43,6 +43,7 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 
 let ContentStyleKey = "ContentStyleKey"
 let PortraitCornerKey = "PortraitCornerKey"
+let LandscapeAutoScrollKey = "LandscapeAutoScrollKey"
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
@@ -86,6 +87,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
+    LandscapeAutoScrollKey: true,
     PortraitMaxHeightKey: 100.0,
     LandscapeMaxWidthKey: 160.0,
     

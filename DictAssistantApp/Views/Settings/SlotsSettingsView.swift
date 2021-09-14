@@ -34,6 +34,7 @@ fileprivate struct Settings: Codable {
     // -- content style & max width & max height
     let contentStyle: ContentStyle
     let portraitCorner: PortraitCorner
+    let landscapeAutoScroll: Bool
     // ---- extra
     let portraitMaxHeight: Double
     let landscapeMaxWidth: Double
@@ -78,6 +79,7 @@ fileprivate struct Settings: Codable {
         isWithAnimation: Bool,
         contentStyle: ContentStyle,
         portraitCorner: PortraitCorner,
+        landscapeAutoScroll: Bool,
         portraitMaxHeight: Double,
         landscapeMaxWidth: Double,
         fontSize: Double,
@@ -110,6 +112,7 @@ fileprivate struct Settings: Codable {
         self.isWithAnimation = isWithAnimation
         self.contentStyle = contentStyle
         self.portraitCorner = portraitCorner
+        self.landscapeAutoScroll = landscapeAutoScroll
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeMaxWidth = landscapeMaxWidth
         self.fontSize = fontSize
@@ -155,6 +158,7 @@ fileprivate let defaultSettings = Settings(
     isWithAnimation: true,
     contentStyle: ContentStyle.portrait,
     portraitCorner: PortraitCorner.topTrailing,
+    landscapeAutoScroll: true,
     portraitMaxHeight: 100.0,
     landscapeMaxWidth: 160.0,
     fontSize: 18.0,
@@ -319,6 +323,7 @@ fileprivate struct SlotsView: View {
             isWithAnimation: isWithAnimation,
             contentStyle: contentStyle,
             portraitCorner: portraitCorner,
+            landscapeAutoScroll: landscapeAutoScroll,
             portraitMaxHeight: portraitMaxHeight,
             landscapeMaxWidth: landscapeMaxWidth,
             fontSize: fontSize,
@@ -354,6 +359,7 @@ fileprivate struct SlotsView: View {
             s.isWithAnimation == isWithAnimation &&
             s.contentStyle == contentStyle &&
             s.portraitCorner == portraitCorner &&
+            s.landscapeAutoScroll == landscapeAutoScroll &&
             s.portraitMaxHeight == portraitMaxHeight &&
             s.landscapeMaxWidth == landscapeMaxWidth &&
             s.fontSize == fontSize &&
@@ -390,6 +396,7 @@ fileprivate struct SlotsView: View {
         isWithAnimation = s.isWithAnimation
         contentStyle = s.contentStyle
         portraitCorner = s.portraitCorner
+        landscapeAutoScroll = s.landscapeAutoScroll
         portraitMaxHeight = s.portraitMaxHeight
         landscapeMaxWidth = s.landscapeMaxWidth
         fontSize = s.fontSize
@@ -430,6 +437,7 @@ fileprivate struct SlotsView: View {
     
     @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
     @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(LandscapeAutoScrollKey) var landscapeAutoScroll: Bool = true
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     

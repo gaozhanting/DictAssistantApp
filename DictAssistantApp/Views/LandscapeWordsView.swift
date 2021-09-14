@@ -52,13 +52,19 @@ fileprivate struct BodyView: View {
                             VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                             nil)
             .onChange(of: words) { _ in
-                proxy.scrollTo(words.last?.id, anchor: .top)
+                if landscapeAutoScroll {
+                    proxy.scrollTo(words.last?.id, anchor: .top)
+                }
             }
             .onAppear {
-                proxy.scrollTo(words.last?.id, anchor: .top)
+                if landscapeAutoScroll {
+                    proxy.scrollTo(words.last?.id, anchor: .top)
+                }
             }
         }
     }
+    
+    @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
 }
 
 /*  //(not used)

@@ -446,6 +446,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         saveContext()
     }
     
+    // for development, call at applicationDidFinishLaunching
     func deleteAllKnownWords() {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WordStats")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
@@ -453,7 +454,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         do {
             try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
         } catch {
-            fatalError("Failed to clear core data: \(error)")
+            fatalError("Failed to delete all known words: \(error)")
+        }
+        saveContext()
+    }
+    
+    // for development, call at applicationDidFinishLaunching
+    func deleteAllSlots() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Slot")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+        } catch {
+            fatalError("Failed to delete all slots: \(error)")
         }
         saveContext()
     }

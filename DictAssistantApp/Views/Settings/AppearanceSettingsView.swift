@@ -220,6 +220,7 @@ fileprivate struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
     
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
@@ -235,11 +236,19 @@ fileprivate struct ContentStyleSettingView: View {
                 .labelsHidden()
                 .frame(width: 160)
                 
-                if contentStyle == .portrait {
-                    Picker("with corner:", selection: $portraitCorner) {
+                switch contentStyle {
+                case .portrait:
+                    Picker("from corner:", selection: $portraitCorner) {
                         Text("topTrailing").tag(PortraitCorner.topTrailing)
                         Text("topLeading").tag(PortraitCorner.topLeading)
                         Text("bottomLeading").tag(PortraitCorner.bottomLeading)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 200)
+                case .landscape:
+                    Picker("auto scroll:", selection: $landscapeAutoScroll) {
+                        Text("enabled").tag(true)
+                        Text("disabled").tag(false)
                     }
                     .pickerStyle(MenuPickerStyle())
                     .frame(width: 200)
