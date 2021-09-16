@@ -85,11 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     
     func onboarding() {
-//        let viewController = NSHostingController(rootView: OnboardingView(pages: OnboardingPage.fullOnboarding))
-//        let window = NSWindow(contentViewController: viewController)
-//        NSApplication.shared.runModal(for: window)
-        
-        let onboardingView = OnboardingView()
+        let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
             .environment(\.endOnboarding, endOnboarding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         
