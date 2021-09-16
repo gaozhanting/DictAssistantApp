@@ -187,7 +187,7 @@ fileprivate struct PasteOxford3000Button: View {
     @Binding var text: String
     
     var body: some View {
-        Button(action: { text = oxford3000Vocabulary }) {
+        Button(action: { text = oxford3000Words.joined(separator: "\n") }) {
             Image(systemName: "doc.on.clipboard")
                 .overlay(
                     Image(systemName: "o.circle.fill")
@@ -197,6 +197,12 @@ fileprivate struct PasteOxford3000Button: View {
         .buttonStyle(PlainButtonStyle())
         .help("Paste Oxford 3000 Vocabulary")
     }
+}
+
+fileprivate var oxford3000Words: [String] {
+    var words = oxford3000Vocabulary.components(separatedBy: "\n").map{ String($0) }
+    words.removeLast()
+    return words
 }
 
 fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
