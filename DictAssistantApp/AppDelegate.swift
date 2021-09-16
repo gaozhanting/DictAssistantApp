@@ -29,7 +29,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
-
+        
+        initOnboardingPanel()
+        
+        if true {
+            onboarding()
+        }
+        
         initAllUserDefaultsIfNil()
         
         initCropperWindow()
@@ -60,6 +66,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    // MARK: - Onboarding
+    var onboardingPanel: NSPanel!
+    func initOnboardingPanel() {
+        onboardingPanel = NSPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 650, height: 580),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+            ],
+            backing: .buffered,
+            defer: false
+        )
+        
+        onboardingPanel.setFrameAutosaveName("onBoardingPanel")
+    }
+    
+    func onboarding() {
+//        let viewController = NSHostingController(rootView: OnboardingView(pages: OnboardingPage.fullOnboarding))
+//        let window = NSWindow(contentViewController: viewController)
+//        NSApplication.shared.runModal(for: window)
+        
+        let onboardingView = OnboardingView()
+            .environment(\.endOnboarding, endOnboarding)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+        onboardingPanel.contentView = NSHostingView(rootView: onboardingView)
+        onboardingPanel.center()
+        onboardingPanel.orderFrontRegardless()
+    }
+    
+    func endOnboarding() {
+        onboardingPanel.close()
     }
     
     // MARK: - Preferences

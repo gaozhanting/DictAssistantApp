@@ -50,3 +50,14 @@ extension EnvironmentValues {
         set { self[RemoveMultiFromKnownWordsEnvironmentKey.self] = newValue }
     }
 }
+
+private struct EndOnboardingEnvironmentKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var endOnboarding: () -> Void {
+        get { self[EndOnboardingEnvironmentKey].self }
+        set { self[EndOnboardingEnvironmentKey.self] = newValue }
+    }
+}
