@@ -72,7 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var onboardingPanel: NSPanel!
     func initOnboardingPanel() {
         onboardingPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 650, height: 580),
+            contentRect: NSRect(x: 200, y: 100, width: 650, height: 530),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,

@@ -25,7 +25,10 @@ enum OnboardingPage: CaseIterable {
     func view(/*action: @escaping () -> Void*/) -> some View {
         switch self {
         case .welcome:
-            Text("Welcome")
+            VStack {
+                Text("Welcome")
+                Text("Detailed")
+            }
         case .newFeature:
             Text("See this new feature!")
         case .permissions:
@@ -90,9 +93,7 @@ struct OnboardingView: View {
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: 60)
-            .background(
-                VisualEffectView(material: .popover)
-            )
+            .background(VisualEffectView(material: .popover))
         }
         .onAppear {
             self.currentPage = pages.first!
@@ -109,7 +110,15 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(pages: OnboardingPage.allCases)
-            .frame(width: 650, height: 580 - 28) // 28 is the height of title bar
+        Group {
+            Group {
+                OnboardingPage.welcome.view()
+                OnboardingPage.newFeature.view()
+            }
+            .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
+            
+            OnboardingView(pages: OnboardingPage.allCases)
+                .frame(width: 650, height: 530) // 28 is the height of title bar
+        }
     }
 }
