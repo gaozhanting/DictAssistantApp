@@ -28,16 +28,16 @@ struct DictionariesView: View {
     }
 }
 
+struct Dict {
+    let name: String
+    let sourceURL: URL?
+    let license: String
+    let licenseURL: URL?
+    let installedName: String
+    let downloadURL: URL?
+}
+
 fileprivate struct DictsView: View {
-    
-    struct Dict {
-        let name: String
-        let sourceURL: URL?
-        let license: String
-        let licenseURL: URL?
-        let installedName: String
-        let downloadURL: URL?
-    }
     
     private let dicts: [Dict] = [
         Dict(name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)

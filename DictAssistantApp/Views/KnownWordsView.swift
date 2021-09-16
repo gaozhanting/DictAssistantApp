@@ -226,7 +226,7 @@ fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
     }
 }
 
-fileprivate let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: "\n").map{ String($0) }
+let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: "\n").map{ String($0) }
 
 fileprivate struct FirstNPopoverView: View {
     @Binding var text: String

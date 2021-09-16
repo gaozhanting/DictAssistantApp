@@ -29,6 +29,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
+            
+//        if false { // run only when onboarding
+//            deleteAllKnownWords()
+//            deleteAllSlots()
+//        }
         
         initOnboardingPanel()
         
