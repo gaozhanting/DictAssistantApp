@@ -35,6 +35,7 @@ fileprivate struct InitKnownWordsView: View {
     @Environment(\.addMultiToKnownWords) var addMultiToKnownWords
 
     @State private var to: Int = 5000
+    @State private var showAddButton: Bool = false
     
     @FetchRequest(
         entity: WordStats.entity(),
@@ -51,7 +52,7 @@ fileprivate struct InitKnownWordsView: View {
             Divider()
                 .padding()
             
-            Text("Enter your estimated English vocabulary count. Then press add button to contine.")
+            Text("Enter your estimated English vocabulary count, press enter key to commit. And Then press add button to contine.")
                 .frame(width: 500)
             
             HStack {
@@ -63,15 +64,18 @@ fileprivate struct InitKnownWordsView: View {
                     formatter.minimum = 2
                     formatter.maximum = 100000
                     return formatter
-                }())
+                }(), onCommit: {
+                    showAddButton = true
+                })
                 .frame(width: 60)
                 
                 Button(action: {
-                    let words = Array(wikiFrequencyWords[1 ... to])
+                    let words = Array(wikiFrequencyWords[0 ..< to])
                     addMultiToKnownWords(words)
                 }) {
                     Image(systemName: "rectangle.stack.badge.plus")
                 }
+                .disabled(!showAddButton)
             }
             
             Button(action: next, label: {
