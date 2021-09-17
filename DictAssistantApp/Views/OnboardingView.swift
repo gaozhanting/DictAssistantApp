@@ -73,7 +73,7 @@ fileprivate struct InitKnownWordsView: View {
             Button(action: next, label: {
                 Text("Continue")
             })
-//            .disabled(!showContinue)
+            .disabled(!showContinue)
         }
     }
 }
@@ -161,19 +161,49 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     }
 }
 
+fileprivate struct DemonstrationPlayingView: View {
+    @Environment(\.endOnboarding) var endOnboarding
+
+    var body: some View {
+        VStack {
+            Text("Playing Demonstration")
+                .font(.title)
+            
+            Divider()
+                .padding()
+            
+            VStack(alignment: .leading) {
+                Text("Playing:")
+                Text("Step 1: Press Toggle Flow Step shortcut key and adjust the cropper window.")
+                Text("Step 2: Press Toggle Flow Step shortcut key and adjust the content window.")
+                Text("Step 3: Press Toggle Flow Step shortcut key and playing.")
+                Divider()
+                Text("Stop:")
+                Text("Press Toggle Flow Step shortcut key to stop playing.")
+            }
+            .frame(width: 500)
+            
+            Button(action: endOnboarding, label: {
+                Text("End")
+            })
+        }
+    }
+}
+
 enum OnboardingPage: CaseIterable {
     case welcome
     case initKnownWords
     case downloadExtraDict
     case initGlobalKeyboardShortcut
+    case demonstrationPlaying
     
-    var shouldShowNextButton: Bool {
-        self == .welcome
-    }
-    
-    var shouldShowEndButton: Bool {
-        self == .initGlobalKeyboardShortcut
-    }
+//    var shouldShowNextButton: Bool {
+//        self == .welcome
+//    }
+//
+//    var shouldShowEndButton: Bool {
+//        self == .initGlobalKeyboardShortcut
+//    }
     
     @ViewBuilder
     func view(next: @escaping () -> Void = {}) -> some View {
@@ -186,12 +216,13 @@ enum OnboardingPage: CaseIterable {
             DownloadExtraDictView(next: next)
         case .initGlobalKeyboardShortcut:
             InitGlobalKeyboardShortcutView(next: next)
+        case .demonstrationPlaying:
+            DemonstrationPlayingView()
         }
     }
 }
 
 struct OnboardingView: View {
-    @Environment(\.endOnboarding) var endOnboarding
 
     @State private var currentPage: OnboardingPage = .welcome
     private let pages: [OnboardingPage]
@@ -252,6 +283,7 @@ struct OnboardingView_Previews: PreviewProvider {
 //                OnboardingPage.initKnownWords.view()
 //                OnboardingPage.downloadExtraDict.view()
                 OnboardingPage.initGlobalKeyboardShortcut.view()
+                OnboardingPage.demonstrationPlaying.view()
             }
             .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
             

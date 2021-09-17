@@ -148,7 +148,7 @@ fileprivate let defaultSettings = Settings(
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     maximumFrameRate: 4,
     isShowPhrases: true,
-    cropperStyle: CropperStyle.closed,
+    cropperStyle: CropperStyle.rectangle,
     isDropTitleWord: false,
     isAddLineBreak: true,
     isAddSpace: false,

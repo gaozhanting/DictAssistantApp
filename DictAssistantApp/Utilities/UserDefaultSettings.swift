@@ -73,7 +73,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     
     IsShowPhrasesKey: true,
     
-    CropperStyleKey: CropperStyle.closed.rawValue,
+    CropperStyleKey: CropperStyle.rectangle.rawValue,
     
     IsDropTitleWordKey: false,
     IsAddLineBreakKey: true,

@@ -95,9 +95,9 @@ fileprivate struct CropperStyleSettingView: View {
     
     var body: some View {
         Picker("", selection: $cropperStyle) {
-            Text("closed").tag(CropperStyle.closed)
             Text("rectangle").tag(CropperStyle.rectangle)
             Text("leadingBorder").tag(CropperStyle.leadingBorder)
+            Text("closed").tag(CropperStyle.closed)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
