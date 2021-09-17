@@ -9,7 +9,7 @@ import SwiftUI
 import Preferences
 import Vision
 
-fileprivate struct Settings: Codable {
+struct Settings: Codable {
     // general and main settings for a slot
     let tRTextRecognitionLevel: Int
     let tRMinimumTextHeight: Double
@@ -61,8 +61,8 @@ fileprivate struct Settings: Codable {
     let contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
     
     // two frames settings for a slot
-    let cropperFrame: NSRect
-    let contentFrame: NSRect
+    var cropperFrame: NSRect
+    var contentFrame: NSRect
     
     init(
         tRTextRecognitionLevel: Int,
@@ -133,12 +133,12 @@ fileprivate struct Settings: Codable {
     }
 }
 
-fileprivate func settingsToData(_ settings: Settings) -> Data? {
+func settingsToData(_ settings: Settings) -> Data? {
     let data = try? PropertyListEncoder.init().encode(settings)
     return data
 }
 
-fileprivate func dataToSettings(_ data: Data) -> Settings? {
+func dataToSettings(_ data: Data) -> Settings? {
     let settings = try? PropertyListDecoder.init().decode(Settings.self, from: data)
     return settings
 }
@@ -377,9 +377,7 @@ fileprivate struct SlotsView: View {
             s.shadowXOffSet == shadowXOffSet &&
             s.shadowYOffSet == shadowYOffSet &&
             s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
-            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial && //NSVisualEffectView.Material
-            s.cropperFrame == cropperWindow.frame && // crash for SwiftUI Preview, cause there is no cropperWindow; this not react, it is isPlaying switch let it react.
-            s.contentFrame == contentWindow.frame
+            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         
         return result
     }
