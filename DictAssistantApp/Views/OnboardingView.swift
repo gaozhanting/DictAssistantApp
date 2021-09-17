@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 fileprivate struct WelcomeView: View {
     let next: () -> Void
@@ -135,6 +136,31 @@ fileprivate struct DownloadExtraDictView: View {
     }
 }
 
+fileprivate struct InitGlobalKeyboardShortcutView: View {
+    let next: () -> Void
+    
+    var body: some View {
+        VStack {
+            Text("Initialize three global keyboard shortcut")
+                .font(.title)
+            
+            Divider()
+                .padding()
+            
+            KeyRecordingView(recommend: false) // I think no need to recommend this, still has code stem for  later reference.
+            
+            Button(action: next, label: {
+                Text("Continue")
+            })
+            .disabled(
+                (KeyboardShortcuts.getShortcut(for: .toggleFlowStep) == nil) ||
+                (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) == nil) ||
+                (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWordsButWithOpacity0) == nil)
+            )
+        }
+    }
+}
+
 enum OnboardingPage: CaseIterable {
     case welcome
     case initKnownWords
@@ -159,15 +185,7 @@ enum OnboardingPage: CaseIterable {
         case .downloadExtraDict:
             DownloadExtraDictView(next: next)
         case .initGlobalKeyboardShortcut:
-            HStack {
-                Text("Become PRO for even more features")
-                
-//                Button(action: {
-//                    NSApplication.shared.stopModal()
-//                }, label: {
-//                    Text("OK")
-//                })
-            }
+            InitGlobalKeyboardShortcutView(next: next)
         }
     }
 }
@@ -230,9 +248,10 @@ struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             Group {
-                OnboardingPage.welcome.view()
-                OnboardingPage.initKnownWords.view()
-                OnboardingPage.downloadExtraDict.view()
+//                OnboardingPage.welcome.view()
+//                OnboardingPage.initKnownWords.view()
+//                OnboardingPage.downloadExtraDict.view()
+                OnboardingPage.initGlobalKeyboardShortcut.view()
             }
             .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
             

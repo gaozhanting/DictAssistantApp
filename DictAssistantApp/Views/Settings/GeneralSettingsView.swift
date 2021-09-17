@@ -15,8 +15,8 @@ let settingPanelWidth: Double = 570.0
 struct GeneralSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Short Cut Key:") {
-                KeyRecordingView()
+            Preferences.Section(title: "Global Short Cut Key:") {
+                KeyRecordingView(recommend: false)
             }
             Preferences.Section(title: "Minimum Text Height:") {
                 GroupBox {
@@ -39,26 +39,28 @@ struct GeneralSettingsView: View {
     }
 }
 
-fileprivate struct KeyRecordingView: View {
+struct KeyRecordingView: View {
+    let recommend: Bool
+    
     var body: some View {
         Group {
             HStack {
-                Text("Toggle Unicorn Mode:")
+                Text("Toggle Flow Step:\(recommend ? " (recommend: Control-Command-E)" : "")")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .toggleUnicornMode)
+                KeyboardShortcuts.Recorder(for: .toggleFlowStep)
             }
             HStack(alignment: .firstTextBaseline) {
-                Text("Toggle Show Current Known Words:")
+                Text("Toggle Show Current Known Words:\(recommend ? " (recommend: Control-Command-R)" : "")")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
             }
             HStack(alignment: .firstTextBaseline) {
-                Text("Toggle Conceal Current Known Words:")
+                Text("Toggle Conceal Current Known Words:\(recommend ? " (recommend: Control-Command-T)" : "")")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
             }
         }
-        .frame(maxWidth: 380)
+        .frame(maxWidth: recommend ? 600 : 380)
     }
 }
 

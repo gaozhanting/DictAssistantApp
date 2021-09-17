@@ -134,7 +134,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     var flowStep: FlowStep = .beginSelectCropper
     func registerGlobalKey() {
-        KeyboardShortcuts.onKeyUp(for: .toggleUnicornMode) { [self] in
+        KeyboardShortcuts.onKeyUp(for: .toggleFlowStep) { [self] in
             if !statusData.isPlaying {
                 switch flowStep {
                 case .beginSelectCropper:
