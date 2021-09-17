@@ -37,192 +37,184 @@ struct Dict {
     let downloadURL: URL?
 }
 
+let dicts: [Dict] = [
+    Dict(name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
+         sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Concise Oxford English Dictionary 11th.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
+    ),
+    Dict(name: "Babylon_English.dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English.dictionary.zip")!
+    ),
+    
+    Dict(name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
+         sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
+         license: "MIT License",
+         licenseURL: URL(string: "https://mit-license.org/")!,
+         installedName: "简明英汉字典增强版.dictionary",
+         downloadURL: nil
+    ),
+    Dict(name: "懒虫简明英汉词典",
+         sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "lazyworm-ec.dictionary",
+         downloadURL: nil
+    ),
+    
+    Dict(name: "英漢字典CDic",
+         sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+         license: "?",
+         licenseURL: URL(string: "http://cview.com.tw/")!,
+         installedName: "mac-yinghancidian.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
+    ),
+    Dict(name: "懶蟲簡明英漢詞典",
+         sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "lazyworm-ec-big5.dictionary",
+         downloadURL: nil
+    ),
+    
+    Dict(name: "JMDict English-Japanese dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
+         license: "The EDRDG Licence",
+         licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
+         installedName: "mac-jmdict-en-ja.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
+    ),
+    Dict(name: "Babylon English-Japanese",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Japanese.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Japanese.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Korean dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Korean.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Korean.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-German dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_German.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_German.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-French dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_French.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_French.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Spanish dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Spanish.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Spanish.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Portuguese dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Portuguese.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Portuguese.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Italian dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Italian.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Italian.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Dutch dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Dutch.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Dutch.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Swedish dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Swedish.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Swedish.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Russian dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Russian.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Russian.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Greek dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Greek.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Greek.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Turkish dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Turkish.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Turkish.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Hebrew dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Hebrew.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Hebrew.dictionary.zip")!
+    ),
+    
+    Dict(name: "Babylon English-Arabic dictionary",
+         sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "Babylon_English_Arabic.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Arabic.dictionary.zip")!
+    ),
+    
+    Dict(name: "English-Hindi Shabdanjali Dictionary",
+         sourceURL: URL(string: "http://download.huzheng.org/misc/")!,
+         license: "?",
+         licenseURL: nil,
+         installedName: "shabdanjali.dictionary",
+         downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/shabdanjali.dictionary.zip")!
+    )
+]
+
 fileprivate struct DictsView: View {
-    
-    private let dicts: [Dict] = [
-        Dict(name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
-             sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Concise Oxford English Dictionary 11th.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
-        ),
-        Dict(name: "Babylon_English.dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English.dictionary.zip")!
-        ),
-                
-        Dict(name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
-             sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
-             license: "MIT License",
-             licenseURL: URL(string: "https://mit-license.org/")!,
-             installedName: "简明英汉字典增强版.dictionary",
-             downloadURL: nil
-        ),
-        Dict(name: "懒虫简明英汉词典",
-             sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "lazyworm-ec.dictionary",
-             downloadURL: nil
-        ),
-        
-        Dict(name: "英漢字典CDic",
-             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-             license: "?",
-             licenseURL: URL(string: "http://cview.com.tw/")!,
-             installedName: "mac-yinghancidian.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
-        ),
-        Dict(name: "懶蟲簡明英漢詞典",
-             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "lazyworm-ec-big5.dictionary",
-             downloadURL: nil
-        ),
-        
-        Dict(name: "JMDict English-Japanese dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
-             license: "The EDRDG Licence",
-             licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
-             installedName: "mac-jmdict-en-ja.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
-        ),
-        Dict(name: "Babylon English-Japanese",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Japanese.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Japanese.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Korean dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Korean.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Korean.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-German dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_German.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_German.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-French dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_French.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_French.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Spanish dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Spanish.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Spanish.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Portuguese dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Portuguese.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Portuguese.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Italian dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Italian.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Italian.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Dutch dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Dutch.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Dutch.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Swedish dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Swedish.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Swedish.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Russian dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Russian.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Russian.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Greek dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Greek.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Greek.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Turkish dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Turkish.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Turkish.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Hebrew dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Hebrew.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Hebrew.dictionary.zip")!
-        ),
-        
-        Dict(name: "Babylon English-Arabic dictionary",
-             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Babylon_English_Arabic.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Arabic.dictionary.zip")!
-        ),
-        
-        Dict(name: "English-Hindi Shabdanjali Dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/misc/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "shabdanjali.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/shabdanjali.dictionary.zip")!
-        )
-    ]
-    
     var body: some View {
-        ForEach(dicts, id:\.self.name) { d in
-            DictItemView(
-                name: d.name,
-                sourceURL: d.sourceURL,
-                license: d.license,
-                licenseURL: d.licenseURL,
-                installedName: d.installedName,
-                downloadURL: d.downloadURL
-            )
+        ForEach(dicts, id:\.self.name) { dict in
+            DictItemView(dict: dict)
         }
         .padding()
     }
@@ -397,12 +389,14 @@ struct DictItemView: View {
         install(from: location, to: installedName)
     }
     
-    let name: String
-    let sourceURL: URL?
-    let license: String
-    let licenseURL: URL?
-    let installedName: String
-    let downloadURL: URL?
+    let dict: Dict
+    
+    var name: String { dict.name }
+    var sourceURL: URL? { dict.sourceURL }
+    var license: String { dict.license }
+    var licenseURL: URL? { dict.licenseURL }
+    var installedName: String { dict.installedName }
+    var downloadURL: URL? { dict.downloadURL }
     
     @State var progressValue: Float = 0.0
     @State var isDownloading: Bool = false
@@ -552,10 +546,9 @@ class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
 struct DictsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DictionariesView()
-                .frame(width: 650, height: 500)
-            
             InfoView()
+            
+            DictionariesView()
         }
     }
 }

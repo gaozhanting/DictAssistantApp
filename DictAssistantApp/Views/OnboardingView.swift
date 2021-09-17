@@ -8,6 +8,8 @@
 import SwiftUI
 
 fileprivate struct WelcomeView: View {
+    let next: () -> Void
+
     var body: some View {
         VStack {
             Text("Welcome to DictAssistant")
@@ -16,8 +18,12 @@ fileprivate struct WelcomeView: View {
             Divider()
                 .padding()
             
-            Text("DictAssistant is a menu bar APP for assisting you reading English. It will automatically lookup your unknown English words and show the translation while you are reading. This way you release your hands.")
+            Text("We need three steps to setup.")
                 .frame(width: 500)
+            
+            Button(action: next, label: {
+                Text("Continue")
+            })
         }
     }
 }
@@ -39,11 +45,11 @@ fileprivate struct InitKnownWordsView: View {
             Divider()
                 .padding()
             
-            Text("You tell your current English vocabulary (your known words) number to the app, and the app will not show the translation of your known words when reading. Don't be panic, you can change it at any time from the app's menu bar menu `Show Known Words Panel`, it is just a words list text.\nYou initialize you vocabulary by guessing your vocabulary number. For example, may be you think it is 4000, and the app will make the the first 4000 words from `wiki english words frequency list` your vocabulary. This way, though it is not accurate, it does got a decent your current vocabulary. You can add to it or remove from it by a single word (often when you are reading from the context), or with word lists.")
+            Text("Enter your estimated English vocabulary count. Then press add button to contine.")
                 .frame(width: 500)
             
             HStack {
-                Text("My vocabulary number:")
+                Text("My vocabulary count:")
                 
                 TextField("", value: $to, formatter: {
                     let formatter = NumberFormatter()
@@ -66,23 +72,41 @@ fileprivate struct InitKnownWordsView: View {
             Button(action: next, label: {
                 Text("Continue")
             })
-            .disabled(!showContinue)
+//            .disabled(!showContinue)
         }
     }
 }
 
+func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
+    for language in Locale.preferredLanguages {
+        if language.contains("zh-Hans") { return "简明英汉字典增强版" }
+        if language.contains("zh-Hant") { return "英漢字典CDic" }
+        if language.contains("ja") { return "JMDict English-Japanese dictionary" }
+        if language.contains("ko") { return "Babylon English-Korean dictionary" }
+        if language.contains("de") { return "Babylon English-German dictionary" }
+        if language.contains("fr") { return "Babylon English-French dictionary" }
+        if language.contains("es") { return "Babylon English-Spanish dictionary" }
+        if language.contains("pt") { return "Babylon English-Portuguese dictionary" }
+        if language.contains("it") { return "Babylon English-Italian dictionary" }
+        if language.contains("nl") { return "Babylon English-Dutch dictionary" }
+        if language.contains("sv") { return "Babylon English-Swedish dictionary" }
+        if language.contains("ru") { return "Babylon English-Russian dictionary" }
+        if language.contains("el") { return "Babylon English-Greek dictionary" }
+        if language.contains("tr") { return "Babylon English-Turkish dictionary" }
+        if language.contains("he") { return "Babylon English-Hebrew dictionary" }
+        if language.contains("ar") { return "Babylon English-Arabic dictionary" }
+        if language.contains("hi") { return "English-Hindi Shabdanjali Dictionary" }
+    }
+    
+    // fall to en
+    return "Concise Oxford English Dictionary 11th"
+}
+
 fileprivate struct DownloadExtraDictView: View {
     let next: () -> Void
-
-    let d =
-        Dict(name: "英漢字典CDic",
-             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-             license: "?",
-             licenseURL: URL(string: "http://cview.com.tw/")!,
-             installedName: "mac-yinghancidian.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
-        )
     
+    @State var selectedDictName: String = defaultSelectedDictNameFromSystemPreferredLanguage()
+
     var body: some View {
         VStack {
             Text("Download extra concise dictionary")
@@ -91,17 +115,18 @@ fileprivate struct DownloadExtraDictView: View {
             Divider()
                 .padding()
             
-            Text("blabla")
+            Text("Select the dictionary of English to your native language. Download and install. Then open Apple Dictionary App preferences, make it the first selected dictionary. This step is optional, but highly recommended.")
+                .frame(width: 500)
             
-            DictItemView(
-                name: d.name,
-                sourceURL: d.sourceURL,
-                license: d.license,
-                licenseURL: d.licenseURL,
-                installedName: d.installedName,
-                downloadURL: d.downloadURL
-            )
-            .frame(width: 300)
+            Picker("Select:", selection: $selectedDictName) {
+                ForEach(dicts, id:\.self.name) { dict in
+                    Text(dict.name).tag(dict.name)
+                }
+            }
+            .frame(width: 500)
+            
+            DictItemView(dict: dicts.first { $0.name == selectedDictName }!)
+                .frame(width: 500)
             
             Button(action: next, label: {
                 Text("Continue")
@@ -128,21 +153,11 @@ enum OnboardingPage: CaseIterable {
     func view(next: @escaping () -> Void = {}) -> some View {
         switch self {
         case .welcome:
-            WelcomeView()
-
+            WelcomeView(next: next)
         case .initKnownWords:
             InitKnownWordsView(next: next)
-
         case .downloadExtraDict:
             DownloadExtraDictView(next: next)
-//            HStack {
-//                Text("We need downloadExtraDict")
-//
-////                // This button should only be enabled once downloadExtraDict are set:
-////                Button(action: action, label: {
-////                    Text("Continue")
-////                })
-//            }
         case .initGlobalKeyboardShortcut:
             HStack {
                 Text("Become PRO for even more features")
