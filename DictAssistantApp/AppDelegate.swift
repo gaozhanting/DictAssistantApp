@@ -18,7 +18,7 @@ import Preferences
 let statusData = StatusData(isPlaying: false)
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDelegate {
     
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
     var aVSessionAndTR: AVSessionAndTR!
@@ -86,7 +86,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         onboardingPanel.setFrameAutosaveName("onBoardingPanel")
     }
     
-    func onboarding() {
+    @objc func onboarding() {
         let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.addMultiToKnownWords, addMultiToKnownWords)
@@ -247,9 +247,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         menu.addItem(NSMenuItem.separator())
         
+        let helpMenu = NSMenu(title: "Help")
+        helpMenu.delegate = self
+        helpMenu.addItem(withTitle: "Show Onboarding Panel", action: #selector(onboarding), keyEquivalent: "")
+        helpMenu.addItem(withTitle: "Watch Tutorial Video", action: #selector(openTutorialVideoURL), keyEquivalent: "")
+        let helpMenuItem = NSMenuItem(title: "Help", action: nil, keyEquivalent: "")
+        menu.addItem(helpMenuItem)
+        menu.setSubmenu(helpMenu, for: helpMenuItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
+    }
+    
+    @objc func openTutorialVideoURL() {
+        guard let url = URL(string: "https://www.youtube.com/watch?v=afHqGHDfZKA") else {
+            return
+        }
+        NSWorkspace.shared.open(url)
     }
     
     func startPlaying() {
