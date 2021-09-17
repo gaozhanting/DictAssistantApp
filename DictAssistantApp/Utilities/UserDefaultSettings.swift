@@ -21,6 +21,8 @@ let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
 
 let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
 
+let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
+
 // general
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
@@ -73,7 +75,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     
     IsShowPhrasesKey: true,
     
-    CropperStyleKey: CropperStyle.rectangle.rawValue,
+    CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     
     IsDropTitleWordKey: false,
     IsAddLineBreakKey: true,
@@ -115,7 +117,8 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentKnownKey: false,
     IsShowCurrentKnownButWithOpacity0Key: false,
     FontNameKey: defaultFontName,
-    ShowToastToggleKey: true
+    ShowToastToggleKey: true,
+    IsFinishedOnboardingKey: false,
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {

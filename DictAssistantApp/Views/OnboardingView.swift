@@ -36,7 +36,12 @@ fileprivate struct InitKnownWordsView: View {
 
     @State private var to: Int = 5000
     
-    @State private var showContinue: Bool = false
+    @FetchRequest(
+        entity: WordStats.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
+        ]
+    ) var fetchedKnownWords: FetchedResults<WordStats>
 
     var body: some View {
         VStack {
@@ -62,9 +67,8 @@ fileprivate struct InitKnownWordsView: View {
                 .frame(width: 60)
                 
                 Button(action: {
-                    let words = Array(wikiFrequencyWords[1 ..< to])
+                    let words = Array(wikiFrequencyWords[1 ... to])
                     addMultiToKnownWords(words)
-                    showContinue = true
                 }) {
                     Image(systemName: "rectangle.stack.badge.plus")
                 }
@@ -73,7 +77,7 @@ fileprivate struct InitKnownWordsView: View {
             Button(action: next, label: {
                 Text("Continue")
             })
-            .disabled(!showContinue)
+            .disabled(fetchedKnownWords.count == 0)
         }
     }
 }
@@ -138,10 +142,20 @@ fileprivate struct DownloadExtraDictView: View {
 
 fileprivate struct InitGlobalKeyboardShortcutView: View {
     let next: () -> Void
+    @Environment(\.endOnboarding) var endOnboarding
+    @AppStorage(IsFinishedOnboardingKey) private var isFinishedOnboarding: Bool = false
+    
+    func allSet() -> Bool {
+        (KeyboardShortcuts.getShortcut(for: .toggleFlowStep) != nil) &&
+        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) != nil) &&
+        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWordsButWithOpacity0) != nil)
+    }
+    
+    @State private var showPlaying: Bool = false
     
     var body: some View {
         VStack {
-            Text("Initialize three global keyboard shortcut")
+            Text("Initialize three global keyboard shortcut & Playing")
                 .font(.title)
             
             Divider()
@@ -149,43 +163,32 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
             
             KeyRecordingView(recommend: false) // I think no need to recommend this, still has code stem for  later reference.
             
-            Button(action: next, label: {
+            Button(action: {
+                showPlaying = true
+            }, label: {
                 Text("Continue")
             })
-            .disabled(
-                (KeyboardShortcuts.getShortcut(for: .toggleFlowStep) == nil) ||
-                (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) == nil) ||
-                (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWordsButWithOpacity0) == nil)
-            )
-        }
-    }
-}
-
-fileprivate struct DemonstrationPlayingView: View {
-    @Environment(\.endOnboarding) var endOnboarding
-
-    var body: some View {
-        VStack {
-            Text("Playing Demonstration")
-                .font(.title)
+            .disabled(!allSet())
             
-            Divider()
-                .padding()
-            
-            VStack(alignment: .leading) {
-                Text("Playing:")
-                Text("Step 1: Press Toggle Flow Step shortcut key and adjust the cropper window.")
-                Text("Step 2: Press Toggle Flow Step shortcut key and adjust the content window.")
-                Text("Step 3: Press Toggle Flow Step shortcut key and playing.")
-                Divider()
-                Text("Stop:")
-                Text("Press Toggle Flow Step shortcut key to stop playing.")
+            if showPlaying {
+                VStack(alignment: .leading) {
+                    Text("Playing:")
+                    Text("Step 1: Press Toggle Flow Step shortcut key and adjust the cropper window.")
+                    Text("Step 2: Press Toggle Flow Step shortcut key and adjust the content window.")
+                    Text("Step 3: Press Toggle Flow Step shortcut key and playing.")
+                    Divider()
+                    Text("Stop:")
+                    Text("Press Toggle Flow Step shortcut key to stop playing.")
+                }
+                .frame(width: 500)
+                
+                Button(action: {
+                    endOnboarding()
+                    isFinishedOnboarding = true
+                }, label: {
+                    Text("End")
+                })
             }
-            .frame(width: 500)
-            
-            Button(action: endOnboarding, label: {
-                Text("End")
-            })
         }
     }
 }
@@ -195,7 +198,6 @@ enum OnboardingPage: CaseIterable {
     case initKnownWords
     case downloadExtraDict
     case initGlobalKeyboardShortcut
-    case demonstrationPlaying
     
 //    var shouldShowNextButton: Bool {
 //        self == .welcome
@@ -216,8 +218,6 @@ enum OnboardingPage: CaseIterable {
             DownloadExtraDictView(next: next)
         case .initGlobalKeyboardShortcut:
             InitGlobalKeyboardShortcutView(next: next)
-        case .demonstrationPlaying:
-            DemonstrationPlayingView()
         }
     }
 }
@@ -279,11 +279,10 @@ struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             Group {
-//                OnboardingPage.welcome.view()
-//                OnboardingPage.initKnownWords.view()
-//                OnboardingPage.downloadExtraDict.view()
+                OnboardingPage.welcome.view()
+                OnboardingPage.initKnownWords.view()
+                OnboardingPage.downloadExtraDict.view()
                 OnboardingPage.initGlobalKeyboardShortcut.view()
-                OnboardingPage.demonstrationPlaying.view()
             }
             .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
             

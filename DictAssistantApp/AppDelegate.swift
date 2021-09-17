@@ -30,17 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
             
-//        if false { // run only when onboarding
-//            deleteAllKnownWords()
-//            deleteAllSlots()
-//        }
-        
-        initOnboardingPanel()
-        
-        if true {
-            onboarding()
-        }
-        
         initAllUserDefaultsIfNil()
         
         initCropperWindow()
@@ -53,9 +42,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         
         initExtraDictionariesPanel()
 
-        constructMenuBar()
-
         initToastWindow()
+        
+        constructMenuBar()
 
         allKnownWordsSetCache = getAllKnownWordsSet() // take 0.02s for 6000 known words
 
@@ -67,6 +56,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         registerGlobalKey()
 
         fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // take 0.36s
+        
+        initOnboardingPanel()
+        
+        if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
+            deleteAllKnownWords()
+            deleteAllSlots()
+            onboarding() // when onboarding end, set IsFinishedOnboardingKey true
+        }
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -91,6 +88,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     
     func onboarding() {
         let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environment(\.addMultiToKnownWords, addMultiToKnownWords)
             .environment(\.endOnboarding, endOnboarding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         
@@ -354,7 +353,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var extraDictionariesPanel: NSPanel!
     func initExtraDictionariesPanel() {
         extraDictionariesPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+            contentRect: NSRect(x: 200, y: 100, width: 400, height: 600),
             styleMask: [
                 .nonactivatingPanel,
                 .titled,

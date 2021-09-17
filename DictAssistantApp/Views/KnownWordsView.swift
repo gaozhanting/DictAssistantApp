@@ -259,7 +259,7 @@ fileprivate struct FirstNPopoverView: View {
             .frame(width: 60)
             
             Button(action: {
-                text = wikiFrequencyWords[from-1 ..< to].joined(separator: "\n")
+                text = wikiFrequencyWords[from-1 ... to].joined(separator: "\n")
                 showPopover = false
             }) {
                 Image(systemName: "doc.on.clipboard")
