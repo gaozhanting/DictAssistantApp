@@ -19,7 +19,7 @@ fileprivate struct WelcomeView: View {
             Divider()
                 .padding()
             
-            Text("We need three steps to setup.")
+            Text("We start three steps to setup.")
                 .frame(width: 500)
             
             Button(action: next, label: {
@@ -46,13 +46,13 @@ fileprivate struct InitKnownWordsView: View {
 
     var body: some View {
         VStack {
-            Text("Initialize your vocabulary")
+            Text("Initialize your English vocabulary")
                 .font(.title)
             
             Divider()
                 .padding()
             
-            Text("Enter your estimated English vocabulary count, press enter key to commit. And Then press add button to contine.")
+            Text("Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine.")
                 .frame(width: 500)
             
             HStack {
@@ -118,14 +118,17 @@ fileprivate struct DownloadExtraDictView: View {
 
     var body: some View {
         VStack {
-            Text("Download extra concise dictionary")
+            Text("Download and install recommened concise dictionary")
                 .font(.title)
             
             Divider()
                 .padding()
             
-            Text("Select the dictionary of English to your native language. Download and install. Then open Apple Dictionary App preferences, make it the first selected dictionary. This step is optional, but highly recommended.")
+            Text("Select the dictionary of English to your native language. Download and install. Then open Apple Dictionary App preferences, make it the first selected dictionary.")
                 .frame(width: 500)
+            
+            Text("This step is optional, but highly recommended.")
+                .font(.footnote)
             
             Picker("Select:", selection: $selectedDictName) {
                 ForEach(dicts, id:\.self.name) { dict in
@@ -151,11 +154,10 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     
     func allSet() -> Bool {
         (KeyboardShortcuts.getShortcut(for: .toggleFlowStep) != nil) &&
-        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) != nil) &&
-        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWordsButWithOpacity0) != nil)
+        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) != nil)
     }
     
-    @State private var showPlaying: Bool = false
+    @State private var showPlaying: Bool = true
     
     var body: some View {
         VStack {
@@ -165,7 +167,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
             Divider()
                 .padding()
             
-            KeyRecordingView(recommend: false) // I think no need to recommend this, still has code stem for  later reference.
+            KeyRecordingView(onboarding: true)
             
             Button(action: {
                 showPlaying = true
@@ -202,14 +204,6 @@ enum OnboardingPage: CaseIterable {
     case initKnownWords
     case downloadExtraDict
     case initGlobalKeyboardShortcut
-    
-//    var shouldShowNextButton: Bool {
-//        self == .welcome
-//    }
-//
-//    var shouldShowEndButton: Bool {
-//        self == .initGlobalKeyboardShortcut
-//    }
     
     @ViewBuilder
     func view(next: @escaping () -> Void = {}) -> some View {
@@ -248,27 +242,7 @@ struct OnboardingView: View {
                         .animation(.default)
                 }
             }
-//
-//            HStack {
-//                Spacer()
-//                if currentPage.shouldShowNextButton {
-//                    Button(action: showNextPage, label: {
-//                        Text("Next")
-//                    })
-//                }
-//                if currentPage.shouldShowEndButton {
-//                    Button(action: endOnboarding, label: {
-//                        Text("End")
-//                    })
-//                }
-//            }
-//            .padding()
-//            .frame(maxWidth: .infinity, maxHeight: 60)
-//            .background(VisualEffectView(material: .popover))
         }
-//        .onAppear {
-//            self.currentPage = pages.first!
-//        }
     }
     
     private func showNextPage() {
@@ -282,16 +256,14 @@ struct OnboardingView: View {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            Group {
-                OnboardingPage.welcome.view()
-                OnboardingPage.initKnownWords.view()
-                OnboardingPage.downloadExtraDict.view()
-                OnboardingPage.initGlobalKeyboardShortcut.view()
-            }
-            .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
+            OnboardingPage.initGlobalKeyboardShortcut.view()
+
+            OnboardingPage.initGlobalKeyboardShortcut.view()
+                .environment(\.locale, .init(identifier: "zh-Hans"))
             
-//            OnboardingView(pages: OnboardingPage.allCases)
-//                .frame(width: 650, height: 530) // 28 is the height of title bar
+            OnboardingPage.initGlobalKeyboardShortcut.view()
+                .environment(\.locale, .init(identifier: "zh-Hant"))
         }
+        .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }

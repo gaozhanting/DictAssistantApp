@@ -16,7 +16,7 @@ struct GeneralSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "Global Short Cut Key:") {
-                KeyRecordingView(recommend: false)
+                KeyRecordingView(onboarding: false)
             }
             Preferences.Section(title: "Minimum Text Height:") {
                 GroupBox {
@@ -40,27 +40,29 @@ struct GeneralSettingsView: View {
 }
 
 struct KeyRecordingView: View {
-    let recommend: Bool
+    let onboarding: Bool
     
     var body: some View {
         Group {
             HStack {
-                Text("Toggle Flow Step:\(recommend ? " (recommend: Control-Command-E)" : "")")
+                Text("Toggle Flow Step:")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleFlowStep)
             }
             HStack(alignment: .firstTextBaseline) {
-                Text("Toggle Show Current Known Words:\(recommend ? " (recommend: Control-Command-R)" : "")")
+                Text("Toggle Show Current Known Words:")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
             }
-            HStack(alignment: .firstTextBaseline) {
-                Text("Toggle Conceal Current Known Words:\(recommend ? " (recommend: Control-Command-T)" : "")")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
+            if !onboarding {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Toggle Conceal Current Known Words:")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
+                }
             }
         }
-        .frame(maxWidth: recommend ? 600 : 380)
+        .frame(maxWidth: 380)
     }
 }
 
@@ -205,5 +207,6 @@ struct GeneralSettingView_Previews: PreviewProvider {
             
             MaximumFrameRateInfoPopoverView()
         }
+        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

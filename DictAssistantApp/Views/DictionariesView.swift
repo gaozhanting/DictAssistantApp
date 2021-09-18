@@ -550,5 +550,6 @@ struct DictsView_Previews: PreviewProvider {
             
             DictionariesView()
         }
+        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

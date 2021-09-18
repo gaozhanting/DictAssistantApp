@@ -105,6 +105,196 @@ fileprivate struct CropperStyleSettingView: View {
     }
 }
 
+fileprivate struct ShowPhrasesToggle: View {
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isShowPhrase, label: {
+            Text("Show phrases")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want display all phrase words.")
+    }
+}
+
+fileprivate struct DropTitleWordToggle: View {
+    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+
+    var body: some View {
+        Toggle(isOn: $isDropTitleWord, label: {
+            Text("Drop title word")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better.")
+    }
+}
+
+fileprivate struct AddLineBreakBeforeTranslationToggle: View {
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isAddLineBreak, label: {
+            Text("Add line break ahead of translation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+fileprivate struct AddSpaceBeforeTranslationToggle: View {
+    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $isAddSpace, label: {
+            Text("Add space ahead of translation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+fileprivate struct DropFirstTitleWordInTranslationToggle: View {
+    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isDropFirstTitleWordInTranslation, label: {
+            Text("Drop first title word in translation")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+        .help("Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the translation; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct.")
+    }
+}
+
+fileprivate struct JoinTranslationLinesToggle: View {
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $isJoinTranslationLines, label: {
+            Text("Join translation lines")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+fileprivate struct ContentWindowShadowToggle: View {
+    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
+    
+    @State private var isShowingPopover = false
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isShowWindowShadow, label: {
+                Text("Show Content Window Shadow")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "info.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .popover(isPresented: $isShowingPopover, content: {
+                Text("Notice window shadow may mess up content.")
+                    .font(.subheadline)
+                    .padding()
+            })
+        }
+    }
+}
+
+fileprivate struct WithAnimationToggle: View {
+    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
+    
+    @State private var isShowingPopover = false
+
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isWithAnimation, label: {
+                Text("With animation")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            
+            Button(action: { isShowingPopover = true }, label: {
+                Image(systemName: "info.circle")
+            })
+            .buttonStyle(PlainButtonStyle())
+            .popover(isPresented: $isShowingPopover, content: {
+                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
+                    .font(.subheadline)
+                    .padding()
+            })
+        }
+    }
+}
+
+fileprivate struct ContentStyleSettingView: View {
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
+    
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
+    
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Picker("", selection: $contentStyle) {
+                    Text("portrait").tag(ContentStyle.portrait)
+                    Text("landscape").tag(ContentStyle.landscape)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .labelsHidden()
+                .frame(width: 160)
+                
+                switch contentStyle {
+                case .portrait:
+                    Picker("from corner:", selection: $portraitCorner) {
+                        Text("topTrailing").tag(PortraitCorner.topTrailing)
+                        Text("topLeading").tag(PortraitCorner.topLeading)
+                        Text("bottomLeading").tag(PortraitCorner.bottomLeading)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 200)
+                case .landscape:
+                    Picker("auto scroll:", selection: $landscapeAutoScroll) {
+                        Text("enabled").tag(true)
+                        Text("disabled").tag(false)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 200)
+                }
+            }
+
+            switch contentStyle {
+            case .portrait:
+                HStack {
+                    Text("max height for one word:")
+                    TextField("", value: $portraitMaxHeight, formatter: {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .none // integer, no decimal
+                        formatter.minimum = 1
+                        formatter.maximum = 1000
+                        return formatter
+                    }())
+                    .frame(width: 46)
+                }
+            case .landscape:
+                HStack {
+                    Text("max width for one word:")
+                    TextField("", value: $landscapeMaxWidth, formatter: {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .none // integer, no decimal
+                        formatter.minimum = 1
+                        formatter.maximum = 1000
+                        return formatter
+                    }())
+                    .frame(width: 46)
+                }
+                
+            }
+                        
+        }
+    }
+}
+
 fileprivate struct FontSettingView: View {
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
     @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
@@ -214,77 +404,6 @@ enum PortraitCorner: Int, Codable {
     case topTrailing = 0
     case topLeading = 1
     case bottomLeading = 2
-}
-
-fileprivate struct ContentStyleSettingView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
-    
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
-    @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
-    
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Picker("", selection: $contentStyle) {
-                    Text("portrait").tag(ContentStyle.portrait)
-                    Text("landscape").tag(ContentStyle.landscape)
-                }
-                .pickerStyle(MenuPickerStyle())
-                .labelsHidden()
-                .frame(width: 160)
-                
-                switch contentStyle {
-                case .portrait:
-                    Picker("from corner:", selection: $portraitCorner) {
-                        Text("topTrailing").tag(PortraitCorner.topTrailing)
-                        Text("topLeading").tag(PortraitCorner.topLeading)
-                        Text("bottomLeading").tag(PortraitCorner.bottomLeading)
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .frame(width: 200)
-                case .landscape:
-                    Picker("auto scroll:", selection: $landscapeAutoScroll) {
-                        Text("enabled").tag(true)
-                        Text("disabled").tag(false)
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .frame(width: 200)
-                }
-            }
-
-            switch contentStyle {
-            case .portrait:
-                HStack {
-                    Text("max height for one word:")
-                    TextField("", value: $portraitMaxHeight, formatter: {
-                        let formatter = NumberFormatter()
-                        formatter.numberStyle = .none // integer, no decimal
-                        formatter.minimum = 1
-                        formatter.maximum = 1000
-                        return formatter
-                    }())
-                    .frame(width: 46)
-                }
-            case .landscape:
-                HStack {
-                    Text("max width for one word:")
-                    TextField("", value: $landscapeMaxWidth, formatter: {
-                        let formatter = NumberFormatter()
-                        formatter.numberStyle = .none // integer, no decimal
-                        formatter.minimum = 1
-                        formatter.maximum = 1000
-                        return formatter
-                    }())
-                    .frame(width: 46)
-                }
-                
-            }
-                        
-        }
-    }
 }
 
 fileprivate struct WordColorPicker: View {
@@ -440,104 +559,6 @@ fileprivate struct ShadowYOffSetPicker: View {
     }
 }
 
-fileprivate struct ShowPhrasesToggle: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isShowPhrase, label: {
-            Text("Show phrases")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want display all phrase words.")
-    }
-}
-
-fileprivate struct DropTitleWordToggle: View {
-    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
-
-    var body: some View {
-        Toggle(isOn: $isDropTitleWord, label: {
-            Text("Drop title word")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better.")
-    }
-}
-
-fileprivate struct AddLineBreakBeforeTranslationToggle: View {
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isAddLineBreak, label: {
-            Text("Add line break ahead of translation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to add a line break before the translation of the word.")
-    }
-}
-
-fileprivate struct AddSpaceBeforeTranslationToggle: View {
-    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $isAddSpace, label: {
-            Text("Add space ahead of translation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to add a space before the translation of the word, maybe helpful when view as one line.")
-    }
-}
-
-fileprivate struct DropFirstTitleWordInTranslationToggle: View {
-    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isDropFirstTitleWordInTranslation, label: {
-            Text("Drop first title word in translation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the tranlation; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct.")
-    }
-}
-
-fileprivate struct JoinTranslationLinesToggle: View {
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $isJoinTranslationLines, label: {
-            Text("Join translation lines")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want to join the translation text into one line, for get a better view.")
-    }
-}
-
-fileprivate struct ContentWindowShadowToggle: View {
-    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
-    
-    @State private var isShowingPopover = false
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isShowWindowShadow, label: {
-                Text("Show Content Window Shadow")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            .help("Select it when you prefer window shadow")
-            
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "info.circle")
-            })
-            .buttonStyle(PlainButtonStyle())
-            .popover(isPresented: $isShowingPopover, content: {
-                Text("Notice window shadow may mess up content.")
-                    .font(.subheadline)
-                    .padding()
-            })
-        }
-    }
-}
-
 fileprivate struct ContentBackgroundVisualEffect: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
 
@@ -586,35 +607,10 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
     }
 }
 
-fileprivate struct WithAnimationToggle: View {
-    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
-    
-    @State private var isShowingPopover = false
-
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isWithAnimation, label: {
-                Text("With animation")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            .help("Select it when you prefer animation for displaying words.")
-            
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "info.circle")
-            })
-            .buttonStyle(PlainButtonStyle())
-            .popover(isPresented: $isShowingPopover, content: {
-                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
-                    .font(.subheadline)
-                    .padding()
-            })
-        }
-    }
-}
-
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         AppearanceSettingsView()
+            .environment(\.locale, .init(identifier: "zh-Hans"))
             .frame(width: 650, height: 800)
     }
 }
