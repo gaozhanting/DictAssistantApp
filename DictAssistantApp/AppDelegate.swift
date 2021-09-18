@@ -195,6 +195,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownButWithOpacity0Key)
             }
         }
+        
+        KeyboardShortcuts.onKeyUp(for: .toggleConcealTranslation) {
+            if UserDefaults.standard.bool(forKey: IsConcealTranslationKey) {
+                UserDefaults.standard.setValue(false, forKey: IsConcealTranslationKey)
+            } else {
+                UserDefaults.standard.setValue(true, forKey: IsConcealTranslationKey)
+            }
+        }
     }
     
     // no resizable, not movable

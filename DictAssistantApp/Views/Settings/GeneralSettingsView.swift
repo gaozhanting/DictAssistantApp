@@ -60,6 +60,11 @@ struct KeyRecordingView: View {
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
                 }
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Toggle Conceal Translation:")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
+                }
             }
         }
         .frame(maxWidth: 380)

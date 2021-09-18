@@ -157,7 +157,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
         (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) != nil)
     }
     
-    @State private var showPlaying: Bool = true
+    @State private var showPlaying: Bool = false
     
     var body: some View {
         VStack {

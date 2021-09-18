@@ -13,4 +13,6 @@ extension KeyboardShortcuts.Name {
     static let toggleShowCurrentKnownWords = Self("toggleShowCurrentKnownWords") //, default: .init(.r, modifiers: [.command, .control]))
     
     static let toggleShowCurrentKnownWordsButWithOpacity0 = Self("toggleShowCurrentKnownWordsButWithOpacity0") //, default: .init(.t, modifiers: [.command, .control]))
+    
+    static let toggleConcealTranslation = Self("toggleConcealTranslation")
 }

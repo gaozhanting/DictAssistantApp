@@ -202,8 +202,11 @@ fileprivate struct TheText: View {
         return theWordColor.opacity(0) // impossible, refer to func convertToWordCellWithId
     }
     
+    @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
     var theTransColor: Color {
-        Color(dataToColor(transColor)!)
+        !isConcealTranslation ?
+            Color(dataToColor(transColor)!) :
+            Color(dataToColor(transColor)!).opacity(0)
     }
     
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
