@@ -28,8 +28,9 @@
 "End" = "完成设置";
 
 "Toggle Flow Step:" = "执行单步";
-"Toggle Show Current Known Words:" = "切换是否显示当前已知词汇";
-"Toggle Conceal Current Known Words:" = "切换是否开启隐藏已知词汇模式";
+"Toggle Show Current Known Words:" = "切换是否显示当前已知单词";
+"Toggle Conceal Current Known Words:" = "切换是否开启隐藏已知单词模式";
+"Toggle Conceal Translation:" = "切换是否隐藏单词译文";
 
 "Reset to default: 0.0315" = "重置为默认值：0.0315";
 "The minimum height of the text expected to be recognized, relative to the image height." = "文本识别的最小高度比例";

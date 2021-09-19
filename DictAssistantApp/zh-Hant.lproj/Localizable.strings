@@ -28,8 +28,9 @@
 "End" = "完成設置";
 
 "Toggle Flow Step:" = "執行單步";
-"Toggle Show Current Known Words:" = "切換是否顯示當前已知詞匯";
-"Toggle Conceal Current Known Words:" = "切換是否開啟隱藏已知詞匯模式";
+"Toggle Show Current Known Words:" = "切換是否顯示當前已知單詞";
+"Toggle Conceal Current Known Words:" = "切換是否開啟隱藏已知單詞模式";
+"Toggle Conceal Translation:" = "切換是否隱藏單詞譯文";
 
 "Reset to default: 0.0315" = "重置為默認值：0.0315";
 "The minimum height of the text expected to be recognized, relative to the image height." = "文本識別的最小高度比例";
