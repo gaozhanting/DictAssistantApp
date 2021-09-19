@@ -39,6 +39,27 @@ struct GeneralSettingsView: View {
     }
 }
 
+struct MiniInfoView<Content: View>: View {
+    let content: Content
+    
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+    
+    @State private var isShowingPopover = false
+    
+    var body: some View {
+        Button(action: { isShowingPopover = true }, label: {
+            Image(systemName: "info.circle")
+                .font(.footnote)
+        })
+        .buttonStyle(PlainButtonStyle())
+        .popover(isPresented: $isShowingPopover) {
+            content
+        }
+    }
+}
+
 struct KeyRecordingView: View {
     let onboarding: Bool
     
@@ -48,22 +69,34 @@ struct KeyRecordingView: View {
                 Text("Toggle Flow Step:")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleFlowStep)
+                MiniInfoView {
+                    Text("recommend: Option-1").padding()
+                }
             }
             HStack(alignment: .firstTextBaseline) {
                 Text("Toggle Show Current Known Words:")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
+                MiniInfoView {
+                    Text("recommend: Option-2").padding()
+                }
             }
             if !onboarding {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Toggle Conceal Current Known Words:")
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
+                    MiniInfoView {
+                        Text("recommend: Option-3").padding()
+                    }
                 }
                 HStack(alignment: .firstTextBaseline) {
                     Text("Toggle Conceal Translation:")
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
+                    MiniInfoView{
+                        Text("recommend: Option-4").padding()
+                    }
                 }
             }
         }

@@ -406,7 +406,6 @@ struct DictItemView: View {
     @Environment(\.openURL) var openURL
 
     @State private var isShowingPopoverOfEC = false
-    @State private var isShowingPopover = false
     
     var body: some View {
         HStack(alignment: .top) {
@@ -460,12 +459,7 @@ struct DictItemView: View {
                 }
                 
                 if let sourceURL = sourceURL, let downloadURL = downloadURL {
-                    Button(action: { isShowingPopover = true }, label: {
-                        Image(systemName: "info.circle")
-                            .font(.footnote)
-                    })
-                    .buttonStyle(PlainButtonStyle())
-                    .popover(isPresented: $isShowingPopover) {
+                    MiniInfoView {
                         VStack(alignment: .trailing) {
                             HStack {
                                 Text("sourceURL:")
