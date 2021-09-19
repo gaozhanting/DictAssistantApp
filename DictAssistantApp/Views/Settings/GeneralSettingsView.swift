@@ -40,9 +40,11 @@ struct GeneralSettingsView: View {
 }
 
 struct MiniInfoView<Content: View>: View {
+    let arrowEdge: Edge
     let content: Content
     
-    init(@ViewBuilder content: () -> Content) {
+    init(arrowEdge: Edge = .top, @ViewBuilder content: () -> Content) {
+        self.arrowEdge = arrowEdge
         self.content = content()
     }
     
@@ -54,7 +56,7 @@ struct MiniInfoView<Content: View>: View {
                 .font(.footnote)
         })
         .buttonStyle(PlainButtonStyle())
-        .popover(isPresented: $isShowingPopover) {
+        .popover(isPresented: $isShowingPopover, arrowEdge: arrowEdge) {
             content
         }
     }
@@ -125,8 +127,6 @@ fileprivate struct TRMinimumTextHeightSetting: View {
         }
     }
     
-    @State private var isShowingPopover = false
-    
     var body: some View {
         HStack {
             Text("\(minimumTextHeight, specifier: "%.4f")")
@@ -146,13 +146,9 @@ fileprivate struct TRMinimumTextHeightSetting: View {
                 .preferenceDescription()
                 .frame(width: 300, height: 30, alignment: .leading)
             
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "info.circle")
-            })
-            .buttonStyle(PlainButtonStyle())
-            .popover(isPresented: $isShowingPopover, arrowEdge: .trailing, content: {
+            MiniInfoView(arrowEdge: .trailing) {
                 MiniHeigthInfoPopoverView()
-            })
+            }
         }
     }
 }
@@ -195,8 +191,6 @@ fileprivate struct MaximumFrameRateSetting: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
     @EnvironmentObject var statusData: StatusData
     
-    @State private var isShowingPopover = false
-    
     var body: some View {
         HStack {
             TextField("", value: $maximumFrameRate, formatter: {
@@ -214,13 +208,9 @@ fileprivate struct MaximumFrameRateSetting: View {
             }
             .disabled(statusData.isPlaying)
             
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "info.circle")
-            })
-            .buttonStyle(PlainButtonStyle())
-            .popover(isPresented: $isShowingPopover, arrowEdge: .trailing, content: {
+            MiniInfoView(arrowEdge: Edge.trailing) {
                 MaximumFrameRateInfoPopoverView()
-            })
+            }
         }
     }
 }

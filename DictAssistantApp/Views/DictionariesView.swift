@@ -405,8 +405,6 @@ struct DictItemView: View {
     
     @Environment(\.openURL) var openURL
 
-    @State private var isShowingPopoverOfEC = false
-    
     var body: some View {
         HStack(alignment: .top) {
             if test {
@@ -445,17 +443,11 @@ struct DictItemView: View {
                 Text(name)
                 
                 if name == "简明英汉字典增强版" {
-                    Button(action: { isShowingPopoverOfEC = true }, label: {
-                        Image(systemName: "info.circle.fill")
-                            .font(.footnote)
-                    })
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    .popover(isPresented: $isShowingPopoverOfEC, content: {
+                    MiniInfoView {
                         Text("Notice you can deselect `英文释义` option in Dictionary.app preferences, to get more concise translation.")
                             .font(.callout)
                             .padding()
-                    })
+                    }
                 }
                 
                 if let sourceURL = sourceURL, let downloadURL = downloadURL {

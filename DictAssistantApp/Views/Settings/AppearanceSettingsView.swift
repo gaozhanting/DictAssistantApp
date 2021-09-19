@@ -177,8 +177,6 @@ fileprivate struct JoinTranslationLinesToggle: View {
 fileprivate struct ContentWindowShadowToggle: View {
     @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
     
-    @State private var isShowingPopover = false
-    
     var body: some View {
         HStack {
             Toggle(isOn: $isShowWindowShadow, label: {
@@ -186,15 +184,11 @@ fileprivate struct ContentWindowShadowToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
             
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "info.circle")
-            })
-            .buttonStyle(PlainButtonStyle())
-            .popover(isPresented: $isShowingPopover, content: {
+            MiniInfoView {
                 Text("Notice window shadow may mess up content.")
                     .font(.subheadline)
                     .padding()
-            })
+            }
         }
     }
 }
@@ -202,8 +196,6 @@ fileprivate struct ContentWindowShadowToggle: View {
 fileprivate struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
     
-    @State private var isShowingPopover = false
-
     var body: some View {
         HStack {
             Toggle(isOn: $isWithAnimation, label: {
@@ -211,15 +203,11 @@ fileprivate struct WithAnimationToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
             
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "info.circle")
-            })
-            .buttonStyle(PlainButtonStyle())
-            .popover(isPresented: $isShowingPopover, content: {
+            MiniInfoView {
                 Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
                     .font(.subheadline)
                     .padding()
-            })
+            }
         }
     }
 }

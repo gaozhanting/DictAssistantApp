@@ -143,7 +143,9 @@ fileprivate struct EditingView: View {
                     PasteFirstNWikiWordFrequencyButton(text: $text)
                     PasteOxford3000Button(text: $text)
                     
-                    ShowInfoIcon()
+                    MiniInfoView {
+                        InfoPopoverView()
+                    }
                 }
                 ,
                 alignment: .trailing
@@ -269,20 +271,6 @@ fileprivate struct FirstNPopoverView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 2)
-    }
-}
-
-fileprivate struct ShowInfoIcon: View {
-    @State private var showInfo = false
-
-    var body: some View {
-        Button(action: { showInfo = true }) {
-            Image(systemName: "info.circle")
-        }
-        .buttonStyle(PlainButtonStyle())
-        .popover(isPresented: $showInfo, arrowEdge: .top, content: {
-            InfoPopoverView()
-        })
     }
 }
 
