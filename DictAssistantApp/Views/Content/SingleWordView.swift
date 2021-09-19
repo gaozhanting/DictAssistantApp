@@ -204,9 +204,8 @@ fileprivate struct TheText: View {
     
     @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
     var theTransColor: Color {
-        !isConcealTranslation ?
-            Color(dataToColor(transColor)!) :
-            Color(dataToColor(transColor)!).opacity(0)
+        Color(dataToColor(transColor)!)
+            .opacity(isConcealTranslation ? 0 : 1)
     }
     
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName

@@ -358,7 +358,7 @@ fileprivate struct FontRateSetting: View {
             Text("\(fontRateKey, specifier: "%.2f")")
             Slider(
                 value: $fontRateKey,
-                in: 0...1
+                in: 0...2
             )
             .frame(maxWidth: 180)
             
