@@ -240,32 +240,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             accessibilityDescription: nil
         )
         
-        let showSettingsPanelItem = NSMenuItem(title: "Preferences...", action: #selector(showPreferences), keyEquivalent: ",")
+        let showSettingsPanelItem = NSMenuItem(title: NSLocalizedString("Preferences...", comment:  ""), action: #selector(showPreferences), keyEquivalent: ",")
         menu.addItem(showSettingsPanelItem)
         
         menu.addItem(NSMenuItem.separator())
         
-        let showHistoryItem = NSMenuItem(title: "Show Known Words Panel", action: #selector(showKnownWordsPanel), keyEquivalent: "")
+        let showHistoryItem = NSMenuItem(title: NSLocalizedString("Show Known Words Panel", comment: ""), action: #selector(showKnownWordsPanel), keyEquivalent: "")
         menu.addItem(showHistoryItem)
         
         menu.addItem(NSMenuItem.separator())
         
-        let showExtraDictionariesItem = NSMenuItem(title: "Show Extra Dictionaries Panel", action: #selector(showExtraDictionariesPanel), keyEquivalent: "")
+        let showExtraDictionariesItem = NSMenuItem(title: NSLocalizedString("Show Extra Dictionaries Panel", comment: ""), action: #selector(showExtraDictionariesPanel), keyEquivalent: "")
         menu.addItem(showExtraDictionariesItem)
         
         menu.addItem(NSMenuItem.separator())
         
-        let helpMenu = NSMenu(title: "Help")
+        let helpMenu = NSMenu(title: NSLocalizedString("Help", comment: ""))
         helpMenu.delegate = self
-        helpMenu.addItem(withTitle: "Show Onboarding Panel", action: #selector(onboarding), keyEquivalent: "")
-        helpMenu.addItem(withTitle: "Watch Tutorial Video", action: #selector(openTutorialVideoURL), keyEquivalent: "")
-        let helpMenuItem = NSMenuItem(title: "Help", action: nil, keyEquivalent: "")
+        helpMenu.addItem(withTitle: NSLocalizedString("Show Onboarding Panel", comment: ""), action: #selector(onboarding), keyEquivalent: "")
+        helpMenu.addItem(withTitle: NSLocalizedString("Watch Tutorial Video", comment: ""), action: #selector(openTutorialVideoURL), keyEquivalent: "")
+        let helpMenuItem = NSMenuItem(title: NSLocalizedString("Help", comment: ""), action: nil, keyEquivalent: "")
         menu.addItem(helpMenuItem)
         menu.setSubmenu(helpMenu, for: helpMenuItem)
         
         menu.addItem(NSMenuItem.separator())
         
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(exit), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: NSLocalizedString("Quit", comment: ""), action: #selector(exit), keyEquivalent: ""))
         
         statusItem.menu = menu
     }

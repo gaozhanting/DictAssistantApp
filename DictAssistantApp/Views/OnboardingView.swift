@@ -161,7 +161,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     
     var body: some View {
         VStack {
-            Text("Initialize three global keyboard shortcut & Playing")
+            Text("Initialize two global keyboard shortcuts & Playing")
                 .font(.title)
             
             Divider()
@@ -179,12 +179,12 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
             if showPlaying {
                 VStack(alignment: .leading) {
                     Text("Playing:")
-                    Text("Step 1: Press Toggle Flow Step shortcut key and adjust the cropper window.")
-                    Text("Step 2: Press Toggle Flow Step shortcut key and adjust the content window.")
-                    Text("Step 3: Press Toggle Flow Step shortcut key and playing.")
+                    Text("Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window.")
+                    Text("Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window.")
+                    Text("Step 3: Press Toggle Flow Step keyboard shortcut key and playing.")
                     Divider()
                     Text("Stop:")
-                    Text("Press Toggle Flow Step shortcut key to stop playing.")
+                    Text("Press Toggle Flow Step keyboard shortcut key to stop playing.")
                 }
                 .frame(width: 500)
                 

@@ -18,7 +18,7 @@ extension Preferences.PaneIdentifier {
 func GeneralPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .general,
-        title: "General",
+        title: NSLocalizedString("General", comment: ""),
         toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "General preferences")!
     ) {
         GeneralSettingsView()
@@ -31,7 +31,7 @@ func GeneralPreferenceViewController() -> PreferencePane {
 func AppearancePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .appearance,
-        title: "Appearance",
+        title: NSLocalizedString("Appearance", comment: ""),
         toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
     ) {
         AppearanceSettingsView()
@@ -44,7 +44,7 @@ func AppearancePreferenceViewController() -> PreferencePane {
 func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext) -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .slots,
-        title: "Slots",
+        title: NSLocalizedString("Slots", comment: ""),
         toolbarIcon: NSImage(systemSymbolName: "cube.fill", accessibilityDescription: "Slots preferences")!
     ) {
         SlotsSettingsView()

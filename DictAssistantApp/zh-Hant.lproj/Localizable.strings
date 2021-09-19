@@ -6,6 +6,41 @@
   
 */
 
+"General" = "一般";
+"Appearance" = "外觀";
+"Slots" = "空位";
+
+/* */
+
+"Preferences..." = "偏好設置···";
+"Show Known Words Panel" = "打開已知詞匯面板";
+"Show Extra Dictionaries Panel" = "打開額外詞典面板";
+"Help" = "幫助";
+"Show Onboarding Panel" = "打開新手指引面板";
+"Watch Tutorial Video" = "觀看指導視頻";
+"Quit" = "退出";
+
+/* */
+
+"Global Keyboard Shortcuts:" = "全局鍵盤快捷鍵：";
+"Minimum Text Height:" = "最小文本比例高";
+"Text Recognition Level:" = "文本識別模式";
+"Maximum Frame Rate:" = "最大幀率";
+
+"Toast:" = "運行提示框：";
+"Cropper Style:" = "截屏區樣式：";
+"Content Words Display:" = "內容顯示選項：";
+"Content Window Shadow Display:" = "內容窗口陰影：";
+"Content Animation Display:" = "內容動畫：";
+"Content Style:" = "內容編排：";
+"Font: " = "字體：";
+"Translation Font Rate:" = "單詞譯文字體比例：";
+"Appearance:" = "外觀：";
+"Colors & Shadow:" = "顏色和陰影：";
+"Content Background Display:" = "內容特殊效果背景：";
+
+/* */
+
 "Welcome to DictAssistant" = "歡迎使用 詞典助手App";
 "We start three steps to setup." = "我們開始三步啟動設置。";
 "Continue" = "繼續";
@@ -18,13 +53,13 @@
 "Select the dictionary of English to your native language. Download and install. Then open Apple Dictionary App preferences, make it the first selected dictionary." = "選擇您的母語為目標語言的詞典。點擊下載並且完成安裝。然後打開系統自帶的詞典應用程序的偏好設置，調整剛安裝的詞典為第一選擇的詞典。";
 "This step is optional, but highly recommended." = "這一步是可跳過的，不過強烈推薦完成。";
 
-"Initialize three global keyboard shortcut & Playing" = "初始化三個全局的鍵盤快捷鍵";
+"Initialize two global keyboard shortcuts & Playing" = "初始化三個全局的鍵盤快捷鍵";
 "Playing:" = "運行：";
-"Step 1: Press Toggle Flow Step shortcut key and adjust the cropper window." = "步驟1：輸入 單步 快捷鍵，調整錄屏區域。";
-"Step 2: Press Toggle Flow Step shortcut key and adjust the content window." = "步驟2：輸入 單步 快捷鍵，調整內容區域。";
-"Step 3: Press Toggle Flow Step shortcut key and playing." = "步驟3：輸入 單步 快捷鍵 運行。";
+"Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window." = "步驟1：輸入 執行單步 快捷鍵，調整錄屏區域。";
+"Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window." = "步驟2：輸入 執行單步 快捷鍵，調整內容區域。";
+"Step 3: Press Toggle Flow Step keyboard shortcut key and playing." = "步驟3：輸入 執行單步 快捷鍵 運行。";
 "Stop:" = "停止：";
-"Press Toggle Flow Step shortcut key to stop playing." = "輸入 單步 快捷鍵 停止運行";
+"Press Toggle Flow Step keyboard shortcut key to stop playing." = "輸入 執行單步 快捷鍵 停止運行";
 "End" = "完成設置";
 
 "Toggle Flow Step:" = "執行單步";
@@ -82,7 +117,7 @@
 "Select..." = "選擇...";
 "Use default" = "使用默認值";
 
-"The font rate = fontSizeOfTranslation / fontSizeOfTheWord." = "譯文字體大小比例 = 譯文字體大小 / 標題單詞字體大小。";
+"The font rate = fontSizeOfTranslation / fontSizeOfTheWord." = "譯文字體比例 = 譯文字體大小 / 標題單詞字體大小。";
 
 "Light" = "亮色";
 "Dark" = "暗色";

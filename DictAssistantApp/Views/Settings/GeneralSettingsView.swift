@@ -15,24 +15,24 @@ let settingPanelWidth: Double = 570.0
 struct GeneralSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Global Short Cut Key:") {
+            Preferences.Section(title: NSLocalizedString("Global Keyboard Shortcuts:", comment: "")) {
                 KeyRecordingView(onboarding: false)
             }
-            Preferences.Section(title: "Minimum Text Height:") {
+            Preferences.Section(title: NSLocalizedString("Minimum Text Height:", comment: "")) {
                 GroupBox {
                     VStack(alignment: .leading) {
                         TRMinimumTextHeightSetting()
                     }
                 }
             }
-            Preferences.Section(title: "Text Recognition Level:") {
+            Preferences.Section(title: NSLocalizedString("Text Recognition Level:", comment: "")) {
                 GroupBox {
                     VStack(alignment: .leading) {
                         TRTextRecognitionLevelSetting()
                     }
                 }
             }
-            Preferences.Section(title: "Maximum Frame Rate:") {
+            Preferences.Section(title: NSLocalizedString("Maximum Frame Rate:", comment: "")) {
                 MaximumFrameRateSetting()
             }
         }

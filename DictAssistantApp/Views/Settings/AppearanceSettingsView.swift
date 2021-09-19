@@ -11,13 +11,13 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Toast:") {
+            Preferences.Section(title: NSLocalizedString("Toast:", comment: "")) {
                 ShowToastToggle()
             }
-            Preferences.Section(title: "Cropper Style:") {
+            Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
                 CropperStyleSettingView()
             }
-            Preferences.Section(title: "Content Words Display:") {
+            Preferences.Section(title: NSLocalizedString("Content Words Display:", comment: "")) {
                 ShowPhrasesToggle()
                 Divider().frame(width: 200)
                 DropTitleWordToggle()
@@ -27,29 +27,29 @@ struct AppearanceSettingsView: View {
                 DropFirstTitleWordInTranslationToggle()
                 JoinTranslationLinesToggle()
             }
-            Preferences.Section(title: "Content Window Shadow Display:") {
+            Preferences.Section(title: NSLocalizedString("Content Window Shadow Display:", comment: "")) {
                 ContentWindowShadowToggle()
             }
-            Preferences.Section(title: "Content Animation Display:") {
+            Preferences.Section(title: NSLocalizedString("Content Animation Display:", comment: "")) {
                 WithAnimationToggle()
             }
-            Preferences.Section(title: "Content Style:") {
+            Preferences.Section(title: NSLocalizedString("Content Style:", comment: "")) {
                 ContentStyleSettingView()
             }
-            Preferences.Section(title: "Font: ") {
+            Preferences.Section(title: NSLocalizedString("Font: ", comment: "")) {
                 FontSettingView()
             }
-            Preferences.Section(title: "Translation Font Rate:") {
+            Preferences.Section(title: NSLocalizedString("Translation Font Rate:", comment: "")) {
                 GroupBox {
                     VStack(alignment: .leading) {
                         FontRateSetting()
                     }
                 }
             }
-            Preferences.Section(title: "Appearance:") {
+            Preferences.Section(title: NSLocalizedString("Appearance:", comment: "")) {
                 ColorSchemeSetting()
             }
-            Preferences.Section(title: "Colors & Shadow:") {
+            Preferences.Section(title: NSLocalizedString("Colors & Shadow:", comment: "")) {
                 GroupBox {
                     HStack {
                         GroupBox {
@@ -66,7 +66,7 @@ struct AppearanceSettingsView: View {
                     }
                 }
             }
-            Preferences.Section(title: "Content Background Display:") {
+            Preferences.Section(title: NSLocalizedString("Content Background Display:", comment: "")) {
                 ContentBackgroundVisualEffect()
             }
         }
