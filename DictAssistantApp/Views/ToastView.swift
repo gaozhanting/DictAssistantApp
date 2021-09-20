@@ -14,7 +14,7 @@ fileprivate struct ToastView: View {
     var body: some View {
         VStack {
             Image(systemName: imageSystemName)
-                .font(.system(size: 230, weight: .ultraLight))
+                .font(.system(size: 200, weight: .ultraLight))
             
             Text(info)
                 .font(.system(size: 30, weight: .regular))
@@ -30,13 +30,13 @@ fileprivate struct ToastView: View {
 
 struct ToastOnView: View {
     var body: some View {
-        ToastView(imageSystemName: "square.dashed.inset.fill", info: "ON")
+        ToastView(imageSystemName: "books.vertical.fill", info: "ON")
     }
 }
 
 struct ToastOffView: View {
     var body: some View {
-        ToastView(imageSystemName: "square.dashed", info: "OFF")
+        ToastView(imageSystemName: "books.vertical", info: "OFF")
     }
 }
 

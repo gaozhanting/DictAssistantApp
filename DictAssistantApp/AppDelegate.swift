@@ -236,7 +236,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
     func constructMenuBar() {
         statusItem.button?.image = NSImage(
-            systemSymbolName: "square.dashed",
+            systemSymbolName: "books.vertical",
             accessibilityDescription: nil
         )
         
@@ -282,7 +282,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         statusData.isPlaying = true
         cachedDict = [:]
         statusItem.button?.image = NSImage(
-            systemSymbolName: "square.dashed.inset.fill",
+            systemSymbolName: "books.vertical.fill",
             accessibilityDescription: nil
         )
         displayedWords.wordCells = []
@@ -295,7 +295,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         statusData.isPlaying = false
         cachedDict = [:]
         statusItem.button?.image = NSImage(
-            systemSymbolName: "square.dashed",
+            systemSymbolName: "books.vertical",
             accessibilityDescription: nil
         )
         displayedWords.wordCells = []
