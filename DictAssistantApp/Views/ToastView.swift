@@ -30,13 +30,13 @@ fileprivate struct ToastView: View {
 
 struct ToastOnView: View {
     var body: some View {
-        ToastView(imageSystemName: "books.vertical.fill", info: "ON")
+        ToastView(imageSystemName: "d.circle.fill", info: "ON")
     }
 }
 
 struct ToastOffView: View {
     var body: some View {
-        ToastView(imageSystemName: "books.vertical", info: "OFF")
+        ToastView(imageSystemName: "d.circle", info: "OFF")
     }
 }
 
