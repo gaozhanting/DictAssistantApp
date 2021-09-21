@@ -50,10 +50,17 @@
 "My vocabulary count:" = "我的詞匯量：";
 
 "Download and install recommened concise dictionary" = "下載安裝推薦的簡明詞典";
-"Select the dictionary of English to your native language. Download and install. Then open Apple Dictionary App preferences, make it the first selected dictionary." = "選擇您的母語為目標語言的詞典。點擊下載並且完成安裝。然後打開系統自帶的詞典應用程序的偏好設置，調整剛安裝的詞典為第一選擇的詞典。";
 "This step is optional, but highly recommended." = "這一步是可跳過的，不過強烈推薦完成。";
+"Select the dictionary of English to your native language:" = "選擇您的母語為目標語言的詞典：";
+"Download and install." = "點擊下載並完成安裝。";
+"Open Dictionary App preferences, make it the first selected dictionary." = "打開系統自帶的詞典應用程序的偏好設置，調整剛安裝的詞典為第一選擇的詞典。";
+"Open Dictionary App" = "打開系統自帶的詞典應用程序";
 
-"Initialize two global keyboard shortcuts & Playing" = "初始化三個全局的鍵盤快捷鍵";
+"Initialize two global keyboard shortcuts & Playing" = "初始化兩個全局的鍵盤快捷鍵";
+"recommend: Option-1" = "推薦：Option-1";
+"recommend: Option-2" = "推薦：Option-2";
+"recommend: Option-3" = "推薦：Option-3";
+"recommend: Option-4" = "推薦：Option-4";
 "Playing:" = "運行：";
 "Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window." = "步驟1：輸入 執行單步 快捷鍵，調整錄屏區域。";
 "Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window." = "步驟2：輸入 執行單步 快捷鍵，調整內容區域。";

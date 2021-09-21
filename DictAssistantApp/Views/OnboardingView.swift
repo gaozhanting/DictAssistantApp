@@ -8,24 +8,62 @@
 import SwiftUI
 import KeyboardShortcuts
 
+fileprivate struct PageTemplateView<Title: View, Content: View, NextButton: View>: View {
+    let title: Title
+    let content: Content
+    let nextButton: NextButton
+    
+    init(
+        @ViewBuilder title: () -> Title,
+        @ViewBuilder content: () -> Content,
+        @ViewBuilder nextButton: () -> NextButton) {
+        self.title = title()
+        self.content = content()
+        self.nextButton = nextButton()
+    }
+    
+    var body: some View {
+        VStack {
+            title
+                .font(.largeTitle)
+                .frame(alignment: .top)
+                .padding()
+            
+            Divider()
+            
+            VStack {
+                Spacer()
+                content
+                    .font(.title3)
+                    .frame(width: 500)
+                Spacer()
+            }
+            
+            HStack {
+                nextButton
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(VisualEffectView(material: .underPageBackground))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
 fileprivate struct WelcomeView: View {
     let next: () -> Void
 
     var body: some View {
-        VStack {
-            Text("Welcome to DictAssistant")
-                .font(.title)
-            
-            Divider()
-                .padding()
-            
-            Text("We start three steps to setup.")
-                .frame(width: 500)
-            
-            Button(action: next, label: {
-                Text("Continue")
+        PageTemplateView(
+            title: { Text("Welcome to DictAssistant") },
+            content: {
+                Text("We start three steps to setup.")
+            },
+            nextButton: {
+                Button(action: next) {
+                    Text("Continue")
+                }
             })
-        }
     }
 }
 
@@ -43,52 +81,50 @@ fileprivate struct InitKnownWordsView: View {
             NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
         ]
     ) var fetchedKnownWords: FetchedResults<WordStats>
-
+    
     var body: some View {
-        VStack {
-            Text("Initialize your English vocabulary")
-                .font(.title)
-            
-            Divider()
-                .padding()
-            
-            Text("Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine.")
-                .frame(width: 500)
-            
-            HStack {
-                Text("My vocabulary count:")
+        PageTemplateView(
+            title: { Text("Initialize your English vocabulary") },
+            content: {
+                Text("Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine.")
+                    .frame(width: 500)
                 
-                TextField("", value: $to, formatter: {
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .none // integer, no decimal
-                    formatter.minimum = 2
-                    formatter.maximum = 100000
-                    return formatter
-                }(), onCommit: {
-                    showAddButton = true
-                })
-                .frame(width: 60)
-                
-                Button(action: {
-                    let words = Array(wikiFrequencyWords[0 ..< to])
-                    addMultiToKnownWords(words)
-                }) {
-                    Image(systemName: "rectangle.stack.badge.plus")
+                HStack {
+                    Text("My vocabulary count:")
+                    
+                    TextField("", value: $to, formatter: {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .none // integer, no decimal
+                        formatter.minimum = 2
+                        formatter.maximum = 100000
+                        return formatter
+                    }(), onCommit: {
+                        showAddButton = true
+                    })
+                    .frame(width: 60)
+                    
+                    Button(action: {
+                        let words = Array(wikiFrequencyWords[0 ..< to])
+                        addMultiToKnownWords(words)
+                    }) {
+                        Image(systemName: "rectangle.stack.badge.plus")
+                    }
+                    .disabled(!showAddButton)
                 }
-                .disabled(!showAddButton)
-            }
-            
-            Button(action: next, label: {
-                Text("Continue")
+            },
+            nextButton: {
+                Button(action: next, label: {
+                    Text("Continue")
+                })
+                .disabled(fetchedKnownWords.count == 0)
             })
-            .disabled(fetchedKnownWords.count == 0)
-        }
     }
 }
 
 func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
     for language in Locale.preferredLanguages {
-        if language.contains("zh-Hans") { return "简明英汉字典增强版" }
+        if language.contains("zh-Hans") { return "英漢字典CDic" } // for testing
+//        if language.contains("zh-Hans") { return "简明英汉字典增强版" }
         if language.contains("zh-Hant") { return "英漢字典CDic" }
         if language.contains("ja") { return "JMDict English-Japanese dictionary" }
         if language.contains("ko") { return "Babylon English-Korean dictionary" }
@@ -117,33 +153,43 @@ fileprivate struct DownloadExtraDictView: View {
     @State var selectedDictName: String = defaultSelectedDictNameFromSystemPreferredLanguage()
 
     var body: some View {
-        VStack {
-            Text("Download and install recommened concise dictionary")
-                .font(.title)
-            
-            Divider()
-                .padding()
-            
-            Text("Select the dictionary of English to your native language. Download and install. Then open Apple Dictionary App preferences, make it the first selected dictionary.")
-                .frame(width: 500)
-            
-            Text("This step is optional, but highly recommended.")
-                .font(.footnote)
-            
-            Picker("Select:", selection: $selectedDictName) {
-                ForEach(dicts, id:\.self.name) { dict in
-                    Text(dict.name).tag(dict.name)
+        PageTemplateView(
+            title: {
+                VStack {
+                    Text("Download and install recommened concise dictionary")
+                    Text("This step is optional, but highly recommended.")
+                        .font(.footnote)
                 }
-            }
-            .frame(width: 500)
-            
-            DictItemView(dict: dicts.first { $0.name == selectedDictName }!)
-                .frame(width: 500)
-            
-            Button(action: next, label: {
-                Text("Continue")
+            },
+            content: {
+                VStack(alignment: .leading) {
+                    Text("Select the dictionary of English to your native language:")
+                    Picker("", selection: $selectedDictName) {
+                        ForEach(dicts, id:\.self.name) { dict in
+                            Text(dict.name).tag(dict.name)
+                        }
+                    }
+                    .labelsHidden()
+                    
+                    Divider().padding(.vertical, 10)
+                    
+                    Text("Download and install.")
+                    DictItemView(dict: dicts.first { $0.name == selectedDictName }!)
+                    
+                    Divider().padding(.vertical, 10)
+                    
+                    Text("Open Dictionary App preferences, make it the first selected dictionary.")
+                    Button("Open Dictionary App") {
+                        openDict("")
+                    }
+                }
+                .padding()
+            },
+            nextButton: {
+                Button(action: next, label: {
+                    Text("Continue")
+                })
             })
-        }
     }
 }
 
@@ -160,42 +206,44 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     @State private var showPlaying: Bool = false
     
     var body: some View {
-        VStack {
-            Text("Initialize two global keyboard shortcuts & Playing")
-                .font(.title)
-            
-            Divider()
-                .padding()
-            
-            KeyRecordingView(onboarding: true)
-            
-            Button(action: {
-                showPlaying = true
-            }, label: {
-                Text("Continue")
-            })
-            .disabled(!allSet())
-            
-            if showPlaying {
-                VStack(alignment: .leading) {
-                    Text("Playing:")
-                    Text("Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window.")
-                    Text("Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window.")
-                    Text("Step 3: Press Toggle Flow Step keyboard shortcut key and playing.")
-                    Divider()
-                    Text("Stop:")
-                    Text("Press Toggle Flow Step keyboard shortcut key to stop playing.")
-                }
-                .frame(width: 500)
+        PageTemplateView(
+            title: { Text("Initialize two global keyboard shortcuts & Playing") },
+            content: {
+                KeyRecordingView(onboarding: true)
+                    .frame(width: 500)
                 
-                Button(action: {
-                    endOnboarding()
-                    isFinishedOnboarding = true
-                }, label: {
-                    Text("End")
-                })
+                if showPlaying {
+                    VStack(alignment: .leading) {
+                        Divider()
+                        Text("Playing:")
+                        Text("Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window.")
+                        Text("Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window.")
+                        Text("Step 3: Press Toggle Flow Step keyboard shortcut key and playing.")
+                        Divider()
+                        Text("Stop:")
+                        Text("Press Toggle Flow Step keyboard shortcut key to stop playing.")
+                    }
+                    .frame(width: 500)
+                }
+            },
+            nextButton: {
+                if !showPlaying {
+                    Button(action: {
+                        showPlaying = true
+                        isFinishedOnboarding = true
+                    }, label: {
+                        Text("Continue")
+                    })
+                    .disabled(!allSet())
+                } else {
+                    Button(action: {
+                        endOnboarding()
+                    }, label: {
+                        Text("End")
+                    })
+                }
             }
-        }
+        )
     }
 }
 
@@ -256,14 +304,12 @@ struct OnboardingView: View {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
+            OnboardingPage.welcome.view()
+            OnboardingPage.initKnownWords.view()
+            OnboardingPage.downloadExtraDict.view()
             OnboardingPage.initGlobalKeyboardShortcut.view()
-
-            OnboardingPage.initGlobalKeyboardShortcut.view()
-                .environment(\.locale, .init(identifier: "zh-Hans"))
-            
-            OnboardingPage.initGlobalKeyboardShortcut.view()
-                .environment(\.locale, .init(identifier: "zh-Hant"))
         }
+        .environment(\.locale, .init(identifier: "zh-Hans"))
         .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }

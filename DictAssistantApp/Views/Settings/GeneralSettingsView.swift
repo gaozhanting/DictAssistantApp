@@ -17,6 +17,7 @@ struct GeneralSettingsView: View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: NSLocalizedString("Global Keyboard Shortcuts:", comment: "")) {
                 KeyRecordingView(onboarding: false)
+                    .frame(maxWidth: 380)
             }
             Preferences.Section(title: NSLocalizedString("Minimum Text Height:", comment: "")) {
                 GroupBox {
@@ -102,7 +103,6 @@ struct KeyRecordingView: View {
                 }
             }
         }
-        .frame(maxWidth: 380)
     }
 }
 
