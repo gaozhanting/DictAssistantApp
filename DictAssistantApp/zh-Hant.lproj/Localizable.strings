@@ -64,7 +64,7 @@
 "Playing:" = "運行：";
 "Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window." = "步驟1：輸入 執行單步 快捷鍵，調整錄屏區域。";
 "Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window." = "步驟2：輸入 執行單步 快捷鍵，調整內容區域。";
-"Step 3: Press Toggle Flow Step keyboard shortcut key and playing." = "步驟3：輸入 執行單步 快捷鍵 運行。";
+"Step 3: Press Toggle Flow Step keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟3：輸入 執行單步 快捷鍵 運行。（需要屏幕錄製授權）";
 "Stop:" = "停止：";
 "Press Toggle Flow Step keyboard shortcut key to stop playing." = "輸入 執行單步 快捷鍵 停止運行";
 "End" = "完成設置";

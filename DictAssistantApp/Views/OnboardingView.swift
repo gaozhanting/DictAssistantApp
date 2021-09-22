@@ -34,7 +34,6 @@ fileprivate struct PageTemplateView<Title: View, Content: View, NextButton: View
             VStack {
                 Spacer()
                 content
-                    .font(.title3)
                     .frame(width: 500)
                 Spacer()
             }
@@ -123,8 +122,8 @@ fileprivate struct InitKnownWordsView: View {
 
 func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
     for language in Locale.preferredLanguages {
-        if language.contains("zh-Hans") { return "英漢字典CDic" } // for testing
-//        if language.contains("zh-Hans") { return "简明英汉字典增强版" }
+//        if language.contains("zh-Hans") { return "英漢字典CDic" } // for testing
+        if language.contains("zh-Hans") { return "简明英汉字典增强版" }
         if language.contains("zh-Hant") { return "英漢字典CDic" }
         if language.contains("ja") { return "JMDict English-Japanese dictionary" }
         if language.contains("ko") { return "Babylon English-Korean dictionary" }
@@ -218,7 +217,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
                         Text("Playing:")
                         Text("Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window.")
                         Text("Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window.")
-                        Text("Step 3: Press Toggle Flow Step keyboard shortcut key and playing.")
+                        Text("Step 3: Press Toggle Flow Step keyboard shortcut key and playing. (Need Screen Recording Permission)")
                         Divider()
                         Text("Stop:")
                         Text("Press Toggle Flow Step keyboard shortcut key to stop playing.")
