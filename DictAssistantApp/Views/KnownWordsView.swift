@@ -136,7 +136,7 @@ fileprivate struct EditingView: View {
     var body: some View {
         TextEditor(text: $text)
             .overlay(
-                VStack {
+                HStack {
                     AddMultiButton(words: words, isWordsInvalid: isWordsInvalid)
                     RemoveMultiButton(words: words, isWordsInvalid: isWordsInvalid)
                     
@@ -147,8 +147,10 @@ fileprivate struct EditingView: View {
                         InfoPopoverView()
                     }
                 }
+                .padding(.trailing, 20)
+                .padding(.bottom, 5)
                 ,
-                alignment: .trailing
+                alignment: .bottomTrailing
             )
     }
 }
