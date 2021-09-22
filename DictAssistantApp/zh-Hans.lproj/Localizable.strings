@@ -118,8 +118,9 @@
 "auto scroll:" = "自动滚动：";
 "enabled" = "开启";
 "disabled" = "关闭";
-"max height for one word:" = "单个词条显示最大高度";
-"max width for one word:" = "单个词条显示最大宽度";
+"More..." = "更多···";
+"max height for one word:" = "单个词条显示最大高度：";
+"max width for one word:" = "单个词条显示最大宽度：";
 
 "Select..." = "选择...";
 "Use default" = "使用默认值";

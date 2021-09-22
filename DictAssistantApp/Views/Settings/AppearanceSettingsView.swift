@@ -221,6 +221,19 @@ fileprivate struct ContentStyleSettingView: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 
+    @State private var isShowTextField: Bool = false
+    
+    var binding: Binding<Bool> {
+        Binding(
+            get: { isShowTextField },
+            set: { newValue in
+                withAnimation {
+                    isShowTextField = newValue
+                }
+            }
+        )
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -250,35 +263,41 @@ fileprivate struct ContentStyleSettingView: View {
                     .frame(width: 200)
                 }
             }
-
-            switch contentStyle {
-            case .portrait:
-                HStack {
-                    Text("max height for one word:")
-                    TextField("", value: $portraitMaxHeight, formatter: {
-                        let formatter = NumberFormatter()
-                        formatter.numberStyle = .none // integer, no decimal
-                        formatter.minimum = 1
-                        formatter.maximum = 1000
-                        return formatter
-                    }())
-                    .frame(width: 46)
-                }
-            case .landscape:
-                HStack {
-                    Text("max width for one word:")
-                    TextField("", value: $landscapeMaxWidth, formatter: {
-                        let formatter = NumberFormatter()
-                        formatter.numberStyle = .none // integer, no decimal
-                        formatter.minimum = 1
-                        formatter.maximum = 1000
-                        return formatter
-                    }())
-                    .frame(width: 46)
-                }
+            
+            HStack {
+                Toggle(isOn: binding, label: {
+                    Text("More...")
+                })
+                .toggleStyle(SwitchToggleStyle())
                 
+                Spacer()
+                
+                if isShowTextField {
+                    switch contentStyle {
+                    case .portrait:
+                        Text("max height for one word:")
+                        TextField("", value: $portraitMaxHeight, formatter: {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .none // integer, no decimal
+                            formatter.minimum = 1
+                            formatter.maximum = 1000
+                            return formatter
+                        }(), onCommit: { isShowTextField = false })
+                        .frame(width: 46)
+                    case .landscape:
+                        Text("max width for one word:")
+                        TextField("", value: $landscapeMaxWidth, formatter: {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .none // integer, no decimal
+                            formatter.minimum = 1
+                            formatter.maximum = 1000
+                            return formatter
+                        }(), onCommit: { isShowTextField = false })
+                        .frame(width: 46)
+                    }
+                }
             }
-                        
+            .frame(width: 370)
         }
     }
 }
@@ -597,8 +616,16 @@ fileprivate struct ContentBackGroundVisualEffectMaterial: View {
 
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        AppearanceSettingsView()
-            .environment(\.locale, .init(identifier: "zh-Hans"))
+        Group {
+            AppearanceSettingsView()
+                .environment(\.locale, .init(identifier: "zh-Hans"))
+            
+            AppearanceSettingsView()
+                .environment(\.locale, .init(identifier: "zh-Hant"))
+            
+            AppearanceSettingsView()
+                .environment(\.locale, .init(identifier: "en"))
+        }
             .frame(width: 650, height: 800)
     }
 }
