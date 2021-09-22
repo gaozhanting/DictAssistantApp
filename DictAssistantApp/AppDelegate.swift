@@ -461,7 +461,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             let results = try context.fetch(fetchRequest)
             return results
         } catch {
-            fatalError("Failed to fetch request: \(error)")
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+            return []
         }
     }
     
@@ -472,7 +473,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             do {
                 try context.save()
             } catch {
-                logger.info("Failed to save context: \(error.localizedDescription)")
+                logger.error("Failed to save context: \(error.localizedDescription)")
             }
         }
     }
@@ -482,7 +483,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         let container = NSPersistentContainer(name: "WordStatistics")
         container.loadPersistentStores { description, error in
             if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
+                logger.error("Unable to load persistent stores: \(error.localizedDescription)")
             }
         }
         return container
@@ -517,7 +518,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             let knownWords = results.map { $0.word! }
             return Set(knownWords)
         } catch {
-            fatalError("Failed to fetch request: \(error)")
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+            return Set()
         }
     }
     
@@ -540,7 +542,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                     newWordStatus.word = word
                 }
             } catch {
-                fatalError("Failed to fetch request: \(error)")
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
             }
         }
         saveContext()
@@ -564,7 +566,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                     context.delete(result)
                 }
             } catch {
-                fatalError("Failed to fetch request: \(error)")
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
             }
         }
         saveContext()
@@ -578,7 +580,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         do {
             try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
         } catch {
-            fatalError("Failed to delete all known words: \(error)")
+            logger.error("Failed to delete all known words: \(error.localizedDescription)")
         }
         saveContext()
     }
@@ -591,7 +593,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         do {
             try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
         } catch {
-            fatalError("Failed to delete all slots: \(error)")
+            logger.error("Failed to delete all slots: \(error.localizedDescription)")
         }
         saveContext()
     }
