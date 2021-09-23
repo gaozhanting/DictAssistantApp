@@ -111,14 +111,14 @@ fileprivate struct TextBody: View {
                     .onEnded { _ in
                         unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
                     }
-                    .modifiers(.command)
+                    .modifiers(.option)
             )
             .gesture(
                 TapGesture()
                     .onEnded { _ in
                         say(word)
                     }
-                    .modifiers(.option)
+                    .modifiers(.command)
             )
             .gesture(
                 TapGesture()
