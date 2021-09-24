@@ -10,7 +10,7 @@ import Vision
 import Preferences
 import KeyboardShortcuts
 
-let settingPanelWidth: Double = 580.0
+let settingPanelWidth: Double = 600.0
 
 struct GeneralSettingsView: View {
     var body: some View {
@@ -97,8 +97,16 @@ struct KeyRecordingView: View {
                     Text("Toggle Conceal Translation:")
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
-                    MiniInfoView{
+                    MiniInfoView {
                         Text("recommend: Option-4").padding()
+                    }
+                }
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Toggle Show Current Not-Found Words:")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
+                    MiniInfoView {
+                        Text("recommend: Option-5").padding()
                     }
                 }
             }

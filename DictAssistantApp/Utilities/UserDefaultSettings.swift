@@ -15,6 +15,7 @@ import Combine
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
 let IsShowCurrentKnownButWithOpacity0Key = "IsShowCurrentKnownButWithOpacity0Key"
 let IsConcealTranslationKey = "IsConcealTranslationKey"
+let IsShowCurrentNotFoundWordsKey = "IsShowCurrentNotFoundWordsKey"
 
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
 let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
@@ -118,6 +119,7 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentKnownKey: false,
     IsShowCurrentKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,
+    IsShowCurrentNotFoundWordsKey: false,
     FontNameKey: defaultFontName,
     ShowToastToggleKey: true,
     IsFinishedOnboardingKey: false,

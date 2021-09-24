@@ -203,6 +203,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 UserDefaults.standard.setValue(true, forKey: IsConcealTranslationKey)
             }
         }
+        
+        KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentNotFoundWords) {
+            if UserDefaults.standard.bool(forKey: IsShowCurrentNotFoundWordsKey) {
+                UserDefaults.standard.setValue(false, forKey: IsShowCurrentNotFoundWordsKey)
+            } else {
+                UserDefaults.standard.setValue(true, forKey: IsShowCurrentNotFoundWordsKey)
+            }
+        }
     }
     
     // no resizable, not movable
@@ -614,12 +622,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         var taggedWords: [WordCell] = []
         for word in cleanedWords {
             if allKnownWordsSetCache.contains(word) {
-                taggedWords.append(WordCell(word: word, isKnown: .known, trans: ""))
+                taggedWords.append(WordCell(word: word, isKnown: .known, trans: "")) // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
             } else {
-                if let trans = cachedDictionaryServicesDefine(word) { // Ignore non-dict word
+                if let trans = cachedDictionaryServicesDefine(word) {
                     taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
                 } else {
                     myPrint("!> translation not found from dicts of word: \(word)")
+                    taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: ""))
                 }
             }
         }

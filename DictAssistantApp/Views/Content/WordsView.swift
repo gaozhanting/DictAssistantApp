@@ -12,9 +12,15 @@ struct WordsView: View {
     @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
+    @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
 
     var words: [WordCellWithId] {
-        convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown, isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0)
+        convertToWordCellWithId(
+            from: displayedWords.wordCells,
+            isShowPhrase: isShowPhrase,
+            isShowCurrentKnown: isShowCurrentKnown,
+            isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0,
+            isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)
     }
     
     var body: some View {
@@ -25,10 +31,20 @@ struct WordsView: View {
     }
 }
 
-func convertToWordCellWithId(from primitiveWordCells: [WordCell], isShowPhrase: Bool, isShowCurrentKnown: Bool, isShowCurrentKnownButWithOpacity0: Bool) -> [WordCellWithId] {
-    let wordCells: [WordCell] = isShowPhrase ?
+func convertToWordCellWithId(
+    from primitiveWordCells: [WordCell],
+    isShowPhrase: Bool,
+    isShowCurrentKnown: Bool,
+    isShowCurrentKnownButWithOpacity0: Bool,
+    isShowCurrentNotFoundWords: Bool
+) -> [WordCellWithId] {
+    let wordCells1: [WordCell] = isShowPhrase ?
         primitiveWordCells :
         primitiveWordCells.filter { !$0.word.contains(" ") }
+    
+    let wordCells: [WordCell] = isShowCurrentNotFoundWords ?
+        wordCells1 :
+        wordCells1.filter { !$0.trans.isEmpty }
     
     if isShowCurrentKnown || isShowCurrentKnownButWithOpacity0 {
         var attachedId: [WordCellWithId] = []
@@ -41,19 +57,18 @@ func convertToWordCellWithId(from primitiveWordCells: [WordCell], isShowPhrase: 
         }
         return attachedId
     }
-    else {
-        var deDuplicated: [WordCellWithId] = []
-        var auxiliary: Set<String> = Set.init()
-        for wordCell in wordCells {
-            let word = wordCell.word
-            if !auxiliary.contains(word) {
-                deDuplicated.append(WordCellWithId(wordCell: wordCell, id: word))
-                auxiliary.insert(word)
-            }
+    
+    var deDuplicated: [WordCellWithId] = []
+    var auxiliary: Set<String> = Set.init()
+    for wordCell in wordCells {
+        let word = wordCell.word
+        if !auxiliary.contains(word) {
+            deDuplicated.append(WordCellWithId(wordCell: wordCell, id: word))
+            auxiliary.insert(word)
         }
-        let removeKnownRemoveTransEmpty = deDuplicated.filter{ $0.wordCell.isKnown == .unKnown && !$0.wordCell.trans.isEmpty }
-        return removeKnownRemoveTransEmpty
     }
+    
+    return deDuplicated.filter{ $0.wordCell.isKnown == .unKnown }
 }
 
 //struct WordsView_Previews: PreviewProvider {
