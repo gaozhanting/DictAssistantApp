@@ -69,7 +69,7 @@
 "Press Toggle Flow Step keyboard shortcut key to stop playing." = "输入 执行单步 快捷键 停止运行";
 "End" = "完成设置";
 
-"Toggle Flow Step:" = "执行单步";
+"Run Flow Step:" = "执行单步";
 "Toggle Show Current Known Words:" = "切换是否显示当前已知单词";
 "Toggle Conceal Current Known Words:" = "切换是否开启隐藏已知单词模式";
 "Toggle Conceal Translation:" = "切换是否隐藏单词译文";

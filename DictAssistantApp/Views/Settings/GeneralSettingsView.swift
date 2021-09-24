@@ -10,14 +10,14 @@ import Vision
 import Preferences
 import KeyboardShortcuts
 
-let settingPanelWidth: Double = 570.0
+let settingPanelWidth: Double = 580.0
 
 struct GeneralSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: NSLocalizedString("Global Keyboard Shortcuts:", comment: "")) {
                 KeyRecordingView(onboarding: false)
-                    .frame(maxWidth: 380)
+                    .frame(maxWidth: .infinity)
             }
             Preferences.Section(title: NSLocalizedString("Minimum Text Height:", comment: "")) {
                 GroupBox {
@@ -69,7 +69,7 @@ struct KeyRecordingView: View {
     var body: some View {
         Group {
             HStack {
-                Text("Toggle Flow Step:")
+                Text("Run Flow Step:")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleFlowStep)
                 MiniInfoView {
@@ -229,12 +229,12 @@ struct GeneralSettingView_Previews: PreviewProvider {
         Group {
             GeneralSettingsView()
                 .environmentObject(StatusData(isPlaying: false))
-                .frame(width: 650, height: 500)
+                .frame(width: CGFloat(settingPanelWidth), height: 500)
             
             MiniHeigthInfoPopoverView()
             
             MaximumFrameRateInfoPopoverView()
         }
-        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
     }
 }
