@@ -31,6 +31,7 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
 // visual
+let UseCustomDictModeKey = "UseCustomDictModeKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 
 let CropperStyleKey = "CropperStyleKey"
@@ -69,12 +70,19 @@ let ShadowYOffSetKey = "ShadowYOffSetKey"
 let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
+enum UseCustomDictMode: Int, Codable {
+    case notUse = 0
+    case asFirstPriority = 1
+    case asLastPriority = 2
+}
+
 // in slot defaults
 fileprivate let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,
     
+    UseCustomDictModeKey: UseCustomDictMode.notUse.rawValue,
     IsShowPhrasesKey: true,
     
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,

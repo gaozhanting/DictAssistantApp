@@ -423,6 +423,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
 
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
+    @AppStorage(UseCustomDictModeKey) var useCustomDictMode: UseCustomDictMode = .notUse
     
     @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
     

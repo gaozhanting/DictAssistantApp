@@ -17,6 +17,9 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
                 CropperStyleSettingView()
             }
+            Preferences.Section(title: NSLocalizedString("Use Custom Dict Mode:", comment: "")) {
+                UseCustomDictModePicker()
+            }
             Preferences.Section(title: NSLocalizedString("Content Words Display:", comment: "")) {
                 ShowPhrasesToggle()
                 Divider().frame(width: 200)
@@ -92,7 +95,7 @@ enum CropperStyle: Int, Codable {
 
 fileprivate struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
-    
+
     var body: some View {
         Picker("", selection: $cropperStyle) {
             Text("leadingBorder").tag(CropperStyle.leadingBorder)
@@ -102,6 +105,23 @@ fileprivate struct CropperStyleSettingView: View {
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
+    }
+}
+
+fileprivate struct UseCustomDictModePicker: View {
+    @AppStorage(UseCustomDictModeKey) private var useCustomDictMode: UseCustomDictMode = .notUse
+    @EnvironmentObject var statusData: StatusData
+    
+    var body: some View {
+        Picker("", selection: $useCustomDictMode) {
+            Text("not use").tag(UseCustomDictMode.notUse)
+            Text("as first priority").tag(UseCustomDictMode.asFirstPriority)
+            Text("as last priority").tag(UseCustomDictMode.asLastPriority)
+        }
+        .pickerStyle(MenuPickerStyle())
+        .labelsHidden()
+        .frame(width: 160)
+        .disabled(statusData.isPlaying)
     }
 }
 

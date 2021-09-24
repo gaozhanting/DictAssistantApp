@@ -525,6 +525,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         }
     }
     
+    // MARK: - Core Data (Custom Dict)
+    func getEntry(of word: String) -> CustomDict? {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let result = results.first {
+                return result
+            } else {
+                return nil
+            }
+        } catch {
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
     // MARK:- Core Data (WordStatistics) (Known Words List)
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WordStatistics")
@@ -706,8 +727,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         if let trans = cachedDict[word] {
             return trans
         }
-        let trans = DictionaryServices.define(word)
+        let trans = queryDefine(word)
         cachedDict[word] = trans
         return trans
+    }
+    
+    func queryDefine(_ word: String) -> String? {
+        let mode = UseCustomDictMode.init(rawValue: UserDefaults.standard.integer(forKey: UseCustomDictModeKey))!
+        switch mode {
+        case .notUse:
+            return DictionaryServices.define(word)
+        case .asFirstPriority:
+            if let entry = getEntry(of: word) {
+                let entryStr = "\(entry.word!)\(entry.trans!)"
+                return entryStr
+            }
+            return DictionaryServices.define(word)
+        case .asLastPriority:
+            if let define = DictionaryServices.define(word) {
+                return define
+            }
+            if let entry = getEntry(of: word) {
+                let entryStr = "\(entry.word!)\(entry.trans!)"
+                return entryStr
+            }
+            return nil
+        }
     }
 }

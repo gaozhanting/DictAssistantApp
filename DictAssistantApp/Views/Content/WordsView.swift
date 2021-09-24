@@ -38,13 +38,13 @@ func convertToWordCellWithId(
     isShowCurrentKnownButWithOpacity0: Bool,
     isShowCurrentNotFoundWords: Bool
 ) -> [WordCellWithId] {
-    let wordCells1: [WordCell] = isShowPhrase ?
+    let wordCells1: [WordCell] = isShowPhrase ? // default true
         primitiveWordCells :
         primitiveWordCells.filter { !$0.word.contains(" ") }
     
-    let wordCells: [WordCell] = isShowCurrentNotFoundWords ?
-        wordCells1 :
-        wordCells1.filter { !$0.trans.isEmpty }
+    let wordCells: [WordCell] = !isShowCurrentNotFoundWords ? // default false
+        wordCells1.filter { !($0.isKnown == .unKnown && $0.trans.isEmpty) } :
+        wordCells1
     
     if isShowCurrentKnown || isShowCurrentKnownButWithOpacity0 {
         var attachedId: [WordCellWithId] = []
@@ -67,7 +67,6 @@ func convertToWordCellWithId(
             auxiliary.insert(word)
         }
     }
-    
     return deDuplicated.filter{ $0.wordCell.isKnown == .unKnown }
 }
 
