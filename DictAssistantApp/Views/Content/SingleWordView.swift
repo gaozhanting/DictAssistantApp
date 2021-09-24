@@ -108,24 +108,24 @@ fileprivate struct TextBody: View {
             }
             .gesture(
                 TapGesture()
+                    .modifiers(.option)
                     .onEnded { _ in
                         unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
                     }
-                    .modifiers(.option)
             )
             .gesture(
                 TapGesture()
+                    .modifiers(.command)
                     .onEnded { _ in
                         say(word)
                     }
-                    .modifiers(.command)
             )
             .gesture(
                 TapGesture()
+                    .modifiers(.shift)
                     .onEnded { _ in
                         openDict(word)
                     }
-                    .modifiers(.shift)
             )
 
     }
