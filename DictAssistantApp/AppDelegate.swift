@@ -40,6 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
         initKnownWordsPanel()
         
+        initCustomDictPanel()
+        
         initExtraDictionariesPanel()
 
         initToastWindow()
@@ -253,8 +255,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
         menu.addItem(NSMenuItem.separator())
         
-        let showHistoryItem = NSMenuItem(title: NSLocalizedString("Show Known Words Panel", comment: ""), action: #selector(showKnownWordsPanel), keyEquivalent: "")
-        menu.addItem(showHistoryItem)
+        let showKnownWordsPanelItem = NSMenuItem(title: NSLocalizedString("Show Known Words Panel", comment: ""), action: #selector(showKnownWordsPanel), keyEquivalent: "")
+        menu.addItem(showKnownWordsPanelItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
+        let showCustomDictPanelItem = NSMenuItem(title: NSLocalizedString("Show Custom Dict Panel", comment: ""), action: #selector(showCustomDictPanel), keyEquivalent: "")
+        menu.addItem(showCustomDictPanelItem)
         
         menu.addItem(NSMenuItem.separator())
         
@@ -386,6 +393,38 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         knownWordsPanel.orderFrontRegardless()
     }
     
+    // MARK: - Custom Dict Panel
+    var customDictPanel: NSPanel!
+    func initCustomDictPanel() {
+        customDictPanel = NSPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+                .miniaturizable,
+                .resizable,
+                .utilityWindow,
+            ],
+            backing: .buffered,
+            defer: false
+            //            screen: NSScreen.main
+        )
+        
+        customDictPanel.setFrameAutosaveName("customDictPanel")
+        
+        customDictPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        customDictPanel.isReleasedWhenClosed = false
+    }
+    
+    @objc func showCustomDictPanel() {
+        let customDictView = CustomDictView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+        
+        customDictPanel.contentView = NSHostingView(rootView: customDictView)
+        customDictPanel.orderFrontRegardless()
+    }
+    
     // MARK: - Extra Dictionaries Panel
     var extraDictionariesPanel: NSPanel!
     func initExtraDictionariesPanel() {
@@ -486,7 +525,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         }
     }
     
-    // MARK:- Core Data (WordStatis)
+    // MARK:- Core Data (WordStatistics) (Known Words List)
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WordStatistics")
         container.loadPersistentStores { description, error in

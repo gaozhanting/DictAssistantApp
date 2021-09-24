@@ -40,6 +40,7 @@
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
 		44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownWordsView.swift */; };
 		44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
+		44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* CustomDictView.swift */; };
 		44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentPanel.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
@@ -84,6 +85,7 @@
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
 		44BCEC5526842086002D3D8C /* KnownWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsView.swift; sourceTree = "<group>"; };
 		44BCEC572684BADD002D3D8C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		44C31D6C26FE035800ED6E08 /* CustomDictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictView.swift; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPanel.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
+				44C31D6C26FE035800ED6E08 /* CustomDictView.swift */,
 				442298B6269EADC1008B410B /* DictionariesView.swift */,
 				442134E126AC324100963441 /* Content */,
 				442134D326A9A34F00963441 /* Settings */,
@@ -341,6 +344,7 @@
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
+				44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */,
 				442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */,
 				442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */,
