@@ -95,6 +95,11 @@
 "rectangle" = "矩形";
 "closed" = "關閉";
 
+"not use" = "不使用";
+"as first priority" = "優先使用";
+"as last priority" = "次後使用";
+"only" = "只使用";
+
 "Show phrases" = "顯示短語";
 "Select it when you want display all phrase words." = "勾選它，如果您想同時顯示所有的短語";
 
