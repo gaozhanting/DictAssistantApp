@@ -97,6 +97,9 @@ fileprivate struct TextBody: View {
                 Button(unKnown ? "Add to Known" : "Remove from known", action: {
                     unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
                 })
+                Button("Edit Custom Dict Entry", action: {
+                    showEditingEntry = true
+                })
                 Menu("Online Dict Link") {
                     Button("Collins", action: { openCollins(word) })
                     Button("Cambridge", action: { openCambridge(word) })
@@ -127,8 +130,19 @@ fileprivate struct TextBody: View {
                         openDict(word)
                     }
             )
-
+//            .gesture(
+//                TapGesture()
+//                    .modifiers(.function)
+//                    .onEnded { _ in
+//                        showEditingEntry = true
+//                    }
+//            )
+            .popover(isPresented: $showEditingEntry, content: {
+                EditCustomDictEntryView(word: word)
+            })
     }
+    
+    @State private var showEditingEntry: Bool = false
     
     var body: some View {
         if contentStyle == .landscape {
@@ -150,6 +164,45 @@ fileprivate struct TextBody: View {
     
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
+}
+
+fileprivate struct EditCustomDictEntryView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    
+    func save() {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    let word: String
+    @State private var trans: String = ""
+    
+    var body: some View {
+        TextField("Edit Custom Dict Entry: The Translation Of Word: \(word)", text: $trans, onCommit: {
+            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try managedObjectContext.fetch(fetchRequest)
+                if let result = results.first {
+                    managedObjectContext.delete(result)
+                }
+                let entry = CustomDict(context: managedObjectContext)
+                entry.word = word
+                entry.trans = trans
+            } catch {
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
+            }
+            save()
+        })
+        .frame(width: 320)
+        .padding(.horizontal)
+        .padding(.vertical, 2)
+    }
 }
 
 fileprivate struct TextWithShadow: View {

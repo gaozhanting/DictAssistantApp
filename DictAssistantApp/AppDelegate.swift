@@ -156,6 +156,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                     
                 case .ready:
                     let contentView = ContentView()
+                        .environment(\.managedObjectContext, persistentContainer.viewContext)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                     let contentViewWithEnv = attachEnv(AnyView(contentView))
