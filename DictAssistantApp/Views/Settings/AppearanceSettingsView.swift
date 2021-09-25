@@ -117,6 +117,7 @@ fileprivate struct UseCustomDictModePicker: View {
             Text("not use").tag(UseCustomDictMode.notUse)
             Text("as first priority").tag(UseCustomDictMode.asFirstPriority)
             Text("as last priority").tag(UseCustomDictMode.asLastPriority)
+            Text("only").tag(UseCustomDictMode.only)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()

@@ -752,6 +752,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 return entryStr
             }
             return nil
+        case .only:
+            if let entry = getEntry(of: word) {
+                let entryStr = "\(entry.word!)\(entry.trans!)"
+                return entryStr
+            }
+            return nil
         }
     }
 }

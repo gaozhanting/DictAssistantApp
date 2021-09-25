@@ -74,6 +74,7 @@ enum UseCustomDictMode: Int, Codable {
     case notUse = 0
     case asFirstPriority = 1
     case asLastPriority = 2
+    case only = 3
 }
 
 // in slot defaults
