@@ -110,10 +110,20 @@ fileprivate struct CropperStyleSettingView: View {
 
 fileprivate struct UseCustomDictModePicker: View {
     @AppStorage(UseCustomDictModeKey) private var useCustomDictMode: UseCustomDictMode = .notUse
-    @EnvironmentObject var statusData: StatusData
+    @Environment(\.refreshContentWhenChangingUseCustomDictMode) var refreshContentWhenChangingUseCustomDictMode
+    
+    var binding: Binding<UseCustomDictMode> {
+        Binding(
+            get: { useCustomDictMode },
+            set: { newValue in
+                useCustomDictMode = newValue
+                refreshContentWhenChangingUseCustomDictMode()
+            }
+        )
+    }
     
     var body: some View {
-        Picker("", selection: $useCustomDictMode) {
+        Picker("", selection: binding) {
             Text("not use").tag(UseCustomDictMode.notUse)
             Text("as first priority").tag(UseCustomDictMode.asFirstPriority)
             Text("as last priority").tag(UseCustomDictMode.asLastPriority)
@@ -122,7 +132,6 @@ fileprivate struct UseCustomDictModePicker: View {
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
-        .disabled(statusData.isPlaying)
     }
 }
 

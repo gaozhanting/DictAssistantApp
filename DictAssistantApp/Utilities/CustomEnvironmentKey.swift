@@ -75,6 +75,17 @@ extension EnvironmentValues {
     }
 }
 
+private struct RefreshContentWhenChangingUseCustomDictModeEnvironmentKey: EnvironmentKey {
+    static let defaultValue: () -> Void = {}
+}
+
+extension EnvironmentValues {
+    var refreshContentWhenChangingUseCustomDictMode: () -> Void {
+        get { self[RefreshContentWhenChangingUseCustomDictModeEnvironmentKey].self }
+        set { self[RefreshContentWhenChangingUseCustomDictModeEnvironmentKey.self] = newValue }
+    }
+}
+
 // Onboarding close panel
 private struct EndOnboardingEnvironmentKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}

@@ -108,7 +108,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     private lazy var preferencesWindowController = PreferencesWindowController(
         preferencePanes: [
             GeneralPreferenceViewController(),
-            AppearancePreferenceViewController(),
+            AppearancePreferenceViewController(refreshContentWhenChangingUseCustomDictMode: refreshContentWhenChangingUseCustomDictMode),
             SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
         ],
         style: .toolbarItems,
@@ -540,6 +540,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             let taggedWords = tagWords(cleanedWords)
             mutateDisplayedWords(taggedWords)
         }
+    }
+    
+    // MARK: - refresh UI side effect
+    func refreshContentWhenChangingUseCustomDictMode() {
+        cachedDict = [:]
+        let taggedWords = tagWords(cleanedWords)
+        mutateDisplayedWords(taggedWords)
     }
     
     // MARK: - Core Data (Slot)
