@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Known Words List (core data operations)
 private struct AddToKnownWordsEnvironmentKey: EnvironmentKey {
     static let defaultValue: (String) -> Void = { _ in }
 }
@@ -51,6 +52,30 @@ extension EnvironmentValues {
     }
 }
 
+// Custom Dict (core data operations)
+private struct AddMultiEntriesToCustomDictEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ([Entry]) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var addMultiEntriesToCustomDict: ([Entry]) -> Void {
+        get { self[AddMultiEntriesToCustomDictEnvironmentKey].self }
+        set { self[AddMultiEntriesToCustomDictEnvironmentKey.self] = newValue }
+    }
+}
+
+private struct RemoveMultiWordsFromCustomDictEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ([String]) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var removeMultiWordsFromCustomDict: ([String]) -> Void {
+        get { self[RemoveMultiWordsFromCustomDictEnvironmentKey].self }
+        set { self[RemoveMultiWordsFromCustomDictEnvironmentKey.self] = newValue }
+    }
+}
+
+// Onboarding close panel
 private struct EndOnboardingEnvironmentKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}
 }

@@ -168,14 +168,8 @@ fileprivate struct TextBody: View {
 
 fileprivate struct EditCustomDictEntryView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    
-    func save() {
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+    @Environment(\.addMultiEntriesToCustomDict) var addMultiEntriesToCustomDict
+    @Environment(\.removeMultiWordsFromCustomDict) var removeMultiWordsFromCustomDict
     
     let word: String
     @State private var trans: String = ""
@@ -187,38 +181,13 @@ fileprivate struct EditCustomDictEntryView: View {
     }
     
     func add() {
-        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try managedObjectContext.fetch(fetchRequest)
-            if let result = results.first {
-                managedObjectContext.delete(result)
-            }
-            let entry = CustomDict(context: managedObjectContext)
-            entry.word = word
-            entry.trans = trans
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-        }
-        save()
+        let entries = [Entry(word: word, trans: trans)]
+        addMultiEntriesToCustomDict(entries) // only add one entry here
     }
     
     func remove() {
-        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try managedObjectContext.fetch(fetchRequest)
-            if let result = results.first {
-                managedObjectContext.delete(result)
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-        }
-        save()
+        let words = [word]
+        removeMultiWordsFromCustomDict(words) // only remove one word(entry) here
     }
     
     var body: some View {

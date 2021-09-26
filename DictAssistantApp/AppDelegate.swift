@@ -157,6 +157,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 case .ready:
                     let contentView = ContentView()
                         .environment(\.managedObjectContext, persistentContainer.viewContext)
+                        .environment(\.addMultiEntriesToCustomDict, addMultiEntriesToCustomDict)
+                        .environment(\.removeMultiWordsFromCustomDict, removeMultiWordsFromCustomDict)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                     let contentViewWithEnv = attachEnv(AnyView(contentView))
@@ -421,6 +423,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     @objc func showCustomDictPanel() {
         let customDictView = CustomDictView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environment(\.addMultiEntriesToCustomDict, addMultiEntriesToCustomDict)
+            .environment(\.removeMultiWordsFromCustomDict, removeMultiWordsFromCustomDict)
         
         customDictPanel.contentView = NSHostingView(rootView: customDictView)
         customDictPanel.orderFrontRegardless()
@@ -492,10 +496,49 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 settings.contentFrame = contentWindow.frame
                 settings.cropperFrame = cropperWindow.frame
                 slot.settings = settingsToData(settings)
-                saveSlotContext()
+                saveContext()
                 myPrint("did save slot")
                 return
             }
+        }
+    }
+    
+    // MARK: - Core Data
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "WordStatistics")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                logger.error("Unable to load persistent stores: \(error.localizedDescription)")
+            }
+        }
+        return container
+    }()
+    
+    func saveContext(_ completionHandler: () -> Void = {}) {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+                completionHandler()
+            } catch {
+                logger.info("Failed to save context: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func saveContextWithChangingKnownWordsSideEffect() {
+        saveContext {
+            allKnownWordsSetCache = getAllKnownWordsSet()
+            let taggedWords = tagWords(cleanedWords)
+            mutateDisplayedWords(taggedWords)
+        }
+    }
+    
+    func saveContextWithChangingCustomDictSideEffect() {
+        saveContext {
+            cachedDict = [:]
+            let taggedWords = tagWords(cleanedWords)
+            mutateDisplayedWords(taggedWords)
         }
     }
     
@@ -514,16 +557,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         }
     }
     
-    // save context without side effect
-    func saveSlotContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                logger.error("Failed to save context: \(error.localizedDescription)")
-            }
+    // for development, call at applicationDidFinishLaunching
+    func deleteAllSlots() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Slot")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+        } catch {
+            logger.error("Failed to delete all slots: \(error.localizedDescription)")
         }
+        saveContext()
     }
     
     // MARK: - Core Data (Custom Dict)
@@ -547,33 +591,50 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         }
     }
     
-    // MARK:- Core Data (WordStatistics) (Known Words List)
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "WordStatistics")
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                logger.error("Unable to load persistent stores: \(error.localizedDescription)")
-            }
-        }
-        return container
-    }()
-    
-    // save context with side effect
-    func saveContext() {
+    func addMultiEntriesToCustomDict(entries: [Entry]) {
         let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-                allKnownWordsSetCache = getAllKnownWordsSet()
-                let taggedWords = tagWords(cleanedWords)
-                mutateDisplayedWords(taggedWords)
+        
+        for entry in entries {
+            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word)
+            fetchRequest.fetchLimit = 1
+            
+            do { // todo: how to update core data item?
+                let results = try context.fetch(fetchRequest)
+                if let result = results.first {
+                    context.delete(result)
+                }
+                let newEntry = CustomDict(context: context)
+                newEntry.word = entry.word
+                newEntry.trans = entry.trans
             } catch {
-                logger.info("Failed to save context: \(error.localizedDescription)")
-//                fatalError("Failed to save context: \(error)")
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
             }
         }
+        saveContextWithChangingCustomDictSideEffect()
     }
     
+    func removeMultiWordsFromCustomDict(words: [String]) {
+        let context = persistentContainer.viewContext
+
+        for word in words {
+            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if let result = results.first {
+                    context.delete(result)
+                }
+            } catch {
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
+            }
+        }
+        saveContextWithChangingCustomDictSideEffect()
+    }
+    
+    // MARK:- Core Data (WordStatistics) (Known Words List)
     var allKnownWordsSetCache: Set<String> = Set.init()
     
     // todo: how to make it effecient?
@@ -614,7 +675,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 logger.error("Failed to fetch request: \(error.localizedDescription)")
             }
         }
-        saveContext()
+        saveContextWithChangingKnownWordsSideEffect()
     }
     
     func removeFromKnownWords(_ word: String) {
@@ -638,7 +699,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
                 logger.error("Failed to fetch request: \(error.localizedDescription)")
             }
         }
-        saveContext()
+        saveContextWithChangingKnownWordsSideEffect()
     }
     
     // for development, call at applicationDidFinishLaunching
@@ -651,20 +712,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         } catch {
             logger.error("Failed to delete all known words: \(error.localizedDescription)")
         }
-        saveContext()
-    }
-    
-    // for development, call at applicationDidFinishLaunching
-    func deleteAllSlots() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Slot")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
-        } catch {
-            logger.error("Failed to delete all slots: \(error.localizedDescription)")
-        }
-        saveContext()
+        saveContextWithChangingKnownWordsSideEffect()
     }
     
     // MARK:- Words

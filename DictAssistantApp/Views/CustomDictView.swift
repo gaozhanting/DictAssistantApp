@@ -62,65 +62,32 @@ fileprivate struct FixedCustomDictView: View {
     }
 }
 
+struct Entry {
+    let word: String
+    let trans: String
+}
+
 fileprivate struct EditingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.addMultiEntriesToCustomDict) var addMultiEntriesToCustomDict
+    @Environment(\.removeMultiWordsFromCustomDict) var removeMultiWordsFromCustomDict
 
-    func save() {
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
     @State private var text = ""
     var lines: [String] {
         text.components(separatedBy: .newlines)
     }
     
     func multiAdd() {
-        for line in lines {
+        let entries: [Entry] = lines.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
-            let word = String(wordTrans[0])
-            let trans = String(wordTrans[1])
-            
-            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-            fetchRequest.fetchLimit = 1
-            
-            do {
-                let results = try managedObjectContext.fetch(fetchRequest)
-                if let result = results.first {
-                    managedObjectContext.delete(result)
-                }
-                let entry = CustomDict(context: managedObjectContext)
-                entry.word = word
-                entry.trans = trans
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
-            }
+            return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
         }
-        save()
+        addMultiEntriesToCustomDict(entries)
     }
     
     func multiRemove() {
-        for line in lines {
-            let word = line
-            
-            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-            fetchRequest.fetchLimit = 1
-            
-            do {
-                let results = try managedObjectContext.fetch(fetchRequest)
-                if let result = results.first {
-                    managedObjectContext.delete(result)
-                }
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
-            }
-        }
-        save()
+        let words = lines
+        removeMultiWordsFromCustomDict(words)
     }
     
     var body: some View {
