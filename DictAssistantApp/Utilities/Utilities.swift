@@ -84,7 +84,7 @@ func makeFixedNoiseVocabulary() -> Set<String> {
         }
     }
     
-    let extraNoiseWords = Vocabularies.read(from: "extra_fixed_noise_words.txt").components(separatedBy: "\n")
+    let extraNoiseWords = Vocabularies.read(from: "extra_fixed_noise_words.txt").components(separatedBy: .newlines)
     
     let allNoiseWords = oneLetterWords + twoLetterWords + extraNoiseWords
     

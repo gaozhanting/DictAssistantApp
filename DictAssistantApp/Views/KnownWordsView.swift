@@ -102,7 +102,7 @@ fileprivate struct EditingView: View {
     @State private var text = ""
     
     var words: [String] {
-        text.components(separatedBy: "\n")
+        text.components(separatedBy: .newlines)
             .map{ String($0) }
     }
     
@@ -204,7 +204,7 @@ fileprivate struct PasteOxford3000Button: View {
 }
 
 fileprivate var oxford3000Words: [String] {
-    var words = oxford3000Vocabulary.components(separatedBy: "\n").map{ String($0) }
+    var words = oxford3000Vocabulary.components(separatedBy: .newlines).map{ String($0) }
     words.removeLast()
     return words
 }
@@ -230,7 +230,7 @@ fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
     }
 }
 
-let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: "\n").map{ String($0) }
+let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: .newlines).map{ String($0) }
 
 fileprivate struct FirstNPopoverView: View {
     @Binding var text: String
@@ -269,6 +269,7 @@ fileprivate struct FirstNPopoverView: View {
                 Image(systemName: "doc.on.clipboard")
             }
             .disabled(from > to)
+            .keyboardShortcut(KeyEquivalent.return) // command + return
             .help("Type a range, then press paste button to paste these words below.")
         }
         .padding(.horizontal)
@@ -293,6 +294,7 @@ struct KnownWordsView_Previews: PreviewProvider {
             FirstNPopoverView(text: Binding.constant(""), showPopover: Binding.constant(false))
             
             InfoPopoverView()
+                .environment(\.locale, .init(identifier: "zh-Hant"))
         }
     }
 }

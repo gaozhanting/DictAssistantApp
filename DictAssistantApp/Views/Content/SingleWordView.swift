@@ -180,26 +180,63 @@ fileprivate struct EditCustomDictEntryView: View {
     let word: String
     @State private var trans: String = ""
     
-    var body: some View {
-        TextField("Edit Custom Dict Entry: The Translation Of Word: \(word)", text: $trans, onCommit: {
-            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-            fetchRequest.fetchLimit = 1
-            
-            do {
-                let results = try managedObjectContext.fetch(fetchRequest)
-                if let result = results.first {
-                    managedObjectContext.delete(result)
-                }
-                let entry = CustomDict(context: managedObjectContext)
-                entry.word = word
-                entry.trans = trans
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
+    func isTransMultiLine() -> Bool {
+        return trans.contains { c in
+            c.isNewline
+        }
+    }
+    
+    func add() {
+        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            if let result = results.first {
+                managedObjectContext.delete(result)
             }
-            save()
-        })
-        .frame(width: 320)
+            let entry = CustomDict(context: managedObjectContext)
+            entry.word = word
+            entry.trans = trans
+        } catch {
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+        }
+        save()
+    }
+    
+    func remove() {
+        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            if let result = results.first {
+                managedObjectContext.delete(result)
+            }
+        } catch {
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+        }
+        save()
+    }
+    
+    var body: some View {
+        HStack {
+            TextField("Edit The Translation Of Word: \(word)", text: $trans)
+            
+            Button(action: add) {
+                Image(systemName: "rectangle.badge.plus")
+            }
+            .disabled(isTransMultiLine())
+            .keyboardShortcut(KeyEquivalent.return) // command + return
+            
+            Button(action: remove) {
+                Image(systemName: "rectangle.badge.minus")
+            }
+            .keyboardShortcut(KeyEquivalent.delete) // command + delete
+        }
+        .frame(width: 380)
         .padding(.horizontal)
         .padding(.vertical, 2)
     }
@@ -327,8 +364,8 @@ fileprivate struct TheText: View {
     }
 }
 
-//struct SingleWordView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SingleWordView()
-//    }
-//}
+struct SingleWordView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditCustomDictEntryView(word: "take off")
+    }
+}

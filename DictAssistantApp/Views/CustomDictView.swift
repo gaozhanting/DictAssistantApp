@@ -75,77 +75,81 @@ fileprivate struct EditingView: View {
     
     @State private var text = ""
     var lines: [String] {
-        text.components(separatedBy: "\n")
+        text.components(separatedBy: .newlines)
+    }
+    
+    func multiAdd() {
+        for line in lines {
+            let wordTrans = line.split(separator: Character(":"), maxSplits: 1)
+            let word = String(wordTrans[0])
+            let trans = String(wordTrans[1])
+            
+            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try managedObjectContext.fetch(fetchRequest)
+                if let result = results.first {
+                    managedObjectContext.delete(result)
+                }
+                let entry = CustomDict(context: managedObjectContext)
+                entry.word = word
+                entry.trans = trans
+            } catch {
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
+            }
+        }
+        save()
+    }
+    
+    func multiRemove() {
+        for line in lines {
+            let word = line
+            
+            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try managedObjectContext.fetch(fetchRequest)
+                if let result = results.first {
+                    managedObjectContext.delete(result)
+                }
+            } catch {
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
+            }
+        }
+        save()
     }
     
     var body: some View {
         TextEditor(text: $text)
             .overlay(
                 HStack {
-                    Button(action: {
-                        for line in lines {
-                            let wordTrans = line.split(separator: Character(":"), maxSplits: 1)
-                            let word = String(wordTrans[0])
-                            let trans = String(wordTrans[1])
-                            
-                            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-                            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-                            fetchRequest.fetchLimit = 1
-                            
-                            do {
-                                let results = try managedObjectContext.fetch(fetchRequest)
-                                if let result = results.first {
-                                    managedObjectContext.delete(result)
-                                }
-                                let entry = CustomDict(context: managedObjectContext)
-                                entry.word = word
-                                entry.trans = trans
-                            } catch {
-                                logger.error("Failed to fetch request: \(error.localizedDescription)")
-                            }
-                        }
-                        save()
-                    }) {
+                    Button(action: multiAdd) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
                     .disabled({
-                        return lines.contains { line in
+                        lines.contains { line in
                             line.split(separator: Character(":"), maxSplits: 1)
                                 .count < 2
                         }
                     }())
                     .help("Add multi entries to custom dict.")
                     
-                    Button(action: {
-                        for line in lines {
-                            let word = line
-                            
-                            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-                            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-                            fetchRequest.fetchLimit = 1
-                            
-                            do {
-                                let results = try managedObjectContext.fetch(fetchRequest)
-                                if let result = results.first {
-                                    managedObjectContext.delete(result)
-                                }
-                            } catch {
-                                logger.error("Failed to fetch request: \(error.localizedDescription)")
-                            }
-                        }
-                        save()
-                    }) {
+                    Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .disabled({
                         lines.count <= 0
                     }())
                     .buttonStyle(PlainButtonStyle())
-                    .help("Add multi entries to custom dict.")
+                    .help("Remove multi entries to custom dict.")
                     
                     MiniInfoView {
-                        InfoPopoverView()
+                        InfoView()
                     }
                 }
                 .padding(.trailing, 20)
@@ -156,15 +160,20 @@ fileprivate struct EditingView: View {
     }
 }
 
-fileprivate struct InfoPopoverView: View {
+private struct InfoView: View {
     var body: some View {
-        Text("Info")
+        Text("Edit your custom dictionary entries, one entry per line; the format must be `word:translation` for adding & `word` for removing; then add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
             .padding()
+            .frame(width: 300, height: 200)
     }
 }
 
 struct CustomDictView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomDictView()
+        Group {
+            CustomDictView()
+            
+            InfoView()
+        }
     }
 }
