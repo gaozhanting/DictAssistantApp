@@ -110,7 +110,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
 //            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
             return
         }
-        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do heavy CPU works")
+        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do run TR")
         
         sampleBufferCache = sampleBuffer
 
@@ -153,9 +153,9 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 }
                 
                 if texts.elementsEqual(lastReconginzedTexts) {
-//                    logger.info("RecognizedText texts elementsEqual lastReconginzedTexts, so don't do statistic of words")
+//                    logger.info("recognizeTextHandler texts == lastReconginzedTexts, so don't run trCallback")
                 } else {
-                    logger.info("text not equal lastReconginzedTexts")
+                    logger.info("recognizeTextHandler texts != lastReconginzedTexts, so do run trCallback")
                     
                     trCallBack(texts)
 

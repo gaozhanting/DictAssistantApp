@@ -121,6 +121,7 @@
 			children = (
 				44FC7009266DEFF80025676B /* ContentView.swift */,
 				444AACD426B0417D00791FC2 /* PortraitWordsView.swift */,
+				444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */,
 				442134E426AC32A700963441 /* WordsView.swift */,
 				442134E226AC326100963441 /* SingleWordView.swift */,
 			);
@@ -201,7 +202,6 @@
 			children = (
 				446B24E626F1F0C400F1301D /* OnboardingView.swift */,
 				442134F226AD3C4B00963441 /* VisualEffectView.swift */,
-				444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */,
 				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
