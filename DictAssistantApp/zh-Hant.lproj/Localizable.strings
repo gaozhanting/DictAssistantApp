@@ -175,4 +175,5 @@
 
 "Add multi entries to custom dict." = "添加多個詞條到自定義詞典";
 "Remove multi entries to custom dict." = "從自定義詞典中刪除多個詞條";
-"Edit your custom dictionary entries, one entry per line; the format must be `word:translation` for adding & `word` for removing; then add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line." = "編輯您的自定義詞典，每行一個詞條；格式必須是`單詞:釋義`用于添加，`單詞`用于移除；然後點擊添加或移除按鈕即可。\n\n注意：不能有空行，一行之中也不能只有空白符。因此，不要在結尾添加一個空白行。";
+"Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line." = "編輯您的自定義詞典，每行一個詞條。\n\n添加的每行格式：\n單詞,釋義 \n\n刪除的每行格式：\n單詞 \n\n然後點擊添加或移除按鈕即可。\n\n注意：不能有空行，一行之中也不能只有空白符。因此，不要在結尾添加一個空白行。";
+

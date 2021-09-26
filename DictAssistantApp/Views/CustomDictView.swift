@@ -80,7 +80,7 @@ fileprivate struct EditingView: View {
     
     func multiAdd() {
         for line in lines {
-            let wordTrans = line.split(separator: Character(":"), maxSplits: 1)
+            let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             let word = String(wordTrans[0])
             let trans = String(wordTrans[1])
             
@@ -133,7 +133,7 @@ fileprivate struct EditingView: View {
                     .buttonStyle(PlainButtonStyle())
                     .disabled({
                         lines.contains { line in
-                            line.split(separator: Character(":"), maxSplits: 1)
+                            line.split(separator: Character(","), maxSplits: 1)
                                 .count < 2
                         }
                     }())
@@ -143,7 +143,11 @@ fileprivate struct EditingView: View {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .disabled({
-                        lines.count <= 0
+                        lines.contains { line in
+                            line.allSatisfy { c in
+                                c.isWhitespace
+                            }
+                        }
                     }())
                     .buttonStyle(PlainButtonStyle())
                     .help("Remove multi entries to custom dict.")
@@ -162,9 +166,9 @@ fileprivate struct EditingView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("Edit your custom dictionary entries, one entry per line; the format must be `word:translation` for adding & `word` for removing; then add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
+        Text("Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
             .padding()
-            .frame(width: 300, height: 200)
+            .frame(width: 300, height: 300)
     }
 }
 
