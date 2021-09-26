@@ -53,7 +53,7 @@ fileprivate struct FixedCustomDictView: View {
     
     var text: String {
         fetchedCustomDict
-            .map { entry in "\(entry.word!): \(entry.trans!)" }
+            .map { entry in "\(entry.word!),\(entry.trans!)" }
             .joined(separator: "\n")
     }
     
