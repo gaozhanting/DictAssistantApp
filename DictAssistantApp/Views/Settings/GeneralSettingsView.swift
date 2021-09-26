@@ -10,7 +10,7 @@ import Vision
 import Preferences
 import KeyboardShortcuts
 
-let settingPanelWidth: Double = 600.0
+let settingPanelWidth: Double = 650.0
 
 struct GeneralSettingsView: View {
     var body: some View {
@@ -66,6 +66,11 @@ struct MiniInfoView<Content: View>: View {
 struct KeyRecordingView: View {
     let onboarding: Bool
     
+    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
+    @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
+    @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
+    @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
+
     var body: some View {
         Group {
             HStack {
@@ -79,6 +84,7 @@ struct KeyRecordingView: View {
             HStack(alignment: .firstTextBaseline) {
                 Text("Toggle Show Current Known Words:")
                 Spacer()
+                Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
                 MiniInfoView {
                     Text("recommend: Option-2").padding()
@@ -88,6 +94,7 @@ struct KeyRecordingView: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Toggle Conceal Current Known Words:")
                     Spacer()
+                    Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
                     KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
                     MiniInfoView {
                         Text("recommend: Option-3").padding()
@@ -96,6 +103,7 @@ struct KeyRecordingView: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Toggle Conceal Translation:")
                     Spacer()
+                    Toggle("", isOn: $isConcealTranslation).labelsHidden()
                     KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
                     MiniInfoView {
                         Text("recommend: Option-4").padding()
@@ -104,6 +112,7 @@ struct KeyRecordingView: View {
                 HStack(alignment: .firstTextBaseline) {
                     Text("Toggle Show Current Not-Found Words:")
                     Spacer()
+                    Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
                     KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
                     MiniInfoView {
                         Text("recommend: Option-5").padding()
@@ -111,6 +120,7 @@ struct KeyRecordingView: View {
                 }
             }
         }
+        .toggleStyle(SwitchToggleStyle())
     }
 }
 
