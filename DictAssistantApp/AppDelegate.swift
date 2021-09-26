@@ -674,7 +674,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     
     func trCallBack(texts: [String]) {
         let primitiveWords = nplSample.process(texts)
-        cleanedWords = primitiveWords.filter { !fixedNoiseVocabulary.contains($0) }
+        cleanedWords =
+            primitiveWords
+            .filter { word in // remove pure numbers
+                !word.allSatisfy { c in
+                    c.isNumber
+                }
+            }
+            .filter { word in // remove noise
+                !fixedNoiseVocabulary.contains(word)
+            }
         let taggedWords = tagWords(cleanedWords)
         mutateDisplayedWords(taggedWords)
     }
