@@ -5,11 +5,10 @@
 //  Created by Gao Cong on 2021/9/27.
 //
 
-import Foundation
+import Cocoa
 import CoreData
 
-// MARK: - Core Data
-var persistentContainer: NSPersistentContainer = {
+let persistentContainer: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "WordStatistics")
     container.loadPersistentStores { description, error in
         if let error = error {
@@ -27,6 +26,10 @@ func saveContext(_ completionHandler: () -> Void = {}) {
             completionHandler()
         } catch {
             logger.info("Failed to save context: \(error.localizedDescription)")
+            
+            // Customize this code block to include application-specific recovery steps.
+            let nserror = error as NSError
+            NSApplication.shared.presentError(nserror)
         }
     }
 }
