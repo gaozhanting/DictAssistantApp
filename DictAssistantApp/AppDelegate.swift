@@ -15,8 +15,6 @@ import Vision
 import KeyboardShortcuts
 import Preferences
 
-let statusData = StatusData(isPlaying: false)
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDelegate {
     
@@ -391,7 +389,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             .environmentObject(displayedWords)
     }
     
-//    var contentWindow: NSPanel!
+    // MARK: - contentWindow
     func initContentWindow() {
         // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
         contentWindow = ContentPanel.init(
@@ -408,7 +406,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     }
     
     // MARK: - cropperWindow
-//    var cropperWindow: NSWindow!
     func initCropperWindow() {
         cropperWindow = CropperWindow.init(
             contentRect: NSRect(x: 300, y: 300, width: 600, height: 200),
@@ -595,207 +592,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         }
     }
     
-    // MARK: - refresh UI side effect
-    func refreshContentWhenChangingUseCustomDictMode() {
-        cachedDict = [:]
-        let taggedWords = tagWords(cleanedWords)
-        mutateDisplayedWords(taggedWords)
-    }
-    
-    // MARK: - Core Data saveContext with side effect
-    func saveContextWithChangingKnownWordsSideEffect() {
-        saveContext {
-            allKnownWordsSetCache = getAllKnownWordsSet()
-            let taggedWords = tagWords(cleanedWords)
-            mutateDisplayedWords(taggedWords)
-        }
-    }
-    
-    func saveContextWithChangingCustomDictSideEffect() {
-        saveContext {
-            cachedDict = [:]
-            let taggedWords = tagWords(cleanedWords)
-            mutateDisplayedWords(taggedWords)
-        }
-    }
-
-    // MARK: - Core Data (Slot)
-    func getAllSlots() -> [Slot] {
-        let context = persistentContainer.viewContext
-
-        let fetchRequest: NSFetchRequest<Slot> = Slot.fetchRequest()
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            return results
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-            return []
-        }
-    }
-    
-    // for development, call at applicationDidFinishLaunching
-    func deleteAllSlots() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Slot")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
-        } catch {
-            logger.error("Failed to delete all slots: \(error.localizedDescription)")
-        }
-        saveContext()
-    }
-    
-    // MARK: - Core Data (Custom Dict)
-    func getEntry(of word: String) -> CustomDict? {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let result = results.first {
-                return result
-            } else {
-                return nil
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-            return nil
-        }
-    }
-    
-    func addMultiEntriesToCustomDict(entries: [Entry]) {
-        let context = persistentContainer.viewContext
-        
-        for entry in entries {
-            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word)
-            fetchRequest.fetchLimit = 1
-            
-            do { // todo: how to update core data item?
-                let results = try context.fetch(fetchRequest)
-                if let result = results.first {
-                    context.delete(result)
-                }
-                let newEntry = CustomDict(context: context)
-                newEntry.word = entry.word
-                newEntry.trans = entry.trans
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
-            }
-        }
-        saveContextWithChangingCustomDictSideEffect()
-    }
-    
-    func removeMultiWordsFromCustomDict(words: [String]) {
-        let context = persistentContainer.viewContext
-
-        for word in words {
-            let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-            fetchRequest.fetchLimit = 1
-            
-            do {
-                let results = try context.fetch(fetchRequest)
-                if let result = results.first {
-                    context.delete(result)
-                }
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
-            }
-        }
-        saveContextWithChangingCustomDictSideEffect()
-    }
-    
-    // MARK:- Core Data (WordStatistics) (Known Words List)
-    var allKnownWordsSetCache: Set<String> = Set.init()
-    
-    // todo: how to make it effecient?
-    func getAllKnownWordsSet() -> Set<String> {
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            let knownWords = results.map { $0.word! }
-            return Set(knownWords)
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-            return Set()
-        }
-    }
-    
-    func addToKnownWords(_ word: String) {
-        addMultiToKnownWords([word])
-    }
-    
-    func addMultiToKnownWords(_ words: [String]) {
-        let context = persistentContainer.viewContext
-        
-        for word in words {
-            let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-            fetchRequest.fetchLimit = 1
-            
-            do {
-                let results = try context.fetch(fetchRequest)
-                if results.isEmpty {
-                    let newWordStatus = WordStats(context: context)
-                    newWordStatus.word = word
-                }
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
-            }
-        }
-        saveContextWithChangingKnownWordsSideEffect()
-    }
-    
-    func removeFromKnownWords(_ word: String) {
-        removeMultiFromKnownWords([word])
-    }
-    
-    func removeMultiFromKnownWords(_ words: [String]) {
-        let context = persistentContainer.viewContext
-        
-        for word in words {
-            let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-            fetchRequest.fetchLimit = 1
-
-            do {
-                let results = try context.fetch(fetchRequest)
-                if let result = results.first {
-                    context.delete(result)
-                }
-            } catch {
-                logger.error("Failed to fetch request: \(error.localizedDescription)")
-            }
-        }
-        saveContextWithChangingKnownWordsSideEffect()
-    }
-    
-    // for development, call at applicationDidFinishLaunching
-    func deleteAllKnownWords() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WordStats")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
-        } catch {
-            logger.error("Failed to delete all known words: \(error.localizedDescription)")
-        }
-        saveContextWithChangingKnownWordsSideEffect()
-    }
-    
     // MARK:- Words
-    let displayedWords = DisplayedWords(wordCells: [])
-    
-    var cleanedWords: [String] = [] // for communication with saveContext
     
     func trCallBack(texts: [String]) {
         let primitiveWords = nplSample.process(texts)
@@ -813,87 +610,54 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         let taggedWords = tagWords(cleanedWords)
         mutateDisplayedWords(taggedWords)
     }
-    
-    func tagWords(_ cleanedWords: [String]) -> [WordCell] {
-        var taggedWords: [WordCell] = []
-        for word in cleanedWords {
-            if allKnownWordsSetCache.contains(word) {
-                taggedWords.append(WordCell(word: word, isKnown: .known, trans: "")) // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
-            } else {
-                if let trans = cachedDictionaryServicesDefine(word) {
-                    taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
-                } else {
-                    myPrint("!> translation not found from dicts of word: \(word)")
-                    taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: ""))
-                }
-            }
-        }
-        return taggedWords
-    }
-     
-    func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {
-        if isWithAnimation() {
-            withAnimation(whichAnimation()) {
-                displayedWords.wordCells = taggedWordTrans
-            }
-        }
-        else {
+}
+
+// some global functions, no where to put in ?!
+
+func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {
+    let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
+    if isWithAnimation {
+        withAnimation(whichAnimation()) {
             displayedWords.wordCells = taggedWordTrans
         }
     }
-    
-    func isWithAnimation() -> Bool {
-        return UserDefaults.standard.bool(forKey: IsWithAnimationKey)
+    else {
+        displayedWords.wordCells = taggedWordTrans
     }
+}
+
+func whichAnimation() -> Animation? {
+    let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
+    let duration = Double(1 / maximumFrameRate)
     
-    func whichAnimation() -> Animation? {
-        let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
-        let duration = Double(1 / maximumFrameRate)
-        
-        let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
-        if contentStyle == .landscape {
-            return Animation.linear(duration: duration)
+    let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
+    if contentStyle == .landscape {
+        return Animation.linear(duration: duration)
+    } else {
+        return Animation.easeInOut(duration: duration)
+    }
+}
+
+func tagWords(_ cleanedWords: [String]) -> [WordCell] {
+    var taggedWords: [WordCell] = []
+    for word in cleanedWords {
+        if allKnownWordsSetCache.contains(word) {
+            taggedWords.append(WordCell(word: word, isKnown: .known, trans: "")) // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
         } else {
-            return Animation.easeInOut(duration: duration)
+            if let trans = cachedDictionaryServicesDefine(word) {
+                taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: trans))
+            } else {
+                myPrint("!> translation not found from dicts of word: \(word)")
+                taggedWords.append(WordCell(word: word, isKnown: .unKnown, trans: ""))
+            }
         }
     }
-    
-    var cachedDict: [String: String?] = [:]
-    func cachedDictionaryServicesDefine(_ word: String) -> String? {
-        if let trans = cachedDict[word] {
-            return trans
-        }
-        let trans = queryDefine(word)
-        cachedDict[word] = trans
-        return trans
-    }
-    
-    func queryDefine(_ word: String) -> String? {
-        let mode = UseCustomDictMode.init(rawValue: UserDefaults.standard.integer(forKey: UseCustomDictModeKey))!
-        switch mode {
-        case .notUse:
-            return DictionaryServices.define(word)
-        case .asFirstPriority:
-            if let entry = getEntry(of: word) {
-                let entryStr = "\(entry.word!)\(entry.trans!)"
-                return entryStr
-            }
-            return DictionaryServices.define(word)
-        case .asLastPriority:
-            if let define = DictionaryServices.define(word) {
-                return define
-            }
-            if let entry = getEntry(of: word) {
-                let entryStr = "\(entry.word!)\(entry.trans!)"
-                return entryStr
-            }
-            return nil
-        case .only:
-            if let entry = getEntry(of: word) {
-                let entryStr = "\(entry.word!)\(entry.trans!)"
-                return entryStr
-            }
-            return nil
-        }
-    }
+    return taggedWords
+}
+
+// MARK: - refresh UI side effect
+func refreshContentWhenChangingUseCustomDictMode() {
+    cachedDict = [:]
+    let taggedWords = tagWords(cleanedWords)
+    mutateDisplayedWords(taggedWords)
 }

@@ -14,3 +14,5 @@ class StatusData: ObservableObject {
         self.isPlaying = isPlaying
     }
 }
+
+let statusData = StatusData(isPlaying: false)

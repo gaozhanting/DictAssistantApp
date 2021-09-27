@@ -40,7 +40,6 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
     )
 
     do {
-//        try persistentContainer.persistentStoreCoordinator.execute(insertRequest, with: persistentContainer.viewContext)
         try context.execute(insertRequest)
     } catch {
         logger.error("Failed to batch insert all fixed Phrases: \(error.localizedDescription)")

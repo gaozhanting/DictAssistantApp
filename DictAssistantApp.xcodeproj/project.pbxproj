@@ -28,9 +28,15 @@
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
 		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
 		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		445354C62701D5F2007DB9C2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* Persistence.swift */; };
-		445355432701E45F007DB9C2 /* CustomPhrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* CustomPhrases.swift */; };
-		445355452701E55D007DB9C2 /* FixedPhrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355442701E55D007DB9C2 /* FixedPhrases.swift */; };
+		445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
+		445355432701E45F007DB9C2 /* CustomPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */; };
+		445355452701E55D007DB9C2 /* FixedPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */; };
+		4453554727020B32007DB9C2 /* SlotPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotPersistence.swift */; };
+		4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */; };
+		4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */; };
+		4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
+		4453555027020F7E007DB9C2 /* KnownWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554F27020F7E007DB9C2 /* KnownWordsService.swift */; };
+		4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555127020FDE007DB9C2 /* CleanedWordsService.swift */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
@@ -77,9 +83,15 @@
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
 		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
 		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
-		445354C52701D5F2007DB9C2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		445355422701E45F007DB9C2 /* CustomPhrases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhrases.swift; sourceTree = "<group>"; };
-		445355442701E55D007DB9C2 /* FixedPhrases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedPhrases.swift; sourceTree = "<group>"; };
+		445354C52701D5F2007DB9C2 /* PersistenceStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStack.swift; sourceTree = "<group>"; };
+		445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhrasesPersistence.swift; sourceTree = "<group>"; };
+		445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedPhrasesPersistence.swift; sourceTree = "<group>"; };
+		4453554627020B32007DB9C2 /* SlotPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotPersistence.swift; sourceTree = "<group>"; };
+		4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictPersistence.swift; sourceTree = "<group>"; };
+		4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsPersistence.swift; sourceTree = "<group>"; };
+		4453554D27020DDA007DB9C2 /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
+		4453554F27020F7E007DB9C2 /* KnownWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsService.swift; sourceTree = "<group>"; };
+		4453555127020FDE007DB9C2 /* CleanedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanedWordsService.swift; sourceTree = "<group>"; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
@@ -157,6 +169,7 @@
 		4440EE42262EDCA3007FF470 /* DictAssistantApp */ = {
 			isa = PBXGroup;
 			children = (
+				4453554C27020DB9007DB9C2 /* Services */,
 				445354C42701D5AF007DB9C2 /* CoreData */,
 				447D61912643C89700AB0C1A /* TextProcess */,
 				447D61902643C12F00AB0C1A /* Model */,
@@ -219,11 +232,24 @@
 		445354C42701D5AF007DB9C2 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				445354C52701D5F2007DB9C2 /* Persistence.swift */,
-				445355422701E45F007DB9C2 /* CustomPhrases.swift */,
-				445355442701E55D007DB9C2 /* FixedPhrases.swift */,
+				445354C52701D5F2007DB9C2 /* PersistenceStack.swift */,
+				445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */,
+				445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */,
+				4453554627020B32007DB9C2 /* SlotPersistence.swift */,
+				4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */,
+				4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		4453554C27020DB9007DB9C2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4453554D27020DDA007DB9C2 /* DictionaryService.swift */,
+				4453554F27020F7E007DB9C2 /* KnownWordsService.swift */,
+				4453555127020FDE007DB9C2 /* CleanedWordsService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4479159F26B7DA86002E9F8C /* Windows */ = {
@@ -383,33 +409,39 @@
 				442298B7269EADC1008B410B /* DictionariesView.swift in Sources */,
 				44A2194326D6535600706A59 /* GlobalWindows.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
+				4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
 				44C207BA2701A8E300419F63 /* CustomPhrasesView.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
+				4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
-				445355432701E45F007DB9C2 /* CustomPhrases.swift in Sources */,
+				445355432701E45F007DB9C2 /* CustomPhrasesPersistence.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,
+				4453554727020B32007DB9C2 /* SlotPersistence.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
+				4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
-				445355452701E55D007DB9C2 /* FixedPhrases.swift in Sources */,
+				445355452701E55D007DB9C2 /* FixedPhrasesPersistence.swift in Sources */,
+				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
 				44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */,
+				4453555027020F7E007DB9C2 /* KnownWordsService.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */,
-				445354C62701D5F2007DB9C2 /* Persistence.swift in Sources */,
+				445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */,
 				442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */,
 				442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */,
 				4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */,

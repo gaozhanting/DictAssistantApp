@@ -26,3 +26,5 @@ class DisplayedWords: ObservableObject {
         self.wordCells = wordCells
     }
 }
+
+let displayedWords = DisplayedWords(wordCells: [])
