@@ -29,6 +29,8 @@
 		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
 		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
 		445354C62701D5F2007DB9C2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* Persistence.swift */; };
+		445355432701E45F007DB9C2 /* CustomPhrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* CustomPhrases.swift */; };
+		445355452701E55D007DB9C2 /* FixedPhrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355442701E55D007DB9C2 /* FixedPhrases.swift */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
@@ -76,6 +78,8 @@
 		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
 		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
 		445354C52701D5F2007DB9C2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		445355422701E45F007DB9C2 /* CustomPhrases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhrases.swift; sourceTree = "<group>"; };
+		445355442701E55D007DB9C2 /* FixedPhrases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedPhrases.swift; sourceTree = "<group>"; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
@@ -216,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				445354C52701D5F2007DB9C2 /* Persistence.swift */,
+				445355422701E45F007DB9C2 /* CustomPhrases.swift */,
+				445355442701E55D007DB9C2 /* FixedPhrases.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -389,12 +395,14 @@
 				440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
+				445355432701E45F007DB9C2 /* CustomPhrases.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
+				445355452701E55D007DB9C2 /* FixedPhrases.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,

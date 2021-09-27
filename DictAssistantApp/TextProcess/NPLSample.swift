@@ -91,28 +91,28 @@ struct NPLSample {
             // notice this way insert result, long phrase will override the shorter phrase of the same index, that seems reasonable.
             if index >= 1 {
                 let phrase = "\(words[index-1]) \(word)"
-                if phrasesDB.contains(phrase) {
+                if isPhraseInWhichPhrases(phrase) {
                     result[index] = phrase
                 }
             }
             
             if index >= 2 {
                 let phrase = "\(words[index-2]) \(words[index-1]) \(word)"
-                if phrasesDB.contains(phrase) {
+                if isPhraseInWhichPhrases(phrase) {
                     result[index] = phrase
                 }
             }
             
             if index >= 3 {
                 let phrase = "\(words[index-3]) \(words[index-2]) \(words[index-1]) \(word)"
-                if phrasesDB.contains(phrase) {
+                if isPhraseInWhichPhrases(phrase) {
                     result[index] = phrase
                 }
             }
             
             if index >= 4 {
                 let phrase = "\(words[index-4]) \(words[index-3]) \(words[index-2]) \(words[index-1]) \(word)"
-                if phrasesDB.contains(phrase) {
+                if isPhraseInWhichPhrases(phrase) {
                     result[index] = phrase
                 }
             }
@@ -202,10 +202,10 @@ struct NPLSample {
         
         return results
     }
-    
-    var phrasesSet: Set<String>
-    
-    init(phrasesSet: Set<String>) {
-        self.phrasesSet = phrasesSet
-    }
+}
+
+let nplSample = NPLSample()
+
+func isPhraseInWhichPhrases(_ phrase: String) -> Bool {
+    return isPhraseInFixedPhrases(phrase) || isPhraseInCustomPhrases(phrase)
 }
