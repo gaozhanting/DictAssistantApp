@@ -42,6 +42,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
         initCustomDictPanel()
         
+        initCustomPhrasesPanel()
+        
         initExtraDictionariesPanel()
 
         initToastWindow()
@@ -268,6 +270,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
         menu.addItem(NSMenuItem.separator())
         
+        let showCustomPhrasesPanelItem = NSMenuItem(title: NSLocalizedString("Show Custom Phrases Panel", comment: ""), action: #selector(showCustomPhrasesPanel), keyEquivalent: "")
+        menu.addItem(showCustomPhrasesPanelItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
         let showExtraDictionariesItem = NSMenuItem(title: NSLocalizedString("Show Extra Dictionaries Panel", comment: ""), action: #selector(showExtraDictionariesPanel), keyEquivalent: "")
         menu.addItem(showExtraDictionariesItem)
         
@@ -430,6 +437,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         customDictPanel.orderFrontRegardless()
     }
     
+    // MARK: - Custom Phrases
+    var customPhrasesPanel: NSPanel!
+    func initCustomPhrasesPanel() {
+        customPhrasesPanel = NSPanel.init(
+            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+            styleMask: [
+                .nonactivatingPanel,
+                .titled,
+                .closable,
+                .miniaturizable,
+                .resizable,
+                .utilityWindow,
+            ],
+            backing: .buffered,
+            defer: false
+            //            screen: NSScreen.main
+        )
+        
+        customPhrasesPanel.setFrameAutosaveName("customPhrasesPanel")
+        
+        customPhrasesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        customPhrasesPanel.isReleasedWhenClosed = false
+    }
+    
+    @objc func showCustomPhrasesPanel() {
+        let customPhrasesView = CustomPhrasesView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environment(\.addMultiCustomPhrases, addMultiCustomPhrases)
+            .environment(\.removeMultiCustomPhrases, removeMultiCustomPhrases)
+        
+        customPhrasesPanel.contentView = NSHostingView(rootView: customPhrasesView)
+        customPhrasesPanel.orderFrontRegardless()
+    }
+    
     // MARK: - Extra Dictionaries Panel
     var extraDictionariesPanel: NSPanel!
     func initExtraDictionariesPanel() {
@@ -577,7 +618,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         saveContext()
     }
     
-    // MARK: - Core Data (Custom Phrases) (for recognition phrases, search from phrasesDB)
+    // MARK: - Core Data (Custom Phrases) (as complement of phrasesDB)
+    func getAllCustomPhrasesSet() -> Set<String> {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            let customePhrases = results.map { $0.phrase! }
+            return Set(customePhrases)
+        } catch {
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+            return Set()
+        }
+    }
+    
     func addMultiCustomPhrases(_ phrases: [String]) {
         let context = persistentContainer.viewContext
         

@@ -26,7 +26,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: FixedKnownWordsView())
+        let topViewController = NSHostingController(rootView: FixedCustomPhrasesView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -43,20 +43,91 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct FixedKnownWordsView: View {
+fileprivate struct FixedCustomPhrasesView: View {
+    @FetchRequest(
+        entity: CustomPhrase.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \CustomPhrase.phrase, ascending: true)
+        ]
+    ) var fetchedCustomPhrases: FetchedResults<CustomPhrase>
+    
+    var text: String {
+        fetchedCustomPhrases
+            .map { $0.phrase! }
+            .joined(separator: "\n")
+    }
+    
     var body: some View {
-        Text("a")
+        TextEditor(text: Binding.constant(text))
     }
 }
 
 fileprivate struct EditingView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.addMultiCustomPhrases) var addMultiCustomPhrases
+    @Environment(\.removeMultiCustomPhrases) var removeMultiCustomPhrases
+    
+    @State private var text = ""
+    var lines: [String] {
+        text.components(separatedBy: .newlines)
+    }
+    
+    func multiAdd() {
+        addMultiCustomPhrases(lines)
+    }
+    
+    func multiRemove() {
+        removeMultiCustomPhrases(lines)
+    }
+    
+    func isContainEmptyLine() -> Bool {
+        lines.contains { line in
+            line.allSatisfy { c in
+                c.isWhitespace
+            }
+        }
+    }
+    
     var body: some View {
-        Text("b")
+        TextEditor(text: $text)
+            .overlay(
+                HStack {
+                    Button(action: multiAdd) {
+                        Image(systemName: "rectangle.stack.badge.plus")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(isContainEmptyLine())
+                    
+                    Button(action: multiRemove) {
+                        Image(systemName: "rectangle.stack.badge.minus")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(isContainEmptyLine())
+                    
+                    MiniInfoView {
+                        InfoView()
+                    }
+                }
+                .padding(.trailing, 20)
+                .padding(.bottom, 5)
+                ,
+                alignment: .bottomTrailing
+            )
+    }
+}
+
+private struct InfoView: View {
+    var body: some View {
+        Text("Info")
+            .padding()
     }
 }
 
 struct CustomPhrasesView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomPhrasesView()
+        Group {
+            CustomPhrasesView()
+            InfoView()
+        }
     }
 }

@@ -86,6 +86,29 @@ extension EnvironmentValues {
     }
 }
 
+// Custom Phrases (core data operations)
+private struct addMultiCustomPhrasesEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ([String]) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var addMultiCustomPhrases: ([String]) -> Void {
+        get { self[addMultiCustomPhrasesEnvironmentKey].self }
+        set { self[addMultiCustomPhrasesEnvironmentKey.self] = newValue }
+    }
+}
+
+private struct removeMultiCustomPhrasesEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ([String]) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var removeMultiCustomPhrases: ([String]) -> Void {
+        get { self[removeMultiCustomPhrasesEnvironmentKey].self }
+        set { self[removeMultiCustomPhrasesEnvironmentKey.self] = newValue }
+    }
+}
+
 // Onboarding close panel
 private struct EndOnboardingEnvironmentKey: EnvironmentKey {
     static let defaultValue: () -> Void = {}
