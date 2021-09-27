@@ -577,6 +577,48 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         saveContext()
     }
     
+    // MARK: - Core Data (Custom Phrases) (for recognition phrases, search from phrasesDB)
+    func addMultiCustomPhrases(_ phrases: [String]) {
+        let context = persistentContainer.viewContext
+        
+        for phrase in phrases {
+            let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if results.isEmpty {
+                    let newCustomPhrase = CustomPhrase(context: context)
+                    newCustomPhrase.phrase = phrase
+                }
+            } catch {
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
+            }
+        }
+        saveContext()
+    }
+    
+    func removeMultiCustomPhrases(_ phrases: [String]) {
+        let context = persistentContainer.viewContext
+        
+        for phrase in phrases {
+            let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if let result = results.first {
+                    context.delete(result)
+                }
+            } catch {
+                logger.error("Failed to fetch request: \(error.localizedDescription)")
+            }
+        }
+        saveContext()
+    }
+    
     // MARK: - Core Data (Custom Dict)
     func getEntry(of word: String) -> CustomDict? {
         let context = persistentContainer.viewContext

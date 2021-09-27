@@ -40,6 +40,7 @@
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
 		44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownWordsView.swift */; };
 		44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
+		44C207BA2701A8E300419F63 /* CustomPhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* CustomPhrasesView.swift */; };
 		44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* CustomDictView.swift */; };
 		44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentPanel.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
@@ -85,6 +86,7 @@
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
 		44BCEC5526842086002D3D8C /* KnownWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsView.swift; sourceTree = "<group>"; };
 		44BCEC572684BADD002D3D8C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		44C207B92701A8E300419F63 /* CustomPhrasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhrasesView.swift; sourceTree = "<group>"; };
 		44C31D6C26FE035800ED6E08 /* CustomDictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictView.swift; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPanel.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
@@ -175,6 +177,38 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		445354C02701C4AD007DB9C2 /* Cropper */ = {
+			isa = PBXGroup;
+			children = (
+				440824D12689F4EE00EA7EEE /* CropperView.swift */,
+			);
+			path = Cropper;
+			sourceTree = "<group>";
+		};
+		445354C12701C4BB007DB9C2 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		445354C22701C4CD007DB9C2 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				446B24E626F1F0C400F1301D /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		445354C32701C4E5007DB9C2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				442134F226AD3C4B00963441 /* VisualEffectView.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		4479159F26B7DA86002E9F8C /* Windows */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,13 +234,12 @@
 		447D618F2643C11A00AB0C1A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				446B24E626F1F0C400F1301D /* OnboardingView.swift */,
-				442134F226AD3C4B00963441 /* VisualEffectView.swift */,
-				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
-				440824D12689F4EE00EA7EEE /* CropperView.swift */,
-				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
-				44C31D6C26FE035800ED6E08 /* CustomDictView.swift */,
 				442298B6269EADC1008B410B /* DictionariesView.swift */,
+				445354C32701C4E5007DB9C2 /* Utilities */,
+				445354C22701C4CD007DB9C2 /* Onboarding */,
+				445354C12701C4BB007DB9C2 /* Toast */,
+				445354C02701C4AD007DB9C2 /* Cropper */,
+				44C207BB2701A93600419F63 /* LanguageEditing */,
 				442134E126AC324100963441 /* Content */,
 				442134D326A9A34F00963441 /* Settings */,
 			);
@@ -235,6 +268,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44C207BB2701A93600419F63 /* LanguageEditing */ = {
+			isa = PBXGroup;
+			children = (
+				44C207B92701A8E300419F63 /* CustomPhrasesView.swift */,
+				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
+				44C31D6C26FE035800ED6E08 /* CustomDictView.swift */,
+			);
+			path = LanguageEditing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +367,7 @@
 				44A2194326D6535600706A59 /* GlobalWindows.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
+				44C207BA2701A8E300419F63 /* CustomPhrasesView.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
