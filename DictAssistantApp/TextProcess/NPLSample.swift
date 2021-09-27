@@ -202,6 +202,10 @@ struct NPLSample {
         
         return results
     }
+    
+    var phrasesSet: Set<String>
+    
+    init(phrasesSet: Set<String>) {
+        self.phrasesSet = phrasesSet
+    }
 }
-
-let nplSample = NPLSample()

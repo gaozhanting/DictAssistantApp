@@ -544,29 +544,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         }
     }
     
-    // MARK: - Core Data
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "WordStatistics")
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                logger.error("Unable to load persistent stores: \(error.localizedDescription)")
-            }
-        }
-        return container
-    }()
-    
-    func saveContext(_ completionHandler: () -> Void = {}) {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-                completionHandler()
-            } catch {
-                logger.info("Failed to save context: \(error.localizedDescription)")
-            }
-        }
-    }
-    
     func saveContextWithChangingKnownWordsSideEffect() {
         saveContext {
             allKnownWordsSetCache = getAllKnownWordsSet()
@@ -619,6 +596,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     }
     
     // MARK: - Core Data (Custom Phrases) (as complement of phrasesDB)
+    func generatePharsesSet() -> Set<String> {
+        phrasesDB.union(getAllCustomPhrasesSet())
+    }
+    
     func getAllCustomPhrasesSet() -> Set<String> {
         let context = persistentContainer.viewContext
         
@@ -825,8 +806,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
     
     var cleanedWords: [String] = [] // for communication with saveContext
     
+    var nplSample = NPLSample(phrasesSet: Set.init())
+    
     func trCallBack(texts: [String]) {
+        nplSample.phrasesSet = generatePharsesSet()
         let primitiveWords = nplSample.process(texts)
+        
         cleanedWords =
             primitiveWords
             .filter { word in // remove pure numbers

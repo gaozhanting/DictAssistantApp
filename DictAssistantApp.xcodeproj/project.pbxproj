@@ -28,6 +28,7 @@
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
 		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
 		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
+		445354C62701D5F2007DB9C2 /* Persistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* Persistent.swift */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
@@ -74,6 +75,7 @@
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
 		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
 		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
+		445354C52701D5F2007DB9C2 /* Persistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		4440EE42262EDCA3007FF470 /* DictAssistantApp */ = {
 			isa = PBXGroup;
 			children = (
+				445354C42701D5AF007DB9C2 /* CoreData */,
 				447D61912643C89700AB0C1A /* TextProcess */,
 				447D61902643C12F00AB0C1A /* Model */,
 				447D618F2643C11A00AB0C1A /* Views */,
@@ -207,6 +210,14 @@
 				442134F226AD3C4B00963441 /* VisualEffectView.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		445354C42701D5AF007DB9C2 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				445354C52701D5F2007DB9C2 /* Persistent.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		4479159F26B7DA86002E9F8C /* Windows */ = {
@@ -390,6 +401,7 @@
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
 				44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */,
+				445354C62701D5F2007DB9C2 /* Persistent.swift in Sources */,
 				442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */,
 				442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */,
 				4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */,

@@ -118,12 +118,7 @@ let systemDefaultMinimumTextHeight: Double = 0.03125
  5 words: 6898 2%
  // ignores >5 when do phrase detect programming
  */
-let phrasesDB: Set<String> = {
-    let fixedPhrasesSet = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
-//    let customePhrasesSet = getAllCustomPhrasesSet()
-//    return fixedPhrasesSet.union(customePhrasesSet)
-    return fixedPhrasesSet
-}()
+let phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
 
 let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
 
