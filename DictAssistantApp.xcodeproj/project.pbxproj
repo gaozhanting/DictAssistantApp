@@ -197,30 +197,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		445354C02701C4AD007DB9C2 /* Cropper */ = {
-			isa = PBXGroup;
-			children = (
-				440824D12689F4EE00EA7EEE /* CropperView.swift */,
-			);
-			path = Cropper;
-			sourceTree = "<group>";
-		};
-		445354C12701C4BB007DB9C2 /* Toast */ = {
-			isa = PBXGroup;
-			children = (
-				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
-			);
-			path = Toast;
-			sourceTree = "<group>";
-		};
-		445354C22701C4CD007DB9C2 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				446B24E626F1F0C400F1301D /* OnboardingView.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		445354C32701C4E5007DB9C2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,10 +254,10 @@
 			isa = PBXGroup;
 			children = (
 				442298B6269EADC1008B410B /* DictionariesView.swift */,
+				446B24E626F1F0C400F1301D /* OnboardingView.swift */,
+				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
+				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				445354C32701C4E5007DB9C2 /* Utilities */,
-				445354C22701C4CD007DB9C2 /* Onboarding */,
-				445354C12701C4BB007DB9C2 /* Toast */,
-				445354C02701C4AD007DB9C2 /* Cropper */,
 				44C207BB2701A93600419F63 /* LanguageEditing */,
 				442134E126AC324100963441 /* Content */,
 				442134D326A9A34F00963441 /* Settings */,
