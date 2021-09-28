@@ -50,8 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
         constructMenuBar()
 
-        allKnownWordsSetCache = getAllKnownWordsSet() // take 0.02s for 6000 known words
-
         aVSessionAndTR = AVSessionAndTR.init(
             cropperWindow: cropperWindow,
             trCallBack: trCallBack
@@ -585,7 +583,7 @@ func whichAnimation() -> Animation? {
 func tagWords(_ cleanedWords: [String]) -> [WordCell] {
     var taggedWords: [WordCell] = []
     for word in cleanedWords {
-        if allKnownWordsSetCache.contains(word) {
+        if isWordInKnownWords(word) {
             taggedWords.append(WordCell(word: word, isKnown: .known, trans: "")) // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
         } else {
             if let trans = cachedDictionaryServicesDefine(word) {

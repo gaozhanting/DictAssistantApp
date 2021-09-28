@@ -13,20 +13,20 @@ import CoreData
 //    phrasesDB.union(getAllCustomPhrasesSet())
 //}
 
-func getAllCustomPhrasesSet() -> Set<String> {
-    let context = persistentContainer.viewContext
-    
-    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
-    
-    do {
-        let results = try context.fetch(fetchRequest)
-        let customePhrases = results.map { $0.phrase! }
-        return Set(customePhrases)
-    } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return Set()
-    }
-}
+//func getAllCustomPhrasesSet() -> Set<String> {
+//    let context = persistentContainer.viewContext
+//
+//    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+//
+//    do {
+//        let results = try context.fetch(fetchRequest)
+//        let customePhrases = results.map { $0.phrase! }
+//        return Set(customePhrases)
+//    } catch {
+//        logger.error("Failed to fetch request: \(error.localizedDescription)")
+//        return Set()
+//    }
+//}
 
 func isPhraseInCustomPhrases(_ phrase: String) -> Bool {
     let context = persistentContainer.viewContext

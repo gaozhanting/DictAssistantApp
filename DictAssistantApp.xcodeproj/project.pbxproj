@@ -35,7 +35,6 @@
 		4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */; };
 		4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */; };
 		4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
-		4453555027020F7E007DB9C2 /* KnownWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554F27020F7E007DB9C2 /* KnownWordsService.swift */; };
 		4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555127020FDE007DB9C2 /* CleanedWordsService.swift */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
@@ -90,7 +89,6 @@
 		4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictPersistence.swift; sourceTree = "<group>"; };
 		4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsPersistence.swift; sourceTree = "<group>"; };
 		4453554D27020DDA007DB9C2 /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
-		4453554F27020F7E007DB9C2 /* KnownWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsService.swift; sourceTree = "<group>"; };
 		4453555127020FDE007DB9C2 /* CleanedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanedWordsService.swift; sourceTree = "<group>"; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 			isa = PBXGroup;
 			children = (
 				4453554D27020DDA007DB9C2 /* DictionaryService.swift */,
-				4453554F27020F7E007DB9C2 /* KnownWordsService.swift */,
 				4453555127020FDE007DB9C2 /* CleanedWordsService.swift */,
 			);
 			path = Services;
@@ -415,7 +412,6 @@
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
 				44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */,
-				4453555027020F7E007DB9C2 /* KnownWordsService.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */,
 				445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */,
 				442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */,

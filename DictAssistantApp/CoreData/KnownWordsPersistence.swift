@@ -8,19 +8,19 @@
 import Foundation
 import CoreData
 
-// todo: how to make it effecient?
-func getAllKnownWordsSet() -> Set<String> {
+func isWordInKnownWords(_ word: String) -> Bool {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+    fetchRequest.fetchLimit = 1
     
     do {
         let results = try context.fetch(fetchRequest)
-        let knownWords = results.map { $0.word! }
-        return Set(knownWords)
+        return !results.isEmpty
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return Set()
+        return false
     }
 }
 
@@ -89,7 +89,6 @@ func deleteAllKnownWords() {
 // MARK: - Core Data saveContext with side effect
 func saveContextWithChangingKnownWordsSideEffect() {
     saveContext {
-        allKnownWordsSetCache = getAllKnownWordsSet()
         let taggedWords = tagWords(cleanedWords)
         mutateDisplayedWords(taggedWords)
     }

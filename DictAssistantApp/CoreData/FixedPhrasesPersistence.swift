@@ -9,20 +9,20 @@ import Foundation
 import CoreData
 
 // MARK: - Core Data (Fixed Phrases)
-func getAllFixedPhrasesSet() -> Set<String> {
-    let context = persistentContainer.viewContext
-    
-    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
-    
-    do {
-        let results = try context.fetch(fetchRequest)
-        let customePhrases = results.map { $0.phrase! }
-        return Set(customePhrases)
-    } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return Set()
-    }
-}
+//func getAllFixedPhrasesSet() -> Set<String> {
+//    let context = persistentContainer.viewContext
+//    
+//    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
+//    
+//    do {
+//        let results = try context.fetch(fetchRequest)
+//        let customePhrases = results.map { $0.phrase! }
+//        return Set(customePhrases)
+//    } catch {
+//        logger.error("Failed to fetch request: \(error.localizedDescription)")
+//        return Set()
+//    }
+//}
 
 func batchInsertFixedPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
