@@ -389,34 +389,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
             .environmentObject(displayedWords)
     }
     
-    // MARK: - contentWindow
-    func initContentWindow() {
-        // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
-        contentWindow = ContentPanel.init(
-            contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
-            name: "portraitWordsPanel"
-        )
-        
-        contentWindow.delegate = self
-                
-        let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
-        syncContentWindowShadow(from: isShowWindowShadow)
-
-        contentWindow.close()
-    }
-    
-    // MARK: - cropperWindow
-    func initCropperWindow() {
-        cropperWindow = CropperWindow.init(
-            contentRect: NSRect(x: 300, y: 300, width: 600, height: 200),
-            name: "cropperWindow"
-        )
-        
-        cropperWindow.delegate = self
-
-        cropperWindow.close()
-    }
-    
     // MARK: - Known Words Panel
     var knownWordsPanel: NSPanel!
     func initKnownWordsPanel() {
@@ -562,34 +534,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         
         UserDefaults.standard.setValue(fontName, forKey: FontNameKey)
         UserDefaults.standard.setValue(newFont.pointSize, forKey: FontSizeKey)
-    }
-    
-    // MARK: - Sync frame to selected Slot
-    func windowDidMove(_ notification: Notification) { // content window && cropper window
-        myPrint(">>windowDidMove")
-        updateSelectedSlot()
-        myPrint("<<updateSelectedSlot windowDidMove")
-    }
-    
-    func windowDidResize(_ notification: Notification) { // content window && cropper window
-        myPrint(">>windowDidResize")
-        updateSelectedSlot()
-        myPrint("<<updateSelectedSlot windowDidResize")
-    }
-    
-    func updateSelectedSlot() {
-        let slots = getAllSlots()
-        for slot in slots {
-            if slot.isSelected {
-                var settings = dataToSettings(slot.settings!)!
-                settings.contentFrame = contentWindow.frame
-                settings.cropperFrame = cropperWindow.frame
-                slot.settings = settingsToData(settings)
-                saveContext()
-                myPrint("did save slot")
-                return
-            }
-        }
     }
     
     // MARK:- Words
