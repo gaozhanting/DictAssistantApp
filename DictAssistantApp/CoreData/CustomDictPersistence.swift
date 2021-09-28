@@ -37,13 +37,15 @@ func addMultiEntriesToCustomDict(entries: [Entry]) {
         fetchRequest.fetchLimit = 1
         
         do { // todo: how to update core data item?
-            let results = try context.fetch(fetchRequest)
-            if let result = results.first {
-                context.delete(result)
+            let customDicts = try context.fetch(fetchRequest)
+            if let customDict = customDicts.first { // update
+                customDict.word = entry.word
+                customDict.trans = entry.trans
+            } else { // insert
+                let newEntry = CustomDict(context: context)
+                newEntry.word = entry.word
+                newEntry.trans = entry.trans
             }
-            let newEntry = CustomDict(context: context)
-            newEntry.word = entry.word
-            newEntry.trans = entry.trans
         } catch {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
