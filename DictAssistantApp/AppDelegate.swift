@@ -13,16 +13,14 @@ import CryptoKit
 import Foundation
 import Vision
 import KeyboardShortcuts
-import Preferences
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate {
     
     // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
     var aVSessionAndTR: AVSessionAndTR!
     
     // MARK: - Application
-    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -64,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
             deleteAllKnownWords()
             deleteAllSlots()
-            onboarding() // when onboarding end, set IsFinishedOnboardingKey true
+            MenuSelectors.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
         }
     }
     
@@ -120,61 +118,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
 //        // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
 //        return persistentContainer.viewContext.undoManager
 //    }
-    
-    // MARK: - Onboarding
-    var onboardingPanel: NSPanel!
-    func initOnboardingPanel() {
-        onboardingPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 650, height: 530),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-            ],
-            backing: .buffered,
-            defer: false
-        )
-        
-        onboardingPanel.setFrameAutosaveName("onBoardingPanel")
-    }
-    
-    @objc func onboarding() {
-        let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.addMultiToKnownWords, addMultiToKnownWords)
-            .environment(\.endOnboarding, endOnboarding)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
-        onboardingPanel.contentView = NSHostingView(rootView: onboardingView)
-        onboardingPanel.center()
-        onboardingPanel.orderFrontRegardless()
-    }
-    
-    func endOnboarding() {
-        onboardingPanel.close()
-    }
-    
-    // MARK: - Preferences
-    private lazy var preferencesWindowController = PreferencesWindowController(
-        preferencePanes: [
-            GeneralPreferenceViewController(),
-            AppearancePreferenceViewController(refreshContentWhenChangingUseCustomDictMode: refreshContentWhenChangingUseCustomDictMode),
-            SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
-        ],
-        style: .toolbarItems,
-        animated: true,
-        hidesToolbarForSingleItem: true
-    )
-    
-    @objc func showPreferences() {
-        preferencesWindowController.show()
-    }
-    
-    func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
-        preferencesWindowController.show(preferencePane: .slots)
-        preferencesWindowController.show(preferencePane: .appearance)
-        preferencesWindowController.show(preferencePane: .general)
-        preferencesWindowController.close()
-    }
     
     // MARK: - Global short cut key
     enum FlowStep {
@@ -293,62 +236,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         cropperWindow.standardWindowButton(.toolbarButton)?.isHidden = true
     }
     
-    // MARK: - MenuBar
-    let menu = NSMenu()
-        
-    func constructMenuBar() {
-        statusItem.button?.image = NSImage(
-            systemSymbolName: "d.circle",
-            accessibilityDescription: nil
-        )
-        
-        let showSettingsPanelItem = NSMenuItem(title: NSLocalizedString("Preferences...", comment:  ""), action: #selector(showPreferences), keyEquivalent: ",")
-        menu.addItem(showSettingsPanelItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let showKnownWordsPanelItem = NSMenuItem(title: NSLocalizedString("Show Known Words Panel", comment: ""), action: #selector(showKnownWordsPanel), keyEquivalent: "")
-        menu.addItem(showKnownWordsPanelItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let showCustomDictPanelItem = NSMenuItem(title: NSLocalizedString("Show Custom Dict Panel", comment: ""), action: #selector(showCustomDictPanel), keyEquivalent: "")
-        menu.addItem(showCustomDictPanelItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let showCustomPhrasesPanelItem = NSMenuItem(title: NSLocalizedString("Show Custom Phrases Panel", comment: ""), action: #selector(showCustomPhrasesPanel), keyEquivalent: "")
-        menu.addItem(showCustomPhrasesPanelItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let showExtraDictionariesItem = NSMenuItem(title: NSLocalizedString("Show Extra Dictionaries Panel", comment: ""), action: #selector(showExtraDictionariesPanel), keyEquivalent: "")
-        menu.addItem(showExtraDictionariesItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        let helpMenu = NSMenu(title: NSLocalizedString("Help", comment: ""))
-        helpMenu.delegate = self
-        helpMenu.addItem(withTitle: NSLocalizedString("Show Onboarding Panel", comment: ""), action: #selector(onboarding), keyEquivalent: "")
-        helpMenu.addItem(withTitle: NSLocalizedString("Watch Tutorial Video", comment: ""), action: #selector(openTutorialVideoURL), keyEquivalent: "")
-        let helpMenuItem = NSMenuItem(title: NSLocalizedString("Help", comment: ""), action: nil, keyEquivalent: "")
-        menu.addItem(helpMenuItem)
-        menu.setSubmenu(helpMenu, for: helpMenuItem)
-        
-        menu.addItem(NSMenuItem.separator())
-        
-        menu.addItem(NSMenuItem(title: NSLocalizedString("Quit", comment: ""), action: #selector(exit), keyEquivalent: ""))
-        
-        statusItem.menu = menu
-    }
-    
-    @objc func openTutorialVideoURL() {
-        guard let url = URL(string: "https://www.youtube.com/watch?v=afHqGHDfZKA") else {
-            return
-        }
-        NSWorkspace.shared.open(url)
-    }
-    
     func startPlaying() {
         toastOn()
         statusData.isPlaying = true
@@ -375,148 +262,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMenuDele
         aVSessionAndTR.stopScreenCapture()
     }
 
-    @objc func exit() {
-        NSApplication.shared.terminate(self)
-    }
-    
     @ViewBuilder
     func attachEnv(_ view: AnyView) -> some View {
         view
             .environment(\.addToKnownWords, addToKnownWords)
             .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(displayedWords)
-    }
-    
-    // MARK: - Known Words Panel
-    var knownWordsPanel: NSPanel!
-    func initKnownWordsPanel() {
-        knownWordsPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-            //            screen: NSScreen.main
-        )
-        
-        knownWordsPanel.setFrameAutosaveName("knownWordsPanel")
-        
-        knownWordsPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-        knownWordsPanel.isReleasedWhenClosed = false
-    }
-    
-    @objc func showKnownWordsPanel() {
-        let knownWordsView = KnownWordsView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.removeMultiFromKnownWords, removeMultiFromKnownWords)
-            .environment(\.addMultiToKnownWords, addMultiToKnownWords)
-
-        knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
-        knownWordsPanel.orderFrontRegardless()
-    }
-    
-    // MARK: - Custom Dict Panel
-    var customDictPanel: NSPanel!
-    func initCustomDictPanel() {
-        customDictPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-            //            screen: NSScreen.main
-        )
-        
-        customDictPanel.setFrameAutosaveName("customDictPanel")
-        
-        customDictPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-        customDictPanel.isReleasedWhenClosed = false
-    }
-    
-    @objc func showCustomDictPanel() {
-        let customDictView = CustomDictView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.addMultiEntriesToCustomDict, addMultiEntriesToCustomDict)
-            .environment(\.removeMultiWordsFromCustomDict, removeMultiWordsFromCustomDict)
-        
-        customDictPanel.contentView = NSHostingView(rootView: customDictView)
-        customDictPanel.orderFrontRegardless()
-    }
-    
-    // MARK: - Custom Phrases
-    var customPhrasesPanel: NSPanel!
-    func initCustomPhrasesPanel() {
-        customPhrasesPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-            //            screen: NSScreen.main
-        )
-        
-        customPhrasesPanel.setFrameAutosaveName("customPhrasesPanel")
-        
-        customPhrasesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-        customPhrasesPanel.isReleasedWhenClosed = false
-    }
-    
-    @objc func showCustomPhrasesPanel() {
-        let customPhrasesView = CustomPhrasesView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.addMultiCustomPhrases, addMultiCustomPhrases)
-            .environment(\.removeMultiCustomPhrases, removeMultiCustomPhrases)
-        
-        customPhrasesPanel.contentView = NSHostingView(rootView: customPhrasesView)
-        customPhrasesPanel.orderFrontRegardless()
-    }
-    
-    // MARK: - Extra Dictionaries Panel
-    var extraDictionariesPanel: NSPanel!
-    func initExtraDictionariesPanel() {
-        extraDictionariesPanel = NSPanel.init(
-            contentRect: NSRect(x: 200, y: 100, width: 400, height: 600),
-            styleMask: [
-                .nonactivatingPanel,
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable,
-                .utilityWindow,
-            ],
-            backing: .buffered,
-            defer: false
-            //            screen: NSScreen.main
-        )
-        
-        extraDictionariesPanel.setFrameAutosaveName("extraDictionariesPanel")
-        
-        extraDictionariesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
-    }
-    
-    @objc func showExtraDictionariesPanel() {
-        let extraDictionariesView = DictionariesView()
-        
-        extraDictionariesPanel.contentView = NSHostingView(rootView: extraDictionariesView)
-        extraDictionariesPanel.orderFrontRegardless()
     }
 
     // MARK:- changeFont trigger from FontPanel
