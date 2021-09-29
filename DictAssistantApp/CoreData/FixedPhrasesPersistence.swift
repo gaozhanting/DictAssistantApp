@@ -89,10 +89,7 @@ func isPhraseInFixedPhrases(_ phrase: String) -> Bool {
     
     do {
         let results = try context.fetch(fetchRequest)
-        if results.first != nil {
-            return true
-        }
-        return false
+        return !results.isEmpty
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
         return false
