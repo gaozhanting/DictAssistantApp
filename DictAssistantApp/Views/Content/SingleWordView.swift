@@ -72,10 +72,6 @@ fileprivate struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://dictionary.cambridge.org/dictionary/english/")
     }
     
-    func openMacMillian(_ word: String) {
-        openExternalDict(word, urlPrefix: "https://www.macmillandictionary.com/dictionary/british/") // not work for phrase
-    }
-    
     func openLexico(_ word: String) {
         openExternalDict(word, urlPrefix: "https://www.lexico.com/en/definition/")
     }
@@ -98,16 +94,18 @@ fileprivate struct TextBody: View {
                     unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
                 })
                 Button("Edit Custom Dict Entry", action: {
-                    showEditingEntry = true
+                    showEditingCustomDictEntryPopover = true
                 })
                 Menu("Online Dict Link") {
                     Button("Collins", action: { openCollins(word) })
                     Button("Cambridge", action: { openCambridge(word) })
-//                    Button("MacMillian", action: { openMacMillian(word) })
                     Button("Lexico", action: { openLexico(word) })
                     Button("Dictionary", action: { openDictionary(word) })
                     Button("Thesaurus", action: { openThesaurus(word) })
                 }
+            }
+            .popover(isPresented: $showEditingCustomDictEntryPopover) {
+                    EditCustomDictEntryView(word: word)
             }
             .gesture(
                 TapGesture()
@@ -130,19 +128,9 @@ fileprivate struct TextBody: View {
                         openDict(word)
                     }
             )
-//            .gesture(
-//                TapGesture()
-//                    .modifiers(.function)
-//                    .onEnded { _ in
-//                        showEditingEntry = true
-//                    }
-//            )
-            .popover(isPresented: $showEditingEntry, content: {
-                EditCustomDictEntryView(word: word)
-            })
     }
     
-    @State private var showEditingEntry: Bool = false
+    @State private var showEditingCustomDictEntryPopover: Bool = false
     
     var body: some View {
         if contentStyle == .landscape {
@@ -174,12 +162,6 @@ fileprivate struct EditCustomDictEntryView: View {
     let word: String
     @State private var trans: String = ""
     
-    func isTransMultiLine() -> Bool {
-        return trans.contains { c in
-            c.isNewline
-        }
-    }
-    
     func add() {
         let entries = [Entry(word: word, trans: trans)]
         addMultiEntriesToCustomDict(entries) // only add one entry here
@@ -197,7 +179,7 @@ fileprivate struct EditCustomDictEntryView: View {
             Button(action: add) {
                 Image(systemName: "rectangle.badge.plus")
             }
-            .disabled(isTransMultiLine())
+            .disabled(trans.isMultiline)
             .keyboardShortcut(KeyEquivalent.return) // command + return
             
             Button(action: remove) {
@@ -208,6 +190,14 @@ fileprivate struct EditCustomDictEntryView: View {
         .frame(width: 380)
         .padding(.horizontal)
         .padding(.vertical, 2)
+    }
+}
+
+extension String {
+    var isMultiline: Bool {
+        self.contains { c in
+            c.isNewline
+        }
     }
 }
 

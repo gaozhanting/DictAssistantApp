@@ -47,6 +47,15 @@ func isPhraseInCustomPhrases(_ phrase: String) -> Bool {
     }
 }
 
+func addCustomPhrase(_ phrase: String) {
+    let context = persistentContainer.viewContext
+    
+    let newCustomPhrase = CustomPhrase(context: context)
+    newCustomPhrase.phrase = phrase
+
+    saveContext()
+}
+
 func addMultiCustomPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
     
