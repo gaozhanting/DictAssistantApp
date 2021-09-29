@@ -36,8 +36,8 @@ func isPhraseInCustomPhrases(_ phrase: String) -> Bool {
     fetchRequest.fetchLimit = 1
     
     do {
-        let results = try context.fetch(fetchRequest)
-        return !results.isEmpty
+        let count = try context.count(for: fetchRequest)
+        return count > 0
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
         return false
