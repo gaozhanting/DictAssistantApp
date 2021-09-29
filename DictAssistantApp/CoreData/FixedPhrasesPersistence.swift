@@ -61,6 +61,22 @@ func batchDeleteFixedPhrases(_ phrases: [String]) {
     saveContext()
 }
 
+func getAllFixedPhrasesSet() -> Set<String> {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
+    fetchRequest.propertiesToFetch = ["phrase"]
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        let phrases = results.map { $0.phrase! }
+        return Set.init(phrases)
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        return Set.init()
+    }
+}
+
 func addMultiFixedPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
     
