@@ -26,8 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
-//        batchInsertFixedPhrases(Array(phrasesDB)) // should preset, where is the data stored ?
-            
         initAllUserDefaultsIfNil()
         
         initCropperWindow()

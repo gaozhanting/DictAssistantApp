@@ -207,5 +207,5 @@ struct NPLSample {
 let nplSample = NPLSample()
 
 func isPhraseInWhichPhrases(_ phrase: String) -> Bool {
-    return isPhraseInFixedPhrases(phrase) || isPhraseInCustomPhrases(phrase)
+    return fixedPhrasesSet.contains(phrase) || customPhrasesSet.contains(phrase)
 }

@@ -8,35 +8,29 @@
 import Foundation
 import CoreData
 
-// MARK: - Core Data (Fixed Phrases)
-//func getAllFixedPhrasesSet() -> Set<String> {
-//    let context = persistentContainer.viewContext
-//    
-//    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
-//    
-//    do {
-//        let results = try context.fetch(fetchRequest)
-//        let customePhrases = results.map { $0.phrase! }
-//        return Set(customePhrases)
-//    } catch {
-//        logger.error("Failed to fetch request: \(error.localizedDescription)")
-//        return Set()
-//    }
-//}
+// global big constants
+/*
+ count is 366,502
+ 
+ all contains belows
+ 2 words: 262,321 71%
+ 3 words:  74,687 20%
+ 4 words:  21,620 5%
+ 5 words:   6,898 2%
+ // ignores >5 when do phrase detect programming
+ */
+//let phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
 
+// only once at development, from txt file to sql file
 func batchInsertFixedPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
-    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
     let insertRequest = NSBatchInsertRequest(
         entity: FixedPhrase.entity(),
         objects: phrases.map { phrase in
             ["phrase": phrase]
         }
-//        objects: [
-//            ["phrase": "p1"],
-//            ["phrase": "p2"]
-//        ]
     )
 
     do {
@@ -47,7 +41,8 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
     saveContext()
 }
 
-func batchDeleteFixedPhrases(_ phrases: [String]) {
+// only for development
+func batchDeleteAllFixedPhrases() {
     let context = persistentContainer.viewContext
 
     let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FixedPhrase")
@@ -61,55 +56,21 @@ func batchDeleteFixedPhrases(_ phrases: [String]) {
     saveContext()
 }
 
-func getAllFixedPhrasesSet() -> Set<String> {
+// for cache for running query
+let fixedPhrasesSet: Set<String> = getAllFixedPhrasesSet()
+
+private func getAllFixedPhrasesSet() -> Set<String> {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
-    fetchRequest.propertiesToFetch = ["phrase"]
+//    fetchRequest.propertiesToFetch = ["phrase"]
     
     do {
-        let results = try context.fetch(fetchRequest)
-        let phrases = results.map { $0.phrase! }
+        let fixedPhrase = try context.fetch(fetchRequest)
+        let phrases = fixedPhrase.map { $0.phrase! }
         return Set.init(phrases)
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return Set.init()
-    }
-}
-
-func addMultiFixedPhrases(_ phrases: [String]) {
-    let context = persistentContainer.viewContext
-    
-    for phrase in phrases {
-        let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.isEmpty {
-                let newFixedPhrase = FixedPhrase(context: context)
-                newFixedPhrase.phrase = phrase
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-        }
-    }
-    saveContext()
-}
-
-func isPhraseInFixedPhrases(_ phrase: String) -> Bool {
-    let context = persistentContainer.viewContext
-    
-    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
-    fetchRequest.fetchLimit = 1
-    
-    do {
-        let count = try context.count(for: fetchRequest)
-        return count > 0
-    } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return false
+        return Set()
     }
 }

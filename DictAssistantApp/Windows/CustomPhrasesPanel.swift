@@ -36,7 +36,7 @@ extension AppDelegate {
     @objc func showCustomPhrasesPanel() {
         let customPhrasesView = CustomPhrasesView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.addMultiCustomPhrases, addMultiCustomPhrases)
+            .environment(\.batchInsertCustomPhrases, batchInsertCustomPhrases)
             .environment(\.removeMultiCustomPhrases, removeMultiCustomPhrases)
         
         customPhrasesPanel.contentView = NSHostingView(rootView: customPhrasesView)

@@ -64,7 +64,7 @@ fileprivate struct FixedCustomPhrasesView: View {
 
 fileprivate struct EditingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.addMultiCustomPhrases) var addMultiCustomPhrases
+    @Environment(\.batchInsertCustomPhrases) var batchInsertCustomPhrases
     @Environment(\.removeMultiCustomPhrases) var removeMultiCustomPhrases
     
     @State private var text = ""
@@ -73,7 +73,7 @@ fileprivate struct EditingView: View {
     }
     
     func multiAdd() {
-        addMultiCustomPhrases(lines)
+        batchInsertCustomPhrases(lines)
     }
     
     func multiRemove() {

@@ -107,19 +107,6 @@ func timeElapsed(info: String, with closure: () -> Void) {
 
 let systemDefaultMinimumTextHeight: Double = 0.03125
 
-// global big constants
-/*
- count is 366502
- 
- all contains belows
- 2 words: 262321 71%
- 3 words: 74687 20%
- 4 words: 21620 5%
- 5 words: 6898 2%
- // ignores >5 when do phrase detect programming
- */
-//let phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
-
 let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
 
 // first, why TR not cool here, it's my code fault (refer offical wwdc sample project)

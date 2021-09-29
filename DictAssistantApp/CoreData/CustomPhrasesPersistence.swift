@@ -8,63 +8,28 @@
 import Foundation
 import CoreData
 
-// MARK: - Core Data (Custom Phrases)
-//func generatePharsesSet() -> Set<String> {
-//    phrasesDB.union(getAllCustomPhrasesSet())
-//}
-
-//func getAllCustomPhrasesSet() -> Set<String> {
-//    let context = persistentContainer.viewContext
-//
-//    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
-//
-//    do {
-//        let results = try context.fetch(fetchRequest)
-//        let customePhrases = results.map { $0.phrase! }
-//        return Set(customePhrases)
-//    } catch {
-//        logger.error("Failed to fetch request: \(error.localizedDescription)")
-//        return Set()
-//    }
-//}
-
-func isPhraseInCustomPhrases(_ phrase: String) -> Bool {
+// how to refresh UI ?
+func batchInsertCustomPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
+    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
     
-    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
-    fetchRequest.fetchLimit = 1
+    let insertRequest = NSBatchInsertRequest(
+        entity: CustomPhrase.entity(),
+        objects: phrases.map { phrase in
+            ["phrase": phrase]
+        }
+    )
     
     do {
-        let count = try context.count(for: fetchRequest)
-        return count > 0
+        try context.execute(insertRequest)
+        context.refreshAllObjects()
     } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return false
-    }
-}
-
-func addMultiCustomPhrases(_ phrases: [String]) {
-    let context = persistentContainer.viewContext
-    
-    for phrase in phrases {
-        let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.isEmpty {
-                let newCustomPhrase = CustomPhrase(context: context)
-                newCustomPhrase.phrase = phrase
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-        }
+        logger.error("Failed to batch insert custom phrases: \(error.localizedDescription)")
     }
     saveContext()
 }
 
+// can't batch delete specific collection ?!
 func removeMultiCustomPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
     
@@ -83,4 +48,22 @@ func removeMultiCustomPhrases(_ phrases: [String]) {
         }
     }
     saveContext()
+}
+
+// for cache for running query
+let customPhrasesSet: Set<String> = getAllCustomPhrasesSet()
+
+private func getAllCustomPhrasesSet() -> Set<String> {
+    let context = persistentContainer.viewContext
+
+    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+
+    do {
+        let customePhrases = try context.fetch(fetchRequest)
+        let phrases = customePhrases.map { $0.phrase! }
+        return Set(phrases)
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        return Set()
+    }
 }

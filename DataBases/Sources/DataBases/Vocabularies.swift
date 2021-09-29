@@ -27,10 +27,14 @@ public struct Vocabularies {
         }
     }
     
+    public static func readToArray(from file: String) -> [String] {
+        let text = Vocabularies.read(from: file)
+        let lines = text.components(separatedBy: .newlines)
+        return lines
+    }
+    
     public static func readToSet(from file: String) -> Set<String> {
-        let string = Vocabularies.read(from: file)
-        let idioms = string.split(separator: "\n").map { String($0) }
-        return Set(idioms)
+        return Set(readToArray(from: file))
     }
 }
 

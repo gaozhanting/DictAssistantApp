@@ -87,14 +87,14 @@ extension EnvironmentValues {
 }
 
 // Custom Phrases (core data operations)
-private struct addMultiCustomPhrasesEnvironmentKey: EnvironmentKey {
+private struct BatchInsertCustomPhrasesEnvironmentKey: EnvironmentKey {
     static let defaultValue: ([String]) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-    var addMultiCustomPhrases: ([String]) -> Void {
-        get { self[addMultiCustomPhrasesEnvironmentKey].self }
-        set { self[addMultiCustomPhrasesEnvironmentKey.self] = newValue }
+    var batchInsertCustomPhrases: ([String]) -> Void {
+        get { self[BatchInsertCustomPhrasesEnvironmentKey].self }
+        set { self[BatchInsertCustomPhrasesEnvironmentKey.self] = newValue }
     }
 }
 
