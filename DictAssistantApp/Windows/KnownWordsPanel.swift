@@ -31,8 +31,8 @@ func initKnownWordsPanel() {
     knownWordsPanel.isReleasedWhenClosed = false
 }
 
-extension MenuSelectors {
-    @objc public class func showKnownWordsPanel() {
+extension AppDelegate {
+    @objc func showKnownWordsPanel() {
         let knownWordsView = KnownWordsView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.removeMultiFromKnownWords, removeMultiFromKnownWords)

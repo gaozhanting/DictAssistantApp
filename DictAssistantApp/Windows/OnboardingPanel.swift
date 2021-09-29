@@ -23,8 +23,8 @@ func initOnboardingPanel() {
     onboardingPanel.setFrameAutosaveName("onBoardingPanel")
 }
 
-extension MenuSelectors {
-    @objc public class func onboarding() {
+extension AppDelegate {
+    @objc func onboarding() {
         let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.addMultiToKnownWords, addMultiToKnownWords)

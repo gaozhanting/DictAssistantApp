@@ -31,8 +31,8 @@ func initCustomPhrasesPanel() {
     customPhrasesPanel.isReleasedWhenClosed = false
 }
 
-extension MenuSelectors {
-    @objc public class func showCustomPhrasesPanel() {
+extension AppDelegate {
+    @objc func showCustomPhrasesPanel() {
         let customPhrasesView = CustomPhrasesView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.addMultiCustomPhrases, addMultiCustomPhrases)

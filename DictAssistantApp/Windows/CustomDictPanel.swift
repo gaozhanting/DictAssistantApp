@@ -32,8 +32,8 @@ func initCustomDictPanel() {
     customDictPanel.isReleasedWhenClosed = false
 }
 
-extension MenuSelectors {
-    @objc public class func showCustomDictPanel() {
+extension AppDelegate {
+    @objc func showCustomDictPanel() {
         let customDictView = CustomDictView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.addMultiEntriesToCustomDict, addMultiEntriesToCustomDict)

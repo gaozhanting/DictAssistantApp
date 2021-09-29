@@ -62,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
             deleteAllKnownWords()
             deleteAllSlots()
-            MenuSelectors.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
+            self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
         }
     }
     

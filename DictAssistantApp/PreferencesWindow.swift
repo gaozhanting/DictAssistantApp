@@ -19,8 +19,8 @@ private var preferencesWindowController = PreferencesWindowController(
     hidesToolbarForSingleItem: true
 )
 
-extension MenuSelectors {
-    @objc public class func showPreferences() {
+extension AppDelegate {
+    @objc func showPreferences() {
         preferencesWindowController.show()
     }
 }

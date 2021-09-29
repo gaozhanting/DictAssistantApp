@@ -30,8 +30,8 @@ func initExtraDictionariesPanel() {
     extraDictionariesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
 }
 
-extension MenuSelectors {
-    @objc public class func showExtraDictionariesPanel() {
+extension AppDelegate {
+    @objc func showExtraDictionariesPanel() {
         let extraDictionariesView = DictionariesView()
         
         extraDictionariesPanel.contentView = NSHostingView(rootView: extraDictionariesView)
