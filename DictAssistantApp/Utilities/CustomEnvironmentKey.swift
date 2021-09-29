@@ -53,14 +53,14 @@ extension EnvironmentValues {
 }
 
 // Custom Dict (core data operations)
-private struct AddMultiEntriesToCustomDictEnvironmentKey: EnvironmentKey {
+private struct BatchUpsertCustomDictsEnvironmentKey: EnvironmentKey {
     static let defaultValue: ([Entry]) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-    var addMultiEntriesToCustomDict: ([Entry]) -> Void {
-        get { self[AddMultiEntriesToCustomDictEnvironmentKey].self }
-        set { self[AddMultiEntriesToCustomDictEnvironmentKey.self] = newValue }
+    var batchUpsertCustomDicts: ([Entry]) -> Void {
+        get { self[BatchUpsertCustomDictsEnvironmentKey].self }
+        set { self[BatchUpsertCustomDictsEnvironmentKey.self] = newValue }
     }
 }
 

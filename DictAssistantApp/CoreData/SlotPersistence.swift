@@ -25,13 +25,14 @@ func getAllSlots() -> [Slot] {
 
 // for development, call at applicationDidFinishLaunching
 func deleteAllSlots() {
+    let context = persistentContainer.viewContext
+
     let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Slot")
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
     do {
-        try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+        try context.execute(deleteRequest)
     } catch {
         logger.error("Failed to delete all slots: \(error.localizedDescription)")
     }
-    saveContext()
 }

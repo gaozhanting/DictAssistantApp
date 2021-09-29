@@ -38,7 +38,6 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
     } catch {
         logger.error("Failed to batch insert all fixed Phrases: \(error.localizedDescription)")
     }
-    saveContext()
 }
 
 // only for development
@@ -53,7 +52,6 @@ func batchDeleteAllFixedPhrases() {
     } catch {
         logger.error("Failed to insert all fixed Phrases: \(error.localizedDescription)")
     }
-    saveContext()
 }
 
 // for cache for running query

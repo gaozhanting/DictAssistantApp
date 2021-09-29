@@ -28,29 +28,25 @@ func getEntry(of word: String) -> CustomDict? {
     }
 }
 
-func addMultiEntriesToCustomDict(entries: [Entry]) {
+func batchUpsertCustomDicts(entries: [Entry]) {
     let context = persistentContainer.viewContext
     
-    for entry in entries {
-        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word)
-        fetchRequest.fetchLimit = 1
-        
-        do { // todo: how to update core data item?
-            let customDicts = try context.fetch(fetchRequest)
-            if let customDict = customDicts.first { // update
-                customDict.word = entry.word
-                customDict.trans = entry.trans
-            } else { // insert
-                let newEntry = CustomDict(context: context)
-                newEntry.word = entry.word
-                newEntry.trans = entry.trans
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
+    // this got upsert behavior when do batch insert
+    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    
+    let insertRequest = NSBatchInsertRequest(
+        entity: CustomDict.entity(),
+        objects: entries.map { entry in
+            ["word": entry.word, "trans": entry.trans]
         }
+    )
+    
+    do {
+        try context.execute(insertRequest)
+    } catch {
+        logger.error("Failed to batch upsert custom dicts: \(error.localizedDescription)")
     }
-    saveContextWithChangingCustomDictSideEffect()
+    refreshContentWhenChangingUseCustomDictMode()
 }
 
 func removeMultiWordsFromCustomDict(words: [String]) {
@@ -75,8 +71,6 @@ func removeMultiWordsFromCustomDict(words: [String]) {
 
 func saveContextWithChangingCustomDictSideEffect() {
     saveContext {
-        cachedDict = [:]
-        let taggedWords = tagWords(cleanedWords)
-        mutateDisplayedWords(taggedWords)
+        refreshContentWhenChangingUseCustomDictMode()
     }
 }

@@ -156,7 +156,7 @@ fileprivate struct TextBody: View {
 
 fileprivate struct EditCustomDictEntryView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.addMultiEntriesToCustomDict) var addMultiEntriesToCustomDict
+    @Environment(\.batchUpsertCustomDicts) var batchUpsertCustomDicts
     @Environment(\.removeMultiWordsFromCustomDict) var removeMultiWordsFromCustomDict
     
     let word: String
@@ -164,7 +164,7 @@ fileprivate struct EditCustomDictEntryView: View {
     
     func add() {
         let entries = [Entry(word: word, trans: trans)]
-        addMultiEntriesToCustomDict(entries) // only add one entry here
+        batchUpsertCustomDicts(entries) // only add one entry here
     }
     
     func remove() {

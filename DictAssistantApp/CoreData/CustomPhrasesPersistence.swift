@@ -5,10 +5,10 @@
 //  Created by Gao Cong on 2021/9/27.
 //
 
-import Foundation
+import Cocoa
 import CoreData
 
-// how to refresh UI ?
+// how to refresh UI ? -> Notification(current not use)
 func batchInsertCustomPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
     context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
@@ -26,7 +26,10 @@ func batchInsertCustomPhrases(_ phrases: [String]) {
     } catch {
         logger.error("Failed to batch insert custom phrases: \(error.localizedDescription)")
     }
-    saveContext()
+    
+    // here saveContext() is nothing, because context is ignorant of batch operation
+    // I just reload the panel
+    showCustomPhrasesPanelX()
 }
 
 // can't batch delete specific collection ?!
@@ -47,6 +50,7 @@ func removeMultiCustomPhrases(_ phrases: [String]) {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
     }
+    
     saveContext()
 }
 

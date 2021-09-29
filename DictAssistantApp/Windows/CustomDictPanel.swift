@@ -36,7 +36,7 @@ extension AppDelegate {
     @objc func showCustomDictPanel() {
         let customDictView = CustomDictView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.addMultiEntriesToCustomDict, addMultiEntriesToCustomDict)
+            .environment(\.batchUpsertCustomDicts, batchUpsertCustomDicts)
             .environment(\.removeMultiWordsFromCustomDict, removeMultiWordsFromCustomDict)
         
         customDictPanel.contentView = NSHostingView(rootView: customDictView)

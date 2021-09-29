@@ -69,7 +69,7 @@ struct Entry {
 
 fileprivate struct EditingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.addMultiEntriesToCustomDict) var addMultiEntriesToCustomDict
+    @Environment(\.batchUpsertCustomDicts) var batchUpsertCustomDicts
     @Environment(\.removeMultiWordsFromCustomDict) var removeMultiWordsFromCustomDict
 
     @State private var text = ""
@@ -82,7 +82,7 @@ fileprivate struct EditingView: View {
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
         }
-        addMultiEntriesToCustomDict(entries)
+        batchUpsertCustomDicts(entries)
     }
     
     func multiRemove() {

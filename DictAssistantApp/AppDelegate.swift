@@ -147,7 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .ready:
                     let contentView = ContentView()
                         .environment(\.managedObjectContext, persistentContainer.viewContext)
-                        .environment(\.addMultiEntriesToCustomDict, addMultiEntriesToCustomDict)
+                        .environment(\.batchUpsertCustomDicts, batchUpsertCustomDicts)
                         .environment(\.removeMultiWordsFromCustomDict, removeMultiWordsFromCustomDict)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
