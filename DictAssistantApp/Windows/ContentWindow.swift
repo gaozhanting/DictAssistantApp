@@ -5,10 +5,37 @@
 //  Created by Gao Cong on 2021/6/12.
 //
 
-import Foundation
 import Cocoa
 
-class ContentPanel: NSPanel {
+// MARK: - content window
+var contentWindow: NSPanel!
+
+func initContentWindow() {
+    // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
+    contentWindow = ContentWindow.init(
+        contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
+        name: "portraitWordsPanel"
+    )
+    
+    contentWindow.delegate = ccDelegate
+            
+    let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
+    syncContentWindowShadow(from: isShowWindowShadow)
+
+    contentWindow.close()
+}
+
+func syncContentWindowShadow(from isShowWindowShadow: Bool) {
+    if isShowWindowShadow {
+        contentWindow.invalidateShadow()
+        contentWindow.hasShadow = true
+    } else {
+        contentWindow.invalidateShadow()
+        contentWindow.hasShadow = false
+    }
+}
+
+private class ContentWindow: NSPanel {
     init(contentRect: NSRect, name: String) {
         super.init(
             contentRect: contentRect,

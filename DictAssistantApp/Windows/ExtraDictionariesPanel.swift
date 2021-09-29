@@ -9,6 +9,7 @@ import Cocoa
 import SwiftUI
 
 var extraDictionariesPanel: NSPanel!
+
 func initExtraDictionariesPanel() {
     extraDictionariesPanel = NSPanel.init(
         contentRect: NSRect(x: 200, y: 100, width: 400, height: 600),

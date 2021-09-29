@@ -9,6 +9,7 @@ import Cocoa
 import SwiftUI
 
 var customPhrasesPanel: NSPanel!
+
 func initCustomPhrasesPanel() {
     customPhrasesPanel = NSPanel.init(
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),

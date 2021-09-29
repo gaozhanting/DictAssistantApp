@@ -5,10 +5,37 @@
 //  Created by Gao Cong on 2021/6/12.
 //
 
-import Foundation
 import Cocoa
+import SwiftUI
 
-class CropperWindow: NSWindow {
+var cropperWindow: NSWindow!
+
+func initCropperWindow() {
+    cropperWindow = CropperWindow.init(
+        contentRect: NSRect(x: 300, y: 300, width: 600, height: 200),
+        name: "cropperWindow"
+    )
+    
+    cropperWindow.delegate = ccDelegate
+
+    cropperWindow.close()
+}
+
+func syncCropperView(from cropperStyle: CropperStyle) {
+    switch cropperStyle {
+    case .closed:
+        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
+        cropperWindow.close()
+    case .rectangle:
+        cropperWindow.contentView = NSHostingView(rootView: RectangleCropperView())
+        cropperWindow.orderFrontRegardless()
+    case .leadingBorder:
+        cropperWindow.contentView = NSHostingView(rootView: LeadingBorderCropperView())
+        cropperWindow.orderFrontRegardless()
+    }
+}
+
+private class CropperWindow: NSWindow {
     init(contentRect: NSRect, name: String) {
         super.init(
             contentRect: contentRect,

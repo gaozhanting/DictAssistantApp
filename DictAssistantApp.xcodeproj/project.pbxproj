@@ -51,13 +51,13 @@
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
 		4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
-		44A2194326D6535600706A59 /* GlobalWindows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A2194226D6535600706A59 /* GlobalWindows.swift */; };
+		44A2194326D6535600706A59 /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A2194226D6535600706A59 /* CCDelegate.swift */; };
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
 		44BCEC5626842086002D3D8C /* KnownWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownWordsView.swift */; };
 		44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
 		44C207BA2701A8E300419F63 /* CustomPhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* CustomPhrasesView.swift */; };
 		44C31D6D26FE035800ED6E08 /* CustomDictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* CustomDictView.swift */; };
-		44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentPanel.swift */; };
+		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
 /* End PBXBuildFile section */
@@ -112,13 +112,13 @@
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
 		447F9B5426BD0451009C572F /* SlotsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsSettingsView.swift; sourceTree = "<group>"; };
 		4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentKey.swift; sourceTree = "<group>"; };
-		44A2194226D6535600706A59 /* GlobalWindows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalWindows.swift; sourceTree = "<group>"; };
+		44A2194226D6535600706A59 /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
 		44BCEC5526842086002D3D8C /* KnownWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsView.swift; sourceTree = "<group>"; };
 		44BCEC572684BADD002D3D8C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		44C207B92701A8E300419F63 /* CustomPhrasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhrasesView.swift; sourceTree = "<group>"; };
 		44C31D6C26FE035800ED6E08 /* CustomDictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictView.swift; sourceTree = "<group>"; };
-		44FBE4682674EBCE002A7599 /* ContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPanel.swift; sourceTree = "<group>"; };
+		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,8 +244,8 @@
 		4479159F26B7DA86002E9F8C /* Windows */ = {
 			isa = PBXGroup;
 			children = (
-				44A2194226D6535600706A59 /* GlobalWindows.swift */,
-				44FBE4682674EBCE002A7599 /* ContentPanel.swift */,
+				44A2194226D6535600706A59 /* CCDelegate.swift */,
+				44FBE4682674EBCE002A7599 /* ContentWindow.swift */,
 				44FBE46A2674ED28002A7599 /* CropperWindow.swift */,
 				447915A026B7DAAB002E9F8C /* ToastWindow.swift */,
 				4453555527042596007DB9C2 /* CustomDictPanel.swift */,
@@ -401,7 +401,7 @@
 			files = (
 				446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */,
 				442298B7269EADC1008B410B /* DictionariesView.swift in Sources */,
-				44A2194326D6535600706A59 /* GlobalWindows.swift in Sources */,
+				44A2194326D6535600706A59 /* CCDelegate.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
 				4453555627042596007DB9C2 /* CustomDictPanel.swift in Sources */,
@@ -416,7 +416,7 @@
 				4453555C27042873007DB9C2 /* ExtraDictionariesPanel.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
-				44FBE4692674EBCE002A7599 /* ContentPanel.swift in Sources */,
+				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
