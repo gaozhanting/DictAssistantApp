@@ -223,10 +223,10 @@
 			children = (
 				445354C52701D5F2007DB9C2 /* PersistenceStack.swift */,
 				445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */,
+				4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */,
+				4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */,
 				445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */,
 				4453554627020B32007DB9C2 /* SlotPersistence.swift */,
-				4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */,
-				4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
