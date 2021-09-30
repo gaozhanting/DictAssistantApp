@@ -1,36 +1,37 @@
 //
-//  KnownWordsPersistence.swift
+//  CustomNoise.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/9/27.
+//  Created by Gao Cong on 2021/9/30.
 //
 
 import Foundation
 import CoreData
 
 // for cache for running query
-let knownWordsSet: Set<String> = getAllKnownWordsSet()
+let allCustomNoisesSet: Set<String> = getAllCustomNoiseSet()
 
-private func getAllKnownWordsSet() -> Set<String> {
+private func getAllCustomNoiseSet() -> Set<String> {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<CustomNoise> = CustomNoise.fetchRequest()
     
     do {
         let results = try context.fetch(fetchRequest)
-        let knownWords = results.map { $0.word! }
-        return Set.init(knownWords)
+        return Set.init(
+            results.map { $0.word! }
+        )
     } catch {
-        logger.error("Failed to fetch all known words: \(error.localizedDescription)")
+        logger.error("Failed to fetch all custom noises: \(error.localizedDescription)")
         return Set()
     }
 }
 
-func batchInsertKnownWords(_ words: [String]) {
+func batchInsertCustomNoise(_ words: [String]) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
-        entity: WordStats.entity(),
+        entity: CustomNoise.entity(),
         objects: words.map { word in
             ["word": word]
         }
@@ -39,17 +40,17 @@ func batchInsertKnownWords(_ words: [String]) {
     do {
         try context.execute(insertRequest)
     } catch {
-        logger.error("Failed to batch insert known words:\(error.localizedDescription)")
+        logger.error("Failed to batch insert custom noise:\(error.localizedDescription)")
     }
     
-    refreshContentWhenChangingKnownWords()
+    // refreshWhat?
 }
 
-func removeMultiKnownWords(_ words: [String]) {
+func removeMultiCustomNoise(_ words: [String]) {
     let context = persistentContainer.viewContext
     
     for word in words {
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        let fetchRequest: NSFetchRequest<CustomNoise> = CustomNoise.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "word = %@", word)
         fetchRequest.fetchLimit = 1
 
@@ -63,51 +64,51 @@ func removeMultiKnownWords(_ words: [String]) {
         }
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        //refreshWhat()
     }
 }
 
-func batchDeleteAllKnownWords() {
+func batchDeleteAllCustomNoise() {
     let context = persistentContainer.viewContext
 
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomNoise.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
     do {
         try context.execute(deleteRequest)
     } catch {
-        logger.error("Failed to batch delete all known words: \(error.localizedDescription)")
+        logger.error("Failed to batch delete all custom noise: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        //refreshWhat()
     }
 }
 
-func addKnownWord(_ word: String) {
+func addCustomNoise(_ word: String) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<CustomNoise> = CustomNoise.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
     do {
         let results = try context.fetch(fetchRequest)
         if results.isEmpty {
-            let newWordStatus = WordStats(context: context)
-            newWordStatus.word = word
+            let newCustomNoise = CustomNoise(context: context)
+            newCustomNoise.word = word
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        // refreshWhat()
     }
 }
 
-func removeKnownWord(_ word: String) {
+func removeCustomNoise(_ word: String) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<CustomNoise> = CustomNoise.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
@@ -120,11 +121,11 @@ func removeKnownWord(_ word: String) {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        //refreshWhat()
     }
 }
 
-func refreshContentWhenChangingKnownWords() {
-    let taggedWords = tagWords(cleanedWords)
-    mutateDisplayedWords(taggedWords)
-}
+//func refreshContentWhenChangingKnownWords() {
+//    let taggedWords = tagWords(cleanedWords)
+//    mutateDisplayedWords(taggedWords)
+//}

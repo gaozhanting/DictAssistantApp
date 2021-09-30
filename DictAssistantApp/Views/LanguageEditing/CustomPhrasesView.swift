@@ -62,10 +62,17 @@ fileprivate struct FixedCustomPhrasesView: View {
     }
 }
 
+func isContainEmptyLine(_ lines: [String]) -> Bool {
+    lines.contains { line in
+        line.allSatisfy { c in
+            c.isWhitespace
+        }
+    }
+}
+
 fileprivate struct EditingView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    
     @State private var text = ""
+    
     var lines: [String] {
         text.components(separatedBy: .newlines)
     }
@@ -78,14 +85,6 @@ fileprivate struct EditingView: View {
         removeMultiCustomPhrases(lines)
     }
     
-    func isContainEmptyLine() -> Bool {
-        lines.contains { line in
-            line.allSatisfy { c in
-                c.isWhitespace
-            }
-        }
-    }
-    
     var body: some View {
         TextEditor(text: $text)
             .overlay(
@@ -94,13 +93,13 @@ fileprivate struct EditingView: View {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(isContainEmptyLine())
+                    .disabled(isContainEmptyLine(lines))
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(isContainEmptyLine())
+                    .disabled(isContainEmptyLine(lines))
                     
                     MiniInfoView {
                         InfoView()

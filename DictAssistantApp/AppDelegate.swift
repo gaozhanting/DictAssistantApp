@@ -34,11 +34,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         combineSomeUserDefaults()
         
+        initCustomNoisesPanel()
+        
+        initCustomPhrasesPanel()
+        
         initKnownWordsPanel()
         
         initCustomDictPanel()
-        
-        initCustomPhrasesPanel()
         
         initExtraDictionariesPanel()
 
@@ -293,6 +295,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             .filter { word in // remove noise
                 !fixedNoiseVocabulary.contains(word)
+            }
+            .filter { word in // remove custom noise
+                !allCustomNoisesSet.contains(word)
             }
         
         let taggedWords = tagWords(cleanedWords)

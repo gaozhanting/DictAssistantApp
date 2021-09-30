@@ -9,6 +9,14 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="CustomNoise" representedClassName="CustomNoise" syncable="YES" codeGenerationType="class">
+        <attribute name="word" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="word"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="CustomPhrase" representedClassName="CustomPhrase" syncable="YES" codeGenerationType="class">
         <attribute name="phrase" attributeType="String"/>
         <uniquenessConstraints>
@@ -51,5 +59,6 @@
         <element name="FixedPhrase" positionX="-9" positionY="72" width="128" height="44"/>
         <element name="Slot" positionX="0" positionY="54" width="128" height="104"/>
         <element name="WordStats" positionX="-27" positionY="18" width="128" height="44"/>
+        <element name="CustomNoise" positionX="0" positionY="81" width="128" height="44"/>
     </elements>
 </model>

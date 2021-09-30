@@ -23,6 +23,8 @@ func constructMenuBar() {
     menu.addItem(NSMenuItem.separator())
     menu.addItem(NSMenuItem(title: NSLocalizedString("Show Custom Phrases Panel", comment: ""), action: #selector(AppDelegate.showCustomPhrasesPanel), keyEquivalent: ""))
     menu.addItem(NSMenuItem.separator())
+    menu.addItem(NSMenuItem(title: NSLocalizedString("Show Custom Noises Panel", comment: ""), action: #selector(AppDelegate.showCustomNoisesPanel), keyEquivalent: ""))
+    menu.addItem(NSMenuItem.separator())
     menu.addItem(NSMenuItem(title: NSLocalizedString("Show Known Words Panel", comment: ""), action: #selector(AppDelegate.showKnownWordsPanel), keyEquivalent: ""))
     menu.addItem(NSMenuItem.separator())
     menu.addItem(NSMenuItem(title: NSLocalizedString("Show Custom Dict Panel", comment: ""), action: #selector(AppDelegate.showCustomDictPanel), keyEquivalent: ""))

@@ -80,19 +80,24 @@ fileprivate struct TextBody: View {
     func openThesaurus(_ word: String) {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
-
+    
     var body0: some View {
         TextWithShadow(wordCell: wordCell)
             .opacity( (known && isPhrase) ? 0.5 : 1)
             .padding(.vertical, 2)
             .padding(.horizontal, 6)
             .contextMenu {
-                Button(unKnown ? "Add to Known" : "Remove from known", action: {
-                    unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
+                Button(unKnown ? "Add to Known" : "Remove from Known", action: {
+                    unKnown ? addKnownWord(word) : removeKnownWord(word)
                 })
                 Button("Edit Custom Dict Entry", action: {
                     showEditingCustomDictEntryPopover = true
                 })
+                Button(!allCustomNoisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
+                    !allCustomNoisesSet.contains(word) ?
+                        addCustomNoise(word) :
+                        removeCustomNoise(word)
+                }
                 Menu("Online Dict Link") {
                     Button("Collins", action: { openCollins(word) })
                     Button("Cambridge", action: { openCambridge(word) })
@@ -108,7 +113,7 @@ fileprivate struct TextBody: View {
                 TapGesture()
                     .modifiers(.option)
                     .onEnded { _ in
-                        unKnown ? addToKnownWords(word) : removeFromKnownWords(word)
+                        unKnown ? addKnownWord(word) : removeKnownWord(word)
                     }
             )
             .gesture(

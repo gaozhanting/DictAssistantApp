@@ -1,13 +1,13 @@
 //
-//  CustomDictView.swift
+//  CustomNoiseView.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/9/24.
+//  Created by Gao Cong on 2021/9/30.
 //
 
 import SwiftUI
 
-struct CustomDictView: View {
+struct CustomNoiseView: View {
     var body: some View {
         SplitView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -26,7 +26,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: FixedCustomDictView())
+        let topViewController = NSHostingController(rootView: FixedCustomNoisesView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -43,17 +43,17 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct FixedCustomDictView: View {
+fileprivate struct FixedCustomNoisesView: View {
     @FetchRequest(
-        entity: CustomDict.entity(),
+        entity: CustomNoise.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \CustomDict.word, ascending: true)
+            NSSortDescriptor(keyPath: \CustomNoise.word, ascending: true)
         ]
-    ) var fetchedCustomDict: FetchedResults<CustomDict>
+    ) var fetchedCustomNoises: FetchedResults<CustomNoise>
     
     var text: String {
-        fetchedCustomDict
-            .map { entry in "\(entry.word!),\(entry.trans!)" }
+        fetchedCustomNoises
+            .map { $0.word! }
             .joined(separator: "\n")
     }
     
@@ -62,28 +62,19 @@ fileprivate struct FixedCustomDictView: View {
     }
 }
 
-struct Entry: Hashable {
-    let word: String
-    let trans: String
-}
-
 fileprivate struct EditingView: View {
     @State private var text = ""
+    
     var lines: [String] {
         text.components(separatedBy: .newlines)
     }
     
     func multiAdd() {
-        let entries: [Entry] = lines.map { line in
-            let wordTrans = line.split(separator: Character(","), maxSplits: 1)
-            return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
-        }
-        batchUpsertCustomDicts(entries: entries)
+        batchInsertCustomNoise(lines)
     }
     
     func multiRemove() {
-        let words = lines
-        removeMultiCustomDict(words: words)
+        removeMultiCustomNoise(lines)
     }
     
     var body: some View {
@@ -94,26 +85,13 @@ fileprivate struct EditingView: View {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled({
-                        lines.contains { line in
-                            line.split(separator: Character(","), maxSplits: 1)
-                                .count < 2
-                        }
-                    }())
-                    .help("Add multi entries to custom dict.")
+                    .disabled(isContainEmptyLine(lines))
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
-                    .disabled({
-                        lines.contains { line in
-                            line.allSatisfy { c in
-                                c.isWhitespace
-                            }
-                        }
-                    }())
                     .buttonStyle(PlainButtonStyle())
-                    .help("Remove multi entries to custom dict.")
+                    .disabled(isContainEmptyLine(lines))
                     
                     MiniInfoView {
                         InfoView()
@@ -129,17 +107,15 @@ fileprivate struct EditingView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
+        Text("Info")
             .padding()
-            .frame(width: 300, height: 300)
     }
 }
 
-struct CustomDictView_Previews: PreviewProvider {
+struct CustomNoiseView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CustomDictView()
-            
+            CustomNoiseView()
             InfoView()
         }
     }
