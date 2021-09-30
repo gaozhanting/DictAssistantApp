@@ -70,3 +70,25 @@ func removeMultiCustomPhrases(_ phrases: [String]) {
         customPhrasesSet = getAllCustomPhrasesSet()
     }
 }
+
+func addCustomPhrase(_ phrase: String) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if results.isEmpty {
+            let customPhrase = CustomPhrase(context: context)
+            customPhrase.phrase = phrase
+        }
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+    }
+    
+    saveContext {
+        customPhrasesSet = getAllCustomPhrasesSet()
+    }
+}

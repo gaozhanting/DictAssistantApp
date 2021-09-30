@@ -16,8 +16,56 @@ struct WordCellWithId: Identifiable, Equatable {
 }
 
 // how to make portrait word pop out from bottom, not from top
-
 struct ContentView: View {
+    @State private var showEditingPopover: Bool = false
+    
+    var body: some View {
+        ContentView0()
+            .contextMenu {
+                Button("Add Custom Phrase Entry") {
+                    showEditingPopover = true
+                }
+            }
+            .popover(isPresented: $showEditingPopover) {
+                EditingCustomPhraseEntryView()
+            }
+    }
+}
+
+private struct EditingCustomPhraseEntryView: View {
+    @State private var text: String = ""
+    
+    func add() {
+        let entry = text.split(separator: Character(","), maxSplits: 1)
+        let word = String(entry[0])
+        let trans = String(entry[1])
+        addCustomPhrase(word)
+        upsertCustomDict(entry: Entry(word: word, trans: trans))
+    }
+    
+    func valid() -> Bool {
+        !text.isMultiline &&
+            text.split(separator: Character(","), maxSplits: 1)
+                .count == 2
+    }
+    
+    var body: some View {
+        HStack {
+            TextField("Add Custom Phrase Entry", text: $text)
+            
+            Button(action: add) {
+                Image(systemName: "rectangle.badge.plus")
+            }
+            .disabled(!valid())
+            .keyboardShortcut(KeyEquivalent.return)
+        }
+        .frame(width: 440)
+        .padding(.horizontal)
+        .padding(.vertical, 2)
+    }
+}
+
+struct ContentView0: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
     var body: some View {
