@@ -8,6 +8,24 @@
 import Cocoa
 import CoreData
 
+// for cache for running query
+var customPhrasesSet: Set<String> = getAllCustomPhrasesSet()
+
+private func getAllCustomPhrasesSet() -> Set<String> {
+    let context = persistentContainer.viewContext
+
+    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
+
+    do {
+        let customePhrases = try context.fetch(fetchRequest)
+        let phrases = customePhrases.map { $0.phrase! }
+        return Set(phrases)
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        return Set()
+    }
+}
+
 // how to refresh UI ? -> Notification(current not use)
 func batchInsertCustomPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
@@ -25,8 +43,7 @@ func batchInsertCustomPhrases(_ phrases: [String]) {
         logger.error("Failed to batch insert custom phrases: \(error.localizedDescription)")
     }
     
-    // here saveContext() is nothing, because context is ignorant of batch operation
-    // I just reload the panel
+    customPhrasesSet = getAllCustomPhrasesSet()
     showCustomPhrasesPanelX()
 }
 
@@ -49,23 +66,7 @@ func removeMultiCustomPhrases(_ phrases: [String]) {
         }
     }
     
-    saveContext()
-}
-
-// for cache for running query
-let customPhrasesSet: Set<String> = getAllCustomPhrasesSet()
-
-private func getAllCustomPhrasesSet() -> Set<String> {
-    let context = persistentContainer.viewContext
-
-    let fetchRequest: NSFetchRequest<CustomPhrase> = CustomPhrase.fetchRequest()
-
-    do {
-        let customePhrases = try context.fetch(fetchRequest)
-        let phrases = customePhrases.map { $0.phrase! }
-        return Set(phrases)
-    } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return Set()
+    saveContext {
+        customPhrasesSet = getAllCustomPhrasesSet()
     }
 }

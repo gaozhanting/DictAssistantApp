@@ -26,18 +26,23 @@ func initCustomNoisesPanel() {
         //            screen: NSScreen.main
     )
     
+    customNoisesPanel.title = "Custom Noises"
     customNoisesPanel.setFrameAutosaveName("customNoisesPanel")
     
     customNoisesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     customNoisesPanel.isReleasedWhenClosed = false
 }
 
+func showCustomNoisesPanelX() {
+    let customPhrasesView = CustomNoiseView()
+        .environment(\.managedObjectContext, persistentContainer.viewContext)
+    
+    customNoisesPanel.contentView = NSHostingView(rootView: customPhrasesView)
+    customNoisesPanel.orderFrontRegardless()
+}
+
 extension AppDelegate {
     @objc func showCustomNoisesPanel() {
-        let customPhrasesView = CustomNoiseView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-        
-        customNoisesPanel.contentView = NSHostingView(rootView: customPhrasesView)
-        customNoisesPanel.orderFrontRegardless()
+        showCustomNoisesPanelX()
     }
 }

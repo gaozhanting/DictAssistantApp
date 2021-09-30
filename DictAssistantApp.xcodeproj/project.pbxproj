@@ -46,6 +46,7 @@
 		445355622705C0CF007DB9C2 /* CustomNoisePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* CustomNoisePersistence.swift */; };
 		445355642705C4F4007DB9C2 /* CustomNoiseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* CustomNoiseView.swift */; };
 		445355662705C68D007DB9C2 /* CustomNoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355652705C68D007DB9C2 /* CustomNoisesPanel.swift */; };
+		445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
@@ -110,6 +111,7 @@
 		445355612705C0CF007DB9C2 /* CustomNoisePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoisePersistence.swift; sourceTree = "<group>"; };
 		445355632705C4F4007DB9C2 /* CustomNoiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoiseView.swift; sourceTree = "<group>"; };
 		445355652705C68D007DB9C2 /* CustomNoisesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoisesPanel.swift; sourceTree = "<group>"; };
+		445355672705CF12007DB9C2 /* TRCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCallBack.swift; sourceTree = "<group>"; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
 				4440EE47262EDCA4007FF470 /* Assets.xcassets */,
 				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
+				445355672705CF12007DB9C2 /* TRCallBack.swift */,
 				4453555327042478007DB9C2 /* Menus.swift */,
 				4479E35526A1852000764D53 /* AVSessionAndTR.swift */,
 				4479159F26B7DA86002E9F8C /* Windows */,
@@ -250,17 +253,17 @@
 		4479159F26B7DA86002E9F8C /* Windows */ = {
 			isa = PBXGroup;
 			children = (
+				4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */,
+				4453555D270428CF007DB9C2 /* OnboardingPanel.swift */,
 				44A2194226D6535600706A59 /* CCDelegate.swift */,
 				44FBE4682674EBCE002A7599 /* ContentWindow.swift */,
 				44FBE46A2674ED28002A7599 /* CropperWindow.swift */,
 				447915A026B7DAAB002E9F8C /* ToastWindow.swift */,
 				4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */,
-				4453555527042596007DB9C2 /* CustomDictPanel.swift */,
-				44535557270427DE007DB9C2 /* KnownWordsPanel.swift */,
 				4453555927042837007DB9C2 /* CustomPhrasesPanel.swift */,
-				4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */,
-				4453555D270428CF007DB9C2 /* OnboardingPanel.swift */,
 				445355652705C68D007DB9C2 /* CustomNoisesPanel.swift */,
+				44535557270427DE007DB9C2 /* KnownWordsPanel.swift */,
+				4453555527042596007DB9C2 /* CustomDictPanel.swift */,
 			);
 			path = Windows;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
 				44C207BA2701A8E300419F63 /* CustomPhrasesView.swift in Sources */,
+				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,

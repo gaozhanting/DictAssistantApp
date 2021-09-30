@@ -157,7 +157,8 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 } else {
                     logger.info("recognizeTextHandler texts != lastReconginzedTexts, so do run trCallback")
                     
-                    trCallBack(texts)
+                    currentTRTexts = texts
+                    trCallBack()
 
                     lastReconginzedTexts = texts
                 }
@@ -173,11 +174,17 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     
     init(
         cropperWindow: NSWindow!,
-        trCallBack: @escaping ([String]) -> Void
+        trCallBack: @escaping () -> Void
     ) {
         self.cropperWindow = cropperWindow
         self.trCallBack = trCallBack
     }
     let cropperWindow: NSWindow!
-    var trCallBack: ([String]) -> Void
+    var trCallBack: () -> Void
 }
+
+// this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
+let aVSessionAndTR = AVSessionAndTR.init(
+    cropperWindow: cropperWindow,
+    trCallBack: trCallBack
+)

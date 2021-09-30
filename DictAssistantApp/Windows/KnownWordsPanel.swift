@@ -26,18 +26,23 @@ func initKnownWordsPanel() {
         //            screen: NSScreen.main
     )
     
+    knownWordsPanel.title = "Known Words"
     knownWordsPanel.setFrameAutosaveName("knownWordsPanel")
     
     knownWordsPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     knownWordsPanel.isReleasedWhenClosed = false
 }
 
+func showKnownWordsPanelX() {
+    let knownWordsView = KnownWordsView()
+        .environment(\.managedObjectContext, persistentContainer.viewContext)
+    
+    knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
+    knownWordsPanel.orderFrontRegardless()
+}
+
 extension AppDelegate {
     @objc func showKnownWordsPanel() {
-        let knownWordsView = KnownWordsView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-        
-        knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
-        knownWordsPanel.orderFrontRegardless()
+        showKnownWordsPanelX()
     }
 }

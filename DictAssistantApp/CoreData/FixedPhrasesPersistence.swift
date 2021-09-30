@@ -8,6 +8,25 @@
 import Foundation
 import CoreData
 
+// for cache for running query
+var fixedPhrasesSet: Set<String> = getAllFixedPhrasesSet()
+
+private func getAllFixedPhrasesSet() -> Set<String> {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
+//    fetchRequest.propertiesToFetch = ["phrase"]
+    
+    do {
+        let fixedPhrase = try context.fetch(fetchRequest)
+        let phrases = fixedPhrase.map { $0.phrase! }
+        return Set.init(phrases)
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        return Set()
+    }
+}
+
 // global big constants
 /*
  count is 366,502
@@ -37,6 +56,8 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
     } catch {
         logger.error("Failed to batch insert all fixed Phrases: \(error.localizedDescription)")
     }
+    
+    fixedPhrasesSet = getAllFixedPhrasesSet()
 }
 
 // only for development
@@ -51,23 +72,7 @@ func batchDeleteAllFixedPhrases() {
     } catch {
         logger.error("Failed to insert all fixed Phrases: \(error.localizedDescription)")
     }
+    
+    fixedPhrasesSet = getAllFixedPhrasesSet()
 }
 
-// for cache for running query
-let fixedPhrasesSet: Set<String> = getAllFixedPhrasesSet()
-
-private func getAllFixedPhrasesSet() -> Set<String> {
-    let context = persistentContainer.viewContext
-    
-    let fetchRequest: NSFetchRequest<FixedPhrase> = FixedPhrase.fetchRequest()
-//    fetchRequest.propertiesToFetch = ["phrase"]
-    
-    do {
-        let fixedPhrase = try context.fetch(fetchRequest)
-        let phrases = fixedPhrase.map { $0.phrase! }
-        return Set.init(phrases)
-    } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return Set()
-    }
-}

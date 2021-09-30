@@ -21,6 +21,7 @@ func initOnboardingPanel() {
         defer: false
     )
     
+    onboardingPanel.title = "Onboarding"
     onboardingPanel.setFrameAutosaveName("onBoardingPanel")
 }
 

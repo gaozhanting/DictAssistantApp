@@ -26,18 +26,23 @@ func initCustomDictPanel() {
         //            screen: NSScreen.main
     )
     
+    customDictPanel.title = "Custom Dict"
     customDictPanel.setFrameAutosaveName("customDictPanel")
     
     customDictPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     customDictPanel.isReleasedWhenClosed = false
 }
 
+func showCustomDictPanelX() {
+    let customDictView = CustomDictView()
+        .environment(\.managedObjectContext, persistentContainer.viewContext)
+    
+    customDictPanel.contentView = NSHostingView(rootView: customDictView)
+    customDictPanel.orderFrontRegardless()
+}
+
 extension AppDelegate {
     @objc func showCustomDictPanel() {
-        let customDictView = CustomDictView()
-            .environment(\.managedObjectContext, persistentContainer.viewContext)
-        
-        customDictPanel.contentView = NSHostingView(rootView: customDictView)
-        customDictPanel.orderFrontRegardless()
+        showCustomDictPanelX()
     }
 }

@@ -26,6 +26,7 @@ func initCustomPhrasesPanel() {
         //            screen: NSScreen.main
     )
     
+    customPhrasesPanel.title = "Custom Phrases"
     customPhrasesPanel.setFrameAutosaveName("customPhrasesPanel")
     
     customPhrasesPanel.collectionBehavior.insert(.fullScreenAuxiliary)

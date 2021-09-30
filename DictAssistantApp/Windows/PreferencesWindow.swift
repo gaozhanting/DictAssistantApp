@@ -11,7 +11,7 @@ import Preferences
 private var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
         GeneralPreferenceViewController(),
-        AppearancePreferenceViewController(refreshContentWhenChangingUseCustomDictMode: refreshContentWhenChangingUseCustomDictMode),
+        AppearancePreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
     ],
     style: .toolbarItems,

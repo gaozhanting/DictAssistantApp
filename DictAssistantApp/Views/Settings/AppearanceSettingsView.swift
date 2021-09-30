@@ -116,7 +116,8 @@ fileprivate struct UseCustomDictModePicker: View {
             get: { useCustomDictMode },
             set: { newValue in
                 useCustomDictMode = newValue
-                refreshContentWhenChangingUseCustomDictMode()
+                cachedDict = [:]
+                trCallBack()
             }
         )
     }

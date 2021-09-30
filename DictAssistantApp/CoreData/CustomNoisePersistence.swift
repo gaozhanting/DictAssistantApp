@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 // for cache for running query
-let allCustomNoisesSet: Set<String> = getAllCustomNoiseSet()
+var allCustomNoisesSet: Set<String> = getAllCustomNoiseSet()
 
 private func getAllCustomNoiseSet() -> Set<String> {
     let context = persistentContainer.viewContext
@@ -43,7 +43,26 @@ func batchInsertCustomNoise(_ words: [String]) {
         logger.error("Failed to batch insert custom noise:\(error.localizedDescription)")
     }
     
-    // refreshWhat?
+    allCustomNoisesSet = getAllCustomNoiseSet()
+    trCallBack()
+    showCustomNoisesPanelX()
+}
+
+func batchDeleteAllCustomNoise() {
+    let context = persistentContainer.viewContext
+
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomNoise.fetchRequest()
+    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+    do {
+        try context.execute(deleteRequest)
+    } catch {
+        logger.error("Failed to batch delete all custom noise: \(error.localizedDescription)")
+    }
+    
+    allCustomNoisesSet = getAllCustomNoiseSet()
+    trCallBack()
+    showCustomNoisesPanelX()
 }
 
 func removeMultiCustomNoise(_ words: [String]) {
@@ -64,23 +83,8 @@ func removeMultiCustomNoise(_ words: [String]) {
         }
     }
     saveContext {
-        //refreshWhat()
-    }
-}
-
-func batchDeleteAllCustomNoise() {
-    let context = persistentContainer.viewContext
-
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomNoise.fetchRequest()
-    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-    do {
-        try context.execute(deleteRequest)
-    } catch {
-        logger.error("Failed to batch delete all custom noise: \(error.localizedDescription)")
-    }
-    saveContext {
-        //refreshWhat()
+        allCustomNoisesSet = getAllCustomNoiseSet()
+        trCallBack()
     }
 }
 
@@ -101,7 +105,8 @@ func addCustomNoise(_ word: String) {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     saveContext {
-        // refreshWhat()
+        allCustomNoisesSet = getAllCustomNoiseSet()
+        trCallBack()
     }
 }
 
@@ -121,11 +126,7 @@ func removeCustomNoise(_ word: String) {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     saveContext {
-        //refreshWhat()
+        allCustomNoisesSet = getAllCustomNoiseSet()
+        trCallBack()
     }
 }
-
-//func refreshContentWhenChangingKnownWords() {
-//    let taggedWords = tagWords(cleanedWords)
-//    mutateDisplayedWords(taggedWords)
-//}

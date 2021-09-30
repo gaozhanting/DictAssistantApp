@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 // for cache for running query
-let knownWordsSet: Set<String> = getAllKnownWordsSet()
+var knownWordsSet: Set<String> = getAllKnownWordsSet()
 
 private func getAllKnownWordsSet() -> Set<String> {
     let context = persistentContainer.viewContext
@@ -42,7 +42,9 @@ func batchInsertKnownWords(_ words: [String]) {
         logger.error("Failed to batch insert known words:\(error.localizedDescription)")
     }
     
-    refreshContentWhenChangingKnownWords()
+    knownWordsSet = getAllKnownWordsSet()
+    trCallBack()
+    showKnownWordsPanelX()
 }
 
 func removeMultiKnownWords(_ words: [String]) {
@@ -63,7 +65,8 @@ func removeMultiKnownWords(_ words: [String]) {
         }
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        knownWordsSet = getAllKnownWordsSet()
+        trCallBack()
     }
 }
 
@@ -78,9 +81,10 @@ func batchDeleteAllKnownWords() {
     } catch {
         logger.error("Failed to batch delete all known words: \(error.localizedDescription)")
     }
-    saveContext {
-        refreshContentWhenChangingKnownWords()
-    }
+    
+    knownWordsSet = getAllKnownWordsSet()
+    trCallBack()
+    showKnownWordsPanelX()
 }
 
 func addKnownWord(_ word: String) {
@@ -100,7 +104,8 @@ func addKnownWord(_ word: String) {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        knownWordsSet = getAllKnownWordsSet()
+        trCallBack()
     }
 }
 
@@ -120,11 +125,7 @@ func removeKnownWord(_ word: String) {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingKnownWords()
+        knownWordsSet = getAllKnownWordsSet()
+        trCallBack()
     }
-}
-
-func refreshContentWhenChangingKnownWords() {
-    let taggedWords = tagWords(cleanedWords)
-    mutateDisplayedWords(taggedWords)
 }

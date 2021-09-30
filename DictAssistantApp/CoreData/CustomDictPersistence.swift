@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 // for cache for running query (now you have a quick custom dict)
-let customDictDict: Dictionary<String, String> = getAllCustomDict()
+var customDictDict: Dictionary<String, String> = getAllCustomDict()
 
 private func getAllCustomDict() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -69,7 +69,11 @@ func batchUpsertCustomDicts(entries: [Entry]) {
     } catch {
         logger.error("Failed to batch upsert custom dicts: \(error.localizedDescription)")
     }
-    refreshContentWhenChangingUseCustomDictMode()
+    
+    customDictDict = getAllCustomDict()
+    cachedDict = [:]
+    trCallBack()
+    showCustomDictPanelX()
 }
 
 func removeMultiCustomDict(words: [String]) {
@@ -90,7 +94,9 @@ func removeMultiCustomDict(words: [String]) {
         }
     }
     saveContext {
-        refreshContentWhenChangingUseCustomDictMode()
+        customDictDict = getAllCustomDict()
+        cachedDict = [:]
+        trCallBack()
     }
 }
 
@@ -115,7 +121,9 @@ func upsertCustomDict(entry: Entry) {
         logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingUseCustomDictMode()
+        customDictDict = getAllCustomDict()
+        cachedDict = [:]
+        trCallBack()
     }
 }
 
@@ -135,6 +143,8 @@ func removeCustomDict(word: String) {
         logger.error("Failed to remove custom dict: \(error.localizedDescription)")
     }
     saveContext {
-        refreshContentWhenChangingUseCustomDictMode()
+        customDictDict = getAllCustomDict()
+        cachedDict = [:]
+        trCallBack()
     }
 }

@@ -28,7 +28,7 @@ func GeneralPreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func AppearancePreferenceViewController(refreshContentWhenChangingUseCustomDictMode: @escaping () -> Void) -> PreferencePane {
+func AppearancePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .appearance,
         title: NSLocalizedString("Appearance", comment: ""),

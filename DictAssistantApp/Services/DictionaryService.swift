@@ -25,7 +25,7 @@ private func queryDefine(_ word: String) -> String? {
     case .notUse:
         return DictionaryServices.define(word)
     case .asFirstPriority:
-        if let entry = defineCustomDict(word: word) {
+        if let entry = queryCustomDict(word: word) {
             return entry
         }
         return DictionaryServices.define(word)
@@ -33,13 +33,13 @@ private func queryDefine(_ word: String) -> String? {
         if let define = DictionaryServices.define(word) {
             return define
         }
-        return defineCustomDict(word: word)
+        return queryCustomDict(word: word)
     case .only:
-        return defineCustomDict(word: word)
+        return queryCustomDict(word: word)
     }
 }
 
-private func defineCustomDict(word: String) -> String? {
+private func queryCustomDict(word: String) -> String? {
     if let trans = customDictDict[word] {
         return "\(word)\(trans)"
     }
