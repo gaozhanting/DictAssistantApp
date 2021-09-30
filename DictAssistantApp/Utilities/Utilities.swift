@@ -10,8 +10,10 @@ import AppKit.NSColor
 import DataBases
 import os
 
-func isAPhrase(_ word: String) -> Bool {
-    word.contains(" ")
+extension String {
+    var isPhrase: Bool {
+        self.contains(" ")
+    }
 }
 
 func colorToData(_ color: NSColor) -> Data? {
@@ -27,20 +29,6 @@ func dataToColor(_ data: Data) -> NSColor? {
     let color = unarchivedData as NSColor?
     return color
 }
-
-//func fontToData(_ font: NSFont) -> Data? {
-//    if let data = try? NSKeyedArchiver.archivedData(withRootObject: font, requiringSecureCoding: false) {
-//        return data
-//    } else {
-//        return nil
-//    }
-//}
-//
-//func dataToFont(_ data: Data) -> NSFont? {
-//    let unarchivedData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSFont.self, from: data)
-//    let font = unarchivedData as NSFont?
-//    return font
-//}
 
 func say(_ word: String) {
     let task = Process()
@@ -74,7 +62,7 @@ fileprivate func makeValidEnglishWordsCharacterSet() -> Set<Character> {
     return Set(characters)
 }
 
-func makeFixedNoiseVocabulary() -> Set<String> {
+private func makeFixedNoiseVocabulary() -> Set<String> {
     let oneLetterWords = a_z.components(separatedBy: " ").map { String($0) }
     
     var twoLetterWords: [String] = []

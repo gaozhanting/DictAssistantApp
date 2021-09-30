@@ -34,7 +34,7 @@ fileprivate struct TextBody: View {
     }
     
     var isPhrase: Bool {
-        isAPhrase(word)
+        word.isPhrase
     }
     
     var known: Bool {

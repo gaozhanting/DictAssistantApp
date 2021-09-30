@@ -294,6 +294,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             .filter { word in // remove noise
                 !fixedNoiseVocabulary.contains(word)
             }
+        
         let taggedWords = tagWords(cleanedWords)
         mutateDisplayedWords(taggedWords)
     }

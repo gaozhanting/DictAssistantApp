@@ -67,9 +67,9 @@ fileprivate struct FixedKnownWordsView: View {
         case .all:
             return true
         case .words:
-            return !isAPhrase(word)
+            return !word.isPhrase
         case .phrases:
-            return isAPhrase(word)
+            return word.isPhrase
         }
     }
     
