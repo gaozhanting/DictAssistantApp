@@ -8,7 +8,29 @@
 import Foundation
 import CoreData
 
-// dict similar of system-dict-service; no need all cache, only has a running session cache
+// for cache for running query (now you have a quick custom dict)
+let customDictDict: Dictionary<String, String> = getAllCustomDict()
+
+private func getAllCustomDict() -> Dictionary<String, String> {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        let tuplesSeq = results.map {
+            ($0.word!, $0.trans!)
+        }
+        let dict = Dictionary.init(uniqueKeysWithValues: tuplesSeq)
+//        let dict = Dictionary.init(tuplesSeq, uniquingKeysWith: { (_, last) in last })
+        return dict
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        return Dictionary()
+    }
+}
+
+// for directly query (slow, which is similar of system dict service)
 func getEntry(of word: String) -> CustomDict? {
     let context = persistentContainer.viewContext
     
