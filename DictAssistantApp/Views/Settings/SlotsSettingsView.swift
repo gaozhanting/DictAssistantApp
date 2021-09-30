@@ -216,14 +216,6 @@ fileprivate struct SlotsView: View {
         ]
     ) var slots: FetchedResults<Slot>
     
-    func save() {
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
     @Environment(\.defaultMinListRowHeight) var defaultMinListRowHeight // 18.0
     
     var body: some View {
@@ -239,7 +231,7 @@ fileprivate struct SlotsView: View {
                                         slot.isSelected = false
                                     }
                                     slot.isSelected = true
-                                    save()
+                                    saveContext()
                                     dumpSettings(from: settings)
                                 }) {
                                     Image(systemName: slot.isSelected ? "cube.fill" : "cube")
@@ -252,7 +244,7 @@ fileprivate struct SlotsView: View {
                                     get: { slot.label! },
                                     set: { newValue in
                                         slot.label = newValue
-                                        save()
+                                        saveContext()
                                     }
                                 ))
                                 .font(.callout)
@@ -264,7 +256,7 @@ fileprivate struct SlotsView: View {
                                 Button("update", action: {
                                     let currentSettings = getCurrentSettingsX()
                                     slot.settings = settingsToData(currentSettings)!
-                                    save()
+                                    saveContext()
                                 })
                             }
                         }
@@ -274,7 +266,7 @@ fileprivate struct SlotsView: View {
                             let slot = slots[index]
                             managedObjectContext.delete(slot)
                         }
-                        save()
+                        saveContext()
                     }
                 }
                 .listStyle(PlainListStyle())
@@ -290,7 +282,7 @@ fileprivate struct SlotsView: View {
                     slot.settings = settingsToData(defaultSettings)
                     slot.createdDate = Date()
                     slot.isSelected = false
-                    save()
+                    saveContext()
                 }
 
                 if let selectedSlot = slots.first { $0.isSelected } {
@@ -302,7 +294,7 @@ fileprivate struct SlotsView: View {
                         slot.createdDate = Date()
                         slot.isSelected = true
                         selectedSlot.isSelected = false
-                        save()
+                        saveContext()
                     }
                 }
             }

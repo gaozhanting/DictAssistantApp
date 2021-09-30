@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 
-// MARK: - Core Data (Slot)
 func getAllSlots() -> [Slot] {
     let context = persistentContainer.viewContext
 
@@ -23,16 +22,15 @@ func getAllSlots() -> [Slot] {
     }
 }
 
-// for development, call at applicationDidFinishLaunching
-func deleteAllSlots() {
+func batchDeleteAllSlots() {
     let context = persistentContainer.viewContext
 
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Slot")
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Slot.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
     do {
         try context.execute(deleteRequest)
     } catch {
-        logger.error("Failed to delete all slots: \(error.localizedDescription)")
+        logger.error("Failed to batch delete all slots: \(error.localizedDescription)")
     }
 }
