@@ -62,15 +62,13 @@ fileprivate struct FixedCustomDictView: View {
     }
 }
 
-struct Entry {
+struct Entry: Hashable {
     let word: String
     let trans: String
 }
 
 fileprivate struct EditingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.batchUpsertCustomDicts) var batchUpsertCustomDicts
-    @Environment(\.removeMultiWordsFromCustomDict) var removeMultiWordsFromCustomDict
 
     @State private var text = ""
     var lines: [String] {
@@ -82,12 +80,12 @@ fileprivate struct EditingView: View {
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
         }
-        batchUpsertCustomDicts(entries)
+        batchUpsertCustomDicts(entries: entries)
     }
     
     func multiRemove() {
         let words = lines
-        removeMultiWordsFromCustomDict(words)
+        removeMultiCustomDict(words: words)
     }
     
     var body: some View {

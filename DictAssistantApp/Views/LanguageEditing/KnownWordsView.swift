@@ -156,7 +156,6 @@ fileprivate struct EditingView: View {
 }
 
 fileprivate struct AddMultiButton: View {
-    @Environment(\.batchInsertKnownWords) var batchInsertKnownWords
     
     let words: [String]
     let isWordsInvalid: Bool
@@ -172,7 +171,6 @@ fileprivate struct AddMultiButton: View {
 }
 
 fileprivate struct RemoveMultiButton: View {
-    @Environment(\.removeMultiKnownWords) var removeMultiKnownWords
 
     let words: [String]
     let isWordsInvalid: Bool

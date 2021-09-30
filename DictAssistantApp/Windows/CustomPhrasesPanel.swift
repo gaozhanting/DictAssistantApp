@@ -35,8 +35,6 @@ func initCustomPhrasesPanel() {
 func showCustomPhrasesPanelX() {
     let customPhrasesView = CustomPhrasesView()
         .environment(\.managedObjectContext, persistentContainer.viewContext)
-        .environment(\.batchInsertCustomPhrases, batchInsertCustomPhrases)
-        .environment(\.removeMultiCustomPhrases, removeMultiCustomPhrases)
     
     customPhrasesPanel.contentView = NSHostingView(rootView: customPhrasesView)
     customPhrasesPanel.orderFrontRegardless()

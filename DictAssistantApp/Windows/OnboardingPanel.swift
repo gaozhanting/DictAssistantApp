@@ -28,7 +28,6 @@ extension AppDelegate {
     @objc func onboarding() {
         let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
             .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.batchInsertKnownWords, batchInsertKnownWords)
             .environment(\.endOnboarding, endOnboarding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         

@@ -69,8 +69,6 @@ fileprivate struct WelcomeView: View {
 fileprivate struct InitKnownWordsView: View {
     let next: () -> Void
     
-    @Environment(\.batchInsertKnownWords) var batchInsertKnownWords
-
     @State private var to: Int = 5000
     @State private var showAddButton: Bool = false
     

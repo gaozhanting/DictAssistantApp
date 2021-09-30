@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 
+// dict similar of system-dict-service; no need all cache, only has a running session cache
 func getEntry(of word: String) -> CustomDict? {
     let context = persistentContainer.viewContext
     
@@ -49,7 +50,7 @@ func batchUpsertCustomDicts(entries: [Entry]) {
     refreshContentWhenChangingUseCustomDictMode()
 }
 
-func removeMultiWordsFromCustomDict(words: [String]) {
+func removeMultiCustomDict(words: [String]) {
     let context = persistentContainer.viewContext
 
     for word in words {
@@ -65,6 +66,51 @@ func removeMultiWordsFromCustomDict(words: [String]) {
         } catch {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
+    }
+    saveContext {
+        refreshContentWhenChangingUseCustomDictMode()
+    }
+}
+
+func upsertCustomDict(entry: Entry) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if let result = results.first { // update
+            result.word = entry.word
+            result.trans = entry.trans
+        } else { // insert
+            let newCustomDict = CustomDict(context: context)
+            newCustomDict.word = entry.word
+            newCustomDict.trans = entry.trans
+        }
+    } catch {
+        logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
+    }
+    saveContext {
+        refreshContentWhenChangingUseCustomDictMode()
+    }
+}
+
+func removeCustomDict(word: String) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if let result = results.first {
+            context.delete(result)
+        }
+    } catch {
+        logger.error("Failed to remove custom dict: \(error.localizedDescription)")
     }
     saveContext {
         refreshContentWhenChangingUseCustomDictMode()

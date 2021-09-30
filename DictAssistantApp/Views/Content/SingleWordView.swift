@@ -51,9 +51,6 @@ fileprivate struct TextBody: View {
         Color(dataToColor(backgroundColor)!)
     }
     
-    @Environment(\.addToKnownWords) var addToKnownWords
-    @Environment(\.removeFromKnownWords) var removeFromKnownWords
-
     @Environment(\.openURL) var openURL
     func openExternalDict(_ word: String, urlPrefix: String) {
         let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
@@ -156,20 +153,17 @@ fileprivate struct TextBody: View {
 
 fileprivate struct EditCustomDictEntryView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.batchUpsertCustomDicts) var batchUpsertCustomDicts
-    @Environment(\.removeMultiWordsFromCustomDict) var removeMultiWordsFromCustomDict
     
     let word: String
     @State private var trans: String = ""
     
     func add() {
-        let entries = [Entry(word: word, trans: trans)]
-        batchUpsertCustomDicts(entries) // only add one entry here
+        let entry = Entry(word: word, trans: trans)
+        upsertCustomDict(entry: entry)
     }
     
     func remove() {
-        let words = [word]
-        removeMultiWordsFromCustomDict(words) // only remove one word(entry) here
+        removeCustomDict(word: word)
     }
     
     var body: some View {

@@ -64,8 +64,6 @@ fileprivate struct FixedCustomPhrasesView: View {
 
 fileprivate struct EditingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.batchInsertCustomPhrases) var batchInsertCustomPhrases
-    @Environment(\.removeMultiCustomPhrases) var removeMultiCustomPhrases
     
     @State private var text = ""
     var lines: [String] {

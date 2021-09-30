@@ -36,7 +36,6 @@ func AppearancePreferenceViewController(refreshContentWhenChangingUseCustomDictM
     ) {
         AppearanceSettingsView()
             .environmentObject(statusData)
-            .environment(\.refreshContentWhenChangingUseCustomDictMode, refreshContentWhenChangingUseCustomDictMode)
     }
 
     return Preferences.PaneHostingController(pane: paneView)

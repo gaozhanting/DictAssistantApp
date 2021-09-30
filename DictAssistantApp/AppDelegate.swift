@@ -147,8 +147,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .ready:
                     let contentView = ContentView()
                         .environment(\.managedObjectContext, persistentContainer.viewContext)
-                        .environment(\.batchUpsertCustomDicts, batchUpsertCustomDicts)
-                        .environment(\.removeMultiWordsFromCustomDict, removeMultiWordsFromCustomDict)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                     let contentViewWithEnv = attachEnv(AnyView(contentView))
@@ -263,8 +261,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @ViewBuilder
     func attachEnv(_ view: AnyView) -> some View {
         view
-            .environment(\.addToKnownWords, addToKnownWords)
-            .environment(\.removeFromKnownWords, removeFromKnownWords)
             .environmentObject(displayedWords)
     }
 

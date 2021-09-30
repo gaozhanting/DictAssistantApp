@@ -110,7 +110,6 @@ fileprivate struct CropperStyleSettingView: View {
 
 fileprivate struct UseCustomDictModePicker: View {
     @AppStorage(UseCustomDictModeKey) private var useCustomDictMode: UseCustomDictMode = .notUse
-    @Environment(\.refreshContentWhenChangingUseCustomDictMode) var refreshContentWhenChangingUseCustomDictMode
     
     var binding: Binding<UseCustomDictMode> {
         Binding(
