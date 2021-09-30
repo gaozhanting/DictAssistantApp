@@ -156,13 +156,13 @@ fileprivate struct EditingView: View {
 }
 
 fileprivate struct AddMultiButton: View {
-    @Environment(\.addMultiToKnownWords) var addMultiToKnownWords
+    @Environment(\.batchInsertKnownWords) var batchInsertKnownWords
     
     let words: [String]
     let isWordsInvalid: Bool
 
     var body: some View {
-        Button(action: { addMultiToKnownWords(Array(words)) }) {
+        Button(action: { batchInsertKnownWords(Array(words)) }) {
             Image(systemName: "rectangle.stack.badge.plus")
         }
         .buttonStyle(PlainButtonStyle())
@@ -172,13 +172,13 @@ fileprivate struct AddMultiButton: View {
 }
 
 fileprivate struct RemoveMultiButton: View {
-    @Environment(\.removeMultiFromKnownWords) var removeMultiFromKnownWords
+    @Environment(\.removeMultiKnownWords) var removeMultiKnownWords
 
     let words: [String]
     let isWordsInvalid: Bool
 
     var body: some View {
-        Button(action: { removeMultiFromKnownWords(Array(words)) }) {
+        Button(action: { removeMultiKnownWords(Array(words)) }) {
             Image(systemName: "rectangle.stack.badge.minus")
         }
         .buttonStyle(PlainButtonStyle())

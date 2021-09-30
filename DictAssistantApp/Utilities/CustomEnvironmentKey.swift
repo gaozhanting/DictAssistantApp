@@ -30,25 +30,25 @@ extension EnvironmentValues {
     }
 }
 
-private struct AddMultiToKnownWordsEnvironmentKey: EnvironmentKey {
+private struct BatchInsertKnownWordsEnvironmentKey: EnvironmentKey {
     static let defaultValue: ([String]) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-    var addMultiToKnownWords: ([String]) -> Void {
-        get { self[AddMultiToKnownWordsEnvironmentKey].self }
-        set { self[AddMultiToKnownWordsEnvironmentKey.self] = newValue }
+    var batchInsertKnownWords: ([String]) -> Void {
+        get { self[BatchInsertKnownWordsEnvironmentKey].self }
+        set { self[BatchInsertKnownWordsEnvironmentKey.self] = newValue }
     }
 }
 
-private struct RemoveMultiFromKnownWordsEnvironmentKey: EnvironmentKey {
+private struct RemoveMultiKnownWordsEnvironmentKey: EnvironmentKey {
     static let defaultValue: ([String]) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-    var removeMultiFromKnownWords: ([String]) -> Void {
-        get { self[RemoveMultiFromKnownWordsEnvironmentKey].self }
-        set { self[RemoveMultiFromKnownWordsEnvironmentKey.self] = newValue }
+    var removeMultiKnownWords: ([String]) -> Void {
+        get { self[RemoveMultiKnownWordsEnvironmentKey].self }
+        set { self[RemoveMultiKnownWordsEnvironmentKey.self] = newValue }
     }
 }
 

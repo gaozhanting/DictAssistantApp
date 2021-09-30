@@ -8,52 +8,44 @@
 import Foundation
 import CoreData
 
-func isWordInKnownWords(_ word: String) -> Bool {
+// for cache for running query
+let knownWordsSet: Set<String> = getAllKnownWordsSet()
+
+private func getAllKnownWordsSet() -> Set<String> {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-    fetchRequest.fetchLimit = 1
     
     do {
         let results = try context.fetch(fetchRequest)
-        return !results.isEmpty
+        let knownWords = results.map { $0.word! }
+        return Set.init(knownWords)
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
-        return false
+        return Set()
     }
 }
 
-func addToKnownWords(_ word: String) {
-    addMultiToKnownWords([word])
-}
-
-func addMultiToKnownWords(_ words: [String]) {
+func batchInsertKnownWords(_ words: [String]) {
     let context = persistentContainer.viewContext
     
-    for word in words {
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.isEmpty {
-                let newWordStatus = WordStats(context: context)
-                newWordStatus.word = word
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
+    let insertRequest = NSBatchInsertRequest(
+        entity: WordStats.entity(),
+        objects: words.map { word in
+            ["word": word]
         }
+    )
+    
+    do {
+        try context.execute(insertRequest)
+    } catch {
+        logger.error("Failed to batch insert known words:\(error.localizedDescription)")
     }
-    saveContextWithChangingKnownWordsSideEffect()
+    
+    refreshContentWhenChangingKnownWords()
 }
 
-func removeFromKnownWords(_ word: String) {
-    removeMultiFromKnownWords([word])
-}
-
-func removeMultiFromKnownWords(_ words: [String]) {
+func removeMultiKnownWords(_ words: [String]) {
     let context = persistentContainer.viewContext
     
     for word in words {
@@ -70,26 +62,69 @@ func removeMultiFromKnownWords(_ words: [String]) {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
     }
-    saveContextWithChangingKnownWordsSideEffect()
+    saveContext {
+        refreshContentWhenChangingKnownWords()
+    }
 }
 
-// for development, call at applicationDidFinishLaunching
-func deleteAllKnownWords() {
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "WordStats")
+func batchDeleteAllKnownWords() {
+    let context = persistentContainer.viewContext
+
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = WordStats.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
     do {
-        try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: persistentContainer.viewContext)
+        try context.execute(deleteRequest)
     } catch {
-        logger.error("Failed to delete all known words: \(error.localizedDescription)")
+        logger.error("Failed to batch delete all known words: \(error.localizedDescription)")
     }
-    saveContextWithChangingKnownWordsSideEffect()
+    saveContext {
+        refreshContentWhenChangingKnownWords()
+    }
 }
 
-// MARK: - Core Data saveContext with side effect
-func saveContextWithChangingKnownWordsSideEffect() {
-    saveContext {
-        let taggedWords = tagWords(cleanedWords)
-        mutateDisplayedWords(taggedWords)
+func addToKnownWords(_ word: String) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if results.isEmpty {
+            let newWordStatus = WordStats(context: context)
+            newWordStatus.word = word
+        }
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
+    saveContext {
+        refreshContentWhenChangingKnownWords()
+    }
+}
+
+func removeFromKnownWords(_ word: String) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if let result = results.first {
+            context.delete(result)
+        }
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+    }
+    saveContext {
+        refreshContentWhenChangingKnownWords()
+    }
+}
+
+func refreshContentWhenChangingKnownWords() {
+    let taggedWords = tagWords(cleanedWords)
+    mutateDisplayedWords(taggedWords)
 }

@@ -24,7 +24,6 @@ import CoreData
 // only once at development, from txt file to sql file
 func batchInsertFixedPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
-//    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
     let insertRequest = NSBatchInsertRequest(
         entity: FixedPhrase.entity(),
@@ -44,7 +43,7 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
 func batchDeleteAllFixedPhrases() {
     let context = persistentContainer.viewContext
 
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FixedPhrase")
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = FixedPhrase.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
     
     do {

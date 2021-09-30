@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         initOnboardingPanel()
         
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
-            deleteAllKnownWords()
+            batchDeleteAllKnownWords()
             deleteAllSlots()
             self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
         }
@@ -332,7 +332,7 @@ func whichAnimation() -> Animation? {
 func tagWords(_ cleanedWords: [String]) -> [WordCell] {
     var taggedWords: [WordCell] = []
     for word in cleanedWords {
-        if isWordInKnownWords(word) {
+        if knownWordsSet.contains(word) {
             taggedWords.append(WordCell(word: word, isKnown: .known, trans: "")) // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
         } else {
             if let trans = cachedDictionaryServicesDefine(word) {

@@ -66,10 +66,6 @@ func removeMultiWordsFromCustomDict(words: [String]) {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
     }
-    saveContextWithChangingCustomDictSideEffect()
-}
-
-func saveContextWithChangingCustomDictSideEffect() {
     saveContext {
         refreshContentWhenChangingUseCustomDictMode()
     }

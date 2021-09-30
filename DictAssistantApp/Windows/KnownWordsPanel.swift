@@ -36,8 +36,8 @@ extension AppDelegate {
     @objc func showKnownWordsPanel() {
         let knownWordsView = KnownWordsView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
-            .environment(\.removeMultiFromKnownWords, removeMultiFromKnownWords)
-            .environment(\.addMultiToKnownWords, addMultiToKnownWords)
+            .environment(\.removeMultiKnownWords, removeMultiKnownWords)
+            .environment(\.batchInsertKnownWords, batchInsertKnownWords)
         
         knownWordsPanel.contentView = NSHostingView(rootView: knownWordsView)
         knownWordsPanel.orderFrontRegardless()

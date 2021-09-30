@@ -11,7 +11,6 @@ import CoreData
 // how to refresh UI ? -> Notification(current not use)
 func batchInsertCustomPhrases(_ phrases: [String]) {
     let context = persistentContainer.viewContext
-    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
     
     let insertRequest = NSBatchInsertRequest(
         entity: CustomPhrase.entity(),
@@ -22,7 +21,6 @@ func batchInsertCustomPhrases(_ phrases: [String]) {
     
     do {
         try context.execute(insertRequest)
-        context.refreshAllObjects()
     } catch {
         logger.error("Failed to batch insert custom phrases: \(error.localizedDescription)")
     }

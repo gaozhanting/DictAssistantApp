@@ -69,7 +69,7 @@ fileprivate struct WelcomeView: View {
 fileprivate struct InitKnownWordsView: View {
     let next: () -> Void
     
-    @Environment(\.addMultiToKnownWords) var addMultiToKnownWords
+    @Environment(\.batchInsertKnownWords) var batchInsertKnownWords
 
     @State private var to: Int = 5000
     @State private var showAddButton: Bool = false
@@ -104,7 +104,7 @@ fileprivate struct InitKnownWordsView: View {
                     
                     Button(action: {
                         let words = Array(wikiFrequencyWords[0 ..< to])
-                        addMultiToKnownWords(words)
+                        batchInsertKnownWords(words)
                     }) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
