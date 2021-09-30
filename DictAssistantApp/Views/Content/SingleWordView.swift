@@ -90,9 +90,6 @@ fileprivate struct TextBody: View {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
                     unKnown ? addKnownWord(word) : removeKnownWord(word)
                 })
-                Button("Edit Custom Dict Entry", action: {
-                    showEditingCustomDictEntryPopover = true
-                })
                 Button(!allCustomNoisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
                     !allCustomNoisesSet.contains(word) ?
                         addCustomNoise(word) :
@@ -105,9 +102,6 @@ fileprivate struct TextBody: View {
                     Button("Dictionary", action: { openDictionary(word) })
                     Button("Thesaurus", action: { openThesaurus(word) })
                 }
-            }
-            .popover(isPresented: $showEditingCustomDictEntryPopover) {
-                    EditCustomDictEntryView(word: word)
             }
             .gesture(
                 TapGesture()
@@ -132,8 +126,6 @@ fileprivate struct TextBody: View {
             )
     }
     
-    @State private var showEditingCustomDictEntryPopover: Bool = false
-    
     var body: some View {
         if contentStyle == .landscape {
             body0
@@ -154,50 +146,6 @@ fileprivate struct TextBody: View {
     
     @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
-}
-
-fileprivate struct EditCustomDictEntryView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    
-    let word: String
-    @State private var trans: String = ""
-    
-    func add() {
-        let entry = Entry(word: word, trans: trans)
-        upsertCustomDict(entry: entry)
-    }
-    
-    func remove() {
-        removeCustomDict(word: word)
-    }
-    
-    var body: some View {
-        HStack {
-            TextField("Edit The Translation Of Word: \(word)", text: $trans)
-            
-            Button(action: add) {
-                Image(systemName: "rectangle.badge.plus")
-            }
-            .disabled(trans.isMultiline)
-            .keyboardShortcut(KeyEquivalent.return) // command + return
-            
-            Button(action: remove) {
-                Image(systemName: "rectangle.badge.minus")
-            }
-            .keyboardShortcut(KeyEquivalent.delete) // command + delete
-        }
-        .frame(width: 380)
-        .padding(.horizontal)
-        .padding(.vertical, 2)
-    }
-}
-
-extension String {
-    var isMultiline: Bool {
-        self.contains { c in
-            c.isNewline
-        }
-    }
 }
 
 fileprivate struct TextWithShadow: View {
@@ -321,11 +269,5 @@ fileprivate struct TheText: View {
         unKnown ?
             unKnownText :
             knownText
-    }
-}
-
-struct SingleWordView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditCustomDictEntryView(word: "take off")
     }
 }

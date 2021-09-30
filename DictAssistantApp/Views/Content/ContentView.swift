@@ -22,24 +22,34 @@ struct ContentView: View {
     var body: some View {
         ContentView0()
             .contextMenu {
-                Button("Add Custom Phrase Entry") {
+                Button("Add Custom Dict Entry") {
                     showEditingPopover = true
                 }
             }
             .popover(isPresented: $showEditingPopover) {
-                EditingCustomPhraseEntryView()
+                EditingCustomEntryView()
             }
     }
 }
 
-private struct EditingCustomPhraseEntryView: View {
+extension String {
+    var isMultiline: Bool {
+        self.contains { c in
+            c.isNewline
+        }
+    }
+}
+
+private struct EditingCustomEntryView: View {
     @State private var text: String = ""
     
     func add() {
         let entry = text.split(separator: Character(","), maxSplits: 1)
         let word = String(entry[0])
         let trans = String(entry[1])
-        addCustomPhrase(word)
+        if word.isPhrase {
+            addCustomPhrase(word)
+        }
         upsertCustomDict(entry: Entry(word: word, trans: trans))
     }
     
@@ -51,7 +61,7 @@ private struct EditingCustomPhraseEntryView: View {
     
     var body: some View {
         HStack {
-            TextField("Add Custom Phrase Entry", text: $text)
+            TextField("Add Custom Dict Entry", text: $text)
             
             Button(action: add) {
                 Image(systemName: "rectangle.badge.plus")
