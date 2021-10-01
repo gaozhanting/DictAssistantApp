@@ -62,10 +62,12 @@ fileprivate struct FixedCustomPhrasesView: View {
     }
 }
 
-func isContainEmptyLine(_ lines: [String]) -> Bool {
-    lines.contains { line in
-        line.allSatisfy { c in
-            c.isWhitespace
+extension Array where Element == String {
+    var isContainsEmptyLine: Bool {
+        self.contains { line in
+            line.allSatisfy { c in
+                c.isWhitespace
+            }
         }
     }
 }
@@ -93,13 +95,13 @@ fileprivate struct EditingView: View {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(isContainEmptyLine(lines))
+                    .disabled(lines.isContainsEmptyLine)
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(isContainEmptyLine(lines))
+                    .disabled(lines.isContainsEmptyLine)
                     
                     MiniInfoView {
                         InfoView()

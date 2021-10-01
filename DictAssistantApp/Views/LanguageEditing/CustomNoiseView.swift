@@ -108,13 +108,13 @@ fileprivate struct EditingView: View {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(isContainEmptyLine(lines))
+                    .disabled(lines.isContainsEmptyLine)
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(isContainEmptyLine(lines))
+                    .disabled(lines.isContainsEmptyLine)
                     
                     MiniInfoView {
                         InfoView()
