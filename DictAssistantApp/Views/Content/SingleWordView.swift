@@ -226,7 +226,7 @@ fileprivate struct TheText: View {
     }
     
     var trans: String {
-        wordCell.trans
+        wordCell.trans.big5
     }
     
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
