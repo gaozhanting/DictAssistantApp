@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Cocoa
 import CoreData
 
 // for cache for running query (now you have a quick custom dict)
@@ -51,7 +52,7 @@ func getEntry(of word: String) -> CustomDict? {
     }
 }
 
-func batchUpsertCustomDicts(entries: [Entry]) {
+func batchUpsertCustomDicts(entries: [Entry], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     // this got upsert behavior when do batch insert
@@ -66,17 +67,21 @@ func batchUpsertCustomDicts(entries: [Entry]) {
     
     do {
         try context.execute(insertRequest)
+        customDictDict = getAllCustomDict()
+        cachedDict = [:]
+        trCallBack()
+        didSucceed()
     } catch {
         logger.error("Failed to batch upsert custom dicts: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
-    
-    customDictDict = getAllCustomDict()
-    cachedDict = [:]
-    trCallBack()
-    showCustomDictPanelX()
 }
 
-func removeMultiCustomDict(words: [String]) {
+func removeMultiCustomDict(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping() -> Void = {}
+) {
     let context = persistentContainer.viewContext
 
     for word in words {
@@ -91,12 +96,16 @@ func removeMultiCustomDict(words: [String]) {
             }
         } catch {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
         }
     }
     saveContext(didSucceed: {
         customDictDict = getAllCustomDict()
         cachedDict = [:]
         trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }
 

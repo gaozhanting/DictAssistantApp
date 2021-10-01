@@ -69,8 +69,28 @@ struct Entry: Hashable {
 
 fileprivate struct EditingView: View {
     @State private var text = ""
+    
     var lines: [String] {
         text.components(separatedBy: .newlines)
+    }
+    
+    func toastSucceed(callBack: @escaping () -> Void = {}) {
+        withAnimation {
+            succeed = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                succeed = false
+                callBack()
+            }
+        }
+    }
+    
+    func toastNothingChanged() {
+        withAnimation {
+            nothingChanged = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                nothingChanged = false
+            }
+        }
     }
     
     func multiAdd() {
@@ -78,18 +98,39 @@ fileprivate struct EditingView: View {
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
         }
-        batchUpsertCustomDicts(entries: entries)
+        batchUpsertCustomDicts(entries: entries) {
+            toastSucceed {
+                showCustomDictPanelX()
+            }
+        }
     }
     
     func multiRemove() {
-        let words = lines
-        removeMultiCustomDict(words: words)
+        removeMultiCustomDict(lines, didSucceed: {
+            toastSucceed() {
+                showCustomDictPanelX()
+            }
+        }, nothingChanged: {
+            toastNothingChanged()
+        })
     }
+    
+    @State private var succeed: Bool = false
+    @State private var nothingChanged: Bool = false
     
     var body: some View {
         TextEditor(text: $text)
             .overlay(
                 HStack {
+                    if succeed {
+                        Text("Succeed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    if nothingChanged {
+                        Text("Nothing Changed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    
                     Button(action: multiAdd) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
@@ -105,13 +146,7 @@ fileprivate struct EditingView: View {
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
-                    .disabled({
-                        lines.contains { line in
-                            line.allSatisfy { c in
-                                c.isWhitespace
-                            }
-                        }
-                    }())
+                    .disabled(lines.isContainsEmptyLine)
                     .buttonStyle(PlainButtonStyle())
                     .help("Remove multi entries to custom dict.")
                     
