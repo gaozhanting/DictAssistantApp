@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Cocoa
 import CoreData
 
 // for cache for running query
@@ -26,7 +27,7 @@ private func getAllKnownWordsSet() -> Set<String> {
     }
 }
 
-func batchInsertKnownWords(_ words: [String]) {
+func batchInsertKnownWords(_ words: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
@@ -38,16 +39,20 @@ func batchInsertKnownWords(_ words: [String]) {
     
     do {
         try context.execute(insertRequest)
+        knownWordsSet = getAllKnownWordsSet()
+        trCallBack()
+        didSucceed()
     } catch {
         logger.error("Failed to batch insert known words:\(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
-    
-    knownWordsSet = getAllKnownWordsSet()
-    trCallBack()
-    showKnownWordsPanelX()
 }
 
-func removeMultiKnownWords(_ words: [String]) {
+func removeMultiKnownWords(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping() -> Void = {}
+) {
     let context = persistentContainer.viewContext
     
     for word in words {
@@ -67,6 +72,9 @@ func removeMultiKnownWords(_ words: [String]) {
     saveContext(didSucceed: {
         knownWordsSet = getAllKnownWordsSet()
         trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }
 

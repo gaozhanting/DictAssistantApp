@@ -122,23 +122,75 @@ fileprivate struct EditingView: View {
             }
         }
         
-//        for word in words {
-//            for char in word {
-//                if !validEnglishWordsCharacterSet.contains(char) {
-//                    return true
-//                }
-//            }
-//        }
-        
         return false
     }
+    
+    func toastSucceed(callBack: @escaping () -> Void = {}) {
+        withAnimation {
+            succeed = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                succeed = false
+                callBack()
+            }
+        }
+    }
+    
+    func toastNothingChanged() {
+        withAnimation {
+            nothingChanged = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                nothingChanged = false
+            }
+        }
+    }
+    
+    func multiAdd() {
+        batchInsertKnownWords(words) {
+            toastSucceed {
+                showKnownWordsPanelX()
+            }
+        }
+    }
+    
+    func multiRemove() {
+        removeMultiKnownWords(words, didSucceed: {
+            toastSucceed() {
+                showKnownWordsPanelX()
+            }
+        }, nothingChanged: {
+            toastNothingChanged()
+        })
+    }
+    
+    @State private var succeed: Bool = false
+    @State private var nothingChanged: Bool = false
     
     var body: some View {
         TextEditor(text: $text)
             .overlay(
                 HStack {
-                    AddMultiButton(words: words, isWordsInvalid: isWordsInvalid)
-                    RemoveMultiButton(words: words, isWordsInvalid: isWordsInvalid)
+                    if succeed {
+                        Text("Succeed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    if nothingChanged {
+                        Text("Nothing Changed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    
+                    Button(action: multiAdd) {
+                        Image(systemName: "rectangle.stack.badge.plus")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(isWordsInvalid)
+                    .help("Add multi words to Known")
+                    
+                    Button(action: multiRemove) {
+                        Image(systemName: "rectangle.stack.badge.minus")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(isWordsInvalid)
+                    .help("Remove multi words from Known")
                     
                     PasteFirstNWikiWordFrequencyButton(text: $text)
                     PasteOxford3000Button(text: $text)
@@ -152,36 +204,6 @@ fileprivate struct EditingView: View {
                 ,
                 alignment: .bottomTrailing
             )
-    }
-}
-
-fileprivate struct AddMultiButton: View {
-    
-    let words: [String]
-    let isWordsInvalid: Bool
-
-    var body: some View {
-        Button(action: { batchInsertKnownWords(Array(words)) }) {
-            Image(systemName: "rectangle.stack.badge.plus")
-        }
-        .buttonStyle(PlainButtonStyle())
-        .disabled(isWordsInvalid)
-        .help("Add multi words to Known")
-    }
-}
-
-fileprivate struct RemoveMultiButton: View {
-
-    let words: [String]
-    let isWordsInvalid: Bool
-
-    var body: some View {
-        Button(action: { removeMultiKnownWords(Array(words)) }) {
-            Image(systemName: "rectangle.stack.badge.minus")
-        }
-        .buttonStyle(PlainButtonStyle())
-        .disabled(isWordsInvalid)
-        .help("Remove multi words from Known")
     }
 }
 
