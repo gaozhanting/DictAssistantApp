@@ -27,6 +27,7 @@ private func getAllCustomDict() -> Dictionary<String, String> {
         return dict
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return Dictionary()
     }
 }
@@ -48,6 +49,7 @@ func getEntry(of word: String) -> CustomDict? {
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return nil
     }
 }
@@ -128,6 +130,7 @@ func upsertCustomDict(entry: Entry) {
         }
     } catch {
         logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
         customDictDict = getAllCustomDict()
@@ -150,6 +153,7 @@ func removeCustomDict(word: String) {
         }
     } catch {
         logger.error("Failed to remove custom dict: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
         customDictDict = getAllCustomDict()

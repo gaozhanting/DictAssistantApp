@@ -22,6 +22,7 @@ private func getAllCustomPhrasesSet() -> Set<String> {
         return Set(phrases)
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return Set()
     }
 }
@@ -67,6 +68,7 @@ func removeMultiCustomPhrases(
             }
         } catch {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
         }
     }
     
@@ -94,6 +96,7 @@ func addCustomPhrase(_ phrase: String) {
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     
     saveContext(didSucceed: {

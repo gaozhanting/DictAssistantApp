@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Cocoa
 import CoreData
 
 // for cache for running query
@@ -23,6 +24,7 @@ private func getAllFixedPhrasesSet() -> Set<String> {
         return Set.init(phrases)
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return Set()
     }
 }
@@ -55,6 +57,7 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
         try context.execute(insertRequest)
     } catch {
         logger.error("Failed to batch insert all fixed Phrases: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     
     fixedPhrasesSet = getAllFixedPhrasesSet()
@@ -71,6 +74,7 @@ func batchDeleteAllFixedPhrases() {
         try context.execute(deleteRequest)
     } catch {
         logger.error("Failed to insert all fixed Phrases: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     
     fixedPhrasesSet = getAllFixedPhrasesSet()

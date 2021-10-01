@@ -24,6 +24,7 @@ private func getAllCustomNoiseSet() -> Set<String> {
         )
     } catch {
         logger.error("Failed to fetch all custom noises: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return Set()
     }
 }
@@ -59,6 +60,7 @@ func batchDeleteAllCustomNoise() {
         try context.execute(deleteRequest)
     } catch {
         logger.error("Failed to batch delete all custom noise: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     
     allCustomNoisesSet = getAllCustomNoiseSet()
@@ -111,6 +113,7 @@ func addCustomNoise(_ word: String) {
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
         allCustomNoisesSet = getAllCustomNoiseSet()
@@ -132,6 +135,7 @@ func removeCustomNoise(_ word: String) {
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
         allCustomNoisesSet = getAllCustomNoiseSet()

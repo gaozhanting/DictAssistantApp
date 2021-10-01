@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Cocoa
 import CoreData
 
 func getAllSlots() -> [Slot] {
@@ -18,6 +19,7 @@ func getAllSlots() -> [Slot] {
         return results
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return []
     }
 }
@@ -32,5 +34,6 @@ func batchDeleteAllSlots() {
         try context.execute(deleteRequest)
     } catch {
         logger.error("Failed to batch delete all slots: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
 }

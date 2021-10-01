@@ -13,6 +13,7 @@ let persistentContainer: NSPersistentContainer = {
     container.loadPersistentStores { description, error in
         if let error = error {
             logger.error("Unable to load persistent stores: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
         }
     }
     return container

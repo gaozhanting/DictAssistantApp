@@ -23,6 +23,7 @@ private func getAllKnownWordsSet() -> Set<String> {
         return Set.init(knownWords)
     } catch {
         logger.error("Failed to fetch all known words: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
         return Set()
     }
 }
@@ -67,6 +68,7 @@ func removeMultiKnownWords(
             }
         } catch {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
         }
     }
     saveContext(didSucceed: {
@@ -88,6 +90,7 @@ func batchDeleteAllKnownWords() {
         try context.execute(deleteRequest)
     } catch {
         logger.error("Failed to batch delete all known words: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     
     knownWordsSet = getAllKnownWordsSet()
@@ -110,6 +113,7 @@ func addKnownWord(_ word: String) {
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
         knownWordsSet = getAllKnownWordsSet()
@@ -131,6 +135,7 @@ func removeKnownWord(_ word: String) {
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
         knownWordsSet = getAllKnownWordsSet()
