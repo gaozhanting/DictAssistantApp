@@ -64,10 +64,10 @@ func removeMultiKnownWords(_ words: [String]) {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
     }
-    saveContext {
+    saveContext(didSucceed: {
         knownWordsSet = getAllKnownWordsSet()
         trCallBack()
-    }
+    })
 }
 
 func batchDeleteAllKnownWords() {
@@ -103,10 +103,10 @@ func addKnownWord(_ word: String) {
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
-    saveContext {
+    saveContext(didSucceed: {
         knownWordsSet = getAllKnownWordsSet()
         trCallBack()
-    }
+    })
 }
 
 func removeKnownWord(_ word: String) {
@@ -124,8 +124,8 @@ func removeKnownWord(_ word: String) {
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
-    saveContext {
+    saveContext(didSucceed: {
         knownWordsSet = getAllKnownWordsSet()
         trCallBack()
-    }
+    })
 }

@@ -93,11 +93,11 @@ func removeMultiCustomDict(words: [String]) {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
         }
     }
-    saveContext {
+    saveContext(didSucceed: {
         customDictDict = getAllCustomDict()
         cachedDict = [:]
         trCallBack()
-    }
+    })
 }
 
 func upsertCustomDict(entry: Entry) {
@@ -120,11 +120,11 @@ func upsertCustomDict(entry: Entry) {
     } catch {
         logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
     }
-    saveContext {
+    saveContext(didSucceed: {
         customDictDict = getAllCustomDict()
         cachedDict = [:]
         trCallBack()
-    }
+    })
 }
 
 func removeCustomDict(word: String) {
@@ -142,9 +142,9 @@ func removeCustomDict(word: String) {
     } catch {
         logger.error("Failed to remove custom dict: \(error.localizedDescription)")
     }
-    saveContext {
+    saveContext(didSucceed: {
         customDictDict = getAllCustomDict()
         cachedDict = [:]
         trCallBack()
-    }
+    })
 }

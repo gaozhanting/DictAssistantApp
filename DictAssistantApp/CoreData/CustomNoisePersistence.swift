@@ -65,7 +65,11 @@ func batchDeleteAllCustomNoise() {
     trCallBack()
 }
 
-func removeMultiCustomNoise(_ words: [String], didSucceed: @escaping () -> Void = {}) {
+func removeMultiCustomNoise(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping() -> Void = {}
+) {
     let context = persistentContainer.viewContext
     
     for word in words {
@@ -83,11 +87,13 @@ func removeMultiCustomNoise(_ words: [String], didSucceed: @escaping () -> Void 
             NSApplication.shared.presentError(error as NSError)
         }
     }
-    saveContext {
+    saveContext(didSucceed: {
         allCustomNoisesSet = getAllCustomNoiseSet()
         trCallBack()
         didSucceed()
-    }
+    }, nothingChanged: {
+        nothingChanged()
+    })
 }
 
 func addCustomNoise(_ word: String) {
@@ -106,10 +112,10 @@ func addCustomNoise(_ word: String) {
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
-    saveContext {
+    saveContext(didSucceed: {
         allCustomNoisesSet = getAllCustomNoiseSet()
         trCallBack()
-    }
+    })
 }
 
 func removeCustomNoise(_ word: String) {
@@ -127,8 +133,8 @@ func removeCustomNoise(_ word: String) {
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
-    saveContext {
+    saveContext(didSucceed: {
         allCustomNoisesSet = getAllCustomNoiseSet()
         trCallBack()
-    }
+    })
 }

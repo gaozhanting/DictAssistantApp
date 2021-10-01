@@ -18,7 +18,10 @@ let persistentContainer: NSPersistentContainer = {
     return container
 }()
 
-func saveContext(_ didSucceed: @escaping () -> Void = {}) {
+func saveContext(
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping () -> Void = {}
+) {
     let context = persistentContainer.viewContext
     if context.hasChanges {
         do {
@@ -31,5 +34,7 @@ func saveContext(_ didSucceed: @escaping () -> Void = {}) {
             let nserror = error as NSError
             NSApplication.shared.presentError(nserror)
         }
+    } else {
+        nothingChanged()
     }
 }

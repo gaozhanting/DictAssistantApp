@@ -66,9 +66,9 @@ func removeMultiCustomPhrases(_ phrases: [String]) {
         }
     }
     
-    saveContext {
+    saveContext(didSucceed: {
         customPhrasesSet = getAllCustomPhrasesSet()
-    }
+    })
 }
 
 func addCustomPhrase(_ phrase: String) {
@@ -88,7 +88,7 @@ func addCustomPhrase(_ phrase: String) {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
     }
     
-    saveContext {
+    saveContext(didSucceed: {
         customPhrasesSet = getAllCustomPhrasesSet()
-    }
+    })
 }

@@ -322,9 +322,9 @@
 			isa = PBXGroup;
 			children = (
 				44C207B92701A8E300419F63 /* CustomPhrasesView.swift */,
+				445355632705C4F4007DB9C2 /* CustomNoiseView.swift */,
 				44BCEC5526842086002D3D8C /* KnownWordsView.swift */,
 				44C31D6C26FE035800ED6E08 /* CustomDictView.swift */,
-				445355632705C4F4007DB9C2 /* CustomNoiseView.swift */,
 			);
 			path = LanguageEditing;
 			sourceTree = "<group>";

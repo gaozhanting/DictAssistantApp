@@ -80,6 +80,15 @@ fileprivate struct EditingView: View {
         }
     }
     
+    func toastNothingChanged() {
+        withAnimation {
+            nothingChanged = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                nothingChanged = false
+            }
+        }
+    }
+    
     func multiAdd() {
         batchInsertCustomNoise(lines) {
             toastSucceed {
@@ -89,20 +98,30 @@ fileprivate struct EditingView: View {
     }
     
     func multiRemove() {
-        removeMultiCustomNoise(lines) {
+        removeMultiCustomNoise(lines, didSucceed: {
             toastSucceed() {
                 showCustomNoisesPanelX()
             }
-        }
+        }, nothingChanged: {
+            toastNothingChanged()
+        })
     }
     
     @State private var succeed: Bool = false
+    @State private var nothingChanged: Bool = false
     
     var body: some View {
         TextEditor(text: $text)
             .overlay(
                 HStack {
-                    if succeed { Text("Succeed") }
+                    if succeed {
+                        Text("Succeed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    if nothingChanged {
+                        Text("Nothing Changed")
+                            .transition(.move(edge: .bottom))
+                    }
                     
                     Button(action: multiAdd) {
                         Image(systemName: "rectangle.stack.badge.plus")
