@@ -216,8 +216,6 @@ fileprivate struct SlotsView: View {
         ]
     ) var slots: FetchedResults<Slot>
     
-    @Environment(\.defaultMinListRowHeight) var defaultMinListRowHeight // 18.0
-    
     var body: some View {
         VStack(alignment: .leading) {
             GroupBox {
@@ -270,8 +268,7 @@ fileprivate struct SlotsView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
-                .frame(width: 300,
-                       height: 100 + CGFloat(slots.count) * defaultMinListRowHeight)
+                .frame(width: 300, height: 40 + CGFloat(slots.count) * 35 < 800 ? 40 + CGFloat(slots.count) * 35 : 800)
             }
             
             HStack {
