@@ -26,8 +26,7 @@ private func getAllCustomPhrasesSet() -> Set<String> {
     }
 }
 
-// how to refresh UI ? -> Notification(current not use)
-func batchInsertCustomPhrases(_ phrases: [String]) {
+func batchInsertCustomPhrases(_ phrases: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
@@ -39,16 +38,21 @@ func batchInsertCustomPhrases(_ phrases: [String]) {
     
     do {
         try context.execute(insertRequest)
+        customPhrasesSet = getAllCustomPhrasesSet()
+        trCallBack()
+        didSucceed()
     } catch {
         logger.error("Failed to batch insert custom phrases: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
-    
-    customPhrasesSet = getAllCustomPhrasesSet()
-    showCustomPhrasesPanelX()
 }
 
 // can't batch delete specific collection ?!
-func removeMultiCustomPhrases(_ phrases: [String]) {
+func removeMultiCustomPhrases(
+    _ phrases: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping() -> Void = {}
+) {
     let context = persistentContainer.viewContext
     
     for phrase in phrases {
@@ -68,6 +72,10 @@ func removeMultiCustomPhrases(_ phrases: [String]) {
     
     saveContext(didSucceed: {
         customPhrasesSet = getAllCustomPhrasesSet()
+        trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }
 

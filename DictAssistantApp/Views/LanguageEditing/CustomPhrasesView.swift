@@ -79,18 +79,59 @@ fileprivate struct EditingView: View {
         text.components(separatedBy: .newlines)
     }
     
+    func toastSucceed(callBack: @escaping () -> Void = {}) {
+        withAnimation {
+            succeed = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                succeed = false
+                callBack()
+            }
+        }
+    }
+    
+    func toastNothingChanged() {
+        withAnimation {
+            nothingChanged = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                nothingChanged = false
+            }
+        }
+    }
+    
     func multiAdd() {
-        batchInsertCustomPhrases(lines)
+        batchInsertCustomPhrases(lines) {
+            toastSucceed() {
+                showCustomPhrasesPanelX()
+            }
+        }
     }
     
     func multiRemove() {
-        removeMultiCustomPhrases(lines)
+        removeMultiCustomPhrases(lines, didSucceed: {
+            toastSucceed() {
+                showCustomPhrasesPanelX()
+            }
+        }, nothingChanged: {
+            toastNothingChanged()
+        })
     }
+    
+    @State private var succeed: Bool = false
+    @State private var nothingChanged: Bool = false
     
     var body: some View {
         TextEditor(text: $text)
             .overlay(
                 HStack {
+                    if succeed {
+                        Text("Succeed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    if nothingChanged {
+                        Text("Nothing Changed")
+                            .transition(.move(edge: .bottom))
+                    }
+                    
                     Button(action: multiAdd) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
