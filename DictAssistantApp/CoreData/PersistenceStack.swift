@@ -18,12 +18,12 @@ let persistentContainer: NSPersistentContainer = {
     return container
 }()
 
-func saveContext(_ completionHandler: () -> Void = {}) {
+func saveContext(_ didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     if context.hasChanges {
         do {
             try context.save()
-            completionHandler()
+            didSucceed()
         } catch {
             logger.info("Failed to save context: \(error.localizedDescription)")
             

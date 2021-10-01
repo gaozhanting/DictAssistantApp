@@ -69,18 +69,41 @@ fileprivate struct EditingView: View {
         text.components(separatedBy: .newlines)
     }
     
+    // failed using NSApplication.shared.presentError(error as NSError)
+    func toastSucceed(callBack: @escaping () -> Void = {}) {
+        withAnimation {
+            succeed = true
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                succeed = false
+                callBack()
+            }
+        }
+    }
+    
     func multiAdd() {
-        batchInsertCustomNoise(lines)
+        batchInsertCustomNoise(lines) {
+            toastSucceed {
+                showCustomNoisesPanelX()
+            }
+        }
     }
     
     func multiRemove() {
-        removeMultiCustomNoise(lines)
+        removeMultiCustomNoise(lines) {
+            toastSucceed() {
+                showCustomNoisesPanelX()
+            }
+        }
     }
+    
+    @State private var succeed: Bool = false
     
     var body: some View {
         TextEditor(text: $text)
             .overlay(
                 HStack {
+                    if succeed { Text("Succeed") }
+                    
                     Button(action: multiAdd) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }

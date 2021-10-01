@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Cocoa
 import CoreData
 
 // for cache for running query
@@ -27,7 +28,7 @@ private func getAllCustomNoiseSet() -> Set<String> {
     }
 }
 
-func batchInsertCustomNoise(_ words: [String]) {
+func batchInsertCustomNoise(_ words: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
@@ -39,13 +40,13 @@ func batchInsertCustomNoise(_ words: [String]) {
     
     do {
         try context.execute(insertRequest)
+        allCustomNoisesSet = getAllCustomNoiseSet()
+        trCallBack()
+        didSucceed()
     } catch {
         logger.error("Failed to batch insert custom noise:\(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
-    
-    allCustomNoisesSet = getAllCustomNoiseSet()
-    trCallBack()
-    showCustomNoisesPanelX()
 }
 
 func batchDeleteAllCustomNoise() {
@@ -62,10 +63,9 @@ func batchDeleteAllCustomNoise() {
     
     allCustomNoisesSet = getAllCustomNoiseSet()
     trCallBack()
-    showCustomNoisesPanelX()
 }
 
-func removeMultiCustomNoise(_ words: [String]) {
+func removeMultiCustomNoise(_ words: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     for word in words {
@@ -80,11 +80,13 @@ func removeMultiCustomNoise(_ words: [String]) {
             }
         } catch {
             logger.error("Failed to fetch request: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
         }
     }
     saveContext {
         allCustomNoisesSet = getAllCustomNoiseSet()
         trCallBack()
+        didSucceed()
     }
 }
 

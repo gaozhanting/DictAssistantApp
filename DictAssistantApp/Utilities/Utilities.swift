@@ -82,6 +82,7 @@ private func makeFixedNoiseVocabulary() -> Set<String> {
 }
 
 let logger = Logger()
+
 func myPrint(_ str: String) {
     print(str) // or donothing
 }
