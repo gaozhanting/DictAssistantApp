@@ -62,6 +62,9 @@ fileprivate func makeValidEnglishWordsCharacterSet() -> Set<Character> {
     return Set(characters)
 }
 
+private let oneLetterRealWords = Set("a A i I".split(separator: Character(" ")).map { String($0) })
+private let twoLetterRealWords = Set("ad am an as at ax be bi by do go he hi ho id if in is it me my no of oh ok OK on or ox so to up us uh um we tv TV".split(separator: Character(" ")).map { String($0) })
+
 private func makeFixedNoiseVocabulary() -> Set<String> {
     let oneLetterWords = a_z.components(separatedBy: " ").map { String($0) }
     
@@ -72,12 +75,8 @@ private func makeFixedNoiseVocabulary() -> Set<String> {
         }
     }
     
-    let extraNoiseWords = Vocabularies.read(from: "extra_fixed_noise_words.txt").components(separatedBy: .newlines)
+    let allNoiseWords = oneLetterWords + twoLetterWords
     
-    let allNoiseWords = oneLetterWords + twoLetterWords + extraNoiseWords
-    
-    let oneLetterRealWords = Vocabularies.readToSet(from: "one_letter_real_words.txt")
-    let twoLetterRealWords = Vocabularies.readToSet(from: "two_letter_real_words.txt")
     let result = Set(allNoiseWords).subtracting(oneLetterRealWords).subtracting(twoLetterRealWords)
     return result
 }

@@ -26,11 +26,6 @@ let package = Package(
                 .process("Resources/first_100_000_of_enwiki-20190320-words-frequency.txt"),
                 .process("Resources/lemma.en.txt"),
                 .process("Resources/phrases_from_ecdict.txt"),
-                .process("Resources/phrases_should_add.txt"),
-                .process("Resources/phrases_should_remove.txt"),
-                .process("Resources/extra_fixed_noise_words.txt"),
-                .process("Resources/two_letter_real_words.txt"),
-                .process("Resources/one_letter_real_words.txt")
             ]),
         .testTarget(
             name: "DataBasesTests",
