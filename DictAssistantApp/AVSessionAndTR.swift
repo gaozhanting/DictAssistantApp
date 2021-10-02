@@ -155,6 +155,14 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 if texts.elementsEqual(lastReconginzedTexts) {
 //                    logger.info("recognizeTextHandler texts == lastReconginzedTexts, so don't run trCallback")
                 } else {
+                    // if this option on, content won't react to new empty results; useful for using chrome live caption.
+                    if UserDefaults.standard.bool(forKey: "IsContentRetentionKey") {
+                        if texts.isEmpty {
+                            logger.info("content got retention")
+                            return
+                        }
+                    }
+                    
                     logger.info("recognizeTextHandler texts != lastReconginzedTexts, so do run trCallback")
                     
                     currentTRTexts = texts

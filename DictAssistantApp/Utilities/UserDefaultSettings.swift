@@ -42,6 +42,8 @@ let IsAddSpaceKey = "IsAddSpaceKey"
 let IsDropFirstTitleWordInTranslationKey = "IsDropFirstTitleWordInTranslationKey"
 let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
 
+let IsContentRetentionKey = "IsContentRetentionKey"
+
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 
 let IsWithAnimationKey = "IsWithAnimationKey"
@@ -93,6 +95,8 @@ fileprivate let defaultSlotKV: [String: Any] = [
     IsAddSpaceKey: false,
     IsDropFirstTitleWordInTranslationKey: true,
     IsJoinTranslationLinesKey: false,
+    
+    IsContentRetentionKey: false,
     
     IsShowWindowShadowKey: true,
     
@@ -184,24 +188,3 @@ func combineSomeUserDefaults() {
         .sink { _ in }
         .store(in: &subscriptions)
 }
-
-// Slots
-let SelectedSlotKey = "SelectedSlotKey"
-
-let BlueSettingsKey = "BlueSettingsKey"
-let PurpleSettingsKey = "PurpleSettingsKey"
-let PinkSettingsKey = "PinkSettingsKey"
-let RedSettingsKey = "RedSettingsKey"
-let OrangeSettingsKey = "OrangeSettingsKey"
-let YellowSettingsKey = "YellowSettingsKey"
-let GreenSettingsKey = "GreenSettingsKey"
-let GraySettingsKey = "GraySettingsKey"
-
-let BlueLabelKey = "BlueLabelKey"
-let PurpleLabelKey = "PurpleLabelKey"
-let PinkLabelKey = "PinkLabelKey"
-let RedLabelKey = "RedLabelKey"
-let OrangeLabelKey = "OrangeLabelKey"
-let YellowLabelKey = "YelloLabelKey"
-let GreenLabelKey = "GreenLabelKey"
-let GrayLabelKey = "GrayLabelKey"

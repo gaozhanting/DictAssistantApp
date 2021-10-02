@@ -27,6 +27,8 @@ struct Settings: Codable {
     let isDropFirstTitleWordInTranslation: Bool
     let isJoinTranslationLines: Bool
     
+    let isContentRetention: Bool
+    
     let isShowWindowShadow: Bool
     
     let isWithAnimation: Bool
@@ -75,6 +77,7 @@ struct Settings: Codable {
         isAddSpace: Bool,
         isDropFirstTitleWordInTranslation: Bool,
         isJoinTranslationLines: Bool,
+        isContentRetention: Bool,
         isShowWindowShadow: Bool,
         isWithAnimation: Bool,
         contentStyle: ContentStyle,
@@ -108,6 +111,7 @@ struct Settings: Codable {
         self.isAddSpace = isAddSpace
         self.isDropFirstTitleWordInTranslation = isDropFirstTitleWordInTranslation
         self.isJoinTranslationLines = isJoinTranslationLines
+        self.isContentRetention = isContentRetention
         self.isShowWindowShadow = isShowWindowShadow
         self.isWithAnimation = isWithAnimation
         self.contentStyle = contentStyle
@@ -154,6 +158,7 @@ fileprivate let defaultSettings = Settings(
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
     isJoinTranslationLines: false,
+    isContentRetention: false,
     isShowWindowShadow: true,
     isWithAnimation: true,
     contentStyle: ContentStyle.portrait,
@@ -311,6 +316,7 @@ fileprivate struct SlotsView: View {
             isAddSpace: isAddSpace,
             isDropFirstTitleWordInTranslation: isDropFirstTitleWordInTranslation,
             isJoinTranslationLines: isJoinTranslationLines,
+            isContentRetention: isContentRetention,
             isShowWindowShadow: isShowWindowShadow,
             isWithAnimation: isWithAnimation,
             contentStyle: contentStyle,
@@ -347,6 +353,7 @@ fileprivate struct SlotsView: View {
             s.isAddSpace == isAddSpace &&
             s.isDropFirstTitleWordInTranslation == isDropFirstTitleWordInTranslation &&
             s.isJoinTranslationLines == isJoinTranslationLines &&
+            s.isContentRetention == isContentRetention &&
             s.isShowWindowShadow == isShowWindowShadow &&
             s.isWithAnimation == isWithAnimation &&
             s.contentStyle == contentStyle &&
@@ -382,6 +389,7 @@ fileprivate struct SlotsView: View {
         isAddSpace = s.isAddSpace
         isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
         isJoinTranslationLines = s.isJoinTranslationLines
+        isContentRetention = s.isContentRetention
         isShowWindowShadow = s.isShowWindowShadow
         isWithAnimation = s.isWithAnimation
         contentStyle = s.contentStyle
@@ -422,6 +430,8 @@ fileprivate struct SlotsView: View {
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
 
+    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
+    
     @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
 
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true

@@ -30,6 +30,9 @@ struct AppearanceSettingsView: View {
                 DropFirstTitleWordInTranslationToggle()
                 JoinTranslationLinesToggle()
             }
+            Preferences.Section(title: NSLocalizedString("Content Retention:", comment: "")) {
+                ContentRetentionToggle()
+            }
             Preferences.Section(title: NSLocalizedString("Content Window Shadow Display:", comment: "")) {
                 ContentWindowShadowToggle()
             }
@@ -201,6 +204,25 @@ fileprivate struct JoinTranslationLinesToggle: View {
             Text("Join translation lines")
         })
         .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+fileprivate struct ContentRetentionToggle: View {
+    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isContentRetention, label: {
+                Text("Make Content Retention")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            
+            MiniInfoView {
+                Text("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
+                    .font(.subheadline)
+                    .padding()
+            }
+        }
     }
 }
 

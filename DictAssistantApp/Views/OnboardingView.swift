@@ -71,6 +71,7 @@ fileprivate struct InitKnownWordsView: View {
     
     @State private var to: Int = 5000
     @State private var showAddButton: Bool = false
+    @State private var batchInsertSucceed: Bool = false
     
     @FetchRequest(
         entity: WordStats.entity(),
@@ -102,7 +103,9 @@ fileprivate struct InitKnownWordsView: View {
                     
                     Button(action: {
                         let words = Array(wikiFrequencyWords[0 ..< to])
-                        batchInsertKnownWords(words)
+                        batchInsertKnownWords(words) {
+                            batchInsertSucceed = true
+                        }
                     }) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
@@ -113,7 +116,7 @@ fileprivate struct InitKnownWordsView: View {
                 Button(action: next, label: {
                     Text("Continue")
                 })
-                .disabled(fetchedKnownWords.count == 0)
+                .disabled(fetchedKnownWords.count == 0 && !batchInsertSucceed)
             })
     }
 }
