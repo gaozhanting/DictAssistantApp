@@ -31,6 +31,8 @@ func initKnownWordsPanel() {
     
     knownWordsPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     knownWordsPanel.isReleasedWhenClosed = false
+    
+    knownWordsPanel.close()
 }
 
 func showKnownWordsPanelX() {

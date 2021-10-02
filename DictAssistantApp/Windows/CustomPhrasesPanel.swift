@@ -31,6 +31,8 @@ func initCustomPhrasesPanel() {
     
     customPhrasesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     customPhrasesPanel.isReleasedWhenClosed = false
+    
+    customPhrasesPanel.close()
 }
 
 func showCustomPhrasesPanelX() {

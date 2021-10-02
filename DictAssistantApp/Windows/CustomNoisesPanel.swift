@@ -31,6 +31,8 @@ func initCustomNoisesPanel() {
     
     customNoisesPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     customNoisesPanel.isReleasedWhenClosed = false
+    
+    customNoisesPanel.close()
 }
 
 func showCustomNoisesPanelX() {

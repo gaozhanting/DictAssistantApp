@@ -29,6 +29,7 @@ struct AppearanceSettingsView: View {
                 AddSpaceBeforeTranslationToggle()
                 DropFirstTitleWordInTranslationToggle()
                 JoinTranslationLinesToggle()
+                ChineseCharacterConvertingPicker()
             }
             Preferences.Section(title: NSLocalizedString("Content Retention:", comment: "")) {
                 ContentRetentionToggle()
@@ -204,6 +205,47 @@ fileprivate struct JoinTranslationLinesToggle: View {
             Text("Join translation lines")
         })
         .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+fileprivate struct ChineseCharacterConvertingPicker: View {
+    @State private var showPicker: Bool = true
+    
+    var binding: Binding<Bool> {
+        Binding(
+            get: { showPicker },
+            set: { newValue in
+                withAnimation {
+                    showPicker = newValue
+                }
+            }
+        )
+    }
+    
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notUse
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: binding, label: {
+                Text("More...")
+            })
+            .toggleStyle(SwitchToggleStyle())
+            
+            
+            if showPicker {
+                Spacer()
+                Text("Chinese Convert:")
+                Picker("", selection: $chineseCharacterConvertMode) {
+                    Text("not use").tag(ChineseCharacterConvertMode.notUse)
+                    Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional)
+                    Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified)
+                }
+                .labelsHidden()
+                .pickerStyle(MenuPickerStyle())
+                .frame(width: 120)
+            }
+        }
+        .frame(maxWidth: 360)
     }
 }
 

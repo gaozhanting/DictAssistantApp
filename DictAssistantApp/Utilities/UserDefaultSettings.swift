@@ -41,6 +41,7 @@ let IsAddLineBreakKey = "IsAddLineBreakKey"
 let IsAddSpaceKey = "IsAddSpaceKey"
 let IsDropFirstTitleWordInTranslationKey = "IsDropFirstTitleWordInTranslationKey"
 let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
+let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
 let IsContentRetentionKey = "IsContentRetentionKey"
 
@@ -79,6 +80,12 @@ enum UseCustomDictMode: Int, Codable {
     case only = 3
 }
 
+enum ChineseCharacterConvertMode: Int, Codable {
+    case notUse = 0
+    case convertToTraditional = 1
+    case convertToSimplified = 2
+}
+
 // in slot defaults
 fileprivate let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
@@ -95,6 +102,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     IsAddSpaceKey: false,
     IsDropFirstTitleWordInTranslationKey: true,
     IsJoinTranslationLinesKey: false,
+    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notUse.rawValue,
     
     IsContentRetentionKey: false,
     

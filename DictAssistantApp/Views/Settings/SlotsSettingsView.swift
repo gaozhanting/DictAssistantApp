@@ -26,6 +26,7 @@ struct Settings: Codable {
     let isAddSpace: Bool
     let isDropFirstTitleWordInTranslation: Bool
     let isJoinTranslationLines: Bool
+    let chineseCharacterConvertMode: ChineseCharacterConvertMode
     
     let isContentRetention: Bool
     
@@ -77,6 +78,7 @@ struct Settings: Codable {
         isAddSpace: Bool,
         isDropFirstTitleWordInTranslation: Bool,
         isJoinTranslationLines: Bool,
+        chineseCharacterConvertMode: ChineseCharacterConvertMode,
         isContentRetention: Bool,
         isShowWindowShadow: Bool,
         isWithAnimation: Bool,
@@ -111,6 +113,7 @@ struct Settings: Codable {
         self.isAddSpace = isAddSpace
         self.isDropFirstTitleWordInTranslation = isDropFirstTitleWordInTranslation
         self.isJoinTranslationLines = isJoinTranslationLines
+        self.chineseCharacterConvertMode = chineseCharacterConvertMode
         self.isContentRetention = isContentRetention
         self.isShowWindowShadow = isShowWindowShadow
         self.isWithAnimation = isWithAnimation
@@ -158,6 +161,7 @@ fileprivate let defaultSettings = Settings(
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
     isJoinTranslationLines: false,
+    chineseCharacterConvertMode: ChineseCharacterConvertMode.notUse,
     isContentRetention: false,
     isShowWindowShadow: true,
     isWithAnimation: true,
@@ -316,6 +320,7 @@ fileprivate struct SlotsView: View {
             isAddSpace: isAddSpace,
             isDropFirstTitleWordInTranslation: isDropFirstTitleWordInTranslation,
             isJoinTranslationLines: isJoinTranslationLines,
+            chineseCharacterConvertMode: chineseCharacterConvertMode,
             isContentRetention: isContentRetention,
             isShowWindowShadow: isShowWindowShadow,
             isWithAnimation: isWithAnimation,
@@ -353,6 +358,7 @@ fileprivate struct SlotsView: View {
             s.isAddSpace == isAddSpace &&
             s.isDropFirstTitleWordInTranslation == isDropFirstTitleWordInTranslation &&
             s.isJoinTranslationLines == isJoinTranslationLines &&
+            s.chineseCharacterConvertMode == chineseCharacterConvertMode &&
             s.isContentRetention == isContentRetention &&
             s.isShowWindowShadow == isShowWindowShadow &&
             s.isWithAnimation == isWithAnimation &&
@@ -389,6 +395,7 @@ fileprivate struct SlotsView: View {
         isAddSpace = s.isAddSpace
         isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
         isJoinTranslationLines = s.isJoinTranslationLines
+        chineseCharacterConvertMode = s.chineseCharacterConvertMode
         isContentRetention = s.isContentRetention
         isShowWindowShadow = s.isShowWindowShadow
         isWithAnimation = s.isWithAnimation
@@ -429,6 +436,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notUse
 
     @AppStorage(IsContentRetentionKey) private var isContentRetention = false
     

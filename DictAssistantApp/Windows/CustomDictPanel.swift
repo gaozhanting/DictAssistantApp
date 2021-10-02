@@ -31,6 +31,8 @@ func initCustomDictPanel() {
     
     customDictPanel.collectionBehavior.insert(.fullScreenAuxiliary)
     customDictPanel.isReleasedWhenClosed = false
+    
+    customDictPanel.close()
 }
 
 func showCustomDictPanelX() {

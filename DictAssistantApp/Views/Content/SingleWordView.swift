@@ -225,8 +225,16 @@ fileprivate struct TheText: View {
         wordCell.word
     }
     
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notUse
     var trans: String {
-        wordCell.trans.big5
+        switch chineseCharacterConvertMode {
+        case .notUse:
+            return wordCell.trans
+        case .convertToTraditional:
+            return wordCell.trans.big5
+        case .convertToSimplified:
+            return wordCell.trans.gb
+        }
     }
     
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false

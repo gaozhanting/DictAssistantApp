@@ -112,6 +112,10 @@
 "Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the translation; for example: スーパー大辞林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct." = "勾選它，當你想丟棄單詞譯文的首詞，通常標題單詞作為詞典譯文的首詞。註意，有些詞典沒有把標題單詞設置為譯文的首詞；比如：スーパー大辭林 / Super Daijirin Japanese Dictionary；您可以不勾選此選項，因為這種情況下字符數不對。";
 "Join translation lines" = "合並單詞譯文為一行";
 
+"Chinese Convert:" = "中文繁簡轉換：";
+"convert to traditional" = "轉爲繁體中文";
+"convert to simplified" = "轉爲簡體中文";
+
 "Make Content Retention" = "讓內容滯留";
 "If selected, content will get retention of last recognized tests when new recognized tests is empty." = "如果勾選，如果當前識別的文本爲空，內容會滯留顯示最近識別的非空文本內容";
 
