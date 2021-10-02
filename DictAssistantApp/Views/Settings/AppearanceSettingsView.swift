@@ -209,7 +209,7 @@ fileprivate struct JoinTranslationLinesToggle: View {
 }
 
 fileprivate struct ChineseCharacterConvertingPicker: View {
-    @State private var showPicker: Bool = true
+    @State private var showPicker: Bool = false
     
     var binding: Binding<Bool> {
         Binding(
