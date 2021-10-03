@@ -80,7 +80,7 @@ func removeMultiKnownWords(
     })
 }
 
-func batchDeleteAllKnownWords() {
+func batchDeleteAllKnownWords(didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
 
     let fetchRequest: NSFetchRequest<NSFetchRequestResult> = WordStats.fetchRequest()
@@ -88,14 +88,14 @@ func batchDeleteAllKnownWords() {
 
     do {
         try context.execute(deleteRequest)
+        knownWordsSet = getAllKnownWordsSet()
+        trCallBack()
+        showKnownWordsPanelX()
+        didSucceed()
     } catch {
         logger.error("Failed to batch delete all known words: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
-    
-    knownWordsSet = getAllKnownWordsSet()
-    trCallBack()
-    showKnownWordsPanelX()
 }
 
 func addKnownWord(_ word: String) {

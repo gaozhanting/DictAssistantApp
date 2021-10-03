@@ -93,7 +93,7 @@ fileprivate struct EditingView: View {
         }
     }
     
-    func multiAdd() {
+    func batchUpsert() {
         let entries: [Entry] = lines.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
@@ -115,6 +115,14 @@ fileprivate struct EditingView: View {
         })
     }
     
+    func batchDeleteAll() {
+        batchDeleteAllCustomDict {
+            toastSucceed() {
+                showCustomDictPanelX()
+            }
+        }
+    }
+    
     @State private var succeed: Bool = false
     @State private var nothingChanged: Bool = false
     
@@ -131,7 +139,7 @@ fileprivate struct EditingView: View {
                             .transition(.move(edge: .bottom))
                     }
                     
-                    Button(action: multiAdd) {
+                    Button(action: batchUpsert) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -149,6 +157,11 @@ fileprivate struct EditingView: View {
                     .disabled(lines.isContainsEmptyLine)
                     .buttonStyle(PlainButtonStyle())
                     .help("Remove multi entries to custom dict.")
+                    
+                    Button(action: batchDeleteAll) {
+                        Image(systemName: "trash")
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
                     MiniInfoView {
                         InfoView()

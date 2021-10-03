@@ -48,6 +48,23 @@ func batchInsertCustomPhrases(_ phrases: [String], didSucceed: @escaping () -> V
     }
 }
 
+func batchDeleteAllCustomPhrases(didSucceed: @escaping () -> Void = {}) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomPhrase.fetchRequest()
+    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    
+    do {
+        try context.execute(deleteRequest)
+        customPhrasesSet = getAllCustomPhrasesSet()
+        trCallBack()
+        didSucceed()
+    } catch {
+        logger.error("Failed to batch delete all custom phrases: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
+    }
+}
+
 // can't batch delete specific collection ?!
 func removeMultiCustomPhrases(
     _ phrases: [String],

@@ -144,7 +144,7 @@ fileprivate struct EditingView: View {
         }
     }
     
-    func multiAdd() {
+    func batchInsert() {
         batchInsertKnownWords(words) {
             toastSucceed {
                 showKnownWordsPanelX()
@@ -160,6 +160,14 @@ fileprivate struct EditingView: View {
         }, nothingChanged: {
             toastNothingChanged()
         })
+    }
+    
+    func batchDeleteAll() {
+        batchDeleteAllKnownWords {
+            toastSucceed() {
+                showKnownWordsPanelX()
+            }
+        }
     }
     
     @State private var succeed: Bool = false
@@ -178,7 +186,7 @@ fileprivate struct EditingView: View {
                             .transition(.move(edge: .bottom))
                     }
                     
-                    Button(action: multiAdd) {
+                    Button(action: batchInsert) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -191,6 +199,11 @@ fileprivate struct EditingView: View {
                     .buttonStyle(PlainButtonStyle())
                     .disabled(isWordsInvalid)
                     .help("Remove multi words from Known")
+                    
+                    Button(action: batchDeleteAll) {
+                        Image(systemName: "trash")
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
                     PasteFirstNWikiWordFrequencyButton(text: $text)
                     PasteOxford3000Button(text: $text)

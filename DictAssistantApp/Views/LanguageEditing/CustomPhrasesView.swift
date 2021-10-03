@@ -98,7 +98,7 @@ fileprivate struct EditingView: View {
         }
     }
     
-    func multiAdd() {
+    func batchInsert() {
         batchInsertCustomPhrases(lines) {
             toastSucceed() {
                 showCustomPhrasesPanelX()
@@ -114,6 +114,14 @@ fileprivate struct EditingView: View {
         }, nothingChanged: {
             toastNothingChanged()
         })
+    }
+    
+    func batchDeleteAll() {
+        batchDeleteAllCustomPhrases {
+            toastSucceed() {
+                showCustomPhrasesPanelX()
+            }
+        }
     }
     
     @State private var succeed: Bool = false
@@ -132,7 +140,7 @@ fileprivate struct EditingView: View {
                             .transition(.move(edge: .bottom))
                     }
                     
-                    Button(action: multiAdd) {
+                    Button(action: batchInsert) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -143,6 +151,11 @@ fileprivate struct EditingView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
+                    
+                    Button(action: batchDeleteAll) {
+                        Image(systemName: "trash")
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
                     MiniInfoView {
                         InfoView()

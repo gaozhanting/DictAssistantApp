@@ -50,7 +50,7 @@ func batchInsertCustomNoise(_ words: [String], didSucceed: @escaping () -> Void 
     }
 }
 
-func batchDeleteAllCustomNoise() {
+func batchDeleteAllCustomNoise(didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
 
     let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomNoise.fetchRequest()
@@ -58,13 +58,13 @@ func batchDeleteAllCustomNoise() {
 
     do {
         try context.execute(deleteRequest)
+        allCustomNoisesSet = getAllCustomNoiseSet()
+        trCallBack()
+        didSucceed()
     } catch {
         logger.error("Failed to batch delete all custom noise: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
-    
-    allCustomNoisesSet = getAllCustomNoiseSet()
-    trCallBack()
 }
 
 func removeMultiCustomNoise(

@@ -79,6 +79,24 @@ func batchUpsertCustomDicts(entries: [Entry], didSucceed: @escaping () -> Void =
     }
 }
 
+func batchDeleteAllCustomDict(didSucceed: @escaping () -> Void = {}) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomDict.fetchRequest()
+    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    
+    do {
+        try context.execute(deleteRequest)
+        customDictDict = getAllCustomDict()
+        cachedDict = [:]
+        trCallBack()
+        didSucceed()
+    } catch {
+        logger.error("Failed to batch delete all custom dict: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
+    }
+}
+
 func removeMultiCustomDict(
     _ words: [String],
     didSucceed: @escaping () -> Void = {},
