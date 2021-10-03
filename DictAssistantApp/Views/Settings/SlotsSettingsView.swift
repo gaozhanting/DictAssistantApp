@@ -15,6 +15,8 @@ struct Settings: Codable {
     let tRMinimumTextHeight: Double
     let maximumFrameRate: Double
     
+    let useCustomDictMode: UseCustomDictMode
+    
     // visual settings for a slot
     let isShowPhrases: Bool
     
@@ -71,6 +73,7 @@ struct Settings: Codable {
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
         maximumFrameRate: Double,
+        useCustomDictMode: UseCustomDictMode,
         isShowPhrases: Bool,
         cropperStyle: CropperStyle,
         isDropTitleWord: Bool,
@@ -106,6 +109,7 @@ struct Settings: Codable {
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
         self.maximumFrameRate = maximumFrameRate
+        self.useCustomDictMode = useCustomDictMode
         self.isShowPhrases = isShowPhrases
         self.cropperStyle = cropperStyle
         self.isDropTitleWord = isDropTitleWord
@@ -154,6 +158,7 @@ fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     maximumFrameRate: 4,
+    useCustomDictMode: UseCustomDictMode.notUse,
     isShowPhrases: true,
     cropperStyle: CropperStyle.leadingBorder,
     isDropTitleWord: false,
@@ -313,6 +318,7 @@ fileprivate struct SlotsView: View {
             tRTextRecognitionLevel: tRTextRecognitionLevel,
             tRMinimumTextHeight: tRMinimumTextHeight,
             maximumFrameRate: maximumFrameRate,
+            useCustomDictMode: useCustomDictMode,
             isShowPhrases: isShowPhrases,
             cropperStyle: cropperStyle,
             isDropTitleWord: isDropTitleWord,
@@ -351,6 +357,7 @@ fileprivate struct SlotsView: View {
         let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
             s.tRMinimumTextHeight == tRMinimumTextHeight &&
             s.maximumFrameRate == maximumFrameRate &&
+            s.useCustomDictMode == useCustomDictMode &&
             s.isShowPhrases == isShowPhrases &&
             s.cropperStyle == cropperStyle &&
             s.isDropTitleWord == isDropTitleWord &&
@@ -388,6 +395,7 @@ fileprivate struct SlotsView: View {
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
         maximumFrameRate = s.maximumFrameRate
+        useCustomDictMode = s.useCustomDictMode
         isShowPhrases = s.isShowPhrases
         cropperStyle = s.cropperStyle
         isDropTitleWord = s.isDropTitleWord
@@ -426,8 +434,9 @@ fileprivate struct SlotsView: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
 
-    @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     @AppStorage(UseCustomDictModeKey) var useCustomDictMode: UseCustomDictMode = .notUse
+    
+    @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     
     @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
     
