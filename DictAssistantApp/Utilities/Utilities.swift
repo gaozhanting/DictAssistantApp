@@ -90,7 +90,7 @@ func myPrint(_ str: String) {
 func timeElapsed(info: String, with closure: () -> Void) {
     let startingPoint = Date()
     closure()
-    logger.info(">>time elapsed of \(info): \(-startingPoint.timeIntervalSinceNow) seconds")
+    logger.info("time elapsed of \(info): \(-startingPoint.timeIntervalSinceNow) seconds")
 }
 
 let systemDefaultMinimumTextHeight: Double = 0.03125

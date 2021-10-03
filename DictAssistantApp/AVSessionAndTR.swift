@@ -120,10 +120,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         let textRecognitionLevel = UserDefaults.standard.integer(forKey: TRTextRecognitionLevelKey)
         let textRecognitionLevelE = VNRequestTextRecognitionLevel.init(rawValue: textRecognitionLevel)
         let minimumTextHeight = UserDefaults.standard.double(forKey: TRMinimumTextHeightKey)
-//        myPrint(">>>textRecognitionLevel: \(textRecognitionLevel)")
-//        myPrint(">>>minimumTextHeight: \(minimumTextHeight)")
         if let textRecognitionLevelE = textRecognitionLevelE {
-//            myPrint(">>>textRecognitionLevelE: \(textRecognitionLevelE.rawValue)")
             textRecognitionRequest.recognitionLevel = textRecognitionLevelE
         } else { // never this case, because we init it when launch app.
             logger.info("textRecognitionLevelE is nil, impossible!")

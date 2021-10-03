@@ -12,12 +12,16 @@ import SwiftUI
 var currentTRTexts: [String] = []
 
 func trCallBack() {
-    let wordCell = nplSample.process(currentTRTexts)
+    let afterNoiseElimination = nplSample.process(currentTRTexts)
         .filter { !$0.isNumber }
         .filter { !fixedNoiseVocabulary.contains($0) }
         .filter { !allCustomNoisesSet.contains($0) }
-        .map { tagWord($0) }
     
+    myPrint("🐳 >>>> After noise elimination: \(afterNoiseElimination)")
+    myPrint("   >>>> ")
+    
+    let wordCell = afterNoiseElimination.map { tagWord($0) }
+
     mutateDisplayedWords(wordCell)
 }
 

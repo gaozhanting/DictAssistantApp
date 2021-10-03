@@ -13,15 +13,11 @@ let ccDelegate = CCDelegate()
 class CCDelegate: NSObject, NSWindowDelegate {
     // MARK: - Sync frame to selected Slot
     func windowDidMove(_ notification: Notification) { // content window && cropper window
-        myPrint(">>windowDidMove")
         updateSelectedSlot()
-        myPrint("<<updateSelectedSlot windowDidMove")
     }
     
     func windowDidResize(_ notification: Notification) { // content window && cropper window
-        myPrint(">>windowDidResize")
         updateSelectedSlot()
-        myPrint("<<updateSelectedSlot windowDidResize")
     }
 }
 

@@ -46,17 +46,17 @@ struct NPLSample {
                     let lemma = tag.rawValue
                     results.append(Word(token: token, lemma: lemma))
                 } else {
-                    myPrint("    >>lemma from apple, but raw value of tag is empty") // seems to be impossible
+                    myPrint("   >lemma from apple, but raw value of tag is empty") // seems to be impossible
                     results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
                 }
                 return true
             }
             
             if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
-                myPrint("    >>lemma >>>->>->>found-from-db: \(token): \(lemma)")
+                myPrint("   >lemma          found-from-db: \(token): \(lemma)")
                 results.append(Word(token: token, lemma: lemma))
             } else {
-                myPrint("    !>lemma not-found-even-from-db: \(token)")
+                myPrint("   >lemma not-found-even-from-db: \(token)")
                 results.append(Word(token: token, lemma: token)) // lemma self as last rescue ===> ignored when can't look up from dictionaries, refer func tagWords
             }
             return true
@@ -124,52 +124,61 @@ struct NPLSample {
     func processSingle(_ text: String) -> [String] {
         let primitiveTokens = tokenize(text, .word)
         let primitiveSentence = primitiveTokens.joined(separator: " ")
-        myPrint("primitiveSentence:\(primitiveSentence)")
+        myPrint("   >> primitiveSentence: \(primitiveSentence)")
 
         let words = word(primitiveSentence)
         let tokens = words.map { $0.token }
         let lemmas = words.map { $0.lemma }
         
         let lemmaedSentence = lemmas.joined(separator: " ")
-        myPrint("lemmaedSentence:\(lemmaedSentence)")
+        myPrint("   >> lemmaedSentence: \(lemmaedSentence)")
                 
         let primitiveNames = name(primitiveSentence)
-        myPrint("primitiveNames:\(primitiveNames)")
+        myPrint("   >> primitiveNames: \(primitiveNames)")
         let lemmaedNames = name(lemmaedSentence)
-        myPrint("lemmaedNames:\(lemmaedNames)")
+        myPrint("   >> lemmaedNames: \(lemmaedNames)")
         
         let primitivePhrases = phrase(tokens)
-        myPrint("primitivePhrases:\(primitivePhrases)")
+        myPrint("   >> primitivePhrases: \(primitivePhrases)")
         let lemmaedPhrases = phrase(lemmas)
-        myPrint("lemmaedPhrases:\(lemmaedPhrases)")
+        myPrint("   >> lemmaedPhrases: \(lemmaedPhrases)")
         
         var result: [String] = []
+        
+        // mix (merge lemma, name, and phrase)
         for (index, word) in words.enumerated() {
-            result.append(word.lemma)
+            let lemma = word.lemma
             
-            if let name = primitiveNames[index] {  // primitiveNames first
-                if name.caseInsensitiveCompare(word.lemma) != .orderedSame {
+            result.append(lemma)
+            
+            // add the indexed primitiveName or lemmaedName, only one added, primitiveName first
+            if let name = primitiveNames[index] {
+                if name.caseInsensitiveCompare(lemma) != .orderedSame {
                     result.append(name)
+                    myPrint("   >>> append primitiveName: \(name)")
                 }
-            }
-            else {
+            } else {
                 if let name = lemmaedNames[index] {
-                    if name.caseInsensitiveCompare(word.lemma) != .orderedSame {
+                    if name.caseInsensitiveCompare(lemma) != .orderedSame {
                         result.append(name)
+                        myPrint("   >>> append lemmaedName: \(name)")
                     }
                 }
             }
             
-            if let phrase = primitivePhrases[index] { // primitivePhrase first
+            // add primitivePhrase
+            if let phrase = primitivePhrases[index] {
                 let primitiveName = primitiveNames[index] ?? ""
                 let lemmaedName = lemmaedNames[index] ?? ""
                 if phrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
                     phrase.caseInsensitiveCompare(lemmaedName) != .orderedSame { // name first, de-duplicate
                     result.append(phrase)
+                    myPrint("   >>> append primitivePhrase: \(phrase)")
                 }
             }
             
-            if let phrase = lemmaedPhrases[index] { // lemmaedPhrase still need to add, here not like name
+            // add lemmaedPhrase; lemmaedPhrase still need to add, here not like name
+            if let phrase = lemmaedPhrases[index] {
                 let primitiveName = primitiveNames[index] ?? ""
                 let lemmaedName = lemmaedNames[index] ?? ""
                 let primitivePhrase = primitivePhrases[index] ?? ""
@@ -177,17 +186,25 @@ struct NPLSample {
                     phrase.caseInsensitiveCompare(lemmaedName) != .orderedSame &&
                     phrase.caseInsensitiveCompare(primitivePhrase) != .orderedSame { // name first, de-duplicate
                     result.append(phrase)
+                    myPrint("   >>> append lemmaedPhrase: \(phrase)")
                 }
             }
             
         }
+        
         return result
     }
     
+    // >>>>  is good for filter console log to get a summary of process
+    // >>> append log
+    // >> sentence, names, phrase log
+    // > lemma log
     func process(_ texts: [String]) -> [String] {
+        myPrint("🦉 >>>> NPL process:")
+
         // for debug
         for text in texts {
-            myPrint(">>>>text from TR: \(text)")
+            myPrint("   >>>> text from TR: \(text)")
         }
         
         // transform TR texts into multi sentences
@@ -196,14 +213,14 @@ struct NPLSample {
         
         // for every sentence
         var results: [String] = []
-        myPrint(">>>>NPL process:")
         for sentence in sentences {
+            myPrint("   >>>> 🐱 sentence: \(sentence)")
             let result = processSingle(sentence)
-            myPrint(">>>>sentence: \(sentence)")
-            myPrint(">>>>result: \(result)")
+            myPrint("   >>>> 🐶 result: \(result)")
             results += result
         }
         
+        myPrint("   >>>> NPL process results    : \(results)")
         return results
     }
 }
