@@ -231,9 +231,9 @@ fileprivate struct ChineseCharacterConvertingPicker: View {
             })
             .toggleStyle(SwitchToggleStyle())
             
+            Spacer()
             
             if showPicker {
-                Spacer()
                 Text("Chinese Convert:")
                 Picker("", selection: $chineseCharacterConvertMode) {
                     Text("not use").tag(ChineseCharacterConvertMode.notUse)

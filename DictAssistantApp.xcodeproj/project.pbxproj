@@ -193,15 +193,15 @@
 			children = (
 				4453554C27020DB9007DB9C2 /* Services */,
 				445354C42701D5AF007DB9C2 /* CoreData */,
-				447D61912643C89700AB0C1A /* TextProcess */,
 				447D61902643C12F00AB0C1A /* Model */,
 				447D618F2643C11A00AB0C1A /* Views */,
 				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
 				4440EE47262EDCA4007FF470 /* Assets.xcassets */,
 				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
-				445355672705CF12007DB9C2 /* TRCallBack.swift */,
-				4453555327042478007DB9C2 /* Menus.swift */,
 				4479E35526A1852000764D53 /* AVSessionAndTR.swift */,
+				445355672705CF12007DB9C2 /* TRCallBack.swift */,
+				440824FB268E178E00EA7EEE /* NPLSample.swift */,
+				4453555327042478007DB9C2 /* Menus.swift */,
 				4479159F26B7DA86002E9F8C /* Windows */,
 				447915A426B7E781002E9F8C /* Utilities */,
 				4440EE4C262EDCA4007FF470 /* Main.storyboard */,
@@ -304,14 +304,6 @@
 				44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		447D61912643C89700AB0C1A /* TextProcess */ = {
-			isa = PBXGroup;
-			children = (
-				440824FB268E178E00EA7EEE /* NPLSample.swift */,
-			);
-			path = TextProcess;
 			sourceTree = "<group>";
 		};
 		447D61A52643E5E400AB0C1A /* Frameworks */ = {
