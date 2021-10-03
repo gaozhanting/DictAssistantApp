@@ -90,7 +90,6 @@ func batchDeleteAllKnownWords(didSucceed: @escaping () -> Void = {}) {
         try context.execute(deleteRequest)
         knownWordsSet = getAllKnownWordsSet()
         trCallBack()
-        showKnownWordsPanelX()
         didSucceed()
     } catch {
         logger.error("Failed to batch delete all known words: \(error.localizedDescription)")
