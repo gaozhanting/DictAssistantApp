@@ -1,5 +1,5 @@
 //
-//  NPLSample.swift
+//  NLPSample.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/7/1.
@@ -9,7 +9,7 @@ import Foundation
 import NaturalLanguage
 import DataBases
 
-struct NPLSample {
+struct NLPSample {
     func tokenize(_ sentence: String, _ tokenUnit: NLTokenUnit) -> [String] {
         var result: [String] = []
         let tokenizer = NLTokenizer(unit: tokenUnit)
@@ -27,7 +27,7 @@ struct NPLSample {
         let lemma: String
     }
 
-    // use npl lemma, if no result, use lemmaDB, if still no result, use self as lemma
+    // use nlp lemma, if no result, use lemmaDB, if still no result, use self as lemma
     func word(_ sentence: String) -> [Word] {
         var results: [Word] = []
         let tagger = NLTagger(tagSchemes: [.lemma])
@@ -86,35 +86,72 @@ struct NPLSample {
         return results
     }
     
+    func isInPhraseSet(_ phrase: String) -> Bool {
+        return fixedPhrasesSet.contains(phrase) ||
+            customPhrasesSet.contains(phrase)
+    }
+    
+    func isInHyphenPhrasesSet(_ hyphenPhrase: String) -> Bool {
+        return fixedHyphenPhrasesSet.contains(hyphenPhrase) ||
+            customPhrasesSet.contains(hyphenPhrase) // custom phrases including both (phrase and hyphen phrases)
+    }
+    
     func phrase(_ words: [String]) -> [Int: String] {
         var result: [Int: String] = [:]
         for (index, word) in words.enumerated() {
             // notice this way insert result, long phrase will override the shorter phrase of the same index, that seems reasonable.
             if index >= 1 {
                 let phrase = "\(words[index-1]) \(word)"
-                if isPhraseInWhichPhrases(phrase) {
+                if isInPhraseSet(phrase) {
                     result[index] = phrase
                 }
             }
             
             if index >= 2 {
                 let phrase = "\(words[index-2]) \(words[index-1]) \(word)"
-                if isPhraseInWhichPhrases(phrase) {
+                if isInPhraseSet(phrase) {
                     result[index] = phrase
                 }
             }
             
             if index >= 3 {
                 let phrase = "\(words[index-3]) \(words[index-2]) \(words[index-1]) \(word)"
-                if isPhraseInWhichPhrases(phrase) {
+                if isInPhraseSet(phrase) {
                     result[index] = phrase
                 }
             }
             
             if index >= 4 {
                 let phrase = "\(words[index-4]) \(words[index-3]) \(words[index-2]) \(words[index-1]) \(word)"
-                if isPhraseInWhichPhrases(phrase) {
+                if isInPhraseSet(phrase) {
                     result[index] = phrase
+                }
+            }
+        }
+        return result
+    }
+    
+    func hyphenPhrase(_ words: [String]) -> [Int: String] {
+        var result: [Int: String] = [:]
+        for (index, word) in words.enumerated() {
+            if index >= 1 {
+                let hyphenPhrase = "\(words[index-1])-\(word)"
+                if isInHyphenPhrasesSet(hyphenPhrase) {
+                    result[index] = hyphenPhrase
+                }
+            }
+            
+            if index >= 2 {
+                let hyphenPhrase = "\(words[index-2])-\(words[index-1])-\(word)" // ignore mixing phrases: i.e: `a-b c` (too complicated)
+                if isInHyphenPhrasesSet(hyphenPhrase) {
+                    result[index] = hyphenPhrase
+                }
+            }
+            
+            if index >= 3 {
+                let hyphenPhrase = "\(words[index-3])-\(words[index-2])-\(words[index-1])-\(word)"
+                if isInHyphenPhrasesSet(hyphenPhrase) {
+                    result[index] = hyphenPhrase
                 }
             }
         }
@@ -142,6 +179,11 @@ struct NPLSample {
         myPrint("   >> primitivePhrases: \(primitivePhrases)")
         let lemmaedPhrases = phrase(lemmas)
         myPrint("   >> lemmaedPhrases: \(lemmaedPhrases)")
+        
+        let primitiveHyphenPhrases = hyphenPhrase(tokens)
+        myPrint("   >> primitiveHyphenPhrases: \(primitivePhrases)")
+        let lemmaedHyphenPhrases = hyphenPhrase(lemmas)
+        myPrint("   >> lemmaedHyphenPhrases: \(lemmaedPhrases)")
         
         var result: [String] = []
         
@@ -190,6 +232,19 @@ struct NPLSample {
                 }
             }
             
+            if let hyphenPhrase = primitiveHyphenPhrases[index] {
+                result.append(hyphenPhrase)
+                myPrint("   >>> append primitiveHyphenPhrase: \(hyphenPhrase)")
+            }
+            
+            if let hyphenPhrase = lemmaedHyphenPhrases[index] {
+                let primitiveHyphenPhrase = primitiveHyphenPhrases[index] ?? ""
+                if hyphenPhrase.caseInsensitiveCompare(primitiveHyphenPhrase) != .orderedSame {
+                    result.append(hyphenPhrase)
+                    myPrint("   >>> append lemmaedHyphenPhrase: \(hyphenPhrase)")
+                }
+            }
+            
         }
         
         return result
@@ -200,7 +255,7 @@ struct NPLSample {
     // >> sentence, names, phrase log
     // > lemma log
     func process(_ texts: [String]) -> [String] {
-        myPrint("🦉 >>>> NPL process:")
+        myPrint("🦉 >>>> NLP process:")
 
         // for debug
         for text in texts {
@@ -220,13 +275,9 @@ struct NPLSample {
             results += result
         }
         
-        myPrint("   >>>> NPL process results    : \(results)")
+        myPrint("   >>>> NLP process results    : \(results)")
         return results
     }
 }
 
-let nplSample = NPLSample()
-
-func isPhraseInWhichPhrases(_ phrase: String) -> Bool {
-    return fixedPhrasesSet.contains(phrase) || customPhrasesSet.contains(phrase)
-}
+let nlpSample = NLPSample()

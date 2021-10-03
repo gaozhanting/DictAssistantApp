@@ -25,6 +25,14 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="FixedHyphenPhrase" representedClassName="FixedHyphenPhrase" syncable="YES" codeGenerationType="class">
+        <attribute name="phrase" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="phrase"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="FixedPhrase" representedClassName="FixedPhrase" syncable="YES" codeGenerationType="class">
         <attribute name="phrase" attributeType="String"/>
         <uniquenessConstraints>
@@ -55,10 +63,11 @@
     </entity>
     <elements>
         <element name="CustomDict" positionX="-9" positionY="72" width="128" height="59"/>
+        <element name="CustomNoise" positionX="0" positionY="81" width="128" height="44"/>
         <element name="CustomPhrase" positionX="-9" positionY="72" width="128" height="44"/>
         <element name="FixedPhrase" positionX="-9" positionY="72" width="128" height="44"/>
         <element name="Slot" positionX="0" positionY="54" width="128" height="104"/>
         <element name="WordStats" positionX="-27" positionY="18" width="128" height="44"/>
-        <element name="CustomNoise" positionX="0" positionY="81" width="128" height="44"/>
+        <element name="FixedHyphenPhrase" positionX="-9" positionY="72" width="128" height="44"/>
     </elements>
 </model>

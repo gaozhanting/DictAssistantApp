@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
-		440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NPLSample.swift */; };
+		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
 		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
@@ -65,11 +65,12 @@
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
+		44FEB71D2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
-		440824FB268E178E00EA7EEE /* NPLSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPLSample.swift; sourceTree = "<group>"; };
+		440824FB268E178E00EA7EEE /* NLPSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSample.swift; sourceTree = "<group>"; };
 		4416416D26F5B0E1007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		4416416E26F5B0E5007D19FC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		4416417226F5B668007D19FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -131,6 +132,7 @@
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedHyphenPhrasesPersistence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,7 +202,7 @@
 				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
 				4479E35526A1852000764D53 /* AVSessionAndTR.swift */,
 				445355672705CF12007DB9C2 /* TRCallBack.swift */,
-				440824FB268E178E00EA7EEE /* NPLSample.swift */,
+				440824FB268E178E00EA7EEE /* NLPSample.swift */,
 				4453555327042478007DB9C2 /* Menus.swift */,
 				4479159F26B7DA86002E9F8C /* Windows */,
 				447915A426B7E781002E9F8C /* Utilities */,
@@ -239,6 +241,7 @@
 				4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */,
 				445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */,
 				4453554627020B32007DB9C2 /* SlotPersistence.swift */,
+				44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
+				44FEB71D2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */,
@@ -427,7 +431,7 @@
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
-				440824FC268E178E00EA7EEE /* NPLSample.swift in Sources */,
+				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
 				445355432701E45F007DB9C2 /* CustomPhrasesPersistence.swift in Sources */,

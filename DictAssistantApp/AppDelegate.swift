@@ -22,6 +22,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
         
+//        batchInsertFixedHyphenPhrases(hyphenPhrasesDB)
+        
         initAllUserDefaultsIfNil()
         
         initCropperWindow()

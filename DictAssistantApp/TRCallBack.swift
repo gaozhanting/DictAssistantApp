@@ -12,7 +12,7 @@ import SwiftUI
 var currentTRTexts: [String] = []
 
 func trCallBack() {
-    let afterNoiseElimination = nplSample.process(currentTRTexts)
+    let afterNoiseElimination = nlpSample.process(currentTRTexts)
         .filter { !$0.isNumber }
         .filter { !fixedNoiseVocabulary.contains($0) }
         .filter { !allCustomNoisesSet.contains($0) }

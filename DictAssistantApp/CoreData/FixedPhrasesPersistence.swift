@@ -29,7 +29,6 @@ private func getAllFixedPhrasesSet() -> Set<String> {
     }
 }
 
-// global big constants
 /*
  count is 366,502
  
@@ -40,7 +39,7 @@ private func getAllFixedPhrasesSet() -> Set<String> {
  5 words:   6,898 2%
  // ignores >5 when do phrase detect programming
  */
-//let phrasesDB = Vocabularies.readToSet(from: "phrases_from_ecdict.txt") // take 2.28s, too long
+//let phrasesDB = Vocabularies.read(from: "phrases.txt") // take 2.28s, too long
 
 // only once at development, from txt file to sql file
 func batchInsertFixedPhrases(_ phrases: [String]) {
@@ -56,7 +55,7 @@ func batchInsertFixedPhrases(_ phrases: [String]) {
     do {
         try context.execute(insertRequest)
     } catch {
-        logger.error("Failed to batch insert all fixed Phrases: \(error.localizedDescription)")
+        logger.error("Failed to batch insert all fixed phrases: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
     
@@ -73,7 +72,7 @@ func batchDeleteAllFixedPhrases() {
     do {
         try context.execute(deleteRequest)
     } catch {
-        logger.error("Failed to insert all fixed Phrases: \(error.localizedDescription)")
+        logger.error("Failed to insert all fixed phrases: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
     
