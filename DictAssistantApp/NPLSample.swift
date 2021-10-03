@@ -27,7 +27,8 @@ struct NPLSample {
         let lemma: String
     }
 
-    func lemma(_ sentence: String) -> [Word] {
+    // use npl lemma, if no result, use lemmaDB, if still no result, use self as lemma
+    func word(_ sentence: String) -> [Word] {
         var results: [Word] = []
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = sentence
@@ -75,7 +76,7 @@ struct NPLSample {
             if let tag = tag, tags.contains(tag) {
                 let name = token
                 let untilLastText = sentence[sentence.startIndex..<tokenRange.upperBound]
-                let index = untilLastText.filter { char in
+                let index = untilLastText.filter { char in // search for the word index of the name
                     char == " "
                 }.count
                 results[index] = name // for mix order
@@ -121,57 +122,60 @@ struct NPLSample {
     }
 
     func processSingle(_ text: String) -> [String] {
-        let origin = text
-        
-        let tokens = tokenize(origin, .word)
-        let sentence = tokens.joined(separator: " ")
-        myPrint("sentence:\(sentence)")
+        let primitiveTokens = tokenize(text, .word)
+        let primitiveSentence = primitiveTokens.joined(separator: " ")
+        myPrint("primitiveSentence:\(primitiveSentence)")
 
-        let lemmas = lemma(sentence)
+        let words = word(primitiveSentence)
+        let tokens = words.map { $0.token }
+        let lemmas = words.map { $0.lemma }
         
-        let lemmaedSentence = lemmas.map{ $0.lemma }.joined(separator: " ")
+        let lemmaedSentence = lemmas.joined(separator: " ")
         myPrint("lemmaedSentence:\(lemmaedSentence)")
                 
-        let originNames = name(sentence)
-        myPrint("originNames:\(originNames)")
+        let primitiveNames = name(primitiveSentence)
+        myPrint("primitiveNames:\(primitiveNames)")
         let lemmaedNames = name(lemmaedSentence)
         myPrint("lemmaedNames:\(lemmaedNames)")
         
-        let originPhrases = phrase(lemmas.map { $0.token })
-        myPrint("originPhrases:\(originPhrases)")
-        let lemmaedPhrases = phrase(lemmas.map { $0.lemma })
+        let primitivePhrases = phrase(tokens)
+        myPrint("primitivePhrases:\(primitivePhrases)")
+        let lemmaedPhrases = phrase(lemmas)
         myPrint("lemmaedPhrases:\(lemmaedPhrases)")
         
         var result: [String] = []
-        for (index, word) in lemmas.enumerated() {
+        for (index, word) in words.enumerated() {
             result.append(word.lemma)
             
-            if let name = originNames[index] {  // originNames first
-                if name.lowercased() != word.lemma.lowercased() {
+            if let name = primitiveNames[index] {  // primitiveNames first
+                if name.caseInsensitiveCompare(word.lemma) != .orderedSame {
                     result.append(name)
                 }
             }
             else {
                 if let name = lemmaedNames[index] {
-                    if name.lowercased() != word.lemma.lowercased() {
+                    if name.caseInsensitiveCompare(word.lemma) != .orderedSame {
                         result.append(name)
                     }
                 }
             }
             
-            if let phrase = originPhrases[index] { // originPhrase first
-                let originName = originNames[index] ?? ""
+            if let phrase = primitivePhrases[index] { // primitivePhrase first
+                let primitiveName = primitiveNames[index] ?? ""
                 let lemmaedName = lemmaedNames[index] ?? ""
-                if (phrase.lowercased() != originName.lowercased()) && (phrase.lowercased() != lemmaedName.lowercased()) { // name first, de-duplicate
+                if phrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
+                    phrase.caseInsensitiveCompare(lemmaedName) != .orderedSame { // name first, de-duplicate
                     result.append(phrase)
                 }
             }
             
             if let phrase = lemmaedPhrases[index] { // lemmaedPhrase still need to add, here not like name
-                let originName = originNames[index] ?? ""
+                let primitiveName = primitiveNames[index] ?? ""
                 let lemmaedName = lemmaedNames[index] ?? ""
-                let originPhrase = originPhrases[index] ?? ""
-                if (phrase.lowercased() != originName.lowercased()) && (phrase.lowercased() != lemmaedName.lowercased()) && (phrase.lowercased() != originPhrase.lowercased()) { // name first, de-duplicate
+                let primitivePhrase = primitivePhrases[index] ?? ""
+                if phrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
+                    phrase.caseInsensitiveCompare(lemmaedName) != .orderedSame &&
+                    phrase.caseInsensitiveCompare(primitivePhrase) != .orderedSame { // name first, de-duplicate
                     result.append(phrase)
                 }
             }
@@ -187,8 +191,8 @@ struct NPLSample {
         }
         
         // transform TR texts into multi sentences
-        let originSentences = texts.joined(separator: " ")
-        let sentences = tokenize(originSentences, .sentence)
+        let primitiveSentences = texts.joined(separator: " ")
+        let sentences = tokenize(primitiveSentences, .sentence)
         
         // for every sentence
         var results: [String] = []
