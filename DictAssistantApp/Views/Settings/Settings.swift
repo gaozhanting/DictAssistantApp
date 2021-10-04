@@ -10,6 +10,7 @@ import Preferences
 
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
+    static let vision = Self("Vision")
     static let content = Self("content")
     static let appearance = Self("appearance")
     static let slots = Self("slots")
@@ -23,6 +24,18 @@ func GeneralPreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "General preferences")!
     ) {
         GeneralSettingsView()
+    }
+
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func VisionPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .vision,
+        title: NSLocalizedString("Vision", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "doc.text.viewfinder", accessibilityDescription: "Vision preferences")!
+    ) {
+        VisionSettingsView()
             .environmentObject(statusData)
     }
 

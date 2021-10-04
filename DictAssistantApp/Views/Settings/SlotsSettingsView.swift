@@ -197,6 +197,7 @@ struct SlotsSettingsView: View {
 
     var body: some View {
         SlotsView()
+            .frame(width: CGFloat(settingPanelWidth))
             .overlay(
                 Button(action: { isShowingPopover = true }, label: {
                     Image(systemName: "questionmark").font(.body)
@@ -256,7 +257,8 @@ fileprivate struct ButtonsView: View {
                 batchDeleteAllSlots()
             }
         }
-        .padding()
+        .padding(.vertical, 5)
+        .padding(.horizontal)
     }
 }
 
@@ -330,6 +332,7 @@ fileprivate struct SlotsView: View {
             
             ButtonsView(selectedSlot: selectedSlot)
         }
+        .padding()
     }
     
     func getCurrentSettingsX() -> Settings {

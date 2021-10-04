@@ -67,6 +67,7 @@
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
 		44FEB71D2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */; };
 		44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
+		44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +136,7 @@
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedHyphenPhrasesPersistence.swift; sourceTree = "<group>"; };
 		44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSettingsView.swift; sourceTree = "<group>"; };
+		44FEB720270ACF5500701E5D /* VisionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			children = (
 				442134CD26A6C64200963441 /* Settings.swift */,
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
+				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
@@ -429,6 +432,7 @@
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */,
+				44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */,
 				4453555C27042873007DB9C2 /* ExtraDictionariesPanel.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
