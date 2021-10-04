@@ -1,5 +1,5 @@
 //
-//  SlotPersistence.swift
+//  SlotsPersistence.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/27.

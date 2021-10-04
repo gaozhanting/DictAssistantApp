@@ -1,5 +1,5 @@
 //
-//  NoiseView.swift
+//  NoisesView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/30.

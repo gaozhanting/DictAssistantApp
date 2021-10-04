@@ -1,5 +1,5 @@
 //
-//  EntryView.swift
+//  EntriesView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/24.

@@ -26,7 +26,6 @@ let package = Package(
                 .process("Resources/first_100_000_of_enwiki-20190320-words-frequency.txt"),
                 .process("Resources/lemma.en.txt"),
                 .process("Resources/phrases.txt"),
-                .process("Resources/hyphen_phrases.txt")
             ]),
         .testTarget(
             name: "DataBasesTests",

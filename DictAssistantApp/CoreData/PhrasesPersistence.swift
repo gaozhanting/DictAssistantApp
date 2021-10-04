@@ -1,5 +1,5 @@
 //
-//  Phrases.swift
+//  PhrasesPersistence.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/27.
@@ -7,6 +7,7 @@
 
 import Cocoa
 import CoreData
+import DataBases
 
 // for cache for running query
 var phrasesSet: Set<String> = getAllPhrasesSet()
@@ -26,6 +27,22 @@ private func getAllPhrasesSet() -> Set<String> {
         NSApplication.shared.presentError(error as NSError)
         return Set()
     }
+}
+
+func batchDefaultPhrases() {
+    /*
+     count is 366,502
+     
+     all contains belows
+     2 words: 262,321 71%
+     3 words:  74,687 20%
+     4 words:  21,620 5%
+     5 words:   6,898 2%
+     // ignores >5 when do phrase detect programming
+     */
+    let words = Vocabularies.readToArray(from: "phrases.txt") // take 2.28s, too long
+
+    batchInsertPhrases(words)
 }
 
 func batchInsertPhrases(_ words: [String], didSucceed: @escaping () -> Void = {}) {
