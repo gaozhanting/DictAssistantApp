@@ -11,17 +11,17 @@ struct EnglishSettingsView: View {
     var body: some View {
         TabView {
             GroupBox {
-                CustomPhrasesView()
+                PhrasesView()
             }
             .tabItem {
-                Text("Custom Phrases")
+                Text("Phrases")
             }
             
             GroupBox {
-                CustomNoiseView()
+                NoiseView()
             }
             .tabItem {
-                Text("Custom Noises")
+                Text("Noises")
             }
             
             GroupBox {

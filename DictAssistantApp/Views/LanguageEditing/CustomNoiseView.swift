@@ -1,5 +1,5 @@
 //
-//  CustomNoiseView.swift
+//  NoiseView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/30.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomNoiseView: View {
+struct NoiseView: View {
     var body: some View {
         SplitView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -26,7 +26,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: FixedCustomNoisesView())
+        let topViewController = NSHostingController(rootView: ConstantNoisesView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -43,16 +43,16 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct FixedCustomNoisesView: View {
+fileprivate struct ConstantNoisesView: View {
     @FetchRequest(
-        entity: CustomNoise.entity(),
+        entity: Noise.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \CustomNoise.word, ascending: true)
+            NSSortDescriptor(keyPath: \Noise.word, ascending: true)
         ]
-    ) var fetchedCustomNoises: FetchedResults<CustomNoise>
+    ) var fetchedNoises: FetchedResults<Noise>
     
     var text: String {
-        fetchedCustomNoises
+        fetchedNoises
             .map { $0.word! }
             .joined(separator: "\n")
     }
@@ -90,13 +90,13 @@ fileprivate struct EditingView: View {
     }
     
     func batchInsert() {
-        batchInsertCustomNoise(lines) {
+        batchInsertNoise(lines) {
             toastSucceed()
         }
     }
     
     func multiRemove() {
-        removeMultiCustomNoise(lines, didSucceed: {
+        removeMultiNoise(lines, didSucceed: {
             toastSucceed()
         }, nothingChanged: {
             toastNothingChanged()
@@ -104,7 +104,7 @@ fileprivate struct EditingView: View {
     }
     
     func batchDeleteAll() {
-        batchDeleteAllCustomNoise {
+        batchDeleteAllNoise {
             toastSucceed()
         }
     }
@@ -161,10 +161,10 @@ private struct InfoView: View {
     }
 }
 
-struct CustomNoiseView_Previews: PreviewProvider {
+struct NoiseView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CustomNoiseView()
+            NoiseView()
             InfoView()
         }
     }

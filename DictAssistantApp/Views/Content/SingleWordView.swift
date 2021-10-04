@@ -90,10 +90,10 @@ fileprivate struct TextBody: View {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
                     unKnown ? addKnownWord(word) : removeKnownWord(word)
                 })
-                Button(!allCustomNoisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
-                    !allCustomNoisesSet.contains(word) ?
-                        addCustomNoise(word) :
-                        removeCustomNoise(word)
+                Button(!allNoisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
+                    !allNoisesSet.contains(word) ?
+                        addNoise(word) :
+                        removeNoise(word)
                 }
                 Menu("Online Dict Link") {
                     Button("Collins", action: { openCollins(word) })

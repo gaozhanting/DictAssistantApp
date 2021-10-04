@@ -1,5 +1,5 @@
 //
-//  CustomPhrasesView.swift
+//  PhrasesView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/27.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomPhrasesView: View {
+struct PhrasesView: View {
     var body: some View {
         SplitView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -26,7 +26,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: FixedCustomPhrasesView())
+        let topViewController = NSHostingController(rootView: ConstantPhrasesView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -43,16 +43,16 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct FixedCustomPhrasesView: View {
+fileprivate struct ConstantPhrasesView: View {
     @FetchRequest(
-        entity: CustomPhrase.entity(),
+        entity: Phrase.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \CustomPhrase.phrase, ascending: true)
+            NSSortDescriptor(keyPath: \Phrase.phrase, ascending: true)
         ]
-    ) var fetchedCustomPhrases: FetchedResults<CustomPhrase>
+    ) var fetchedPhrases: FetchedResults<Phrase>
     
     var text: String {
-        fetchedCustomPhrases
+        fetchedPhrases
             .map { $0.phrase! }
             .joined(separator: "\n")
     }
@@ -99,13 +99,13 @@ fileprivate struct EditingView: View {
     }
     
     func batchInsert() {
-        batchInsertCustomPhrases(lines) {
+        batchInsertPhrases(lines) {
             toastSucceed()
         }
     }
     
     func multiRemove() {
-        removeMultiCustomPhrases(lines, didSucceed: {
+        removeMultiPhrases(lines, didSucceed: {
             toastSucceed()
         }, nothingChanged: {
             toastNothingChanged()
@@ -113,7 +113,7 @@ fileprivate struct EditingView: View {
     }
     
     func batchDeleteAll() {
-        batchDeleteAllCustomPhrases {
+        batchDeleteAllPhrases {
             toastSucceed()
         }
     }
@@ -170,10 +170,10 @@ private struct InfoView: View {
     }
 }
 
-struct CustomPhrasesView_Previews: PreviewProvider {
+struct PhrasesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CustomPhrasesView()
+            PhrasesView()
             InfoView()
         }
     }

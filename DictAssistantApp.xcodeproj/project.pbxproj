@@ -29,8 +29,7 @@
 		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
 		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
 		445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
-		445355432701E45F007DB9C2 /* CustomPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */; };
-		445355452701E55D007DB9C2 /* FixedPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */; };
+		445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
 		4453554727020B32007DB9C2 /* SlotPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotPersistence.swift */; };
 		4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */; };
 		4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */; };
@@ -40,7 +39,7 @@
 		4453555C27042873007DB9C2 /* ExtraDictionariesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */; };
 		4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
 		4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
-		445355622705C0CF007DB9C2 /* CustomNoisePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* CustomNoisePersistence.swift */; };
+		445355622705C0CF007DB9C2 /* NoisePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisePersistence.swift */; };
 		445355642705C4F4007DB9C2 /* CustomNoiseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* CustomNoiseView.swift */; };
 		445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
@@ -61,7 +60,6 @@
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
-		44FEB71D2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */; };
 		44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
 		44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
 		44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
@@ -96,8 +94,7 @@
 		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
 		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
 		445354C52701D5F2007DB9C2 /* PersistenceStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStack.swift; sourceTree = "<group>"; };
-		445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhrasesPersistence.swift; sourceTree = "<group>"; };
-		445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedPhrasesPersistence.swift; sourceTree = "<group>"; };
+		445355422701E45F007DB9C2 /* PhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPersistence.swift; sourceTree = "<group>"; };
 		4453554627020B32007DB9C2 /* SlotPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotPersistence.swift; sourceTree = "<group>"; };
 		4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictPersistence.swift; sourceTree = "<group>"; };
 		4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsPersistence.swift; sourceTree = "<group>"; };
@@ -107,7 +104,7 @@
 		4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraDictionariesPanel.swift; sourceTree = "<group>"; };
 		4453555D270428CF007DB9C2 /* OnboardingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPanel.swift; sourceTree = "<group>"; };
 		4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
-		445355612705C0CF007DB9C2 /* CustomNoisePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoisePersistence.swift; sourceTree = "<group>"; };
+		445355612705C0CF007DB9C2 /* NoisePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisePersistence.swift; sourceTree = "<group>"; };
 		445355632705C4F4007DB9C2 /* CustomNoiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNoiseView.swift; sourceTree = "<group>"; };
 		445355672705CF12007DB9C2 /* TRCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCallBack.swift; sourceTree = "<group>"; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -128,7 +125,6 @@
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedHyphenPhrasesPersistence.swift; sourceTree = "<group>"; };
 		44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSettingsView.swift; sourceTree = "<group>"; };
 		44FEB720270ACF5500701E5D /* VisionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionSettingsView.swift; sourceTree = "<group>"; };
 		44FEB722270AD70500701E5D /* RecordingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingSettingsView.swift; sourceTree = "<group>"; };
@@ -239,13 +235,11 @@
 			isa = PBXGroup;
 			children = (
 				445354C52701D5F2007DB9C2 /* PersistenceStack.swift */,
-				445355422701E45F007DB9C2 /* CustomPhrasesPersistence.swift */,
-				445355612705C0CF007DB9C2 /* CustomNoisePersistence.swift */,
+				445355422701E45F007DB9C2 /* PhrasesPersistence.swift */,
+				445355612705C0CF007DB9C2 /* NoisePersistence.swift */,
 				4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */,
 				4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */,
-				445355442701E55D007DB9C2 /* FixedPhrasesPersistence.swift */,
 				4453554627020B32007DB9C2 /* SlotPersistence.swift */,
-				44FEB71C2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -422,7 +416,6 @@
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
-				44FEB71D2709C8DA00701E5D /* FixedHyphenPhrasesPersistence.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */,
@@ -435,7 +428,7 @@
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
-				445355432701E45F007DB9C2 /* CustomPhrasesPersistence.swift in Sources */,
+				445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */,
 				44C0F24B270775AF006CFEFC /* GBig.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,
 				4453554727020B32007DB9C2 /* SlotPersistence.swift in Sources */,
@@ -448,8 +441,7 @@
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
-				445355622705C0CF007DB9C2 /* CustomNoisePersistence.swift in Sources */,
-				445355452701E55D007DB9C2 /* FixedPhrasesPersistence.swift in Sources */,
+				445355622705C0CF007DB9C2 /* NoisePersistence.swift in Sources */,
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
 				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,

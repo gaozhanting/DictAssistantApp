@@ -87,13 +87,7 @@ struct NLPSample {
     }
     
     func isInPhraseSet(_ phrase: String) -> Bool {
-        return fixedPhrasesSet.contains(phrase) ||
-            customPhrasesSet.contains(phrase)
-    }
-    
-    func isInHyphenPhrasesSet(_ hyphenPhrase: String) -> Bool {
-        return fixedHyphenPhrasesSet.contains(hyphenPhrase) ||
-            customPhrasesSet.contains(hyphenPhrase) // custom phrases including both (phrase and hyphen phrases)
+        return phrasesSet.contains(phrase)
     }
     
     func phrase(_ words: [String]) -> [Int: String] {
@@ -136,21 +130,21 @@ struct NLPSample {
         for (index, word) in words.enumerated() {
             if index >= 1 {
                 let hyphenPhrase = "\(words[index-1])-\(word)"
-                if isInHyphenPhrasesSet(hyphenPhrase) {
+                if isInPhraseSet(hyphenPhrase) {
                     result[index] = hyphenPhrase
                 }
             }
             
             if index >= 2 {
                 let hyphenPhrase = "\(words[index-2])-\(words[index-1])-\(word)" // ignore mixing phrases: i.e: `a-b c` (too complicated)
-                if isInHyphenPhrasesSet(hyphenPhrase) {
+                if isInPhraseSet(hyphenPhrase) {
                     result[index] = hyphenPhrase
                 }
             }
             
             if index >= 3 {
                 let hyphenPhrase = "\(words[index-3])-\(words[index-2])-\(words[index-1])-\(word)"
-                if isInHyphenPhrasesSet(hyphenPhrase) {
+                if isInPhraseSet(hyphenPhrase) {
                     result[index] = hyphenPhrase
                 }
             }

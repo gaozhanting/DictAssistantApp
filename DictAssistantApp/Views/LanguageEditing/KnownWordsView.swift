@@ -27,7 +27,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: FixedKnownWordsView())
+        let topViewController = NSHostingController(rootView: ConstantKnownWordsView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -52,7 +52,7 @@ fileprivate enum DisplayFilter: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-fileprivate struct FixedKnownWordsView: View {
+fileprivate struct ConstantKnownWordsView: View {
     @FetchRequest(
         entity: WordStats.entity(),
         sortDescriptors: [

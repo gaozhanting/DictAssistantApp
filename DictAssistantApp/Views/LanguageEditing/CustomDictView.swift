@@ -26,7 +26,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: FixedCustomDictView())
+        let topViewController = NSHostingController(rootView: ConstantCustomDictView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -43,7 +43,7 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct FixedCustomDictView: View {
+fileprivate struct ConstantCustomDictView: View {
     @FetchRequest(
         entity: CustomDict.entity(),
         sortDescriptors: [

@@ -48,7 +48,7 @@ private struct EditingCustomEntryView: View {
         let word = String(entry[0])
         let trans = String(entry[1])
         if word.isPhrase {
-            addCustomPhrase(word)
+            addPhrase(word)
         }
         upsertCustomDict(entry: Entry(word: word, trans: trans))
     }

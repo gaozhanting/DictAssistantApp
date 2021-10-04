@@ -15,7 +15,7 @@ func trCallBack() {
     let afterNoiseElimination = nlpSample.process(currentTRTexts)
         .filter { !$0.isNumber }
         .filter { !fixedNoiseVocabulary.contains($0) }
-        .filter { !allCustomNoisesSet.contains($0) }
+        .filter { !allNoisesSet.contains($0) }
     
     myPrint("🐳 >>>> After noise elimination: \(afterNoiseElimination)")
     myPrint("   >>>> ")
