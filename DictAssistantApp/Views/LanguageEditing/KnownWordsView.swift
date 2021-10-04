@@ -1,5 +1,5 @@
 //
-//  KnownWordsView.swift
+//  KnownView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/6/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import DataBases
 
-struct KnownWordsView: View {
+struct KnownView: View {
     var body: some View {
         SplitView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -27,7 +27,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: ConstantKnownWordsView())
+        let topViewController = NSHostingController(rootView: ConstantKnownView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -52,13 +52,13 @@ fileprivate enum DisplayFilter: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-fileprivate struct ConstantKnownWordsView: View {
+fileprivate struct ConstantKnownView: View {
     @FetchRequest(
-        entity: WordStats.entity(),
+        entity: Known.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
+            NSSortDescriptor(keyPath: \Known.word, ascending: true)
         ]
-    ) var fetchedKnownWords: FetchedResults<WordStats>
+    ) var fetchedKnown: FetchedResults<Known>
 
     @State private var selectedFlavor = DisplayFilter.all
     
@@ -73,15 +73,15 @@ fileprivate struct ConstantKnownWordsView: View {
         }
     }
     
-    var flavorKnownWords: String {
-        fetchedKnownWords
+    var flavorKnown: String {
+        fetchedKnown
             .map { $0.word! }
             .filter { filter($0) }
             .joined(separator: "\n")
     }
     
     var body: some View {
-        TextEditor(text: Binding.constant(flavorKnownWords))
+        TextEditor(text: Binding.constant(flavorKnown))
             .overlay(
                 Picker("", selection: $selectedFlavor) {
                     Text("All").tag(DisplayFilter.all)
@@ -145,13 +145,13 @@ fileprivate struct EditingView: View {
     }
     
     func batchInsert() {
-        batchInsertKnownWords(words) {
+        batchInsertKnown(words) {
             toastSucceed()
         }
     }
     
     func multiRemove() {
-        removeMultiKnownWords(words, didSucceed: {
+        removeMultiKnown(words, didSucceed: {
             toastSucceed()
         }, nothingChanged: {
             toastNothingChanged()
@@ -159,7 +159,7 @@ fileprivate struct EditingView: View {
     }
     
     func batchDeleteAll() {
-        batchDeleteAllKnownWords {
+        batchDeleteAllKnown {
             toastSucceed()
         }
     }
@@ -312,10 +312,10 @@ fileprivate struct InfoPopoverView: View {
     }
 }
 
-struct KnownWordsView_Previews: PreviewProvider {
+struct KnownView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            KnownWordsView()
+            KnownView()
                 .frame(width: 300, height: 600)
             
             FirstNPopoverView(text: Binding.constant(""), showPopover: Binding.constant(false))

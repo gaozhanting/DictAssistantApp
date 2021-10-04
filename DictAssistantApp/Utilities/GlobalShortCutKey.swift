@@ -11,9 +11,9 @@ import SwiftUI
 extension KeyboardShortcuts.Name {
     static let toggleFlowStep = Self("toggleFlowStep")
     
-    static let toggleShowCurrentKnownWords = Self("toggleShowCurrentKnownWords")
+    static let toggleShowCurrentKnown = Self("toggleShowCurrentKnown")
     
-    static let toggleShowCurrentKnownWordsButWithOpacity0 = Self("toggleShowCurrentKnownWordsButWithOpacity0")
+    static let toggleShowCurrentKnownButWithOpacity0 = Self("toggleShowCurrentKnownButWithOpacity0")
     
     static let toggleConcealTranslation = Self("toggleConcealTranslation")
     
@@ -77,7 +77,7 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnownWords) {
+    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnown) {
         if UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey) {
             UserDefaults.standard.setValue(false, forKey: IsShowCurrentKnownKey)
         } else {
@@ -85,7 +85,7 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnownWordsButWithOpacity0) {
+    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnownButWithOpacity0) {
         if UserDefaults.standard.bool(forKey: IsShowCurrentKnownButWithOpacity0Key) {
             UserDefaults.standard.setValue(false, forKey: IsShowCurrentKnownButWithOpacity0Key)
         } else {

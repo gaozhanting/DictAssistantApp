@@ -1,5 +1,5 @@
 //
-//  CustomDictView.swift
+//  EntryView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomDictView: View {
+struct EntryView: View {
     var body: some View {
         SplitView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -26,7 +26,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
 
 fileprivate class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
-        let topViewController = NSHostingController(rootView: ConstantCustomDictView())
+        let topViewController = NSHostingController(rootView: ConstantEntryView())
         addSplitViewItem(
             NSSplitViewItem(
                 viewController: topViewController))
@@ -43,16 +43,16 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct ConstantCustomDictView: View {
+fileprivate struct ConstantEntryView: View {
     @FetchRequest(
-        entity: CustomDict.entity(),
+        entity: Entry.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \CustomDict.word, ascending: true)
+            NSSortDescriptor(keyPath: \Entry.word, ascending: true)
         ]
-    ) var fetchedCustomDict: FetchedResults<CustomDict>
+    ) var fetchedEntry: FetchedResults<Entry>
     
     var text: String {
-        fetchedCustomDict
+        fetchedEntry
             .map { entry in "\(entry.word!),\(entry.trans!)" }
             .joined(separator: "\n")
     }
@@ -60,11 +60,6 @@ fileprivate struct ConstantCustomDictView: View {
     var body: some View {
         TextEditor(text: Binding.constant(text))
     }
-}
-
-struct Entry: Hashable {
-    let word: String
-    let trans: String
 }
 
 fileprivate struct EditingView: View {
@@ -96,15 +91,18 @@ fileprivate struct EditingView: View {
     func batchUpsert() {
         let entries: [Entry] = lines.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
-            return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
+            let entry = Entry()
+            entry.word = String(wordTrans[0])
+            entry.trans = String(wordTrans[1])
+            return entry
         }
-        batchUpsertCustomDicts(entries: entries) {
+        batchUpsertEntries(entries: entries) {
             toastSucceed()
         }
     }
     
     func multiRemove() {
-        removeMultiCustomDict(lines, didSucceed: {
+        removeMultiEntries(lines, didSucceed: {
             toastSucceed()
         }, nothingChanged: {
             toastNothingChanged()
@@ -112,7 +110,7 @@ fileprivate struct EditingView: View {
     }
     
     func batchDeleteAll() {
-        batchDeleteAllCustomDict {
+        batchDeleteAllEntries {
             toastSucceed()
         }
     }
@@ -177,10 +175,10 @@ private struct InfoView: View {
     }
 }
 
-struct CustomDictView_Previews: PreviewProvider {
+struct EntryView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CustomDictView()
+            EntryView()
             
             InfoView()
         }

@@ -19,7 +19,7 @@ private func getAllPhrasesSet() -> Set<String> {
     do {
         let phrases = try context.fetch(fetchRequest)
         return Set.init(
-            phrases.map { $0.phrase! }
+            phrases.map { $0.word! }
         )
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
@@ -28,13 +28,13 @@ private func getAllPhrasesSet() -> Set<String> {
     }
 }
 
-func batchInsertPhrases(_ phrases: [String], didSucceed: @escaping () -> Void = {}) {
+func batchInsertPhrases(_ words: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
         entity: Phrase.entity(),
-        objects: phrases.map { phrase in
-            ["phrase": phrase]
+        objects: words.map { word in
+            ["word": word]
         }
     )
     insertRequest.resultType = .objectIDs
@@ -111,18 +111,18 @@ func removeMultiPhrases(
     })
 }
 
-func addPhrase(_ phrase: String) {
+func addPhrase(_ word: String) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
     do {
         let results = try context.fetch(fetchRequest)
         if results.isEmpty {
-            let Phrase = Phrase(context: context)
-            Phrase.phrase = phrase
+            let newPhrase = Phrase(context: context)
+            newPhrase.word = word
         }
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")

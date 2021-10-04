@@ -9,7 +9,7 @@ import Cocoa
 import CoreData
 
 let persistentContainer: NSPersistentContainer = {
-    let container = NSPersistentContainer(name: "WordStatistics")
+    let container = NSPersistentContainer(name: "app")
     container.loadPersistentStores { description, error in
         if let error = error {
             logger.error("Unable to load persistent stores: \(error.localizedDescription)")

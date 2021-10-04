@@ -1,5 +1,5 @@
 //
-//  KnownWordsPersistence.swift
+//  KnownPersistence.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/27.
@@ -10,17 +10,16 @@ import Cocoa
 import CoreData
 
 // for cache for running query
-var knownWordsSet: Set<String> = getAllKnownWordsSet()
+var knownSet: Set<String> = getAllKnownSet()
 
-private func getAllKnownWordsSet() -> Set<String> {
+private func getAllKnownSet() -> Set<String> {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
     
     do {
         let results = try context.fetch(fetchRequest)
-        let knownWords = results.map { $0.word! }
-        return Set.init(knownWords)
+        return Set.init(results.map { $0.word! })
     } catch {
         logger.error("Failed to fetch all known words: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
@@ -28,11 +27,11 @@ private func getAllKnownWordsSet() -> Set<String> {
     }
 }
 
-func batchInsertKnownWords(_ words: [String], didSucceed: @escaping () -> Void = {}) {
+func batchInsertKnown(_ words: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
-        entity: WordStats.entity(),
+        entity: Known.entity(),
         objects: words.map { word in
             ["word": word]
         }
@@ -46,7 +45,7 @@ func batchInsertKnownWords(_ words: [String], didSucceed: @escaping () -> Void =
         let changes = [NSInsertedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        knownWordsSet = getAllKnownWordsSet()
+        knownSet = getAllKnownSet()
         trCallBack()
         didSucceed()
     } catch {
@@ -55,7 +54,7 @@ func batchInsertKnownWords(_ words: [String], didSucceed: @escaping () -> Void =
     }
 }
 
-func removeMultiKnownWords(
+func removeMultiKnown(
     _ words: [String],
     didSucceed: @escaping () -> Void = {},
     nothingChanged: @escaping() -> Void = {}
@@ -63,7 +62,7 @@ func removeMultiKnownWords(
     let context = persistentContainer.viewContext
     
     for word in words {
-        let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+        let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "word = %@", word)
         fetchRequest.fetchLimit = 1
 
@@ -78,7 +77,7 @@ func removeMultiKnownWords(
         }
     }
     saveContext(didSucceed: {
-        knownWordsSet = getAllKnownWordsSet()
+        knownSet = getAllKnownSet()
         trCallBack()
         didSucceed()
     }, nothingChanged: {
@@ -86,10 +85,10 @@ func removeMultiKnownWords(
     })
 }
 
-func batchDeleteAllKnownWords(didSucceed: @escaping () -> Void = {}) {
+func batchDeleteAllKnown(didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
 
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Known.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
     deleteRequest.resultType = .resultTypeObjectIDs
 
@@ -100,7 +99,7 @@ func batchDeleteAllKnownWords(didSucceed: @escaping () -> Void = {}) {
         let changes = [NSDeletedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
 
-        knownWordsSet = getAllKnownWordsSet()
+        knownSet = getAllKnownSet()
         trCallBack()
         didSucceed()
     } catch {
@@ -112,14 +111,14 @@ func batchDeleteAllKnownWords(didSucceed: @escaping () -> Void = {}) {
 func addKnownWord(_ word: String) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
     do {
         let results = try context.fetch(fetchRequest)
         if results.isEmpty {
-            let newWordStatus = WordStats(context: context)
+            let newWordStatus = Known(context: context)
             newWordStatus.word = word
         }
     } catch {
@@ -127,7 +126,7 @@ func addKnownWord(_ word: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        knownWordsSet = getAllKnownWordsSet()
+        knownSet = getAllKnownSet()
         trCallBack()
     })
 }
@@ -135,7 +134,7 @@ func addKnownWord(_ word: String) {
 func removeKnownWord(_ word: String) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<WordStats> = WordStats.fetchRequest()
+    let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
@@ -149,7 +148,7 @@ func removeKnownWord(_ word: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        knownWordsSet = getAllKnownWordsSet()
+        knownSet = getAllKnownSet()
         trCallBack()
     })
 }

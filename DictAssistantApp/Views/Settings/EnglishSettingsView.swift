@@ -25,20 +25,20 @@ struct EnglishSettingsView: View {
             }
             
             GroupBox {
-                KnownWordsView()
+                KnownView()
             }
             .tabItem {
-                Text("Known Words")
+                Text("Known")
             }
             
             VStack {
                 GroupBox {
-                    CustomDictView()
+                    EntryView()
                 }
-                UseCustomDictModePicker()
+                UseEntryModePicker()
             }
             .tabItem {
-                Text("Custom Dict")
+                Text("Entries")
             }
             
             Text("Third Party Dict")
@@ -53,14 +53,14 @@ struct EnglishSettingsView: View {
     }
 }
 
-fileprivate struct UseCustomDictModePicker: View {
-    @AppStorage(UseCustomDictModeKey) private var useCustomDictMode: UseCustomDictMode = .notUse
+fileprivate struct UseEntryModePicker: View {
+    @AppStorage(UseEntryModeKey) private var useEntryMode: UseEntryMode = .notUse
     
-    var binding: Binding<UseCustomDictMode> {
+    var binding: Binding<UseEntryMode> {
         Binding(
-            get: { useCustomDictMode },
+            get: { useEntryMode },
             set: { newValue in
-                useCustomDictMode = newValue
+                useEntryMode = newValue
                 cachedDict = [:]
                 trCallBack()
             }
@@ -69,10 +69,10 @@ fileprivate struct UseCustomDictModePicker: View {
     
     var body: some View {
         Picker("Use Custom Dict Mode:", selection: binding) {
-            Text("not use").tag(UseCustomDictMode.notUse)
-            Text("as first priority").tag(UseCustomDictMode.asFirstPriority)
-            Text("as last priority").tag(UseCustomDictMode.asLastPriority)
-            Text("only").tag(UseCustomDictMode.only)
+            Text("not use").tag(UseEntryMode.notUse)
+            Text("as first priority").tag(UseEntryMode.asFirstPriority)
+            Text("as last priority").tag(UseEntryMode.asLastPriority)
+            Text("only").tag(UseEntryMode.only)
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 360)

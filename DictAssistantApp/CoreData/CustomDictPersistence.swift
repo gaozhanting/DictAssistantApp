@@ -1,5 +1,5 @@
 //
-//  CustomDictPersistence.swift
+//  EntryPersistence.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/9/27.
@@ -10,12 +10,12 @@ import Cocoa
 import CoreData
 
 // for cache for running query (now you have a quick custom dict)
-var customDictDict: Dictionary<String, String> = getAllCustomDict()
+var entriesDict: Dictionary<String, String> = getAllEntries()
 
-private func getAllCustomDict() -> Dictionary<String, String> {
+private func getAllEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+    let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
     
     do {
         let results = try context.fetch(fetchRequest)
@@ -33,10 +33,10 @@ private func getAllCustomDict() -> Dictionary<String, String> {
 }
 
 // for directly query (slow, which is similar of system dict service)
-func getEntry(of word: String) -> CustomDict? {
+func getEntry(of word: String) -> Entry? {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+    let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
@@ -54,16 +54,16 @@ func getEntry(of word: String) -> CustomDict? {
     }
 }
 
-func batchUpsertCustomDicts(entries: [Entry], didSucceed: @escaping () -> Void = {}) {
+func batchUpsertEntries(entries: [Entry], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     // this got upsert behavior when do batch insert
     context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     
     let insertRequest = NSBatchInsertRequest(
-        entity: CustomDict.entity(),
+        entity: Entry.entity(),
         objects: entries.map { entry in
-            ["word": entry.word, "trans": entry.trans]
+            ["word": entry.word!, "trans": entry.trans!]
         }
     )
     insertRequest.resultType = .objectIDs
@@ -75,20 +75,20 @@ func batchUpsertCustomDicts(entries: [Entry], didSucceed: @escaping () -> Void =
         let changes = [NSInsertedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        customDictDict = getAllCustomDict()
+        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         didSucceed()
     } catch {
-        logger.error("Failed to batch upsert custom dicts: \(error.localizedDescription)")
+        logger.error("Failed to batch upsert entries: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
 }
 
-func batchDeleteAllCustomDict(didSucceed: @escaping () -> Void = {}) {
+func batchDeleteAllEntries(didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomDict.fetchRequest()
+    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Entry.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
     deleteRequest.resultType = .resultTypeObjectIDs
     
@@ -99,17 +99,17 @@ func batchDeleteAllCustomDict(didSucceed: @escaping () -> Void = {}) {
         let changes = [NSDeletedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        customDictDict = getAllCustomDict()
+        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         didSucceed()
     } catch {
-        logger.error("Failed to batch delete all custom dict: \(error.localizedDescription)")
+        logger.error("Failed to batch delete all entries: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
 }
 
-func removeMultiCustomDict(
+func removeMultiEntries(
     _ words: [String],
     didSucceed: @escaping () -> Void = {},
     nothingChanged: @escaping() -> Void = {}
@@ -117,7 +117,7 @@ func removeMultiCustomDict(
     let context = persistentContainer.viewContext
 
     for word in words {
-        let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+        let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "word = %@", word)
         fetchRequest.fetchLimit = 1
         
@@ -132,7 +132,7 @@ func removeMultiCustomDict(
         }
     }
     saveContext(didSucceed: {
-        customDictDict = getAllCustomDict()
+        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         didSucceed()
@@ -141,11 +141,11 @@ func removeMultiCustomDict(
     })
 }
 
-func upsertCustomDict(entry: Entry) {
+func upsertEntry(_ entry: Entry) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word)
+    let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word!)
     fetchRequest.fetchLimit = 1
     
     do {
@@ -154,25 +154,25 @@ func upsertCustomDict(entry: Entry) {
             result.word = entry.word
             result.trans = entry.trans
         } else { // insert
-            let newCustomDict = CustomDict(context: context)
-            newCustomDict.word = entry.word
-            newCustomDict.trans = entry.trans
+            let newEntry = Entry(context: context)
+            newEntry.word = entry.word
+            newEntry.trans = entry.trans
         }
     } catch {
         logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        customDictDict = getAllCustomDict()
+        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
     })
 }
 
-func removeCustomDict(word: String) {
+func removeEntry(word: String) {
     let context = persistentContainer.viewContext
     
-    let fetchRequest: NSFetchRequest<CustomDict> = CustomDict.fetchRequest()
+    let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
     fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
@@ -182,11 +182,11 @@ func removeCustomDict(word: String) {
             context.delete(result)
         }
     } catch {
-        logger.error("Failed to remove custom dict: \(error.localizedDescription)")
+        logger.error("Failed to remove entry: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        customDictDict = getAllCustomDict()
+        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
     })

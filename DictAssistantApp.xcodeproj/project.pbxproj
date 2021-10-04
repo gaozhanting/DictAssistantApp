@@ -32,7 +32,7 @@
 		445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
 		4453554727020B32007DB9C2 /* SlotPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotPersistence.swift */; };
 		4453554927020B7D007DB9C2 /* CustomDictPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */; };
-		4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */; };
+		4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
 		4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
 		4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555127020FDE007DB9C2 /* CleanedWordsService.swift */; };
 		4453555427042478007DB9C2 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
@@ -45,7 +45,7 @@
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
-		447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */; };
+		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
 		447D0F7F26564D96004A7173 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
@@ -97,7 +97,7 @@
 		445355422701E45F007DB9C2 /* PhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPersistence.swift; sourceTree = "<group>"; };
 		4453554627020B32007DB9C2 /* SlotPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotPersistence.swift; sourceTree = "<group>"; };
 		4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDictPersistence.swift; sourceTree = "<group>"; };
-		4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownWordsPersistence.swift; sourceTree = "<group>"; };
+		4453554A27020CA0007DB9C2 /* KnownPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownPersistence.swift; sourceTree = "<group>"; };
 		4453554D27020DDA007DB9C2 /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
 		4453555127020FDE007DB9C2 /* CleanedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanedWordsService.swift; sourceTree = "<group>"; };
 		4453555327042478007DB9C2 /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 				445354C42701D5AF007DB9C2 /* CoreData */,
 				447D61902643C12F00AB0C1A /* Model */,
 				447D618F2643C11A00AB0C1A /* Views */,
-				447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */,
+				447D0F7226550D02004A7173 /* app.xcdatamodeld */,
 				4440EE47262EDCA4007FF470 /* Assets.xcassets */,
 				4440EE43262EDCA3007FF470 /* AppDelegate.swift */,
 				4479E35526A1852000764D53 /* AVSessionAndTR.swift */,
@@ -237,7 +237,7 @@
 				445354C52701D5F2007DB9C2 /* PersistenceStack.swift */,
 				445355422701E45F007DB9C2 /* PhrasesPersistence.swift */,
 				445355612705C0CF007DB9C2 /* NoisePersistence.swift */,
-				4453554A27020CA0007DB9C2 /* KnownWordsPersistence.swift */,
+				4453554A27020CA0007DB9C2 /* KnownPersistence.swift */,
 				4453554827020B7D007DB9C2 /* CustomDictPersistence.swift */,
 				4453554627020B32007DB9C2 /* SlotPersistence.swift */,
 			);
@@ -410,7 +410,7 @@
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
 				445355642705C4F4007DB9C2 /* CustomNoiseView.swift in Sources */,
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
-				4453554B27020CA0007DB9C2 /* KnownWordsPersistence.swift in Sources */,
+				4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
 				44C207BA2701A8E300419F63 /* CustomPhrasesView.swift in Sources */,
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
@@ -443,7 +443,7 @@
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				445355622705C0CF007DB9C2 /* NoisePersistence.swift in Sources */,
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
-				447D0F7426550D02004A7173 /* WordStatistics.xcdatamodeld in Sources */,
+				447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
@@ -709,13 +709,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		447D0F7226550D02004A7173 /* WordStatistics.xcdatamodeld */ = {
+		447D0F7226550D02004A7173 /* app.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				447D0F7326550D02004A7173 /* Words.xcdatamodel */,
 			);
 			currentVersion = 447D0F7326550D02004A7173 /* Words.xcdatamodel */;
-			path = WordStatistics.xcdatamodeld;
+			path = app.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

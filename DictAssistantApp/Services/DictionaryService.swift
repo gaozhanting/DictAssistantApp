@@ -20,12 +20,12 @@ func cachedDictionaryServicesDefine(_ word: String) -> String? {
 }
 
 private func queryDefine(_ word: String) -> String? {
-    let mode = UseCustomDictMode.init(rawValue: UserDefaults.standard.integer(forKey: UseCustomDictModeKey))!
+    let mode = UseEntryMode.init(rawValue: UserDefaults.standard.integer(forKey: UseEntryModeKey))!
     switch mode {
     case .notUse:
         return DictionaryServices.define(word)
     case .asFirstPriority:
-        if let entry = queryCustomDict(word: word) {
+        if let entry = queryEntry(word: word) {
             return entry
         }
         return DictionaryServices.define(word)
@@ -33,14 +33,14 @@ private func queryDefine(_ word: String) -> String? {
         if let define = DictionaryServices.define(word) {
             return define
         }
-        return queryCustomDict(word: word)
+        return queryEntry(word: word)
     case .only:
-        return queryCustomDict(word: word)
+        return queryEntry(word: word)
     }
 }
 
-private func queryCustomDict(word: String) -> String? {
-    if let trans = customDictDict[word] {
+private func queryEntry(word: String) -> String? {
+    if let trans = entriesDict[word] {
         return "\(word)\(trans)"
     }
     return nil

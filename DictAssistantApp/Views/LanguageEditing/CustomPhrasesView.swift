@@ -47,13 +47,13 @@ fileprivate struct ConstantPhrasesView: View {
     @FetchRequest(
         entity: Phrase.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \Phrase.phrase, ascending: true)
+            NSSortDescriptor(keyPath: \Phrase.word, ascending: true)
         ]
     ) var fetchedPhrases: FetchedResults<Phrase>
     
     var text: String {
         fetchedPhrases
-            .map { $0.phrase! }
+            .map { $0.word! }
             .joined(separator: "\n")
     }
     

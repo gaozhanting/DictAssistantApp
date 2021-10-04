@@ -66,7 +66,7 @@ fileprivate struct WelcomeView: View {
     }
 }
 
-fileprivate struct InitKnownWordsView: View {
+fileprivate struct InitKnownView: View {
     let next: () -> Void
     
     @State private var to: Int = 5000
@@ -74,11 +74,11 @@ fileprivate struct InitKnownWordsView: View {
     @State private var batchInsertSucceed: Bool = false
     
     @FetchRequest(
-        entity: WordStats.entity(),
+        entity: Known.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \WordStats.word, ascending: true)
+            NSSortDescriptor(keyPath: \Known.word, ascending: true)
         ]
-    ) var fetchedKnownWords: FetchedResults<WordStats>
+    ) var fetchedKnown: FetchedResults<Known>
     
     var body: some View {
         PageTemplateView(
@@ -103,7 +103,7 @@ fileprivate struct InitKnownWordsView: View {
                     
                     Button(action: {
                         let words = Array(wikiFrequencyWords[0 ..< to])
-                        batchInsertKnownWords(words) {
+                        batchInsertKnown(words) {
                             batchInsertSucceed = true
                         }
                     }) {
@@ -116,7 +116,7 @@ fileprivate struct InitKnownWordsView: View {
                 Button(action: next, label: {
                     Text("Continue")
                 })
-                .disabled(fetchedKnownWords.count == 0 && !batchInsertSucceed)
+                .disabled(fetchedKnown.count == 0 && !batchInsertSucceed)
             })
     }
 }
@@ -200,7 +200,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     
     func allSet() -> Bool {
         (KeyboardShortcuts.getShortcut(for: .toggleFlowStep) != nil) &&
-        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnownWords) != nil)
+        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnown) != nil)
     }
     
     @State private var showPlaying: Bool = false
@@ -249,7 +249,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
 
 enum OnboardingPage: CaseIterable {
     case welcome
-    case initKnownWords
+    case initKnown
     case downloadExtraDict
     case initGlobalKeyboardShortcut
     
@@ -258,8 +258,8 @@ enum OnboardingPage: CaseIterable {
         switch self {
         case .welcome:
             WelcomeView(next: next)
-        case .initKnownWords:
-            InitKnownWordsView(next: next)
+        case .initKnown:
+            InitKnownView(next: next)
         case .downloadExtraDict:
             DownloadExtraDictView(next: next)
         case .initGlobalKeyboardShortcut:
@@ -305,7 +305,7 @@ struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             OnboardingPage.welcome.view()
-            OnboardingPage.initKnownWords.view()
+            OnboardingPage.initKnown.view()
             OnboardingPage.downloadExtraDict.view()
             OnboardingPage.initGlobalKeyboardShortcut.view()
         }

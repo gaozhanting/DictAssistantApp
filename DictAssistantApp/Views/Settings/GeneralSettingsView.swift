@@ -70,7 +70,7 @@ struct KeyRecordingView: View {
                 Text("Toggle Show Current Known Words:")
                 Spacer()
                 Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
-                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWords)
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
                 MiniInfoView {
                     Text("recommend: Option-2").padding()
                 }
@@ -80,7 +80,7 @@ struct KeyRecordingView: View {
                     Text("Toggle Conceal Current Known Words:")
                     Spacer()
                     Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
-                    KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownWordsButWithOpacity0)
+                    KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
                     MiniInfoView {
                         Text("recommend: Option-3").padding()
                     }

@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         initOnboardingPanel()
         
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
-            batchDeleteAllKnownWords()
+            batchDeleteAllKnown()
             batchDeleteAllSlots()
             self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
         }

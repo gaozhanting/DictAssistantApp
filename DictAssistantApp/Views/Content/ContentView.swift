@@ -44,13 +44,16 @@ private struct EditingCustomEntryView: View {
     @State private var text: String = ""
     
     func add() {
-        let entry = text.split(separator: Character(","), maxSplits: 1)
-        let word = String(entry[0])
-        let trans = String(entry[1])
+        let txt = text.split(separator: Character(","), maxSplits: 1)
+        let word = String(txt[0])
+        let trans = String(txt[1])
         if word.isPhrase {
             addPhrase(word)
         }
-        upsertCustomDict(entry: Entry(word: word, trans: trans))
+        let entry = Entry()
+        entry.word = word
+        entry.trans = trans
+        upsertEntry(entry)
     }
     
     func valid() -> Bool {

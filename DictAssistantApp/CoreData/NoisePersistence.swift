@@ -10,7 +10,7 @@ import Cocoa
 import CoreData
 
 // for cache for running query
-var allNoisesSet: Set<String> = getAllNoiseSet()
+var noisesSet: Set<String> = getAllNoiseSet()
 
 private func getAllNoiseSet() -> Set<String> {
     let context = persistentContainer.viewContext
@@ -47,7 +47,7 @@ func batchInsertNoise(_ words: [String], didSucceed: @escaping () -> Void = {}) 
         let changes = [NSInsertedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
 
-        allNoisesSet = getAllNoiseSet()
+        noisesSet = getAllNoiseSet()
         trCallBack()
         didSucceed()
     } catch {
@@ -70,7 +70,7 @@ func batchDeleteAllNoise(didSucceed: @escaping () -> Void = {}) {
         let changes = [NSDeletedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
 
-        allNoisesSet = getAllNoiseSet()
+        noisesSet = getAllNoiseSet()
         trCallBack()
         didSucceed()
     } catch {
@@ -102,7 +102,7 @@ func removeMultiNoise(
         }
     }
     saveContext(didSucceed: {
-        allNoisesSet = getAllNoiseSet()
+        noisesSet = getAllNoiseSet()
         trCallBack()
         didSucceed()
     }, nothingChanged: {
@@ -128,7 +128,7 @@ func addNoise(_ word: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        allNoisesSet = getAllNoiseSet()
+        noisesSet = getAllNoiseSet()
         trCallBack()
     })
 }
@@ -150,7 +150,7 @@ func removeNoise(_ word: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        allNoisesSet = getAllNoiseSet()
+        noisesSet = getAllNoiseSet()
         trCallBack()
     })
 }

@@ -90,8 +90,8 @@ fileprivate struct TextBody: View {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
                     unKnown ? addKnownWord(word) : removeKnownWord(word)
                 })
-                Button(!allNoisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
-                    !allNoisesSet.contains(word) ?
+                Button(!noisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
+                    !noisesSet.contains(word) ?
                         addNoise(word) :
                         removeNoise(word)
                 }
