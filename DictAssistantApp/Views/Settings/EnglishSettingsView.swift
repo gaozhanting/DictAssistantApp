@@ -10,6 +10,11 @@ import SwiftUI
 struct EnglishSettingsView: View {
     var body: some View {
         TabView {
+            Text("Third Party Dict")
+                .tabItem {
+                    Text("Third Party Dict")
+                }
+            
             GroupBox {
                 PhrasesView()
             }
@@ -40,11 +45,6 @@ struct EnglishSettingsView: View {
             .tabItem {
                 Text("Entries")
             }
-            
-            Text("Third Party Dict")
-                .tabItem {
-                    Text("Third Party Dict")
-                }
         }
         .environment(\.managedObjectContext, persistentContainer.viewContext)
         .padding(.top, 10)
