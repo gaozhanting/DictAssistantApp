@@ -18,7 +18,9 @@ struct GeneralSettingsView: View {
                 KeyRecordingView(onboarding: false)
                     .frame(maxWidth: .infinity)
             }
-
+            Preferences.Section(title: NSLocalizedString("Toast:", comment: "")) {
+                ShowToastToggle()
+            }
         }
     }
 }
@@ -104,6 +106,17 @@ struct KeyRecordingView: View {
             }
         }
         .toggleStyle(SwitchToggleStyle())
+    }
+}
+
+fileprivate struct ShowToastToggle: View {
+    @AppStorage(ShowToastToggleKey) private var showToast: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $showToast, label: {
+            Text("Show Toast")
+        })
+        .toggleStyle(CheckboxToggleStyle())
     }
 }
 

@@ -11,12 +11,6 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Toast:", comment: "")) {
-                ShowToastToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
-                CropperStyleSettingView()
-            }
             Preferences.Section(title: NSLocalizedString("Use Custom Dict Mode:", comment: "")) {
                 UseCustomDictModePicker()
             }
@@ -66,38 +60,6 @@ struct AppearanceSettingsView: View {
                 ContentBackgroundVisualEffect()
             }
         }
-    }
-}
-
-fileprivate struct ShowToastToggle: View {
-    @AppStorage(ShowToastToggleKey) private var showToast: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $showToast, label: {
-            Text("Show Toast")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-    }
-}
-
-enum CropperStyle: Int, Codable {
-    case closed = 0
-    case rectangle = 1
-    case leadingBorder = 2
-}
-
-fileprivate struct CropperStyleSettingView: View {
-    @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
-
-    var body: some View {
-        Picker("", selection: $cropperStyle) {
-            Text("leadingBorder").tag(CropperStyle.leadingBorder)
-            Text("rectangle").tag(CropperStyle.rectangle)
-            Text("closed").tag(CropperStyle.closed)
-        }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 

@@ -10,6 +10,7 @@ import Preferences
 
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
+    static let recording = Self("recording")
     static let vision = Self("Vision")
     static let content = Self("content")
     static let appearance = Self("appearance")
@@ -29,6 +30,19 @@ func GeneralPreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
+func RecordingPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .recording,
+        title: NSLocalizedString("Recording", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "rectangle.dashed.badge.record", accessibilityDescription: "Recording preferences")!
+    ) {
+        RecordingSettingsView()
+            .environmentObject(statusData)
+    }
+
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
 func VisionPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .vision,
@@ -36,7 +50,6 @@ func VisionPreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "doc.text.viewfinder", accessibilityDescription: "Vision preferences")!
     ) {
         VisionSettingsView()
-            .environmentObject(statusData)
     }
 
     return Preferences.PaneHostingController(pane: paneView)
@@ -61,7 +74,6 @@ func AppearancePreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
     ) {
         AppearanceSettingsView()
-            .environmentObject(statusData)
     }
 
     return Preferences.PaneHostingController(pane: paneView)

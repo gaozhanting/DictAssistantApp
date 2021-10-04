@@ -11,6 +11,7 @@ import Preferences
 private var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
         GeneralPreferenceViewController(),
+        RecordingPreferenceViewController(),
         VisionPreferenceViewController(),
         ContentPreferenceViewController(),
         AppearancePreferenceViewController(),
@@ -32,6 +33,7 @@ func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
     preferencesWindowController.show(preferencePane: .appearance)
     preferencesWindowController.show(preferencePane: .content)
     preferencesWindowController.show(preferencePane: .vision)
+    preferencesWindowController.show(preferencePane: .recording)
     preferencesWindowController.show(preferencePane: .general)
     preferencesWindowController.close()
 }
