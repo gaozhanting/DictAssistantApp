@@ -38,9 +38,15 @@ func batchInsertCustomNoise(_ words: [String], didSucceed: @escaping () -> Void 
             ["word": word]
         }
     )
+    insertRequest.resultType = .objectIDs
     
     do {
-        try context.execute(insertRequest)
+        let result = try context.execute(insertRequest) as? NSBatchInsertResult
+        
+        let objectIDArray = result?.result as? [NSManagedObjectID]
+        let changes = [NSInsertedObjectsKey: objectIDArray]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
+
         allCustomNoisesSet = getAllCustomNoiseSet()
         trCallBack()
         didSucceed()
@@ -55,9 +61,15 @@ func batchDeleteAllCustomNoise(didSucceed: @escaping () -> Void = {}) {
 
     let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CustomNoise.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    deleteRequest.resultType = .resultTypeObjectIDs
 
     do {
-        try context.execute(deleteRequest)
+        let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+        
+        let objectIDArray = result?.result as? [NSManagedObjectID]
+        let changes = [NSDeletedObjectsKey: objectIDArray]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
+
         allCustomNoisesSet = getAllCustomNoiseSet()
         trCallBack()
         didSucceed()

@@ -32,14 +32,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         combineSomeUserDefaults()
         
-        initCustomNoisesPanel()
-        
-        initCustomPhrasesPanel()
-        
-        initKnownWordsPanel()
-        
-        initCustomDictPanel()
-        
         initExtraDictionariesPanel()
 
         initToastWindow()

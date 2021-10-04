@@ -126,11 +126,11 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             LandscapeWordsView()
                 .environmentObject(displayedWords)
-                .frame(width: 1000, height: 220)
+                .frame(width: 1000, height: 300)
             
             PortraitWordsView()
                 .environmentObject(displayedWords)
-                .frame(width: 220, height: 600)
+                .frame(width: 300, height: 600)
             
             PortraitWordsView()
                 .environmentObject(displayedWords)

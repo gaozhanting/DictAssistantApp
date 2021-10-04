@@ -29,9 +29,15 @@ func batchDeleteAllSlots() {
 
     let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Slot.fetchRequest()
     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    deleteRequest.resultType = .resultTypeObjectIDs
 
     do {
-        try context.execute(deleteRequest)
+        let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+        
+        let objectIDArray = result?.result as? [NSManagedObjectID]
+        let changes = [NSDeletedObjectsKey: objectIDArray]
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
+
     } catch {
         logger.error("Failed to batch delete all slots: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)

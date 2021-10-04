@@ -11,9 +11,6 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Use Custom Dict Mode:", comment: "")) {
-                UseCustomDictModePicker()
-            }
             Preferences.Section(title: NSLocalizedString("Content Retention:", comment: "")) {
                 ContentRetentionToggle()
             }
@@ -60,33 +57,6 @@ struct AppearanceSettingsView: View {
                 ContentBackgroundVisualEffect()
             }
         }
-    }
-}
-
-fileprivate struct UseCustomDictModePicker: View {
-    @AppStorage(UseCustomDictModeKey) private var useCustomDictMode: UseCustomDictMode = .notUse
-    
-    var binding: Binding<UseCustomDictMode> {
-        Binding(
-            get: { useCustomDictMode },
-            set: { newValue in
-                useCustomDictMode = newValue
-                cachedDict = [:]
-                trCallBack()
-            }
-        )
-    }
-    
-    var body: some View {
-        Picker("", selection: binding) {
-            Text("not use").tag(UseCustomDictMode.notUse)
-            Text("as first priority").tag(UseCustomDictMode.asFirstPriority)
-            Text("as last priority").tag(UseCustomDictMode.asLastPriority)
-            Text("only").tag(UseCustomDictMode.only)
-        }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 

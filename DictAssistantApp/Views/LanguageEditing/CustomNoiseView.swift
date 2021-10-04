@@ -39,7 +39,7 @@ fileprivate class SplitViewController: NSSplitViewController {
         
         splitView.dividerStyle = .paneSplitter
         splitView.isVertical = false
-        splitView.setPosition(320, ofDividerAt: 0)
+        splitView.setPosition(250, ofDividerAt: 0)
     }
 }
 
@@ -91,17 +91,13 @@ fileprivate struct EditingView: View {
     
     func batchInsert() {
         batchInsertCustomNoise(lines) {
-            toastSucceed {
-                showCustomNoisesPanelX()
-            }
+            toastSucceed()
         }
     }
     
     func multiRemove() {
         removeMultiCustomNoise(lines, didSucceed: {
-            toastSucceed() {
-                showCustomNoisesPanelX()
-            }
+            toastSucceed()
         }, nothingChanged: {
             toastNothingChanged()
         })
@@ -109,9 +105,7 @@ fileprivate struct EditingView: View {
     
     func batchDeleteAll() {
         batchDeleteAllCustomNoise {
-            toastSucceed() {
-                showCustomNoisesPanelX()
-            }
+            toastSucceed()
         }
     }
     

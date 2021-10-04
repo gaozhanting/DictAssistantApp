@@ -39,7 +39,7 @@ fileprivate class SplitViewController: NSSplitViewController {
         
         splitView.dividerStyle = .paneSplitter
         splitView.isVertical = false
-        splitView.setPosition(320, ofDividerAt: 0)
+        splitView.setPosition(250, ofDividerAt: 0)
     }
 }
 
@@ -99,17 +99,13 @@ fileprivate struct EditingView: View {
             return Entry(word: String(wordTrans[0]), trans: String(wordTrans[1]))
         }
         batchUpsertCustomDicts(entries: entries) {
-            toastSucceed {
-                showCustomDictPanelX()
-            }
+            toastSucceed()
         }
     }
     
     func multiRemove() {
         removeMultiCustomDict(lines, didSucceed: {
-            toastSucceed() {
-                showCustomDictPanelX()
-            }
+            toastSucceed()
         }, nothingChanged: {
             toastNothingChanged()
         })
@@ -117,9 +113,7 @@ fileprivate struct EditingView: View {
     
     func batchDeleteAll() {
         batchDeleteAllCustomDict {
-            toastSucceed() {
-                showCustomDictPanelX()
-            }
+            toastSucceed()
         }
     }
     

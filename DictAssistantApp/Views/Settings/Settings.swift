@@ -11,7 +11,8 @@ import Preferences
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
     static let recording = Self("recording")
-    static let vision = Self("Vision")
+    static let vision = Self("vision")
+    static let english = Self("english")
     static let content = Self("content")
     static let appearance = Self("appearance")
     static let slots = Self("slots")
@@ -50,6 +51,18 @@ func VisionPreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "doc.text.viewfinder", accessibilityDescription: "Vision preferences")!
     ) {
         VisionSettingsView()
+    }
+
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func EnglishPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .english,
+        title: NSLocalizedString("English", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "textformat.abc", accessibilityDescription: "English preferences")!
+    ) {
+        EnglishSettingsView()
     }
 
     return Preferences.PaneHostingController(pane: paneView)

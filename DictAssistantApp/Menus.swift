@@ -21,16 +21,6 @@ func constructMenuBar() {
     
     menu.addItem(NSMenuItem(title: NSLocalizedString("Preferences...", comment:  ""), action: #selector(AppDelegate.showPreferences), keyEquivalent: ","))
     menu.addItem(NSMenuItem.separator())
-    menu.addItem(NSMenuItem(title: NSLocalizedString("Show Custom Phrases Panel", comment: ""), action: #selector(AppDelegate.showCustomPhrasesPanel), keyEquivalent: ""))
-    menu.addItem(NSMenuItem.separator())
-    menu.addItem(NSMenuItem(title: NSLocalizedString("Show Custom Noises Panel", comment: ""), action: #selector(AppDelegate.showCustomNoisesPanel), keyEquivalent: ""))
-    menu.addItem(NSMenuItem.separator())
-    menu.addItem(NSMenuItem(title: NSLocalizedString("Show Known Words Panel", comment: ""), action: #selector(AppDelegate.showKnownWordsPanel), keyEquivalent: ""))
-    menu.addItem(NSMenuItem.separator())
-    menu.addItem(NSMenuItem(title: NSLocalizedString("Show Custom Dict Panel", comment: ""), action: #selector(AppDelegate.showCustomDictPanel), keyEquivalent: ""))
-    menu.addItem(NSMenuItem.separator())
-//    menu.addItem(NSMenuItem(title: NSLocalizedString("Show Extra Dictionaries Panel", comment: ""), action: #selector(AppDelegate.showExtraDictionariesPanel), keyEquivalent: ""))
-//    menu.addItem(NSMenuItem.separator())
     
     let helpMenu = NSMenu(title: NSLocalizedString("Help", comment: ""))
     helpMenu.addItem(withTitle: NSLocalizedString("Show Onboarding Panel", comment: ""), action: #selector(AppDelegate.onboarding), keyEquivalent: "")
