@@ -89,12 +89,9 @@ fileprivate struct EditingView: View {
     }
     
     func batchUpsert() {
-        let entries: [Entry] = lines.map { line in
+        let entries: [(String, String)] = lines.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
-            let entry = Entry()
-            entry.word = String(wordTrans[0])
-            entry.trans = String(wordTrans[1])
-            return entry
+            return (String(wordTrans[0]), String(wordTrans[1]))
         }
         batchUpsertEntries(entries: entries) {
             toastSucceed()

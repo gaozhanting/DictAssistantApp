@@ -50,10 +50,7 @@ private struct EditingCustomEntryView: View {
         if word.isPhrase {
             addPhrase(word)
         }
-        let entry = Entry()
-        entry.word = word
-        entry.trans = trans
-        upsertEntry(entry)
+        upsertEntry(word: word, trans: trans)
     }
     
     func valid() -> Bool {

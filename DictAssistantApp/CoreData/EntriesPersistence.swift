@@ -54,7 +54,7 @@ func getEntry(of word: String) -> Entry? {
     }
 }
 
-func batchUpsertEntries(entries: [Entry], didSucceed: @escaping () -> Void = {}) {
+func batchUpsertEntries(entries: [(String, String)], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     // this got upsert behavior when do batch insert
@@ -62,8 +62,8 @@ func batchUpsertEntries(entries: [Entry], didSucceed: @escaping () -> Void = {})
     
     let insertRequest = NSBatchInsertRequest(
         entity: Entry.entity(),
-        objects: entries.map { entry in
-            ["word": entry.word!, "trans": entry.trans!]
+        objects: entries.map { (word, trans) in
+            ["word": word, "trans": trans]
         }
     )
     insertRequest.resultType = .objectIDs
@@ -141,22 +141,22 @@ func removeMultiEntries(
     })
 }
 
-func upsertEntry(_ entry: Entry) {
+func upsertEntry(word: String, trans: String) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "word = %@", entry.word!)
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
     fetchRequest.fetchLimit = 1
     
     do {
         let results = try context.fetch(fetchRequest)
         if let result = results.first { // update
-            result.word = entry.word
-            result.trans = entry.trans
+            result.word = word
+            result.trans = trans
         } else { // insert
             let newEntry = Entry(context: context)
-            newEntry.word = entry.word
-            newEntry.trans = entry.trans
+            newEntry.word = word
+            newEntry.trans = trans
         }
     } catch {
         logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
