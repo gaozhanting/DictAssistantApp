@@ -118,8 +118,8 @@ fileprivate struct EditingView: View {
         }
     }
     
-    func batchInsertDefault() {
-        batchInsertDefaultPhrases {
+    func batchResetDefault() {
+        batchResetDefaultPhrases {
             toastSucceed()
         }
     }
@@ -157,7 +157,7 @@ fileprivate struct EditingView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    Button(action: batchInsertDefault) {
+                    Button(action: batchResetDefault) {
                         Image(systemName: "pencil.and.outline")
                     }
                     .buttonStyle(PlainButtonStyle())

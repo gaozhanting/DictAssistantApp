@@ -29,21 +29,12 @@ private func getAllPhrasesSet() -> Set<String> {
     }
 }
 
-func batchInsertDefaultPhrases(didSucceed: @escaping () -> Void = {}) {
-    /*
-     count is 366,502
-     
-     all contains belows
-     2 words: 262,321 71%
-     3 words:  74,687 20%
-     4 words:  21,620 5%
-     5 words:   6,898 2%
-     // ignores >5 when do phrase detect programming
-     */
-    let words = Vocabularies.readToArray(from: "phrases.txt") // take 2.28s, too long
-
-    batchInsertPhrases(words) {
-        didSucceed()
+func batchResetDefaultPhrases(didSucceed: @escaping () -> Void = {}) {
+    batchDeleteAllPhrases() {
+        let words = Vocabularies.readToArray(from: "phrases.txt")
+        batchInsertPhrases(words) {
+            didSucceed()
+        }
     }
 }
 
