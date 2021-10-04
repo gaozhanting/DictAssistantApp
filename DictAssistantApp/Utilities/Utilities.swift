@@ -87,7 +87,7 @@ func myPrint(_ str: String) {
     print(str) // or donothing
 }
 
-func timeElapsed(info: String, with closure: () -> Void) {
+func timeElapsed(info: String, _ closure: () -> Void) {
     let startingPoint = Date()
     closure()
     logger.info("time elapsed of \(info): \(-startingPoint.timeIntervalSinceNow) seconds")

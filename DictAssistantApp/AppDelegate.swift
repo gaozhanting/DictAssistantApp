@@ -22,6 +22,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
         
+//        timeElapsed(info: "batchInsertPhrases") {
+//            batchInsertDefaultPhrases()
+//        }
+            
+//        timeElapsed(info: "batchDeleteAllPhrases") {
+//            batchDeleteAllPhrases() // why here is ok, but button trigger this so slow ?!
+//        }
+        
         initAllUserDefaultsIfNil()
         
         initCropperWindow()

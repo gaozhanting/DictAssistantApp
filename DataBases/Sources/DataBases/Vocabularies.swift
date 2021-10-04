@@ -29,7 +29,8 @@ public struct Vocabularies {
     
     public static func readToArray(from file: String) -> [String] {
         let text = Vocabularies.read(from: file)
-        let lines = text.components(separatedBy: .newlines)
+        var lines = text.components(separatedBy: .newlines)
+        lines.removeLast()
         return lines
     }
     

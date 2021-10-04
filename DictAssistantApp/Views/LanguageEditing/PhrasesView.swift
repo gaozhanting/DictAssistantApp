@@ -118,6 +118,12 @@ fileprivate struct EditingView: View {
         }
     }
     
+    func batchInsertDefault() {
+        batchInsertDefaultPhrases {
+            toastSucceed()
+        }
+    }
+    
     @State private var succeed: Bool = false
     @State private var nothingChanged: Bool = false
     
@@ -148,6 +154,11 @@ fileprivate struct EditingView: View {
                     
                     Button(action: batchDeleteAll) {
                         Image(systemName: "trash")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: batchInsertDefault) {
+                        Image(systemName: "pencil.and.outline")
                     }
                     .buttonStyle(PlainButtonStyle())
                     

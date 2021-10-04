@@ -29,7 +29,7 @@ private func getAllPhrasesSet() -> Set<String> {
     }
 }
 
-func batchDefaultPhrases() {
+func batchInsertDefaultPhrases(didSucceed: @escaping () -> Void = {}) {
     /*
      count is 366,502
      
@@ -42,7 +42,9 @@ func batchDefaultPhrases() {
      */
     let words = Vocabularies.readToArray(from: "phrases.txt") // take 2.28s, too long
 
-    batchInsertPhrases(words)
+    batchInsertPhrases(words) {
+        didSucceed()
+    }
 }
 
 func batchInsertPhrases(_ words: [String], didSucceed: @escaping () -> Void = {}) {

@@ -264,6 +264,7 @@ fileprivate struct FirstNPopoverView: View {
     
     @State private var from: Int = 1
     @State private var to: Int = 5000
+    @State private var committed: Bool = false
     
     @Binding var showPopover: Bool
     
@@ -286,7 +287,9 @@ fileprivate struct FirstNPopoverView: View {
                 formatter.minimum = 2
                 formatter.maximum = 100000
                 return formatter
-            }())
+            }(), onCommit: {
+                committed = true
+            })
             .frame(width: 60)
             
             Button(action: {
@@ -295,7 +298,7 @@ fileprivate struct FirstNPopoverView: View {
             }) {
                 Image(systemName: "doc.on.clipboard")
             }
-            .disabled(from > to)
+            .disabled(from > to || !committed)
             .keyboardShortcut(KeyEquivalent.return) // command + return
             .help("Type a range, then press paste button to paste these words below.")
         }
