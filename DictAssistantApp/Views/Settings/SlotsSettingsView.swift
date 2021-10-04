@@ -221,6 +221,45 @@ fileprivate struct InfoView: View {
     }
 }
 
+fileprivate struct ButtonsView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+
+    let selectedSlot: Slot?
+    
+    var body: some View {
+        HStack {
+            Button("Add") {
+                let slot = Slot(context: managedObjectContext)
+                slot.color = colorToData(NSColor.random())
+                slot.label = ""
+                slot.settings = settingsToData(defaultSettings)
+                slot.createdDate = Date()
+                slot.isSelected = false
+                saveContext()
+            }
+            
+            Button("Clone") {
+                if let selectedSlot = selectedSlot {
+                    let slot = Slot(context: managedObjectContext)
+                    slot.color = colorToData(NSColor.random())
+                    slot.label = "\(selectedSlot.label ?? "") cloned"
+                    slot.settings = selectedSlot.settings
+                    slot.createdDate = Date()
+                    slot.isSelected = true
+                    selectedSlot.isSelected = false
+                    saveContext()
+                }
+            }
+            .disabled(selectedSlot == nil)
+            
+            Button("Delete All") {
+                batchDeleteAllSlots()
+            }
+        }
+        .padding()
+    }
+}
+
 fileprivate struct SlotsView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
@@ -229,6 +268,10 @@ fileprivate struct SlotsView: View {
             NSSortDescriptor(keyPath: \Slot.createdDate, ascending: true)
         ]
     ) var slots: FetchedResults<Slot>
+    
+    var selectedSlot: Slot? {
+        slots.first { $0.isSelected }
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -265,7 +308,7 @@ fileprivate struct SlotsView: View {
                             }
                             
                             if slot.isSelected && !isSelectedSlotEqualWithCurrentSettings(settings) {
-                                Button("update", action: {
+                                Button("Update", action: {
                                     let currentSettings = getCurrentSettingsX()
                                     slot.settings = settingsToData(currentSettings)!
                                     saveContext()
@@ -285,31 +328,7 @@ fileprivate struct SlotsView: View {
                 .frame(width: 300, height: 40 + CGFloat(slots.count) * 35 < 800 ? 40 + CGFloat(slots.count) * 35 : 800)
             }
             
-            HStack {
-                Button("Add") {
-                    let slot = Slot(context: managedObjectContext)
-                    slot.color = colorToData(NSColor.random())
-                    slot.label = ""
-                    slot.settings = settingsToData(defaultSettings)
-                    slot.createdDate = Date()
-                    slot.isSelected = false
-                    saveContext()
-                }
-
-                if let selectedSlot = slots.first { $0.isSelected } {
-                    Button("Clone") {
-                        let slot = Slot(context: managedObjectContext)
-                        slot.color = colorToData(NSColor.random())
-                        slot.label = "\(selectedSlot.label ?? "") cloned"
-                        slot.settings = selectedSlot.settings
-                        slot.createdDate = Date()
-                        slot.isSelected = true
-                        selectedSlot.isSelected = false
-                        saveContext()
-                    }
-                }
-            }
-            .padding()
+            ButtonsView(selectedSlot: selectedSlot)
         }
     }
     

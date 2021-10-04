@@ -165,7 +165,8 @@
 
 "Add" = "添加";
 "Clone" = "克隆";
-"update" = "更新";
+"Update" = "更新";
+"Delete All" = "删除所有";
 
 "Slot is a stored collection of all preferences settings (except global shortcut key, font name, is show toast option), and cropper window frame, and content window frame. This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add as many slots as you like. You click the update button to dump current preferences settings and store it into the selected slot. You click the icon to switch and dump the selected slot settings into the current preferences settings. You can swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. You can even clone the selected slot." = "空位只是一些属性的集中存贮，包含所有偏好设置（排除全局键盘快捷键设置，字体名称，运行提示开关 这三个属性），和录屏截区窗口位置和大小，内容显示窗口位置和大小。空位使得您能在您的多个常用配置中快速切换。\n\n但是，如果您在运行中切换它们的话，录屏区域并未立即切换。您需要停止运行然后切换它们。\n\n您可以添加任意数量的空位。您点击更新按钮以存储当前的所有偏好设置。您点击前面的盒子图标会在空位之间进行切换，同时加载所有偏好设置为选中的空位中存储的。您可以左滑以弹出删除按钮来删除某个空位。您可以在某个空位之后编辑附带文本信息，通过点击盒子图标之后的区域。您甚至可以克隆选中的空位。";
 
