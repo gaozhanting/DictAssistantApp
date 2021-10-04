@@ -10,6 +10,7 @@ import Preferences
 
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
+    static let content = Self("content")
     static let appearance = Self("appearance")
     static let slots = Self("slots")
     static let dictionaries = Self("dictionaries")
@@ -25,6 +26,18 @@ func GeneralPreferenceViewController() -> PreferencePane {
             .environmentObject(statusData)
     }
 
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func ContentPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .content,
+        title: NSLocalizedString("Content", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "scroll", accessibilityDescription: "Content preferences")!
+    ) {
+        ContentSettingsView()
+    }
+    
     return Preferences.PaneHostingController(pane: paneView)
 }
 

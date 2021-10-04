@@ -11,6 +11,7 @@ import Preferences
 private var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
         GeneralPreferenceViewController(),
+        ContentPreferenceViewController(),
         AppearancePreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
     ],
@@ -28,6 +29,7 @@ extension AppDelegate {
 func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
     preferencesWindowController.show(preferencePane: .slots)
     preferencesWindowController.show(preferencePane: .appearance)
+    preferencesWindowController.show(preferencePane: .content)
     preferencesWindowController.show(preferencePane: .general)
     preferencesWindowController.close()
 }
