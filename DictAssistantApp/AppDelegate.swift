@@ -38,8 +38,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         combineSomeUserDefaults()
         
-        initExtraDictionariesPanel()
-
         initToastWindow()
         
         constructMenuBar()

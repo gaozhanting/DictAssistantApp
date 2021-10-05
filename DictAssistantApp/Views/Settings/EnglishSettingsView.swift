@@ -10,7 +10,7 @@ import SwiftUI
 struct EnglishSettingsView: View {
     var body: some View {
         TabView {
-            Text("Third Party Dict")
+            ThirdPartyDictView()
                 .tabItem {
                     Text("Third Party Dict")
                 }
@@ -50,6 +50,12 @@ struct EnglishSettingsView: View {
         .padding(.top, 10)
         .frame(width: CGFloat(settingPanelWidth))
         .frame(minHeight: 600)
+    }
+}
+
+fileprivate struct ThirdPartyDictView: View {
+    var body: some View {
+        Text("Third Party Dict")
     }
 }
 

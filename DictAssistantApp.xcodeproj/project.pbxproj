@@ -36,7 +36,6 @@
 		4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
 		4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555127020FDE007DB9C2 /* CleanedWordsService.swift */; };
 		4453555427042478007DB9C2 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
-		4453555C27042873007DB9C2 /* ExtraDictionariesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */; };
 		4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
 		4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
 		445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
@@ -101,7 +100,6 @@
 		4453554D27020DDA007DB9C2 /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
 		4453555127020FDE007DB9C2 /* CleanedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanedWordsService.swift; sourceTree = "<group>"; };
 		4453555327042478007DB9C2 /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
-		4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraDictionariesPanel.swift; sourceTree = "<group>"; };
 		4453555D270428CF007DB9C2 /* OnboardingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPanel.swift; sourceTree = "<group>"; };
 		4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
 		445355612705C0CF007DB9C2 /* NoisesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisesPersistence.swift; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 		4479159F26B7DA86002E9F8C /* Windows */ = {
 			isa = PBXGroup;
 			children = (
-				4453555B27042873007DB9C2 /* ExtraDictionariesPanel.swift */,
 				4453555D270428CF007DB9C2 /* OnboardingPanel.swift */,
 				44A2194226D6535600706A59 /* CCDelegate.swift */,
 				44FBE4682674EBCE002A7599 /* ContentWindow.swift */,
@@ -420,7 +417,6 @@
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */,
 				44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */,
-				4453555C27042873007DB9C2 /* ExtraDictionariesPanel.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
