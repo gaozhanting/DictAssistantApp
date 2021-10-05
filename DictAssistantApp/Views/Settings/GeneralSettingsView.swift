@@ -59,9 +59,9 @@ struct KeyRecordingView: View {
     var body: some View {
         Group {
             HStack {
-                Text("Run Flow Step:")
+                Text("Run Step Play:")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .toggleFlowStep)
+                KeyboardShortcuts.Recorder(for: .toggleStepPlay)
                 MiniInfoView {
                     Text("recommend: Option-1").padding()
                 }
@@ -101,6 +101,14 @@ struct KeyRecordingView: View {
                     KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
                     MiniInfoView {
                         Text("recommend: Option-5").padding()
+                    }
+                }
+                HStack {
+                    Text("Run Quick Play:")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
+                    MiniInfoView {
+                        Text("recommend: Option-Q").padding()
                     }
                 }
             }

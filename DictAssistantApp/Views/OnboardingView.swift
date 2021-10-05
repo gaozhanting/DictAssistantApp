@@ -197,7 +197,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     @AppStorage(IsFinishedOnboardingKey) private var isFinishedOnboarding: Bool = false
     
     func allSet() -> Bool {
-        (KeyboardShortcuts.getShortcut(for: .toggleFlowStep) != nil) &&
+        (KeyboardShortcuts.getShortcut(for: .toggleStepPlay) != nil) &&
         (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnown) != nil)
     }
     

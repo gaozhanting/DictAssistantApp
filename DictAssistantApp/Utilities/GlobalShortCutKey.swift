@@ -9,7 +9,7 @@ import KeyboardShortcuts
 import SwiftUI
 
 extension KeyboardShortcuts.Name {
-    static let toggleFlowStep = Self("toggleFlowStep")
+    static let toggleStepPlay = Self("toggleStepPlay")
     
     static let toggleShowCurrentKnown = Self("toggleShowCurrentKnown")
     
@@ -18,25 +18,27 @@ extension KeyboardShortcuts.Name {
     static let toggleConcealTranslation = Self("toggleConcealTranslation")
     
     static let toggleShowCurrentNotFoundWords = Self("toggleShowCurrentNotFoundWords")
+    
+    static let toggleQuickPlay = Self("toggleQuickPlay")
 }
 
-private enum FlowStep {
+private enum StepPlay {
     case beginSelectCropper
     case beginSelectContent
     case ready
 }
 
-private var flowStep: FlowStep = .beginSelectCropper
+private var stepPlay: StepPlay = .beginSelectCropper
 
 func registerGlobalKey() {
-    KeyboardShortcuts.onKeyUp(for: .toggleFlowStep) {
+    KeyboardShortcuts.onKeyUp(for: .toggleStepPlay) {
         if !statusData.isPlaying {
-            switch flowStep {
+            switch stepPlay {
             case .beginSelectCropper:
                 cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
                 cropperWindow.orderFrontRegardless()
 
-                flowStep = .beginSelectContent
+                stepPlay = .beginSelectContent
                 
             case .beginSelectContent:
                 let emptyView = EmptyView()
@@ -46,7 +48,7 @@ func registerGlobalKey() {
                 contentWindow.contentView = NSHostingView(rootView: emptyView)
                 contentWindow.orderFrontRegardless()
                 
-                flowStep = .ready
+                stepPlay = .ready
                 
             case .ready:
                 let contentView = ContentView()
@@ -64,7 +66,7 @@ func registerGlobalKey() {
                 
                 fixCropperWindow()
                 
-                flowStep = .beginSelectCropper
+                stepPlay = .beginSelectCropper
             }
         }
         else {
@@ -106,6 +108,38 @@ func registerGlobalKey() {
             UserDefaults.standard.setValue(false, forKey: IsShowCurrentNotFoundWordsKey)
         } else {
             UserDefaults.standard.setValue(true, forKey: IsShowCurrentNotFoundWordsKey)
+        }
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .toggleQuickPlay) {
+        if !statusData.isPlaying {
+            cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
+            cropperWindow.orderFrontRegardless()
+            
+            let contentView = ContentView()
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
+            let contentViewWithEnv = attachEnv(AnyView(contentView))
+            contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
+            contentWindow.orderFrontRegardless()
+            
+            let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
+            syncCropperView(from: cropperStyle)
+            
+            startPlaying()
+            
+            fixCropperWindow()
+            
+            stepPlay = .beginSelectCropper
+        }
+        else {
+            cropperWindow.close()
+            contentWindow.close()
+            
+            stopPlaying()
+            
+            activeCropperWindow()
         }
     }
 }
