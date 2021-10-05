@@ -10,12 +10,10 @@ import SwiftUI
 struct EnglishSettingsView: View {
     var body: some View {
         TabView {
-            GroupBox {
-                DictInstallView(dict: dicts[3])
-            }
-            .tabItem {
-                Text("Third Party Dict")
-            }
+            DictInstallView(dict: dicts[3])
+                .tabItem {
+                    Text("Third Party Dict")
+                }
             
             GroupBox {
                 PhrasesView()

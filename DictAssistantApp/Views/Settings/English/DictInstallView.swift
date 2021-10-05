@@ -37,14 +37,14 @@ let dicts: [Dict] = [
          license: "MIT License",
          licenseURL: URL(string: "https://mit-license.org/")!,
          installedName: "简明英汉字典增强版.dictionary",
-         downloadURL: nil
+         downloadURL: URL(string: "https://github.com/skywind3000/ECDICT")!
     ),
     Dict(name: "懒虫简明英汉词典",
          sourceURL: URL(string: "http://download.huzheng.org/zh_CN/")!,
          license: "?",
          licenseURL: nil,
          installedName: "lazyworm-ec.dictionary",
-         downloadURL: nil
+         downloadURL: URL(string: "http://download.huzheng.org/zh_CN/")!
     ),
     
     Dict(name: "英漢字典CDic",
@@ -59,7 +59,7 @@ let dicts: [Dict] = [
          license: "?",
          licenseURL: nil,
          installedName: "lazyworm-ec-big5.dictionary",
-         downloadURL: nil
+         downloadURL: URL(string: "http://download.huzheng.org/zh_CN/")!
     ),
     
     Dict(name: "JMDict English-Japanese dictionary",
@@ -278,7 +278,7 @@ private func install(_ dictFileName: String) {
 
 struct DictInstallView: View {
     @Environment(\.openURL) var openURL
-
+    
     let dict: Dict
     
     func installDict() {
@@ -286,39 +286,45 @@ struct DictInstallView: View {
     }
     
     var body: some View {
-        HStack(alignment: .top) {
-            Text(dict.name)
-            
-            if let sourceURL = dict.sourceURL, let downloadURL = dict.downloadURL {
-                MiniInfoView {
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Text("sourceURL:")
-                            Button(action: { openURL(sourceURL) }, label: {
-                                Image(systemName: "arrow.right.circle")
-                                    .font(.footnote)
-                            })
-                            .buttonStyle(PlainButtonStyle())
+        VStack {
+            GroupBox {
+                HStack(alignment: .top) {
+                    Text(dict.name)
+                    
+                    if let sourceURL = dict.sourceURL, let downloadURL = dict.downloadURL {
+                        MiniInfoView {
+                            VStack(alignment: .trailing) {
+                                HStack {
+                                    Text("sourceURL:")
+                                    Button(action: { openURL(sourceURL) }, label: {
+                                        Image(systemName: "arrow.right.circle")
+                                            .font(.footnote)
+                                    })
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                                HStack {
+                                    Text("downloadURL:")
+                                    Button(action: { openURL(downloadURL) }, label: {
+                                        Image(systemName: "arrow.right.circle")
+                                            .font(.footnote)
+                                    })
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding()
                         }
-                        HStack {
-                            Text("downloadURL:")
-                            Button(action: { openURL(downloadURL) }, label: {
-                                Image(systemName: "arrow.right.circle")
-                                    .font(.footnote)
-                            })
-                            .buttonStyle(PlainButtonStyle())
-                        }
+                        Spacer()
+                    } else {
+                        Spacer()
                     }
-                    .padding()
+                    
+                    Button("Install") {
+                        installDict()
+                    }
                 }
-                Spacer()
-            } else {
-                Spacer()
             }
             
-            Button("Install") {
-                installDict()
-            }
+            InfoView()
         }
         .padding()
     }
@@ -326,14 +332,13 @@ struct DictInstallView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
-            .padding()
-            .frame(width: 520, height: 340)
+        Text("These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
+            .frame(height: 340)
     }
 }
 
 struct DictInstallView_Previews: PreviewProvider {
     static var previews: some View {
-        DictInstallView(dict: dicts[4])
+        DictInstallView(dict: dicts[3])
     }
 }
