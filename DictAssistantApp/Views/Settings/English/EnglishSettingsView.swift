@@ -10,10 +10,12 @@ import SwiftUI
 struct EnglishSettingsView: View {
     var body: some View {
         TabView {
-            ThirdPartyDictView()
-                .tabItem {
-                    Text("Third Party Dict")
-                }
+            GroupBox {
+                DictInstallView(dict: dicts[3])
+            }
+            .tabItem {
+                Text("Third Party Dict")
+            }
             
             GroupBox {
                 PhrasesView()
@@ -50,12 +52,6 @@ struct EnglishSettingsView: View {
         .padding(.top, 10)
         .frame(width: CGFloat(settingPanelWidth))
         .frame(minHeight: 600)
-    }
-}
-
-fileprivate struct ThirdPartyDictView: View {
-    var body: some View {
-        Text("Third Party Dict")
     }
 }
 

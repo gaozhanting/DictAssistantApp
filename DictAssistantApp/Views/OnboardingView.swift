@@ -171,8 +171,8 @@ fileprivate struct DownloadExtraDictView: View {
                     
                     Divider().padding(.vertical, 10)
                     
-                    Text("Download and install.")
-                    DictItemView(dict: dicts.first { $0.name == selectedDictName }!)
+//                    Text("Download and install.")
+//                    DictItemView(dict: dicts.first { $0.name == selectedDictName }!)
                     
                     Divider().padding(.vertical, 10)
                     

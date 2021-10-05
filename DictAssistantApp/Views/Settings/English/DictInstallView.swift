@@ -1,32 +1,11 @@
 //
-//  DictionariesView.swift
+//  DictInstallView.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/7/14.
+//  Created by Gao Cong on 2021/10/5.
 //
 
 import SwiftUI
-
-struct DictionariesView: View {
-    @State private var isShowingPopover = false
-    
-    var body: some View {
-        DictsView()
-            .overlay(
-                Button(action: { isShowingPopover = true }, label: {
-                    Image(systemName: "questionmark").font(.body)
-                })
-                .clipShape(Circle())
-                .padding()
-                .shadow(radius: 1)
-                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
-                    InfoView()
-                })
-                ,
-                alignment: .bottomTrailing
-            )
-    }
-}
 
 struct Dict {
     let name: String
@@ -211,52 +190,11 @@ let dicts: [Dict] = [
     )
 ]
 
-fileprivate struct DictsView: View {
-    var body: some View {
-        ForEach(dicts, id:\.self.name) { dict in
-            DictItemView(dict: dict)
-        }
-        .padding()
-    }
-}
-
-fileprivate struct InfoView: View {
-    var body: some View {
-        Text("These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
-            .padding()
-            .frame(width: 520, height: 340)
-    }
-}
-
-fileprivate func saveFile(from location: URL, callback: (_ savedURL: URL) -> Void) {
-    // check for and handle errors:
-    // * downloadTask.response should be an HTTPURLResponse with statusCode in 200..<299 ???
-    do {
-        let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        
-        // location.lastPathComponent is for a sample example: "CFNetworkDownload_4PJQBe.tmp"
-        // savedURL is for a sample example: "file:///Users/gaocong/Library/Containers/com.gaozhanting.DictAssistantApp/Data/Documents/CFNetworkDownload_4PJQBe.tmp"
-        let savedURL = documentsURL.appendingPathComponent(location.lastPathComponent + ".zip")
-        
-        // remove dist before move to there; otherwise move may failed with "because an item with the same name already exists" error.
-        if FileManager.default.fileExists(atPath: savedURL.path) {
-            try FileManager.default.removeItem(at: savedURL)
-        }
-        try FileManager.default.moveItem(at: location, to: savedURL)
-        
-        callback(savedURL)
-    } catch {
-        // handle filesystem error
-        logger.info("saveFile exception caught: \(error.localizedDescription)")
-    }
-}
-
 // 0. prompt NSSavePanel to authorize the specified location -> yes or no
 // 1. unzip to the location
-fileprivate func saveDict(
+private func saveDict(
     _ dictFileName: String,
-    didAuthorized: @escaping (_ distURL: URL) -> Void,
-    didRefused: @escaping () -> Void
+    didAuthorized: @escaping (_ distURL: URL) -> Void
 ) {
     do {
         let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
@@ -265,19 +203,18 @@ fileprivate func saveDict(
         DispatchQueue.main.async {
             let panel = NSSavePanel()
             panel.isExtensionHidden = false
+            panel.showsTagField = false
             panel.directoryURL = dictionariesURL
             panel.canCreateDirectories = true
             panel.nameFieldStringValue = dictFileName // "oxfordjm-ec.dictionary"
             
             guard panel.runModal() == .OK else {
-                logger.info("panel runModal not return OK") // toast
-                didRefused()
+                logger.info("panel runModal not return OK, refused.") // toast
                 return
             }
             
             guard let distURL = panel.url else {
                 logger.info("panel.url is nil") // toast
-                didRefused()
                 return
             }
             
@@ -289,26 +226,10 @@ fileprivate func saveDict(
     }
 }
 
-/*
- func unzip(from savedURL: URL, to distURL: URL) {
- guard let data = NSData.init(contentsOf: savedURL) else {
- // toast
- return
- }
- 
- do {
- let uncompressedData = try data.decompressed(using: .zlib)
- try (uncompressedData as Data).write(to: distURL, options: [.withoutOverwriting]) // failed
- } catch {
- print(error.localizedDescription) // The operation couldn’t be completed. (Cocoa error 5377.)
- }
- }
- */
-
 // 1. command line unzip
 // 2. delete zip
 // 3. moveItem
-fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxiliary dictFileName: String, withTest test: Bool) {
+private func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxiliary dictFileName: String) {
     do {
         let task = Process()
         task.launchPath = "/usr/bin/unzip"
@@ -320,10 +241,6 @@ fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, with
         task.arguments = [savedURL.path, "-d", upperURL.path]
         task.launch()
         task.waitUntilExit()
-        
-        if !test {
-            deleteSavedURL(savedURL)
-        }
         
         let status = task.terminationStatus
         if status != 0 {
@@ -345,197 +262,78 @@ fileprivate func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, with
     }
 }
 
-fileprivate func deleteSavedURL(_ savedURL: URL) {
-    do {
-        try FileManager.default.removeItem(at: savedURL)
-    } catch {
-        logger.info("deleteSavedUL exception caught: \(error.localizedDescription)")
-    }
-}
-
-fileprivate func install(from location: URL, to dictFileName: String) {
-    saveFile(from: location) { savedURL in
-        saveDict(dictFileName,
-            didAuthorized: { distURL in
-                unzipUsingCommandLine(from: savedURL, to: distURL, withAuxiliary: dictFileName, withTest: false)
-            },
-            didRefused: {
-                deleteSavedURL(savedURL)
-            }
-        )
-    }
-}
-
-fileprivate func testInstall(dictFileName: String) {
+private func install(_ dictFileName: String) {
     do {
         let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        let dictFileURL = documentsURL.appendingPathComponent(dictFileName + ".zip")
         
-        let savedURL = documentsURL.appendingPathComponent("CFNetworkDownload_4QD55t.tmp.zip")
-        let testDistURL = documentsURL.appendingPathComponent(dictFileName, isDirectory: true)
-        
-        unzipUsingCommandLine(from: savedURL, to: testDistURL, withAuxiliary: dictFileName, withTest: true)
+        saveDict(dictFileName) { distURL in
+            unzipUsingCommandLine(from: dictFileURL, to: distURL, withAuxiliary: dictFileName)
+        }
     } catch {
-        logger.info("testInstall exception caught: \(error.localizedDescription)")
+        // handle filesystem error
+        logger.info("saveFile exception caught: \(error.localizedDescription)")
     }
 }
-    
-struct DictItemView: View {
-    func receiveProgressUpdateCallback(calculatedProgress: Float) {
-        progressValue = calculatedProgress
-    }
-    
-    func finishedDownloadingCallback(location: URL) {
-        isDownloading = false
-        install(from: location, to: installedName)
-    }
-    
-    let dict: Dict
-    
-    var name: String { dict.name }
-    var sourceURL: URL? { dict.sourceURL }
-    var license: String { dict.license }
-    var licenseURL: URL? { dict.licenseURL }
-    var installedName: String { dict.installedName }
-    var downloadURL: URL? { dict.downloadURL }
-    
-    @State var progressValue: Float = 0.0
-    @State var isDownloading: Bool = false
-    
-    @State private var test: Bool = false
-    
+
+struct DictInstallView: View {
     @Environment(\.openURL) var openURL
 
+    let dict: Dict
+    
+    func installDict() {
+        install(dict.installedName)
+    }
+    
     var body: some View {
         HStack(alignment: .top) {
-            if test {
-                Button("test", action: {
-                    testInstall(dictFileName: installedName)
-                })
-            } else {
-                if let downloadURL = downloadURL {
-                    Button(action: {
-                        isDownloading = true
-                        progressValue = 0.0
-                        let downloadDelegate = DownloadDelegate.init(
-                            receiveProgressUpdateCallback: receiveProgressUpdateCallback,
-                            finishedDownloadingCallback: finishedDownloadingCallback
-                        )
-                        let urlSession = URLSession(
-                            configuration: .default,
-                            delegate: downloadDelegate,
-                            delegateQueue: nil
-                        )
-                        let downloadTask = urlSession.downloadTask(with: downloadURL)
-                        downloadTask.resume()
-                    }, label: {
-                        Image(systemName: "square.and.arrow.down")
-                    })
-                    .disabled(isDownloading)
-                } else {
-                    Button(action: {}, label: {
-                        Image(systemName: "square.and.arrow.down")
-                    })
-                    .disabled(true)
-                }
-            }
+            Text(dict.name)
             
-            HStack {
-                Text(name)
-                
-                if name == "简明英汉字典增强版" {
-                    MiniInfoView {
-                        Text("Notice you can deselect `英文释义` option in Dictionary.app preferences, to get more concise translation.")
-                            .font(.callout)
-                            .padding()
-                    }
-                }
-                
-                if let sourceURL = sourceURL, let downloadURL = downloadURL {
-                    MiniInfoView {
-                        VStack(alignment: .trailing) {
-                            HStack {
-                                Text("sourceURL:")
-                                Button(action: { openURL(sourceURL) }, label: {
-                                    Image(systemName: "arrow.right.circle")
-                                        .font(.footnote)
-                                })
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                            HStack {
-                                Text("downloadURL:")
-                                Button(action: { openURL(downloadURL) }, label: {
-                                    Image(systemName: "arrow.right.circle")
-                                        .font(.footnote)
-                                })
-                                .buttonStyle(PlainButtonStyle())
-                            }
+            if let sourceURL = dict.sourceURL, let downloadURL = dict.downloadURL {
+                MiniInfoView {
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Text("sourceURL:")
+                            Button(action: { openURL(sourceURL) }, label: {
+                                Image(systemName: "arrow.right.circle")
+                                    .font(.footnote)
+                            })
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        .padding()
+                        HStack {
+                            Text("downloadURL:")
+                            Button(action: { openURL(downloadURL) }, label: {
+                                Image(systemName: "arrow.right.circle")
+                                    .font(.footnote)
+                            })
+                            .buttonStyle(PlainButtonStyle())
+                        }
                     }
-                } else {
-                    Spacer()
+                    .padding()
                 }
-            }
-            .font(.headline)
-            
-            Spacer()
-            
-            if isDownloading {
-                ProgressView(value: progressValue)
-                    .frame(maxWidth: 100)
-                    .frame(minWidth: 40)
+            } else {
+                Spacer()
             }
             
+            Button("Install") {
+                installDict()
+            }
         }
+        .padding()
+        .frame(maxWidth: 400)
     }
 }
 
-class DownloadDelegate: NSObject, URLSessionDownloadDelegate {
-    // URLSessionDownloadDelegate
-    func urlSession(_ session: URLSession,
-                    downloadTask: URLSessionDownloadTask,
-                    didFinishDownloadingTo location: URL) {
-        finishedDownloadingCallback(location)
-    }
-    
-    func urlSession(_ session: URLSession,
-                    downloadTask: URLSessionDownloadTask,
-                    didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-        
-    }
-    
-    func urlSession(_ session: URLSession,
-                    downloadTask: URLSessionDownloadTask,
-                    didWriteData bytesWritten: Int64,
-                    totalBytesWritten: Int64,
-                    totalBytesExpectedToWrite: Int64) {
-        let calculatedProgress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
-        receiveProgressUpdateCallback(calculatedProgress)
-    }
-    
-    // URLSessionTaskDelegate
-    // * client error
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        // toast(error)
-        // stop
-    }
-    
-    let receiveProgressUpdateCallback: (Float) -> Void
-    let finishedDownloadingCallback: (URL) -> Void
-    
-    init(receiveProgressUpdateCallback: @escaping (Float) -> Void, finishedDownloadingCallback: @escaping (URL) -> Void) {
-        self.receiveProgressUpdateCallback = receiveProgressUpdateCallback
-        self.finishedDownloadingCallback = finishedDownloadingCallback
+private struct InfoView: View {
+    var body: some View {
+        Text("These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the download button, and when the downloading is completed, a save panel will prompt, because it need your permission to save the downloaded file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
+            .padding()
+            .frame(width: 520, height: 340)
     }
 }
 
-struct DictsView_Previews: PreviewProvider {
+struct DictInstallView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            InfoView()
-            
-            DictionariesView()
-        }
-        .environment(\.locale, .init(identifier: "zh-Hans"))
+        DictInstallView(dict: dicts[3])
     }
 }
