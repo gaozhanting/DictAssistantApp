@@ -46,9 +46,7 @@ fileprivate class SplitViewController: NSSplitViewController {
 fileprivate struct ConstantNoisesView: View {
     @FetchRequest(
         entity: Noise.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Noise.word, ascending: true)
-        ]
+        sortDescriptors: []
     ) var fetchedNoises: FetchedResults<Noise>
     
     var text: String {

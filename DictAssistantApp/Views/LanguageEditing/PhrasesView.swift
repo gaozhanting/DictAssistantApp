@@ -46,9 +46,7 @@ fileprivate class SplitViewController: NSSplitViewController {
 fileprivate struct ConstantPhrasesView: View {
     @FetchRequest(
         entity: Phrase.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Phrase.word, ascending: true)
-        ]
+        sortDescriptors: []
     ) var fetchedPhrases: FetchedResults<Phrase>
     
     var text: String {

@@ -46,9 +46,7 @@ fileprivate class SplitViewController: NSSplitViewController {
 fileprivate struct ConstantEntryView: View {
     @FetchRequest(
         entity: Entry.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Entry.word, ascending: true)
-        ]
+        sortDescriptors: []
     ) var fetchedEntry: FetchedResults<Entry>
     
     var text: String {

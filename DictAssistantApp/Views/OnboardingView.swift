@@ -75,9 +75,7 @@ fileprivate struct InitKnownView: View {
     
     @FetchRequest(
         entity: Known.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Known.word, ascending: true)
-        ]
+        sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
     
     var body: some View {

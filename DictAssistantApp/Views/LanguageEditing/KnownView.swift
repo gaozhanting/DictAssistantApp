@@ -55,9 +55,7 @@ fileprivate enum DisplayFilter: String, CaseIterable, Identifiable {
 fileprivate struct ConstantKnownView: View {
     @FetchRequest(
         entity: Known.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Known.word, ascending: true)
-        ]
+        sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
 
     @State private var selectedFlavor = DisplayFilter.all
