@@ -154,25 +154,17 @@ fileprivate struct DownloadExtraDictView: View {
         PageTemplateView(
             title: {
                 VStack {
-                    Text("Download and install recommened concise dictionary")
+                    Text("Install recommened concise dictionary")
                     Text("This step is optional, but highly recommended.")
                         .font(.footnote)
                 }
             },
             content: {
                 VStack(alignment: .leading) {
-                    Text("Select the dictionary of English to your native language:")
-                    Picker("", selection: $selectedDictName) {
-                        ForEach(dicts, id:\.self.name) { dict in
-                            Text(dict.name).tag(dict.name)
-                        }
+                    GroupBox {
+                        DictInstallView(dict: dicts[7])
+                            .frame(maxWidth: .infinity)
                     }
-                    .labelsHidden()
-                    
-                    Divider().padding(.vertical, 10)
-                    
-//                    Text("Download and install.")
-//                    DictItemView(dict: dicts.first { $0.name == selectedDictName }!)
                     
                     Divider().padding(.vertical, 10)
                     
@@ -307,7 +299,7 @@ struct OnboardingView_Previews: PreviewProvider {
             OnboardingPage.downloadExtraDict.view()
             OnboardingPage.initGlobalKeyboardShortcut.view()
         }
-        .environment(\.locale, .init(identifier: "zh-Hans"))
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
         .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }

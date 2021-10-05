@@ -311,6 +311,7 @@ struct DictInstallView: View {
                     }
                     .padding()
                 }
+                Spacer()
             } else {
                 Spacer()
             }
@@ -320,7 +321,6 @@ struct DictInstallView: View {
             }
         }
         .padding()
-        .frame(maxWidth: 400)
     }
 }
 
@@ -334,6 +334,6 @@ private struct InfoView: View {
 
 struct DictInstallView_Previews: PreviewProvider {
     static var previews: some View {
-        DictInstallView(dict: dicts[3])
+        DictInstallView(dict: dicts[4])
     }
 }
