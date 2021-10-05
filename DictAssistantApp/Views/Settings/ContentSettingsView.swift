@@ -11,7 +11,7 @@ import Preferences
 struct ContentSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Content Words Display:", comment: "")) {
+            Preferences.Section(title: NSLocalizedString("Content Display:", comment: "")) {
                 ShowPhrasesToggle()
                 Divider().frame(width: 200)
                 DropTitleWordToggle()
@@ -20,6 +20,8 @@ struct ContentSettingsView: View {
                 AddSpaceBeforeTranslationToggle()
                 DropFirstTitleWordInTranslationToggle()
                 JoinTranslationLinesToggle()
+            }
+            Preferences.Section(title: NSLocalizedString("More:", comment: "")) {
                 ChineseCharacterConvertingPicker()
             }
         }
@@ -114,25 +116,21 @@ fileprivate struct ChineseCharacterConvertingPicker: View {
     var body: some View {
         HStack {
             Toggle(isOn: binding, label: {
-                Text("More...")
+                Text("")
             })
+            .labelsHidden()
             .toggleStyle(SwitchToggleStyle())
             
-            Spacer()
-            
             if showPicker {
-                Text("Chinese Convert:")
-                Picker("", selection: $chineseCharacterConvertMode) {
+                Picker("Chinese Character Convert:", selection: $chineseCharacterConvertMode) {
                     Text("not use").tag(ChineseCharacterConvertMode.notUse)
                     Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional)
                     Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified)
                 }
-                .labelsHidden()
                 .pickerStyle(MenuPickerStyle())
-                .frame(width: 120)
+                .frame(maxWidth: 360)
             }
         }
-        .frame(maxWidth: 360)
     }
 }
 
