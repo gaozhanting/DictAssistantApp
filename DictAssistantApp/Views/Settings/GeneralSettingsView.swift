@@ -108,7 +108,7 @@ struct KeyRecordingView: View {
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
                     MiniInfoView {
-                        Text("recommend: Option-Q").padding()
+                        Text("recommend: Option-E").padding()
                     }
                 }
             }
