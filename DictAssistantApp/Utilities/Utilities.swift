@@ -95,8 +95,12 @@ func timeElapsed(info: String, _ closure: () -> Void) {
 
 let systemDefaultMinimumTextHeight: Double = 0.03125
 
-let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
-
 // first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
 // got this should not add it !
 let fixedNoiseVocabulary = makeFixedNoiseVocabulary()
+
+// use databases
+let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
+let oxford3000Vocabulary = Vocabularies.read(from: "oxford_3000.txt")
+let wikiFrequencyWordsList = Vocabularies.read(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")
+

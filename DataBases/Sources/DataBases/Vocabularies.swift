@@ -38,6 +38,3 @@ public struct Vocabularies {
         return Set(readToArray(from: file))
     }
 }
-
-public let oxford3000Vocabulary = Vocabularies.read(from: "oxford_3000.txt")
-public let wikiFrequencyWordsList = Vocabularies.read(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")
