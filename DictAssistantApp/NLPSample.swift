@@ -188,54 +188,59 @@ struct NLPSample {
             result.append(lemma)
             
             // add the indexed primitiveName or lemmaedName, only one added, primitiveName first
-            if let name = primitiveNames[index] {
-                if name.caseInsensitiveCompare(lemma) != .orderedSame {
-                    result.append(name)
-                    myPrint("   >>> append primitiveName: \(name)")
+            if let primitiveName = primitiveNames[index] {
+                if primitiveName.caseInsensitiveCompare(lemma) != .orderedSame {
+                    result.append(primitiveName)
+                    myPrint("   >>> append primitiveName: \(primitiveName)")
                 }
             } else {
-                if let name = lemmaedNames[index] {
-                    if name.caseInsensitiveCompare(lemma) != .orderedSame {
-                        result.append(name)
-                        myPrint("   >>> append lemmaedName: \(name)")
+                if let lemmaedName = lemmaedNames[index] {
+                    if lemmaedName.caseInsensitiveCompare(lemma) != .orderedSame {
+                        result.append(lemmaedName)
+                        myPrint("   >>> append lemmaedName: \(lemmaedName)")
                     }
                 }
             }
             
             // add primitivePhrase
-            if let phrase = primitivePhrases[index] {
+            if let primitivePhrase = primitivePhrases[index] {
                 let primitiveName = primitiveNames[index] ?? ""
                 let lemmaedName = lemmaedNames[index] ?? ""
-                if phrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
-                    phrase.caseInsensitiveCompare(lemmaedName) != .orderedSame { // name first, de-duplicate
-                    result.append(phrase)
-                    myPrint("   >>> append primitivePhrase: \(phrase)")
+                if primitivePhrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
+                    primitivePhrase.caseInsensitiveCompare(lemmaedName) != .orderedSame { // name first, de-duplicate
+                    result.append(primitivePhrase)
+                    myPrint("   >>> append primitivePhrase: \(primitivePhrase)")
                 }
             }
             
             // add lemmaedPhrase; lemmaedPhrase still need to add, here not like name
-            if let phrase = lemmaedPhrases[index] {
+            if let lemmaedphrase = lemmaedPhrases[index] {
                 let primitiveName = primitiveNames[index] ?? ""
                 let lemmaedName = lemmaedNames[index] ?? ""
                 let primitivePhrase = primitivePhrases[index] ?? ""
-                if phrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
-                    phrase.caseInsensitiveCompare(lemmaedName) != .orderedSame &&
-                    phrase.caseInsensitiveCompare(primitivePhrase) != .orderedSame { // name first, de-duplicate
-                    result.append(phrase)
-                    myPrint("   >>> append lemmaedPhrase: \(phrase)")
+                if lemmaedphrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
+                    lemmaedphrase.caseInsensitiveCompare(lemmaedName) != .orderedSame &&
+                    lemmaedphrase.caseInsensitiveCompare(primitivePhrase) != .orderedSame { // name first, de-duplicate
+                    result.append(lemmaedphrase)
+                    myPrint("   >>> append lemmaedPhrase: \(lemmaedphrase)")
                 }
             }
             
-            if let hyphenPhrase = primitiveHyphenPhrases[index] {
-                result.append(hyphenPhrase)
-                myPrint("   >>> append primitiveHyphenPhrase: \(hyphenPhrase)")
+            if let primitiveHyphenPhrase = primitiveHyphenPhrases[index] {
+                let primitivePhrase = primitivePhrases[index] ?? ""
+                if primitiveHyphenPhrase.replacingOccurrences(of: "-", with: " ").caseInsensitiveCompare(primitivePhrase) != .orderedSame {
+                    result.append(primitiveHyphenPhrase)
+                }
+                myPrint("   >>> append primitiveHyphenPhrase: \(primitiveHyphenPhrase)")
             }
             
-            if let hyphenPhrase = lemmaedHyphenPhrases[index] {
+            if let lemmaedHyphenPhrase = lemmaedHyphenPhrases[index] {
                 let primitiveHyphenPhrase = primitiveHyphenPhrases[index] ?? ""
-                if hyphenPhrase.caseInsensitiveCompare(primitiveHyphenPhrase) != .orderedSame {
-                    result.append(hyphenPhrase)
-                    myPrint("   >>> append lemmaedHyphenPhrase: \(hyphenPhrase)")
+                let lemmaedPhrase = lemmaedPhrases[index] ?? ""
+                if lemmaedHyphenPhrase.caseInsensitiveCompare(primitiveHyphenPhrase) != .orderedSame &&
+                    lemmaedHyphenPhrase.replacingOccurrences(of: "-", with: " ").caseInsensitiveCompare(lemmaedPhrase) != .orderedSame {
+                    result.append(lemmaedHyphenPhrase)
+                    myPrint("   >>> append lemmaedHyphenPhrase: \(lemmaedHyphenPhrase)")
                 }
             }
             
