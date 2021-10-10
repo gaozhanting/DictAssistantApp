@@ -33,7 +33,6 @@
 		4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
 		4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
 		4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
-		4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555127020FDE007DB9C2 /* CleanedWordsService.swift */; };
 		4453555427042478007DB9C2 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
 		4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
 		4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
@@ -97,7 +96,6 @@
 		4453554827020B7D007DB9C2 /* EntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPersistence.swift; sourceTree = "<group>"; };
 		4453554A27020CA0007DB9C2 /* KnownPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownPersistence.swift; sourceTree = "<group>"; };
 		4453554D27020DDA007DB9C2 /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
-		4453555127020FDE007DB9C2 /* CleanedWordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanedWordsService.swift; sourceTree = "<group>"; };
 		4453555327042478007DB9C2 /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
 		4453555D270428CF007DB9C2 /* OnboardingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPanel.swift; sourceTree = "<group>"; };
 		4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 			isa = PBXGroup;
 			children = (
 				4453554D27020DDA007DB9C2 /* DictionaryService.swift */,
-				4453555127020FDE007DB9C2 /* CleanedWordsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -441,7 +438,6 @@
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
-				4453555227020FDE007DB9C2 /* CleanedWordsService.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
