@@ -65,6 +65,52 @@ func batchInsertPhrases(_ words: [String], didSucceed: @escaping () -> Void = {}
     }
 }
 
+// because we need nothingChanged info.
+func multiInsertPhrases(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping() -> Void = {}
+) {
+    if words.count > 1000 {
+        batchInsertPhrases(words, didSucceed: didSucceed)
+    } else {
+        insertMultiPhrases(words, didSucceed: didSucceed, nothingChanged: nothingChanged)
+    }
+}
+
+func insertMultiPhrases(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping() -> Void = {}
+) {
+    let context = persistentContainer.viewContext
+    
+    for word in words {
+        let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.isEmpty {
+                let newPhrase = Phrase(context: context)
+                newPhrase.word = word
+            }
+        } catch {
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
+        }
+    }
+    
+    saveContext(didSucceed: {
+        phrasesSet = getAllPhrasesSet()
+        trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+      nothingChanged()
+    })
+}
+
 func batchDeleteAllPhrases(didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
