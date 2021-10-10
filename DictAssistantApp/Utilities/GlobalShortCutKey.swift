@@ -134,7 +134,6 @@ func registerGlobalKey() {
             stepPlay = .beginSelectCropper
         }
         else {
-            cropperWindow.close()
             contentWindow.close()
             
             stopPlaying()
