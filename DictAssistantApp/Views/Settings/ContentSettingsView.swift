@@ -12,8 +12,6 @@ struct ContentSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: NSLocalizedString("Content Display:", comment: "")) {
-                ShowPhrasesToggle()
-                Divider().frame(width: 200)
                 DropTitleWordToggle()
                 Divider().frame(width: 150)
                 AddLineBreakBeforeTranslationToggle()
@@ -25,18 +23,6 @@ struct ContentSettingsView: View {
                 ChineseCharacterConvertingPicker()
             }
         }
-    }
-}
-
-fileprivate struct ShowPhrasesToggle: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isShowPhrase, label: {
-            Text("Show phrases")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-        .help("Select it when you want display all phrase words.")
     }
 }
 
