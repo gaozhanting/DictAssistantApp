@@ -90,15 +90,15 @@ func batchDeleteAllPhrases(didSucceed: @escaping () -> Void = {}) {
 
 // can't batch delete specific collection ?!
 func removeMultiPhrases(
-    _ phrases: [String],
+    _ words: [String],
     didSucceed: @escaping () -> Void = {},
     nothingChanged: @escaping() -> Void = {}
 ) {
     let context = persistentContainer.viewContext
     
-    for phrase in phrases {
+    for word in words {
         let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "phrase = %@", phrase)
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
         fetchRequest.fetchLimit = 1
         
         do {
