@@ -78,6 +78,12 @@ func batchUpsertEntries(entries: [(String, String)], didSucceed: @escaping () ->
         entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
+        
+        let phrases = entries.map { $0.0 }.filter { $0.isPhrase }
+        if !phrases.isEmpty {
+            batchInsertPhrases(phrases)
+        }
+        
         didSucceed()
     } catch {
         logger.error("Failed to batch upsert entries: \(error.localizedDescription)")
@@ -163,6 +169,9 @@ func upsertEntry(word: String, trans: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
+        if word.isPhrase {
+            addPhrase(word)
+        }
         entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()

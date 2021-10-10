@@ -11,8 +11,9 @@ import DataBases
 import os
 
 extension String {
+    // I see hyphen also as a phrase
     var isPhrase: Bool {
-        self.contains(" ")
+        self.contains(" ") || self.contains("-")
     }
 }
 

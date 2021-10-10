@@ -47,9 +47,6 @@ private struct EditingCustomEntryView: View {
         let txt = text.split(separator: Character(","), maxSplits: 1)
         let word = String(txt[0])
         let trans = String(txt[1])
-        if word.isPhrase {
-            addPhrase(word)
-        }
         upsertEntry(word: word, trans: trans)
     }
     
