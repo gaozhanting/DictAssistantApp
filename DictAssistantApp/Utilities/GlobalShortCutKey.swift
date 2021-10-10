@@ -152,7 +152,6 @@ private func attachEnv(_ view: AnyView) -> some View {
 private func startPlaying() {
     toastOn()
     statusData.isPlaying = true
-    cachedDict = [:]
     statusItem.button?.image = NSImage(
         systemSymbolName: "d.circle.fill",
         accessibilityDescription: nil
@@ -165,7 +164,6 @@ private func startPlaying() {
 private func stopPlaying() {
     toastOff()
     statusData.isPlaying = false
-    cachedDict = [:]
     statusItem.button?.image = NSImage(
         systemSymbolName: "d.circle",
         accessibilityDescription: nil
