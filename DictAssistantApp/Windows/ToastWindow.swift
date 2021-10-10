@@ -29,7 +29,7 @@ func toastOn() {
         toastWindow.center()
         toastWindow.orderFrontRegardless()
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { timer in
             toastWindow.close()
         }
     }
@@ -44,7 +44,7 @@ func toastOff() {
         toastWindow.center()
         toastWindow.orderFrontRegardless()
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { timer in
             toastWindow.close()
         }
     }
