@@ -70,7 +70,6 @@ func registerGlobalKey() {
             }
         }
         else {
-            cropperWindow.close()
             contentWindow.close()
             
             stopPlaying()

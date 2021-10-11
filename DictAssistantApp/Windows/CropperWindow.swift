@@ -17,22 +17,18 @@ func initCropperWindow() {
     )
     
     cropperWindow.delegate = ccDelegate
-
-    cropperWindow.close()
 }
 
 func syncCropperView(from cropperStyle: CropperStyle) {
     switch cropperStyle {
     case .closed:
         cropperWindow.contentView = NSHostingView(rootView: EmptyView())
-        cropperWindow.close()
     case .rectangle:
         cropperWindow.contentView = NSHostingView(rootView: RectangleCropperView())
-        cropperWindow.orderFrontRegardless()
     case .leadingBorder:
         cropperWindow.contentView = NSHostingView(rootView: LeadingBorderCropperView())
-        cropperWindow.orderFrontRegardless()
     }
+    cropperWindow.orderFrontRegardless()
 }
 
 private class CropperWindow: NSWindow {

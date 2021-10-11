@@ -181,9 +181,7 @@ func combineSomeUserDefaults() {
     UserDefaults.standard
         .publisher(for: \.CropperStyleKey)
         .handleEvents(receiveOutput: { cropperStyle in
-            if statusData.isPlaying {
-                syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
-            }
+            syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
         })
         .sink { _ in }
         .store(in: &subscriptions)
