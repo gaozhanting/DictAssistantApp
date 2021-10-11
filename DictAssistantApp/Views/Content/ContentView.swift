@@ -15,23 +15,6 @@ struct WordCellWithId: Identifiable, Equatable {
     let id: String
 }
 
-// how to make portrait word pop out from bottom, not from top
-struct ContentView: View {
-    @State private var showEditingPopover: Bool = false
-    
-    var body: some View {
-        ContentView0()
-            .contextMenu {
-                Button("Add Custom Dict Entry") {
-                    showEditingPopover = true
-                }
-            }
-            .popover(isPresented: $showEditingPopover) {
-                EditingCustomEntryView()
-            }
-    }
-}
-
 extension String {
     var isMultiline: Bool {
         self.contains { c in
@@ -40,39 +23,7 @@ extension String {
     }
 }
 
-private struct EditingCustomEntryView: View {
-    @State private var text: String = ""
-    
-    func add() {
-        let txt = text.split(separator: Character(","), maxSplits: 1)
-        let word = String(txt[0])
-        let trans = String(txt[1])
-        upsertEntry(word: word, trans: trans)
-    }
-    
-    func valid() -> Bool {
-        !text.isMultiline &&
-            text.split(separator: Character(","), maxSplits: 1)
-                .count == 2
-    }
-    
-    var body: some View {
-        HStack {
-            TextField("Add Custom Dict Entry", text: $text)
-            
-            Button(action: add) {
-                Image(systemName: "rectangle.badge.plus")
-            }
-            .disabled(!valid())
-            .keyboardShortcut(KeyEquivalent.return)
-        }
-        .frame(width: 440)
-        .padding(.horizontal)
-        .padding(.vertical, 2)
-    }
-}
-
-struct ContentView0: View {
+struct ContentView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
     
     var body: some View {

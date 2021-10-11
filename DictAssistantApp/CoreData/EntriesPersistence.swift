@@ -147,7 +147,9 @@ func removeMultiEntries(
     })
 }
 
-func upsertEntry(word: String, trans: String) {
+func upsertEntry(word: String, trans: String,
+                 didSucceed: @escaping () -> Void = {},
+                 nothingChanged: @escaping() -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
@@ -156,9 +158,10 @@ func upsertEntry(word: String, trans: String) {
     
     do {
         let results = try context.fetch(fetchRequest)
-        if let result = results.first { // update
-            result.word = word
-            result.trans = trans
+        if let result = results.first {
+            if result.trans! != trans { // update
+                result.trans = trans
+            }
         } else { // insert
             let newEntry = Entry(context: context)
             newEntry.word = word
@@ -168,6 +171,7 @@ func upsertEntry(word: String, trans: String) {
         logger.error("Failed to upsert custom dict: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
+    
     saveContext(didSucceed: {
         if word.isPhrase {
             addPhrase(word)
@@ -175,6 +179,9 @@ func upsertEntry(word: String, trans: String) {
         entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }
 

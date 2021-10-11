@@ -20,6 +20,10 @@ extension KeyboardShortcuts.Name {
     static let toggleShowCurrentNotFoundWords = Self("toggleShowCurrentNotFoundWords")
     
     static let toggleQuickPlay = Self("toggleQuickPlay")
+    
+    static let showPhraseInsertPanel = Self("showPhraseInsertPanel")
+    
+    static let showUpsertEntryPanel = Self("showUpsertEntryPanel")
 }
 
 private enum StepPlay {
@@ -139,6 +143,14 @@ func registerGlobalKey() {
             
             activeCropperWindow()
         }
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .showPhraseInsertPanel) {
+        showPhraseInsertPanel()
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .showUpsertEntryPanel) {
+        showEntryUpsertPanel()
     }
 }
 

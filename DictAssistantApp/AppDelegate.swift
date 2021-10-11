@@ -40,6 +40,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         initToastWindow()
         
+        initPhraseInsertPanel()
+        
+        initEntryUpsertPanel()
+        
         constructMenuBar()
 
         registerGlobalKey()

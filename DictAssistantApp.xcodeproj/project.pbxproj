@@ -55,6 +55,10 @@
 		44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
 		44C31D6D26FE035800ED6E08 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
 		44CA55F6270C73D4007D4053 /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
+		44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
+		44CAC50927145B2700EAFA74 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
+		44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
+		44CAC50D2714641600EAFA74 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
@@ -118,6 +122,10 @@
 		44C207B92701A8E300419F63 /* PhrasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesView.swift; sourceTree = "<group>"; };
 		44C31D6C26FE035800ED6E08 /* EntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesView.swift; sourceTree = "<group>"; };
 		44CA55F5270C73D4007D4053 /* DictInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictInstallView.swift; sourceTree = "<group>"; };
+		44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseInsertPanel.swift; sourceTree = "<group>"; };
+		44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseInsertView.swift; sourceTree = "<group>"; };
+		44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertPanel.swift; sourceTree = "<group>"; };
+		44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertView.swift; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -257,6 +265,8 @@
 				44FBE46A2674ED28002A7599 /* CropperWindow.swift */,
 				447915A026B7DAAB002E9F8C /* ToastWindow.swift */,
 				4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */,
+				44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */,
+				44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */,
 			);
 			path = Windows;
 			sourceTree = "<group>";
@@ -310,6 +320,8 @@
 				445355632705C4F4007DB9C2 /* NoisesView.swift */,
 				44BCEC5526842086002D3D8C /* KnownView.swift */,
 				44C31D6C26FE035800ED6E08 /* EntriesView.swift */,
+				44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */,
+				44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */,
 			);
 			path = LanguageEditing;
 			sourceTree = "<group>";
@@ -405,6 +417,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44CAC50D2714641600EAFA74 /* EntryUpsertView.swift in Sources */,
+				44CAC50927145B2700EAFA74 /* PhraseInsertView.swift in Sources */,
 				446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */,
 				44FEB725270AE3C100701E5D /* EnglishSettingsView.swift in Sources */,
 				44A2194326D6535600706A59 /* CCDelegate.swift in Sources */,
@@ -422,10 +436,12 @@
 				4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */,
 				44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
+				44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
+				44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
 				445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */,

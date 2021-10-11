@@ -167,7 +167,9 @@ func removeMultiPhrases(
     })
 }
 
-func addPhrase(_ word: String) {
+func addPhrase(_ word: String,
+               didSucceed: @escaping () -> Void = {},
+               nothingChanged: @escaping() -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
@@ -187,5 +189,8 @@ func addPhrase(_ word: String) {
     
     saveContext(didSucceed: {
         phrasesSet = getAllPhrasesSet()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }

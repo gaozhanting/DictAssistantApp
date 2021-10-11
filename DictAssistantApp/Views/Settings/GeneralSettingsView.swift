@@ -104,9 +104,25 @@ struct KeyRecordingView: View {
                     }
                 }
                 HStack {
-                    Text("Run Quick Play:")
+                    Text("Run Swift Play:")
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
+                    MiniInfoView {
+                        Text("recommend: Option-S").padding()
+                    }
+                }
+                HStack {
+                    Text("Show Phrase Insert Panel:")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .showPhraseInsertPanel)
+                    MiniInfoView {
+                        Text("recommend: Option-P").padding()
+                    }
+                }
+                HStack {
+                    Text("Show Entry Insert Panel:")
+                    Spacer()
+                    KeyboardShortcuts.Recorder(for: .showUpsertEntryPanel)
                     MiniInfoView {
                         Text("recommend: Option-E").padding()
                     }
