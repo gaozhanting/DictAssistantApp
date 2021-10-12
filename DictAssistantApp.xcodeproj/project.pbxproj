@@ -59,6 +59,7 @@
 		44CAC50927145B2700EAFA74 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
 		44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
 		44CAC50D2714641600EAFA74 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
+		44CAC5102715724700EAFA74 /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
@@ -126,6 +127,7 @@
 		44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseInsertView.swift; sourceTree = "<group>"; };
 		44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertPanel.swift; sourceTree = "<group>"; };
 		44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertView.swift; sourceTree = "<group>"; };
+		44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "lazyworm-ec.dictionary.zip"; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		4440EE42262EDCA3007FF470 /* DictAssistantApp */ = {
 			isa = PBXGroup;
 			children = (
+				44CAC50E271571D400EAFA74 /* Resources */,
 				4453554C27020DB9007DB9C2 /* Services */,
 				445354C42701D5AF007DB9C2 /* CoreData */,
 				447D61902643C12F00AB0C1A /* Model */,
@@ -335,6 +338,14 @@
 			path = English;
 			sourceTree = "<group>";
 		};
+		44CAC50E271571D400EAFA74 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -404,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */,
+				44CAC5102715724700EAFA74 /* lazyworm-ec.dictionary.zip in Resources */,
 				4416417126F5B668007D19FC /* Localizable.strings in Resources */,
 				4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */,
 				4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */,

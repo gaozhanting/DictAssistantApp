@@ -192,7 +192,7 @@ let dicts: [Dict] = [
 
 // 0. prompt NSSavePanel to authorize the specified location -> yes or no
 // 1. unzip to the location
-private func saveDict(_ dictFileName: String, didAuthorized: @escaping (_ distURL: URL) -> Void) {
+private func saveDict(_ dictInstalledName: String, didAuthorized: @escaping (_ distURL: URL) -> Void) {
     do {
         let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let dictionariesURL = libraryURL.appendingPathComponent("Dictionaries")
@@ -203,7 +203,7 @@ private func saveDict(_ dictFileName: String, didAuthorized: @escaping (_ distUR
             panel.showsTagField = false
             panel.directoryURL = dictionariesURL
             panel.canCreateDirectories = true
-            panel.nameFieldStringValue = dictFileName // "oxfordjm-ec.dictionary"
+            panel.nameFieldStringValue = dictInstalledName // "oxfordjm-ec.dictionary"
             
             guard panel.runModal() == .OK else {
                 logger.info("panel runModal not return OK, refused.") // toast
@@ -226,7 +226,7 @@ private func saveDict(_ dictFileName: String, didAuthorized: @escaping (_ distUR
 // 1. command line unzip
 // 2. delete zip
 // 3. moveItem
-private func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxiliary dictFileName: String) {
+private func unzipUsingCommandLine(from dictFile: URL, to distURL: URL, withAuxiliary dictInstalledName: String) {
     do {
         let task = Process()
         task.launchPath = "/usr/bin/unzip"
@@ -235,7 +235,7 @@ private func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxi
         let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let upperURL = documentsURL.appendingPathComponent("upper", isDirectory: true) // has two folder: __MACOSX & dictFileName
         
-        task.arguments = [savedURL.path, "-d", upperURL.path]
+        task.arguments = [dictFile.path, "-d", upperURL.path]
         task.launch()
         task.waitUntilExit()
         
@@ -245,9 +245,10 @@ private func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxi
             return
         }
         
-        let dictURL = upperURL.appendingPathComponent(dictFileName)
+        let dictURL = upperURL.appendingPathComponent(dictInstalledName)
         
         // remove dist before move to there; otherwise move may failed with "because an item with the same name already exists" error.
+        // this means replace, otherwise although prompt replace from NSSavePanel, it will still failed blamed to FileManager.default.moveItem API.
         if FileManager.default.fileExists(atPath: distURL.path) {
             try FileManager.default.removeItem(at: distURL)
         }
@@ -259,17 +260,14 @@ private func unzipUsingCommandLine(from savedURL: URL, to distURL: URL, withAuxi
     }
 }
 
-private func install(_ dictFileName: String) {
-    do {
-        let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        let dictFileURL = documentsURL.appendingPathComponent(dictFileName + ".zip")
-        
-        saveDict(dictFileName) { distURL in
-            unzipUsingCommandLine(from: dictFileURL, to: distURL, withAuxiliary: dictFileName)
-        }
-    } catch {
-        // handle filesystem error
-        logger.info("saveFile exception caught: \(error.localizedDescription)")
+private func install(_ dictInstalledName: String) {
+    guard let dictFile = Bundle.main.url(forResource: "\(dictInstalledName).zip", withExtension: nil) else {
+        logger.error("Couldn't find \(dictInstalledName).zip in main bundle.")
+        return
+    }
+    
+    saveDict(dictInstalledName) { distURL in
+        unzipUsingCommandLine(from: dictFile, to: distURL, withAuxiliary: dictInstalledName)
     }
 }
 
