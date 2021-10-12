@@ -120,7 +120,7 @@ struct KeyRecordingView: View {
                     }
                 }
                 HStack {
-                    Text("Show Entry Insert Panel:")
+                    Text("Show Entry Upsert Panel:")
                     Spacer()
                     KeyboardShortcuts.Recorder(for: .showUpsertEntryPanel)
                     MiniInfoView {
