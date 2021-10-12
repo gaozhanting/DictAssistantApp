@@ -162,7 +162,7 @@ fileprivate struct DownloadExtraDictView: View {
             content: {
                 VStack(alignment: .leading) {
                     GroupBox {
-                        DictInstallView(dict: dicts[3])
+                        DictInstallView(dict: targetDict())
                             .frame(maxWidth: .infinity)
                     }
                     
