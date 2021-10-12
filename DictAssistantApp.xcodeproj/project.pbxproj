@@ -21,6 +21,66 @@
 		442134EB26AC5A7400963441 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 442134EA26AC5A7400963441 /* Preferences */; };
 		442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
+		44408CA727159F7D00866BB9 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
+		44408CA827159F7D00866BB9 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
+		44408CA927159F7D00866BB9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
+		44408CAA27159F7D00866BB9 /* EnglishSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */; };
+		44408CAB27159F7D00866BB9 /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A2194226D6535600706A59 /* CCDelegate.swift */; };
+		44408CAC27159F7D00866BB9 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
+		44408CAD27159F7D00866BB9 /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
+		44408CAE27159F7D00866BB9 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
+		44408CAF27159F7D00866BB9 /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
+		44408CB027159F7D00866BB9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
+		44408CB127159F7D00866BB9 /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
+		44408CB227159F7D00866BB9 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
+		44408CB327159F7D00866BB9 /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
+		44408CB427159F7D00866BB9 /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
+		44408CB527159F7D00866BB9 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
+		44408CB627159F7D00866BB9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
+		44408CB727159F7D00866BB9 /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
+		44408CB827159F7D00866BB9 /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
+		44408CB927159F7D00866BB9 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
+		44408CBA27159F7D00866BB9 /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
+		44408CBB27159F7D00866BB9 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
+		44408CBC27159F7D00866BB9 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
+		44408CBD27159F7D00866BB9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
+		44408CBE27159F7D00866BB9 /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
+		44408CBF27159F7D00866BB9 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
+		44408CC027159F7D00866BB9 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
+		44408CC127159F7D00866BB9 /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
+		44408CC227159F7D00866BB9 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
+		44408CC327159F7D00866BB9 /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
+		44408CC427159F7D00866BB9 /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
+		44408CC527159F7D00866BB9 /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
+		44408CC627159F7D00866BB9 /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
+		44408CC727159F7D00866BB9 /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
+		44408CC827159F7D00866BB9 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
+		44408CC927159F7D00866BB9 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
+		44408CCA27159F7D00866BB9 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
+		44408CCB27159F7D00866BB9 /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
+		44408CCC27159F7D00866BB9 /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
+		44408CCD27159F7D00866BB9 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
+		44408CCE27159F7D00866BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
+		44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
+		44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
+		44408CD127159F7D00866BB9 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
+		44408CD227159F7D00866BB9 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
+		44408CD327159F7D00866BB9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
+		44408CD427159F7D00866BB9 /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
+		44408CD527159F7D00866BB9 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
+		44408CD627159F7D00866BB9 /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
+		44408CD727159F7D00866BB9 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
+		44408CD827159F7D00866BB9 /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
+		44408CD927159F7D00866BB9 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
+		44408CDA27159F7D00866BB9 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
+		44408CDC27159F7D00866BB9 /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 44408CA127159F7D00866BB9 /* DataBases */; };
+		44408CDD27159F7D00866BB9 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 44408CA427159F7D00866BB9 /* Preferences */; };
+		44408CDE27159F7D00866BB9 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 44408CA227159F7D00866BB9 /* KeyboardShortcuts */; };
+		44408CE027159F7D00866BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
+		44408CE227159F7D00866BB9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
+		44408CE327159F7D00866BB9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
+		44408CE427159F7D00866BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
+		44408CEB27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
@@ -86,6 +146,9 @@
 		442134E426AC32A700963441 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Japanese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44408CE927159F7E00866BB9 /* DictAssistantApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "DictAssistantApp copy-Info.plist"; path = "/Users/gaocong/Developer/Mac/app/DictAssistantApp copy-Info.plist"; sourceTree = "<absolute>"; };
+		44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Japanese.dictionary.zip; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* DictAssistantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DictAssistantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -138,6 +201,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		44408CDB27159F7D00866BB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44408CDC27159F7D00866BB9 /* DataBases in Frameworks */,
+				44408CDD27159F7D00866BB9 /* Preferences in Frameworks */,
+				44408CDE27159F7D00866BB9 /* KeyboardShortcuts in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4440EE3D262EDCA3007FF470 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,6 +258,7 @@
 				4440EE42262EDCA3007FF470 /* DictAssistantApp */,
 				4440EE41262EDCA3007FF470 /* Products */,
 				447D61A52643E5E400AB0C1A /* Frameworks */,
+				44408CE927159F7E00866BB9 /* DictAssistantApp copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -192,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				4440EE40262EDCA3007FF470 /* DictAssistantApp.app */,
+				44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -342,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */,
+				44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -349,6 +425,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44408CE527159F7D00866BB9 /* Build configuration list for PBXNativeTarget "DictAssistantApp Japanese" */;
+			buildPhases = (
+				44408CA627159F7D00866BB9 /* Sources */,
+				44408CDB27159F7D00866BB9 /* Frameworks */,
+				44408CDF27159F7D00866BB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DictAssistantApp Japanese";
+			packageProductDependencies = (
+				44408CA127159F7D00866BB9 /* DataBases */,
+				44408CA227159F7D00866BB9 /* KeyboardShortcuts */,
+				44408CA427159F7D00866BB9 /* Preferences */,
+			);
+			productName = DictAssistantApp;
+			productReference = 44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4440EE3F262EDCA3007FF470 /* DictAssistantApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp" */;
@@ -405,11 +503,24 @@
 			projectRoot = "";
 			targets = (
 				4440EE3F262EDCA3007FF470 /* DictAssistantApp */,
+				44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		44408CDF27159F7D00866BB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44408CE027159F7D00866BB9 /* Main.storyboard in Resources */,
+				44408CE227159F7D00866BB9 /* Localizable.strings in Resources */,
+				44408CE327159F7D00866BB9 /* Preview Assets.xcassets in Resources */,
+				44408CEB27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip in Resources */,
+				44408CE427159F7D00866BB9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4440EE3E262EDCA3007FF470 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,6 +536,65 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		44408CA627159F7D00866BB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44408CA727159F7D00866BB9 /* EntryUpsertView.swift in Sources */,
+				44408CA827159F7D00866BB9 /* PhraseInsertView.swift in Sources */,
+				44408CA927159F7D00866BB9 /* OnboardingView.swift in Sources */,
+				44408CAA27159F7D00866BB9 /* EnglishSettingsView.swift in Sources */,
+				44408CAB27159F7D00866BB9 /* CCDelegate.swift in Sources */,
+				44408CAC27159F7D00866BB9 /* PortraitWordsView.swift in Sources */,
+				44408CAD27159F7D00866BB9 /* NoisesView.swift in Sources */,
+				44408CAE27159F7D00866BB9 /* PreferencesWindow.swift in Sources */,
+				44408CAF27159F7D00866BB9 /* KnownPersistence.swift in Sources */,
+				44408CB027159F7D00866BB9 /* ContentView.swift in Sources */,
+				44408CB127159F7D00866BB9 /* PhrasesView.swift in Sources */,
+				44408CB227159F7D00866BB9 /* TRCallBack.swift in Sources */,
+				44408CB327159F7D00866BB9 /* SlotsSettingsView.swift in Sources */,
+				44408CB427159F7D00866BB9 /* ToastWindow.swift in Sources */,
+				44408CB527159F7D00866BB9 /* LandscapeWordsView.swift in Sources */,
+				44408CB627159F7D00866BB9 /* Settings.swift in Sources */,
+				44408CB727159F7D00866BB9 /* EntriesPersistence.swift in Sources */,
+				44408CB827159F7D00866BB9 /* VisionSettingsView.swift in Sources */,
+				44408CB927159F7D00866BB9 /* WordsView.swift in Sources */,
+				44408CBA27159F7D00866BB9 /* PhraseInsertPanel.swift in Sources */,
+				44408CBB27159F7D00866BB9 /* OnboardingPanel.swift in Sources */,
+				44408CBC27159F7D00866BB9 /* ContentWindow.swift in Sources */,
+				44408CBD27159F7D00866BB9 /* Utilities.swift in Sources */,
+				44408CBE27159F7D00866BB9 /* NLPSample.swift in Sources */,
+				44408CBF27159F7D00866BB9 /* EntryUpsertPanel.swift in Sources */,
+				44408CC027159F7D00866BB9 /* StatusData.swift in Sources */,
+				44408CC127159F7D00866BB9 /* CropperView.swift in Sources */,
+				44408CC227159F7D00866BB9 /* PhrasesPersistence.swift in Sources */,
+				44408CC327159F7D00866BB9 /* GBig.swift in Sources */,
+				44408CC427159F7D00866BB9 /* UserDefaultSettings.swift in Sources */,
+				44408CC527159F7D00866BB9 /* SlotsPersistence.swift in Sources */,
+				44408CC627159F7D00866BB9 /* DictInstallView.swift in Sources */,
+				44408CC727159F7D00866BB9 /* RecordingSettingsView.swift in Sources */,
+				44408CC827159F7D00866BB9 /* CustomEnvironmentKey.swift in Sources */,
+				44408CC927159F7D00866BB9 /* Menus.swift in Sources */,
+				44408CCA27159F7D00866BB9 /* GeneralSettingsView.swift in Sources */,
+				44408CCB27159F7D00866BB9 /* SingleWordView.swift in Sources */,
+				44408CCC27159F7D00866BB9 /* ContentSettingsView.swift in Sources */,
+				44408CCD27159F7D00866BB9 /* AppearanceSettingsView.swift in Sources */,
+				44408CCE27159F7D00866BB9 /* AppDelegate.swift in Sources */,
+				44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */,
+				44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */,
+				44408CD127159F7D00866BB9 /* app.xcdatamodeld in Sources */,
+				44408CD227159F7D00866BB9 /* CropperWindow.swift in Sources */,
+				44408CD327159F7D00866BB9 /* ToastView.swift in Sources */,
+				44408CD427159F7D00866BB9 /* DisplayedWords.swift in Sources */,
+				44408CD527159F7D00866BB9 /* EntriesView.swift in Sources */,
+				44408CD627159F7D00866BB9 /* KnownView.swift in Sources */,
+				44408CD727159F7D00866BB9 /* PersistenceStack.swift in Sources */,
+				44408CD827159F7D00866BB9 /* GlobalShortCutKey.swift in Sources */,
+				44408CD927159F7D00866BB9 /* VisualEffectView.swift in Sources */,
+				44408CDA27159F7D00866BB9 /* AVSessionAndTR.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4440EE3C262EDCA3007FF470 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -510,6 +680,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		44408CE627159F7D00866BB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
+				DEVELOPMENT_TEAM = T8LHNZ3EQU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "DictAssistantApp copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		44408CE727159F7D00866BB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
+				DEVELOPMENT_TEAM = T8LHNZ3EQU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "DictAssistantApp copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		4440EE51262EDCA4007FF470 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -680,6 +900,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		44408CE527159F7D00866BB9 /* Build configuration list for PBXNativeTarget "DictAssistantApp Japanese" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44408CE627159F7D00866BB9 /* Debug */,
+				44408CE727159F7D00866BB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4440EE3B262EDCA3007FF470 /* Build configuration list for PBXProject "DictAssistantApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -717,6 +946,22 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		44408CA327159F7D00866BB9 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		44408CA527159F7D00866BB9 /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -728,6 +973,20 @@
 		442134EA26AC5A7400963441 /* Preferences */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 442134E926AC5A7400963441 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+		44408CA127159F7D00866BB9 /* DataBases */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataBases;
+		};
+		44408CA227159F7D00866BB9 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44408CA327159F7D00866BB9 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		44408CA427159F7D00866BB9 /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44408CA527159F7D00866BB9 /* XCRemoteSwiftPackageReference "Preferences" */;
 			productName = Preferences;
 		};
 		447D61A62643E5E400AB0C1A /* DataBases */ = {
