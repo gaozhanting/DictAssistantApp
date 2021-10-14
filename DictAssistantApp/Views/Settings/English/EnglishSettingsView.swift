@@ -118,7 +118,7 @@ private struct ShowPhrasesToggle: View {
 }
 
 private struct UseEntryModePicker: View {
-    @AppStorage(UseEntryModeKey) private var useEntryMode: UseEntryMode = .notUse
+    @AppStorage(UseEntryModeKey) private var useEntryMode: UseEntryMode = .asFirstPriority
     
     var binding: Binding<UseEntryMode> {
         Binding(

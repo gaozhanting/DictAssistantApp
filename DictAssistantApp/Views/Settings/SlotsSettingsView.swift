@@ -456,7 +456,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
 
-    @AppStorage(UseEntryModeKey) var useEntryMode: UseEntryMode = .notUse
+    @AppStorage(UseEntryModeKey) var useEntryMode: UseEntryMode = .asFirstPriority
     
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     

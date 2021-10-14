@@ -92,7 +92,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,
     
-    UseEntryModeKey: UseEntryMode.notUse.rawValue,
+    UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     IsShowPhrasesKey: true,
     
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
