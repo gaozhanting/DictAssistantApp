@@ -157,8 +157,9 @@ fileprivate struct EditingView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("Info")
+        Text("You can add custom noises here when you think the recognition word is non-exists. I make almost all one-letter and two-letter English words as default noises, because it always make noise when do text recognition in real time. You can add more.")
             .padding()
+            .frame(width: 400, height: 120)
     }
 }
 
