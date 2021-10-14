@@ -11,19 +11,28 @@ import Preferences
 struct EnglishSettingsView: View {
     var body: some View {
         TabView {
-            Preferences.Container(contentWidth: settingPanelWidth) {
-                Preferences.Section(title: NSLocalizedString("Show Phrases:", comment: "")) {
-                    ShowPhrasesToggle()
+            VStack {
+                Spacer()
+                
+                GroupBox {
+                    Preferences.Container(contentWidth: 450) {
+                        Preferences.Section(title: NSLocalizedString("Show Phrases:", comment: "")) {
+                            ShowPhrasesToggle()
+                        }
+                        Preferences.Section(title: NSLocalizedString("Use Entry Mode:", comment: "")) {
+                            UseEntryModePicker()
+                        }
+                    }
+                    .padding()
                 }
-                Preferences.Section(title: NSLocalizedString("Use Entry Mode:", comment: "")) {
-                    UseEntryModePicker()
-                }
+                .padding()
+                
+                Spacer()
             }
-            .padding(.leading, 180)
             .tabItem {
                 Text("Options")
             }
-            
+
             VStack {
                 GroupBox {
                     PhrasesView()
@@ -32,21 +41,21 @@ struct EnglishSettingsView: View {
             .tabItem {
                 Text("Phrases")
             }
-            
+
             GroupBox {
                 NoiseView()
             }
             .tabItem {
                 Text("Noises")
             }
-            
+
             GroupBox {
                 KnownView()
             }
             .tabItem {
                 Text("Known")
             }
-            
+
             VStack {
                 GroupBox {
                     EntryView()
@@ -58,11 +67,16 @@ struct EnglishSettingsView: View {
             
             VStack {
                 Spacer()
+                
                 GroupBox {
                     DictInstallView(dict: targetDict())
+                        .padding()
+                        .frame(width: 450)
                 }
                 .padding()
+                
                 Spacer()
+                
                 DictInstallInfoView()
             }
             .tabItem {
