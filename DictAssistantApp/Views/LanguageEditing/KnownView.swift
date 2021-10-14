@@ -192,10 +192,25 @@ fileprivate struct EditingView: View {
                     .disabled(isWordsInvalid)
                     .help("Remove multi words from Known")
                     
-                    Button(action: batchDeleteAll) {
+                    Button(action: { showingAlert = true }) {
                         Image(systemName: "trash")
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .help("Delete All")
+                    .alert(isPresented: $showingAlert) {
+                        Alert(
+                            title: Text("Delete All"),
+                            message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
+                            primaryButton: .default(
+                                Text("Cancel"),
+                                action: { print("Cancelled") }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Delete"),
+                                action: batchDeleteAll
+                            )
+                        )
+                    }
                     
                     PasteFirstNWikiWordFrequencyButton(text: $text)
                     PasteOxford3000Button(text: $text)
@@ -210,6 +225,8 @@ fileprivate struct EditingView: View {
                 alignment: .bottomTrailing
             )
     }
+    
+    @State private var showingAlert = false
 }
 
 fileprivate struct PasteOxford3000Button: View {

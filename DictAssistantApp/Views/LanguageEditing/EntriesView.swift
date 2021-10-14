@@ -145,10 +145,25 @@ fileprivate struct EditingView: View {
                     .buttonStyle(PlainButtonStyle())
                     .help("Remove multi entries to custom dict.")
                     
-                    Button(action: batchDeleteAll) {
+                    Button(action: { showingAlert = true }) {
                         Image(systemName: "trash")
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .help("Delete All")
+                    .alert(isPresented: $showingAlert) {
+                        Alert(
+                            title: Text("Delete All"),
+                            message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
+                            primaryButton: .default(
+                                Text("Cancel"),
+                                action: { print("Cancelled") }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Delete"),
+                                action: batchDeleteAll
+                            )
+                        )
+                    }
                     
                     MiniInfoView {
                         InfoView()
@@ -160,6 +175,8 @@ fileprivate struct EditingView: View {
                 alignment: .bottomTrailing
             )
     }
+    
+    @State private var showingAlert = false
 }
 
 private struct InfoView: View {
