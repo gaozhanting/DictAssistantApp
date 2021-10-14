@@ -154,7 +154,7 @@ fileprivate struct DownloadExtraDictView: View {
         PageTemplateView(
             title: {
                 VStack {
-                    Text("Install recommened concise dictionary")
+                    Text("Install recommened concise dictionary. (If have multi, select one or install all.)")
                     Text("This step is optional, but highly recommended.")
                         .font(.footnote)
                 }
@@ -162,7 +162,7 @@ fileprivate struct DownloadExtraDictView: View {
             content: {
                 VStack(alignment: .leading) {
                     GroupBox {
-                        DictInstallView(dict: targetDict())
+                        DictInstallView(dicts: targetDicts())
                             .frame(maxWidth: .infinity)
                     }
                     

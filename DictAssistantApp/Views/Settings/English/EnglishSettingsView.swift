@@ -69,7 +69,7 @@ struct EnglishSettingsView: View {
                 Spacer()
                 
                 GroupBox {
-                    DictInstallView(dict: targetDict())
+                    DictInstallView(dicts: targetDicts())
                         .padding()
                         .frame(width: 450)
                 }

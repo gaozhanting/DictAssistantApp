@@ -286,27 +286,26 @@ private func unzipUsingCommandLine(from dictFile: URL, to distURL: URL, withAuxi
     }
 }
 
-func searchResourceDictZipFile() -> String {
+func searchResourceDictZipFiles() -> [String] {
     guard let resourcePath = Bundle.main.resourcePath else {
         logger.error("Could't find bundle main resource path.")
-        return ""
+        return []
     }
     
     let dirEnum = FileManager.default.enumerator(atPath: resourcePath)
+    var results: [String] = []
     while let file = dirEnum?.nextObject() as? String {
         if file.hasSuffix(".zip") {
             myPrint(">>found file: \(file)")
-            return file
+            results.append(file)
         }
     }
-    
-    logger.error("Could't find bundle main resource dict zip file.")
-    return ""
+    return results
 }
 
-func targetDict() -> Dict {
-    let file = searchResourceDictZipFile()
-    return dicts[file]!
+func targetDicts() -> [Dict] {
+    let files = searchResourceDictZipFiles()
+    return files.map { dicts[$0]! }
 }
 
 private func install(_ dictInstalledName: String) {
@@ -321,6 +320,18 @@ private func install(_ dictInstalledName: String) {
 }
 
 struct DictInstallView: View {
+    let dicts: [Dict]
+    
+    var body: some View {
+        HStack {
+            ForEach(dicts, id: \.name) { dict in
+                DictItemInstallView(dict: dict)
+            }
+        }
+    }
+}
+
+private struct DictItemInstallView: View {
     @Environment(\.openURL) var openURL
     
     let dict: Dict
@@ -369,6 +380,6 @@ struct DictInstallView: View {
 
 struct DictInstallView_Previews: PreviewProvider {
     static var previews: some View {
-        DictInstallView(dict: targetDict())
+        DictInstallView(dicts: targetDicts())
     }
 }
