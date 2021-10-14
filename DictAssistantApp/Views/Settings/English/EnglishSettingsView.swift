@@ -70,8 +70,6 @@ struct EnglishSettingsView: View {
                 
                 GroupBox {
                     DictInstallView(dicts: targetDicts())
-                        .padding()
-                        .frame(width: 450)
                 }
                 .padding()
                 

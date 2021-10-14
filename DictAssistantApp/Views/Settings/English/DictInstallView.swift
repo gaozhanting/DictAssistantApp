@@ -89,6 +89,15 @@ let dicts: [String: Dict] = [
              downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English_Japanese.dictionary.zip")!
             ),
     
+    "gene.dictionary.zip":
+        Dict(name: "gene",
+             sourceURL: URL(string: "https://github.com/amanokenzi/dictionary-en-jp")!,
+             license: "?",
+             licenseURL: nil,
+             installedName: "gene.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/gene.dictionary.zip")
+            ),
+    
     "Babylon_English_Korean.dictionary.zip":
         Dict(name: "Babylon English-Korean dictionary",
              sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
@@ -323,11 +332,13 @@ struct DictInstallView: View {
     let dicts: [Dict]
     
     var body: some View {
-        HStack {
+        VStack {
             ForEach(dicts, id: \.name) { dict in
                 DictItemInstallView(dict: dict)
             }
         }
+        .padding()
+        .frame(width: 450)
     }
 }
 

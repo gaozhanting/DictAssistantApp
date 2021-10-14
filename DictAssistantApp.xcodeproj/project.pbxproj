@@ -10,6 +10,7 @@
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
+		442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 442126BC271877A400CEF786 /* gene.dictionary.zip */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
 		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
@@ -137,6 +138,7 @@
 		4416417226F5B668007D19FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4416417426F5B66F007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4416417526F5B672007D19FC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		442126BC271877A400CEF786 /* gene.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = gene.dictionary.zip; sourceTree = "<group>"; };
 		442134CD26A6C64200963441 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		442134D426A9A36A00963441 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		442134D926AADC3100963441 /* GlobalShortCutKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutKey.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 			children = (
 				44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */,
 				44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */,
+				442126BC271877A400CEF786 /* gene.dictionary.zip */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				44408CE327159F7D00866BB9 /* Preview Assets.xcassets in Resources */,
 				44408CEB27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip in Resources */,
 				44408CE427159F7D00866BB9 /* Assets.xcassets in Resources */,
+				442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

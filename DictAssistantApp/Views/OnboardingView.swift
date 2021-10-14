@@ -154,7 +154,9 @@ fileprivate struct DownloadExtraDictView: View {
         PageTemplateView(
             title: {
                 VStack {
-                    Text("Install recommened concise dictionary. (If have multi, select one or install all.)")
+                    Text("Install recommened concise dictionary")
+                    Text("If have multi, select one or install all.")
+                        .font(.footnote)
                     Text("This step is optional, but highly recommended.")
                         .font(.footnote)
                 }
