@@ -27,7 +27,7 @@ struct StrokeBorderCropperAnimationView: View {
 struct RectangleCropperView: View {
     var body: some View {
         Spacer()
-            .background(Color.accentColor.opacity(0.5))
+            .background(Color.accentColor.opacity(0.1))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
     }
