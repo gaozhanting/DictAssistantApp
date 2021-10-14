@@ -143,22 +143,26 @@ fileprivate struct EditingView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
+                    .help("Add multi phrases")
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
+                    .help("Remove multi phrases")
                     
                     Button(action: batchDeleteAll) {
                         Image(systemName: "trash")
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .help("Delete All")
                     
                     Button(action: batchResetDefault) {
                         Image(systemName: "pencil.and.outline")
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .help("Reset to Default")
                     
                     MiniInfoView {
                         InfoView()

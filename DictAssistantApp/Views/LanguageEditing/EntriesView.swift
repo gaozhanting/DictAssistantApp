@@ -136,14 +136,14 @@ fileprivate struct EditingView: View {
                                 .count < 2
                         }
                     }())
-                    .help("Add multi entries to custom dict.")
+                    .help("Add multi entries to custom dict")
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .disabled(lines.isContainsEmptyLine)
                     .buttonStyle(PlainButtonStyle())
-                    .help("Remove multi entries to custom dict.")
+                    .help("Remove multi entries to custom dict")
                     
                     Button(action: { showingAlert = true }) {
                         Image(systemName: "trash")

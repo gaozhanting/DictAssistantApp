@@ -128,17 +128,20 @@ fileprivate struct EditingView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
+                    .help("Add multi noises")
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
                     .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
+                    .help("Remove multi noises")
                     
                     Button(action: batchDeleteAll) {
                         Image(systemName: "trash")
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .help("Delete All")
                     
                     MiniInfoView {
                         InfoView()
