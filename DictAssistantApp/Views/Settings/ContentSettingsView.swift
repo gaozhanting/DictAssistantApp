@@ -97,7 +97,7 @@ fileprivate struct ChineseCharacterConvertingPicker: View {
         )
     }
     
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notUse
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
     
     var body: some View {
         HStack {
@@ -109,7 +109,7 @@ fileprivate struct ChineseCharacterConvertingPicker: View {
             
             if showPicker {
                 Picker("Chinese Character Convert:", selection: $chineseCharacterConvertMode) {
-                    Text("not use").tag(ChineseCharacterConvertMode.notUse)
+                    Text("not convert").tag(ChineseCharacterConvertMode.notConvert)
                     Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional)
                     Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified)
                 }

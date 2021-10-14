@@ -81,7 +81,7 @@ enum UseEntryMode: Int, Codable {
 }
 
 enum ChineseCharacterConvertMode: Int, Codable {
-    case notUse = 0
+    case notConvert = 0
     case convertToTraditional = 1
     case convertToSimplified = 2
 }
@@ -102,7 +102,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     IsAddSpaceKey: false,
     IsDropFirstTitleWordInTranslationKey: true,
     IsJoinTranslationLinesKey: false,
-    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notUse.rawValue,
+    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
     
     IsContentRetentionKey: false,
     

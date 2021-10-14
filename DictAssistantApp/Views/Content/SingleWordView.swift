@@ -225,10 +225,10 @@ fileprivate struct TheText: View {
         wordCell.word
     }
     
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notUse
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
     var trans: String {
         switch chineseCharacterConvertMode {
-        case .notUse:
+        case .notConvert:
             return wordCell.trans
         case .convertToTraditional:
             return wordCell.trans.big5

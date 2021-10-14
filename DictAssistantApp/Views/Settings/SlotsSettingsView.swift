@@ -166,7 +166,7 @@ fileprivate let defaultSettings = Settings(
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
     isJoinTranslationLines: false,
-    chineseCharacterConvertMode: ChineseCharacterConvertMode.notUse,
+    chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert,
     isContentRetention: false,
     isShowWindowShadow: true,
     isWithAnimation: true,
@@ -467,7 +467,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notUse
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
 
     @AppStorage(IsContentRetentionKey) private var isContentRetention = false
     
