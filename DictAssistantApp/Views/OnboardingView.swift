@@ -221,7 +221,9 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
             nextButton: {
                 if !showPlaying {
                     Button(action: {
-                        showPlaying = true
+                        withAnimation {
+                            showPlaying = true
+                        }
                         isFinishedOnboarding = true
                     }, label: {
                         Text("Continue")
@@ -275,11 +277,11 @@ struct OnboardingView: View {
                 if page == currentPage {
                     page.view(next: showNextPage)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(AnyTransition.asymmetric(
-                                        insertion: .move(edge: .trailing),
-                                        removal: .move(edge: .leading))
-                        )
-                        .animation(.default)
+//                        .transition(AnyTransition.asymmetric(
+//                                        insertion: .move(edge: .trailing),
+//                                        removal: .move(edge: .leading))
+//                        )
+//                        .animation(.default)
                 }
             }
         }

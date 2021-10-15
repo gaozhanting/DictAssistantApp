@@ -31,8 +31,9 @@ extension AppDelegate {
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.endOnboarding, endOnboarding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(width: 650, height: 530)
         
-        onboardingPanel.contentView = NSHostingView(rootView: onboardingView)
+        onboardingPanel.contentViewController = NSHostingController(rootView: onboardingView)
         onboardingPanel.center()
         onboardingPanel.orderFrontRegardless()
     }
