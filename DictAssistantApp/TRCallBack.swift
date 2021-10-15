@@ -12,16 +12,8 @@ import SwiftUI
 var currentTRTexts: [String] = []
 
 func trCallBack() {
-    let afterNoiseElimination = nlpSample.process(currentTRTexts)
-        .filter { !$0.isNumber }
-        .filter { !fixedNoiseVocabulary.contains($0) }
-        .filter { !noisesSet.contains($0) }
-    
-    myPrint("🐳 >>>> After noise elimination: \(afterNoiseElimination)")
-    myPrint("   >>>> ")
-    
-    let wordCell = afterNoiseElimination.map { tagWord($0) }
-
+    let processed = nlpSample.process(currentTRTexts)
+    let wordCell = processed.map { tagWord($0) }
     mutateDisplayedWords(wordCell)
 }
 
@@ -35,12 +27,6 @@ private func tagWord(_ word: String) -> WordCell {
             myPrint("!> translation not found from dicts of word: \(word)")
             return WordCell(word: word, isKnown: .unKnown, trans: "")
         }
-    }
-}
-
-extension String {
-    var isNumber: Bool {
-        self.allSatisfy { c in c.isNumber }
     }
 }
 

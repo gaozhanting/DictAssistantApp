@@ -9,6 +9,12 @@ import Foundation
 import NaturalLanguage
 import DataBases
 
+extension String {
+    var containsNumber: Bool {
+        self.contains { c in c.isNumber }
+    }
+}
+
 struct NLPSample {
     func tokenize(_ sentence: String, _ tokenUnit: NLTokenUnit) -> [String] {
         var result: [String] = []
@@ -16,7 +22,9 @@ struct NLPSample {
         tokenizer.string = sentence
         tokenizer.enumerateTokens(in: tokenizer.string!.startIndex..<tokenizer.string!.endIndex) { tokenRange, _ in
             let token = String(sentence[tokenRange])
-            result.append(token)
+            if !token.containsNumber && !fixedNoiseVocabulary.contains(token) && !noisesSet.contains(token) {
+                result.append(token)
+            }
             return true
         }
         return result
