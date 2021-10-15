@@ -44,6 +44,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         initEntryUpsertPanel()
         
+        initPhrasePanel()
+        
+        initEntriesPanel()
+        
+        initNoisesPanel()
+        
+        initKnownPanel()
+        
+        initDictInstallPanel()
+        
         constructMenuBar()
 
         registerGlobalKey()

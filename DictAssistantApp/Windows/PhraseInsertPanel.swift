@@ -13,7 +13,7 @@ var phraseInsertPanel: NSPanel!
 func initPhraseInsertPanel() {
     phraseInsertPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 50),
-        name: "Phrase Insert")
+        name: "Phrase Insert Panel")
 }
 
 func showPhraseInsertPanel() {

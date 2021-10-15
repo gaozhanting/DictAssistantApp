@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EntryView: View {
+struct EntriesView: View {
     var body: some View {
         SplitView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -39,7 +39,7 @@ fileprivate class SplitViewController: NSSplitViewController {
         
         splitView.dividerStyle = .paneSplitter
         splitView.isVertical = false
-        splitView.setPosition(250, ofDividerAt: 0)
+        splitView.setPosition(370, ofDividerAt: 0)
     }
 }
 
@@ -190,7 +190,7 @@ private struct InfoView: View {
 struct EntryView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            EntryView()
+            EntriesView()
             
             InfoView()
         }

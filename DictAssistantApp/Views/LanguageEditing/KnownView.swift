@@ -40,7 +40,7 @@ fileprivate class SplitViewController: NSSplitViewController {
         
         splitView.dividerStyle = .paneSplitter
         splitView.isVertical = false
-        splitView.setPosition(250, ofDividerAt: 0)
+        splitView.setPosition(370, ofDividerAt: 0)
     }
 }
 

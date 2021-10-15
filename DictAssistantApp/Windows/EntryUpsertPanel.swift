@@ -13,7 +13,7 @@ var entryUpsertPanel: NSPanel!
 func initEntryUpsertPanel() {
     entryUpsertPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 400, height: 50),
-        name: "Entry Upsert")
+        name: "Entry Upsert Panel")
 }
 
 func showEntryUpsertPanel() {

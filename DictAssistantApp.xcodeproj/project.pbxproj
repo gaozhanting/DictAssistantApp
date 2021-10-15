@@ -13,6 +13,18 @@
 		442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 442126BC271877A400CEF786 /* gene.dictionary.zip */; };
 		442126C2271996B500CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
 		442126C32719A48600CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
+		442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
+		442126C72719AC3200CEF786 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
+		442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
+		442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
+		442126CF2719B26600CEF786 /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
+		442126D12719B4C700CEF786 /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
+		442126D22719B5E800CEF786 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
+		442126D32719B5EA00CEF786 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
+		442126D42719B5EC00CEF786 /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
+		442126D52719B5EE00CEF786 /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
+		442126D62719B5F100CEF786 /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
+		442126D72719B5F600CEF786 /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
 		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
@@ -142,6 +154,12 @@
 		4416417526F5B672007D19FC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		442126BC271877A400CEF786 /* gene.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = gene.dictionary.zip; sourceTree = "<group>"; };
 		442126C1271996B500CEF786 /* EditingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingPanel.swift; sourceTree = "<group>"; };
+		442126C42719A8DA00CEF786 /* PhrasesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPanel.swift; sourceTree = "<group>"; };
+		442126C62719AC3200CEF786 /* EntriesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPanel.swift; sourceTree = "<group>"; };
+		442126C82719AEDC00CEF786 /* NoisesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisesPanel.swift; sourceTree = "<group>"; };
+		442126CA2719B0EC00CEF786 /* KnownPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownPanel.swift; sourceTree = "<group>"; };
+		442126CE2719B26600CEF786 /* DictInstallPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictInstallPanel.swift; sourceTree = "<group>"; };
+		442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictInstallWithInfoView.swift; sourceTree = "<group>"; };
 		442134CD26A6C64200963441 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		442134D426A9A36A00963441 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		442134D926AADC3100963441 /* GlobalShortCutKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutKey.swift; sourceTree = "<group>"; };
@@ -236,7 +254,7 @@
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
 				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
-				44CA55F7270C746B007D4053 /* English */,
+				44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */,
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
@@ -351,6 +369,11 @@
 				44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */,
 				44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */,
 				442126C1271996B500CEF786 /* EditingPanel.swift */,
+				442126C42719A8DA00CEF786 /* PhrasesPanel.swift */,
+				442126C62719AC3200CEF786 /* EntriesPanel.swift */,
+				442126C82719AEDC00CEF786 /* NoisesPanel.swift */,
+				442126CA2719B0EC00CEF786 /* KnownPanel.swift */,
+				442126CE2719B26600CEF786 /* DictInstallPanel.swift */,
 			);
 			path = Windows;
 			sourceTree = "<group>";
@@ -406,17 +429,10 @@
 				44C31D6C26FE035800ED6E08 /* EntriesView.swift */,
 				44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */,
 				44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */,
+				44CA55F5270C73D4007D4053 /* DictInstallView.swift */,
+				442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */,
 			);
 			path = LanguageEditing;
-			sourceTree = "<group>";
-		};
-		44CA55F7270C746B007D4053 /* English */ = {
-			isa = PBXGroup;
-			children = (
-				44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */,
-				44CA55F5270C73D4007D4053 /* DictInstallView.swift */,
-			);
-			path = English;
 			sourceTree = "<group>";
 		};
 		44CAC50E271571D400EAFA74 /* Resources */ = {
@@ -549,6 +565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44408CA727159F7D00866BB9 /* EntryUpsertView.swift in Sources */,
+				442126D32719B5EA00CEF786 /* EntriesPanel.swift in Sources */,
 				44408CA827159F7D00866BB9 /* PhraseInsertView.swift in Sources */,
 				44408CA927159F7D00866BB9 /* OnboardingView.swift in Sources */,
 				44408CAA27159F7D00866BB9 /* EnglishSettingsView.swift in Sources */,
@@ -557,6 +574,7 @@
 				44408CAD27159F7D00866BB9 /* NoisesView.swift in Sources */,
 				44408CAE27159F7D00866BB9 /* PreferencesWindow.swift in Sources */,
 				44408CAF27159F7D00866BB9 /* KnownPersistence.swift in Sources */,
+				442126D52719B5EE00CEF786 /* KnownPanel.swift in Sources */,
 				44408CB027159F7D00866BB9 /* ContentView.swift in Sources */,
 				44408CB127159F7D00866BB9 /* PhrasesView.swift in Sources */,
 				44408CB227159F7D00866BB9 /* TRCallBack.swift in Sources */,
@@ -566,6 +584,7 @@
 				44408CB627159F7D00866BB9 /* Settings.swift in Sources */,
 				44408CB727159F7D00866BB9 /* EntriesPersistence.swift in Sources */,
 				44408CB827159F7D00866BB9 /* VisionSettingsView.swift in Sources */,
+				442126D72719B5F600CEF786 /* DictInstallWithInfoView.swift in Sources */,
 				44408CB927159F7D00866BB9 /* WordsView.swift in Sources */,
 				44408CBA27159F7D00866BB9 /* PhraseInsertPanel.swift in Sources */,
 				44408CBB27159F7D00866BB9 /* OnboardingPanel.swift in Sources */,
@@ -584,12 +603,15 @@
 				44408CC827159F7D00866BB9 /* CustomEnvironmentKey.swift in Sources */,
 				44408CC927159F7D00866BB9 /* Menus.swift in Sources */,
 				44408CCA27159F7D00866BB9 /* GeneralSettingsView.swift in Sources */,
+				442126D42719B5EC00CEF786 /* NoisesPanel.swift in Sources */,
 				44408CCB27159F7D00866BB9 /* SingleWordView.swift in Sources */,
 				44408CCC27159F7D00866BB9 /* ContentSettingsView.swift in Sources */,
 				44408CCD27159F7D00866BB9 /* AppearanceSettingsView.swift in Sources */,
+				442126D22719B5E800CEF786 /* PhrasesPanel.swift in Sources */,
 				442126C32719A48600CEF786 /* EditingPanel.swift in Sources */,
 				44408CCE27159F7D00866BB9 /* AppDelegate.swift in Sources */,
 				44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */,
+				442126D62719B5F100CEF786 /* DictInstallPanel.swift in Sources */,
 				44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */,
 				44408CD127159F7D00866BB9 /* app.xcdatamodeld in Sources */,
 				44408CD227159F7D00866BB9 /* CropperWindow.swift in Sources */,
@@ -609,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44CAC50D2714641600EAFA74 /* EntryUpsertView.swift in Sources */,
+				442126C72719AC3200CEF786 /* EntriesPanel.swift in Sources */,
 				44CAC50927145B2700EAFA74 /* PhraseInsertView.swift in Sources */,
 				446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */,
 				44FEB725270AE3C100701E5D /* EnglishSettingsView.swift in Sources */,
@@ -617,6 +640,7 @@
 				445355642705C4F4007DB9C2 /* NoisesView.swift in Sources */,
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
 				4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */,
+				442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
 				44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */,
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
@@ -626,6 +650,7 @@
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */,
 				44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */,
+				442126D12719B4C700CEF786 /* DictInstallWithInfoView.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
@@ -644,12 +669,15 @@
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
+				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
+				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
 				442126C2271996B500CEF786 /* EditingPanel.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */,
+				442126CF2719B26600CEF786 /* DictInstallPanel.swift in Sources */,
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
 				447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,

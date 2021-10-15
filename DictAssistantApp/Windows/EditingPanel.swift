@@ -17,7 +17,7 @@ class EditingPanel: NSPanel {
                 .closable,
                 .miniaturizable,
                 .resizable,
-                .utilityWindow,
+                .utilityWindow
             ],
             backing: .buffered,
             defer: false
