@@ -48,8 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         registerGlobalKey()
 
-        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // take 0.36s
-        
         initOnboardingPanel()
         
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
