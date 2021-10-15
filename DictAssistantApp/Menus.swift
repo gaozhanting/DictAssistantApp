@@ -23,10 +23,10 @@ func constructMenuBar() {
     menu.addItem(NSMenuItem.separator())
     
     let englishMenu = NSMenu(title: "English")
-    englishMenu.addItem(withTitle: "Show Phrases Panel", action: #selector(AppDelegate.showPhrasePanel), keyEquivalent: "")
-    englishMenu.addItem(withTitle: "Show Entries Panel", action: #selector(AppDelegate.showEntriesPanel), keyEquivalent: "")
     englishMenu.addItem(withTitle: "Show Noises Panel", action: #selector(AppDelegate.showNoisesPanel), keyEquivalent: "")
+    englishMenu.addItem(withTitle: "Show Phrases Panel", action: #selector(AppDelegate.showPhrasePanel), keyEquivalent: "")
     englishMenu.addItem(withTitle: "Show Known Panel", action: #selector(AppDelegate.showKnownPanel), keyEquivalent: "")
+    englishMenu.addItem(withTitle: "Show Entries Panel", action: #selector(AppDelegate.showEntriesPanel), keyEquivalent: "")
     englishMenu.addItem(withTitle: "Show Dict Install Panel", action: #selector(AppDelegate.showDictInstallPanel), keyEquivalent: "")
     let englishMenuItem = NSMenuItem(title: "English", action: nil, keyEquivalent: "")
     menu.addItem(englishMenuItem)
