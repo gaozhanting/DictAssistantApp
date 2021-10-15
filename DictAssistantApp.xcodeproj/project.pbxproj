@@ -12,6 +12,7 @@
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
 		442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 442126BC271877A400CEF786 /* gene.dictionary.zip */; };
 		442126C2271996B500CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
+		442126C32719A48600CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
 		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
@@ -586,6 +587,7 @@
 				44408CCB27159F7D00866BB9 /* SingleWordView.swift in Sources */,
 				44408CCC27159F7D00866BB9 /* ContentSettingsView.swift in Sources */,
 				44408CCD27159F7D00866BB9 /* AppearanceSettingsView.swift in Sources */,
+				442126C32719A48600CEF786 /* EditingPanel.swift in Sources */,
 				44408CCE27159F7D00866BB9 /* AppDelegate.swift in Sources */,
 				44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */,
 				44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */,
