@@ -11,29 +11,14 @@ import SwiftUI
 var entryUpsertPanel: NSPanel!
 
 func initEntryUpsertPanel() {
-    entryUpsertPanel = NSPanel.init(
+    entryUpsertPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 400, height: 50),
-        styleMask: [
-            .nonactivatingPanel,
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .utilityWindow,
-        ],
-        backing: .buffered,
-        defer: false
-        //            screen: NSScreen.main
-    )
-    
-    entryUpsertPanel.title = "Entry Upsert"
-    entryUpsertPanel.setFrameAutosaveName("entryUpsertPanel")
-    entryUpsertPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        name: "Entry Upsert")
 }
 
 func showEntryUpsertPanel() {
-    let entryUpsertView = EntryUpsertView()
-    entryUpsertPanel.contentView = NSHostingView(rootView: entryUpsertView)
+    let view = EntryUpsertView()
+    entryUpsertPanel.contentView = NSHostingView(rootView: view)
     entryUpsertPanel.center()
     entryUpsertPanel.orderFrontRegardless()
 }

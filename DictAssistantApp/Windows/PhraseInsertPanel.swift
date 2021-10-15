@@ -11,29 +11,14 @@ import SwiftUI
 var phraseInsertPanel: NSPanel!
 
 func initPhraseInsertPanel() {
-    phraseInsertPanel = NSPanel.init(
+    phraseInsertPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 50),
-        styleMask: [
-            .nonactivatingPanel,
-            .titled,
-            .closable,
-            .miniaturizable,
-            .resizable,
-            .utilityWindow,
-        ],
-        backing: .buffered,
-        defer: false
-        //            screen: NSScreen.main
-    )
-    
-    phraseInsertPanel.title = "Phrase Insert"
-    phraseInsertPanel.setFrameAutosaveName("phraseInsertPanel")
-    phraseInsertPanel.collectionBehavior.insert(.fullScreenAuxiliary)
+        name: "Phrase Insert")
 }
 
 func showPhraseInsertPanel() {
-    let phraseInsertView = PhraseInsertView()
-    phraseInsertPanel.contentView = NSHostingView(rootView: phraseInsertView)
+    let view = PhraseInsertView()
+    phraseInsertPanel.contentView = NSHostingView(rootView: view)
     phraseInsertPanel.center()
     phraseInsertPanel.orderFrontRegardless()
 }

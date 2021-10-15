@@ -11,6 +11,7 @@
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
 		442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 442126BC271877A400CEF786 /* gene.dictionary.zip */; };
+		442126C2271996B500CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
 		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
@@ -139,6 +140,7 @@
 		4416417426F5B66F007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4416417526F5B672007D19FC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		442126BC271877A400CEF786 /* gene.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = gene.dictionary.zip; sourceTree = "<group>"; };
+		442126C1271996B500CEF786 /* EditingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingPanel.swift; sourceTree = "<group>"; };
 		442134CD26A6C64200963441 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		442134D426A9A36A00963441 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		442134D926AADC3100963441 /* GlobalShortCutKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutKey.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */,
 				44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */,
 				44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */,
+				442126C1271996B500CEF786 /* EditingPanel.swift */,
 			);
 			path = Windows;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
+				442126C2271996B500CEF786 /* EditingPanel.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */,
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
