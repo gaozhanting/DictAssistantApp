@@ -194,23 +194,32 @@ fileprivate let defaultSettings = Settings(
 
 struct SlotsSettingsView: View {
     @State private var isShowingPopover = false
-
+    
     var body: some View {
-        SlotsView()
-            .frame(width: CGFloat(settingPanelWidth))
-            .overlay(
-                Button(action: { isShowingPopover = true }, label: {
-                    Image(systemName: "questionmark").font(.body)
-                })
-                .clipShape(Circle())
-                .padding()
-                .shadow(radius: 1)
-                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
-                    InfoView()
-                })
-                ,
-                alignment: .bottomTrailing
-            )
+        Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "") {
+                HStack {
+                    Spacer()
+                    
+                    SlotsView()
+                        .overlay(
+                            Button(action: { isShowingPopover = true }, label: {
+                                Image(systemName: "questionmark").font(.body)
+                            })
+                                .clipShape(Circle())
+                                .padding()
+                                .shadow(radius: 1)
+                                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
+                                    InfoView()
+                                })
+                            ,
+                            alignment: .bottomTrailing
+                        )
+                    
+                    Spacer()
+                }
+            }
+        }
     }
 }
 
