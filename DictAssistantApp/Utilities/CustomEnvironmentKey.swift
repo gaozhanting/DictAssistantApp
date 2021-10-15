@@ -14,7 +14,7 @@ private struct EndOnboardingEnvironmentKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var endOnboarding: () -> Void {
-        get { self[EndOnboardingEnvironmentKey].self }
+        get { self[EndOnboardingEnvironmentKey.self].self }
         set { self[EndOnboardingEnvironmentKey.self] = newValue }
     }
 }
