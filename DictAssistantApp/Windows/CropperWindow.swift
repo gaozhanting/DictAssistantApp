@@ -27,6 +27,8 @@ func syncCropperView(from cropperStyle: CropperStyle) {
         cropperWindow.contentView = NSHostingView(rootView: RectangleCropperView())
     case .leadingBorder:
         cropperWindow.contentView = NSHostingView(rootView: LeadingBorderCropperView())
+    case .trailingBorder:
+        cropperWindow.contentView = NSHostingView(rootView: TrailingBorderCropperView())
     }
     cropperWindow.orderFrontRegardless()
 }

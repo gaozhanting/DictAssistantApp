@@ -42,6 +42,15 @@ struct LeadingBorderCropperView: View {
     }
 }
 
+struct TrailingBorderCropperView: View {
+    var body: some View {
+        Spacer()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+            .border(width: 5, edges: [.trailing], color: Color.accentColor)
+    }
+}
+
 extension View {
     func border(width: CGFloat, edges: [Edge], color: Color) -> some View {
         overlay(EdgeBorder(width: width, edges: edges).foregroundColor(color))
@@ -95,6 +104,7 @@ struct CropperView_Previews: PreviewProvider {
             StrokeBorderCropperAnimationView()
             RectangleCropperView()
             LeadingBorderCropperView()
+            TrailingBorderCropperView()
         }
     }
 }

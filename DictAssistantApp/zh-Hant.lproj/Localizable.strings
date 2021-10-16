@@ -93,6 +93,7 @@
 
 "Show Toast" = "顯示運行提示";
 "leadingBorder" = "前導邊框";
+"trailingBorder" = "後导边框";
 "rectangle" = "矩形";
 "closed" = "關閉";
 

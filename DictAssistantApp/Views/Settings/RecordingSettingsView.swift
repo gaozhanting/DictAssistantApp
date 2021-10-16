@@ -25,6 +25,7 @@ enum CropperStyle: Int, Codable {
     case closed = 0
     case rectangle = 1
     case leadingBorder = 2
+    case trailingBorder = 3
 }
 
 fileprivate struct CropperStyleSettingView: View {
@@ -33,6 +34,7 @@ fileprivate struct CropperStyleSettingView: View {
     var body: some View {
         Picker("", selection: $cropperStyle) {
             Text("leadingBorder").tag(CropperStyle.leadingBorder)
+            Text("trailingBorder").tag(CropperStyle.trailingBorder)
             Text("rectangle").tag(CropperStyle.rectangle)
             Text("closed").tag(CropperStyle.closed)
         }
