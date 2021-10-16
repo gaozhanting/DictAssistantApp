@@ -50,38 +50,6 @@ func openDict(_ word: String) {
     task.launch()
 }
 
-let validEnglishWordsCharacterSet = makeValidEnglishWordsCharacterSet()
-fileprivate let a_z = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-fileprivate func makeValidEnglishWordsCharacterSet() -> Set<Character> {
-    var characters = a_z
-        .components(separatedBy: " ")
-        .map { Character($0) }
-    characters.append(Character("-"))
-    characters.append(Character("'"))
-    characters.append(Character("."))
-    characters.append(Character(" "))
-    return Set(characters)
-}
-
-private let oneLetterRealWords = Set("a A i I".split(separator: Character(" ")).map { String($0) })
-private let twoLetterRealWords = Set("ad am an as at ax be bi by do go he hi ho id if in is it me my no of oh ok OK on or ox so to up us uh um we tv TV".split(separator: Character(" ")).map { String($0) })
-
-private func makeFixedNoiseVocabulary() -> Set<String> {
-    let oneLetterWords = a_z.components(separatedBy: " ").map { String($0) }
-    
-    var twoLetterWords: [String] = []
-    for first in oneLetterWords {
-        for second in oneLetterWords {
-            twoLetterWords.append("\(first)\(second)")
-        }
-    }
-    
-    let allNoiseWords = oneLetterWords + twoLetterWords
-    
-    let result = Set(allNoiseWords).subtracting(oneLetterRealWords).subtracting(twoLetterRealWords)
-    return result
-}
-
 let logger = Logger()
 
 func myPrint(_ str: String) {
@@ -96,11 +64,12 @@ func timeElapsed(info: String, _ closure: () -> Void) {
 
 let systemDefaultMinimumTextHeight: Double = 0.03125
 
+// use databases
+
 // first, why TR not cool here, it's my code fault (refer offical wwdc sample project)
 // got this should not add it !
-let fixedNoiseVocabulary = makeFixedNoiseVocabulary()
+let noisesDB = Vocabularies.readToArray(from: "noises.txt")
 
-// use databases
 let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
 
 let phrasesDB = Vocabularies.readToArray(from: "phrases.txt")
