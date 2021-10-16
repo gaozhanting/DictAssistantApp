@@ -263,12 +263,28 @@ fileprivate struct ButtonsView: View {
             .disabled(selectedSlot == nil)
             
             Button("Delete All") {
-                batchDeleteAllSlots()
+                showingAlert = true
+            }
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Delete All"),
+                    message: Text("Are you sure? This action can't be undo."),
+                    primaryButton: .default(
+                        Text("Cancel"),
+                        action: { print("Cancelled") }
+                    ),
+                    secondaryButton: .destructive(
+                        Text("Delete"),
+                        action: batchDeleteAllSlots
+                    )
+                )
             }
         }
         .padding(.vertical, 5)
         .padding(.horizontal)
     }
+    
+    @State private var showingAlert = false
 }
 
 fileprivate struct SlotsView: View {
