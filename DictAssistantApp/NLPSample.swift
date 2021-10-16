@@ -22,7 +22,11 @@ struct NLPSample {
         tokenizer.string = sentence
         tokenizer.enumerateTokens(in: tokenizer.string!.startIndex..<tokenizer.string!.endIndex) { tokenRange, _ in
             let token = String(sentence[tokenRange])
-            if !token.containsNumber && !noisesSet.contains(token) {
+            if tokenUnit == .word {
+                if !token.containsNumber && !noisesSet.contains(token) {
+                    result.append(token)
+                }
+            } else if tokenUnit == .sentence {
                 result.append(token)
             }
             return true
