@@ -31,8 +31,7 @@ private func getAllPhrasesSet() -> Set<String> {
 
 func batchResetDefaultPhrases(didSucceed: @escaping () -> Void = {}) {
     batchDeleteAllPhrases() {
-        let words = Vocabularies.readToArray(from: "phrases.txt")
-        batchInsertPhrases(words) {
+        batchInsertPhrases(phrasesDB) {
             didSucceed()
         }
     }
