@@ -88,7 +88,7 @@ fileprivate struct EditingView: View {
     }
     
     func batchInsert() {
-        batchInsertNoise(lines) {
+        batchInsertNoises(lines) {
             toastSucceed()
         }
     }
@@ -103,6 +103,12 @@ fileprivate struct EditingView: View {
     
     func batchDeleteAll() {
         batchDeleteAllNoise {
+            toastSucceed()
+        }
+    }
+    
+    func batchResetDefault() {
+        batchResetDefaultNoises() {
             toastSucceed()
         }
     }
@@ -126,29 +132,32 @@ fileprivate struct EditingView: View {
                     Button(action: batchInsert) {
                         Image(systemName: "rectangle.stack.badge.plus")
                     }
-                    .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
                     .help("Add multi noises")
                     
                     Button(action: multiRemove) {
                         Image(systemName: "rectangle.stack.badge.minus")
                     }
-                    .buttonStyle(PlainButtonStyle())
                     .disabled(lines.isContainsEmptyLine)
                     .help("Remove multi noises")
                     
                     Button(action: batchDeleteAll) {
                         Image(systemName: "trash")
                     }
-                    .buttonStyle(PlainButtonStyle())
                     .help("Delete All")
+                    
+                    Button(action: batchResetDefault) {
+                        Image(systemName: "pencil.and.outline")
+                    }
+                    .help("Reset to Default")
                     
                     MiniInfoView {
                         InfoView()
                     }
                 }
-                .padding(.trailing, 20)
-                .padding(.bottom, 5)
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.trailing, 20)
+                    .padding(.bottom, 5)
                 ,
                 alignment: .bottomTrailing
             )

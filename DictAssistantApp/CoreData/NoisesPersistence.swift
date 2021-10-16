@@ -29,7 +29,15 @@ private func getAllNoiseSet() -> Set<String> {
     }
 }
 
-func batchInsertNoise(_ words: [String], didSucceed: @escaping () -> Void = {}) {
+func batchResetDefaultNoises(didSucceed: @escaping () -> Void = {}) {
+    batchDeleteAllNoise {
+        batchInsertNoises(noisesDB) {
+            didSucceed()
+        }
+    }
+}
+
+func batchInsertNoises(_ words: [String], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let insertRequest = NSBatchInsertRequest(
@@ -54,6 +62,51 @@ func batchInsertNoise(_ words: [String], didSucceed: @escaping () -> Void = {}) 
         logger.error("Failed to batch insert  noise:\(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
+}
+
+func multiInsertNoises(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping () -> Void = {}
+) {
+    if words.count > 1000 {
+        batchInsertNoises(words, didSucceed: didSucceed)
+    } else {
+        insertMultiNoises(words, didSucceed: didSucceed, nothingChanged: nothingChanged)
+    }
+}
+
+func insertMultiNoises(
+    _ words: [String],
+    didSucceed: @escaping () -> Void = {},
+    nothingChanged: @escaping () -> Void = {}
+) {
+    let context = persistentContainer.viewContext
+    
+    for word in words {
+        let fetchRequest: NSFetchRequest<Noise> = Noise.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.isEmpty {
+                let newNoise = Noise(context: context)
+                newNoise.word = word
+            }
+        } catch {
+            logger.error("Failed to fetch request: \(error.localizedDescription)")
+            NSApplication.shared.presentError(error as NSError)
+        }
+    }
+    
+    saveContext(didSucceed: {
+        noisesSet = getAllNoiseSet()
+        trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
+    })
 }
 
 func batchDeleteAllNoise(didSucceed: @escaping () -> Void = {}) {
