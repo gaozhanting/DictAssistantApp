@@ -22,14 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
         
-//        timeElapsed(info: "batchInsertPhrases") {
-//            batchInsertDefaultPhrases()
-//        }
-            
-//        timeElapsed(info: "batchDeleteAllPhrases") {
-//            batchDeleteAllPhrases() // why here is ok, but button trigger this so slow ?!
-//        }
-        
         initAllUserDefaultsIfNil()
         
         initCropperWindow()
@@ -41,17 +33,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         initToastWindow()
         
         initPhraseInsertPanel()
-        
         initEntryUpsertPanel()
         
         initPhrasePanel()
-        
         initEntriesPanel()
-        
         initNoisesPanel()
-        
         initKnownPanel()
-        
         initDictInstallPanel()
         
         constructMenuBar()
@@ -60,9 +47,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         initOnboardingPanel()
         
-        if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
-            batchDeleteAllKnown()
+        if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) { // only set true when complete onbaording
+            // init core data
+            batchResetDefaultNoises()
+            batchResetDefaultPhrases()
+            batchDeleteAllKnown() // should init at onboarding
+            batchDeleteAllEntries()
             batchDeleteAllSlots()
+            
+            // show UI
             self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
         }
     }
