@@ -21,7 +21,7 @@ extension AppDelegate {
     @objc func showDictInstallPanel() {
         let view = DictInstallWithInfoView()
         
-        dictInstallPanel.contentView = NSHostingView(rootView: view)
+        dictInstallPanel.contentViewController = NSHostingController(rootView: view)
         dictInstallPanel.center()
         dictInstallPanel.orderFrontRegardless()
     }
