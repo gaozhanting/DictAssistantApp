@@ -340,8 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				445354C52701D5F2007DB9C2 /* PersistenceStack.swift */,
-				445355422701E45F007DB9C2 /* PhrasesPersistence.swift */,
 				445355612705C0CF007DB9C2 /* NoisesPersistence.swift */,
+				445355422701E45F007DB9C2 /* PhrasesPersistence.swift */,
 				4453554A27020CA0007DB9C2 /* KnownPersistence.swift */,
 				4453554827020B7D007DB9C2 /* EntriesPersistence.swift */,
 				4453554627020B32007DB9C2 /* SlotsPersistence.swift */,
