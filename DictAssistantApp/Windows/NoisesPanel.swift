@@ -13,7 +13,7 @@ var noisesPanel: NSPanel!
 func initNoisesPanel() {
     noisesPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
-        name: "Noises Panel"
+        name: NSLocalizedString("Noises Panel", comment: "")
     )
 }
 

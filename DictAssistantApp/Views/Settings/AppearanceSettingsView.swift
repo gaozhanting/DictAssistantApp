@@ -46,8 +46,8 @@ struct AppearanceSettingsView: View {
                                 BackgroundColorPicker()
                                 TextShadowToggle()
                             }
+                            .frame(width: 160)
                         }
-                        .frame(width: 170)
                         
                         ShadowGroupSettings()
                     }
@@ -385,7 +385,7 @@ fileprivate struct TextShadowToggle: View {
     
     var body: some View {
         Toggle(isOn: binding, label: {
-            Text("Use Text Shadow")
+            Text("Use Text Shadow:")
         })
         .toggleStyle(SwitchToggleStyle())
     }
@@ -403,7 +403,7 @@ fileprivate struct ShadowGroupSettings: View {
                     ShadowXOffSetPicker()
                     ShadowYOffSetPicker()
                 }
-                .frame(width: 140)
+                .frame(width: 130)
             }
         }
     }

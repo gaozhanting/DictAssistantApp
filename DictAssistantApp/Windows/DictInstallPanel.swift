@@ -13,7 +13,7 @@ var dictInstallPanel: NSPanel!
 func initDictInstallPanel() {
     dictInstallPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 450, height: 200),
-        name: "Dict Install Panel"
+        name: NSLocalizedString("Dict Install Panel", comment: "")
     )
 }
 

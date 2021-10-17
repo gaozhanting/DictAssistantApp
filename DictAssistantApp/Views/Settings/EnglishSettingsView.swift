@@ -11,7 +11,7 @@ import Preferences
 struct EnglishSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Show Phrases:", comment: "")) {
+            Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
             Preferences.Section(title: NSLocalizedString("Use Entry Mode:", comment: "")) {
