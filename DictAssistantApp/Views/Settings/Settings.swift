@@ -23,7 +23,7 @@ func GeneralPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .general,
         title: NSLocalizedString("General", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "General preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "gearshape", accessibilityDescription: "General preferences")!
     ) {
         GeneralSettingsView()
     }
