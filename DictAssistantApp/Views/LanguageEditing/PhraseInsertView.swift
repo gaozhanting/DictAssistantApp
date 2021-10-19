@@ -12,14 +12,14 @@ struct PhraseInsertView: View {
     
     func add() {
         addPhrase(text, didSucceed: {
-            phraseInsertPanel.title = "Succeed"
+            phraseInsertPanel.title = NSLocalizedString("Succeed", comment: "")
             Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
-                phraseInsertPanel.title = "Phrase Insert"
+                phraseInsertPanel.title = NSLocalizedString("Phrase Insert Panel", comment: "")
             }
         }, nothingChanged: {
-            phraseInsertPanel.title = "Nothing Changed"
+            phraseInsertPanel.title = NSLocalizedString("Nothing Changed", comment: "")
             Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
-                phraseInsertPanel.title = "Phrase Insert"
+                phraseInsertPanel.title = NSLocalizedString("Phrase Insert Panel", comment: "")
             }
         })
     }

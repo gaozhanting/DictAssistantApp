@@ -21,7 +21,7 @@ func initOnboardingPanel() {
         defer: false
     )
     
-    onboardingPanel.title = "Onboarding"
+    onboardingPanel.title = NSLocalizedString("Onboarding", comment: "")
     onboardingPanel.setFrameAutosaveName("onBoardingPanel")
 }
 

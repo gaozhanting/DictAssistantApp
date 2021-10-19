@@ -13,14 +13,14 @@ struct EntryUpsertView: View {
     func upsert() {
         let wt = text.split(separator: Character(","), maxSplits: 1)
         upsertEntry(word: String(wt[0]), trans: String(wt[1]), didSucceed: {
-            entryUpsertPanel.title = "Succeed"
+            entryUpsertPanel.title = NSLocalizedString("Succeed", comment: "")
             Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
-                entryUpsertPanel.title = "Entry Upsert"
+                entryUpsertPanel.title = NSLocalizedString("Entry Upsert Panel", comment: "")
             }
         }, nothingChanged: {
-            entryUpsertPanel.title = "Nothing Changed"
+            entryUpsertPanel.title = NSLocalizedString("Nothing Changed", comment: "")
             Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
-                entryUpsertPanel.title = "Entry Upsert"
+                entryUpsertPanel.title = NSLocalizedString("Entry Upsert Panel", comment: "")
             }
         })
     }

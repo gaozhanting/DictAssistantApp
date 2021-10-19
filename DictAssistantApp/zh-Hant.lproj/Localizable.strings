@@ -55,9 +55,9 @@
 "sourceURL:" = "源鏈接：";
 "downloadURL:" = "下載鏈接：";
 "Install" = "安裝";
-"These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish." = "這些詞典文件是我在互聯網上找到的壹些免費的簡明詞典，並且轉化爲蘋果自帶詞典應用所需的詞典格式，我是使用壹個名叫pyglossary的開源工具轉換的。這些詞典，作爲系統自帶詞典的壹些補充和第三方詞典，很適合此APP，因爲它們是簡明的，和免費的。注意，它們可能有不壹樣的詞條譯文編排形式，而您可以通過勾選和反勾選壹些內容顯示的選項，以盡量獲得更好的顯示效果。\n\n當然，您可以使用系統自帶的詞典，或者爲蘋果自帶詞典應用所制作的其他第三方詞典。本APP的詞典數據源于這裏。這些都是本地的，離線的詞典數據。\n\n您只需要點擊下載按鈕，然後當下載完成，壹個保存提示會自動彈出，因爲這需要您授予存儲的權限，然後才會使得詞典保存在蘋果自帶詞典特有的路徑之下。您使用默認的詞典名稱和保存路徑即可。當保存完畢，您需要打開系統自帶詞典應用的偏好設置，選擇並且調整它們的順序。我建議您優先使用簡明詞典，然後更詳盡的詞典；無論如何，您可自由選擇。";
+"These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish." = "這些詞典文件是我在互聯網上找到的壹些免費的簡明詞典，並且轉化爲蘋果自帶詞典應用所需的詞典格式，我是使用壹個名叫pyglossary的開源工具轉換的。這些詞典，作爲系統自帶詞典的壹些補充和第三方詞典，很適合此APP，因爲它們是簡明的，和免費的。注意，它們可能有不壹樣的詞條譯文編排形式，而您可以通過勾選和反勾選壹些內容顯示的選項，以盡量獲得更好的顯示效果。\n\n當然，您可以使用系統自帶的詞典，或者爲蘋果自帶詞典應用所制作的其他第三方詞典。本APP的詞典數據源于這裏。這些都是本地的，離線的詞典數據。\n\n您只需要點擊安裝按鈕，壹個保存提示會自動彈出，因爲這需要您授予存儲的權限，然後才會使得詞典保存在蘋果自帶詞典特有的路徑之下。您使用默認的詞典名稱和保存路徑即可。當保存完畢，您需要打開系統自帶詞典應用的偏好設置，選擇並且調整它們的順序。我建議您優先使用簡明詞典，然後更詳盡的詞典；無論如何，您可自由選擇。";
 
-"General" = "壹般";
+"General" = "常規";
 "Global Keyboard Shortcuts:" = "全局鍵盤快捷鍵：";
 "Run Step Play:" = "單步運行";
 "Toggle Show Current Known Words:" = "切換是否顯示當前已知單詞";
@@ -78,6 +78,9 @@
 "Toast:" = "運行提示框：";
 "Show Toast" = "顯示運行提示";
 
+"Entry Upsert Panel" = "添加詞條面板";
+"Phrase Insert Panel" = "添加短語面板";
+
 "Recording" = "屏幕錄制";
 "Cropper Style:" = "截屏區樣式：";
 "leadingBorder" = "前導邊框";
@@ -88,6 +91,7 @@
 "as first priority" = "優先使用";
 "as last priority" = "次後使用";
 "only" = "只使用";
+"Choose the way you want to use for your custom entries." = "選擇妳想使用自定義詞條的方式";
 "Maximum Frame Rate:" = "最大幀率：";
 
 "Vision" = "文本識別";
@@ -184,23 +188,23 @@
 "Slot is a stored collection of all preferences settings (except global shortcut key, font name, is show toast option), and cropper window frame, and content window frame. This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add as many slots as you like. You click the update button to dump current preferences settings and store it into the selected slot. You click the icon to switch and dump the selected slot settings into the current preferences settings. You can swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. You can even clone the selected slot." = "空位只是壹些屬性的集中存貯，包含所有偏好設置（排除全局鍵盤快捷鍵設置，字體名稱，運行提示開關 這三個屬性），和錄屏截區窗口位置和大小，內容顯示窗口位置和大小。空位使得您能在您的多個常用配置中快速切換。\n\n但是，如果您在運行中切換它們的話，錄屏區域並未立即切換。您需要停止運行然後切換它們。\n\n您可以添加任意數量的空位。您點擊更新按鈕以存儲當前的所有偏好設置。您點擊前面的盒子圖標會在空位之間進行切換，同時加載所有偏好設置爲選中的空位中存儲的。您可以左滑以彈出刪除按鈕來刪除某個空位。您可以在某個空位之後編輯附帶文本信息，通過點擊盒子圖標之後的區域。您甚至可以克隆選中的空位。";
 "Are you sure? This action can't be undo." = "確認？這個動作不能撤銷。";
 
+"Onboarding" = "歡迎";
 "Welcome to DictAssistant" = "歡迎使用 詞典助手App";
 "We start three steps to setup." = "我們開始三步啓動設置。";
 "Continue" = "繼續";
 "Initialize your English vocabulary" = "初始化您的英語詞彙量";
-"Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine." = "輸入您估計的詞彙量數字，並輸入return按鍵確認提交。然後點擊之後的添加按鈕，等待完成並繼續。";
+"Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine." = "輸入您估計的詞彙量數字，並按return鍵確認提交。然後點擊之後的添加按鈕，等待完成並繼續。";
 "My vocabulary count:" = "我的詞彙量：";
-"Download and install recommened concise dictionary" = "下載安裝推薦的簡明詞典";
+"Install recommened concise dictionary" = "安裝推薦的簡明詞典";
+"If have multi, install which you like." = "如果有多個，安裝您喜歡的。";
 "This step is optional, but highly recommended." = "這壹步是可跳過的，不過強烈推薦完成。";
-"Select the dictionary of English to your native language:" = "選擇您的母語爲目標語言的詞典：";
-"Download and install." = "點擊下載並完成安裝。";
 "Open Dictionary App preferences, make it the first selected dictionary." = "打開系統自帶的詞典應用程序的偏好設置，調整剛安裝的詞典爲第壹選擇的詞典。";
 "Open Dictionary App" = "打開系統自帶的詞典應用程序";
 "Initialize two global keyboard shortcuts & Playing" = "初始化兩個全局的鍵盤快捷鍵";
 "Playing:" = "運行：";
-"Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window." = "步驟1：輸入 執行單步 快捷鍵，調整錄屏區域。";
-"Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window." = "步驟2：輸入 執行單步 快捷鍵，調整內容區域。";
-"Step 3: Press Toggle Flow Step keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟3：輸入 執行單步 快捷鍵 運行。（需要屏幕錄制授權）";
+"Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window." = "步驟1：按 單步運行 快捷鍵，調整錄屏區域。";
+"Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window." = "步驟2：按 單步運行 快捷鍵，調整內容區域。";
+"Step 3: Press Toggle Flow Step keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟3：按 單步運行 快捷鍵 運行。（需要屏幕錄制授權）";
 "Stop:" = "停止：";
-"Press Toggle Flow Step keyboard shortcut key to stop playing." = "輸入 執行單步 快捷鍵 停止運行";
+"Press Toggle Flow Step keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行";
 "End" = "完成設置";
