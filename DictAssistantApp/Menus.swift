@@ -14,10 +14,7 @@ let menu = NSMenu()
 
 func constructMenuBar() {
     
-    statusItem.button?.image = NSImage(
-        systemSymbolName: "d.circle",
-        accessibilityDescription: nil
-    )
+    statusItem.button?.image = NSImage(named: "EmptyIcon")
     
     menu.addItem(NSMenuItem(title: NSLocalizedString("Preferences...", comment:  ""), action: #selector(AppDelegate.showPreferences), keyEquivalent: ","))
     menu.addItem(NSMenuItem.separator())

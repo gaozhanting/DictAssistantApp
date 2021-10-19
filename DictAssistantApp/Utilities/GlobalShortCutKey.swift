@@ -163,10 +163,8 @@ private func attachEnv(_ view: AnyView) -> some View {
 private func startPlaying() {
     toastOn()
     statusData.isPlaying = true
-    statusItem.button?.image = NSImage(
-        systemSymbolName: "d.circle.fill",
-        accessibilityDescription: nil
-    )
+    statusItem.button?.image = NSImage(named: "FullIcon")
+
     displayedWords.wordCells = []
     aVSessionAndTR.lastReconginzedTexts = []
     aVSessionAndTR.startScreenCapture()
@@ -175,10 +173,8 @@ private func startPlaying() {
 private func stopPlaying() {
     toastOff()
     statusData.isPlaying = false
-    statusItem.button?.image = NSImage(
-        systemSymbolName: "d.circle",
-        accessibilityDescription: nil
-    )
+    statusItem.button?.image = NSImage(named: "EmptyIcon")
+
     displayedWords.wordCells = []
     aVSessionAndTR.lastReconginzedTexts = []
     aVSessionAndTR.stopScreenCapture()
