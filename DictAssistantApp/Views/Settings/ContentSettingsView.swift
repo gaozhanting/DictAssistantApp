@@ -73,7 +73,7 @@ fileprivate struct DropFirstTitleWordInTranslationToggle: View {
 }
 
 fileprivate struct JoinTranslationLinesToggle: View {
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
     
     var body: some View {
         Toggle(isOn: $isJoinTranslationLines, label: {

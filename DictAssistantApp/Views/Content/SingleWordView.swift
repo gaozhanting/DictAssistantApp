@@ -227,7 +227,7 @@ fileprivate struct TheText: View {
         }
     }
     
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false

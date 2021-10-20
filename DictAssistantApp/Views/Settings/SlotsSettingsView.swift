@@ -61,7 +61,8 @@ struct Settings: Codable {
     let shadowRadius: Double
     let shadowXOffSet: Double
     let shadowYOffSet: Double
-    // ---- visual effect background
+    // ---- color background && visual effect background
+    let contentBackgroundColor: Bool
     let contentBackgroundVisualEffect: Bool
     let contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
     
@@ -101,6 +102,7 @@ struct Settings: Codable {
         shadowRadius: Double,
         shadowXOffSet: Double,
         shadowYOffSet: Double,
+        contentBackgroundColor: Bool,
         contentBackgroundVisualEffect: Bool,
         contentBackGroundVisualEffectMaterial: Int, //NSVisualEffectView.Material
         cropperFrame: NSRect,
@@ -137,6 +139,7 @@ struct Settings: Codable {
         self.shadowRadius = shadowRadius
         self.shadowXOffSet = shadowXOffSet
         self.shadowYOffSet = shadowYOffSet
+        self.contentBackgroundColor = contentBackgroundColor
         self.contentBackgroundVisualEffect = contentBackgroundVisualEffect
         self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         self.cropperFrame = cropperFrame
@@ -158,14 +161,14 @@ fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     maximumFrameRate: 4,
-    useEntryMode: UseEntryMode.notUse,
+    useEntryMode: UseEntryMode.asFirstPriority,
     isShowPhrases: true,
     cropperStyle: CropperStyle.leadingBorder,
     isDropTitleWord: false,
     isAddLineBreak: true,
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
-    isJoinTranslationLines: false,
+    isJoinTranslationLines: true,
     chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert,
     isContentRetention: false,
     isShowWindowShadow: true,
@@ -186,6 +189,7 @@ fileprivate let defaultSettings = Settings(
     shadowRadius: 3,
     shadowXOffSet: 0.0,
     shadowYOffSet: 0.0,
+    contentBackgroundColor: true,
     contentBackgroundVisualEffect: false,
     contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
     cropperFrame: NSRect(x: 310, y: 500, width: 600, height: 200),
@@ -393,6 +397,7 @@ fileprivate struct SlotsView: View {
             shadowRadius: shadowRadius,
             shadowXOffSet: shadowXOffSet,
             shadowYOffSet: shadowYOffSet,
+            contentBackgroundColor: contentBackgroundColor,
             contentBackgroundVisualEffect: contentBackgroundVisualEffect,
             contentBackGroundVisualEffectMaterial: contentBackGroundVisualEffectMaterial,
             cropperFrame: cropperWindow.frame,
@@ -432,6 +437,7 @@ fileprivate struct SlotsView: View {
             s.shadowRadius == shadowRadius &&
             s.shadowXOffSet == shadowXOffSet &&
             s.shadowYOffSet == shadowYOffSet &&
+            s.contentBackgroundColor == contentBackgroundColor &&
             s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
             s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         
@@ -470,6 +476,7 @@ fileprivate struct SlotsView: View {
         shadowRadius = s.shadowRadius
         shadowXOffSet = s.shadowXOffSet
         shadowYOffSet = s.shadowYOffSet
+        contentBackgroundColor = s.contentBackgroundColor
         contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
         contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         cropperWindow.setFrame(s.cropperFrame, display: true)
@@ -491,7 +498,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = false
+    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
     @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
 
     @AppStorage(IsContentRetentionKey) private var isContentRetention = false
@@ -521,6 +528,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
     @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 0
     
+    @AppStorage(ContentBackgroundColorKey) var contentBackgroundColor: Bool = true
     @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 }
