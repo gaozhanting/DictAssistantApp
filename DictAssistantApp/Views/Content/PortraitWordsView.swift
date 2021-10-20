@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-fileprivate struct OriginBody: View {
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            WordsView()
-                .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
-        }
-    }
-}
-
 func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
     switch theColorScheme {
     case .light:
@@ -29,92 +18,31 @@ func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
     }
 }
 
-fileprivate struct BodyWithVisualEffectBackground: View {
+fileprivate struct BodyView: View {
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+
+    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
-    var body: some View {
-        OriginBody()
-            .background(
-                VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
-                    .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
-            )
-    }
-}
-
-fileprivate struct BodyWithColorBackground: View {
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    var theBackgroundColor: Color {
-        Color(dataToColor(backgroundColor)!)
-    }
-    var body: some View {
-        OriginBody()
-            .background(theBackgroundColor)
-    }
-}
-
-fileprivate struct BodyWithBackground: View {
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    var body: some View {
-        if contentBackgroundVisualEffect {
-            BodyWithVisualEffectBackground()
-        } else {
-            BodyWithColorBackground()
-        }
-    }
-}
-
-fileprivate struct BodyEmbeddedInScrollView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            BodyWithBackground()
-        }
-    }
-}
-
-/* (not used)
-fileprivate struct PortraitBottomLeadingViewAutoScroll: View {
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    
-    var body: some View {
-        GeometryReader { reader in
-            ScrollViewReader { proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading) {
-                        ForEach(words) { wordCellWithId in
-                            SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-                        }
-                        .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
-
-                        HStack { Spacer() }
-                    }
-                    .background(contentBackgroundVisualEffect ?
-                                    VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                                    nil)
-                    .frame(minHeight: reader.size.height, alignment: .bottomLeading) // key point
-                }
-                .onChange(of: words) { _ in
-                    proxy.scrollTo(words.last?.id, anchor: .top)
-                }
-                .onAppear {
-                    proxy.scrollTo(words.last?.id, anchor: .top)
-                }
+            VStack(alignment: .leading) {
+                WordsView()
+                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
             }
+            .background(contentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
+            .background(contentBackgroundVisualEffect ?
+                        VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
+                            .preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                            nil)
         }
     }
-    
-    @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    
-    var words: [WordCellWithId] {
-        convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
-    }
 }
- */
 
 fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
@@ -128,6 +56,9 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
 
+    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    
     var words: [WordCellWithId] {
         convertToWordCellWithId(
             from: displayedWords.wordCells,
@@ -152,12 +83,14 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
                 HStack { Spacer() }
             }
             .rotationEffect(Angle(degrees: 180))
+            .background(contentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
             .background(contentBackgroundVisualEffect ?
-                            VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                        VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                             nil)
         }
         .rotationEffect(Angle(degrees: 180))
     }
+    
 }
 
 struct PortraitWordsView: View {
@@ -167,11 +100,11 @@ struct PortraitWordsView: View {
         case .topTrailing:
             HStack {
                 Spacer()
-                BodyEmbeddedInScrollView()
+                BodyView()
             }
         case .topLeading:
             HStack {
-                BodyEmbeddedInScrollView()
+                BodyView()
                 Spacer()
             }
         case .bottomLeading:

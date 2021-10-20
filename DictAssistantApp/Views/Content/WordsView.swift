@@ -26,7 +26,7 @@ struct WordsView: View {
     var body: some View {
         ForEach(words) { wordCellWithId in
             let wordCell = wordCellWithId.wordCell
-            SingleWordView(wordCell: wordCell)
+            SingleWordView(wordCell: wordCell).id(wordCellWithId.id)
         }
     }
 }

@@ -175,6 +175,8 @@
 "Radius:" = "陰影半徑：";
 "X Offset:" = "X偏移：";
 "Y Offset:" = "Y偏移：";
+"Using Background Color" = "使用背景顏色";
+"When selected, it will use the background color on all words." = "選擇此項會為所有的內容設置背景色";
 "Using Visual Effect" = "使用特殊視覺效果背景";
 "with material:" = "材質：";
 "titlebar" = "標題欄";

@@ -54,6 +54,7 @@ fileprivate struct BodyView: View {
                 }
                 .frame(maxWidth: CGFloat(landscapeMaxWidth))
             }
+            .background(contentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
             .background(contentBackgroundVisualEffect ?
                             VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                             nil)
@@ -70,47 +71,10 @@ fileprivate struct BodyView: View {
         }
     }
     
+    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
 }
-
-/*  //(not used)
-struct LandscapeWordsViewTwoRotation: View {
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top) {
-                ForEach(words) { wordCellWithId in
-                    SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .identity
-                        ))
-                }
-                .frame(maxWidth: CGFloat(landscapeMaxWidth))
-            }
-            .rotationEffect(Angle(degrees: 180))
-            .background(contentBackgroundVisualEffect ?
-                            VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                            nil)
-        }
-        .rotationEffect(Angle(degrees: 180))
-    }
-    
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
-
-    @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true // the value only used when the key doesn't exists, this will never be the case because we init it when app lanched
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    
-    var words: [WordCellWithId] {
-        convertToWordCellWithId(from: displayedWords.wordCells, isShowPhrase: isShowPhrase, isShowCurrentKnown: isShowCurrentKnown)
-    }
-}
-*/
 
 //struct LandscapeWordsView_Previews: PreviewProvider {
 //    static var previews: some View {

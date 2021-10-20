@@ -70,6 +70,8 @@ let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
+let ContentBackgroundColorKey = "ContentBackgroundColorKey"
+
 let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
@@ -130,6 +132,8 @@ fileprivate let defaultSlotKV: [String: Any] = [
     ShadowRadiusKey: 3,
     ShadowXOffSetKey: 0.0,
     ShadowYOffSetKey: 0.0,
+    
+    ContentBackgroundColorKey: true,
     
     ContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,

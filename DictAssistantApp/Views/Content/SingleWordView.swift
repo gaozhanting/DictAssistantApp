@@ -20,6 +20,7 @@ struct SingleWordView: View {
         case .landscape:
             VStack(alignment: .leading) {
                 TextBodyWidthBG(wordCell: wordCell)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer()
             }
         }
@@ -30,31 +31,16 @@ private struct TextBodyWidthBG: View {
     let wordCell: WordCell
 
     var body: some View {
-        if contentStyle == .landscape {
-            TextBody(wordCell: wordCell)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .background(isAddBackGround ? theBackgroundColor : nil)
-        } else {
-            TextBody(wordCell: wordCell)
-                .background(isAddBackGround ? theBackgroundColor : nil)
-        }
-    }
-    
-    // Add background when landscape or portrait-bottomLeading, when disabled the visual effect.
-    var isAddBackGround: Bool {
-        !contentBackgroundVisualEffect &&
-        (contentStyle == .landscape ||
-         (contentStyle == .portrait && portraitCorner == .bottomLeading))
+        TextBody(wordCell: wordCell)
+            .background((contentBackgroundColor || contentBackgroundVisualEffect) ?
+                        nil :
+                            Color(dataToColor(backgroundColor)!))
     }
     
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
+    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
     
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    var theBackgroundColor: Color {
-        Color(dataToColor(backgroundColor)!)
-    }
 }
 
 fileprivate struct TextBody: View {

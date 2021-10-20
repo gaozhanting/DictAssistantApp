@@ -54,6 +54,7 @@ struct AppearanceSettingsView: View {
                 }
             }
             Preferences.Section(title: NSLocalizedString("Content Background Display:", comment: "")) {
+                ContentBackgroundColor()
                 ContentBackgroundVisualEffect()
             }
         }
@@ -471,6 +472,18 @@ fileprivate struct ShadowYOffSetPicker: View {
     }
 }
 
+private struct ContentBackgroundColor: View {
+    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $contentBackgroundColor, label: {
+            Text("Using Background Color")
+        })
+            .toggleStyle(SwitchToggleStyle())
+            .help("When selected, it will use the background color on all words.")
+    }
+}
+
 fileprivate struct ContentBackgroundVisualEffect: View {
     @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
 
@@ -479,7 +492,7 @@ fileprivate struct ContentBackgroundVisualEffect: View {
             Toggle(isOn: $contentBackgroundVisualEffect, label: {
                 Text("Using Visual Effect")
             })
-            .toggleStyle(SwitchToggleStyle())
+                .toggleStyle(SwitchToggleStyle())
             
             if contentBackgroundVisualEffect {
                 ContentBackGroundVisualEffectMaterial()
