@@ -15,14 +15,45 @@ struct SingleWordView: View {
     var body: some View {
         switch contentStyle {
         case .portrait:
-            TextBody(wordCell: wordCell)
+            TextBodyWidthBG(wordCell: wordCell)
 
         case .landscape:
             VStack(alignment: .leading) {
-                TextBody(wordCell: wordCell)
+                TextBodyWidthBG(wordCell: wordCell)
                 Spacer()
             }
         }
+    }
+}
+
+private struct TextBodyWidthBG: View {
+    let wordCell: WordCell
+
+    var body: some View {
+        if contentStyle == .landscape {
+            TextBody(wordCell: wordCell)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .background(isAddBackGround ? theBackgroundColor : nil)
+        } else {
+            TextBody(wordCell: wordCell)
+                .background(isAddBackGround ? theBackgroundColor : nil)
+        }
+    }
+    
+    // Add background when landscape or portrait-bottomLeading, when disabled the visual effect.
+    var isAddBackGround: Bool {
+        !contentBackgroundVisualEffect &&
+        (contentStyle == .landscape ||
+         (contentStyle == .portrait && portraitCorner == .bottomLeading))
+    }
+    
+    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
+    
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    var theBackgroundColor: Color {
+        Color(dataToColor(backgroundColor)!)
     }
 }
 
@@ -43,12 +74,6 @@ fileprivate struct TextBody: View {
     
     var unKnown: Bool {
         wordCell.isKnown == .unKnown
-    }
-    
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    var theBackgroundColor: Color {
-        Color(dataToColor(backgroundColor)!)
     }
     
     @Environment(\.openURL) var openURL
@@ -81,7 +106,7 @@ fileprivate struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
     
-    var body0: some View {
+    var body: some View {
         TextWithShadow(wordCell: wordCell)
             .opacity( (known && isPhrase) ? 0.5 : 1)
             .padding(.vertical, 2)
@@ -125,27 +150,6 @@ fileprivate struct TextBody: View {
                     }
             )
     }
-    
-    var body: some View {
-        if contentStyle == .landscape {
-            body0
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .background(isAddBackGround ? theBackgroundColor : nil)
-        } else {
-            body0
-                .background(isAddBackGround ? theBackgroundColor : nil)
-        }
-    }
-    
-    // Add background when landscape or portrait-bottomLeading, when disabled the visual effect.
-    var isAddBackGround: Bool {
-        !contentBackgroundVisualEffect &&
-            (contentStyle == .landscape ||
-                (contentStyle == .portrait && portraitCorner == .bottomLeading))
-    }
-    
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
 }
 
 fileprivate struct TextWithShadow: View {
