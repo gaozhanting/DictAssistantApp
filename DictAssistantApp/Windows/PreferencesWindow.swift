@@ -19,7 +19,7 @@ var preferencesWindowController = PreferencesWindowController(
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
     ],
     style: .toolbarItems,
-    animated: false,
+    animated: true,
     hidesToolbarForSingleItem: true
 )
 
@@ -27,4 +27,15 @@ extension AppDelegate {
     @objc func showPreferences() {
         preferencesWindowController.show()
     }
+}
+
+func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
+    preferencesWindowController.show(preferencePane: .slots)
+    preferencesWindowController.show(preferencePane: .appearance)
+    preferencesWindowController.show(preferencePane: .content)
+    preferencesWindowController.show(preferencePane: .english)
+    preferencesWindowController.show(preferencePane: .vision)
+    preferencesWindowController.show(preferencePane: .recording)
+    preferencesWindowController.show(preferencePane: .general)
+    preferencesWindowController.close()
 }
