@@ -172,7 +172,7 @@ fileprivate struct DownloadExtraDictView: View {
                     
                     Text("Open Dictionary App preferences, make it the first selected dictionary.")
                     Button("Open Dictionary App") {
-                        openDict("")
+                        openAppleDictionrayApp()
                     }
                 }
                 .padding()
@@ -183,6 +183,14 @@ fileprivate struct DownloadExtraDictView: View {
                 })
             })
     }
+}
+
+private func openAppleDictionrayApp() {
+    guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Dictionary") else { return }
+    NSWorkspace.shared.openApplication(
+        at: url,
+        configuration: NSWorkspace.OpenConfiguration(),
+        completionHandler: nil)
 }
 
 fileprivate struct InitGlobalKeyboardShortcutView: View {
