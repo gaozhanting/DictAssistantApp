@@ -13,8 +13,10 @@ fileprivate struct ToastView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: imageSystemName)
-                .font(.system(size: 200, weight: .ultraLight))
+            Image(imageSystemName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 200, height: 200)
             
             Text(info)
                 .font(.system(size: 30, weight: .regular))
@@ -30,13 +32,13 @@ fileprivate struct ToastView: View {
 
 struct ToastOnView: View {
     var body: some View {
-        ToastView(imageSystemName: "d.circle.fill", info: "ON")
+        ToastView(imageSystemName: "FullToast", info: "ON")
     }
 }
 
 struct ToastOffView: View {
     var body: some View {
-        ToastView(imageSystemName: "d.circle", info: "OFF")
+        ToastView(imageSystemName: "EmptyToast", info: "OFF")
     }
 }
 
