@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
         }
         
-        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // takes 0.35
+        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // takes 0.35s
     }
     
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
