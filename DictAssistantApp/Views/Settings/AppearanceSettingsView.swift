@@ -11,7 +11,7 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "Content Style:") {
+            Preferences.Section(title: NSLocalizedString("Content Style:", comment: "")) {
                 ContentStyleSettingView()
             }
             Preferences.Section(title: NSLocalizedString("Font: ", comment: "")) {
