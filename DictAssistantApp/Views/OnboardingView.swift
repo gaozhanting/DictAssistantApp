@@ -198,10 +198,13 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     @Environment(\.endOnboarding) var endOnboarding
     @AppStorage(IsFinishedOnboardingKey) private var isFinishedOnboarding: Bool = false
     
-    func allSet() -> Bool {
-        (KeyboardShortcuts.getShortcut(for: .toggleStepPlay) != nil) &&
-        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnown) != nil)
-    }
+//    func allSet() -> Bool {
+//        let result = (KeyboardShortcuts.getShortcut(for: .toggleStepPlay) != nil) &&
+//        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnown) != nil)
+//
+//        logger.info(">>allSet result: \(result)")
+//        return result
+//    }
     
     @State private var showPlaying: Bool = false
     
@@ -216,12 +219,12 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
                     VStack(alignment: .leading) {
                         Divider()
                         Text("Playing:")
-                        Text("Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window.")
-                        Text("Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window.")
-                        Text("Step 3: Press Toggle Flow Step keyboard shortcut key and playing. (Need Screen Recording Permission)")
+                        Text("Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window.")
+                        Text("Step 2: Press Run Step Play keyboard shortcut key and adjust the content window.")
+                        Text("Step 3: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)")
                         Divider()
                         Text("Stop:")
-                        Text("Press Toggle Flow Step keyboard shortcut key to stop playing.")
+                        Text("Press Run Step Play keyboard shortcut key to stop playing.")
                     }
                     .frame(width: 500)
                 }
@@ -236,7 +239,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
                     }, label: {
                         Text("Continue")
                     })
-                    .disabled(!allSet())
+//                    .disabled(!allSet())
                 } else {
                     Button(action: {
                         endOnboarding()

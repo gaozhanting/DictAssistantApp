@@ -204,9 +204,9 @@
 "Open Dictionary App" = "打开系统自带的词典应用程序";
 "Initialize two global keyboard shortcuts & Playing" = "初始化两个全局的键盘快捷键";
 "Playing:" = "运行：";
-"Step 1: Press Toggle Flow Step keyboard shortcut key and adjust the cropper window." = "步骤1：按 单步运行 快捷键，調整录屏区域。";
-"Step 2: Press Toggle Flow Step keyboard shortcut key and adjust the content window." = "步骤2：按 单步运行 快捷键，调整内容区域。";
-"Step 3: Press Toggle Flow Step keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步骤3：按 单步运行 快捷键 运行。（需要屏幕录制授权）";
+"Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window." = "步骤1：按 单步运行 快捷键，調整录屏区域。";
+"Step 2: Press Run Step Play keyboard shortcut key and adjust the content window." = "步骤2：按 单步运行 快捷键，调整内容区域。";
+"Step 3: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步骤3：按 单步运行 快捷键 运行。（需要屏幕录制授权）";
 "Stop:" = "停止：";
-"Press Toggle Flow Step keyboard shortcut key to stop playing." = "按 单步运行 快捷键 停止运行";
+"Press Run Step Play keyboard shortcut key to stop playing." = "按 单步运行 快捷键 停止运行";
 "End" = "完成设置";
