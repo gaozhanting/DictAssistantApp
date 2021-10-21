@@ -11,16 +11,7 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Content Retention:", comment: "")) {
-                ContentRetentionToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("Content Window Shadow Display:", comment: "")) {
-                ContentWindowShadowToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("Content Animation Display:", comment: "")) {
-                WithAnimationToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("Content Style:", comment: "")) {
+            Preferences.Section(title: "Content Style:") {
                 ContentStyleSettingView()
             }
             Preferences.Section(title: NSLocalizedString("Font: ", comment: "")) {
@@ -32,9 +23,6 @@ struct AppearanceSettingsView: View {
                         FontRateSetting()
                     }
                 }
-            }
-            Preferences.Section(title: NSLocalizedString("Appearance:", comment: "")) {
-                ColorSchemeSetting()
             }
             Preferences.Section(title: NSLocalizedString("Colors & Shadow:", comment: "")) {
                 GroupBox {
@@ -56,6 +44,18 @@ struct AppearanceSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Content Background Display:", comment: "")) {
                 ContentBackgroundColor()
                 ContentBackgroundVisualEffect()
+            }
+            Preferences.Section(title: NSLocalizedString("Appearance:", comment: "")) {
+                ColorSchemeSetting()
+            }
+            Preferences.Section(title: NSLocalizedString("Content Window Shadow Display:", comment: "")) {
+                ContentWindowShadowToggle()
+            }
+            Preferences.Section(title: NSLocalizedString("Content Animation Display:", comment: "")) {
+                WithAnimationToggle()
+            }
+            Preferences.Section(title: NSLocalizedString("Content Retention:", comment: "")) {
+                ContentRetentionToggle()
             }
         }
     }
@@ -536,13 +536,13 @@ struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             AppearanceSettingsView()
-                .environment(\.locale, .init(identifier: "zh-Hans"))
+                .environment(\.locale, .init(identifier: "en"))
             
+            AppearanceSettingsView()
+                .environment(\.locale, .init(identifier: "zh-Hans"))
+
             AppearanceSettingsView()
                 .environment(\.locale, .init(identifier: "zh-Hant"))
-            
-            AppearanceSettingsView()
-                .environment(\.locale, .init(identifier: "en"))
         }
             .frame(width: 650, height: 800)
     }
