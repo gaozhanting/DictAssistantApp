@@ -90,7 +90,7 @@ enum ChineseCharacterConvertMode: Int, Codable {
 
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
-fileprivate let defaultSlotKV: [String: Any] = [
+let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,

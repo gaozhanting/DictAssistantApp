@@ -25,11 +25,9 @@ private func updateSelectedSlot() {
     let slots = getAllSlots()
     for slot in slots {
         if slot.isSelected {
-            var settings = dataToSettings(slot.settings!)!
-            settings.contentFrame = contentWindow.frame
-            settings.cropperFrame = cropperWindow.frame
-            slot.settings = settingsToData(settings)
-            saveContext()
+//            slot.contentFrame = contentWindow.frame
+//            slot.cropperFrame = cropperWindow.frame
+//            saveContext()
             myPrint("did save slot")
             return
         }
