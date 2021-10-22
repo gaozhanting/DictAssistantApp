@@ -138,6 +138,25 @@ fileprivate struct TextBody: View {
     }
 }
 
+private func say(_ word: String) {
+    let task = Process()
+    task.launchPath = "/usr/bin/say"
+    var arguments = [String]();
+    arguments.append(word)
+    task.arguments = arguments
+    task.launch()
+}
+
+private func openDict(_ word: String) {
+    let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
+    let task = Process()
+    task.launchPath = "/usr/bin/open"
+    var arguments = [String]();
+    arguments.append("dict://\(replaceSpaced)")
+    task.arguments = arguments
+    task.launch()
+}
+
 fileprivate struct TextWithShadow: View {
     @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3

@@ -31,25 +31,6 @@ func dataToColor(_ data: Data) -> NSColor? {
     return color
 }
 
-func say(_ word: String) {
-    let task = Process()
-    task.launchPath = "/usr/bin/say"
-    var arguments = [String]();
-    arguments.append(word)
-    task.arguments = arguments
-    task.launch()
-}
-
-func openDict(_ word: String) {
-    let replaceSpaced = word.replacingOccurrences(of: " ", with: "-")
-    let task = Process()
-    task.launchPath = "/usr/bin/open"
-    var arguments = [String]();
-    arguments.append("dict://\(replaceSpaced)")
-    task.arguments = arguments
-    task.launch()
-}
-
 let logger = Logger()
 
 func myPrint(_ str: String) {
