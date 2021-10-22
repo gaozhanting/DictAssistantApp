@@ -217,8 +217,7 @@ struct SlotsSettingsView: View {
                                     InfoView()
                                 })
                             ,
-                            alignment: .bottomTrailing
-                        )
+                            alignment: .bottomTrailing)
                     
                     Spacer()
                 }
