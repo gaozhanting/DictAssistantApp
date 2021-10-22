@@ -198,14 +198,6 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     @Environment(\.endOnboarding) var endOnboarding
     @AppStorage(IsFinishedOnboardingKey) private var isFinishedOnboarding: Bool = false
     
-//    func allSet() -> Bool {
-//        let result = (KeyboardShortcuts.getShortcut(for: .toggleStepPlay) != nil) &&
-//        (KeyboardShortcuts.getShortcut(for: .toggleShowCurrentKnown) != nil)
-//
-//        logger.info(">>allSet result: \(result)")
-//        return result
-//    }
-    
     @State private var showPlaying: Bool = false
     
     var body: some View {
@@ -239,7 +231,6 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
                     }, label: {
                         Text("Continue")
                     })
-//                    .disabled(!allSet())
                 } else {
                     Button(action: {
                         endOnboarding()
