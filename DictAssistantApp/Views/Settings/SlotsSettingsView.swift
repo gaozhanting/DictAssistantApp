@@ -89,14 +89,6 @@ private struct ItemView: View {
     let slot: Slot
     let slots: FetchedResults<Slot>
         
-    func isSelectedSlotEqualWithCurrentSettings(_ slot: Slot) -> Bool {
-        let result =
-        Int(slot.tRTextRecognitionLevel) == tRTextRecognitionLevel &&
-        slot.tRMinimumTextHeight == tRMinimumTextHeight
-        // ...
-        return result
-    }
-    
     func select(_ slot: Slot) -> Void {
         for slot in slots {
             slot.isSelected = false
@@ -106,13 +98,6 @@ private struct ItemView: View {
         tRTextRecognitionLevel = Int(slot.tRTextRecognitionLevel)
         tRMinimumTextHeight = slot.tRMinimumTextHeight
         // ...
-    }
-    
-    func update(_ slot: Slot) -> Void {
-        slot.tRTextRecognitionLevel = Int64(tRTextRecognitionLevel)
-        slot.tRMinimumTextHeight = tRMinimumTextHeight
-        // ...
-        saveContext()
     }
     
     var body: some View {
@@ -135,10 +120,6 @@ private struct ItemView: View {
                 .font(.callout)
                 .textFieldStyle(PlainTextFieldStyle())
                 .frame(maxWidth: 300)
-            }
-            
-            if slot.isSelected && !isSelectedSlotEqualWithCurrentSettings(slot) {
-                Button("Update", action: { update(slot) })
             }
         }
     }
