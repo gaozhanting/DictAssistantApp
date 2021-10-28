@@ -85,10 +85,6 @@ private struct SlotsView: View {
     }
 }
 
-func setSlotSettings(slot: Slot) {
-    
-}
-
 private struct ItemView: View {
     let slot: Slot
     let slots: FetchedResults<Slot>

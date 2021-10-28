@@ -284,14 +284,6 @@ fileprivate struct FontRateSetting: View {
     }
 }
 
-enum TheColorScheme: String, CaseIterable, Identifiable, Codable {
-    case light
-    case dark
-    case system
-
-    var id: String { self.rawValue }
-}
-
 fileprivate struct ColorSchemeSetting: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
 
@@ -306,17 +298,6 @@ fileprivate struct ColorSchemeSetting: View {
         .frame(width: 160)
         .help("This will effect on visual effect background and system colors.")
     }
-}
-
-enum ContentStyle: Int, Codable {
-    case portrait = 0
-    case landscape = 1
-}
-
-enum PortraitCorner: Int, Codable {
-    case topTrailing = 0
-    case topLeading = 1
-    case bottomLeading = 2
 }
 
 fileprivate struct WordColorPicker: View {

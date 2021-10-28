@@ -88,9 +88,34 @@ enum ChineseCharacterConvertMode: Int, Codable {
     case convertToSimplified = 2
 }
 
+enum CropperStyle: Int, Codable {
+    case closed = 0
+    case rectangle = 1
+    case leadingBorder = 2
+    case trailingBorder = 3
+}
+
+enum TheColorScheme: Int, Codable {
+    case light = 0
+    case dark = 1
+    case system = 2
+}
+
+enum ContentStyle: Int, Codable {
+    case portrait = 0
+    case landscape = 1
+}
+
+enum PortraitCorner: Int, Codable {
+    case topTrailing = 0
+    case topLeading = 1
+    case bottomLeading = 2
+}
+
+
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
-let defaultSlotKV: [String: Any] = [
+private let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,
