@@ -22,10 +22,10 @@ struct EnglishSettingsView: View {
 }
 
 private struct ShowPhrasesToggle: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrases: Bool = true
     
     var body: some View {
-        Toggle(isOn: $isShowPhrase, label: {
+        Toggle(isOn: $isShowPhrases, label: {
             Text("Show Phrases")
         })
             .toggleStyle(CheckboxToggleStyle())

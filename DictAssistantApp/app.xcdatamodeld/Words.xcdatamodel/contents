@@ -37,7 +37,7 @@
         <attribute name="backgroundColor" attributeType="Binary"/>
         <attribute name="chineseCharacterConvertMode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="color" attributeType="Binary"/>
-        <attribute name="contentBackgroundColor" attributeType="Binary"/>
+        <attribute name="contentBackgroundColor" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="contentBackgroundVisualEffect" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="contentBackGroundVisualEffectMaterial" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="contentStyle" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -58,19 +58,19 @@
         <attribute name="label" attributeType="String"/>
         <attribute name="landscapeAutoScroll" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="landscapeMaxWidth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="maximumFrameRate" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="maximumFrameRate" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="portraitCorner" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="portraitMaxHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="shadowColor" attributeType="Binary"/>
         <attribute name="shadowRadius" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="shadowXOffSet" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="shadowYOffSet" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="shadowXOffset" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="shadowYOffset" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="textShadowToggle" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="theColorScheme" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="transColor" attributeType="Binary"/>
         <attribute name="tRMinimumTextHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="tRTextRecognitionLevel" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="useEntryModeKey" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="useEntryMode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wordColor" attributeType="Binary"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
