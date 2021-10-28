@@ -454,10 +454,10 @@ fileprivate struct ShadowYOffSetPicker: View {
 }
 
 private struct ContentBackgroundColor: View {
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     
     var body: some View {
-        Toggle(isOn: $contentBackgroundColor, label: {
+        Toggle(isOn: $useContentBackgroundColor, label: {
             Text("Using Background Color")
         })
             .toggleStyle(SwitchToggleStyle())
@@ -466,16 +466,16 @@ private struct ContentBackgroundColor: View {
 }
 
 fileprivate struct ContentBackgroundVisualEffect: View {
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
 
     var body: some View {
         HStack {
-            Toggle(isOn: $contentBackgroundVisualEffect, label: {
+            Toggle(isOn: $useContentBackgroundVisualEffect, label: {
                 Text("Using Visual Effect")
             })
                 .toggleStyle(SwitchToggleStyle())
             
-            if contentBackgroundVisualEffect {
+            if useContentBackgroundVisualEffect {
                 ContentBackGroundVisualEffectMaterial()
                     .frame(maxWidth: 200)
             }

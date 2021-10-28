@@ -70,9 +70,9 @@ let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
-let ContentBackgroundColorKey = "ContentBackgroundColorKey"
+let UseContentBackgroundColorKey = "UseContentBackgroundColorKey"
 
-let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
+let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
 enum UseEntryMode: Int, Codable {
@@ -159,9 +159,9 @@ private let defaultSlotKV: [String: Any] = [
     ShadowXOffSetKey: 0.0,
     ShadowYOffSetKey: 0.0,
     
-    ContentBackgroundColorKey: true,
+    UseContentBackgroundColorKey: true,
     
-    ContentBackgroundVisualEffectKey: false,
+    UseContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
 ]
 

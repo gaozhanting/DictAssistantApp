@@ -142,8 +142,8 @@ private struct SlotsView: View {
         shadowRadius = slot.shadowRadius
         shadowXOffset = slot.shadowXOffset
         shadowYOffset = slot.shadowYOffset
-        contentBackgroundColor = slot.contentBackgroundColor
-        contentBackgroundVisualEffect = slot.contentBackgroundVisualEffect
+        useContentBackgroundColor = slot.useContentBackgroundColor
+        useContentBackgroundVisualEffect = slot.useContentBackgroundVisualEffect
         contentBackGroundVisualEffectMaterial = Int(slot.contentBackGroundVisualEffectMaterial)
     }
     
@@ -178,8 +178,8 @@ private struct SlotsView: View {
     @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
     @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
     @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 }
 
@@ -228,8 +228,8 @@ private struct ButtonsView: View {
                 slot.shadowRadius = 3
                 slot.shadowXOffset = 0.0
                 slot.shadowYOffset = 0.0
-                slot.contentBackgroundColor = true
-                slot.contentBackgroundVisualEffect = false
+                slot.useContentBackgroundColor = true
+                slot.useContentBackgroundVisualEffect = false
                 slot.contentBackGroundVisualEffectMaterial = Int64(NSVisualEffectView.Material.titlebar.rawValue)
                 
                 saveContext()
@@ -274,8 +274,8 @@ private struct ButtonsView: View {
                     slot.shadowRadius = selectedSlot.shadowRadius
                     slot.shadowXOffset = selectedSlot.shadowXOffset
                     slot.shadowYOffset = selectedSlot.shadowYOffset
-                    slot.contentBackgroundColor = selectedSlot.contentBackgroundColor
-                    slot.contentBackgroundVisualEffect = selectedSlot.contentBackgroundVisualEffect
+                    slot.useContentBackgroundColor = selectedSlot.useContentBackgroundColor
+                    slot.useContentBackgroundVisualEffect = selectedSlot.useContentBackgroundVisualEffect
                     slot.contentBackGroundVisualEffectMaterial = selectedSlot.contentBackGroundVisualEffectMaterial
                     
                     selectedSlot.isSelected = false

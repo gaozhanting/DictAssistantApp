@@ -37,8 +37,6 @@
         <attribute name="backgroundColor" attributeType="Binary"/>
         <attribute name="chineseCharacterConvertMode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="color" attributeType="Binary"/>
-        <attribute name="contentBackgroundColor" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="contentBackgroundVisualEffect" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="contentBackGroundVisualEffectMaterial" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="contentStyle" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -70,6 +68,8 @@
         <attribute name="transColor" attributeType="Binary"/>
         <attribute name="tRMinimumTextHeight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="tRTextRecognitionLevel" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="useContentBackgroundColor" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="useContentBackgroundVisualEffect" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="useEntryMode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wordColor" attributeType="Binary"/>
         <uniquenessConstraints>
