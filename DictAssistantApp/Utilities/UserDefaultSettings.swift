@@ -161,23 +161,18 @@ func initAllUserDefaultsIfNil() {
 
 extension UserDefaults {
     @objc var CropperStyleKey: Int {
-        get {
-            return integer(forKey: "CropperStyleKey")
-        }
-        set {
-            set(newValue, forKey: "CropperStyleKey")
-        }
+        get { return integer(forKey: "CropperStyleKey") }
+        set { set(newValue, forKey: "CropperStyleKey") }
     }
-}
-
-extension UserDefaults {
+    
     @objc var IsShowWindowShadowKey: Bool {
-        get {
-            return bool(forKey: "IsShowWindowShadowKey")
-        }
-        set {
-            set(newValue, forKey: "IsShowWindowShadowKey")
-        }
+        get { return bool(forKey: "IsShowWindowShadowKey") }
+        set { set(newValue, forKey: "IsShowWindowShadowKey") }
+    }
+    
+    @objc var TRMinimumTextHeightKey: Double {
+        get { return double(forKey: "TRMinimumTextHeightKey") }
+        set { set(newValue, forKey: "TRMinimumTextHeightKey") }
     }
 }
 
@@ -198,4 +193,26 @@ func combineSomeUserDefaults() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.TRMinimumTextHeightKey)
+        .handleEvents(receiveOutput: { tRMinimumTextHeight in
+            updateSelectedSlot(newValue: tRMinimumTextHeight)
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
+
+private func updateSelectedSlot(newValue: Double) {
+    let slots = getAllSlots()
+    for slot in slots {
+        if slot.isSelected {
+            if slot.tRMinimumTextHeight != newValue {
+                slot.tRMinimumTextHeight = newValue
+                saveContext()
+                myPrint("did save slot (tRMinimumTextHeight)")
+                return
+            }
+        }
+    }
 }
