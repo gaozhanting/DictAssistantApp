@@ -65,7 +65,27 @@ private struct SlotsView: View {
             GroupBox {
                 List {
                     ForEach(slots, id: \.createdDate) { slot in
-                        ItemView(slot: slot, slots: slots)
+                        HStack {
+                            HStack {
+                                Button(action: { select(slot) }) {
+                                    Image(systemName: slot.isSelected ? "cube.fill" : "cube")
+                                        .font(.title)
+                                        .foregroundColor(Color(dataToColor(slot.color!)!))
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                TextField("", text: Binding.init(
+                                    get: { slot.label! },
+                                    set: { newValue in
+                                        slot.label = newValue
+                                        saveContext()
+                                    }
+                                ))
+                                .font(.callout)
+                                .textFieldStyle(PlainTextFieldStyle())
+                                .frame(maxWidth: 300)
+                            }
+                        }
                     }
                     .onDelete { offsets in
                         for index in offsets {
@@ -83,12 +103,7 @@ private struct SlotsView: View {
         }
         .padding()
     }
-}
 
-private struct ItemView: View {
-    let slot: Slot
-    let slots: FetchedResults<Slot>
-        
     func select(_ slot: Slot) -> Void {
         for slot in slots {
             slot.isSelected = false
@@ -98,30 +113,6 @@ private struct ItemView: View {
         tRTextRecognitionLevel = Int(slot.tRTextRecognitionLevel)
         tRMinimumTextHeight = slot.tRMinimumTextHeight
         // ...
-    }
-    
-    var body: some View {
-        HStack {
-            HStack {
-                Button(action: { select(slot) }) {
-                    Image(systemName: slot.isSelected ? "cube.fill" : "cube")
-                        .font(.title)
-                        .foregroundColor(Color(dataToColor(slot.color!)!))
-                }
-                .buttonStyle(PlainButtonStyle())
-                
-                TextField("", text: Binding.init(
-                    get: { slot.label! },
-                    set: { newValue in
-                        slot.label = newValue
-                        saveContext()
-                    }
-                ))
-                .font(.callout)
-                .textFieldStyle(PlainTextFieldStyle())
-                .frame(maxWidth: 300)
-            }
-        }
     }
     
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
