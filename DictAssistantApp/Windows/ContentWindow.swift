@@ -17,7 +17,7 @@ func initContentWindow() {
         name: "portraitWordsPanel"
     )
     
-    contentWindow.delegate = ccDelegate
+    contentWindow.delegate = contentWindowDelegate
             
     let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
     syncContentWindowShadow(from: isShowWindowShadow)

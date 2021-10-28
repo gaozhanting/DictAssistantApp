@@ -38,8 +38,10 @@
         <attribute name="chineseCharacterConvertMode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="color" attributeType="Binary"/>
         <attribute name="contentBackGroundVisualEffectMaterial" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="contentFrame" attributeType="String"/>
         <attribute name="contentStyle" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="createdDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="cropperFrame" attributeType="String"/>
         <attribute name="cropperStyle" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="fontRate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fontSize" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -83,6 +85,6 @@
         <element name="Known" positionX="-27" positionY="18" width="128" height="44"/>
         <element name="Noise" positionX="0" positionY="81" width="128" height="44"/>
         <element name="Phrase" positionX="-9" positionY="72" width="128" height="44"/>
-        <element name="Slot" positionX="0" positionY="54" width="128" height="599"/>
+        <element name="Slot" positionX="0" positionY="54" width="128" height="629"/>
     </elements>
 </model>

@@ -145,6 +145,9 @@ private struct SlotsView: View {
         useContentBackgroundColor = slot.useContentBackgroundColor
         useContentBackgroundVisualEffect = slot.useContentBackgroundVisualEffect
         contentBackGroundVisualEffectMaterial = Int(slot.contentBackGroundVisualEffectMaterial)
+        
+        contentWindow.setFrame(stringToRect(slot.contentFrame!), display: true)
+        cropperWindow.setFrame(stringToRect(slot.cropperFrame!), display: true)
     }
     
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
@@ -232,6 +235,9 @@ private struct ButtonsView: View {
                 slot.useContentBackgroundVisualEffect = false
                 slot.contentBackGroundVisualEffectMaterial = Int64(NSVisualEffectView.Material.titlebar.rawValue)
                 
+                slot.contentFrame = "100,100,200,600"
+                slot.cropperFrame = "300,300,600,200"
+                
                 saveContext()
             }
             
@@ -277,6 +283,9 @@ private struct ButtonsView: View {
                     slot.useContentBackgroundColor = selectedSlot.useContentBackgroundColor
                     slot.useContentBackgroundVisualEffect = selectedSlot.useContentBackgroundVisualEffect
                     slot.contentBackGroundVisualEffectMaterial = selectedSlot.contentBackGroundVisualEffectMaterial
+                    
+                    slot.contentFrame = selectedSlot.contentFrame
+                    slot.cropperFrame = selectedSlot.cropperFrame
                     
                     selectedSlot.isSelected = false
                     saveContext()
