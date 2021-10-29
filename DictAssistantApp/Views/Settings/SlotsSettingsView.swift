@@ -228,9 +228,9 @@ struct SlotsSettingsView: View {
 
 fileprivate struct InfoView: View {
     var body: some View {
-        Text("Slot is a stored collection of all preferences settings (except global shortcut key, font name, is show toast option), and cropper window frame, and content window frame. This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add as many slots as you like. You click the update button to dump current preferences settings and store it into the selected slot. You click the icon to switch and dump the selected slot settings into the current preferences settings. You can swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. You can even clone the selected slot.")
+        Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (except global shortcut key, font name, is show toast option). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it.")
             .padding()
-            .frame(width: 400, height: 310)
+            .frame(width: 400, height: 280)
     }
 }
 
