@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SingleWordView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
+    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     let wordCell: WordCell
 
     var body: some View {
-        switch contentStyle {
+        switch ContentStyle(rawValue: contentStyle)! {
         case .portrait:
             TextBodyWidthBG(wordCell: wordCell)
 
@@ -32,13 +32,13 @@ private struct TextBodyWidthBG: View {
 
     var body: some View {
         TextBody(wordCell: wordCell)
-            .background((contentBackgroundColor || contentBackgroundVisualEffect) ?
+            .background((useContentBackgroundColor || useContentBackgroundVisualEffect) ?
                         nil :
                             Color(dataToColor(backgroundColor)!))
     }
     
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
 }
@@ -234,9 +234,9 @@ fileprivate struct TheText: View {
         wordCell.word
     }
     
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
     var trans: String {
-        switch chineseCharacterConvertMode {
+        switch ChineseCharacterConvertMode(rawValue: chineseCharacterConvertMode)! {
         case .notConvert:
             return wordCell.trans
         case .convertToTraditional:

@@ -21,22 +21,15 @@ struct RecordingSettingsView: View {
     }
 }
 
-enum CropperStyle: Int, Codable {
-    case closed = 0
-    case rectangle = 1
-    case leadingBorder = 2
-    case trailingBorder = 3
-}
-
 fileprivate struct CropperStyleSettingView: View {
-    @AppStorage(CropperStyleKey) private var cropperStyle: CropperStyle = .closed
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.closed.rawValue
 
     var body: some View {
         Picker("", selection: $cropperStyle) {
-            Text("leadingBorder").tag(CropperStyle.leadingBorder)
-            Text("trailingBorder").tag(CropperStyle.trailingBorder)
-            Text("rectangle").tag(CropperStyle.rectangle)
-            Text("closed").tag(CropperStyle.closed)
+            Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
+            Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
+            Text("rectangle").tag(CropperStyle.rectangle.rawValue)
+            Text("closed").tag(CropperStyle.closed.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()

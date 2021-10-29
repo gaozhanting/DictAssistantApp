@@ -28,7 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         initContentWindow()
 
-        combineSomeUserDefaults()
+        combineWindows()
+        autoSaveSlotSettings()
         
         initToastWindow()
         

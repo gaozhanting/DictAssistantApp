@@ -22,9 +22,9 @@ struct LandscapeWordsViewAutoScroll: View {
 }
 
 fileprivate struct BodyView: View {
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
@@ -54,8 +54,8 @@ fileprivate struct BodyView: View {
                 }
                 .frame(maxWidth: CGFloat(landscapeMaxWidth))
             }
-            .background(contentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-            .background(contentBackgroundVisualEffect ?
+            .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
+            .background(useContentBackgroundVisualEffect ?
                             VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                             nil)
             .onChange(of: words) { _ in
@@ -71,7 +71,7 @@ fileprivate struct BodyView: View {
         }
     }
     
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
 }

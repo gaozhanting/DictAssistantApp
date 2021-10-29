@@ -34,9 +34,9 @@ private struct ShowPhrasesToggle: View {
 }
 
 private struct UseEntryModePicker: View {
-    @AppStorage(UseEntryModeKey) private var useEntryMode: UseEntryMode = .asFirstPriority
+    @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     
-    var binding: Binding<UseEntryMode> {
+    var binding: Binding<Int> {
         Binding(
             get: { useEntryMode },
             set: { newValue in
@@ -49,10 +49,10 @@ private struct UseEntryModePicker: View {
     
     var body: some View {
         Picker("", selection: binding) {
-            Text("not use").tag(UseEntryMode.notUse)
-            Text("as first priority").tag(UseEntryMode.asFirstPriority)
-            Text("as last priority").tag(UseEntryMode.asLastPriority)
-            Text("only").tag(UseEntryMode.only)
+            Text("not use").tag(UseEntryMode.notUse.rawValue)
+            Text("as first priority").tag(UseEntryMode.asFirstPriority.rawValue)
+            Text("as last priority").tag(UseEntryMode.asLastPriority.rawValue)
+            Text("only").tag(UseEntryMode.only.rawValue)
         }
         .labelsHidden()
         .pickerStyle(MenuPickerStyle())

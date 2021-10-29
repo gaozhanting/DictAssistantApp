@@ -24,10 +24,10 @@ extension String {
 }
 
 struct ContentView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
+    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     
     var body: some View {
-        switch contentStyle {
+        switch ContentStyle(rawValue: contentStyle)! {
         case .portrait:
             PortraitWordsView()
         case .landscape:

@@ -17,7 +17,7 @@ func initContentWindow() {
         name: "portraitWordsPanel"
     )
     
-    contentWindow.delegate = ccDelegate
+    contentWindow.delegate = contentWindowDelegate
             
     let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
     syncContentWindowShadow(from: isShowWindowShadow)
@@ -30,6 +30,34 @@ func syncContentWindowShadow(from isShowWindowShadow: Bool) {
     } else {
         contentWindow.invalidateShadow()
         contentWindow.hasShadow = false
+    }
+}
+
+// Auto save selected slot frame settings
+private let contentWindowDelegate = ContentWindowDelegate()
+
+private class ContentWindowDelegate: NSObject, NSWindowDelegate {
+    // MARK: - Sync frame to selected Slot
+    func windowDidMove(_ notification: Notification) { // content window && cropper window
+        updateSelectedSlot()
+    }
+    
+    func windowDidResize(_ notification: Notification) { // content window && cropper window
+        updateSelectedSlot()
+    }
+    
+    func updateSelectedSlot() {
+        let slots = getAllSlots()
+        for slot in slots {
+            if slot.isSelected {
+                var settings = dataToSettings(slot.settings!)!
+                settings.contentFrame = contentWindow.frame
+                slot.settings = settingsToData(settings)
+                saveContext()
+                myPrint("did save slot content frame")
+                return
+            }
+        }
     }
 }
 

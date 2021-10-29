@@ -119,9 +119,9 @@ fileprivate struct WithAnimationToggle: View {
 }
 
 fileprivate struct ContentStyleSettingView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: ContentStyle = .portrait
-    
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+
+    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
     
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
@@ -144,19 +144,19 @@ fileprivate struct ContentStyleSettingView: View {
         VStack(alignment: .leading) {
             HStack {
                 Picker("", selection: $contentStyle) {
-                    Text("portrait").tag(ContentStyle.portrait)
-                    Text("landscape").tag(ContentStyle.landscape)
+                    Text("portrait").tag(ContentStyle.portrait.rawValue)
+                    Text("landscape").tag(ContentStyle.landscape.rawValue)
                 }
                 .pickerStyle(MenuPickerStyle())
                 .labelsHidden()
                 .frame(width: 160)
                 
-                switch contentStyle {
+                switch ContentStyle(rawValue: contentStyle)! {
                 case .portrait:
                     Picker("from corner:", selection: $portraitCorner) {
-                        Text("topTrailing").tag(PortraitCorner.topTrailing)
-                        Text("topLeading").tag(PortraitCorner.topLeading)
-                        Text("bottomLeading").tag(PortraitCorner.bottomLeading)
+                        Text("topTrailing").tag(PortraitCorner.topTrailing.rawValue)
+                        Text("topLeading").tag(PortraitCorner.topLeading.rawValue)
+                        Text("bottomLeading").tag(PortraitCorner.bottomLeading.rawValue)
                     }
                     .pickerStyle(MenuPickerStyle())
                     .frame(width: 200)
@@ -179,7 +179,7 @@ fileprivate struct ContentStyleSettingView: View {
                 Spacer()
                 
                 if isShowTextField {
-                    switch contentStyle {
+                    switch ContentStyle(rawValue: contentStyle)! {
                     case .portrait:
                         Text("max height for one word:")
                         TextField("", value: $portraitMaxHeight, formatter: {
@@ -284,39 +284,20 @@ fileprivate struct FontRateSetting: View {
     }
 }
 
-enum TheColorScheme: String, CaseIterable, Identifiable, Codable {
-    case light
-    case dark
-    case system
-
-    var id: String { self.rawValue }
-}
-
 fileprivate struct ColorSchemeSetting: View {
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
 
     var body: some View {
         Picker("", selection: $theColorScheme) {
-            Text("Light").tag(TheColorScheme.light)
-            Text("Dark").tag(TheColorScheme.dark)
-            Text("System").tag(TheColorScheme.system)
+            Text("Light").tag(TheColorScheme.light.rawValue)
+            Text("Dark").tag(TheColorScheme.dark.rawValue)
+            Text("System").tag(TheColorScheme.system.rawValue)
         }
         .labelsHidden()
         .pickerStyle(MenuPickerStyle())
         .frame(width: 160)
         .help("This will effect on visual effect background and system colors.")
     }
-}
-
-enum ContentStyle: Int, Codable {
-    case portrait = 0
-    case landscape = 1
-}
-
-enum PortraitCorner: Int, Codable {
-    case topTrailing = 0
-    case topLeading = 1
-    case bottomLeading = 2
 }
 
 fileprivate struct WordColorPicker: View {
@@ -473,10 +454,10 @@ fileprivate struct ShadowYOffSetPicker: View {
 }
 
 private struct ContentBackgroundColor: View {
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     
     var body: some View {
-        Toggle(isOn: $contentBackgroundColor, label: {
+        Toggle(isOn: $useContentBackgroundColor, label: {
             Text("Using Background Color")
         })
             .toggleStyle(SwitchToggleStyle())
@@ -485,16 +466,16 @@ private struct ContentBackgroundColor: View {
 }
 
 fileprivate struct ContentBackgroundVisualEffect: View {
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
 
     var body: some View {
         HStack {
-            Toggle(isOn: $contentBackgroundVisualEffect, label: {
+            Toggle(isOn: $useContentBackgroundVisualEffect, label: {
                 Text("Using Visual Effect")
             })
                 .toggleStyle(SwitchToggleStyle())
             
-            if contentBackgroundVisualEffect {
+            if useContentBackgroundVisualEffect {
                 ContentBackGroundVisualEffectMaterial()
                     .frame(maxWidth: 200)
             }

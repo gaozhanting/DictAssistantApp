@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
-    switch theColorScheme {
+func toSystemColorScheme(from theColorScheme: Int) -> ColorScheme? {
+    switch TheColorScheme(rawValue: theColorScheme)! {
     case .light:
         return .light
     case .dark:
@@ -21,12 +21,12 @@ func toSystemColorScheme(from theColorScheme: TheColorScheme) -> ColorScheme? {
 fileprivate struct BodyView: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
 
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
     var body: some View {
@@ -35,8 +35,8 @@ fileprivate struct BodyView: View {
                 WordsView()
                     .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
             }
-            .background(contentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
-            .background(contentBackgroundVisualEffect ?
+            .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
+            .background(useContentBackgroundVisualEffect ?
                         VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
                             .preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                             nil)
@@ -46,11 +46,11 @@ fileprivate struct BodyView: View {
 
 fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: TheColorScheme = .system
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(ContentBackgroundVisualEffectKey) private var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     
-    @AppStorage(ContentBackgroundColorKey) private var contentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
     var body: some View {
@@ -66,8 +66,8 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
                 HStack { Spacer() }
             }
             .rotationEffect(Angle(degrees: 180))
-            .background(contentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-            .background(contentBackgroundVisualEffect ?
+            .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
+            .background(useContentBackgroundVisualEffect ?
                         VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                             nil)
         }
@@ -77,9 +77,9 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
 }
 
 struct PortraitWordsView: View {
-    @AppStorage(PortraitCornerKey) private var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     var body: some View {
-        switch portraitCorner {
+        switch PortraitCorner(rawValue: portraitCorner)! {
         case .topTrailing:
             HStack {
                 Spacer()

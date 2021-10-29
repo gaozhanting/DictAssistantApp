@@ -11,60 +11,60 @@ import Vision
 
 struct Settings: Codable {
     // general and main settings for a slot
-    let tRTextRecognitionLevel: Int
-    let tRMinimumTextHeight: Double
-    let maximumFrameRate: Double
+    var tRTextRecognitionLevel: Int
+    var tRMinimumTextHeight: Double
+    var maximumFrameRate: Double
     
-    let useEntryMode: UseEntryMode
+    var useEntryMode: Int
     
     // visual settings for a slot
-    let isShowPhrases: Bool
+    var isShowPhrases: Bool
     
-    let cropperStyle: CropperStyle
+    var cropperStyle: Int
 
     // -- fine-turning the display of the returned translation text from different dictionaries
-    let isDropTitleWord: Bool
-    let isAddLineBreak: Bool
-    let isAddSpace: Bool
-    let isDropFirstTitleWordInTranslation: Bool
-    let isJoinTranslationLines: Bool
-    let chineseCharacterConvertMode: ChineseCharacterConvertMode
+    var isDropTitleWord: Bool
+    var isAddLineBreak: Bool
+    var isAddSpace: Bool
+    var isDropFirstTitleWordInTranslation: Bool
+    var isJoinTranslationLines: Bool
+    var chineseCharacterConvertMode: Int
     
-    let isContentRetention: Bool
+    var isContentRetention: Bool
     
-    let isShowWindowShadow: Bool
+    var isShowWindowShadow: Bool
     
-    let isWithAnimation: Bool
+    var isWithAnimation: Bool
     
     // -- content style & max width & max height
-    let contentStyle: ContentStyle
-    let portraitCorner: PortraitCorner
-    let landscapeAutoScroll: Bool
+    var contentStyle: Int
+    var portraitCorner: Int
+    var landscapeAutoScroll: Bool
     // ---- extra
-    let portraitMaxHeight: Double
-    let landscapeMaxWidth: Double
+    var portraitMaxHeight: Double
+    var landscapeMaxWidth: Double
     
     // -- font size & font rate
-    let fontSize: Double
-    let fontRate: Double
+    var fontSize: Double
+    var fontRate: Double
     
-    let theColorScheme: TheColorScheme
+    var theColorScheme: Int
     
     // -- color & shadow & background
     // ---- basic three colors
-    let wordColor: Data
-    let transColor: Data
-    let backgroundColor: Data
+    var wordColor: Data
+    var transColor: Data
+    var backgroundColor: Data
     // ---- text shadow
-    let textShadowToggle: Bool
-    let shadowColor: Data
-    let shadowRadius: Double
-    let shadowXOffSet: Double
-    let shadowYOffSet: Double
+    var textShadowToggle: Bool
+    var shadowColor: Data
+    var shadowRadius: Double
+    var shadowXOffSet: Double
+    var shadowYOffSet: Double
     // ---- color background && visual effect background
-    let contentBackgroundColor: Bool
-    let contentBackgroundVisualEffect: Bool
-    let contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
+    var useContentBackgroundColor: Bool
+    var useContentBackgroundVisualEffect: Bool
+    var contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
     
     // two frames settings for a slot
     var cropperFrame: NSRect
@@ -74,26 +74,26 @@ struct Settings: Codable {
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
         maximumFrameRate: Double,
-        useEntryMode: UseEntryMode,
+        useEntryMode: Int,
         isShowPhrases: Bool,
-        cropperStyle: CropperStyle,
+        cropperStyle: Int,
         isDropTitleWord: Bool,
         isAddLineBreak: Bool,
         isAddSpace: Bool,
         isDropFirstTitleWordInTranslation: Bool,
         isJoinTranslationLines: Bool,
-        chineseCharacterConvertMode: ChineseCharacterConvertMode,
+        chineseCharacterConvertMode: Int,
         isContentRetention: Bool,
         isShowWindowShadow: Bool,
         isWithAnimation: Bool,
-        contentStyle: ContentStyle,
-        portraitCorner: PortraitCorner,
+        contentStyle: Int,
+        portraitCorner: Int,
         landscapeAutoScroll: Bool,
         portraitMaxHeight: Double,
         landscapeMaxWidth: Double,
         fontSize: Double,
         fontRate: Double,
-        theColorScheme: TheColorScheme,
+        theColorScheme: Int,
         wordColor: Data,
         transColor: Data,
         backgroundColor: Data,
@@ -102,8 +102,8 @@ struct Settings: Codable {
         shadowRadius: Double,
         shadowXOffSet: Double,
         shadowYOffSet: Double,
-        contentBackgroundColor: Bool,
-        contentBackgroundVisualEffect: Bool,
+        useContentBackgroundColor: Bool,
+        useContentBackgroundVisualEffect: Bool,
         contentBackGroundVisualEffectMaterial: Int, //NSVisualEffectView.Material
         cropperFrame: NSRect,
         contentFrame: NSRect
@@ -139,8 +139,8 @@ struct Settings: Codable {
         self.shadowRadius = shadowRadius
         self.shadowXOffSet = shadowXOffSet
         self.shadowYOffSet = shadowYOffSet
-        self.contentBackgroundColor = contentBackgroundColor
-        self.contentBackgroundVisualEffect = contentBackgroundVisualEffect
+        self.useContentBackgroundColor = useContentBackgroundColor
+        self.useContentBackgroundVisualEffect = useContentBackgroundVisualEffect
         self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
@@ -161,26 +161,26 @@ fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     maximumFrameRate: 4,
-    useEntryMode: UseEntryMode.asFirstPriority,
+    useEntryMode: UseEntryMode.asFirstPriority.rawValue,
     isShowPhrases: true,
-    cropperStyle: CropperStyle.leadingBorder,
+    cropperStyle: CropperStyle.leadingBorder.rawValue,
     isDropTitleWord: false,
     isAddLineBreak: true,
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
     isJoinTranslationLines: true,
-    chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert,
+    chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert.rawValue,
     isContentRetention: false,
     isShowWindowShadow: true,
     isWithAnimation: true,
-    contentStyle: ContentStyle.portrait,
-    portraitCorner: PortraitCorner.topTrailing,
+    contentStyle: ContentStyle.portrait.rawValue,
+    portraitCorner: PortraitCorner.topTrailing.rawValue,
     landscapeAutoScroll: true,
     portraitMaxHeight: 100.0,
     landscapeMaxWidth: 160.0,
     fontSize: 18.0,
     fontRate: 0.75,
-    theColorScheme: TheColorScheme.system,
+    theColorScheme: TheColorScheme.system.rawValue,
     wordColor: colorToData(NSColor.labelColor)!,
     transColor: colorToData(NSColor.secondaryLabelColor)!,
     backgroundColor: colorToData(NSColor.windowBackgroundColor)!,
@@ -189,8 +189,8 @@ fileprivate let defaultSettings = Settings(
     shadowRadius: 3,
     shadowXOffSet: 0.0,
     shadowYOffSet: 0.0,
-    contentBackgroundColor: true,
-    contentBackgroundVisualEffect: false,
+    useContentBackgroundColor: true,
+    useContentBackgroundVisualEffect: false,
     contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
     cropperFrame: NSRect(x: 310, y: 500, width: 600, height: 200),
     contentFrame: NSRect(x: 100, y: 100, width: 200, height: 600)
@@ -336,14 +336,6 @@ fileprivate struct SlotsView: View {
                                 .textFieldStyle(PlainTextFieldStyle())
                                 .frame(maxWidth: 300)
                             }
-                            
-                            if slot.isSelected && !isSelectedSlotEqualWithCurrentSettings(settings) {
-                                Button("Update", action: {
-                                    let currentSettings = getCurrentSettingsX()
-                                    slot.settings = settingsToData(currentSettings)!
-                                    saveContext()
-                                })
-                            }
                         }
                     }
                     .onDelete { offsets in
@@ -361,86 +353,6 @@ fileprivate struct SlotsView: View {
             ButtonsView(selectedSlot: selectedSlot)
         }
         .padding()
-    }
-    
-    func getCurrentSettingsX() -> Settings {
-        return Settings(
-            tRTextRecognitionLevel: tRTextRecognitionLevel,
-            tRMinimumTextHeight: tRMinimumTextHeight,
-            maximumFrameRate: maximumFrameRate,
-            useEntryMode: useEntryMode,
-            isShowPhrases: isShowPhrases,
-            cropperStyle: cropperStyle,
-            isDropTitleWord: isDropTitleWord,
-            isAddLineBreak: isAddLineBreak,
-            isAddSpace: isAddSpace,
-            isDropFirstTitleWordInTranslation: isDropFirstTitleWordInTranslation,
-            isJoinTranslationLines: isJoinTranslationLines,
-            chineseCharacterConvertMode: chineseCharacterConvertMode,
-            isContentRetention: isContentRetention,
-            isShowWindowShadow: isShowWindowShadow,
-            isWithAnimation: isWithAnimation,
-            contentStyle: contentStyle,
-            portraitCorner: portraitCorner,
-            landscapeAutoScroll: landscapeAutoScroll,
-            portraitMaxHeight: portraitMaxHeight,
-            landscapeMaxWidth: landscapeMaxWidth,
-            fontSize: fontSize,
-            fontRate: fontRate,
-            theColorScheme: theColorScheme,
-            wordColor: wordColor,
-            transColor: transColor,
-            backgroundColor: backgroundColor,
-            textShadowToggle: textShadowToggle,
-            shadowColor: shadowColor,
-            shadowRadius: shadowRadius,
-            shadowXOffSet: shadowXOffSet,
-            shadowYOffSet: shadowYOffSet,
-            contentBackgroundColor: contentBackgroundColor,
-            contentBackgroundVisualEffect: contentBackgroundVisualEffect,
-            contentBackGroundVisualEffectMaterial: contentBackGroundVisualEffectMaterial,
-            cropperFrame: cropperWindow.frame,
-            contentFrame: contentWindow.frame
-        )
-    }
-    
-    func isSelectedSlotEqualWithCurrentSettings(_ s: Settings) -> Bool {
-        let result = s.tRTextRecognitionLevel == tRTextRecognitionLevel &&
-            s.tRMinimumTextHeight == tRMinimumTextHeight &&
-            s.maximumFrameRate == maximumFrameRate &&
-            s.useEntryMode == useEntryMode &&
-            s.isShowPhrases == isShowPhrases &&
-            s.cropperStyle == cropperStyle &&
-            s.isDropTitleWord == isDropTitleWord &&
-            s.isAddLineBreak == isAddLineBreak &&
-            s.isAddSpace == isAddSpace &&
-            s.isDropFirstTitleWordInTranslation == isDropFirstTitleWordInTranslation &&
-            s.isJoinTranslationLines == isJoinTranslationLines &&
-            s.chineseCharacterConvertMode == chineseCharacterConvertMode &&
-            s.isContentRetention == isContentRetention &&
-            s.isShowWindowShadow == isShowWindowShadow &&
-            s.isWithAnimation == isWithAnimation &&
-            s.contentStyle == contentStyle &&
-            s.portraitCorner == portraitCorner &&
-            s.landscapeAutoScroll == landscapeAutoScroll &&
-            s.portraitMaxHeight == portraitMaxHeight &&
-            s.landscapeMaxWidth == landscapeMaxWidth &&
-            s.fontSize == fontSize &&
-            s.fontRate == fontRate &&
-            s.theColorScheme == theColorScheme &&
-            s.wordColor == wordColor &&
-            s.transColor == transColor &&
-            s.backgroundColor == backgroundColor &&
-            s.textShadowToggle == textShadowToggle &&
-            s.shadowColor == shadowColor &&
-            s.shadowRadius == shadowRadius &&
-            s.shadowXOffSet == shadowXOffSet &&
-            s.shadowYOffSet == shadowYOffSet &&
-            s.contentBackgroundColor == contentBackgroundColor &&
-            s.contentBackgroundVisualEffect == contentBackgroundVisualEffect &&
-            s.contentBackGroundVisualEffectMaterial == contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
-        
-        return result
     }
     
     fileprivate func dumpSettings(from s: Settings) {
@@ -475,8 +387,8 @@ fileprivate struct SlotsView: View {
         shadowRadius = s.shadowRadius
         shadowXOffSet = s.shadowXOffSet
         shadowYOffSet = s.shadowYOffSet
-        contentBackgroundColor = s.contentBackgroundColor
-        contentBackgroundVisualEffect = s.contentBackgroundVisualEffect
+        useContentBackgroundColor = s.useContentBackgroundColor
+        useContentBackgroundVisualEffect = s.useContentBackgroundVisualEffect
         contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
@@ -487,18 +399,18 @@ fileprivate struct SlotsView: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
 
-    @AppStorage(UseEntryModeKey) var useEntryMode: UseEntryMode = .asFirstPriority
-    
+    @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
+
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     
-    @AppStorage(CropperStyleKey) var cropperStyle: CropperStyle = .closed
-    
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.closed.rawValue
+
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
 
     @AppStorage(IsContentRetentionKey) private var isContentRetention = false
     
@@ -506,8 +418,8 @@ fileprivate struct SlotsView: View {
 
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     
-    @AppStorage(ContentStyleKey) var contentStyle: ContentStyle = .portrait
-    @AppStorage(PortraitCornerKey) var portraitCorner: PortraitCorner = .topTrailing
+    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(LandscapeAutoScrollKey) var landscapeAutoScroll: Bool = true
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
@@ -515,8 +427,8 @@ fileprivate struct SlotsView: View {
     @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
     @AppStorage(FontRateKey) var fontRate: Double = 0.75
     
-    @AppStorage(TheColorSchemeKey) var theColorScheme: TheColorScheme = .system
-    
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+
     @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
@@ -527,8 +439,8 @@ fileprivate struct SlotsView: View {
     @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
     @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 0
     
-    @AppStorage(ContentBackgroundColorKey) var contentBackgroundColor: Bool = true
-    @AppStorage(ContentBackgroundVisualEffectKey) var contentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundColorKey) var useContentBackgroundColor: Bool = true
+    @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 }
 

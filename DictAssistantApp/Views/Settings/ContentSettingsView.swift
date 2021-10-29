@@ -119,8 +119,8 @@ fileprivate struct ChineseCharacterConvertingPicker: View {
         )
     }
     
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: ChineseCharacterConvertMode = .notConvert
-    
+    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
+
     var body: some View {
         HStack {
             Toggle(isOn: binding, label: {
@@ -131,9 +131,9 @@ fileprivate struct ChineseCharacterConvertingPicker: View {
             
             if showPicker {
                 Picker("Chinese Character Convert:", selection: $chineseCharacterConvertMode) {
-                    Text("not convert").tag(ChineseCharacterConvertMode.notConvert)
-                    Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional)
-                    Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified)
+                    Text("not convert").tag(ChineseCharacterConvertMode.notConvert.rawValue)
+                    Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional.rawValue)
+                    Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified.rawValue)
                 }
                 .pickerStyle(MenuPickerStyle())
                 .frame(maxWidth: 360)

@@ -70,9 +70,9 @@ let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
-let ContentBackgroundColorKey = "ContentBackgroundColorKey"
+let UseContentBackgroundColorKey = "UseContentBackgroundColorKey"
 
-let ContentBackgroundVisualEffectKey = "ContentBackgroundVisualEffectKey"
+let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
 enum UseEntryMode: Int, Codable {
@@ -86,6 +86,30 @@ enum ChineseCharacterConvertMode: Int, Codable {
     case notConvert = 0
     case convertToTraditional = 1
     case convertToSimplified = 2
+}
+
+enum CropperStyle: Int, Codable {
+    case closed = 0
+    case rectangle = 1
+    case leadingBorder = 2
+    case trailingBorder = 3
+}
+
+enum ContentStyle: Int, Codable {
+    case portrait = 0
+    case landscape = 1
+}
+
+enum PortraitCorner: Int, Codable {
+    case topTrailing = 0
+    case topLeading = 1
+    case bottomLeading = 2
+}
+
+enum TheColorScheme: Int, Codable {
+    case light = 0
+    case dark = 1
+    case system = 2
 }
 
 // in slot defaults
@@ -134,9 +158,9 @@ fileprivate let defaultSlotKV: [String: Any] = [
     ShadowXOffSetKey: 0.0,
     ShadowYOffSetKey: 0.0,
     
-    ContentBackgroundColorKey: true,
+    UseContentBackgroundColorKey: true,
     
-    ContentBackgroundVisualEffectKey: false,
+    UseContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
 ]
 
@@ -160,33 +184,152 @@ func initAllUserDefaultsIfNil() {
 }
 
 extension UserDefaults {
-    @objc var CropperStyleKey: Int {
-        get {
-            return integer(forKey: "CropperStyleKey")
-        }
-        set {
-            set(newValue, forKey: "CropperStyleKey")
-        }
+    @objc var TRTextRecognitionLevelKey: Int {
+        get { return integer(forKey: "TRTextRecognitionLevelKey") }
+        set { set(newValue, forKey: "TRTextRecognitionLevelKey") }
     }
-}
-
-extension UserDefaults {
+    @objc var TRMinimumTextHeightKey: Double {
+        get { return double(forKey: "TRMinimumTextHeightKey") }
+        set { set(newValue, forKey: "TRMinimumTextHeightKey") }
+    }
+    @objc var MaximumFrameRateKey: Double {
+        get { return double(forKey: "MaximumFrameRateKey") }
+        set { set(newValue, forKey: "MaximumFrameRateKey") }
+    }
+    @objc var UseEntryModeKey: Int {
+        get { return integer(forKey: "UseEntryModeKey") }
+        set { set(newValue, forKey: "UseEntryModeKey") }
+    }
+    @objc var IsShowPhrasesKey: Bool {
+        get { return bool(forKey: "IsShowPhrasesKey") }
+        set { set(newValue, forKey: "IsShowPhrasesKey") }
+    }
+    @objc var CropperStyleKey: Int {
+        get { return integer(forKey: "CropperStyleKey") }
+        set { set(newValue, forKey: "CropperStyleKey") }
+    }
+    @objc var IsDropTitleWordKey: Bool {
+        get { return bool(forKey: "IsDropTitleWordKey") }
+        set { set(newValue, forKey: "IsDropTitleWordKey") }
+    }
+    @objc var IsAddLineBreakKey: Bool {
+        get { return bool(forKey: "IsAddLineBreakKey") }
+        set { set(newValue, forKey: "IsAddLineBreakKey") }
+    }
+    @objc var IsAddSpaceKey: Bool {
+        get { return bool(forKey: "IsAddSpaceKey") }
+        set { set(newValue, forKey: "IsAddSpaceKey") }
+    }
+    @objc var IsDropFirstTitleWordInTranslationKey: Bool {
+        get { return bool(forKey: "IsDropFirstTitleWordInTranslationKey") }
+        set { set(newValue, forKey: "IsDropFirstTitleWordInTranslationKey") }
+    }
+    @objc var IsJoinTranslationLinesKey: Bool {
+        get { return bool(forKey: "IsJoinTranslationLinesKey") }
+        set { set(newValue, forKey: "IsJoinTranslationLinesKey") }
+    }
+    @objc var ChineseCharacterConvertModeKey: Int {
+        get { return integer(forKey: "ChineseCharacterConvertModeKey") }
+        set { set(newValue, forKey: "ChineseCharacterConvertModeKey") }
+    }
+    @objc var IsContentRetentionKey: Bool {
+        get { return bool(forKey: "IsContentRetentionKey") }
+        set { set(newValue, forKey: "IsContentRetentionKey") }
+    }
     @objc var IsShowWindowShadowKey: Bool {
-        get {
-            return bool(forKey: "IsShowWindowShadowKey")
-        }
-        set {
-            set(newValue, forKey: "IsShowWindowShadowKey")
-        }
+        get { return bool(forKey: "IsShowWindowShadowKey") }
+        set { set(newValue, forKey: "IsShowWindowShadowKey") }
+    }
+    @objc var IsWithAnimationKey: Bool {
+        get { return bool(forKey: "IsWithAnimationKey") }
+        set { set(newValue, forKey: "IsWithAnimationKey") }
+    }
+    @objc var ContentStyleKey: Int {
+        get { return integer(forKey: "ContentStyleKey") }
+        set { set(newValue, forKey: "ContentStyleKey") }
+    }
+    @objc var PortraitCornerKey: Int {
+        get { return integer(forKey: "PortraitCornerKey") }
+        set { set(newValue, forKey: "PortraitCornerKey") }
+    }
+    @objc var LandscapeAutoScrollKey: Bool {
+        get { return bool(forKey: "LandscapeAutoScrollKey") }
+        set { set(newValue, forKey: "LandscapeAutoScrollKey") }
+    }
+    @objc var PortraitMaxHeightKey: Double {
+        get { return double(forKey: "PortraitMaxHeightKey") }
+        set { set(newValue, forKey: "PortraitMaxHeightKey") }
+    }
+    @objc var LandscapeMaxWidthKey: Double {
+        get { return double(forKey: "LandscapeMaxWidthKey") }
+        set { set(newValue, forKey: "LandscapeMaxWidthKey") }
+    }
+    @objc var FontSizeKey: Double {
+        get { return double(forKey: "FontSizeKey") }
+        set { set(newValue, forKey: "FontSizeKey") }
+    }
+    @objc var FontRateKey: Double {
+        get { return double(forKey: "FontRateKey") }
+        set { set(newValue, forKey: "FontRateKey") }
+    }
+    @objc var TheColorSchemeKey: Int {
+        get { return integer(forKey: "TheColorSchemeKey") }
+        set { set(newValue, forKey: "TheColorSchemeKey") }
+    }
+    @objc var WordColorKey: Data {
+        get { return data(forKey: "WordColorKey")! }
+        set { set(newValue, forKey: "WordColorKey") }
+    }
+    @objc var TransColorKey: Data {
+        get { return data(forKey: "TransColorKey")! }
+        set { set(newValue, forKey: "TransColorKey") }
+    }
+    @objc var BackgroundColorKey: Data {
+        get { return data(forKey: "BackgroundColorKey")! }
+        set { set(newValue, forKey: "BackgroundColorKey") }
+    }
+    @objc var TextShadowToggleKey: Bool {
+        get { return bool(forKey: "TextShadowToggleKey") }
+        set { set(newValue, forKey: "TextShadowToggleKey") }
+    }
+    @objc var ShadowColorKey: Data {
+        get { return data(forKey: "ShadowColorKey")! }
+        set { set(newValue, forKey: "ShadowColorKey") }
+    }
+    @objc var ShadowRadiusKey: Double {
+        get { return double(forKey: "ShadowRadiusKey") }
+        set { set(newValue, forKey: "ShadowRadiusKey") }
+    }
+    @objc var ShadowXOffSetKey: Double {
+        get { return double(forKey: "ShadowXOffSetKey") }
+        set { set(newValue, forKey: "ShadowXOffSetKey") }
+    }
+    @objc var ShadowYOffSetKey: Double {
+        get { return double(forKey: "ShadowYOffSetKey") }
+        set { set(newValue, forKey: "ShadowYOffSetKey") }
+    }
+    @objc var UseContentBackgroundColorKey: Bool {
+        get { return bool(forKey: "UseContentBackgroundColorKey") }
+        set { set(newValue, forKey: "UseContentBackgroundColorKey") }
+    }
+    @objc var UseContentBackgroundVisualEffectKey: Bool {
+        get { return bool(forKey: "UseContentBackgroundVisualEffectKey") }
+        set { set(newValue, forKey: "UseContentBackgroundVisualEffectKey") }
+    }
+    @objc var ContentBackGroundVisualEffectMaterialKey: Int {
+        get { return integer(forKey: "ContentBackGroundVisualEffectMaterialKey") }
+        set { set(newValue, forKey: "ContentBackGroundVisualEffectMaterialKey") }
     }
 }
 
 var subscriptions = Set<AnyCancellable>()
-func combineSomeUserDefaults() {
+
+func combineWindows() {
     UserDefaults.standard
         .publisher(for: \.CropperStyleKey)
         .handleEvents(receiveOutput: { cropperStyle in
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
+            myPrint("did combine syncCropperView")
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -195,6 +338,66 @@ func combineSomeUserDefaults() {
         .publisher(for: \.IsShowWindowShadowKey)
         .handleEvents(receiveOutput: { isShowWindowShadow in
             syncContentWindowShadow(from: isShowWindowShadow)
+            myPrint("did combine syncContentWindowShadow")
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
+
+func autoSaveSlotSettings() {
+    combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
+    combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
+    combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
+    combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
+    combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
+    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
+    combineSlot(\.IsDropTitleWordKey, \.isDropTitleWord, IsDropTitleWordKey)
+    combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
+    combineSlot(\.IsDropFirstTitleWordInTranslationKey, \.isDropFirstTitleWordInTranslation, IsDropFirstTitleWordInTranslationKey)
+    combineSlot(\.IsJoinTranslationLinesKey, \.isJoinTranslationLines, IsJoinTranslationLinesKey)
+    combineSlot(\.ChineseCharacterConvertModeKey, \.chineseCharacterConvertMode, ChineseCharacterConvertModeKey)
+    combineSlot(\.IsContentRetentionKey, \.isContentRetention, IsContentRetentionKey)
+    combineSlot(\.IsShowWindowShadowKey, \.isShowWindowShadow, IsShowWindowShadowKey)
+    combineSlot(\.IsWithAnimationKey, \.isWithAnimation, IsWithAnimationKey)
+    combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
+    combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
+    combineSlot(\.LandscapeAutoScrollKey, \.landscapeAutoScroll, LandscapeAutoScrollKey)
+    combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
+    combineSlot(\.LandscapeMaxWidthKey, \.landscapeMaxWidth, LandscapeMaxWidthKey)
+    combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
+    combineSlot(\.FontRateKey, \.fontRate, FontRateKey)
+    combineSlot(\.TheColorSchemeKey, \.theColorScheme, TheColorSchemeKey)
+    combineSlot(\.WordColorKey, \.wordColor, WordColorKey)
+    combineSlot(\.TransColorKey, \.transColor, TransColorKey)
+    combineSlot(\.BackgroundColorKey, \.backgroundColor, BackgroundColorKey)
+    combineSlot(\.TextShadowToggleKey, \.textShadowToggle, TextShadowToggleKey)
+    combineSlot(\.ShadowColorKey, \.shadowColor, ShadowColorKey)
+    combineSlot(\.ShadowRadiusKey, \.shadowRadius, ShadowRadiusKey)
+    combineSlot(\.ShadowXOffSetKey, \.shadowXOffSet, ShadowXOffSetKey)
+    combineSlot(\.ShadowYOffSetKey, \.shadowYOffSet, ShadowYOffSetKey)
+    combineSlot(\.UseContentBackgroundColorKey, \.useContentBackgroundColor, UseContentBackgroundColorKey)
+    combineSlot(\.UseContentBackgroundVisualEffectKey, \.useContentBackgroundVisualEffect, UseContentBackgroundVisualEffectKey)
+    combineSlot(\.ContentBackGroundVisualEffectMaterialKey, \.contentBackGroundVisualEffectMaterial, ContentBackGroundVisualEffectMaterialKey)
+}
+
+func combineSlot<T>(
+    _ keypathUserDefaultValue: KeyPath<UserDefaults, T>,
+    _ keypathSettingsValue: WritableKeyPath<Settings, T>,
+    _ keypathName: String
+) {
+    UserDefaults.standard
+        .publisher(for: keypathUserDefaultValue)
+        .handleEvents(receiveOutput: { newValue in
+            let slots = getAllSlots()
+            for slot in slots {
+                if slot.isSelected {
+                    var settings = dataToSettings(slot.settings!)!
+                    settings[keyPath: keypathSettingsValue] = newValue
+                    slot.settings = settingsToData(settings)
+                    saveContext()
+                    myPrint("did combine auto save slot \(keypathName)")
+                }
+            }
         })
         .sink { _ in }
         .store(in: &subscriptions)
