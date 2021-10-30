@@ -397,6 +397,7 @@ func combineSlot<T>(
                     slot.settings = settingsToData(settings)
                     saveContext()
                     myPrint("did save slot \(keypathName)")
+                    return
                 }
             }
         })
