@@ -329,7 +329,7 @@ func combineWindows() {
         .publisher(for: \.CropperStyleKey)
         .handleEvents(receiveOutput: { cropperStyle in
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
-            myPrint("did combine syncCropperView")
+            myPrint("did syncCropperView")
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -338,7 +338,7 @@ func combineWindows() {
         .publisher(for: \.IsShowWindowShadowKey)
         .handleEvents(receiveOutput: { isShowWindowShadow in
             syncContentWindowShadow(from: isShowWindowShadow)
-            myPrint("did combine syncContentWindowShadow")
+            myPrint("did syncContentWindowShadow")
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -353,6 +353,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
     combineSlot(\.IsDropTitleWordKey, \.isDropTitleWord, IsDropTitleWordKey)
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
+    combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)
     combineSlot(\.IsDropFirstTitleWordInTranslationKey, \.isDropFirstTitleWordInTranslation, IsDropFirstTitleWordInTranslationKey)
     combineSlot(\.IsJoinTranslationLinesKey, \.isJoinTranslationLines, IsJoinTranslationLinesKey)
     combineSlot(\.ChineseCharacterConvertModeKey, \.chineseCharacterConvertMode, ChineseCharacterConvertModeKey)
@@ -395,7 +396,7 @@ func combineSlot<T>(
                     settings[keyPath: keypathSettingsValue] = newValue
                     slot.settings = settingsToData(settings)
                     saveContext()
-                    myPrint("did combine auto save slot \(keypathName)")
+                    myPrint("did save slot \(keypathName)")
                 }
             }
         })
