@@ -15,6 +15,7 @@ func initEntriesPanel() {
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
         name: NSLocalizedString("Entries Panel", comment: "")
     )
+    entriesPanel.close()
 }
 
 extension AppDelegate {

@@ -21,6 +21,8 @@ func initContentWindow() {
             
     let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
     syncContentWindowShadow(from: isShowWindowShadow)
+    
+    contentWindow.close()
 }
 
 func syncContentWindowShadow(from isShowWindowShadow: Bool) {

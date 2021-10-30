@@ -17,6 +17,8 @@ func initCropperWindow() {
     )
     
     cropperWindow.delegate = ccDelegate
+    
+    cropperWindow.close()
 }
 
 func syncCropperView(from cropperStyle: CropperStyle) {

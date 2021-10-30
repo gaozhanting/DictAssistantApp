@@ -15,6 +15,7 @@ func initDictInstallPanel() {
         contentRect: NSRect(x: 200, y: 100, width: 450, height: 200),
         name: NSLocalizedString("Dict Install Panel", comment: "")
     )
+    dictInstallPanel.close()
 }
 
 extension AppDelegate {

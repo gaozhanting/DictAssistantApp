@@ -15,6 +15,7 @@ func initKnownPanel() {
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
         name: NSLocalizedString("Known Panel", comment: "")
     )
+    knownPanel.close()
 }
 
 extension AppDelegate {

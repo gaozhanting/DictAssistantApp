@@ -15,6 +15,7 @@ func initEntryUpsertPanel() {
         contentRect: NSRect(x: 200, y: 100, width: 400, height: 50),
         name: NSLocalizedString("Entry Upsert Panel", comment: "")
     )
+    entryUpsertPanel.close()
 }
 
 func showEntryUpsertPanel() {

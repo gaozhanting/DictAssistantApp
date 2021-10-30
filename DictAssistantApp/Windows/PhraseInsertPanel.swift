@@ -15,6 +15,7 @@ func initPhraseInsertPanel() {
         contentRect: NSRect(x: 200, y: 100, width: 300, height: 50),
         name: NSLocalizedString("Phrase Insert Panel", comment: "")
     )
+    phraseInsertPanel.close()
 }
 
 func showPhraseInsertPanel() {
