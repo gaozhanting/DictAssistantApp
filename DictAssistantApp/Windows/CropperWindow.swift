@@ -16,7 +16,7 @@ func initCropperWindow() {
         name: "cropperWindow"
     )
     
-    cropperWindow.delegate = cropperWindowDelegate
+    cropperWindow.delegate = ccDelegate
 }
 
 func syncCropperView(from cropperStyle: CropperStyle) {
@@ -31,34 +31,6 @@ func syncCropperView(from cropperStyle: CropperStyle) {
         cropperWindow.contentView = NSHostingView(rootView: TrailingBorderCropperView())
     }
     cropperWindow.orderFrontRegardless()
-}
-
-// Auto save selected slot frame settings
-private let cropperWindowDelegate = CropperWindowDelegate()
-
-private class CropperWindowDelegate: NSObject, NSWindowDelegate {
-    // MARK: - Sync frame to selected Slot
-    func windowDidMove(_ notification: Notification) { // content window && cropper window
-        updateSelectedSlot()
-    }
-    
-    func windowDidResize(_ notification: Notification) { // content window && cropper window
-        updateSelectedSlot()
-    }
-    
-    func updateSelectedSlot() {
-        let slots = getAllSlots()
-        for slot in slots {
-            if slot.isSelected {
-                var settings = dataToSettings(slot.settings!)!
-                settings.contentFrame = cropperWindow.frame
-                slot.settings = settingsToData(settings)
-                saveContext()
-                myPrint("did save slot cropper frame")
-                return
-            }
-        }
-    }
 }
 
 private class CropperWindow: NSWindow {
