@@ -141,7 +141,7 @@ func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
     return "Concise Oxford English Dictionary 11th"
 }
 
-fileprivate struct DownloadExtraDictView: View {
+fileprivate struct InstallPresetDictView: View {
     let next: () -> Void
     
     @State var selectedDictName: String = defaultSelectedDictNameFromSystemPreferredLanguage()
@@ -159,6 +159,13 @@ fileprivate struct DownloadExtraDictView: View {
             },
             content: {
                 VStack(alignment: .leading) {
+                    Text("Open Dictionary App, click menu File/Open Dictionaries Folder.")
+                    Button("Open Dictionary App") {
+                        openAppleDictionrayApp()
+                    }
+                    
+                    Divider().padding(.vertical, 10)
+
                     GroupBox {
                         DictInstallView(dicts: targetDicts())
                             .frame(maxWidth: .infinity)
@@ -258,7 +265,7 @@ private struct OneKeyRecordingView: View {
 enum OnboardingPage: CaseIterable {
     case welcome
     case initKnown
-    case downloadExtraDict
+    case installPresetDict
     case initGlobalKeyboardShortcut
     
     @ViewBuilder
@@ -268,8 +275,8 @@ enum OnboardingPage: CaseIterable {
             WelcomeView(next: next)
         case .initKnown:
             InitKnownView(next: next)
-        case .downloadExtraDict:
-            DownloadExtraDictView(next: next)
+        case .installPresetDict:
+            InstallPresetDictView(next: next)
         case .initGlobalKeyboardShortcut:
             InitGlobalKeyboardShortcutView(next: next)
         }
@@ -314,7 +321,7 @@ struct OnboardingView_Previews: PreviewProvider {
         Group {
             OnboardingPage.welcome.view()
             OnboardingPage.initKnown.view()
-            OnboardingPage.downloadExtraDict.view()
+            OnboardingPage.installPresetDict.view()
             OnboardingPage.initGlobalKeyboardShortcut.view()
         }
         .environment(\.locale, .init(identifier: "zh-Hans"))
