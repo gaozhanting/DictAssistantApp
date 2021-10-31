@@ -12,6 +12,9 @@ import SwiftUI
 var currentTRTexts: [String] = []
 
 func trCallBack() {
+    if !statusData.isPlaying { // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
+        return
+    }
     let processed = nlpSample.process(currentTRTexts)
     let wordCell = processed.map { tagWord($0) }
     mutateDisplayedWords(wordCell)
