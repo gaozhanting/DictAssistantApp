@@ -44,12 +44,10 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate enum DisplayFilter: String, CaseIterable, Identifiable {
-    case all
-    case words
-    case phrases
-
-    var id: String { self.rawValue }
+fileprivate enum DisplayFilter: Int {
+    case all = 0
+    case words = 1
+    case phrases = 2
 }
 
 fileprivate struct ConstantKnownView: View {
@@ -58,10 +56,10 @@ fileprivate struct ConstantKnownView: View {
         sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
 
-    @State private var selectedFlavor = DisplayFilter.all
+    @State private var selectedFlavor = DisplayFilter.all.rawValue
     
     func filter(_ word: String) -> Bool {
-        switch selectedFlavor {
+        switch DisplayFilter(rawValue: selectedFlavor)! {
         case .all:
             return true
         case .words:
