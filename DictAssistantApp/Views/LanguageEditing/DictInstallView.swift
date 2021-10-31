@@ -236,11 +236,13 @@ private func saveDict(_ dictInstalledName: String, didAuthorized: @escaping (_ d
             let panel = NSSavePanel()
             let prefixMessage = NSLocalizedString("The installed path should be", comment: "")
             panel.message = "\(prefixMessage): /Users/\(NSUserName())/Library/Dictionaries"
-            panel.isExtensionHidden = false
             panel.showsTagField = false
             panel.directoryURL = dictionariesURL
-            panel.canCreateDirectories = true
             panel.nameFieldStringValue = dictInstalledName // "oxfordjm-ec.dictionary"
+            
+            panel.canCreateDirectories = true
+            panel.canSelectHiddenExtension = false
+            panel.isExtensionHidden = false
             
             guard panel.runModal() == .OK else {
                 logger.info("panel runModal not return OK, refused.") // toast
