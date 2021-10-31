@@ -173,10 +173,7 @@ fileprivate struct InstallPresetDictView: View {
                     
                     Divider().padding(.vertical, 10)
                     
-                    Text("Open Dictionary App preferences, make it the first selected dictionary.")
-                    Button("Open Dictionary App") {
-                        openAppleDictionrayApp()
-                    }
+                    Text("Restart Dictionary App, open preferences, make it the first selected dictionary.")
                 }
                 .padding()
             },
