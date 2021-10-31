@@ -12,7 +12,7 @@ var entriesPanel: NSPanel!
 
 func initEntriesPanel() {
     entriesPanel = EditingPanel(
-        contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+        contentRect: editPanelFrame,
         name: NSLocalizedString("Entries Panel", comment: "")
     )
     entriesPanel.close()

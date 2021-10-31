@@ -10,10 +10,12 @@ import Cocoa
 // MARK: - content window
 var contentWindow: NSPanel!
 
+let defaultContentFrame = NSRect(x: 100, y: 100, width: 200, height: 600)
+
 func initContentWindow() {
     // this rect is just the very first rect of the window, it will automatically stored the window frame info by system
     contentWindow = ContentWindow.init(
-        contentRect: NSRect(x: 100, y: 100, width: 200, height: 600),
+        contentRect: defaultContentFrame,
         name: "portraitWordsPanel"
     )
     

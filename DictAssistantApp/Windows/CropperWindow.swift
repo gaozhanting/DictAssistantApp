@@ -10,9 +10,11 @@ import SwiftUI
 
 var cropperWindow: NSWindow!
 
+let defaultCropperFrame = NSRect(x: 310, y: 500, width: 600, height: 200)
+
 func initCropperWindow() {
     cropperWindow = CropperWindow.init(
-        contentRect: NSRect(x: 300, y: 500, width: 600, height: 200),
+        contentRect: defaultCropperFrame,
         name: "cropperWindow"
     )
     

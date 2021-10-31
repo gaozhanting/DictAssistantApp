@@ -10,9 +10,11 @@ import SwiftUI
 
 var phrasePanel: NSPanel!
 
+let editPanelFrame = NSRect(x: 200, y: 100, width: 300, height: 600)
+
 func initPhrasePanel() {
     phrasePanel = EditingPanel(
-        contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+        contentRect: editPanelFrame,
         name: NSLocalizedString("Phrases Panel", comment: "")
     )
     phrasePanel.close()

@@ -12,7 +12,7 @@ var knownPanel: NSPanel!
 
 func initKnownPanel() {
     knownPanel = EditingPanel(
-        contentRect: NSRect(x: 200, y: 100, width: 300, height: 600),
+        contentRect: editPanelFrame,
         name: NSLocalizedString("Known Panel", comment: "")
     )
     knownPanel.close()

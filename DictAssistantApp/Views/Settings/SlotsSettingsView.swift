@@ -192,8 +192,8 @@ fileprivate let defaultSettings = Settings(
     useContentBackgroundColor: true,
     useContentBackgroundVisualEffect: false,
     contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
-    cropperFrame: NSRect(x: 310, y: 500, width: 600, height: 200),
-    contentFrame: NSRect(x: 100, y: 100, width: 200, height: 600)
+    cropperFrame: defaultCropperFrame,
+    contentFrame: defaultContentFrame
 )
 
 struct SlotsSettingsView: View {
