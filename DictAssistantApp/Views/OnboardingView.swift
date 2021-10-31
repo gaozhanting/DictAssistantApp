@@ -160,6 +160,7 @@ fileprivate struct InstallPresetDictView: View {
             content: {
                 VStack(alignment: .leading) {
                     Text("Open Dictionary App, click menu File/Open Dictionaries Folder.")
+                    Text("This action will create the folder if not have been created before.")
                     Button("Open Dictionary App") {
                         openAppleDictionrayApp()
                     }
