@@ -59,14 +59,14 @@
 
 "General" = "常規";
 "Global Keyboard Shortcuts:" = "全局鍵盤快捷鍵：";
-"Run Step Play:" = "單步運行";
-"Toggle Show Current Known Words:" = "切換是否顯示當前已知單詞";
-"Toggle Conceal Current Known Words:" = "切換是否開啓隱藏已知單詞模式";
-"Toggle Conceal Translation:" = "切換是否隱藏單詞譯文";
-"Toggle Show Current Not-Found Words:" = "切換是否顯示無法查找的單詞";
-"Run Swift Play:" = "快速運行";
-"Show Phrase Insert Panel:" = "打開添加短語面板";
-"Show Entry Upsert Panel:" = "打開添加詞條面板";
+"Run Step Play" = "單步運行";
+"Toggle Show Current Known Words" = "切換是否顯示當前已知單詞";
+"Toggle Conceal Current Known Words" = "切換是否開啓隱藏已知單詞模式";
+"Toggle Conceal Translation" = "切換是否隱藏單詞譯文";
+"Toggle Show Current Not-Found Words" = "切換是否顯示無法查找的單詞";
+"Run Swift Play" = "快速運行";
+"Show Phrase Insert Panel" = "打開添加短語面板";
+"Show Entry Upsert Panel" = "打開添加詞條面板";
 "recommend: Option-1" = "推薦：Option-1";
 "recommend: Option-2" = "推薦：Option-2";
 "recommend: Option-3" = "推薦：Option-3";
@@ -203,7 +203,7 @@
 "This step is optional, but highly recommended." = "這壹步是可跳過的，不過強烈推薦完成。";
 "Open Dictionary App preferences, make it the first selected dictionary." = "打開系統自帶的詞典應用程序的偏好設置，調整剛安裝的詞典爲第壹選擇的詞典。";
 "Open Dictionary App" = "打開系統自帶的詞典應用程序";
-"Initialize two global keyboard shortcuts & Playing" = "初始化兩個全局的鍵盤快捷鍵";
+"Initialize one global keyboard shortcuts & Playing" = "初始化一個全局的鍵盤快捷鍵";
 "Playing:" = "運行：";
 "Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window." = "步驟1：按 單步運行 快捷鍵，調整錄屏區域。";
 "Step 2: Press Run Step Play keyboard shortcut key and adjust the content window." = "步驟2：按 單步運行 快捷鍵，調整內容區域。";

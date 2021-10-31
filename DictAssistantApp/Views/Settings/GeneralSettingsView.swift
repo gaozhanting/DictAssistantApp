@@ -15,7 +15,7 @@ struct GeneralSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: NSLocalizedString("Global Keyboard Shortcuts:", comment: "")) {
-                KeyRecordingView(onboarding: false)
+                KeyRecordingView()
                     .frame(maxWidth: .infinity)
             }
             Preferences.Section(title: NSLocalizedString("Toast:", comment: "")) {
@@ -48,18 +48,16 @@ struct MiniInfoView<Content: View>: View {
     }
 }
 
-struct KeyRecordingView: View {
-    let onboarding: Bool
-    
+private struct KeyRecordingView: View {
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
     @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
-
+    
     var body: some View {
         Group {
             HStack {
-                Text("Run Step Play:")
+                Text("Run Step Play")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleStepPlay)
                 MiniInfoView {
@@ -67,7 +65,7 @@ struct KeyRecordingView: View {
                 }
             }
             HStack(alignment: .firstTextBaseline) {
-                Text("Toggle Show Current Known Words:")
+                Text("Toggle Show Current Known Words")
                 Spacer()
                 Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
@@ -75,57 +73,55 @@ struct KeyRecordingView: View {
                     Text("recommend: Option-2").padding()
                 }
             }
-            if !onboarding {
-                HStack(alignment: .firstTextBaseline) {
-                    Text("Toggle Conceal Current Known Words:")
-                    Spacer()
-                    Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
-                    KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
-                    MiniInfoView {
-                        Text("recommend: Option-3").padding()
-                    }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Toggle Conceal Current Known Words")
+                Spacer()
+                Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
+                MiniInfoView {
+                    Text("recommend: Option-3").padding()
                 }
-                HStack(alignment: .firstTextBaseline) {
-                    Text("Toggle Conceal Translation:")
-                    Spacer()
-                    Toggle("", isOn: $isConcealTranslation).labelsHidden()
-                    KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
-                    MiniInfoView {
-                        Text("recommend: Option-4").padding()
-                    }
+            }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Toggle Conceal Translation")
+                Spacer()
+                Toggle("", isOn: $isConcealTranslation).labelsHidden()
+                KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
+                MiniInfoView {
+                    Text("recommend: Option-4").padding()
                 }
-                HStack(alignment: .firstTextBaseline) {
-                    Text("Toggle Show Current Not-Found Words:")
-                    Spacer()
-                    Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
-                    KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
-                    MiniInfoView {
-                        Text("recommend: Option-5").padding()
-                    }
+            }
+            HStack(alignment: .firstTextBaseline) {
+                Text("Toggle Show Current Not-Found Words")
+                Spacer()
+                Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
+                MiniInfoView {
+                    Text("recommend: Option-5").padding()
                 }
-                HStack {
-                    Text("Run Swift Play:")
-                    Spacer()
-                    KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
-                    MiniInfoView {
-                        Text("recommend: Option-S").padding()
-                    }
+            }
+            HStack {
+                Text("Run Swift Play")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
+                MiniInfoView {
+                    Text("recommend: Option-S").padding()
                 }
-                HStack {
-                    Text("Show Phrase Insert Panel:")
-                    Spacer()
-                    KeyboardShortcuts.Recorder(for: .showPhraseInsertPanel)
-                    MiniInfoView {
-                        Text("recommend: Option-P").padding()
-                    }
+            }
+            HStack {
+                Text("Show Phrase Insert Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .showPhraseInsertPanel)
+                MiniInfoView {
+                    Text("recommend: Option-P").padding()
                 }
-                HStack {
-                    Text("Show Entry Upsert Panel:")
-                    Spacer()
-                    KeyboardShortcuts.Recorder(for: .showUpsertEntryPanel)
-                    MiniInfoView {
-                        Text("recommend: Option-E").padding()
-                    }
+            }
+            HStack {
+                Text("Show Entry Upsert Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .showUpsertEntryPanel)
+                MiniInfoView {
+                    Text("recommend: Option-E").padding()
                 }
             }
         }

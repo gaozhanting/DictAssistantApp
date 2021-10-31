@@ -202,9 +202,9 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     
     var body: some View {
         PageTemplateView(
-            title: { Text("Initialize two global keyboard shortcuts & Playing") },
+            title: { Text("Initialize one global keyboard shortcuts & Playing") },
             content: {
-                KeyRecordingView(onboarding: true)
+                OneKeyRecordingView()
                     .frame(width: 500)
                 
                 if showPlaying {
@@ -240,6 +240,22 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
                 }
             }
         )
+    }
+}
+
+private struct OneKeyRecordingView: View {
+    var body: some View {
+        GroupBox {
+            HStack {
+                Text("Run Step Play")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleStepPlay)
+                MiniInfoView {
+                    Text("recommend: Option-1").padding()
+                }
+            }
+            .padding()
+        }
     }
 }
 
@@ -306,6 +322,7 @@ struct OnboardingView_Previews: PreviewProvider {
             OnboardingPage.initGlobalKeyboardShortcut.view()
         }
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
         .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }
