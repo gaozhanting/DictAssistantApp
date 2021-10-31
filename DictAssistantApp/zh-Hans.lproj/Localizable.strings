@@ -195,15 +195,14 @@
 "Welcome to DictAssistant" = "欢迎使用 词典助手App";
 "We start three steps to setup." = "我们开始三步启动设置。";
 "Continue" = "继续";
-"Initialize your English vocabulary" = "初始化您的英语词汇量";
-"Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine." = "输入您估计的词汇量数字，并按return键确认提交。然后点击之后的添加按钮，等待完成并继续。";
+"Initialize your English vocabulary count, press enter" = "初始化您的英语词汇量，按enter键提交";
 "My vocabulary count:" = "我的词汇量：";
 "Install recommened concise dictionary" = "安装推荐的简明词典";
 "If have multi, install which you like." = "如果有多个，安装您喜欢的。";
 "This step is optional, but highly recommended." = "这一步是可跳过的，不过强烈推荐完成。";
 "Open Dictionary App preferences, make it the first selected dictionary." = "打开系统自带的词典应用程序的偏好设置，调整刚安装的词典为第一选择的词典。";
 "Open Dictionary App" = "打开系统自带的词典应用程序";
-"Initialize one global keyboard shortcuts & Playing" = "初始化一个全局的键盘快捷键";
+"Initialize one global keyboard shortcuts, playing" = "初始化一个全局的键盘快捷键，运行";
 "Playing:" = "运行：";
 "Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window." = "步骤1：按 单步运行 快捷键，調整录屏区域。";
 "Step 2: Press Run Step Play keyboard shortcut key and adjust the content window." = "步骤2：按 单步运行 快捷键，调整内容区域。";

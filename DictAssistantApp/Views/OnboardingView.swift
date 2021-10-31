@@ -70,7 +70,6 @@ fileprivate struct InitKnownView: View {
     let next: () -> Void
     
     @State private var to: Int = 5000
-    @State private var showAddButton: Bool = false
     @State private var batchInsertSucceed: Bool = false
     
     @FetchRequest(
@@ -78,36 +77,33 @@ fileprivate struct InitKnownView: View {
         sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
     
+    func onCommit() {
+        let words = Array(wikiFrequencyWords[0 ..< to])
+        batchInsertKnown(words) {
+            batchInsertSucceed = true
+        }
+    }
+    
     var body: some View {
         PageTemplateView(
-            title: { Text("Initialize your English vocabulary") },
+            title: {
+                Text("Initialize your English vocabulary count, press enter")
+            },
             content: {
-                Text("Enter your estimated English vocabulary count, press enter key to commit. And then press add button, wait for contine.")
-                    .frame(width: 500)
-                
-                HStack {
-                    Text("My vocabulary count:")
-                    
-                    TextField("", value: $to, formatter: {
-                        let formatter = NumberFormatter()
-                        formatter.numberStyle = .none // integer, no decimal
-                        formatter.minimum = 2
-                        formatter.maximum = 100000
-                        return formatter
-                    }(), onCommit: {
-                        showAddButton = true
-                    })
-                    .frame(width: 60)
-                    
-                    Button(action: {
-                        let words = Array(wikiFrequencyWords[0 ..< to])
-                        batchInsertKnown(words) {
-                            batchInsertSucceed = true
-                        }
-                    }) {
-                        Image(systemName: "rectangle.stack.badge.plus")
+                GroupBox {
+                    HStack {
+                        Text("My vocabulary count:")
+                        
+                        TextField("", value: $to, formatter: {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .none // integer, no decimal
+                            formatter.minimum = 2
+                            formatter.maximum = 100000
+                            return formatter
+                        }(), onCommit: onCommit)
+                            .frame(width: 60)
                     }
-                    .disabled(!showAddButton)
+                    .padding()
                 }
             },
             nextButton: {
@@ -202,7 +198,7 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
     
     var body: some View {
         PageTemplateView(
-            title: { Text("Initialize one global keyboard shortcuts & Playing") },
+            title: { Text("Initialize one global keyboard shortcuts, playing") },
             content: {
                 OneKeyRecordingView()
                     .frame(width: 500)
@@ -321,8 +317,8 @@ struct OnboardingView_Previews: PreviewProvider {
             OnboardingPage.downloadExtraDict.view()
             OnboardingPage.initGlobalKeyboardShortcut.view()
         }
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
-        .environment(\.locale, .init(identifier: "en"))
+        .environment(\.locale, .init(identifier: "zh-Hans"))
+//        .environment(\.locale, .init(identifier: "en"))
         .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }
