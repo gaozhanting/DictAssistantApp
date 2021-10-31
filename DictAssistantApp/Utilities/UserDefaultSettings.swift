@@ -328,6 +328,9 @@ func combineWindows() {
     UserDefaults.standard
         .publisher(for: \.CropperStyleKey)
         .handleEvents(receiveOutput: { cropperStyle in
+            if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) { // we don't want display any cropper during onboarding process
+                return
+            }
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
             myPrint("did syncCropperView")
         })
