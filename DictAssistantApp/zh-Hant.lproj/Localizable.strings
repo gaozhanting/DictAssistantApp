@@ -210,3 +210,5 @@
 "Stop:" = "停止：";
 "Press Run Step Play keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行";
 "End" = "完成設置";
+
+"The installed path should be" = "安裝路徑必須是";
