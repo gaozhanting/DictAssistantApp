@@ -12,7 +12,7 @@ var cropperWindow: NSWindow!
 
 func initCropperWindow() {
     cropperWindow = CropperWindow.init(
-        contentRect: NSRect(x: 300, y: 300, width: 600, height: 200),
+        contentRect: NSRect(x: 300, y: 500, width: 600, height: 200),
         name: "cropperWindow"
     )
     
