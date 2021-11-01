@@ -58,17 +58,17 @@ struct NLPSample {
                     let lemma = tag.rawValue
                     results.append(Word(token: token, lemma: lemma))
                 } else {
-                    myPrint("   >lemma from apple, but raw value of tag is empty") // seems to be impossible
+                    logger.info("   >lemma from apple, but raw value of tag is empty") // seems to be impossible
                     results.append(Word(token: token, lemma: "???")) // placeholder to keep align of token and lemma
                 }
                 return true
             }
             
             if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
-                myPrint("   >lemma          found-from-db: \(token): \(lemma)")
+                logger.info("   >lemma          found-from-db: \(token): \(lemma)")
                 results.append(Word(token: token, lemma: lemma))
             } else {
-                myPrint("   >lemma not-found-even-from-db: \(token)")
+                logger.info("   >lemma not-found-even-from-db: \(token)")
                 results.append(Word(token: token, lemma: token)) // lemma self as last rescue ===> ignored when can't look up from dictionaries, refer func tagWords
             }
             return true
@@ -167,29 +167,29 @@ struct NLPSample {
     func processSingle(_ text: String) -> [String] {
         let primitiveTokens = tokenize(text, .word)
         let primitiveSentence = primitiveTokens.joined(separator: " ")
-        myPrint("   >> primitiveSentence: \(primitiveSentence)")
+        logger.info("   >> primitiveSentence: \(primitiveSentence)")
 
         let words = word(primitiveSentence)
         let tokens = words.map { $0.token }
         let lemmas = words.map { $0.lemma }
         
         let lemmaedSentence = lemmas.joined(separator: " ")
-        myPrint("   >> lemmaedSentence: \(lemmaedSentence)")
+        logger.info("   >> lemmaedSentence: \(lemmaedSentence)")
                 
         let primitiveNames = name(primitiveSentence)
-        myPrint("   >> primitiveNames: \(primitiveNames)")
+        logger.info("   >> primitiveNames: \(primitiveNames)")
         let lemmaedNames = name(lemmaedSentence)
-        myPrint("   >> lemmaedNames: \(lemmaedNames)")
+        logger.info("   >> lemmaedNames: \(lemmaedNames)")
         
         let primitivePhrases = phrase(tokens)
-        myPrint("   >> primitivePhrases: \(primitivePhrases)")
+        logger.info("   >> primitivePhrases: \(primitivePhrases)")
         let lemmaedPhrases = phrase(lemmas)
-        myPrint("   >> lemmaedPhrases: \(lemmaedPhrases)")
+        logger.info("   >> lemmaedPhrases: \(lemmaedPhrases)")
         
         let primitiveHyphenPhrases = hyphenPhrase(tokens)
-        myPrint("   >> primitiveHyphenPhrases: \(primitivePhrases)")
+        logger.info("   >> primitiveHyphenPhrases: \(primitivePhrases)")
         let lemmaedHyphenPhrases = hyphenPhrase(lemmas)
-        myPrint("   >> lemmaedHyphenPhrases: \(lemmaedPhrases)")
+        logger.info("   >> lemmaedHyphenPhrases: \(lemmaedPhrases)")
         
         var result: [String] = []
         
@@ -203,13 +203,13 @@ struct NLPSample {
             if let primitiveName = primitiveNames[index] {
                 if primitiveName.caseInsensitiveCompare(lemma) != .orderedSame {
                     result.append(primitiveName)
-                    myPrint("   >>> append primitiveName: \(primitiveName)")
+                    logger.info("   >>> append primitiveName: \(primitiveName)")
                 }
             } else {
                 if let lemmaedName = lemmaedNames[index] {
                     if lemmaedName.caseInsensitiveCompare(lemma) != .orderedSame {
                         result.append(lemmaedName)
-                        myPrint("   >>> append lemmaedName: \(lemmaedName)")
+                        logger.info("   >>> append lemmaedName: \(lemmaedName)")
                     }
                 }
             }
@@ -221,7 +221,7 @@ struct NLPSample {
                 if primitivePhrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
                     primitivePhrase.caseInsensitiveCompare(lemmaedName) != .orderedSame { // name first, de-duplicate
                     result.append(primitivePhrase)
-                    myPrint("   >>> append primitivePhrase: \(primitivePhrase)")
+                    logger.info("   >>> append primitivePhrase: \(primitivePhrase)")
                 }
             }
             
@@ -234,7 +234,7 @@ struct NLPSample {
                     lemmaedphrase.caseInsensitiveCompare(lemmaedName) != .orderedSame &&
                     lemmaedphrase.caseInsensitiveCompare(primitivePhrase) != .orderedSame { // name first, de-duplicate
                     result.append(lemmaedphrase)
-                    myPrint("   >>> append lemmaedPhrase: \(lemmaedphrase)")
+                    logger.info("   >>> append lemmaedPhrase: \(lemmaedphrase)")
                 }
             }
             
@@ -243,7 +243,7 @@ struct NLPSample {
                 if primitiveHyphenPhrase.replacingOccurrences(of: "-", with: " ").caseInsensitiveCompare(primitivePhrase) != .orderedSame {
                     result.append(primitiveHyphenPhrase)
                 }
-                myPrint("   >>> append primitiveHyphenPhrase: \(primitiveHyphenPhrase)")
+                logger.info("   >>> append primitiveHyphenPhrase: \(primitiveHyphenPhrase)")
             }
             
             if let lemmaedHyphenPhrase = lemmaedHyphenPhrases[index] {
@@ -252,7 +252,7 @@ struct NLPSample {
                 if lemmaedHyphenPhrase.caseInsensitiveCompare(primitiveHyphenPhrase) != .orderedSame &&
                     lemmaedHyphenPhrase.replacingOccurrences(of: "-", with: " ").caseInsensitiveCompare(lemmaedPhrase) != .orderedSame {
                     result.append(lemmaedHyphenPhrase)
-                    myPrint("   >>> append lemmaedHyphenPhrase: \(lemmaedHyphenPhrase)")
+                    logger.info("   >>> append lemmaedHyphenPhrase: \(lemmaedHyphenPhrase)")
                 }
             }
             
@@ -266,11 +266,11 @@ struct NLPSample {
     // >> sentence, names, phrase log
     // > lemma log
     func process(_ texts: [String]) -> [String] {
-        myPrint("🦉 >>>> NLP process:")
+        logger.info("🦉 >>>> NLP process:")
 
         // for debug
         for text in texts {
-            myPrint("   >>>> text from TR: \(text)")
+            logger.info("   >>>> text from TR: \(text)")
         }
         
         // transform TR texts into multi sentences
@@ -280,13 +280,13 @@ struct NLPSample {
         // for every sentence
         var results: [String] = []
         for sentence in sentences {
-            myPrint("   >>>> 🐱 sentence: \(sentence)")
+            logger.info("   >>>> 🐱 sentence: \(sentence)")
             let result = processSingle(sentence)
-            myPrint("   >>>> 🐶 result: \(result)")
+            logger.info("   >>>> 🐶 result: \(result)")
             results += result
         }
         
-        myPrint("   >>>> NLP process results    : \(results)")
+        logger.info("   >>>> NLP process results    : \(results)")
         return results
     }
 }

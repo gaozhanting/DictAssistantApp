@@ -332,7 +332,7 @@ func combineWindows() {
                 return
             }
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
-            myPrint("did syncCropperView")
+            logger.info("did syncCropperView")
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -341,7 +341,7 @@ func combineWindows() {
         .publisher(for: \.IsShowWindowShadowKey)
         .handleEvents(receiveOutput: { isShowWindowShadow in
             syncContentWindowShadow(from: isShowWindowShadow)
-            myPrint("did syncContentWindowShadow")
+            logger.info("did syncContentWindowShadow")
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -399,7 +399,7 @@ func combineSlot<T>(
                     settings[keyPath: keypathSettingsValue] = newValue
                     slot.settings = settingsToData(settings)
                     saveContext()
-                    myPrint("did save slot \(keypathName)")
+                    logger.info("did save slot \(keypathName)")
                     return
                 }
             }

@@ -27,7 +27,7 @@ private func tagWord(_ word: String) -> WordCell {
         if let trans = cachedDictionaryServicesDefine(word) {
             return WordCell(word: word, isKnown: .unKnown, trans: trans)
         } else {
-            myPrint("!> translation not found from dicts of word: \(word)")
+            logger.info("   !>>>> translation not found from dicts of word: \(word)")
             return WordCell(word: word, isKnown: .unKnown, trans: "")
         }
     }

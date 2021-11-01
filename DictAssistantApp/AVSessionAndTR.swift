@@ -43,7 +43,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         if session.canAddInput(screenInput) {
             session.addInput(screenInput)
         } else {
-          myPrint("Could not add video device input to the session")
+            logger.error("Could not add video device input to the session")
         }
         
         if testMovie {
@@ -52,7 +52,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 testMovieFileOutput.movieFragmentInterval = .invalid
 //                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
             } else {
-                myPrint("Could not add movie file output to the session")
+                logger.error("Could not add movie file output to the session")
             }
         }
         else {
@@ -65,7 +65,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 //          ]
                 dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
             } else {
-                myPrint("Could not add video data output to the session")
+                logger.error("Could not add video data output to the session")
             }
             //        let captureConnection = dataOutput.connection(with: .video)
             //        captureConnection?.preferredVideoStabilizationMode = .standard

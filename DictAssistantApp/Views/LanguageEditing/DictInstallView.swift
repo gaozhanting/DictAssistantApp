@@ -309,7 +309,7 @@ func searchResourceDictZipFiles() -> [String] {
     var results: [String] = []
     while let file = dirEnum?.nextObject() as? String {
         if file.hasSuffix(".zip") {
-            myPrint(">>found file: \(file)")
+            logger.info(">>found file: \(file)")
             results.append(file)
         }
     }

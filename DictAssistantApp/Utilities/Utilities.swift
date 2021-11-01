@@ -31,11 +31,7 @@ func dataToColor(_ data: Data) -> NSColor? {
     return color
 }
 
-let logger = Logger()
-
-func myPrint(_ str: String) {
-    print(str) // or donothing
-}
+let logger = Logger(subsystem: "com.gaozhanting.DictAssistantApp", category: "")
 
 func timeElapsed(info: String, _ closure: () -> Void) {
     let startingPoint = Date()

@@ -30,7 +30,7 @@ private func updateSelectedSlot() {
             settings.cropperFrame = cropperWindow.frame
             slot.settings = settingsToData(settings)
             saveContext()
-            myPrint("did save slot contentFrame & cropperFrame")
+            logger.info("did save slot contentFrame & cropperFrame")
             return
         }
     }
