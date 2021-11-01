@@ -399,7 +399,7 @@ func combineSlot<T>(
                     settings[keyPath: keypathSettingsValue] = newValue
                     slot.settings = settingsToData(settings)
                     saveContext()
-                    logger.info("did save slot \(keypathName)")
+                    logger.info("did save slot \(keypathName, privacy: .public)")
                     return
                 }
             }

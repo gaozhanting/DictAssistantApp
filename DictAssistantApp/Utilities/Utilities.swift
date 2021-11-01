@@ -31,12 +31,12 @@ func dataToColor(_ data: Data) -> NSColor? {
     return color
 }
 
-let logger = Logger(subsystem: "com.gaozhanting.DictAssistantApp", category: "")
+let logger = Logger(subsystem: "com.gaozhanting.DictAssistantApp", category: "main")
 
 func timeElapsed(info: String, _ closure: () -> Void) {
     let startingPoint = Date()
     closure()
-    logger.info("time elapsed of \(info): \(-startingPoint.timeIntervalSinceNow) seconds")
+    logger.info("time elapsed of \(info, privacy: .public): \(-startingPoint.timeIntervalSinceNow, privacy: .public) seconds")
 }
 
 let systemDefaultMinimumTextHeight: Double = 0.03125

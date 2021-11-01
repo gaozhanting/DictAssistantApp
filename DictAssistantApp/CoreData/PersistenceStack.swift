@@ -29,7 +29,7 @@ func saveContext(
             try context.save()
             didSucceed()
         } catch {
-            logger.info("Failed to save context: \(error.localizedDescription)")
+            logger.error("Failed to save context: \(error.localizedDescription)")
             
             // Customize this code block to include application-specific recovery steps.
             let nserror = error as NSError

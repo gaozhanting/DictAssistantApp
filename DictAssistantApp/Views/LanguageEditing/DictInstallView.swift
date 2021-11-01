@@ -258,7 +258,7 @@ private func saveDict(_ dictInstalledName: String, didAuthorized: @escaping (_ d
         }
         
     } catch {
-        logger.info("saveDict exception caught: \(error.localizedDescription)")
+        logger.error("saveDict exception caught: \(error.localizedDescription)")
     }
 }
 
@@ -280,7 +280,7 @@ private func unzipUsingCommandLine(from dictFile: URL, to distURL: URL, withAuxi
         
         let status = task.terminationStatus
         if status != 0 {
-            logger.info("unzip task failed.")
+            logger.error("unzip task failed.")
             return
         }
         
@@ -295,7 +295,7 @@ private func unzipUsingCommandLine(from dictFile: URL, to distURL: URL, withAuxi
         try FileManager.default.removeItem(at: upperURL)
         
     } catch {
-        logger.info("unzipUsingCommandLine exception caught: \(error.localizedDescription)")
+        logger.error("unzipUsingCommandLine exception caught: \(error.localizedDescription)")
     }
 }
 
@@ -323,7 +323,7 @@ func targetDicts() -> [Dict] {
 
 private func install(_ dictInstalledName: String) {
     guard let dictFile = Bundle.main.url(forResource: "\(dictInstalledName).zip", withExtension: nil) else {
-        logger.error("Couldn't find \(dictInstalledName).zip in main bundle.")
+        logger.error("Couldn't find \(dictInstalledName, privacy: .public).zip in main bundle.")
         return
     }
     

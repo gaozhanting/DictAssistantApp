@@ -83,7 +83,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 let movieUrl = URL.init(fileURLWithPath: movieUrlString)
                 try FileManager.default.removeItem(at: movieUrl)
             } catch {
-                logger.info("remove movieUrl exception caught: \(error.localizedDescription)")
+                logger.error("remove movieUrl exception caught: \(error.localizedDescription)")
             }
 
             let movieUrl = URL.init(fileURLWithPath: movieUrlString)
@@ -123,7 +123,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         if let textRecognitionLevelE = textRecognitionLevelE {
             textRecognitionRequest.recognitionLevel = textRecognitionLevelE
         } else { // never this case, because we init it when launch app.
-            logger.info("textRecognitionLevelE is nil, impossible!")
+            logger.error("textRecognitionLevelE is nil, impossible!")
             textRecognitionRequest.recognitionLevel = .fast
         }
         textRecognitionRequest.minimumTextHeight = Float(minimumTextHeight)
@@ -134,7 +134,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
             do {
                 try requestHandler?.perform([textRecognitionRequest])
             } catch {
-                logger.info("TextRecognize failed: \(error.localizedDescription)")
+                logger.error("TextRecognize failed: \(error.localizedDescription, privacy: .public)")
             }
         }
     }
