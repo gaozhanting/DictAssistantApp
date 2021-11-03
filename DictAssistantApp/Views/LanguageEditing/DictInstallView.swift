@@ -50,7 +50,7 @@ let dicts: [String: Dict] = [
              license: "?",
              licenseURL: nil,
              installedName: "lazyworm-ec.dictionary",
-             downloadURL: URL(string: "http://download.huzheng.org/zh_CN/")!
+             downloadURL: nil
             ),
     
     "mac-yinghancidian.dictionary.zip":
@@ -68,7 +68,7 @@ let dicts: [String: Dict] = [
              license: "?",
              licenseURL: nil,
              installedName: "lazyworm-ec-big5.dictionary",
-             downloadURL: URL(string: "http://download.huzheng.org/zh_CN/")!
+             downloadURL: nil
             ),
     
     "mac-jmdict-en-ja.dictionary.zip":
@@ -373,6 +373,21 @@ private struct DictItemInstallView: View {
                         HStack {
                             Text("downloadURL:")
                             Button(action: { openURL(downloadURL) }, label: {
+                                Image(systemName: "arrow.right.circle")
+                                    .font(.footnote)
+                            })
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                    .padding()
+                }
+                Spacer()
+            } else if let sourceURL = dict.sourceURL {
+                MiniInfoView {
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Text("sourceURL:")
+                            Button(action: { openURL(sourceURL) }, label: {
                                 Image(systemName: "arrow.right.circle")
                                     .font(.footnote)
                             })
