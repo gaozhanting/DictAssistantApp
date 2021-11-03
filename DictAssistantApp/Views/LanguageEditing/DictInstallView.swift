@@ -235,7 +235,7 @@ private func saveDict(_ dictInstalledName: String, didAuthorized: @escaping (_ d
         DispatchQueue.main.async {
             let panel = NSSavePanel()
             let prefixMessage = NSLocalizedString("The installed path should be", comment: "")
-            panel.message = "\(prefixMessage): /Users/\(NSUserName())/Library/Dictionaries"
+            panel.message = "\(prefixMessage): /Users/\(NSUserName())/Library/Dictionaries/"
             panel.showsTagField = false
             panel.directoryURL = dictionariesURL
             panel.nameFieldStringValue = dictInstalledName // "oxfordjm-ec.dictionary"
