@@ -56,7 +56,12 @@ private class ToastWindow: NSWindow {
             contentRect: contentRect,
             styleMask: [
                 .titled,
-                .fullSizeContentView
+                .nonactivatingPanel,
+                .fullSizeContentView,
+                .miniaturizable,
+                .resizable,
+                .utilityWindow,
+                .borderless,
             ],
             backing: .buffered,
             defer: false

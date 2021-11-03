@@ -14,8 +14,10 @@ func initOnboardingPanel() {
     onboardingPanel = NSPanel.init(
         contentRect: NSRect(x: 200, y: 100, width: 650, height: 530),
         styleMask: [
-            .nonactivatingPanel,
             .titled,
+            .nonactivatingPanel,
+            .fullSizeContentView,
+            .miniaturizable,
         ],
         backing: .buffered,
         defer: false
