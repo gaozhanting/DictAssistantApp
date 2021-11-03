@@ -38,6 +38,74 @@
 		4422950E272CF77A0015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
 		4422950F272CF7930015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
+		4430EEE427328A5D003B098C /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
+		4430EEE527328A5D003B098C /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
+		4430EEE627328A5D003B098C /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
+		4430EEE727328A5D003B098C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
+		4430EEE827328A5D003B098C /* EnglishSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */; };
+		4430EEE927328A5D003B098C /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
+		4430EEEA27328A5D003B098C /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
+		4430EEEB27328A5D003B098C /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
+		4430EEEC27328A5D003B098C /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
+		4430EEED27328A5D003B098C /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
+		4430EEEE27328A5D003B098C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
+		4430EEEF27328A5D003B098C /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
+		4430EEF027328A5D003B098C /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
+		4430EEF127328A5D003B098C /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
+		4430EEF227328A5D003B098C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
+		4430EEF327328A5D003B098C /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
+		4430EEF427328A5D003B098C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
+		4430EEF527328A5D003B098C /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
+		4430EEF627328A5D003B098C /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
+		4430EEF727328A5D003B098C /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
+		4430EEF827328A5D003B098C /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
+		4430EEF927328A5D003B098C /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
+		4430EEFA27328A5D003B098C /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
+		4430EEFB27328A5D003B098C /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
+		4430EEFC27328A5D003B098C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
+		4430EEFD27328A5D003B098C /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
+		4430EEFE27328A5D003B098C /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
+		4430EEFF27328A5D003B098C /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
+		4430EF0027328A5D003B098C /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
+		4430EF0127328A5D003B098C /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
+		4430EF0227328A5D003B098C /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
+		4430EF0327328A5D003B098C /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
+		4430EF0427328A5D003B098C /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
+		4430EF0527328A5D003B098C /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
+		4430EF0627328A5D003B098C /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
+		4430EF0727328A5D003B098C /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
+		4430EF0827328A5D003B098C /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
+		4430EF0927328A5D003B098C /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
+		4430EF0A27328A5D003B098C /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
+		4430EF0B27328A5D003B098C /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
+		4430EF0C27328A5D003B098C /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
+		4430EF0D27328A5D003B098C /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
+		4430EF0E27328A5D003B098C /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
+		4430EF0F27328A5D003B098C /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
+		4430EF1027328A5D003B098C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
+		4430EF1127328A5D003B098C /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
+		4430EF1227328A5D003B098C /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
+		4430EF1327328A5D003B098C /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
+		4430EF1427328A5D003B098C /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
+		4430EF1527328A5D003B098C /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
+		4430EF1627328A5D003B098C /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
+		4430EF1727328A5D003B098C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
+		4430EF1827328A5D003B098C /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
+		4430EF1927328A5D003B098C /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
+		4430EF1A27328A5D003B098C /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
+		4430EF1B27328A5D003B098C /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
+		4430EF1C27328A5D003B098C /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
+		4430EF1D27328A5D003B098C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
+		4430EF1E27328A5D003B098C /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
+		4430EF2027328A5D003B098C /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 4430EEDE27328A5D003B098C /* DataBases */; };
+		4430EF2127328A5D003B098C /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 4430EEE127328A5D003B098C /* Preferences */; };
+		4430EF2227328A5D003B098C /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4430EEDF27328A5D003B098C /* KeyboardShortcuts */; };
+		4430EF2427328A5D003B098C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
+		4430EF2527328A5D003B098C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
+		4430EF2627328A5D003B098C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
+		4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
+		4430EF2927328A5D003B098C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
+		44383D5D27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44383D5C27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip */; };
 		44408CA727159F7D00866BB9 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
 		44408CA827159F7D00866BB9 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
 		44408CA927159F7D00866BB9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
@@ -172,6 +240,8 @@
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Zh_T.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44383D5C27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "lazyworm-ec-big5.dictionary.zip"; sourceTree = "<group>"; };
 		44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Japanese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Japanese.dictionary.zip; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Zh_S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +298,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4430EF1F27328A5D003B098C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4430EF2027328A5D003B098C /* DataBases in Frameworks */,
+				4430EF2127328A5D003B098C /* Preferences in Frameworks */,
+				4430EF2227328A5D003B098C /* KeyboardShortcuts in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44408CDB27159F7D00866BB9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +373,7 @@
 			children = (
 				4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */,
 				44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */,
+				4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -443,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */,
+				44383D5C27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip */,
 				44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */,
 				442126BC271877A400CEF786 /* gene.dictionary.zip */,
 			);
@@ -452,6 +534,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4430EEDD27328A5D003B098C /* DictAssistantApp Zh_T */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4430EF2B27328A5D003B098C /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_T" */;
+			buildPhases = (
+				4430EEE327328A5D003B098C /* Sources */,
+				4430EF1F27328A5D003B098C /* Frameworks */,
+				4430EF2327328A5D003B098C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DictAssistantApp Zh_T";
+			packageProductDependencies = (
+				4430EEDE27328A5D003B098C /* DataBases */,
+				4430EEDF27328A5D003B098C /* KeyboardShortcuts */,
+				4430EEE127328A5D003B098C /* Preferences */,
+			);
+			productName = DictAssistantApp;
+			productReference = 4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */;
+			productType = "com.apple.product-type.application";
+		};
 		44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44408CE527159F7D00866BB9 /* Build configuration list for PBXNativeTarget "DictAssistantApp Japanese" */;
@@ -531,11 +635,25 @@
 			targets = (
 				4440EE3F262EDCA3007FF470 /* DictAssistantApp Zh_S */,
 				44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */,
+				4430EEDD27328A5D003B098C /* DictAssistantApp Zh_T */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4430EF2327328A5D003B098C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4430EF2427328A5D003B098C /* Main.storyboard in Resources */,
+				4430EF2527328A5D003B098C /* InfoPlist.strings in Resources */,
+				44383D5D27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip in Resources */,
+				4430EF2627328A5D003B098C /* Localizable.strings in Resources */,
+				4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */,
+				4430EF2927328A5D003B098C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44408CDF27159F7D00866BB9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,6 +684,72 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4430EEE327328A5D003B098C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4430EEE427328A5D003B098C /* EntryUpsertView.swift in Sources */,
+				4430EEE527328A5D003B098C /* EntriesPanel.swift in Sources */,
+				4430EEE627328A5D003B098C /* PhraseInsertView.swift in Sources */,
+				4430EEE727328A5D003B098C /* OnboardingView.swift in Sources */,
+				4430EEE827328A5D003B098C /* EnglishSettingsView.swift in Sources */,
+				4430EEE927328A5D003B098C /* PortraitWordsView.swift in Sources */,
+				4430EEEA27328A5D003B098C /* NoisesView.swift in Sources */,
+				4430EEEB27328A5D003B098C /* PreferencesWindow.swift in Sources */,
+				4430EEEC27328A5D003B098C /* KnownPersistence.swift in Sources */,
+				4430EEED27328A5D003B098C /* KnownPanel.swift in Sources */,
+				4430EEEE27328A5D003B098C /* ContentView.swift in Sources */,
+				4430EEEF27328A5D003B098C /* PhrasesView.swift in Sources */,
+				4430EEF027328A5D003B098C /* TRCallBack.swift in Sources */,
+				4430EEF127328A5D003B098C /* SlotsSettingsView.swift in Sources */,
+				4430EEF227328A5D003B098C /* ToastWindow.swift in Sources */,
+				4430EEF327328A5D003B098C /* LandscapeWordsView.swift in Sources */,
+				4430EEF427328A5D003B098C /* Settings.swift in Sources */,
+				4430EEF527328A5D003B098C /* EntriesPersistence.swift in Sources */,
+				4430EEF627328A5D003B098C /* VisionSettingsView.swift in Sources */,
+				4430EEF727328A5D003B098C /* DictInstallWithInfoView.swift in Sources */,
+				4430EEF827328A5D003B098C /* WordsView.swift in Sources */,
+				4430EEF927328A5D003B098C /* PhraseInsertPanel.swift in Sources */,
+				4430EEFA27328A5D003B098C /* OnboardingPanel.swift in Sources */,
+				4430EEFB27328A5D003B098C /* ContentWindow.swift in Sources */,
+				4430EEFC27328A5D003B098C /* Utilities.swift in Sources */,
+				4430EEFD27328A5D003B098C /* NLPSample.swift in Sources */,
+				4430EEFE27328A5D003B098C /* EntryUpsertPanel.swift in Sources */,
+				4430EEFF27328A5D003B098C /* StatusData.swift in Sources */,
+				4430EF0027328A5D003B098C /* CropperView.swift in Sources */,
+				4430EF0127328A5D003B098C /* PhrasesPersistence.swift in Sources */,
+				4430EF0227328A5D003B098C /* GBig.swift in Sources */,
+				4430EF0327328A5D003B098C /* UserDefaultSettings.swift in Sources */,
+				4430EF0427328A5D003B098C /* SlotsPersistence.swift in Sources */,
+				4430EF0527328A5D003B098C /* DictInstallView.swift in Sources */,
+				4430EF0627328A5D003B098C /* RecordingSettingsView.swift in Sources */,
+				4430EF0727328A5D003B098C /* CustomEnvironmentKey.swift in Sources */,
+				4430EF0827328A5D003B098C /* Menus.swift in Sources */,
+				4430EF0927328A5D003B098C /* GeneralSettingsView.swift in Sources */,
+				4430EF0A27328A5D003B098C /* NoisesPanel.swift in Sources */,
+				4430EF0B27328A5D003B098C /* SingleWordView.swift in Sources */,
+				4430EF0C27328A5D003B098C /* ContentSettingsView.swift in Sources */,
+				4430EF0D27328A5D003B098C /* AppearanceSettingsView.swift in Sources */,
+				4430EF0E27328A5D003B098C /* PhrasesPanel.swift in Sources */,
+				4430EF0F27328A5D003B098C /* EditingPanel.swift in Sources */,
+				4430EF1027328A5D003B098C /* AppDelegate.swift in Sources */,
+				4430EF1127328A5D003B098C /* NoisesPersistence.swift in Sources */,
+				4430EF1227328A5D003B098C /* DictInstallPanel.swift in Sources */,
+				4430EF1327328A5D003B098C /* DictionaryService.swift in Sources */,
+				4430EF1427328A5D003B098C /* app.xcdatamodeld in Sources */,
+				4430EF1527328A5D003B098C /* CropperWindow.swift in Sources */,
+				4430EF1627328A5D003B098C /* ToastView.swift in Sources */,
+				4430EF1727328A5D003B098C /* DisplayedWords.swift in Sources */,
+				4430EF1827328A5D003B098C /* EntriesView.swift in Sources */,
+				4430EF1927328A5D003B098C /* KnownView.swift in Sources */,
+				4430EF1A27328A5D003B098C /* PersistenceStack.swift in Sources */,
+				4430EF1B27328A5D003B098C /* GlobalShortCutKey.swift in Sources */,
+				4430EF1C27328A5D003B098C /* CCDelegate.swift in Sources */,
+				4430EF1D27328A5D003B098C /* VisualEffectView.swift in Sources */,
+				4430EF1E27328A5D003B098C /* AVSessionAndTR.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44408CA627159F7D00866BB9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -734,6 +918,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4430EF2C27328A5D003B098C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
+				DEVELOPMENT_TEAM = T8LHNZ3EQU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4430EF2D27328A5D003B098C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
+				DEVELOPMENT_TEAM = T8LHNZ3EQU;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		44408CE627159F7D00866BB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -954,6 +1188,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4430EF2B27328A5D003B098C /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_T" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4430EF2C27328A5D003B098C /* Debug */,
+				4430EF2D27328A5D003B098C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		44408CE527159F7D00866BB9 /* Build configuration list for PBXNativeTarget "DictAssistantApp Japanese" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1000,6 +1243,22 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		4430EEE027328A5D003B098C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		4430EEE227328A5D003B098C /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
 		44408CA327159F7D00866BB9 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
@@ -1027,6 +1286,20 @@
 		442134EA26AC5A7400963441 /* Preferences */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 442134E926AC5A7400963441 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+		4430EEDE27328A5D003B098C /* DataBases */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataBases;
+		};
+		4430EEDF27328A5D003B098C /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4430EEE027328A5D003B098C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		4430EEE127328A5D003B098C /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4430EEE227328A5D003B098C /* XCRemoteSwiftPackageReference "Preferences" */;
 			productName = Preferences;
 		};
 		44408CA127159F7D00866BB9 /* DataBases */ = {
