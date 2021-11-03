@@ -29,7 +29,6 @@ struct StrokeBorderCropperView: View {
         Rectangle()
             .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.white.opacity(0))
             .ignoresSafeArea()
     }
 }
