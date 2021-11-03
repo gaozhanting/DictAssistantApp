@@ -27,6 +27,8 @@ func syncCropperView(from cropperStyle: CropperStyle) {
     switch cropperStyle {
     case .closed:
         cropperWindow.contentView = NSHostingView(rootView: EmptyView())
+    case .strokeBorder:
+        cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView())
     case .rectangle:
         cropperWindow.contentView = NSHostingView(rootView: RectangleCropperView())
     case .leadingBorder:

@@ -29,6 +29,7 @@ fileprivate struct CropperStyleSettingView: View {
             Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
             Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
             Text("rectangle").tag(CropperStyle.rectangle.rawValue)
+            Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
             Text("closed").tag(CropperStyle.closed.rawValue)
         }
         .pickerStyle(MenuPickerStyle())

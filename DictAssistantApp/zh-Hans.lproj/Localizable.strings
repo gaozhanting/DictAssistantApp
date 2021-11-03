@@ -86,6 +86,7 @@
 "leadingBorder" = "前导边框";
 "trailingBorder" = "后导边框";
 "rectangle" = "矩形";
+"strokeBorder" = "描边边框";
 "closed" = "关闭";
 "not use" = "不使用";
 "as first priority" = "优先使用";

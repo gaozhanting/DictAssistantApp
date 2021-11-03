@@ -24,6 +24,16 @@ struct StrokeBorderCropperAnimationView: View {
     }
 }
 
+struct StrokeBorderCropperView: View {
+    var body: some View {
+        Rectangle()
+            .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.white.opacity(0))
+            .ignoresSafeArea()
+    }
+}
+
 struct RectangleCropperView: View {
     var body: some View {
         Spacer()
@@ -102,6 +112,7 @@ struct CropperView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             StrokeBorderCropperAnimationView()
+            StrokeBorderCropperView()
             RectangleCropperView()
             LeadingBorderCropperView()
             TrailingBorderCropperView()

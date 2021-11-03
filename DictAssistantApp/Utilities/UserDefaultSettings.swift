@@ -93,6 +93,7 @@ enum CropperStyle: Int, Codable {
     case rectangle = 1
     case leadingBorder = 2
     case trailingBorder = 3
+    case strokeBorder = 4
 }
 
 enum ContentStyle: Int, Codable {
