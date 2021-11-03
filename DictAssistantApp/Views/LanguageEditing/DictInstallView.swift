@@ -17,15 +17,6 @@ struct Dict {
 }
 
 let dicts: [String: Dict] = [
-    "Concise Oxford English Dictionary 11th.dictionary.zip":
-        Dict(name: "Concise Oxford English Dictionary 11th", //(size: 41.3M)(wordCount: 78,752)
-             sourceURL: URL(string: "https://mdx.mdict.org/%E5%85%AD%E5%A4%A7%E7%9F%A5%E5%90%8D%E8%AF%8D%E5%85%B8/%E7%89%9B%E6%B4%A5_Oxford/Concise%20Oxford%20English%20Dictionary%2011th_%2014-4-15/")!,
-             license: "?",
-             licenseURL: nil,
-             installedName: "Concise Oxford English Dictionary 11th.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Concise%20Oxford%20English%20Dictionary%2011th.dictionary.zip")!
-            ),
-    
     "Babylon_English.dictionary.zip":
         Dict(name: "Babylon_English.dictionary",
              sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
@@ -33,15 +24,6 @@ let dicts: [String: Dict] = [
              licenseURL: nil,
              installedName: "Babylon_English.dictionary",
              downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/Babylon_English.dictionary.zip")!
-            ),
-    
-    "简明英汉字典增强版.dictionary.zip":
-        Dict(name: "简明英汉字典增强版", //(size: 314.3M)(wordCount: 3,240,000)
-             sourceURL: URL(string: "https://github.com/skywind3000/ECDICT")!,
-             license: "MIT License",
-             licenseURL: URL(string: "https://mit-license.org/")!,
-             installedName: "简明英汉字典增强版.dictionary",
-             downloadURL: URL(string: "https://github.com/skywind3000/ECDICT")!
             ),
     
     "lazyworm-ec.dictionary.zip":
@@ -53,15 +35,6 @@ let dicts: [String: Dict] = [
              downloadURL: nil
             ),
     
-    "mac-yinghancidian.dictionary.zip":
-        Dict(name: "英漢字典CDic",
-             sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
-             license: "?",
-             licenseURL: URL(string: "http://cview.com.tw/")!,
-             installedName: "mac-yinghancidian.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
-            ),
-    
     "lazyworm-ec-big5.dictionary.zip":
         Dict(name: "懶蟲簡明英漢詞典",
              sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
@@ -69,15 +42,6 @@ let dicts: [String: Dict] = [
              licenseURL: nil,
              installedName: "lazyworm-ec-big5.dictionary",
              downloadURL: nil
-            ),
-    
-    "mac-jmdict-en-ja.dictionary.zip":
-        Dict(name: "JMDict English-Japanese dictionary",
-             sourceURL: URL(string: "http://download.huzheng.org/ja/")!,
-             license: "The EDRDG Licence",
-             licenseURL: URL(string: "https://www.edrdg.org/edrdg/newlic.html")!,
-             installedName: "mac-jmdict-en-ja.dictionary",
-             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-jmdict-en-ja.dictionary.zip")!
             ),
     
     "Babylon_English_Japanese.dictionary.zip":
