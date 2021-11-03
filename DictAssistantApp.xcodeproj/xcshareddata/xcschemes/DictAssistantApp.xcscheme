@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4440EE3F262EDCA3007FF470"
                BuildableName = "DictAssistantApp.app"
-               BlueprintName = "DictAssistantApp"
+               BlueprintName = "DictAssistantApp Zh_S"
                ReferencedContainer = "container:DictAssistantApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,6 +34,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = "zh-Hans"
+      region = "CN"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -46,7 +48,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4440EE3F262EDCA3007FF470"
             BuildableName = "DictAssistantApp.app"
-            BlueprintName = "DictAssistantApp"
+            BlueprintName = "DictAssistantApp Zh_S"
             ReferencedContainer = "container:DictAssistantApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,7 +65,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4440EE3F262EDCA3007FF470"
             BuildableName = "DictAssistantApp.app"
-            BlueprintName = "DictAssistantApp"
+            BlueprintName = "DictAssistantApp Zh_S"
             ReferencedContainer = "container:DictAssistantApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

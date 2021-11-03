@@ -174,7 +174,7 @@
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Japanese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Japanese.dictionary.zip; sourceTree = "<group>"; };
-		4440EE40262EDCA3007FF470 /* DictAssistantApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DictAssistantApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Zh_S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -291,7 +291,7 @@
 		4440EE41262EDCA3007FF470 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4440EE40262EDCA3007FF470 /* DictAssistantApp.app */,
+				4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */,
 				44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */,
 			);
 			name = Products;
@@ -474,9 +474,9 @@
 			productReference = 44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4440EE3F262EDCA3007FF470 /* DictAssistantApp */ = {
+		4440EE3F262EDCA3007FF470 /* DictAssistantApp Zh_S */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp" */;
+			buildConfigurationList = 4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_S" */;
 			buildPhases = (
 				4440EE3C262EDCA3007FF470 /* Sources */,
 				4440EE3D262EDCA3007FF470 /* Frameworks */,
@@ -486,14 +486,14 @@
 			);
 			dependencies = (
 			);
-			name = DictAssistantApp;
+			name = "DictAssistantApp Zh_S";
 			packageProductDependencies = (
 				447D61A62643E5E400AB0C1A /* DataBases */,
 				442134D726AADBE800963441 /* KeyboardShortcuts */,
 				442134EA26AC5A7400963441 /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 4440EE40262EDCA3007FF470 /* DictAssistantApp.app */;
+			productReference = 4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -529,7 +529,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4440EE3F262EDCA3007FF470 /* DictAssistantApp */,
+				4440EE3F262EDCA3007FF470 /* DictAssistantApp Zh_S */,
 				44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */,
 			);
 		};
@@ -972,7 +972,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp" */ = {
+		4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_S" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4440EE54262EDCA4007FF470 /* Debug */,
