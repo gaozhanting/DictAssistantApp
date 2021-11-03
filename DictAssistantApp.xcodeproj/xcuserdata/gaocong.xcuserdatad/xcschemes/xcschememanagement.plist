@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DictAssistantApp English.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>DictAssistantApp Japanese copy.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>DictAssistantApp Japanese.xcscheme_^#shared#^_</key>
 		<dict>
@@ -33,6 +38,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4430EEDD27328A5D003B098C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>44383D5E27328D9C00A564B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
