@@ -57,6 +57,7 @@ struct NLPSample {
             if let tag = tag {
                 if !tag.rawValue.isEmpty {
                     let lemma = tag.rawValue
+                    logger.info("   >lemma       found-from-apple: \(token, privacy: .public): \(lemma, privacy: .public)")
                     results.append(Word(token: token, lemma: lemma))
                 } else {
                     logger.info("   >lemma from apple, but raw value of tag is empty") // seems to be impossible

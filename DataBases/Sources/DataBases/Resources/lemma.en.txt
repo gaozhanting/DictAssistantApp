@@ -1,8 +1,8 @@
 be>is,was,are,were,'s,been,being,'re,'m,am,m
 have>had,has,'ve,having,'d,d,ve
 it>its,they
-he>his,him,they
-i>my,me,we,is
+he>his,him
+i>my,me,we
 they>their,them,'em
 you>your,ya,ye
 not>n't
@@ -6250,7 +6250,6 @@ mattress>mattresses
 sa>sas
 spear>spears,speared,spearing
 burrow>burrows,burrowing,burrowed
-doe>does
 gastrin>gastrins
 generosity>generosities
 ivy>ivies
@@ -12853,7 +12852,7 @@ ip>ips
 jingle>jingles,jingling,jingled
 joist>joists,joisted
 knocker>knockers
-me>mes,us
+me>mes
 mongolian>mongolians
 oas>oass
 penultimate>penultimates
@@ -70779,7 +70778,6 @@ gyromitra>gyromitras
 gyrostabilizer>gyrostabilizers
 gywn>gywns
 h2o>h2oes
-ha>has
 ha'p'orth>ha'p'orths
 haart>haarts
 haastia>haastias
@@ -71311,7 +71309,6 @@ hexestrol>hexestrols
 heyrovsky>heyrovskies
 heyse>heyses
 hhs>hhss
-hi>his
 hiatus>hiatuses
 hibachi>hibachis
 hibbertia>hibbertias
@@ -83155,7 +83152,7 @@ tytonidae>tytonidaes
 tyyn>tyyns
 tzara>tzaras
 tzetze>tzetzes
-u>u's,us
+u>u's
 u-drive>u-drives
 u308>u308s
 uakari>uakaris
@@ -83859,7 +83856,6 @@ vulpes>vulpess
 vultur>vulturs
 vulvectomy>vulvectomies
 w.m.d.>w.m.d.s
-wa>was
 wabash>wabashes
 waddler>waddlers
 waders>waderss
