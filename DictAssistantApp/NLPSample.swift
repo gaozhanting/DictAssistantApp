@@ -48,7 +48,8 @@ struct NLPSample {
         tagger.setLanguage(.english, range: range)
         let options: NLTagger.Options = [
             .omitWhitespace,
-            .omitOther
+            .omitOther,
+            .joinContractions
         ]
         tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
             let token = String(sentence[tokenRange])
