@@ -35,13 +35,13 @@ let dicts: [String: Dict] = [
              downloadURL: nil
             ),
     
-    "lazyworm-ec-big5.dictionary.zip":
-        Dict(name: "懶蟲簡明英漢詞典",
+    "mac-yinghancidian.dictionary.zip":
+        Dict(name: "英漢字典CDic",
              sourceURL: URL(string: "http://download.huzheng.org/zh_TW/")!,
              license: "?",
-             licenseURL: nil,
-             installedName: "lazyworm-ec-big5.dictionary",
-             downloadURL: nil
+             licenseURL: URL(string: "http://cview.com.tw/")!,
+             installedName: "mac-yinghancidian.dictionary",
+             downloadURL: URL(string: "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/mac-yinghancidian.dictionary.zip")!
             ),
     
     "Babylon_English_Japanese.dictionary.zip":

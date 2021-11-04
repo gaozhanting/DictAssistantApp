@@ -105,7 +105,6 @@
 		4430EF2627328A5D003B098C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
 		4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
 		4430EF2927328A5D003B098C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
-		44383D5D27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44383D5C27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip */; };
 		44383D6527328D9C00A564B5 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
 		44383D6627328D9C00A564B5 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
 		44383D6727328D9C00A564B5 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
@@ -341,6 +340,7 @@
 		44CAC5102715724700EAFA74 /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
 		44DC155D2732709100934207 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
 		44DC155E2732709100934207 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
+		44FA803A2733D6350041A6F2 /* mac-yinghancidian.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44FA80392733D6350041A6F2 /* mac-yinghancidian.dictionary.zip */; };
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
@@ -377,7 +377,6 @@
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Zh_T.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		44383D5C27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "lazyworm-ec-big5.dictionary.zip"; sourceTree = "<group>"; };
 		44383DAF27328D9C00A564B5 /* DictAssistantApp English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Japanese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Japanese.dictionary.zip; sourceTree = "<group>"; };
@@ -428,6 +427,7 @@
 		44DC155F2732709100934207 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44DC15612732709300934207 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		44DC15622732709700934207 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		44FA80392733D6350041A6F2 /* mac-yinghancidian.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "mac-yinghancidian.dictionary.zip"; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -685,10 +685,10 @@
 		44CAC50E271571D400EAFA74 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				44FA80392733D6350041A6F2 /* mac-yinghancidian.dictionary.zip */,
 				446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */,
 				44565F8527328F4700E7AD21 /* Babylon_English.dictionary.zip */,
 				44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */,
-				44383D5C27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip */,
 				44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */,
 				442126BC271877A400CEF786 /* gene.dictionary.zip */,
 			);
@@ -857,7 +857,7 @@
 			files = (
 				4430EF2427328A5D003B098C /* Main.storyboard in Resources */,
 				4430EF2527328A5D003B098C /* InfoPlist.strings in Resources */,
-				44383D5D27328B7900A564B5 /* lazyworm-ec-big5.dictionary.zip in Resources */,
+				44FA803A2733D6350041A6F2 /* mac-yinghancidian.dictionary.zip in Resources */,
 				4430EF2627328A5D003B098C /* Localizable.strings in Resources */,
 				4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */,
 				4430EF2927328A5D003B098C /* Assets.xcassets in Resources */,
