@@ -21,7 +21,7 @@ func trCallBack() {
 }
 
 private func tagWord(_ word: String) -> WordCell {
-    if knownSet.contains(word) {
+    if knownSet.contains(word) || knownSet.contains(word.lowercased()) {
         return WordCell(word: word, isKnown: .known, trans: "") // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
     } else {
         if let trans = cachedDictionaryServicesDefine(word) {
