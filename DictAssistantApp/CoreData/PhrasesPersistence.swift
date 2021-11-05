@@ -141,20 +141,17 @@ func removeMultiPhrases(
 ) {
     let context = persistentContainer.viewContext
     
-    for word in words {
-        let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-        fetchRequest.fetchLimit = 1
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            if let result = results.first {
-                context.delete(result)
-            }
-        } catch {
-            logger.error("Failed to fetch request: \(error.localizedDescription)")
-            NSApplication.shared.presentError(error as NSError)
+    let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word IN %@", words)
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        for result in results {
+            context.delete(result)
         }
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
     }
     
     saveContext(didSucceed: {
