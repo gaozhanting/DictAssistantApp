@@ -272,29 +272,30 @@ fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
 
 let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: .newlines).map{ String($0) }
 
-private let minCount = 1
-private let maxCount = 100000
+let minEnWikiCount = 1
+let maxEnWikiCount = 100000
+let defaultEnWikiCount = 5000
+func validateEnWikiCountField(_ count: String) -> Bool {
+    guard let count = Int(count) else {
+        return false
+    }
+    
+    if count < minEnWikiCount || count > maxEnWikiCount {
+        return false
+    }
+    
+    return true
+}
+
 fileprivate struct FirstNPopoverView: View {
     @Binding var text: String
     @Binding var showPopover: Bool
     
-    @State var count: String = String(maxCount)
+    @State var count: String = String(maxEnWikiCount)
     @State var showingAlert: Bool = false
     
-    func validate(_ count: String) -> Bool {
-        guard let count = Int(count) else {
-            return false
-        }
-        
-        if count >= minCount && count <= maxCount {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     func onCommit() {
-        if !validate(count) {
+        if !validateEnWikiCountField(count) {
             showingAlert = true
             return
         }
@@ -309,15 +310,7 @@ fileprivate struct FirstNPopoverView: View {
             .alert(isPresented: $showingAlert) {
                 Alert(
                     title: Text("Invalid value"),
-                    message: Text("Count must be an integer, and must between \(minCount) and \(maxCount), including."),
-                    primaryButton: .default(
-                        Text("Cancel"),
-                        action: {}
-                    ),
-                    secondaryButton: .destructive(
-                        Text("Discard"),
-                        action: { count = String(maxCount) }
-                    )
+                    message: Text("Count must be an integer, and must between 1 and 100000, including.")
                 )
             }
     }

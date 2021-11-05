@@ -69,16 +69,22 @@ fileprivate struct WelcomeView: View {
 fileprivate struct InitKnownView: View {
     let next: () -> Void
     
-    @State private var to: Int = 5000
+    @State private var count: String = String(defaultEnWikiCount)
+    @State var showingAlert: Bool = false
     @State private var batchInsertSucceed: Bool = false
-    
+
     @FetchRequest(
         entity: Known.entity(),
         sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
     
     func onCommit() {
-        let words = Array(wikiFrequencyWords[0 ..< to])
+        if !validateEnWikiCountField(count) {
+            showingAlert = true
+            return
+        }
+        
+        let words = Array(wikiFrequencyWords[0 ..< Int(count)!])
         batchInsertKnown(words) {
             batchInsertSucceed = true
         }
@@ -93,15 +99,18 @@ fileprivate struct InitKnownView: View {
                 GroupBox {
                     HStack {
                         Text("My vocabulary count:")
-                        
-                        TextField("", value: $to, formatter: {
-                            let formatter = NumberFormatter()
-                            formatter.numberStyle = .none // integer, no decimal
-                            formatter.minimum = 2
-                            formatter.maximum = 100000
-                            return formatter
-                        }(), onCommit: onCommit)
+                        TextField("", text: $count, onCommit: onCommit)
                             .frame(width: 60)
+                            .alert(isPresented: $showingAlert) {
+                                Alert(
+                                    title: Text("Invalid value"),
+                                    message: Text("Count must be an integer, and must between \(minEnWikiCount) and \(maxEnWikiCount), including."),
+                                    dismissButton: .destructive(
+                                        Text("Cancel"),
+                                        action: { count = String(defaultEnWikiCount) }
+                                    )
+                                )
+                            }
                     }
                     .padding()
                 }

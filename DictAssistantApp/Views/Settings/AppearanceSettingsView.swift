@@ -124,9 +124,6 @@ fileprivate struct ContentStyleSettingView: View {
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
     
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
-
     @State private var isShowTextField: Bool = false
     
     var binding: Binding<Bool> {
@@ -138,6 +135,11 @@ fileprivate struct ContentStyleSettingView: View {
                 }
             }
         )
+    }
+    
+    // if not fold, this will effect the fontPanel which make change fontSize impossible, a weird issue.
+    func fold() {
+        isShowTextField = false
     }
     
     var body: some View {
@@ -182,29 +184,75 @@ fileprivate struct ContentStyleSettingView: View {
                     switch ContentStyle(rawValue: contentStyle)! {
                     case .portrait:
                         Text("max height for one word:")
-                        TextField("", value: $portraitMaxHeight, formatter: {
-                            let formatter = NumberFormatter()
-                            formatter.numberStyle = .none // integer, no decimal
-                            formatter.minimum = 1
-                            formatter.maximum = 1000
-                            return formatter
-                        }(), onCommit: { isShowTextField = false })
-                        .frame(width: 46)
+                        PortraitMaxHeightTextField(fold: fold)
+                            .frame(width: 46)
                     case .landscape:
                         Text("max width for one word:")
-                        TextField("", value: $landscapeMaxWidth, formatter: {
-                            let formatter = NumberFormatter()
-                            formatter.numberStyle = .none // integer, no decimal
-                            formatter.minimum = 1
-                            formatter.maximum = 1000
-                            return formatter
-                        }(), onCommit: { isShowTextField = false })
-                        .frame(width: 46)
+                        LandscapeMaxWidthTextField(fold: fold)
+                            .frame(width: 46)
                     }
                 }
             }
             .frame(width: 370)
         }
+    }
+}
+
+private struct PortraitMaxHeightTextField: View {
+    let fold: () -> Void
+    
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+    
+    @State var showingAlert: Bool = false
+
+    var binding: Binding<String> {
+        Binding(
+            get: { String(portraitMaxHeight) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                portraitMaxHeight = newValue
+            }
+        )
+    }
+    
+    var body: some View {
+        TextField("", text: binding, onCommit: fold)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
+            }
+    }
+}
+
+private struct LandscapeMaxWidthTextField: View {
+    let fold: () -> Void
+    
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+    
+    @State var showingAlert: Bool = false
+    
+    var binding: Binding<String> {
+        Binding(
+            get: { String(landscapeMaxWidth) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                landscapeMaxWidth = newValue
+            }
+        )
+    }
+    
+    var body: some View {
+        TextField("", text: binding, onCommit: fold)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
+            }
     }
 }
 
@@ -408,47 +456,98 @@ fileprivate struct ShadowColorPicker: View {
     }
 }
 
-let formatter: NumberFormatter = {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .decimal
-    formatter.minimum = 0.0
-    return formatter
-}()
-
 fileprivate struct ShadowRadiusPicker: View {
     @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
+    
+    @State var showingAlert: Bool = false
+    
+    var binding: Binding<String> {
+        Binding(
+            get: { String(shadowRadius) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                shadowRadius = newValue
+            }
+        )
+    }
     
     var body: some View {
         HStack {
             Spacer()
             Text("Radius:")
-            TextField("", value: $shadowRadius, formatter: formatter)
+            TextField("", text: binding)
                 .frame(maxWidth: 46)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Invalid value"), message: Text("Value must be a number."))
+                }
         }
     }
 }
 
 fileprivate struct ShadowXOffSetPicker: View {
     @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
+    
+    @State var showingAlert: Bool = false
+    
+    var binding: Binding<String> {
+        Binding(
+            get: { String(shadowXOffset) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                shadowXOffset = newValue
+            }
+        )
+    }
+    
     var body: some View {
         HStack {
             Spacer()
             Text("X Offset:")
-            TextField("", value: $shadowXOffset, formatter: formatter)
+            TextField("", text: binding)
                 .frame(maxWidth: 46)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
+                }
         }
     }
 }
 
 fileprivate struct ShadowYOffSetPicker: View {
     @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
+    
+    @State var showingAlert: Bool = false
+    
+    var binding: Binding<String> {
+        Binding(
+            get: { String(shadowYOffset) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                shadowYOffset = newValue
+            }
+        )
+    }
 
     var body: some View {
         HStack {
             Spacer()
             Text("Y Offset:")
-            TextField("", value: $shadowYOffset, formatter: formatter)
+            TextField("", text: binding)
                 .frame(maxWidth: 46)
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
+                }
         }
     }
 }

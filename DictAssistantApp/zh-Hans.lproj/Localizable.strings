@@ -45,6 +45,8 @@
 "Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes." = "确认？这个动作不能撤销。建议您先保存这个文本，也许可以保存到您的苹果备忘录应用中。";
 "Cancel" = "取消";
 "Delete" = "删除";
+"Invalid value" = "无效值";
+"Count must be an integer, and must between 1 and 100000, including." = "必须为正整数，并且在1到100000之间(包含1和100000)。";
 
 "Entries Panel" = "自定义词条面板";
 "Add multi entries to custom dict" = "添加多个词条到自定义词典";
@@ -185,6 +187,7 @@
 "with material:" = "材质：";
 "titlebar" = "标题栏";
 "underPageBackground" = "页面以下背景";
+"Value must be a number" = "必须是一个数字";
 
 "Slots" = "空位";
 "Add" = "添加";

@@ -10,7 +10,7 @@
 "English" = "英語";
 "Show Noises Panel" = "打開噪音面板";
 "Show Phrases Panel" = "打開短語面板";
-"Show Known Panel" = "打開已知詞彙面板";
+"Show Known Panel" = "打開已知詞匯面板";
 "Show Entries Panel" = "打開自定義詞條面板";
 "Show Dict Install Panel" = "打開詞典安裝面板";
 "Help" = "幫助";
@@ -24,44 +24,46 @@
 "Noises Panel" = "噪音面板";
 "Add multi noises" = "添加多個噪音";
 "Remove multi noises" = "刪除多個噪音";
-"Reset to Default" = "恢複初始設置";
-"You can add custom noises here when you think the recognition word is non-exists. I make almost all one-letter and two-letter English words as default noises, because it always make noise when do text recognition in real time. You can add and remove(what I incorrect added) more noise. Noises are ignored when playing." = "您可以增添噪音，當妳認爲文本識別的單詞是不存在的英文單詞時。我將大部分的單壹字母組成的單詞和兩個字母組成的單詞設置爲初始噪音，只因在實時文本識別的時候，它們可能經常産生噪音。您能添加或移除(我誤加的)噪音。噪音在運行時會被忽略。";
+"Reset to Default" = "恢復初始設置";
+"You can add custom noises here when you think the recognition word is non-exists. I make almost all one-letter and two-letter English words as default noises, because it always make noise when do text recognition in real time. You can add and remove(what I incorrect added) more noise. Noises are ignored when playing." = "您可以增添噪音，當你認為文本識別的單詞是不存在的英文單詞時。我將大部分的單一字母組成的單詞和兩個字母組成的單詞設置為初始噪音，只因在實時文本識別的時候，它們可能經常產生噪音。您能添加或移除(我誤加的)噪音。噪音在運行時會被忽略。";
 
 "Phrases Panel" = "短語面板";
 "Add multi phrases" = "添加多個短語";
 "Remove multi phrases" = "刪除多個短語";
-"The phrases here aim as a database for the app to detect phrases. The App can only detect continuous phrases. The dataset is extracted from Oxford Concise Dict and enwiki words frequency list (hyphen phrases). You can add more phrases here. You can reset, to use this default dataset. You can deselect show phrases option to ignore it. When you add your custom dict entry, if the word is a phrase, it will be automatically added here." = "這裏短語庫的目的是讓App方便檢測出它們。App只能檢測出連續的短語。這個數據集是從牛津簡明詞典和EnWiKi詞條頻率表（連字符短語）中抽取的。您能添加更多。您也可以隨時重置爲初始數據集。您可以在偏好設置英語欄中不勾選顯示詞條，以忽略它們。當您添加自定義詞條的時候，如果詞條是壹個短語，它會自動也加在這兒。";
+"The phrases here aim as a database for the app to detect phrases. The App can only detect continuous phrases. The dataset is extracted from Oxford Concise Dict and enwiki words frequency list (hyphen phrases). You can add more phrases here. You can reset, to use this default dataset. You can deselect show phrases option to ignore it. When you add your custom dict entry, if the word is a phrase, it will be automatically added here." = "這裏短語庫的目的是讓App方便檢測出它們。App只能檢測出連續的短語。這個數據集是從牛津簡明詞典和EnWiKi詞條頻率表（連字符短語）中抽取的。您能添加更多。您也可以隨時重置為初始數據集。您可以在偏好設置英語欄中不勾選顯示詞條，以忽略它們。當您添加自定義詞條的時候，如果詞條是一個短語，它會自動也加在這兒。";
 
-"Known Panel" = "已知詞彙面板";
+"Known Panel" = "已知詞匯面板";
 "All" = "顯示所有";
 "Words" = "只顯示單詞";
 "Phrases" = "只顯示短語";
-"Add multi words to Known" = "添加多個單詞到已知詞彙列表中";
-"Remove multi words from Known" = "從已知詞彙列表中移除多個單詞";
+"Add multi words to Known" = "添加多個單詞到已知詞匯列表中";
+"Remove multi words from Known" = "從已知詞匯列表中移除多個單詞";
 "Paste Oxford 3000 Vocabulary" = "粘貼牛津三千基礎單詞";
-"Paste first N from first 100_000 of Wiki English word frequency list" = "粘貼前N個單詞，源于維基英文單詞詞頻列表";
-"Type a range, then press paste button to paste these words below." = "輸入壹個區間，然後點擊粘貼按鈕，粘貼此區間的所有單詞";
-"Edit your known English words, one word or one phrase per line; then add them to or remove them from your known words list.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line." = "編輯您的已知英文單詞，每行壹個；然後添加它們，或移除它們，到(從)已知詞彙列表。\n\n注意：不能有空行，壹行之中也不能只有空白符。因此，不要在結尾添加壹個空白行。";
+"Paste first N from first 100_000 of Wiki English word frequency list" = "粘貼前N個單詞，源於維基英文單詞詞頻列表";
+"Type a range, then press paste button to paste these words below." = "輸入一個區間，然後點擊粘貼按鈕，粘貼此區間的所有單詞";
+"Edit your known English words, one word or one phrase per line; then add them to or remove them from your known words list.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line." = "編輯您的已知英文單詞，每行一個；然後添加它們，或移除它們，到(從)已知詞匯列表。\n\n註意：不能有空行，一行之中也不能只有空白符。因此，不要在結尾添加一個空白行。";
 "Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes." = "確認？這個動作不能撤銷。建議您先保存這個文本，也許可以保存到您的蘋果備忘錄應用中。";
 "Cancel" = "取消";
 "Delete" = "刪除";
+"Invalid value" = "無效值";
+"Count must be an integer, and must between 1 and 100000, including." = "必須為正整數，並且在1到100000之間(包含1和100000)。";
 
 "Entries Panel" = "自定義詞條面板";
 "Add multi entries to custom dict" = "添加多個詞條到自定義詞典";
 "Remove multi entries to custom dict" = "從自定義詞典中刪除多個詞條";
-"Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: If the entries becomes huge (count >= 20,000), you'd better convert the csv txt to apple dictionary file using an open source pyglossary tool, and install. The custom entries here aims to make a flexible custom dict in the app which you can play with what you want quickly, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry." = "編輯您的自定義詞典，每行壹個詞條。\n\n添加的每行格式：\n單詞,釋義 \n\n刪除的每行格式：\n單詞 \n\n然後點擊添加或移除按鈕即可。\n\n注意：不能有空行，壹行之中也不能只有空白符。因此，不要在結尾添加壹個空白行。\n\n注意：如果詞條變得很大（數量 >= 20,000)，您最好將這個csv兼容的文本轉爲蘋果詞典文件並安裝，您可以使用壹個開源工具pyglossary來完成轉換。這裏的目的是爲App提供壹個靈活的自定義編輯詞條的功能，以免您完全受限于蘋果詞典，這裏並非要提供壹個標准的詞典。盡管它仍然能夠工作，不過當詞條太多的時候，編輯區會變得卡頓，抱歉。";
+"Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: If the entries becomes huge (count >= 20,000), you'd better convert the csv txt to apple dictionary file using an open source pyglossary tool, and install. The custom entries here aims to make a flexible custom dict in the app which you can play with what you want quickly, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry." = "編輯您的自定義詞典，每行一個詞條。\n\n添加的每行格式：\n單詞,釋義 \n\n刪除的每行格式：\n單詞 \n\n然後點擊添加或移除按鈕即可。\n\n註意：不能有空行，一行之中也不能只有空白符。因此，不要在結尾添加一個空白行。\n\n註意：如果詞條變得很大（數量 >= 20,000)，您最好將這個csv兼容的文本轉為蘋果詞典文件並安裝，您可以使用一個開源工具pyglossary來完成轉換。這裏的目的是為App提供一個靈活的自定義編輯詞條的功能，以免您完全受限於蘋果詞典，這裏並非要提供一個標準的詞典。盡管它仍然能夠工作，不過當詞條太多的時候，編輯區會變得卡頓，抱歉。";
 
 "Dict Install Panel" = "詞典安裝面板";
 "sourceURL:" = "源鏈接：";
 "downloadURL:" = "下載鏈接：";
 "Install" = "安裝";
-"These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish." = "這些詞典文件是我在互聯網上找到的壹些免費的簡明詞典，並且轉化爲蘋果自帶詞典應用所需的詞典格式，我是使用壹個名叫pyglossary的開源工具轉換的。這些詞典，作爲系統自帶詞典的壹些補充和第三方詞典，很適合此APP，因爲它們是簡明的，和免費的。注意，它們可能有不壹樣的詞條譯文編排形式，而您可以通過勾選和反勾選壹些內容顯示的選項，以盡量獲得更好的顯示效果。\n\n當然，您可以使用系統自帶的詞典，或者爲蘋果自帶詞典應用所制作的其他第三方詞典。本APP的詞典數據源于這裏。這些都是本地的，離線的詞典數據。\n\n您只需要點擊安裝按鈕，壹個保存提示會自動彈出，因爲這需要您授予存儲的權限，然後才會使得詞典保存在蘋果自帶詞典特有的路徑之下。您使用默認的詞典名稱和保存路徑即可。當保存完畢，您需要打開系統自帶詞典應用的偏好設置，選擇並且調整它們的順序。我建議您優先使用簡明詞典，然後更詳盡的詞典；無論如何，您可自由選擇。";
+"These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish." = "這些詞典文件是我在互聯網上找到的一些免費的簡明詞典，並且轉化為蘋果自帶詞典應用所需的詞典格式，我是使用一個名叫pyglossary的開源工具轉換的。這些詞典，作為系統自帶詞典的一些補充和第三方詞典，很適合此APP，因為它們是簡明的，和免費的。註意，它們可能有不一樣的詞條譯文編排形式，而您可以通過勾選和反勾選一些內容顯示的選項，以盡量獲得更好的顯示效果。\n\n當然，您可以使用系統自帶的詞典，或者為蘋果自帶詞典應用所製作的其他第三方詞典。本APP的詞典數據源於這裏。這些都是本地的，離線的詞典數據。\n\n您只需要點擊安裝按鈕，一個保存提示會自動彈出，因為這需要您授予存儲的權限，然後才會使得詞典保存在蘋果自帶詞典特有的路徑之下。您使用默認的詞典名稱和保存路徑即可。當保存完畢，您需要打開系統自帶詞典應用的偏好設置，選擇並且調整它們的順序。我建議您優先使用簡明詞典，然後更詳盡的詞典；無論如何，您可自由選擇。";
 
 "General" = "常規";
 "Global Keyboard Shortcuts:" = "全局鍵盤快捷鍵：";
 "Run Step Play" = "單步運行";
 "Toggle Show Current Known Words" = "切換是否顯示當前已知單詞";
-"Toggle Conceal Current Known Words" = "切換是否開啓隱藏已知單詞模式";
+"Toggle Conceal Current Known Words" = "切換是否開啟隱藏已知單詞模式";
 "Toggle Conceal Translation" = "切換是否隱藏單詞譯文";
 "Toggle Show Current Not-Found Words" = "切換是否顯示無法查找的單詞";
 "Run Swift Play" = "快速運行";
@@ -83,7 +85,7 @@
 "Entry Upsert Panel" = "添加詞條面板";
 "Phrase Insert Panel" = "添加短語面板";
 
-"Recording" = "屏幕錄制";
+"Recording" = "屏幕錄製";
 "Cropper Style:" = "截屏區樣式：";
 "leadingBorder" = "前導邊框";
 "trailingBorder" = "後導邊框";
@@ -94,22 +96,22 @@
 "as first priority" = "優先使用";
 "as last priority" = "次後使用";
 "only" = "只使用";
-"Choose the way you want to use for your custom entries." = "選擇妳想使用自定義詞條的方式";
+"Choose the way you want to use for your custom entries." = "選擇你想使用自定義詞條的方式";
 "Maximum Frame Rate:" = "最大幀率：";
 
 "Vision" = "文本識別";
 "Minimum Text Height:" = "最小文本比例高：";
 "Text Recognition Level:" = "文本識別模式：";
-"Reset to default: 0.0315" = "重置爲默認值：0.0315";
+"Reset to default: 0.0315" = "重置為默認值：0.0315";
 "The minimum height of the text expected to be recognized, relative to the image height." = "文本識別的最小高度比例";
-"Specify a floating-point number relative to the image height. \nFor example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. \nThe default value is 1/32, or 0.03125." = "指定壹個比例純小數。\n例如，爲限制只識別高度大于整個圖像壹半高度的文本，就使用0.5。增大該值會減少內存消耗，並且加快識別速度；以忽略高度比例小于該數值的文本爲代價。\n默認值爲1/32，即0.03125。";
+"Specify a floating-point number relative to the image height. \nFor example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. \nThe default value is 1/32, or 0.03125." = "指定一個比例純小數。\n例如，為限製只識別高度大於整個圖像一半高度的文本，就使用0.5。增大該值會減少內存消耗，並且加快識別速度；以忽略高度比例小於該數值的文本為代價。\n默認值為1/32，即0.03125。";
 "fast" = "快速模式";
 "accurate" = "精確模式";
 "Fast is very fast, and cause low CPU usage, you should use this by default, but terrible when text on screen has tough surrounding!" = "快速模式速度快，CPU消耗低，您應該默認使用此模式。但是可能效果很差，特別在某些時候屏幕上文本較難識別的情況下。";
-"Accurate is the only rescue when the text is hard to recognized in screen! " = "當文本在屏幕上難以識別的時候，精確模式是唯壹的辦法。";
+"Accurate is the only rescue when the text is hard to recognized in screen! " = "當文本在屏幕上難以識別的時候，精確模式是唯一的辦法。";
 "Accurate will cause high CPU usage!" = "精確模式會導致CPU使用率急劇上升！";
 "Use default" = "使用默認值";
-"Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the APP react to the cropper screen content changing, but the more CPU it consumes. 1 to 30 is all OK.\nThe animation duration normally is 1/number. \nNotice, if you set a number less than 4, that will still use 4 as the fps, but the animation duration is still 1/number. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time." = "設置屏幕錄制的時候的最大幀率，默認值爲4fps，適用于大部分場景。此值越大，App響應屏幕的變化也越迅捷，但是會增加CPU消耗。1到30都可以。動畫持續時間爲1/該值。注意，如果您設此值小于4，運行時仍爲4fps，但是動畫持續時間依然爲1/該值。注意，如果您需要同時開啓精確模式識別，您需要設置此值爲壹個小點的數值，比如4。因爲如果您設爲壹個很大的值，APP很可能會卡頓不流暢，APP只是沒法在如此短的時間執行如此超量的任務。";
+"Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the APP react to the cropper screen content changing, but the more CPU it consumes. 1 to 30 is all OK.\nThe animation duration normally is 1/number. \nNotice, if you set a number less than 4, that will still use 4 as the fps, but the animation duration is still 1/number. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time." = "設置屏幕錄製的時候的最大幀率，默認值為4fps，適用於大部分場景。此值越大，App響應屏幕的變化也越迅捷，但是會增加CPU消耗。1到30都可以。動畫持續時間為1/該值。註意，如果您設此值小於4，運行時仍為4fps，但是動畫持續時間依然為1/該值。註意，如果您需要同時開啟精確模式識別，您需要設置此值為一個小點的數值，比如4。因為如果您設為一個很大的值，APP很可能會卡頓不流暢，APP只是沒法在如此短的時間執行如此超量的任務。";
 
 "English" = "英語";
 "Phrases:" = "短語：";
@@ -118,21 +120,21 @@
 "Show phrases" = "顯示短語";
 "Select it when you want display all phrase words." = "勾選它，如果您想同時顯示所有的短語";
 "Drop title word" = "不顯示標題單詞";
-"Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辭林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better." = "勾選它，當妳不想顯示標題單詞時。有些詞典的詞條中，標題單詞不是第壹個單詞，而在後面，比如：スーパー大辭林 / Super Daijirin Japanese Dictionary. 還有些詞典的詞條中，標題單詞被音節拆分顯示，這種情況，您會勾選這個選項，同時勾選`丟棄詞條的第壹個單詞`，這樣會得到更好的整體顯示效果。";
+"Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辭林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better." = "勾選它，當你不想顯示標題單詞時。有些詞典的詞條中，標題單詞不是第一個單詞，而在後面，比如：スーパー大辭林 / Super Daijirin Japanese Dictionary. 還有些詞典的詞條中，標題單詞被音節拆分顯示，這種情況，您會勾選這個選項，同時勾選`丟棄詞條的第一個單詞`，這樣會得到更好的整體顯示效果。";
 "Add line break ahead of translation" = "在單詞譯文前加上換行符";
 "Add space ahead of translation" = "在單詞譯文前加上空格";
-"Drop first title word in translation" = "丟棄單詞譯文的第壹個單詞";
-"Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the translation; for example: スーパー大辭林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct." = "勾選它，當妳想丟棄單詞譯文的首詞，通常標題單詞作爲詞典譯文的首詞。注意，有些詞典沒有把標題單詞設置爲譯文的首詞；比如：スーパー大辭林 / Super Daijirin Japanese Dictionary；您可以不勾選此選項，因爲這種情況下字符數不對。";
-"Join translation lines" = "合並單詞譯文爲壹行";
+"Drop first title word in translation" = "丟棄單詞譯文的第一個單詞";
+"Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the translation; for example: スーパー大辭林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct." = "勾選它，當你想丟棄單詞譯文的首詞，通常標題單詞作為詞典譯文的首詞。註意，有些詞典沒有把標題單詞設置為譯文的首詞；比如：スーパー大辭林 / Super Daijirin Japanese Dictionary；您可以不勾選此選項，因為這種情況下字符數不對。";
+"Join translation lines" = "合並單詞譯文為一行";
 
 "Content" = "內容";
 "Content Display:" = "內容顯示：";
 "More:" = "更多：";
 "Chinese Character Convert:" = "中文繁簡字轉換：";
 "not convert" = "不轉換";
-"convert to traditional" = "轉爲繁體中文";
-"convert to simplified" = "轉爲簡體中文";
-"If the content is empty when you did run playing, what you can do?\n1. Check if there indeed has some English text in cropper area \n2. Try to turn down the `Minimum Text Height` \n3. Try to use `Text Recognition Level` accurate level \n4. Check if the words in the cropper screen are not all in your known words list \n5. Make sure the `Use Entry Mode` is not `only` which will ignore Apple Dictionary \n6. Make sure you did selected a valid dictionary in your Apple Dictionary Preferences \n7. Replay (when sometimes you switch screens) \n\nHere are some tips for you:\n1. When you changed the Apple Dictionary Preferences, you need to restart this App(not restart the Apple Dictionary App) in order to take effect, in order to conform the reordered dictionaries you adjusted.\n2. In the content, you can right click (or command click) the word, and there are commands in contextual menu buttons for quick add/remove to known, add/remove noises. `Remove From Known` will only be available when you toggle `Show Current Known Words` on; and whether display `Add To Noises` or `Remove From Noises` are based on if the word is in noises or not.\n3. Some hotkeys: Option Click the word will add or remove to known; Command Click the word will speak the word using system speech voice; Shift Click the word will open the Dictionary App of the word." = "如果您運行之後，內容顯示爲空，怎麽辦？\n1. 確認屏幕截區確實存在英文 \n2. 嘗試調低`最小文本比例高`這個選項 \n3. 嘗試選擇`文本識別模式`爲`精確模式` \n4. 確認屏幕截區的詞彙不全都在您的已知詞彙列表中 \n5. 確認`使用自定義詞條的方式`這個選項不是`僅使用` \n6. 確認您的確在蘋果詞典應用中勾選了壹個對的詞典 \n7. 重新運行 (當您切換屏幕的時候可能需要) \n\n小貼士：\n1. 當妳更改了系統詞典的偏好設置之後，妳需要重啓此App(不是重啓系統詞典App)，才會讓您新調整的詞典順序在此App中生效。\n2. 您右鍵單擊(或command 單擊)某個詞條，會出現壹些動作菜單。分別是，添加該單詞到已知/從已知中移除該單詞；添加該單詞爲噪音/從噪音中移除該單詞。從已知中移除該單詞，只會在您勾選了`顯示當前已知單詞`時，才會出現。是添加還是刪除噪音，取決于該詞是否在噪音詞單中。\n3. 壹些熱鍵： Option單擊，從已知中添加/移除；Command單擊，使用系統聲音朗讀該單詞；Shift單擊，打開系統詞典應用。";
+"convert to traditional" = "轉為繁體中文";
+"convert to simplified" = "轉為簡體中文";
+"If the content is empty when you did run playing, what you can do?\n1. Check if there indeed has some English text in cropper area \n2. Try to turn down the `Minimum Text Height` \n3. Try to use `Text Recognition Level` accurate level \n4. Check if the words in the cropper screen are not all in your known words list \n5. Make sure the `Use Entry Mode` is not `only` which will ignore Apple Dictionary \n6. Make sure you did selected a valid dictionary in your Apple Dictionary Preferences \n7. Replay (when sometimes you switch screens) \n\nHere are some tips for you:\n1. When you changed the Apple Dictionary Preferences, you need to restart this App(not restart the Apple Dictionary App) in order to take effect, in order to conform the reordered dictionaries you adjusted.\n2. In the content, you can right click (or command click) the word, and there are commands in contextual menu buttons for quick add/remove to known, add/remove noises. `Remove From Known` will only be available when you toggle `Show Current Known Words` on; and whether display `Add To Noises` or `Remove From Noises` are based on if the word is in noises or not.\n3. Some hotkeys: Option Click the word will add or remove to known; Command Click the word will speak the word using system speech voice; Shift Click the word will open the Dictionary App of the word." = "如果您運行之後，內容顯示為空，怎麽辦？\n1. 確認屏幕截區確實存在英文 \n2. 嘗試調低`最小文本比例高`這個選項 \n3. 嘗試選擇`文本識別模式`為`精確模式` \n4. 確認屏幕截區的詞匯不全都在您的已知詞匯列表中 \n5. 確認`使用自定義詞條的方式`這個選項不是`僅使用` \n6. 確認您的確在蘋果詞典應用中勾選了一個對的詞典 \n7. 重新運行 (當您切換屏幕的時候可能需要) \n\n小貼士：\n1. 當你更改了系統詞典的偏好設置之後，你需要重啟此App(不是重啟系統詞典App)，才會讓您新調整的詞典順序在此App中生效。\n2. 您右鍵單擊(或command 單擊)某個詞條，會出現一些動作菜單。分別是，添加該單詞到已知/從已知中移除該單詞；添加該單詞為噪音/從噪音中移除該單詞。從已知中移除該單詞，只會在您勾選了`顯示當前已知單詞`時，才會出現。是添加還是刪除噪音，取決於該詞是否在噪音詞單中。\n3. 一些熱鍵： Option單擊，從已知中添加/移除；Command單擊，使用系統聲音朗讀該單詞；Shift單擊，打開系統詞典應用。";
 
 "Appearance" = "外觀";
 "Use Custom Dict Mode:" = "如何使用自定義詞典：";
@@ -144,14 +146,14 @@
 "Font: " = "字體：";
 "Translation Font Rate:" = "單詞譯文字體比例：";
 "Appearance:" = "外觀：";
-"Colors & Shadow:" = "顔色和陰影：";
+"Colors & Shadow:" = "顏色和陰影：";
 "Content Background Display:" = "內容特殊效果背景：";
 "Make Content Retention" = "讓內容滯留";
-"If selected, content will get retention of last recognized tests when new recognized tests is empty." = "如果勾選，若當前識別的文本爲空，內容會滯留顯示最近識別的非空文本內容";
+"If selected, content will get retention of last recognized tests when new recognized tests is empty." = "如果勾選，若當前識別的文本為空，內容會滯留顯示最近識別的非空文本內容";
 "Show Content Window Shadow" = "內容窗口加陰影";
 "Notice window shadow may mess up content." = "某些時候，勾選此設置會讓內容顯示混亂。";
 "With animation" = "使用動畫";
-"Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape." = "注意動畫會增加CPU使用率，並且與橫排顯示時，自動滾動會不准確。";
+"Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape." = "註意動畫會增加CPU使用率，並且與橫排顯示時，自動滾動會不準確。";
 "portrait" = "縱排顯示";
 "landscape" = "橫排顯示";
 "from corner:" = "縮角：";
@@ -159,7 +161,7 @@
 "topLeading" = "左上";
 "bottomLeading" = "底部";
 "auto scroll:" = "自動滾動：";
-"enabled" = "開啓";
+"enabled" = "開啟";
 "disabled" = "關閉";
 "More..." = "更多···";
 "max height for one word:" = "單個詞條顯示最大高度：";
@@ -170,12 +172,12 @@
 "Light" = "亮色";
 "Dark" = "暗色";
 "System" = "系統";
-"This will effect on visual effect background and system colors." = "此選項會影響特殊視覺效果背景，和系統顔色";
+"This will effect on visual effect background and system colors." = "此選項會影響特殊視覺效果背景，和系統顏色";
 "Word:" = "標題單詞：";
 "Translation:" = "單詞譯文：";
 "Background:" = "背景：";
 "Use Text Shadow:" = "使用文本陰影：";
-"Color:" = "顔色：";
+"Color:" = "顏色：";
 "Radius:" = "陰影半徑：";
 "X Offset:" = "X偏移：";
 "Y Offset:" = "Y偏移：";
@@ -185,24 +187,25 @@
 "with material:" = "材質：";
 "titlebar" = "標題欄";
 "underPageBackground" = "頁面以下背景";
+"Value must be a number" = "必須是一個數字";
 
 "Slots" = "空位";
 "Add" = "添加";
 "Clone" = "克隆";
 "Update" = "更新";
 "Delete All" = "刪除所有";
-"Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (except global shortcut key, font name, is show toast option). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it." = "空位只是壹些屬性的集中存貯，包含錄屏截區窗口位置和大小，內容顯示窗口位置和大小，和幾乎所有的偏好設置（排除全局鍵盤快捷鍵設置，字體名稱，運行提示開關 這三個）。空位使得您能在您的多個常用配置中快速切換。\n\n但是，如果您在運行中切換它們的話，錄屏區域並未立即切換。您需要停止運行然後切換它們。\n\n您可以新增壹個默認配置的空位，或者克隆壹個選中的空位，數量無限制。您點擊前面的盒子圖標會在空位之間進行切換，同時加載所有偏好設置爲選中的空位中存儲的。您可以左滑以彈出刪除按鈕來刪除某個空位。您可以在某個空位之後編輯附帶文本信息，通過點擊盒子圖標之後的區域。當壹個空位已被選中時，設置的改變會自動存儲于其中。";
+"Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (except global shortcut key, font name, is show toast option). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it." = "空位只是一些屬性的集中存貯，包含錄屏截區窗口位置和大小，內容顯示窗口位置和大小，和幾乎所有的偏好設置（排除全局鍵盤快捷鍵設置，字體名稱，運行提示開關 這三個）。空位使得您能在您的多個常用配置中快速切換。\n\n但是，如果您在運行中切換它們的話，錄屏區域並未立即切換。您需要停止運行然後切換它們。\n\n您可以新增一個默認配置的空位，或者克隆一個選中的空位，數量無限製。您點擊前面的盒子圖標會在空位之間進行切換，同時加載所有偏好設置為選中的空位中存儲的。您可以左滑以彈出刪除按鈕來刪除某個空位。您可以在某個空位之後編輯附帶文本信息，通過點擊盒子圖標之後的區域。當一個空位已被選中時，設置的改變會自動存儲於其中。";
 "Are you sure? This action can't be undo." = "確認？這個動作不能撤銷。";
 
 "Onboarding" = "歡迎";
 "Welcome to DictAssistant" = "歡迎使用 英文助手App";
-"We start three steps to setup." = "我們開始三步啓動設置。";
+"We start three steps to setup." = "我們開始三步啟動設置。";
 "Continue" = "繼續";
 "Initialize your English vocabulary count, press enter" = "初始化您的英語詞匯量，按enter鍵提交";
-"My vocabulary count:" = "我的詞彙量：";
+"My vocabulary count:" = "我的詞匯量：";
 "Install recommened concise dictionary" = "安裝推薦的簡明詞典";
 "If have multi, install which you like." = "如果有多個，安裝您喜歡的。";
-"This step is optional, but highly recommended." = "這壹步是可跳過的，不過強烈推薦完成。";
+"This step is optional, but highly recommended." = "這一步是可跳過的，不過強烈推薦完成。";
 "Open Dictionary App, click menu File/Open Dictionaries Folder." = "打開系統自帶的詞典應用，點擊菜單項：文件/打開詞典文件夾。";
 "This action will create the folder if not have been created before." = "如果先前還未創建此文件夾，這個動作會創建這個默認的文件夾。";
 "Restart Dictionary App, open preferences, make it the first selected dictionary." = "重新打開詞典應用， 打開偏好設置，調整剛安裝的詞典為第一選擇。";
@@ -211,7 +214,7 @@
 "Playing:" = "運行：";
 "Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window." = "步驟1：按 單步運行 快捷鍵，調整錄屏區域。";
 "Step 2: Press Run Step Play keyboard shortcut key and adjust the content window." = "步驟2：按 單步運行 快捷鍵，調整內容區域。";
-"Step 3: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟3：按 單步運行 快捷鍵 運行。（需要屏幕錄制授權）";
+"Step 3: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟3：按 單步運行 快捷鍵 運行。（需要屏幕錄製授權）";
 "Stop:" = "停止：";
 "Press Run Step Play keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行";
 "End" = "完成設置";
