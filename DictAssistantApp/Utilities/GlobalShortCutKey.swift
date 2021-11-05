@@ -24,6 +24,8 @@ extension KeyboardShortcuts.Name {
     static let showPhraseInsertPanel = Self("showPhraseInsertPanel")
     
     static let showUpsertEntryPanel = Self("showUpsertEntryPanel")
+    
+    static let showPreferencesPanel = Self("showPreferencesPanel")
 }
 
 private enum StepPlay {
@@ -151,6 +153,10 @@ func registerGlobalKey() {
     
     KeyboardShortcuts.onKeyUp(for: .showUpsertEntryPanel) {
         showEntryUpsertPanel()
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .showPreferencesPanel) {
+        showPreferencesPanel()
     }
 }
 

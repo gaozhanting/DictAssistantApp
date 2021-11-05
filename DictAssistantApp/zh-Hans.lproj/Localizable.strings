@@ -67,6 +67,7 @@
 "Run Swift Play" = "快速运行";
 "Show Phrase Insert Panel" = "打开添加短语面板";
 "Show Entry Upsert Panel" = "打开添加词条面板";
+"Show Preferences Panel" = "打开偏好设置面板";
 "recommend: Option-1" = "推荐：Option-1";
 "recommend: Option-2" = "推荐：Option-2";
 "recommend: Option-3" = "推荐：Option-3";
@@ -75,6 +76,7 @@
 "recommend: Option-S" = "推荐：Option-S";
 "recommend: Option-P" = "推荐：Option-P";
 "recommend: Option-E" = "推荐：Option-E";
+"recommend: Option-C" = "推荐：Option-C";
 "Toast:" = "运行提示框：";
 "Show Toast" = "显示运行提示";
 

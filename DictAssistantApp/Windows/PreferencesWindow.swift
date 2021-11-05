@@ -25,8 +25,12 @@ var preferencesWindowController = PreferencesWindowController(
 
 extension AppDelegate {
     @objc func showPreferences() {
-        preferencesWindowController.show()
+        showPreferencesPanel()
     }
+}
+
+func showPreferencesPanel() {
+    preferencesWindowController.show()
 }
 
 func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {

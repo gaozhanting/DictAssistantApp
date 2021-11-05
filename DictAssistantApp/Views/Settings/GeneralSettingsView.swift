@@ -124,6 +124,14 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-E").padding()
                 }
             }
+            HStack {
+                Text("Show Preferences Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .showPreferencesPanel)
+                MiniInfoView {
+                    Text("recommend: Option-C").padding()
+                }
+            }
         }
         .toggleStyle(SwitchToggleStyle())
     }
