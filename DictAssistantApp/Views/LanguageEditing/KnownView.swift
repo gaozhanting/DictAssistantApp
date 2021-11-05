@@ -272,51 +272,54 @@ fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
 
 let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: .newlines).map{ String($0) }
 
+private let minCount = 1
+private let maxCount = 100000
 fileprivate struct FirstNPopoverView: View {
     @Binding var text: String
-    
-    @State private var from: Int = 1
-    @State private var to: Int = 5000
-    @State private var committed: Bool = false
-    
     @Binding var showPopover: Bool
     
-    var body: some View {
-        HStack {
-            Text("from")
-            TextField("", value: $from, formatter: {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .none // integer, no decimal
-                formatter.minimum = 1
-                formatter.maximum = 100000
-                return formatter
-            }())
-            .frame(width: 60)
-            
-            Text("to")
-            TextField("", value: $to, formatter: {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .none // integer, no decimal
-                formatter.minimum = 2
-                formatter.maximum = 100000
-                return formatter
-            }(), onCommit: {
-                committed = true
-            })
-            .frame(width: 60)
-            
-            Button(action: {
-                text = wikiFrequencyWords[from-1 ..< to].joined(separator: "\n")
-                showPopover = false
-            }) {
-                Image(systemName: "doc.on.clipboard")
-            }
-            .disabled(from > to || !committed)
-            .keyboardShortcut(KeyEquivalent.return) // command + return
-            .help("Type a range, then press paste button to paste these words below.")
+    @State var count: String = String(maxCount)
+    @State var showingAlert: Bool = false
+    
+    func validate(_ count: String) -> Bool {
+        guard let count = Int(count) else {
+            return false
         }
-        .padding(.horizontal)
-        .padding(.vertical, 2)
+        
+        if count >= minCount && count <= maxCount {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func onCommit() {
+        if !validate(count) {
+            showingAlert = true
+            return
+        }
+        
+        text = wikiFrequencyWords[0 ..< Int(count)!].joined(separator: "\n")
+        showPopover = false
+    }
+    
+    var body: some View {
+        TextField("", text: $count, onCommit: onCommit)
+            .padding()
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Invalid value"),
+                    message: Text("Count must be an integer, and must between \(minCount) and \(maxCount), including."),
+                    primaryButton: .default(
+                        Text("Cancel"),
+                        action: {}
+                    ),
+                    secondaryButton: .destructive(
+                        Text("Discard"),
+                        action: { count = String(maxCount) }
+                    )
+                )
+            }
     }
 }
 
