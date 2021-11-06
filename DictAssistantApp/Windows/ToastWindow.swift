@@ -24,6 +24,7 @@ func toastOn() {
     if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
         toastWindow.contentView = NSHostingView(
             rootView: ToastOnView()
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea())
         toastWindow.center()
@@ -39,6 +40,7 @@ func toastOff() {
     if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
         toastWindow.contentView = NSHostingView(
             rootView: ToastOffView()
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .ignoresSafeArea())
         toastWindow.center()

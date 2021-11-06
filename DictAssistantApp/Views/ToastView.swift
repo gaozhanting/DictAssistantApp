@@ -8,15 +8,39 @@
 import SwiftUI
 
 fileprivate struct ToastView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: Slot.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Slot.createdDate, ascending: true)
+        ]
+    ) var slots: FetchedResults<Slot>
+    
+    var selectedSlot: Slot? {
+        slots.first { $0.isSelected }
+    }
+    
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+
     let imageSystemName: String
     let info: String
     
     var body: some View {
         VStack {
+            if let slot = selectedSlot {
+                HStack {
+                    Image(systemName: "cube.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(Color(dataToColor(slot.color!)!))
+                    
+                    Text(slot.label!)
+                }
+            }
+            
             Image(imageSystemName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 200, height: 200)
+                .frame(width: 160, height: 160)
             
             Text(info)
                 .font(.system(size: 30, weight: .regular))
@@ -25,7 +49,7 @@ fileprivate struct ToastView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             VisualEffectView(material: .underWindowBackground)
-                .preferredColorScheme(.dark)
+                .preferredColorScheme(toSystemColorScheme(from: theColorScheme))
         )
     }
 }
@@ -49,5 +73,6 @@ struct ToastView_Previews: PreviewProvider {
             ToastOffView()
         }
         .frame(maxWidth: 300, maxHeight: 300)
+        .environment(\.managedObjectContext, persistentContainer.viewContext)
     }
 }
