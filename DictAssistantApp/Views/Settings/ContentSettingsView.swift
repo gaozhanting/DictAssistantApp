@@ -19,6 +19,9 @@ struct ContentSettingsView: View {
                 DropFirstTitleWordInTranslationToggle()
                 JoinTranslationLinesToggle()
             }
+            Preferences.Section(title: NSLocalizedString("Title Word:", comment: "")) {
+                TitleWordPicker()
+            }
             Preferences.Section(title: NSLocalizedString("More:", comment: "")) {
                 ChineseCharacterConvertingPicker()
             }
@@ -102,6 +105,30 @@ fileprivate struct JoinTranslationLinesToggle: View {
             Text("Join translation lines")
         })
         .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+private struct TitleWordPicker: View {
+    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.primitive.rawValue
+    
+    var binding: Binding<Int> {
+        Binding(
+            get: { titleWord },
+            set: { newValue in
+                titleWord = newValue
+                trCallBack()
+            }
+        )
+    }
+    
+    var body: some View {
+        Picker("", selection: binding) {
+            Text("primitive").tag(TitleWord.primitive.rawValue)
+            Text("lemma").tag(TitleWord.lemma.rawValue)
+        }
+        .labelsHidden()
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 150)
     }
 }
 

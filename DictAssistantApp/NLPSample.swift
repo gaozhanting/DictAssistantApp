@@ -197,19 +197,22 @@ struct NLPSample {
         
         // mix (merge lemma, name, and phrase)
         for (index, word) in words.enumerated() {
-            let lemma = word.lemma
-            
-            result.append(lemma)
+            switch TitleWord(rawValue: UserDefaults.standard.integer(forKey: TitleWordKey))! {
+            case .primitive:
+                result.append(word.token)
+            case .lemma:
+                result.append(word.lemma)
+            }
             
             // add the indexed primitiveName or lemmaedName, only one added, primitiveName first
             if let primitiveName = primitiveNames[index] {
-                if primitiveName.caseInsensitiveCompare(lemma) != .orderedSame {
+                if primitiveName.caseInsensitiveCompare(word.lemma) != .orderedSame {
                     result.append(primitiveName)
                     logger.info("   >>> append primitiveName: \(primitiveName, privacy: .public)")
                 }
             } else {
                 if let lemmaedName = lemmaedNames[index] {
-                    if lemmaedName.caseInsensitiveCompare(lemma) != .orderedSame {
+                    if lemmaedName.caseInsensitiveCompare(word.lemma) != .orderedSame {
                         result.append(lemmaedName)
                         logger.info("   >>> append lemmaedName: \(lemmaedName, privacy: .public)")
                     }

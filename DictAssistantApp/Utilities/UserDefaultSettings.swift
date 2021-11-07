@@ -11,19 +11,19 @@ import Vision
 import Combine
 
 // UserDefault keys:
-// -- this three not in slots
 let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
 let IsShowCurrentKnownButWithOpacity0Key = "IsShowCurrentKnownButWithOpacity0Key"
 let IsConcealTranslationKey = "IsConcealTranslationKey"
 let IsShowCurrentNotFoundWordsKey = "IsShowCurrentNotFoundWordsKey"
 
+let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
+
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
 let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
+// -- this three not in slots
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
-
+let TitleWordKey = "TitleWordKey" // not in slot for basic consistence of word
 let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
-
-let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
 
 // general
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
@@ -74,6 +74,11 @@ let UseContentBackgroundColorKey = "UseContentBackgroundColorKey"
 
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
+
+enum TitleWord: Int, Codable {
+    case primitive = 0
+    case lemma = 1
+}
 
 enum UseEntryMode: Int, Codable {
     case notUse = 0
@@ -172,6 +177,7 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsConcealTranslationKey: false,
     IsShowCurrentNotFoundWordsKey: false,
     FontNameKey: defaultFontName,
+    TitleWordKey: TitleWord.primitive.rawValue,
     ShowToastToggleKey: true,
     IsFinishedOnboardingKey: false,
 ]) { (current, _) in current }
