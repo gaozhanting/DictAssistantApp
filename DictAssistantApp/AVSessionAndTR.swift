@@ -141,7 +141,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
 
     func recognizeTextHandler(request: VNRequest, error: Error?) {
         DispatchQueue.main.async { [unowned self] in
-            results = textRecognitionRequest.results as? [VNRecognizedTextObservation]
+            results = textRecognitionRequest.results
             
             if let results = results {
                 let texts: [String] = results.map { observation in
