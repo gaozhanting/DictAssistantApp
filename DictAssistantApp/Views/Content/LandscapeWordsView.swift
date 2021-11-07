@@ -47,28 +47,29 @@ fileprivate struct BodyView: View {
     let proxy: ScrollViewProxy
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .top) {
-                ForEach(words) { wordCellWithId in
-                    SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+            
+//            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(alignment: .top) {
+                    ForEach(words) { wordCellWithId in
+                        SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+                    }
                 }
-                .frame(maxWidth: CGFloat(landscapeMaxWidth))
-            }
-            .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-            .background(useContentBackgroundVisualEffect ?
+                .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
+                .background(useContentBackgroundVisualEffect ?
                             VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                            nil)
-            .onChange(of: words) { _ in
-                if landscapeAutoScroll {
-                    proxy.scrollTo(words.last?.id, anchor: .top)
+                                nil)
+                .onChange(of: words) { _ in
+                    if landscapeAutoScroll {
+                        proxy.scrollTo(words.last?.id, anchor: .top)
+                    }
                 }
-            }
-            .onAppear {
-                if landscapeAutoScroll {
-                    proxy.scrollTo(words.last?.id, anchor: .top)
+                .onAppear {
+                    if landscapeAutoScroll {
+                        proxy.scrollTo(words.last?.id, anchor: .top)
+                    }
                 }
-            }
-        }
+//            }
+            
     }
     
     @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
