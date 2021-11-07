@@ -41,10 +41,10 @@ struct ContentView_Previews: PreviewProvider {
         return DictionaryServices.define(word) ?? ""
     }
     static let displayedWords = DisplayedWords(wordCells: [
-//        WordCell(word: "around", isKnown: .known, trans: define("around")),
+        WordCell(word: "around", isKnown: .known, trans: ""),
 //        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
-//        WordCell(word: "the", isKnown: .known, trans: define("the")),
-//        WordCell(word: "king", isKnown: .known, trans: define("king")),
+        WordCell(word: "the", isKnown: .known, trans: ""),
+        WordCell(word: "king", isKnown: .known, trans: ""),
 //        WordCell(word: "gotten", isKnown: .unKnown, trans: define("gotten")),
 //        WordCell(word: "grant", isKnown: .unKnown, trans: define("grant")),
 //        WordCell(word: "made", isKnown: .unKnown, trans: define("made")),
@@ -64,7 +64,7 @@ struct ContentView_Previews: PreviewProvider {
         WordCell(word: "superstitious", isKnown: .unKnown, trans: define("superstitious")),
 
         
-//        WordCell(word: "and", isKnown: .known, trans: define("and")),
+        WordCell(word: "and", isKnown: .known, trans: ""),
 //        WordCell(word: "recipe", isKnown: .unKnown, trans: define("recipe")),
 
 //        WordCell(word: "make up one's mind", isKnown: .unKnown, trans: define("make up one's mind")),
@@ -76,13 +76,13 @@ struct ContentView_Previews: PreviewProvider {
                 .environmentObject(displayedWords)
                 .frame(width: 1000, height: 300)
             
-            PortraitWordsView()
-                .environmentObject(displayedWords)
-                .frame(width: 300, height: 600)
-            
-            PortraitWordsView()
-                .environmentObject(displayedWords)
-                .frame(width: 800, height: 500)
+//            PortraitWordsView()
+//                .environmentObject(displayedWords)
+//                .frame(width: 300, height: 600)
+//
+//            PortraitWordsView()
+//                .environmentObject(displayedWords)
+//                .frame(width: 800, height: 500)
         }
     }
 }

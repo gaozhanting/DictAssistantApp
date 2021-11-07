@@ -11,20 +11,25 @@ struct SingleWordView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     let wordCell: WordCell
-
+    
     var body: some View {
         switch ContentStyle(rawValue: contentStyle)! {
         case .portrait:
             TextBodyWidthBG(wordCell: wordCell)
-
         case .landscape:
             VStack(alignment: .leading) {
-                TextBodyWidthBG(wordCell: wordCell)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                if !wordCell.trans.isEmpty {
+                    TextBodyWidthBG(wordCell: wordCell)
+                        .frame(maxWidth: CGFloat(landscapeMaxWidth))
+                } else {
+                    TextBodyWidthBG(wordCell: wordCell)
+                }
                 Spacer()
             }
         }
     }
+    
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 }
 
 private struct TextBodyWidthBG: View {
