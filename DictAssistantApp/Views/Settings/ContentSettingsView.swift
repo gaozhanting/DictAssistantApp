@@ -109,7 +109,7 @@ fileprivate struct JoinTranslationLinesToggle: View {
 }
 
 private struct TitleWordPicker: View {
-    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.primitive.rawValue
+    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     
     var binding: Binding<Int> {
         Binding(
@@ -123,8 +123,8 @@ private struct TitleWordPicker: View {
     
     var body: some View {
         Picker("", selection: binding) {
-            Text("primitive").tag(TitleWord.primitive.rawValue)
             Text("lemma").tag(TitleWord.lemma.rawValue)
+            Text("primitive").tag(TitleWord.primitive.rawValue)
         }
         .labelsHidden()
         .pickerStyle(MenuPickerStyle())

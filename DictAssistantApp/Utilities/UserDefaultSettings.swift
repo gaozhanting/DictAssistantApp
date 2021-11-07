@@ -177,7 +177,7 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsConcealTranslationKey: false,
     IsShowCurrentNotFoundWordsKey: false,
     FontNameKey: defaultFontName,
-    TitleWordKey: TitleWord.primitive.rawValue,
+    TitleWordKey: TitleWord.lemma.rawValue,
     ShowToastToggleKey: true,
     IsFinishedOnboardingKey: false,
 ]) { (current, _) in current }

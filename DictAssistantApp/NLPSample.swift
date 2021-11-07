@@ -198,10 +198,10 @@ struct NLPSample {
         // mix (merge lemma, name, and phrase)
         for (index, word) in words.enumerated() {
             switch TitleWord(rawValue: UserDefaults.standard.integer(forKey: TitleWordKey))! {
-            case .primitive:
-                result.append(word.token)
             case .lemma:
                 result.append(word.lemma)
+            case .primitive:
+                result.append(word.token)
             }
             
             // add the indexed primitiveName or lemmaedName, only one added, primitiveName first
