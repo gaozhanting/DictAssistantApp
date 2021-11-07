@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct LandscapeWordsView: View {
-    var body: some View {
-        LandscapeWordsViewAutoScroll()
-    }
-}
-
-struct LandscapeWordsViewAutoScroll: View {
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.still.rawValue
+    
     var body: some View {
         ScrollViewReader { proxy in
-            BodyView(proxy: proxy)
+            if LandscapeStyle(rawValue: landscapeStyle)! == .centered { // without scroll
+                BodyView(proxy: proxy)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) { // scroll: normal(still) or auto
+                    BodyView(proxy: proxy)
+                }
+            }
         }
     }
 }
 
-fileprivate struct BodyView: View {
+private struct BodyView: View {
     @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
@@ -47,34 +49,30 @@ fileprivate struct BodyView: View {
     let proxy: ScrollViewProxy
     
     var body: some View {
-            
-//            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    ForEach(words) { wordCellWithId in
-                        SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-                    }
-                }
-                .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-                .background(useContentBackgroundVisualEffect ?
-                            VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                                nil)
-                .onChange(of: words) { _ in
-                    if landscapeAutoScroll {
-                        proxy.scrollTo(words.last?.id, anchor: .top)
-                    }
-                }
-                .onAppear {
-                    if landscapeAutoScroll {
-                        proxy.scrollTo(words.last?.id, anchor: .top)
-                    }
-                }
-//            }
-            
+        HStack(alignment: .top) {
+            ForEach(words) { wordCellWithId in
+                SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+            }
+        }
+        .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
+        .background(useContentBackgroundVisualEffect ?
+                    VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
+                        nil)
+        .onChange(of: words) { _ in
+            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
+                proxy.scrollTo(words.last?.id, anchor: .top)
+            }
+        }
+        .onAppear {
+            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
+                proxy.scrollTo(words.last?.id, anchor: .top)
+            }
+        }
     }
     
     @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    @AppStorage(LandscapeAutoScrollKey) private var landscapeAutoScroll: Bool = true
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.still.rawValue
 }
 
 //struct LandscapeWordsView_Previews: PreviewProvider {

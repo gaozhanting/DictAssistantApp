@@ -51,7 +51,7 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 
 let ContentStyleKey = "ContentStyleKey"
 let PortraitCornerKey = "PortraitCornerKey"
-let LandscapeAutoScrollKey = "LandscapeAutoScrollKey"
+let LandscapeStyleKey = "LandscapeStyleKey"
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
@@ -112,6 +112,12 @@ enum PortraitCorner: Int, Codable {
     case bottomLeading = 2
 }
 
+enum LandscapeStyle: Int, Codable {
+    case still = 0
+    case autoScrolling = 1
+    case centered = 2
+}
+
 enum TheColorScheme: Int, Codable {
     case light = 0
     case dark = 1
@@ -145,7 +151,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    LandscapeAutoScrollKey: true,
+    LandscapeStyleKey: LandscapeStyle.still.rawValue,
     PortraitMaxHeightKey: 100.0,
     LandscapeMaxWidthKey: 160.0,
     
@@ -259,9 +265,9 @@ extension UserDefaults {
         get { return integer(forKey: "PortraitCornerKey") }
         set { set(newValue, forKey: "PortraitCornerKey") }
     }
-    @objc var LandscapeAutoScrollKey: Bool {
-        get { return bool(forKey: "LandscapeAutoScrollKey") }
-        set { set(newValue, forKey: "LandscapeAutoScrollKey") }
+    @objc var LandscapeStyleKey: Int {
+        get { return integer(forKey: "LandscapeStyleKey") }
+        set { set(newValue, forKey: "LandscapeStyleKey") }
     }
     @objc var PortraitMaxHeightKey: Double {
         get { return double(forKey: "PortraitMaxHeightKey") }
@@ -372,7 +378,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsWithAnimationKey, \.isWithAnimation, IsWithAnimationKey)
     combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
-    combineSlot(\.LandscapeAutoScrollKey, \.landscapeAutoScroll, LandscapeAutoScrollKey)
+    combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
     combineSlot(\.LandscapeMaxWidthKey, \.landscapeMaxWidth, LandscapeMaxWidthKey)
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)

@@ -39,7 +39,7 @@ struct Settings: Codable {
     // -- content style & max width & max height
     var contentStyle: Int
     var portraitCorner: Int
-    var landscapeAutoScroll: Bool
+    var landscapeStyle: Int
     // ---- extra
     var portraitMaxHeight: Double
     var landscapeMaxWidth: Double
@@ -88,7 +88,7 @@ struct Settings: Codable {
         isWithAnimation: Bool,
         contentStyle: Int,
         portraitCorner: Int,
-        landscapeAutoScroll: Bool,
+        landscapeStyle: Int,
         portraitMaxHeight: Double,
         landscapeMaxWidth: Double,
         fontSize: Double,
@@ -125,7 +125,7 @@ struct Settings: Codable {
         self.isWithAnimation = isWithAnimation
         self.contentStyle = contentStyle
         self.portraitCorner = portraitCorner
-        self.landscapeAutoScroll = landscapeAutoScroll
+        self.landscapeStyle = landscapeStyle
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeMaxWidth = landscapeMaxWidth
         self.fontSize = fontSize
@@ -175,7 +175,7 @@ fileprivate let defaultSettings = Settings(
     isWithAnimation: true,
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
-    landscapeAutoScroll: true,
+    landscapeStyle: LandscapeStyle.still.rawValue,
     portraitMaxHeight: 100.0,
     landscapeMaxWidth: 160.0,
     fontSize: 18.0,
@@ -373,7 +373,7 @@ fileprivate struct SlotsView: View {
         isWithAnimation = s.isWithAnimation
         contentStyle = s.contentStyle
         portraitCorner = s.portraitCorner
-        landscapeAutoScroll = s.landscapeAutoScroll
+        landscapeStyle = s.landscapeStyle
         portraitMaxHeight = s.portraitMaxHeight
         landscapeMaxWidth = s.landscapeMaxWidth
         fontSize = s.fontSize
@@ -420,7 +420,7 @@ fileprivate struct SlotsView: View {
     
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(LandscapeAutoScrollKey) var landscapeAutoScroll: Bool = true
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.still.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     
