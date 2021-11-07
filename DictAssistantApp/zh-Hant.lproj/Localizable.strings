@@ -129,7 +129,7 @@
 "Drop first title word in translation" = "丟棄單詞譯文的第一個單詞";
 "Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the translation; for example: スーパー大辭林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct." = "勾選它，當你想丟棄單詞譯文的首詞，通常標題單詞作為詞典譯文的首詞。註意，有些詞典沒有把標題單詞設置為譯文的首詞；比如：スーパー大辭林 / Super Daijirin Japanese Dictionary；您可以不勾選此選項，因為這種情況下字符數不對。";
 "Join translation lines" = "合並單詞譯文為一行";
-"Title Word:" = "標題單詞顯示：";
+"Title Word:" = "標題單詞：";
 "primitive" = "原詞";
 "lemma" = "原型";
 "More:" = "更多：";
@@ -163,7 +163,10 @@
 "topTrailing" = "右上";
 "topLeading" = "左上";
 "bottomLeading" = "底部";
-"auto scroll:" = "自動滾動：";
+"style:" = "式樣：";
+"still" = "普通";
+"auto scrolling" = "自動滾動";
+"centered" = "居中";
 "enabled" = "開啟";
 "disabled" = "關閉";
 "More..." = "更多···";

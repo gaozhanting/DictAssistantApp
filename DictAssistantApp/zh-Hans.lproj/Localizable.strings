@@ -163,7 +163,10 @@
 "topTrailing" = "右上";
 "topLeading" = "左上";
 "bottomLeading" = "底部";
-"auto scroll:" = "自动滚动：";
+"style:" = "式样：";
+"still" = "普通";
+"auto scrolling" = "自动滚动";
+"centered" = "居中";
 "enabled" = "开启";
 "disabled" = "关闭";
 "More..." = "更多···";

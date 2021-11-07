@@ -163,7 +163,7 @@ fileprivate struct ContentStyleSettingView: View {
                     .pickerStyle(MenuPickerStyle())
                     .frame(width: 200)
                 case .landscape:
-                    Picker("landscape style", selection: $landscapeStyle) {
+                    Picker("style:", selection: $landscapeStyle) {
                         Text("still").tag(LandscapeStyle.still.rawValue)
                         Text("auto scrolling").tag(LandscapeStyle.autoScrolling.rawValue)
                         Text("centered").tag(LandscapeStyle.centered.rawValue)
