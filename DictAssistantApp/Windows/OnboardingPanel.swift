@@ -11,32 +11,27 @@ import SwiftUI
 var onboardingPanel: NSPanel!
 
 func initOnboardingPanel() {
-    onboardingPanel = NSPanel.init(
+    onboardingPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 650, height: 530),
-        styleMask: [
-            .titled,
-            .nonactivatingPanel,
-            .fullSizeContentView,
-            .miniaturizable,
-        ],
-        backing: .buffered,
-        defer: false
+        name: NSLocalizedString("Onboarding", comment: "")
     )
+    onboardingPanel.standardWindowButton(.closeButton)?.isHidden = true
+    onboardingPanel.standardWindowButton(.miniaturizeButton)?.isHidden = true
+    onboardingPanel.standardWindowButton(.zoomButton)?.isHidden = true
+    onboardingPanel.standardWindowButton(.toolbarButton)?.isHidden = true
     
-    onboardingPanel.title = NSLocalizedString("Onboarding", comment: "")
-    onboardingPanel.setFrameAutosaveName("onboardingPanel")
     onboardingPanel.close()
 }
 
 extension AppDelegate {
     @objc func onboarding() {
-        let onboardingView = OnboardingView(pages: OnboardingPage.allCases)
+        let view = OnboardingView(pages: OnboardingPage.allCases)
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.endOnboarding, endOnboarding)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .frame(width: 650, height: 530)
         
-        onboardingPanel.contentViewController = NSHostingController(rootView: onboardingView)
+        onboardingPanel.contentViewController = NSHostingController(rootView: view)
         onboardingPanel.center()
         onboardingPanel.orderFrontRegardless()
     }
