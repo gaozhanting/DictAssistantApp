@@ -11,6 +11,9 @@ import Preferences
 struct EnglishSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: NSLocalizedString("Title Word:", comment: "")) {
+                TitleWordPicker()
+            }
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
@@ -18,6 +21,30 @@ struct EnglishSettingsView: View {
                 UseEntryModePicker()
             }
         }
+    }
+}
+
+private struct TitleWordPicker: View {
+    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
+    
+    var binding: Binding<Int> {
+        Binding(
+            get: { titleWord },
+            set: { newValue in
+                titleWord = newValue
+                trCallBack()
+            }
+        )
+    }
+    
+    var body: some View {
+        Picker("", selection: binding) {
+            Text("lemma").tag(TitleWord.lemma.rawValue)
+            Text("primitive").tag(TitleWord.primitive.rawValue)
+        }
+        .labelsHidden()
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 150)
     }
 }
 
