@@ -34,6 +34,7 @@ fileprivate struct PageTemplateView<Title: View, Content: View, NextButton: View
             VStack {
                 Spacer()
                 content
+                    .font(.title3)
                     .frame(width: 500)
                 Spacer()
             }
@@ -59,9 +60,7 @@ fileprivate struct WelcomeView: View {
                 Text("We start three steps to setup.")
             },
             nextButton: {
-                Button(action: next) {
-                    Text("Continue")
-                }
+                Button("Continue", action: next)
             })
     }
 }
@@ -116,10 +115,8 @@ fileprivate struct InitKnownView: View {
                 }
             },
             nextButton: {
-                Button(action: next, label: {
-                    Text("Continue")
-                })
-                .disabled(fetchedKnown.count == 0 && !batchInsertSucceed)
+                Button("Continue", action: next)
+                    .disabled(fetchedKnown.count == 0 && !batchInsertSucceed)
             })
     }
 }
@@ -188,9 +185,7 @@ fileprivate struct InstallPresetDictView: View {
                 .padding()
             },
             nextButton: {
-                Button(action: next, label: {
-                    Text("Continue")
-                })
+                Button("Continue", action: next)
             })
     }
 }
