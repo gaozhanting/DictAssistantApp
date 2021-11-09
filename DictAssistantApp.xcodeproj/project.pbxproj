@@ -376,11 +376,11 @@
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Zh_T.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		44383DAF27328D9C00A564B5 /* DictAssistantApp English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Japanese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4430EF2E27328A5D003B098C /* EnglishAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		44383DAF27328D9C00A564B5 /* EnglishAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		44408CE827159F7D00866BB9 /* EnglishAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Japanese.dictionary.zip; sourceTree = "<group>"; };
-		4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Zh_S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4440EE40262EDCA3007FF470 /* EnglishAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -402,7 +402,7 @@
 		445355632705C4F4007DB9C2 /* NoisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisesView.swift; sourceTree = "<group>"; };
 		445355672705CF12007DB9C2 /* TRCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCallBack.swift; sourceTree = "<group>"; };
 		44565F8527328F4700E7AD21 /* Babylon_English.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English.dictionary.zip; sourceTree = "<group>"; };
-		44565FD927329A6E00E7AD21 /* DictAssistantApp Spanish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DictAssistantApp Spanish.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44565FD927329A6E00E7AD21 /* EnglishAssistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishAssistant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Spanish.dictionary.zip; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
@@ -531,11 +531,11 @@
 		4440EE41262EDCA3007FF470 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */,
-				44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */,
-				4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */,
-				44383DAF27328D9C00A564B5 /* DictAssistantApp English.app */,
-				44565FD927329A6E00E7AD21 /* DictAssistantApp Spanish.app */,
+				4440EE40262EDCA3007FF470 /* EnglishAssistant.app */,
+				44408CE827159F7D00866BB9 /* EnglishAssistant.app */,
+				4430EF2E27328A5D003B098C /* EnglishAssistant.app */,
+				44383DAF27328D9C00A564B5 /* EnglishAssistant.app */,
+				44565FD927329A6E00E7AD21 /* EnglishAssistant.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -717,7 +717,7 @@
 				4430EEE127328A5D003B098C /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 4430EF2E27328A5D003B098C /* DictAssistantApp Zh_T.app */;
+			productReference = 4430EF2E27328A5D003B098C /* EnglishAssistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 		44383D5E27328D9C00A564B5 /* DictAssistantApp English */ = {
@@ -739,7 +739,7 @@
 				44383D6227328D9C00A564B5 /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 44383DAF27328D9C00A564B5 /* DictAssistantApp English.app */;
+			productReference = 44383DAF27328D9C00A564B5 /* EnglishAssistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 		44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */ = {
@@ -761,7 +761,7 @@
 				44408CA427159F7D00866BB9 /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 44408CE827159F7D00866BB9 /* DictAssistantApp Japanese.app */;
+			productReference = 44408CE827159F7D00866BB9 /* EnglishAssistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4440EE3F262EDCA3007FF470 /* DictAssistantApp Zh_S */ = {
@@ -783,7 +783,7 @@
 				442134EA26AC5A7400963441 /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 4440EE40262EDCA3007FF470 /* DictAssistantApp Zh_S.app */;
+			productReference = 4440EE40262EDCA3007FF470 /* EnglishAssistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 		44565F8927329A6E00E7AD21 /* DictAssistantApp Spanish */ = {
@@ -805,7 +805,7 @@
 				44565F8D27329A6E00E7AD21 /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 44565FD927329A6E00E7AD21 /* DictAssistantApp Spanish.app */;
+			productReference = 44565FD927329A6E00E7AD21 /* EnglishAssistant.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1306,7 +1306,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1331,7 +1331,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1356,7 +1356,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1381,7 +1381,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1406,7 +1406,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1431,7 +1431,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1573,7 +1573,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1598,7 +1598,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -1623,7 +1623,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -1648,7 +1648,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EnglishAssistant;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
