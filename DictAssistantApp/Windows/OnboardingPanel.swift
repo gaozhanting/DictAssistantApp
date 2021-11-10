@@ -28,7 +28,6 @@ extension AppDelegate {
         let view = OnboardingView(pages: OnboardingPage.allCases)
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environment(\.endOnboarding, endOnboarding)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .frame(width: 650, height: 530)
         
         onboardingPanel.contentViewController = NSHostingController(rootView: view)

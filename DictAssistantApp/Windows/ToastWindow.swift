@@ -12,7 +12,7 @@ var toastWindow: NSWindow!
 
 func initToastWindow() {
     toastWindow = ToastWindow.init(
-        contentRect: NSRect(x: 300, y: 300, width: 300, height: 300),
+        contentRect: NSRect(x: 300, y: 300, width: 300, height: 260),
         name: "toastWindow"
     )
     
@@ -22,11 +22,12 @@ func initToastWindow() {
 
 func toastOn() {
     if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
-        toastWindow.contentView = NSHostingView(
-            rootView: ToastOnView()
-                .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea())
+        let view = ToastOnView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .ignoresSafeArea()
+            .frame(width: 300, height: 260)
+        
+        toastWindow.contentView = NSHostingView(rootView: view)
         toastWindow.center()
         toastWindow.orderFrontRegardless()
         
@@ -38,11 +39,12 @@ func toastOn() {
 
 func toastOff() {
     if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
-        toastWindow.contentView = NSHostingView(
-            rootView: ToastOffView()
-                .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea())
+        let view = ToastOffView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .ignoresSafeArea()
+            .frame(width: 300, height: 260)
+        
+        toastWindow.contentView = NSHostingView(rootView: view)
         toastWindow.center()
         toastWindow.orderFrontRegardless()
         
