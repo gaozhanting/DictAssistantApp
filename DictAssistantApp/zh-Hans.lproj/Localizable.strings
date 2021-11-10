@@ -125,7 +125,7 @@
 "Content Display:" = "内容显示：";
 "Select it when you want display all phrase words." = "勾选它，如果您想同时显示所有的短语";
 "Drop title word" = "不显示标题单词";
-"Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better." = "勾选它，当你不想显示标题单词时。有些词典的词条中，标题单词不是第一个单词，而在后面，比如：スーパー大辞林 / Super Daijirin Japanese Dictionary. 还有些词典的词条中，标题单词被音节拆分显示，这种情况，您会勾选这个选项，同时勾选`丢弃词条的第一个单词`，这样会得到更好的整体显示效果。";
+"Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辞林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect Drop first word in translation, that will be better." = "勾选它，当你不想显示标题单词时。有些词典的词条中，标题单词不是第一个单词，而在后面，比如：スーパー大辞林 / Super Daijirin Japanese Dictionary. 还有些词典的词条中，标题单词被音节拆分显示，这种情况，您会勾选这个选项，同时勾选`丢弃词条的第一个单词`，这样会得到更好的整体显示效果。";
 "Add line break ahead of translation" = "在单词译文前加上换行符";
 "Add space ahead of translation" = "在单词译文前加上空格";
 "Drop first title word in translation" = "丢弃单词译文的第一个单词";
