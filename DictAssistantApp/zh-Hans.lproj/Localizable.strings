@@ -146,6 +146,7 @@
 "Content Animation Display:" = "内容动画：";
 "Content Style:" = "内容编排：";
 "Font: " = "字体：";
+"There is a bug: when other TextField is focused, changing font is not work." = "注意这儿有一个Bug：当有其他文本编辑框聚焦的时候，字体没法更改。";
 "Translation Font Rate:" = "单词译文字体比例：";
 "Appearance:" = "外观：";
 "Colors & Shadow:" = "颜色和阴影：";

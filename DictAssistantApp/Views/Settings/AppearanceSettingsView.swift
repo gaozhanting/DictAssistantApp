@@ -294,6 +294,10 @@ fileprivate struct FontSettingView: View {
                 fontName = defaultFontName
                 fontSize = 14.0
             }
+            
+            MiniInfoView {
+                Text("There is a bug: when other TextField is focused, changing font is not work.").padding()
+            }
         }
     }
 }
