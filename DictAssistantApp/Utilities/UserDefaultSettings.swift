@@ -19,7 +19,7 @@ let IsShowCurrentNotFoundWordsKey = "IsShowCurrentNotFoundWordsKey"
 let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
 
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
-let defaultNSFont = NSFont(name: defaultFontName, size: 18.0)!
+let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
 // -- this three not in slots
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
 let TitleWordKey = "TitleWordKey" // not in slot for basic consistence of word
@@ -155,8 +155,8 @@ fileprivate let defaultSlotKV: [String: Any] = [
     PortraitMaxHeightKey: 100.0,
     LandscapeMaxWidthKey: 160.0,
     
-    FontSizeKey: 18.0,
-    FontRateKey: 0.75,
+    FontSizeKey: 14.0,
+    FontRateKey: 0.9,
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     

@@ -259,14 +259,14 @@ private struct LandscapeMaxWidthTextField: View {
 
 fileprivate struct FontSettingView: View {
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
+    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     
     var font: NSFont {
         if let font = NSFont(name: fontName, size: CGFloat(fontSize)) {
             return font
         } else {
             print("construct 3 font failed: with name:\(fontName), with size:\(fontSize)") // occured when changing default system font size; the FontPanel can't reflect the system font which is unkown why.
-            return NSFont.systemFont(ofSize: 18.0)
+            return NSFont.systemFont(ofSize: 14.0)
         }
     }
 
@@ -292,14 +292,14 @@ fileprivate struct FontSettingView: View {
             
             Button("Use default") {
                 fontName = defaultFontName
-                fontSize = 18.0
+                fontSize = 14.0
             }
         }
     }
 }
 
 fileprivate struct FontRateSetting: View {
-    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.75
+    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.9
     
     func incrementStep() {
         fontRateKey += 0.01

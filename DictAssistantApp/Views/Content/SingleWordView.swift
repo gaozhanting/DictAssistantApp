@@ -219,12 +219,12 @@ fileprivate struct TheText: View {
     }
     
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
+    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     var font: Font {
         return Font.custom(fontName, size: CGFloat(fontSize))
     }
     
-    @AppStorage(FontRateKey) private var fontRate: Double = 0.75
+    @AppStorage(FontRateKey) private var fontRate: Double = 0.9
     var transFont: Font {
         return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
     }

@@ -178,8 +178,8 @@ fileprivate let defaultSettings = Settings(
     landscapeStyle: LandscapeStyle.normal.rawValue,
     portraitMaxHeight: 100.0,
     landscapeMaxWidth: 160.0,
-    fontSize: 18.0,
-    fontRate: 0.75,
+    fontSize: 14.0,
+    fontRate: 0.9,
     theColorScheme: TheColorScheme.system.rawValue,
     wordColor: colorToData(NSColor.labelColor)!,
     transColor: colorToData(NSColor.secondaryLabelColor)!,
@@ -424,8 +424,8 @@ fileprivate struct SlotsView: View {
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     
-    @AppStorage(FontSizeKey) private var fontSize: Double = 18.0
-    @AppStorage(FontRateKey) var fontRate: Double = 0.75
+    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    @AppStorage(FontRateKey) var fontRate: Double = 0.9
     
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
 
