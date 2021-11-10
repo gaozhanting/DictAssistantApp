@@ -368,6 +368,7 @@ private struct DictItemInstallView: View {
             Button("Install") {
                 installDict()
             }
+            .font(.body)
         }
     }
 }

@@ -170,6 +170,7 @@ fileprivate struct InstallPresetDictView: View {
                     Button("Open Dictionary App") {
                         openAppleDictionrayApp()
                     }
+                    .font(.body)
                     
                     Divider().padding(.vertical, 10)
 
