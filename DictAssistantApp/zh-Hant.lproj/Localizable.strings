@@ -163,7 +163,7 @@
 "topLeading" = "左上";
 "bottomLeading" = "底部";
 "style:" = "式樣：";
-"still" = "普通";
+"normal" = "普通";
 "auto scrolling" = "自動滾動";
 "centered" = "居中";
 "enabled" = "開啟";

@@ -122,7 +122,7 @@ fileprivate struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.still.rawValue
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     @State private var isShowTextField: Bool = false
     
@@ -164,7 +164,7 @@ fileprivate struct ContentStyleSettingView: View {
                     .frame(width: 200)
                 case .landscape:
                     Picker("style:", selection: $landscapeStyle) {
-                        Text("still").tag(LandscapeStyle.still.rawValue)
+                        Text("normal").tag(LandscapeStyle.normal.rawValue)
                         Text("auto scrolling").tag(LandscapeStyle.autoScrolling.rawValue)
                         Text("centered").tag(LandscapeStyle.centered.rawValue)
                     }

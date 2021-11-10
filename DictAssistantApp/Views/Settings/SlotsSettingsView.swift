@@ -175,7 +175,7 @@ fileprivate let defaultSettings = Settings(
     isWithAnimation: true,
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
-    landscapeStyle: LandscapeStyle.still.rawValue,
+    landscapeStyle: LandscapeStyle.normal.rawValue,
     portraitMaxHeight: 100.0,
     landscapeMaxWidth: 160.0,
     fontSize: 18.0,
@@ -420,7 +420,7 @@ fileprivate struct SlotsView: View {
     
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.still.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     

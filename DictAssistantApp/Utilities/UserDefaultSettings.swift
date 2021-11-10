@@ -113,7 +113,7 @@ enum PortraitCorner: Int, Codable {
 }
 
 enum LandscapeStyle: Int, Codable {
-    case still = 0
+    case normal = 0
     case autoScrolling = 1
     case centered = 2
 }
@@ -151,7 +151,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    LandscapeStyleKey: LandscapeStyle.still.rawValue,
+    LandscapeStyleKey: LandscapeStyle.normal.rawValue,
     PortraitMaxHeightKey: 100.0,
     LandscapeMaxWidthKey: 160.0,
     

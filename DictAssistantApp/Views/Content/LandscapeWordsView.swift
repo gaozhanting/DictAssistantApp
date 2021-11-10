@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct LandscapeWordsView: View {
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.still.rawValue
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     var body: some View {
         ScrollViewReader { proxy in
             if LandscapeStyle(rawValue: landscapeStyle)! == .centered { // without scroll
                 BodyView(proxy: proxy)
             } else {
-                ScrollView(.horizontal, showsIndicators: false) { // scroll: normal(still) or auto
+                ScrollView(.horizontal, showsIndicators: false) { // scroll: normal or auto
                     BodyView(proxy: proxy)
                 }
             }
@@ -72,7 +72,7 @@ private struct BodyView: View {
     
     @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.still.rawValue
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
 }
 
 //struct LandscapeWordsView_Previews: PreviewProvider {
