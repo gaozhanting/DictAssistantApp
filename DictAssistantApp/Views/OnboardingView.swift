@@ -92,7 +92,7 @@ fileprivate struct InitKnownView: View {
     var body: some View {
         PageTemplateView(
             title: {
-                Text("Initialize your English vocabulary count, press enter")
+                Text("Initialize your English vocabulary count, press return")
             },
             content: {
                 GroupBox {
