@@ -16,7 +16,7 @@ struct StrokeBorderCropperAnimationView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.white.opacity(0.5))
             .onAppear {
-                withAnimation(.linear.repeatForever(autoreverses: false)) {
+                withAnimation(.default.repeatForever(autoreverses: false)) {
                     phase -= 4 * 2 // dash * 2
                 }
             }

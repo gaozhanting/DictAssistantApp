@@ -36,23 +36,11 @@ private func tagWord(_ word: String) -> WordCell {
 private func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {
     let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
     if isWithAnimation {
-        withAnimation(whichAnimation()) {
+        withAnimation {
             displayedWords.wordCells = taggedWordTrans
         }
     }
     else {
         displayedWords.wordCells = taggedWordTrans
-    }
-}
-
-private func whichAnimation() -> Animation? {
-    let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
-    let duration = Double(1 / maximumFrameRate)
-    
-    let contentStyle = ContentStyle(rawValue: UserDefaults.standard.integer(forKey: ContentStyleKey))
-    if contentStyle == .landscape {
-        return Animation.linear(duration: duration)
-    } else {
-        return Animation.easeInOut(duration: duration)
     }
 }
