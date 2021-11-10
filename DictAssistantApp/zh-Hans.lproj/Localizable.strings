@@ -224,3 +224,9 @@
 "Press Run Step Play keyboard shortcut key to stop playing." = "按 单步运行 快捷键 停止运行";
 "End" = "完成设置";
 "The installed path should be" = "安装路径必须是";
+
+"Add to Known" = "添加为已知";
+"Remove from Known" = "从已知中移除";
+"Add to Noises" = "添加为噪音";
+"Remove from Noises" = "从噪音中移除";
+"Online Dict Link" = "线上词典链接";
