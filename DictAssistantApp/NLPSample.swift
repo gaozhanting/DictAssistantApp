@@ -150,7 +150,7 @@ struct NLPSample {
             }
             
             if index >= 2 {
-                let hyphenPhrase = "\(words[index-2])-\(words[index-1])-\(word)" // ignore mixing phrases: i.e: `a-b c` (too complicated)
+                let hyphenPhrase = "\(words[index-2])-\(words[index-1])-\(word)" // ignore mixing phrases: i.e: 'a-b c' (too complicated)
                 if isInPhraseSet(hyphenPhrase) {
                     result[index] = hyphenPhrase
                 }
