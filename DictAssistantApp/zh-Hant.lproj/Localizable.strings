@@ -59,6 +59,9 @@
 "Install" = "安裝";
 "These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this APP because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this APP is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish." = "這些詞典文件是我在互聯網上找到的一些免費的簡明詞典，並且轉化為蘋果自帶詞典應用所需的詞典格式，我是使用一個名叫pyglossary的開源工具轉換的。這些詞典，作為系統自帶詞典的一些補充和第三方詞典，很適合此APP，因為它們是簡明的，和免費的。註意，它們可能有不一樣的詞條譯文編排形式，而您可以通過勾選和反勾選一些內容顯示的選項，以盡量獲得更好的顯示效果。\n\n當然，您可以使用系統自帶的詞典，或者為蘋果自帶詞典應用所製作的其他第三方詞典。本APP的詞典數據源於這裏。這些都是本地的，離線的詞典數據。\n\n您只需要點擊安裝按鈕，一個保存提示會自動彈出，因為這需要您授予存儲的權限，然後才會使得詞典保存在蘋果自帶詞典特有的路徑之下。您使用默認的詞典名稱和保存路徑即可。當保存完畢，您需要打開系統自帶詞典應用的偏好設置，選擇並且調整它們的順序。我建議您優先使用簡明詞典，然後更詳盡的詞典；無論如何，您可自由選擇。";
 
+"Entry Upsert Panel" = "添加詞條面板";
+"Phrase Insert Panel" = "添加短語面板";
+
 "General" = "常規";
 "Global Keyboard Shortcuts:" = "全局鍵盤快捷鍵：";
 "Run Step Play" = "單步運行";
@@ -82,9 +85,6 @@
 "Toast:" = "運行提示框：";
 "Show Toast" = "顯示運行提示";
 
-"Entry Upsert Panel" = "添加詞條面板";
-"Phrase Insert Panel" = "添加短語面板";
-
 "Recording" = "屏幕錄製";
 "Cropper Style:" = "截屏區樣式：";
 "leadingBorder" = "前導邊框";
@@ -92,11 +92,6 @@
 "rectangle" = "矩形";
 "strokeBorder" = "描邊邊框";
 "closed" = "關閉";
-"not use" = "不使用";
-"as first priority" = "優先使用";
-"as last priority" = "次後使用";
-"only" = "只使用";
-"Choose the way you want to use for your custom entries." = "選擇你想使用自定義詞條的方式";
 "Maximum Frame Rate:" = "最大幀率：";
 
 "Vision" = "文本識別";
@@ -114,13 +109,20 @@
 "Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the APP react to the cropper screen content changing, but the more CPU it consumes. 1 to 30 is all OK.\nThe animation duration normally is 1/number. \nNotice, if you set a number less than 4, that will still use 4 as the fps, but the animation duration is still 1/number. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time." = "設置屏幕錄製的時候的最大幀率，默認值為4fps，適用於大部分場景。此值越大，App響應屏幕的變化也越迅捷，但是會增加CPU消耗。1到30都可以。動畫持續時間為1/該值。註意，如果您設此值小於4，運行時仍為4fps，但是動畫持續時間依然為1/該值。註意，如果您需要同時開啟精確模式識別，您需要設置此值為一個小點的數值，比如4。因為如果您設為一個很大的值，APP很可能會卡頓不流暢，APP只是沒法在如此短的時間執行如此超量的任務。";
 
 "English" = "英語";
+"Title Word:" = "標題單詞：";
+"primitive" = "原詞";
+"lemma" = "原型";
 "Phrases:" = "短語：";
 "Show Phrases" = "顯示短語";
+"Use Entry Mode:" = "使用自定義詞條的方式：";
+"not use" = "不使用";
+"as first priority" = "優先使用";
+"as last priority" = "次後使用";
+"only" = "只使用";
+"Choose the way you want to use for your custom entries." = "選擇你想使用自定義詞條的方式";
 
 "Content" = "內容";
 "Content Display:" = "內容顯示：";
-"Use Entry Mode:" = "使用自定義詞條的方式：";
-"Show phrases" = "顯示短語";
 "Select it when you want display all phrase words." = "勾選它，如果您想同時顯示所有的短語";
 "Drop title word" = "不顯示標題單詞";
 "Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辭林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect `Drop first word in translation`, that will be better." = "勾選它，當你不想顯示標題單詞時。有些詞典的詞條中，標題單詞不是第一個單詞，而在後面，比如：スーパー大辭林 / Super Daijirin Japanese Dictionary. 還有些詞典的詞條中，標題單詞被音節拆分顯示，這種情況，您會勾選這個選項，同時勾選`丟棄詞條的第一個單詞`，這樣會得到更好的整體顯示效果。";
@@ -129,9 +131,6 @@
 "Drop first title word in translation" = "丟棄單詞譯文的第一個單詞";
 "Select it when you want to drop the first word, normally the current title word from translation text. Notice, some dictionary has not set the title word at the beginning of the translation; for example: スーパー大辭林 / Super Daijirin Japanese Dictionary; you could unselect it because the count is not correct." = "勾選它，當你想丟棄單詞譯文的首詞，通常標題單詞作為詞典譯文的首詞。註意，有些詞典沒有把標題單詞設置為譯文的首詞；比如：スーパー大辭林 / Super Daijirin Japanese Dictionary；您可以不勾選此選項，因為這種情況下字符數不對。";
 "Join translation lines" = "合並單詞譯文為一行";
-"Title Word:" = "標題單詞：";
-"primitive" = "原詞";
-"lemma" = "原型";
 "More:" = "更多：";
 "Chinese Character Convert:" = "中文繁簡字轉換：";
 "not convert" = "不轉換";
@@ -224,5 +223,4 @@
 "Stop:" = "停止：";
 "Press Run Step Play keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行";
 "End" = "完成設置";
-
 "The installed path should be" = "安裝路徑必須是";
