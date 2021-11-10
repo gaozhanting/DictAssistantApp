@@ -11,14 +11,15 @@ struct LandscapeWordsView: View {
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     var body: some View {
-        ScrollViewReader { proxy in
-            if LandscapeStyle(rawValue: landscapeStyle)! == .centered { // without scroll
-                BodyView(proxy: proxy)
-            } else {
-                ScrollView(.horizontal, showsIndicators: false) { // scroll: normal or auto
+        switch LandscapeStyle(rawValue: landscapeStyle)! {
+        case .normal, .autoScrolling:
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
                     BodyView(proxy: proxy)
                 }
             }
+        case .centered:
+            BodyView(proxy: nil)
         }
     }
 }
@@ -46,7 +47,7 @@ private struct BodyView: View {
             isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)
     }
     
-    let proxy: ScrollViewProxy
+    let proxy: ScrollViewProxy?
     
     var body: some View {
         HStack(alignment: .top) {
@@ -60,12 +61,12 @@ private struct BodyView: View {
                         nil)
         .onChange(of: words) { _ in
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy.scrollTo(words.last?.id, anchor: .top)
+                proxy?.scrollTo(words.last?.id, anchor: .top)
             }
         }
         .onAppear {
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy.scrollTo(words.last?.id, anchor: .top)
+                proxy?.scrollTo(words.last?.id, anchor: .top)
             }
         }
     }
