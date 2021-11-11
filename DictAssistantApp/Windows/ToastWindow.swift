@@ -97,5 +97,7 @@ private class ToastWindow: NSWindow {
         self.standardWindowButton(.miniaturizeButton)?.isHidden = true
         self.standardWindowButton(.zoomButton)?.isHidden = true
         self.standardWindowButton(.toolbarButton)?.isHidden = true
+        
+        self.isMovable = false
     }
 }
