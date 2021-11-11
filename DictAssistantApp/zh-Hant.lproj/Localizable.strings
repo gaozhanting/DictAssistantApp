@@ -91,7 +91,7 @@
 "trailingBorder" = "後導邊框";
 "rectangle" = "矩形";
 "strokeBorder" = "描邊邊框";
-"closed" = "關閉";
+"empty" = "空";
 "Maximum Frame Rate:" = "最大幀率：";
 
 "Vision" = "文本識別";

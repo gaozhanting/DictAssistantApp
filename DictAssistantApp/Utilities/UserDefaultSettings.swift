@@ -94,7 +94,7 @@ enum ChineseCharacterConvertMode: Int, Codable {
 }
 
 enum CropperStyle: Int, Codable {
-    case closed = 0
+    case empty = 0
     case rectangle = 1
     case leadingBorder = 2
     case trailingBorder = 3

@@ -403,7 +403,7 @@ fileprivate struct SlotsView: View {
 
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.closed.rawValue
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
 
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true

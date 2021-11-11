@@ -22,7 +22,7 @@ struct RecordingSettingsView: View {
 }
 
 fileprivate struct CropperStyleSettingView: View {
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.closed.rawValue
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
 
     var body: some View {
         Picker("", selection: $cropperStyle) {
@@ -30,7 +30,7 @@ fileprivate struct CropperStyleSettingView: View {
             Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
             Text("rectangle").tag(CropperStyle.rectangle.rawValue)
             Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
-            Text("closed").tag(CropperStyle.closed.rawValue)
+            Text("empty").tag(CropperStyle.empty.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
