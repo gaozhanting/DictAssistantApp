@@ -92,6 +92,8 @@
 "rectangle" = "矩形";
 "strokeBorder" = "描边边框";
 "empty" = "空";
+"Cropper Scheme:" = "截屏区方案：";
+"close cropper when not playing" = "不运行时关闭截屏区";
 "Maximum Frame Rate:" = "最大帧率：";
 
 "Vision" = "文本识别";

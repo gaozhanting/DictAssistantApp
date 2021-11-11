@@ -14,6 +14,9 @@ struct RecordingSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
                 CropperStyleSettingView()
             }
+            Preferences.Section(title: NSLocalizedString("Cropper Scheme:", comment: "")) {
+                CloseCropperWhenNotPlayingToggle()
+            }
             Preferences.Section(title: NSLocalizedString("Maximum Frame Rate:", comment: "")) {
                 MaximumFrameRateSetting()
             }
@@ -23,6 +26,7 @@ struct RecordingSettingsView: View {
 
 fileprivate struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @EnvironmentObject var statusData: StatusData
 
     var body: some View {
         Picker("", selection: $cropperStyle) {
@@ -35,6 +39,18 @@ fileprivate struct CropperStyleSettingView: View {
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
+        .disabled(statusData.isPlaying)
+    }
+}
+
+private struct CloseCropperWhenNotPlayingToggle: View {
+    @AppStorage(IsCloseCropperWhenNotPlayingKey) var isCloseCropperWhenNotPlaying: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isCloseCropperWhenNotPlaying, label: {
+            Text("close cropper when not playing")
+        })
+            .toggleStyle(CheckboxToggleStyle())
     }
 }
 

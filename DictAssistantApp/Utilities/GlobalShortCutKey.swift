@@ -146,6 +146,11 @@ private func startPlaying() {
 
 private func stopPlaying() {
     activeCropperWindow()
+    if UserDefaults.standard.bool(forKey: IsCloseCropperWhenNotPlayingKey) {
+        cropperWindow.close()
+    } else {
+        cropperWindow.orderFrontRegardless()
+    }
     
     contentWindow.close()
     

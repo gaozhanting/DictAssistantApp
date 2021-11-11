@@ -35,6 +35,7 @@ let UseEntryModeKey = "UseEntryModeKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 
 let CropperStyleKey = "CropperStyleKey"
+let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 
 let IsDropTitleWordKey = "IsDropTitleWordKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
@@ -135,6 +136,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
     IsShowPhrasesKey: true,
     
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
+    IsCloseCropperWhenNotPlayingKey: true,
     
     IsDropTitleWordKey: false,
     IsAddLineBreakKey: true,
@@ -220,6 +222,10 @@ extension UserDefaults {
     @objc var CropperStyleKey: Int {
         get { return integer(forKey: "CropperStyleKey") }
         set { set(newValue, forKey: "CropperStyleKey") }
+    }
+    @objc var IsCloseCropperWhenNotPlayingKey: Bool {
+        get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }
+        set { set(newValue, forKey: "IsCloseCropperWhenNotPlayingKey") }
     }
     @objc var IsDropTitleWordKey: Bool {
         get { return bool(forKey: "IsDropTitleWordKey") }
@@ -346,6 +352,21 @@ func combineWindows() {
             }
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
             logger.info("did syncCropperView")
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.IsCloseCropperWhenNotPlayingKey)
+        .handleEvents(receiveOutput: { isCloseCropperWhenNotPlaying in
+            if !statusData.isPlaying {
+                if isCloseCropperWhenNotPlaying {
+                    cropperWindow.close()
+                } else {
+                    cropperWindow.orderFrontRegardless()
+                }
+            }
+            logger.info("did close or show cropperWindow")
         })
         .sink { _ in }
         .store(in: &subscriptions)
