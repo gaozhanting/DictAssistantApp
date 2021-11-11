@@ -388,6 +388,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
     combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
     combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
+    combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
     combineSlot(\.IsDropTitleWordKey, \.isDropTitleWord, IsDropTitleWordKey)
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)

@@ -21,6 +21,7 @@ struct Settings: Codable {
     var isShowPhrases: Bool
     
     var cropperStyle: Int
+    var isCloseCropperWhenNotPlaying: Bool
 
     // -- fine-turning the display of the returned translation text from different dictionaries
     var isDropTitleWord: Bool
@@ -77,6 +78,7 @@ struct Settings: Codable {
         useEntryMode: Int,
         isShowPhrases: Bool,
         cropperStyle: Int,
+        isCloseCropperWhenNotPlaying: Bool,
         isDropTitleWord: Bool,
         isAddLineBreak: Bool,
         isAddSpace: Bool,
@@ -114,6 +116,7 @@ struct Settings: Codable {
         self.useEntryMode = useEntryMode
         self.isShowPhrases = isShowPhrases
         self.cropperStyle = cropperStyle
+        self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
         self.isDropTitleWord = isDropTitleWord
         self.isAddLineBreak = isAddLineBreak
         self.isAddSpace = isAddSpace
@@ -164,6 +167,7 @@ fileprivate let defaultSettings = Settings(
     useEntryMode: UseEntryMode.asFirstPriority.rawValue,
     isShowPhrases: true,
     cropperStyle: CropperStyle.leadingBorder.rawValue,
+    isCloseCropperWhenNotPlaying: true,
     isDropTitleWord: false,
     isAddLineBreak: true,
     isAddSpace: false,
@@ -362,6 +366,7 @@ fileprivate struct SlotsView: View {
         useEntryMode = s.useEntryMode
         isShowPhrases = s.isShowPhrases
         cropperStyle = s.cropperStyle
+        isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
         isDropTitleWord = s.isDropTitleWord
         isAddLineBreak = s.isAddLineBreak
         isAddSpace = s.isAddSpace
@@ -404,6 +409,7 @@ fileprivate struct SlotsView: View {
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
 
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
