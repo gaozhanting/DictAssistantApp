@@ -50,25 +50,29 @@ private struct BodyView: View {
     let proxy: ScrollViewProxy?
     
     var body: some View {
-        HStack(alignment: .top) {
-            ForEach(words) { wordCellWithId in
-                SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+        VStack {
+            HStack(alignment: .top) {
+                ForEach(words) { wordCellWithId in
+                    SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+                }
             }
+            .onChange(of: words) { _ in
+                if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
+                    proxy?.scrollTo(words.last?.id, anchor: .top)
+                }
+            }
+            .onAppear {
+                if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
+                    proxy?.scrollTo(words.last?.id, anchor: .top)
+                }
+            }
+            
+            Spacer()
         }
         .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
         .background(useContentBackgroundVisualEffect ?
                     VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
                         nil)
-        .onChange(of: words) { _ in
-            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(words.last?.id, anchor: .top)
-            }
-        }
-        .onAppear {
-            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(words.last?.id, anchor: .top)
-            }
-        }
     }
     
     @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
