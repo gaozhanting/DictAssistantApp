@@ -213,7 +213,7 @@
 "If have multi, install which you like." = "如果有多個，安裝您喜歡的。";
 "This step is optional, but highly recommended." = "這一步是可跳過的，不過強烈推薦完成。";
 "Open Dictionary App, click menu File/Open Dictionaries Folder." = "打開系統自帶的詞典應用，點擊菜單項：文件/打開詞典文件夾。";
-"This action will create the folder if not have been created before." = "如果先前還未創建此文件夾，這個動作會創建這個默認的文件夾。";
+"This action will create the folder if not have been created before." = "如果先前還未創建此文件夾，該動作會創建這個默認的文件夾。";
 "Restart Dictionary App, open preferences, make it the first selected dictionary." = "重新打開詞典應用， 打開偏好設置，調整剛安裝的詞典為第一選擇。";
 "Open Dictionary App" = "打開系統自帶的詞典應用程序";
 "Initialize one global keyboard shortcuts, playing" = "初始化一個全局的鍵盤快捷鍵，運行";
