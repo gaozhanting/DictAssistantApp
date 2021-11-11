@@ -14,6 +14,9 @@ struct EnglishSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Title Word:", comment: "")) {
                 TitleWordPicker()
             }
+            Preferences.Section(title: NSLocalizedString("Lemma Search Level:", comment: "")) {
+                LemmaSearchLevelPicker()
+            }
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
@@ -45,6 +48,46 @@ private struct TitleWordPicker: View {
         .labelsHidden()
         .pickerStyle(MenuPickerStyle())
         .frame(width: 150)
+    }
+}
+
+private struct LemmaSearchLevelPicker: View {
+    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.db.rawValue
+    
+    var binding: Binding<Int> {
+        Binding(
+            get: { lemmaSearchLevel },
+            set: { newValue in
+                lemmaSearchLevel = newValue
+                trCallBack()
+            }
+        )
+    }
+    
+    var body: some View {
+        HStack {
+            Picker("", selection: binding) {
+                Text("Apple").tag(LemmaSearchLevel.apple.rawValue)
+                Text("DB").tag(LemmaSearchLevel.db.rawValue)
+                Text("Open").tag(LemmaSearchLevel.open.rawValue)
+            }
+            .labelsHidden()
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 150)
+            
+            MiniInfoView {
+                LemmaSearchLevelInfoView()
+            }
+        }
+    }
+}
+
+private struct LemmaSearchLevelInfoView: View {
+    var body: some View {
+        Text("Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect DB when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out.")
+            .font(.subheadline)
+            .padding()
+            .frame(width: 300, height: 160)
     }
 }
 
@@ -90,6 +133,9 @@ private struct UseEntryModePicker: View {
 
 struct DictSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        EnglishSettingsView()
+        Group {
+            EnglishSettingsView()
+            LemmaSearchLevelInfoView()
+        }
     }
 }

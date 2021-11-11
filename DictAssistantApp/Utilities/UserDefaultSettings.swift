@@ -23,6 +23,7 @@ let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
 // -- this three not in slots
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
 let TitleWordKey = "TitleWordKey" // not in slot for basic consistence of word
+let LemmaSearchLevelKey = "LemmaSearchLevelKey" // not in slot for basic consistence of lemma search level
 let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
 
 // general
@@ -79,6 +80,12 @@ let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMat
 enum TitleWord: Int, Codable {
     case primitive = 0
     case lemma = 1
+}
+
+enum LemmaSearchLevel: Int, Codable {
+    case apple = 0
+    case db = 1
+    case open = 2
 }
 
 enum UseEntryMode: Int, Codable {
@@ -186,6 +193,7 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentNotFoundWordsKey: false,
     FontNameKey: defaultFontName,
     TitleWordKey: TitleWord.lemma.rawValue,
+    LemmaSearchLevelKey: LemmaSearchLevel.db.rawValue,
     ShowToastToggleKey: true,
     IsFinishedOnboardingKey: false,
 ]) { (current, _) in current }
