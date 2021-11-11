@@ -57,30 +57,13 @@ func registerGlobalKey() {
                 stepPlay = .ready
                 
             case .ready:
-                let contentView = ContentView()
-                    .environment(\.managedObjectContext, persistentContainer.viewContext)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .ignoresSafeArea()
-                let contentViewWithEnv = attachEnv(AnyView(contentView))
-                contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
-                contentWindow.orderFrontRegardless()
-                
-                let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
-                syncCropperView(from: cropperStyle)
-                
                 startPlaying()
-                
-                fixCropperWindow()
                 
                 stepPlay = .beginSelectCropper
             }
         }
         else {
-            contentWindow.close()
-            
             stopPlaying()
-            
-            activeCropperWindow()
         }
     }
     
@@ -118,32 +101,11 @@ func registerGlobalKey() {
     
     KeyboardShortcuts.onKeyUp(for: .toggleQuickPlay) {
         if !statusData.isPlaying {
-            cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
-            cropperWindow.orderFrontRegardless()
-            
-            let contentView = ContentView()
-                .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
-            let contentViewWithEnv = attachEnv(AnyView(contentView))
-            contentWindow.contentView = NSHostingView(rootView: contentViewWithEnv)
-            contentWindow.orderFrontRegardless()
-            
-            let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
-            syncCropperView(from: cropperStyle)
-            
             startPlaying()
             
-            fixCropperWindow()
-            
             stepPlay = .beginSelectCropper
-        }
-        else {
-            contentWindow.close()
-            
+        } else {
             stopPlaying()
-            
-            activeCropperWindow()
         }
     }
     
@@ -160,13 +122,19 @@ func registerGlobalKey() {
     }
 }
 
-@ViewBuilder
-private func attachEnv(_ view: AnyView) -> some View {
-    view
-        .environmentObject(displayedWords)
-}
-
 private func startPlaying() {
+    let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
+    syncCropperView(from: cropperStyle)
+    fixCropperWindow()
+    
+    let contentView = ContentView()
+        .environment(\.managedObjectContext, persistentContainer.viewContext)
+        .environmentObject(displayedWords)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    contentWindow.contentView = NSHostingView(rootView: contentView)
+    contentWindow.orderFrontRegardless()
+    
     toastOn()
     statusData.isPlaying = true
     statusItem.button?.image = NSImage(named: "FullIcon")
@@ -177,6 +145,10 @@ private func startPlaying() {
 }
 
 private func stopPlaying() {
+    activeCropperWindow()
+    
+    contentWindow.close()
+    
     toastOff()
     statusData.isPlaying = false
     statusItem.button?.image = NSImage(named: "EmptyIcon")
