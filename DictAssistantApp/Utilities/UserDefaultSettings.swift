@@ -130,6 +130,7 @@ enum TheColorScheme: Int, Codable {
     case light = 0
     case dark = 1
     case system = 2
+    case systemReversed = 3
 }
 
 // in slot defaults

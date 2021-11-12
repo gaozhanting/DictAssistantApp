@@ -35,6 +35,7 @@ fileprivate struct BodyView: View {
     
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
@@ -45,16 +46,14 @@ fileprivate struct BodyView: View {
                     .frame(maxHeight: CGFloat(portraitMaxHeight))
             }
             .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
-            .background(useContentBackgroundVisualEffect ?
-                        VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!)
-                            .preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                            nil)
+            .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
         }
     }
 }
 
 fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
@@ -76,24 +75,11 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
             }
             .rotationEffect(Angle(degrees: 180))
             .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-            .background(useContentBackgroundVisualEffect ?
-                        VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!).preferredColorScheme(toSystemColorScheme(from: theColorScheme)) :
-                            nil)
+            .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
         }
         .rotationEffect(Angle(degrees: 180))
     }
     
-}
-
-func toSystemColorScheme(from theColorScheme: Int) -> ColorScheme? {
-    switch TheColorScheme(rawValue: theColorScheme)! {
-    case .light:
-        return .light
-    case .dark:
-        return .dark
-    case .system:
-        return nil
-    }
 }
 
 //

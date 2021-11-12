@@ -23,9 +23,39 @@ extension String {
     }
 }
 
+private func toSystemColorScheme(from theColorScheme: Int, with systemColorScheme: ColorScheme) -> ColorScheme {
+    switch TheColorScheme(rawValue: theColorScheme)! {
+    case .light:
+        return .light
+    case .dark:
+        return .dark
+    case .system:
+        return systemColorScheme
+    case .systemReversed:
+        switch systemColorScheme {
+        case .light:
+            return .dark
+        case .dark:
+            return .light
+        @unknown default:
+            return systemColorScheme // this logic is wrong, but currently not execute
+        }
+    }
+}
+
 struct ContentView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     
+    var body: some View {
+        ContentView0()
+            .environment(\.colorScheme, toSystemColorScheme(from: theColorScheme, with: colorScheme))
+    }
+}
+
+struct ContentView0: View {
+    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+
     var body: some View {
         switch ContentStyle(rawValue: contentStyle)! {
         case .portrait:

@@ -345,6 +345,7 @@ fileprivate struct ColorSchemeSetting: View {
             Text("Light").tag(TheColorScheme.light.rawValue)
             Text("Dark").tag(TheColorScheme.dark.rawValue)
             Text("System").tag(TheColorScheme.system.rawValue)
+            Text("SystemReversed").tag(TheColorScheme.systemReversed.rawValue)
         }
         .labelsHidden()
         .pickerStyle(MenuPickerStyle())

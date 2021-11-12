@@ -188,6 +188,7 @@
 "Light" = "亮色";
 "Dark" = "暗色";
 "System" = "系統";
+"SystemReversed" = "系統反轉";
 "This will effect on visual effect background and system colors." = "此選項會影響特殊視覺效果背景，和系統顏色";
 "Word:" = "標題單詞：";
 "Translation:" = "單詞譯文：";
