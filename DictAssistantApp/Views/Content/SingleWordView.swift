@@ -17,15 +17,11 @@ struct SingleWordView: View {
         case .portrait:
             TextBodyWidthBG(wordCell: wordCell)
         case .landscape:
-            VStack(alignment: .leading) {
-                if !wordCell.trans.isEmpty {
-                    TextBodyWidthBG(wordCell: wordCell)
-                        .frame(maxWidth: CGFloat(landscapeMaxWidth),
-                               alignment: LandscapeStyle(rawValue: landscapeStyle)! == .centered ? .center : .topLeading)
-                } else {
-                    TextBodyWidthBG(wordCell: wordCell)
-                }
-                Spacer()
+            if !wordCell.trans.isEmpty {
+                TextBodyWidthBG(wordCell: wordCell)
+                    .frame(maxWidth: CGFloat(landscapeMaxWidth))
+            } else {
+                TextBodyWidthBG(wordCell: wordCell)
             }
         }
     }
