@@ -27,7 +27,6 @@ struct LandscapeWordsView: View {
 private struct BodyView: View {
     @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
 

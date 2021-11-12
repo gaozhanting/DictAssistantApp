@@ -20,8 +20,6 @@ fileprivate struct ToastView: View {
         slots.first { $0.isSelected }
     }
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
 
     let imageSystemName: String
@@ -54,20 +52,14 @@ fileprivate struct ToastView: View {
 }
 
 struct ToastOnView: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-
     var body: some View {
         ToastView(imageSystemName: "FullToast", info: "ON")
-            .environment(\.colorScheme, colorScheme)
     }
 }
 
 struct ToastOffView: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     var body: some View {
         ToastView(imageSystemName: "EmptyToast", info: "OFF")
-            .environment(\.colorScheme, colorScheme)
     }
 }
 

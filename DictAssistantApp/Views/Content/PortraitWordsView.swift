@@ -35,7 +35,6 @@ fileprivate struct BodyView: View {
     
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
@@ -53,7 +52,6 @@ fileprivate struct BodyView: View {
 
 fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
