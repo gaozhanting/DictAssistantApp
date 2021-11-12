@@ -42,7 +42,7 @@ fileprivate struct BodyView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading) {
                 WordsView()
-                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .topLeading)
+                    .frame(maxHeight: CGFloat(portraitMaxHeight))
             }
             .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
             .background(useContentBackgroundVisualEffect ?
@@ -70,7 +70,7 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
                         insertion: .move(edge: .bottom),
                         removal: .identity
                     ))
-                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+                    .frame(maxHeight: CGFloat(portraitMaxHeight))
                 
                 HStack { Spacer() }
             }
