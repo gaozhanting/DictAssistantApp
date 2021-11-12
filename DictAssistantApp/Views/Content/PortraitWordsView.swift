@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-func toSystemColorScheme(from theColorScheme: Int) -> ColorScheme? {
-    switch TheColorScheme(rawValue: theColorScheme)! {
-    case .light:
-        return .light
-    case .dark:
-        return .dark
-    case .system:
-        return nil
+struct PortraitWordsView: View {
+    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
+    var body: some View {
+        switch PortraitCorner(rawValue: portraitCorner)! {
+        case .topTrailing:
+            HStack {
+                Spacer()
+                BodyView()
+            }
+        case .topLeading:
+            HStack {
+                BodyView()
+                Spacer()
+            }
+        case .bottomLeading:
+            PortraitBottomLeadingViewTwoRotation()
+        }
     }
 }
 
@@ -76,23 +85,14 @@ fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
     
 }
 
-struct PortraitWordsView: View {
-    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    var body: some View {
-        switch PortraitCorner(rawValue: portraitCorner)! {
-        case .topTrailing:
-            HStack {
-                Spacer()
-                BodyView()
-            }
-        case .topLeading:
-            HStack {
-                BodyView()
-                Spacer()
-            }
-        case .bottomLeading:
-            PortraitBottomLeadingViewTwoRotation()
-        }
+func toSystemColorScheme(from theColorScheme: Int) -> ColorScheme? {
+    switch TheColorScheme(rawValue: theColorScheme)! {
+    case .light:
+        return .light
+    case .dark:
+        return .dark
+    case .system:
+        return nil
     }
 }
 
