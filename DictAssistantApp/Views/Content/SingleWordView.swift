@@ -19,7 +19,8 @@ struct SingleWordView: View {
         case .landscape:
             if !wordCell.trans.isEmpty {
                 TextBodyWidthBG(wordCell: wordCell)
-                    .frame(maxWidth: CGFloat(landscapeMaxWidth))
+                    .frame(maxWidth: CGFloat(landscapeMaxWidth),
+                           alignment: LandscapeStyle(rawValue: landscapeStyle)! == .centered ? .center : .topLeading)
             } else {
                 TextBodyWidthBG(wordCell: wordCell)
             }
