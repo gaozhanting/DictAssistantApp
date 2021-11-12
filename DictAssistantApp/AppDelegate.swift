@@ -14,13 +14,32 @@ import Foundation
 import Vision
 import KeyboardShortcuts
 
+private func appUpdate() {
+    let existingVersion = UserDefaults.standard.string(forKey: "CurrentVersion") // may nil
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // not nil
+    if existingVersion != appVersion {
+        logger.info("do app update")
+        batchDeleteAllSlots()
+        UserDefaults.standard.setValue(appVersion, forKey: "CurrentVersion")
+        
+        // customize code
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("All Slots Deleted!", comment: "")
+        alert.informativeText = NSLocalizedString("Because when updating the App, the slot data may becomes incompatible, we need to delete all slots. Sorry for the trouble.", comment: "")
+        alert.runModal()
+    }
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
+        
+        appUpdate()
         
         initAllUserDefaultsIfNil()
         

@@ -6,6 +6,9 @@
   
 */
 
+"All Slots Deleted!" = "所有的空位已經刪除！";
+"Because when updating the App, the slot data may becomes incompatible, we need to delete all slots. Sorry for the trouble." = "因為當更新App的時候，空位數據可能變得不兼容，所以我們必須刪除所有的空位。很抱歉給您帶來麻煩。";
+
 "Preferences..." = "偏好設置...";
 "English" = "英語";
 "Show Noises Panel" = "打開噪音面板";
