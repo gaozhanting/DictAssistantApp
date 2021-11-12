@@ -68,7 +68,7 @@ struct NLPSample {
             
             let level = LemmaSearchLevel(rawValue: UserDefaults.standard.integer(forKey: LemmaSearchLevelKey))
             
-            if level == .db || level == .open {
+            if level == .database || level == .open {
                 if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
                     logger.info("   >lemma          found-from-db: \(token, privacy: .public): \(lemma, privacy: .public)")
                     results.append(Word(token: token, lemma: lemma))

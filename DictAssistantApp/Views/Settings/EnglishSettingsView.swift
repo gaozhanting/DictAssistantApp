@@ -52,7 +52,7 @@ private struct TitleWordPicker: View {
 }
 
 private struct LemmaSearchLevelPicker: View {
-    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.db.rawValue
+    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     
     var binding: Binding<Int> {
         Binding(
@@ -68,7 +68,7 @@ private struct LemmaSearchLevelPicker: View {
         HStack {
             Picker("", selection: binding) {
                 Text("Apple").tag(LemmaSearchLevel.apple.rawValue)
-                Text("DB").tag(LemmaSearchLevel.db.rawValue)
+                Text("Database").tag(LemmaSearchLevel.database.rawValue)
                 Text("Open").tag(LemmaSearchLevel.open.rawValue)
             }
             .labelsHidden()
@@ -84,7 +84,7 @@ private struct LemmaSearchLevelPicker: View {
 
 private struct LemmaSearchLevelInfoView: View {
     var body: some View {
-        Text("Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect DB when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out.")
+        Text("Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect Database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out.")
             .font(.subheadline)
             .padding()
             .frame(width: 300, height: 160)

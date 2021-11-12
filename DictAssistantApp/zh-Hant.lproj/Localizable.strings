@@ -116,9 +116,9 @@
 "lemma" = "原型";
 "Lemma Search Level:" = "原型查找等級：";
 "Apple" = "蘋果";
-"DB" = "數據庫";
+"Database" = "數據庫";
 "Open" = "開放";
-"Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect DB when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out." = "勾選蘋果，當您想要排除非法的詞匯，這些詞匯無法使用蘋果自然語言處理查找到原型。\n勾選數據庫，當您想要包含更多合法詞匯，這些詞匯的原型蘋果沒有包含，但是這裏的一個專有的原型數據庫包含了。\n勾選開放，當您想要包含所有詞匯，此時所有不存在的詞匯可能出現，這些被稱之為噪音。";
+"Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect Database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out." = "勾選蘋果，當您想要排除非法的詞匯，這些詞匯無法使用蘋果自然語言處理查找到原型。\n勾選數據庫，當您想要包含更多合法詞匯，這些詞匯的原型蘋果沒有包含，但是這裏的一個專有的原型數據庫包含了。\n勾選開放，當您想要包含所有詞匯，此時所有不存在的詞匯可能出現，這些被稱之為噪音。";
 "Phrases:" = "短語：";
 "Show Phrases" = "顯示短語";
 "Use Entry Mode:" = "使用自定義詞條的方式：";

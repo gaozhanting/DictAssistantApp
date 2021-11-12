@@ -84,7 +84,7 @@ enum TitleWord: Int, Codable {
 
 enum LemmaSearchLevel: Int, Codable {
     case apple = 0
-    case db = 1
+    case database = 1
     case open = 2
 }
 
@@ -193,7 +193,7 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentNotFoundWordsKey: false,
     FontNameKey: defaultFontName,
     TitleWordKey: TitleWord.lemma.rawValue,
-    LemmaSearchLevelKey: LemmaSearchLevel.db.rawValue,
+    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     ShowToastToggleKey: true,
     IsFinishedOnboardingKey: false,
 ]) { (current, _) in current }
