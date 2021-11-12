@@ -26,7 +26,6 @@ struct RecordingSettingsView: View {
 
 fileprivate struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
-    @EnvironmentObject var statusData: StatusData
 
     var body: some View {
         Picker("", selection: $cropperStyle) {
@@ -39,7 +38,6 @@ fileprivate struct CropperStyleSettingView: View {
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
-        .disabled(statusData.isPlaying)
     }
 }
 
