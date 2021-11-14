@@ -20,14 +20,14 @@ struct SingleWordView: View {
             if !wordCell.trans.isEmpty {
                 TextBodyWidthBG(wordCell: wordCell)
                     .frame(maxWidth: CGFloat(landscapeMaxWidth),
-                           alignment: LandscapeStyle(rawValue: landscapeStyle)! == .centered ? .center : .topLeading)
+                           maxHeight: .infinity,
+                           alignment: .top)
             } else {
                 TextBodyWidthBG(wordCell: wordCell)
             }
         }
     }
     
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 }
 
