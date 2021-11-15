@@ -229,11 +229,10 @@
 "Open Dictionary App" = "打開系統自帶的詞典應用程序";
 "Initialize one global keyboard shortcuts, playing" = "初始化一個全局的鍵盤快捷鍵，運行";
 "Playing:" = "運行：";
-"Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window." = "步驟1：按 單步運行 快捷鍵，調整錄屏區域。";
-"Step 2: Press Run Step Play keyboard shortcut key and adjust the content window." = "步驟2：按 單步運行 快捷鍵，調整內容區域。";
-"Step 3: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟3：按 單步運行 快捷鍵 運行。（需要屏幕錄製授權）";
+"Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window and the content window. The cropper window has an animation stoke border, the content window has a translucency and vibrancy effect." = "步驟1：按 單步運行 快捷鍵，調整錄屏區域和內容區域。錄屏區域有一個描邊動畫的效果，而內容區域有一個半透明高光的效果。";
+"Step 2: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟2：按 單步運行 快捷鍵 運行。（需要屏幕錄製授權）";
 "Stop:" = "停止：";
-"Press Run Step Play keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行";
+"Press Run Step Play keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行。";
 "End" = "完成設置";
 "The installed path should be" = "安裝路徑必須是";
 

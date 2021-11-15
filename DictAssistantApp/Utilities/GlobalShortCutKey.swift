@@ -29,24 +29,20 @@ extension KeyboardShortcuts.Name {
 }
 
 private enum StepPlay {
-    case beginSelectCropper
-    case beginSelectContent
+    case begin
     case ready
 }
 
-private var stepPlay: StepPlay = .beginSelectCropper
+private var stepPlay: StepPlay = .begin
 
 func registerGlobalKey() {
     KeyboardShortcuts.onKeyUp(for: .toggleStepPlay) {
         if !statusData.isPlaying {
             switch stepPlay {
-            case .beginSelectCropper:
+            case .begin:
                 cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
                 cropperWindow.orderFrontRegardless()
 
-                stepPlay = .beginSelectContent
-                
-            case .beginSelectContent:
                 let emptyView = EmptyView()
                     .background(VisualEffectView(material: .hudWindow))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -59,7 +55,7 @@ func registerGlobalKey() {
             case .ready:
                 startPlaying()
                 
-                stepPlay = .beginSelectCropper
+                stepPlay = .begin
             }
         }
         else {
@@ -103,7 +99,7 @@ func registerGlobalKey() {
         if !statusData.isPlaying {
             startPlaying()
             
-            stepPlay = .beginSelectCropper
+            stepPlay = .begin
         } else {
             stopPlaying()
         }

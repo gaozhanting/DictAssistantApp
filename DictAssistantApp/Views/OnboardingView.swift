@@ -217,9 +217,8 @@ fileprivate struct InitGlobalKeyboardShortcutView: View {
                     VStack(alignment: .leading) {
                         Divider()
                         Text("Playing:")
-                        Text("Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window.")
-                        Text("Step 2: Press Run Step Play keyboard shortcut key and adjust the content window.")
-                        Text("Step 3: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)")
+                        Text("Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window and the content window. The cropper window has an animation stoke border, the content window has a translucency and vibrancy effect.")
+                        Text("Step 2: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)")
                         Divider()
                         Text("Stop:")
                         Text("Press Run Step Play keyboard shortcut key to stop playing.")
