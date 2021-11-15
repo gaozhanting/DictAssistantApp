@@ -42,16 +42,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // must first
         initAllUserDefaultsIfNil()
         
-        if UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) { // not run appUpdate when first launch (means not finished Onboarding)
-            appUpdate()
-        }
-        
+        // start: just simple windows(closed) and menu; no states
         initCropperWindow()
-
         initContentWindow()
-
-        combineWindows()
-        autoSaveSlotSettings()
         
         initToastWindow()
         
@@ -64,13 +57,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         initKnownPanel()
         initDictInstallPanel()
         
-        constructMenuBar()
-
-        registerGlobalKey()
-
         initOnboardingPanel()
         
-        if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) { // only set true when complete onbaording
+        constructMenuBar()
+        // end
+        
+        // some functions registers
+        combineWindows()
+        autoSaveSlotSettings()
+
+        registerGlobalKey()
+        
+        if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
             // init core data
             batchResetDefaultNoises()
             batchResetDefaultPhrases()
@@ -80,8 +78,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // show UI
             self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
+        } else {
+            // not run appUpdate when first launch (means not finished Onboarding)
+            appUpdate()
         }
         
+        // this will use state showing swiftUI, although not displayed
         fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // takes 0.35s
     }
     
