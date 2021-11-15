@@ -39,11 +39,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
         
+        // must first
+        initAllUserDefaultsIfNil()
+        
         if UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) { // not run appUpdate when first launch (means not finished Onboarding)
             appUpdate()
         }
-        
-        initAllUserDefaultsIfNil()
         
         initCropperWindow()
 
