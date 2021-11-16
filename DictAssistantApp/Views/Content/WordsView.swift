@@ -31,6 +31,11 @@ struct WordsView: View {
     }
 }
 
+struct WordCellWithId: Identifiable, Equatable {
+    let wordCell: WordCell
+    let id: String
+}
+
 func convertToWordCellWithId(
     from primitiveWordCells: [WordCell],
     isShowPhrase: Bool,

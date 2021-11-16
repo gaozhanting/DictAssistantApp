@@ -44,6 +44,14 @@ struct EntryUpsertView: View {
     }
 }
 
+extension String {
+    var isMultiline: Bool {
+        self.contains { c in
+            c.isNewline
+        }
+    }
+}
+
 struct EntryUpsertView_Previews: PreviewProvider {
     static var previews: some View {
         EntryUpsertView()

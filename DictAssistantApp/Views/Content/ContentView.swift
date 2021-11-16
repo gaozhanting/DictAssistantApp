@@ -8,18 +8,13 @@
 import SwiftUI
 import DataBases
 
-//fileprivate let spacing: CGFloat = 0
-
-struct WordCellWithId: Identifiable, Equatable {
-    let wordCell: WordCell
-    let id: String
-}
-
-extension String {
-    var isMultiline: Bool {
-        self.contains { c in
-            c.isNewline
-        }
+struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+    
+    var body: some View {
+        ContentView0()
+            .environment(\.colorScheme, toSystemColorScheme(from: theColorScheme, with: colorScheme))
     }
 }
 
@@ -40,16 +35,6 @@ private func toSystemColorScheme(from theColorScheme: Int, with systemColorSchem
         @unknown default:
             return systemColorScheme // this logic is wrong, but currently not execute
         }
-    }
-}
-
-struct ContentView: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
-    
-    var body: some View {
-        ContentView0()
-            .environment(\.colorScheme, toSystemColorScheme(from: theColorScheme, with: colorScheme))
     }
 }
 
