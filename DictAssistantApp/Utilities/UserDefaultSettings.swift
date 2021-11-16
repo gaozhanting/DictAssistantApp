@@ -20,10 +20,8 @@ let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
 
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
 let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
-// -- this three not in slots
+// -- these not in slots
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
-let TitleWordKey = "TitleWordKey" // not in slot for basic consistence of word
-let LemmaSearchLevelKey = "LemmaSearchLevelKey" // not in slot for basic consistence of lemma search level
 let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
 
 // general
@@ -32,8 +30,10 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
 // visual
-let UseEntryModeKey = "UseEntryModeKey"
+let TitleWordKey = "TitleWordKey"
+let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
+let UseEntryModeKey = "UseEntryModeKey"
 
 let CropperStyleKey = "CropperStyleKey"
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
@@ -140,8 +140,10 @@ fileprivate let defaultSlotKV: [String: Any] = [
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     MaximumFrameRateKey: 4,
     
-    UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
+    TitleWordKey: TitleWord.lemma.rawValue,
+    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
+    UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     IsCloseCropperWhenNotPlayingKey: true,
@@ -192,11 +194,9 @@ fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,
     IsShowCurrentNotFoundWordsKey: false,
-    FontNameKey: defaultFontName,
-    TitleWordKey: TitleWord.lemma.rawValue,
-    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     ShowToastToggleKey: true,
     IsFinishedOnboardingKey: false,
+    FontNameKey: defaultFontName,
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {
@@ -220,13 +220,21 @@ extension UserDefaults {
         get { return double(forKey: "MaximumFrameRateKey") }
         set { set(newValue, forKey: "MaximumFrameRateKey") }
     }
-    @objc var UseEntryModeKey: Int {
-        get { return integer(forKey: "UseEntryModeKey") }
-        set { set(newValue, forKey: "UseEntryModeKey") }
+    @objc var TitleWordKey: Int {
+        get { return integer(forKey: "TitleWordKey") }
+        set { set(newValue, forKey: "TitleWordKey") }
+    }
+    @objc var LemmaSearchLevelKey: Int {
+        get { return integer(forKey: "LemmaSearchLevelKey") }
+        set { set(newValue, forKey: "LemmaSearchLevelKey") }
     }
     @objc var IsShowPhrasesKey: Bool {
         get { return bool(forKey: "IsShowPhrasesKey") }
         set { set(newValue, forKey: "IsShowPhrasesKey") }
+    }
+    @objc var UseEntryModeKey: Int {
+        get { return integer(forKey: "UseEntryModeKey") }
+        set { set(newValue, forKey: "UseEntryModeKey") }
     }
     @objc var CropperStyleKey: Int {
         get { return integer(forKey: "CropperStyleKey") }
@@ -388,14 +396,42 @@ func combineWindows() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
+    
+    // English settings combine trCallBack
+    UserDefaults.standard
+        .publisher(for: \.TitleWordKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.LemmaSearchLevelKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.UseEntryModeKey)
+        .handleEvents(receiveOutput: { _ in
+            cachedDict = [:]
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
 }
 
 func autoSaveSlotSettings() {
     combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
     combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
     combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
-    combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
+    combineSlot(\.TitleWordKey, \.titleWord, TitleWordKey)
+    combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
+    combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
     combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
     combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
     combineSlot(\.IsDropTitleWordKey, \.isDropTitleWord, IsDropTitleWordKey)

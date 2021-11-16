@@ -30,18 +30,8 @@ struct EnglishSettingsView: View {
 private struct TitleWordPicker: View {
     @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     
-    var binding: Binding<Int> {
-        Binding(
-            get: { titleWord },
-            set: { newValue in
-                titleWord = newValue
-                trCallBack()
-            }
-        )
-    }
-    
     var body: some View {
-        Picker("", selection: binding) {
+        Picker("", selection: $titleWord) {
             Text("lemma").tag(TitleWord.lemma.rawValue)
             Text("primitive").tag(TitleWord.primitive.rawValue)
         }
@@ -54,19 +44,9 @@ private struct TitleWordPicker: View {
 private struct LemmaSearchLevelPicker: View {
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     
-    var binding: Binding<Int> {
-        Binding(
-            get: { lemmaSearchLevel },
-            set: { newValue in
-                lemmaSearchLevel = newValue
-                trCallBack()
-            }
-        )
-    }
-    
     var body: some View {
         HStack {
-            Picker("", selection: binding) {
+            Picker("", selection: $lemmaSearchLevel) {
                 Text("Apple").tag(LemmaSearchLevel.apple.rawValue)
                 Text("Database").tag(LemmaSearchLevel.database.rawValue)
                 Text("Open").tag(LemmaSearchLevel.open.rawValue)
@@ -106,19 +86,8 @@ private struct ShowPhrasesToggle: View {
 private struct UseEntryModePicker: View {
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     
-    var binding: Binding<Int> {
-        Binding(
-            get: { useEntryMode },
-            set: { newValue in
-                useEntryMode = newValue
-                cachedDict = [:]
-                trCallBack()
-            }
-        )
-    }
-    
     var body: some View {
-        Picker("", selection: binding) {
+        Picker("", selection: $useEntryMode) {
             Text("not use").tag(UseEntryMode.notUse.rawValue)
             Text("as first priority").tag(UseEntryMode.asFirstPriority.rawValue)
             Text("as last priority").tag(UseEntryMode.asLastPriority.rawValue)

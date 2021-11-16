@@ -37,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
+        // deprecated, updating app version, run appUpdate
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
         
         // must first
@@ -62,12 +63,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         constructMenuBar()
         // end
         
-        // some functions registers
-        combineWindows()
-        autoSaveSlotSettings()
-
-        registerGlobalKey()
-        
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
             // init core data
             batchResetDefaultNoises()
@@ -82,6 +77,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // not run appUpdate when first launch (means not finished Onboarding)
             appUpdate()
         }
+                
+        // some functions registers
+        combineWindows()
+        autoSaveSlotSettings() // has states
+
+        registerGlobalKey()
         
         // this will use state showing swiftUI, although not displayed
         fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // takes 0.35s

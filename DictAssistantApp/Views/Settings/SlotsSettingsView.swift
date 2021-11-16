@@ -15,10 +15,11 @@ struct Settings: Codable {
     var tRMinimumTextHeight: Double
     var maximumFrameRate: Double
     
-    var useEntryMode: Int
-    
     // visual settings for a slot
+    var titleWord: Int
+    var lemmaSearchLevel: Int
     var isShowPhrases: Bool
+    var useEntryMode: Int
     
     var cropperStyle: Int
     var isCloseCropperWhenNotPlaying: Bool
@@ -75,8 +76,10 @@ struct Settings: Codable {
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
         maximumFrameRate: Double,
-        useEntryMode: Int,
+        titleWord: Int,
+        lemmaSearchLevel: Int,
         isShowPhrases: Bool,
+        useEntryMode: Int,
         cropperStyle: Int,
         isCloseCropperWhenNotPlaying: Bool,
         isDropTitleWord: Bool,
@@ -113,8 +116,10 @@ struct Settings: Codable {
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
         self.maximumFrameRate = maximumFrameRate
-        self.useEntryMode = useEntryMode
+        self.titleWord = titleWord
+        self.lemmaSearchLevel = lemmaSearchLevel
         self.isShowPhrases = isShowPhrases
+        self.useEntryMode = useEntryMode
         self.cropperStyle = cropperStyle
         self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
         self.isDropTitleWord = isDropTitleWord
@@ -164,8 +169,10 @@ fileprivate let defaultSettings = Settings(
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     maximumFrameRate: 4,
-    useEntryMode: UseEntryMode.asFirstPriority.rawValue,
+    titleWord: TitleWord.lemma.rawValue,
+    lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
     isShowPhrases: true,
+    useEntryMode: UseEntryMode.asFirstPriority.rawValue,
     cropperStyle: CropperStyle.leadingBorder.rawValue,
     isCloseCropperWhenNotPlaying: true,
     isDropTitleWord: false,
@@ -363,8 +370,10 @@ fileprivate struct SlotsView: View {
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
         maximumFrameRate = s.maximumFrameRate
-        useEntryMode = s.useEntryMode
+        titleWord = s.titleWord
+        lemmaSearchLevel = s.lemmaSearchLevel
         isShowPhrases = s.isShowPhrases
+        useEntryMode = s.useEntryMode
         cropperStyle = s.cropperStyle
         isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
         isDropTitleWord = s.isDropTitleWord
@@ -404,9 +413,10 @@ fileprivate struct SlotsView: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
 
-    @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
-
+    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
+    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
+    @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
     @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
