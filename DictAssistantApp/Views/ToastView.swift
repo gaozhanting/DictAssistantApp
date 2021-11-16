@@ -34,7 +34,11 @@ fileprivate struct ToastView: View {
                         .foregroundColor(Color(dataToColor(slot.color!)!))
                     
                     Text(slot.label!)
+                        .font(.title2)
+                        .lineLimit(1)
+                        .foregroundColor(Color(NSColor.labelColor))
                 }
+                .padding(.horizontal)
             }
             
             Image(imageSystemName)
@@ -43,7 +47,8 @@ fileprivate struct ToastView: View {
                 .frame(width: 160, height: 160)
             
             Text(info)
-                .font(.system(size: 30, weight: .regular))
+                .font(.largeTitle)
+                .foregroundColor(Color(NSColor.labelColor))
         }
         .foregroundColor(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
