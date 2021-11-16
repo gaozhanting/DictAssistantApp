@@ -435,6 +435,14 @@ func combineWindows() {
         .store(in: &subscriptions)
     
     UserDefaults.standard
+        .publisher(for: \.IsShowPhrasesKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
         .publisher(for: \.UseEntryModeKey)
         .handleEvents(receiveOutput: { _ in
             cachedDict = [:]

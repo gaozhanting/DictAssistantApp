@@ -15,9 +15,15 @@ func trCallBack() {
     if !statusData.isPlaying { // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
         return
     }
+    
     let processed = nlpSample.process(currentTRTexts)
+    
     let wordCell = processed.map { tagWord($0) }
-    mutateDisplayedWords(wordCell)
+    
+    let isShowPhrase = UserDefaults.standard.bool(forKey: IsShowPhrasesKey)
+    let primitiveWordCell = isShowPhrase ? wordCell : wordCell.filter { !$0.word.isPhrase }
+    
+    mutateDisplayedWords(primitiveWordCell)
 }
 
 private func tagWord(_ word: String) -> WordCell {

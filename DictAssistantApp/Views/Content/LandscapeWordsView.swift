@@ -33,7 +33,6 @@ private struct BodyView: View {
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 
     @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
@@ -41,7 +40,6 @@ private struct BodyView: View {
     var words: [WordCellWithId] {
         convertToWordCellWithId(
             from: displayedWords.wordCells,
-            isShowPhrase: isShowPhrase,
             isShowCurrentKnown: isShowCurrentKnown,
             isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0,
             isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)

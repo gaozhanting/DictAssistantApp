@@ -9,7 +9,6 @@ import SwiftUI
 
 struct WordsView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
@@ -17,7 +16,6 @@ struct WordsView: View {
     var words: [WordCellWithId] {
         convertToWordCellWithId(
             from: displayedWords.wordCells,
-            isShowPhrase: isShowPhrase,
             isShowCurrentKnown: isShowCurrentKnown,
             isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0,
             isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)
@@ -38,18 +36,13 @@ struct WordCellWithId: Identifiable, Equatable {
 
 func convertToWordCellWithId(
     from primitiveWordCells: [WordCell],
-    isShowPhrase: Bool,
     isShowCurrentKnown: Bool,
     isShowCurrentKnownButWithOpacity0: Bool,
     isShowCurrentNotFoundWords: Bool
 ) -> [WordCellWithId] {
-    let wordCells1: [WordCell] = isShowPhrase ? // default true
-        primitiveWordCells :
-        primitiveWordCells.filter { !$0.word.contains(" ") }
-    
     let wordCells: [WordCell] = !isShowCurrentNotFoundWords ? // default false
-        wordCells1.filter { !($0.isKnown == .unKnown && $0.trans.isEmpty) } :
-        wordCells1
+    primitiveWordCells.filter { !($0.isKnown == .unKnown && $0.trans.isEmpty) } :
+    primitiveWordCells
     
     if isShowCurrentKnown || isShowCurrentKnownButWithOpacity0 {
         var attachedId: [WordCellWithId] = []
