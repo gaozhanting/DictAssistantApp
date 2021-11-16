@@ -80,6 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
         // some functions registers
         combineWindows()
+        combineEnglishSettings()
         autoSaveSlotSettings() // has states
 
         registerGlobalKey()

@@ -416,8 +416,10 @@ func combineWindows() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
+}
     
-    // English settings combine trCallBack
+// English settings combine trCallBack and more
+func combineEnglishSettings() {
     UserDefaults.standard
         .publisher(for: \.TitleWordKey)
         .handleEvents(receiveOutput: { _ in
