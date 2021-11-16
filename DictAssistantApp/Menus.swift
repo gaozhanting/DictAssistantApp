@@ -31,7 +31,6 @@ func constructMenuBar() {
     
     let helpMenu = NSMenu(title: NSLocalizedString("Help", comment: ""))
     helpMenu.addItem(withTitle: NSLocalizedString("Show Onboarding Panel", comment: ""), action: #selector(AppDelegate.onboarding), keyEquivalent: "")
-    helpMenu.addItem(withTitle: NSLocalizedString("Watch Tutorial Video", comment: ""), action: #selector(AppDelegate.openTutorialVideoURL), keyEquivalent: "")
     let helpMenuItem = NSMenuItem(title: NSLocalizedString("Help", comment: ""), action: nil, keyEquivalent: "")
     menu.addItem(helpMenuItem)
     menu.setSubmenu(helpMenu, for: helpMenuItem)
@@ -40,15 +39,6 @@ func constructMenuBar() {
     menu.addItem(NSMenuItem(title: NSLocalizedString("Quit", comment: ""), action: #selector(AppDelegate.exit), keyEquivalent: ""))
     
     statusItem.menu = menu
-}
-
-extension AppDelegate {
-    @objc func openTutorialVideoURL() {
-        guard let url = URL(string: "https://www.youtube.com/watch?v=afHqGHDfZKA") else {
-            return
-        }
-        NSWorkspace.shared.open(url)
-    }
 }
 
 extension AppDelegate {
