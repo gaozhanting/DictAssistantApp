@@ -11,33 +11,37 @@ import Vision
 import Combine
 
 // UserDefault keys:
-let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
-let IsShowCurrentKnownButWithOpacity0Key = "IsShowCurrentKnownButWithOpacity0Key"
-let IsConcealTranslationKey = "IsConcealTranslationKey"
-let IsShowCurrentNotFoundWordsKey = "IsShowCurrentNotFoundWordsKey"
-
 let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
 
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
 let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
 // -- these not in slots
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
+
+// General
+let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
+let IsShowCurrentKnownButWithOpacity0Key = "IsShowCurrentKnownButWithOpacity0Key"
+let IsConcealTranslationKey = "IsConcealTranslationKey"
+let IsShowCurrentNotFoundWordsKey = "IsShowCurrentNotFoundWordsKey"
+
 let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
 
-// general
-let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
-let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
+// Recording
+let CropperStyleKey = "CropperStyleKey"
+let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
-// visual
+// Vision
+let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
+let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
+
+// English
 let TitleWordKey = "TitleWordKey"
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let UseEntryModeKey = "UseEntryModeKey"
 
-let CropperStyleKey = "CropperStyleKey"
-let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
-
+// Content
 let IsDropTitleWordKey = "IsDropTitleWordKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
 let IsAddSpaceKey = "IsAddSpaceKey"
@@ -45,22 +49,15 @@ let IsDropFirstTitleWordInTranslationKey = "IsDropFirstTitleWordInTranslationKey
 let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
 let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
-let IsContentRetentionKey = "IsContentRetentionKey"
-
-let IsShowWindowShadowKey = "IsShowWindowShadowKey"
-
-let IsWithAnimationKey = "IsWithAnimationKey"
-
+// Appearance
 let ContentStyleKey = "ContentStyleKey"
 let PortraitCornerKey = "PortraitCornerKey"
-let LandscapeStyleKey = "LandscapeStyleKey"
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
+let LandscapeStyleKey = "LandscapeStyleKey"
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
 let FontSizeKey = "FontSizeKey"
 let FontRateKey = "FontRateKey"
-
-let TheColorSchemeKey = "TheColorSchemeKey"
 
 let WordColorKey = "WordColorKey"
 let TransColorKey = "TransColorKey"
@@ -73,9 +70,23 @@ let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
 let UseContentBackgroundColorKey = "UseContentBackgroundColorKey"
-
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
+
+let TheColorSchemeKey = "TheColorSchemeKey"
+
+let IsShowWindowShadowKey = "IsShowWindowShadowKey"
+let IsWithAnimationKey = "IsWithAnimationKey"
+let IsContentRetentionKey = "IsContentRetentionKey"
+
+// Enums
+enum CropperStyle: Int, Codable {
+    case empty = 0
+    case rectangle = 1
+    case leadingBorder = 2
+    case trailingBorder = 3
+    case strokeBorder = 4
+}
 
 enum TitleWord: Int, Codable {
     case primitive = 0
@@ -99,14 +110,6 @@ enum ChineseCharacterConvertMode: Int, Codable {
     case notConvert = 0
     case convertToTraditional = 1
     case convertToSimplified = 2
-}
-
-enum CropperStyle: Int, Codable {
-    case empty = 0
-    case rectangle = 1
-    case leadingBorder = 2
-    case trailingBorder = 3
-    case strokeBorder = 4
 }
 
 enum ContentStyle: Int, Codable {
@@ -136,18 +139,22 @@ enum TheColorScheme: Int, Codable {
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
 fileprivate let defaultSlotKV: [String: Any] = [
-    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
-    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
+    // Recording
+    CropperStyleKey: CropperStyle.leadingBorder.rawValue,
+    IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     
+    // Vision
+    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
+    
+    // English
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
-    CropperStyleKey: CropperStyle.leadingBorder.rawValue,
-    IsCloseCropperWhenNotPlayingKey: true,
-    
+    // Content
     IsDropTitleWordKey: false,
     IsAddLineBreakKey: true,
     IsAddSpaceKey: false,
@@ -155,22 +162,15 @@ fileprivate let defaultSlotKV: [String: Any] = [
     IsJoinTranslationLinesKey: true,
     ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
     
-    IsContentRetentionKey: false,
-    
-    IsShowWindowShadowKey: true,
-    
-    IsWithAnimationKey: true,
-    
+    // Appearance
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    LandscapeStyleKey: LandscapeStyle.normal.rawValue,
     PortraitMaxHeightKey: 100.0,
+    LandscapeStyleKey: LandscapeStyle.normal.rawValue,
     LandscapeMaxWidthKey: 160.0,
     
     FontSizeKey: 14.0,
     FontRateKey: 0.9,
-    
-    TheColorSchemeKey: TheColorScheme.system.rawValue,
     
     WordColorKey: colorToData(NSColor.labelColor)!,
     TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
@@ -183,9 +183,14 @@ fileprivate let defaultSlotKV: [String: Any] = [
     ShadowYOffSetKey: 0.0,
     
     UseContentBackgroundColorKey: true,
-    
     UseContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
+    
+    TheColorSchemeKey: TheColorScheme.system.rawValue,
+    
+    IsShowWindowShadowKey: true,
+    IsWithAnimationKey: true,
+    IsContentRetentionKey: false,
 ]
 
 // all defaults
@@ -208,6 +213,21 @@ func initAllUserDefaultsIfNil() {
 }
 
 extension UserDefaults {
+    // Recording
+    @objc var CropperStyleKey: Int {
+        get { return integer(forKey: "CropperStyleKey") }
+        set { set(newValue, forKey: "CropperStyleKey") }
+    }
+    @objc var IsCloseCropperWhenNotPlayingKey: Bool {
+        get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }
+        set { set(newValue, forKey: "IsCloseCropperWhenNotPlayingKey") }
+    }
+    @objc var MaximumFrameRateKey: Double {
+        get { return double(forKey: "MaximumFrameRateKey") }
+        set { set(newValue, forKey: "MaximumFrameRateKey") }
+    }
+    
+    // Vision
     @objc var TRTextRecognitionLevelKey: Int {
         get { return integer(forKey: "TRTextRecognitionLevelKey") }
         set { set(newValue, forKey: "TRTextRecognitionLevelKey") }
@@ -216,10 +236,8 @@ extension UserDefaults {
         get { return double(forKey: "TRMinimumTextHeightKey") }
         set { set(newValue, forKey: "TRMinimumTextHeightKey") }
     }
-    @objc var MaximumFrameRateKey: Double {
-        get { return double(forKey: "MaximumFrameRateKey") }
-        set { set(newValue, forKey: "MaximumFrameRateKey") }
-    }
+    
+    // English
     @objc var TitleWordKey: Int {
         get { return integer(forKey: "TitleWordKey") }
         set { set(newValue, forKey: "TitleWordKey") }
@@ -236,14 +254,8 @@ extension UserDefaults {
         get { return integer(forKey: "UseEntryModeKey") }
         set { set(newValue, forKey: "UseEntryModeKey") }
     }
-    @objc var CropperStyleKey: Int {
-        get { return integer(forKey: "CropperStyleKey") }
-        set { set(newValue, forKey: "CropperStyleKey") }
-    }
-    @objc var IsCloseCropperWhenNotPlayingKey: Bool {
-        get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }
-        set { set(newValue, forKey: "IsCloseCropperWhenNotPlayingKey") }
-    }
+    
+    // Content
     @objc var IsDropTitleWordKey: Bool {
         get { return bool(forKey: "IsDropTitleWordKey") }
         set { set(newValue, forKey: "IsDropTitleWordKey") }
@@ -268,18 +280,8 @@ extension UserDefaults {
         get { return integer(forKey: "ChineseCharacterConvertModeKey") }
         set { set(newValue, forKey: "ChineseCharacterConvertModeKey") }
     }
-    @objc var IsContentRetentionKey: Bool {
-        get { return bool(forKey: "IsContentRetentionKey") }
-        set { set(newValue, forKey: "IsContentRetentionKey") }
-    }
-    @objc var IsShowWindowShadowKey: Bool {
-        get { return bool(forKey: "IsShowWindowShadowKey") }
-        set { set(newValue, forKey: "IsShowWindowShadowKey") }
-    }
-    @objc var IsWithAnimationKey: Bool {
-        get { return bool(forKey: "IsWithAnimationKey") }
-        set { set(newValue, forKey: "IsWithAnimationKey") }
-    }
+
+    // Appearance
     @objc var ContentStyleKey: Int {
         get { return integer(forKey: "ContentStyleKey") }
         set { set(newValue, forKey: "ContentStyleKey") }
@@ -288,18 +290,19 @@ extension UserDefaults {
         get { return integer(forKey: "PortraitCornerKey") }
         set { set(newValue, forKey: "PortraitCornerKey") }
     }
-    @objc var LandscapeStyleKey: Int {
-        get { return integer(forKey: "LandscapeStyleKey") }
-        set { set(newValue, forKey: "LandscapeStyleKey") }
-    }
     @objc var PortraitMaxHeightKey: Double {
         get { return double(forKey: "PortraitMaxHeightKey") }
         set { set(newValue, forKey: "PortraitMaxHeightKey") }
+    }
+    @objc var LandscapeStyleKey: Int {
+        get { return integer(forKey: "LandscapeStyleKey") }
+        set { set(newValue, forKey: "LandscapeStyleKey") }
     }
     @objc var LandscapeMaxWidthKey: Double {
         get { return double(forKey: "LandscapeMaxWidthKey") }
         set { set(newValue, forKey: "LandscapeMaxWidthKey") }
     }
+    
     @objc var FontSizeKey: Double {
         get { return double(forKey: "FontSizeKey") }
         set { set(newValue, forKey: "FontSizeKey") }
@@ -308,10 +311,7 @@ extension UserDefaults {
         get { return double(forKey: "FontRateKey") }
         set { set(newValue, forKey: "FontRateKey") }
     }
-    @objc var TheColorSchemeKey: Int {
-        get { return integer(forKey: "TheColorSchemeKey") }
-        set { set(newValue, forKey: "TheColorSchemeKey") }
-    }
+    
     @objc var WordColorKey: Data {
         get { return data(forKey: "WordColorKey")! }
         set { set(newValue, forKey: "WordColorKey") }
@@ -324,6 +324,7 @@ extension UserDefaults {
         get { return data(forKey: "BackgroundColorKey")! }
         set { set(newValue, forKey: "BackgroundColorKey") }
     }
+    
     @objc var TextShadowToggleKey: Bool {
         get { return bool(forKey: "TextShadowToggleKey") }
         set { set(newValue, forKey: "TextShadowToggleKey") }
@@ -344,6 +345,7 @@ extension UserDefaults {
         get { return double(forKey: "ShadowYOffSetKey") }
         set { set(newValue, forKey: "ShadowYOffSetKey") }
     }
+    
     @objc var UseContentBackgroundColorKey: Bool {
         get { return bool(forKey: "UseContentBackgroundColorKey") }
         set { set(newValue, forKey: "UseContentBackgroundColorKey") }
@@ -355,6 +357,24 @@ extension UserDefaults {
     @objc var ContentBackGroundVisualEffectMaterialKey: Int {
         get { return integer(forKey: "ContentBackGroundVisualEffectMaterialKey") }
         set { set(newValue, forKey: "ContentBackGroundVisualEffectMaterialKey") }
+    }
+    
+    @objc var TheColorSchemeKey: Int {
+        get { return integer(forKey: "TheColorSchemeKey") }
+        set { set(newValue, forKey: "TheColorSchemeKey") }
+    }
+    
+    @objc var IsShowWindowShadowKey: Bool {
+        get { return bool(forKey: "IsShowWindowShadowKey") }
+        set { set(newValue, forKey: "IsShowWindowShadowKey") }
+    }
+    @objc var IsWithAnimationKey: Bool {
+        get { return bool(forKey: "IsWithAnimationKey") }
+        set { set(newValue, forKey: "IsWithAnimationKey") }
+    }
+    @objc var IsContentRetentionKey: Bool {
+        get { return bool(forKey: "IsContentRetentionKey") }
+        set { set(newValue, forKey: "IsContentRetentionKey") }
     }
 }
 
@@ -425,43 +445,58 @@ func combineWindows() {
 }
 
 func autoSaveSlotSettings() {
+    // Recording
+    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
+    combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
+    combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
+    
+    // Vision
     combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
     combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
-    combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
+    
+    // English
     combineSlot(\.TitleWordKey, \.titleWord, TitleWordKey)
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
     combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
-    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
-    combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
+    
+    // Content
     combineSlot(\.IsDropTitleWordKey, \.isDropTitleWord, IsDropTitleWordKey)
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)
     combineSlot(\.IsDropFirstTitleWordInTranslationKey, \.isDropFirstTitleWordInTranslation, IsDropFirstTitleWordInTranslationKey)
     combineSlot(\.IsJoinTranslationLinesKey, \.isJoinTranslationLines, IsJoinTranslationLinesKey)
     combineSlot(\.ChineseCharacterConvertModeKey, \.chineseCharacterConvertMode, ChineseCharacterConvertModeKey)
-    combineSlot(\.IsContentRetentionKey, \.isContentRetention, IsContentRetentionKey)
-    combineSlot(\.IsShowWindowShadowKey, \.isShowWindowShadow, IsShowWindowShadowKey)
-    combineSlot(\.IsWithAnimationKey, \.isWithAnimation, IsWithAnimationKey)
+    
+    // Appearance
     combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
-    combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
+    combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
     combineSlot(\.LandscapeMaxWidthKey, \.landscapeMaxWidth, LandscapeMaxWidthKey)
+    
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.FontRateKey, \.fontRate, FontRateKey)
-    combineSlot(\.TheColorSchemeKey, \.theColorScheme, TheColorSchemeKey)
+    
     combineSlot(\.WordColorKey, \.wordColor, WordColorKey)
     combineSlot(\.TransColorKey, \.transColor, TransColorKey)
     combineSlot(\.BackgroundColorKey, \.backgroundColor, BackgroundColorKey)
+    
     combineSlot(\.TextShadowToggleKey, \.textShadowToggle, TextShadowToggleKey)
     combineSlot(\.ShadowColorKey, \.shadowColor, ShadowColorKey)
     combineSlot(\.ShadowRadiusKey, \.shadowRadius, ShadowRadiusKey)
     combineSlot(\.ShadowXOffSetKey, \.shadowXOffSet, ShadowXOffSetKey)
     combineSlot(\.ShadowYOffSetKey, \.shadowYOffSet, ShadowYOffSetKey)
+    
     combineSlot(\.UseContentBackgroundColorKey, \.useContentBackgroundColor, UseContentBackgroundColorKey)
     combineSlot(\.UseContentBackgroundVisualEffectKey, \.useContentBackgroundVisualEffect, UseContentBackgroundVisualEffectKey)
     combineSlot(\.ContentBackGroundVisualEffectMaterialKey, \.contentBackGroundVisualEffectMaterial, ContentBackGroundVisualEffectMaterialKey)
+    
+    combineSlot(\.TheColorSchemeKey, \.theColorScheme, TheColorSchemeKey)
+    
+    combineSlot(\.IsContentRetentionKey, \.isContentRetention, IsContentRetentionKey)
+    combineSlot(\.IsShowWindowShadowKey, \.isShowWindowShadow, IsShowWindowShadowKey)
+    combineSlot(\.IsWithAnimationKey, \.isWithAnimation, IsWithAnimationKey)
 }
 
 func combineSlot<T>(

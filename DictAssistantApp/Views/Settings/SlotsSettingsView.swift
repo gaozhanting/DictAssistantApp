@@ -10,21 +10,22 @@ import Preferences
 import Vision
 
 struct Settings: Codable {
-    // general and main settings for a slot
-    var tRTextRecognitionLevel: Int
-    var tRMinimumTextHeight: Double
+    // Recording
+    var cropperStyle: Int
+    var isCloseCropperWhenNotPlaying: Bool
     var maximumFrameRate: Double
     
-    // visual settings for a slot
+    // Vision
+    var tRTextRecognitionLevel: Int
+    var tRMinimumTextHeight: Double
+    
+    // English
     var titleWord: Int
     var lemmaSearchLevel: Int
     var isShowPhrases: Bool
     var useEntryMode: Int
     
-    var cropperStyle: Int
-    var isCloseCropperWhenNotPlaying: Bool
-
-    // -- fine-turning the display of the returned translation text from different dictionaries
+    // Content
     var isDropTitleWord: Bool
     var isAddLineBreak: Bool
     var isAddSpace: Bool
@@ -32,73 +33,63 @@ struct Settings: Codable {
     var isJoinTranslationLines: Bool
     var chineseCharacterConvertMode: Int
     
-    var isContentRetention: Bool
-    
-    var isShowWindowShadow: Bool
-    
-    var isWithAnimation: Bool
-    
-    // -- content style & max width & max height
+    // Appearance
     var contentStyle: Int
     var portraitCorner: Int
     var landscapeStyle: Int
-    // ---- extra
     var portraitMaxHeight: Double
     var landscapeMaxWidth: Double
     
-    // -- font size & font rate
     var fontSize: Double
     var fontRate: Double
     
-    var theColorScheme: Int
-    
-    // -- color & shadow & background
-    // ---- basic three colors
     var wordColor: Data
     var transColor: Data
     var backgroundColor: Data
-    // ---- text shadow
+    
     var textShadowToggle: Bool
     var shadowColor: Data
     var shadowRadius: Double
     var shadowXOffSet: Double
     var shadowYOffSet: Double
-    // ---- color background && visual effect background
+    
     var useContentBackgroundColor: Bool
     var useContentBackgroundVisualEffect: Bool
     var contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
+    
+    var theColorScheme: Int
+    
+    var isShowWindowShadow: Bool
+    var isWithAnimation: Bool
+    var isContentRetention: Bool
     
     // two frames settings for a slot
     var cropperFrame: NSRect
     var contentFrame: NSRect
     
     init(
+        cropperStyle: Int,
+        isCloseCropperWhenNotPlaying: Bool,
+        maximumFrameRate: Double,
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
-        maximumFrameRate: Double,
         titleWord: Int,
         lemmaSearchLevel: Int,
         isShowPhrases: Bool,
         useEntryMode: Int,
-        cropperStyle: Int,
-        isCloseCropperWhenNotPlaying: Bool,
         isDropTitleWord: Bool,
         isAddLineBreak: Bool,
         isAddSpace: Bool,
         isDropFirstTitleWordInTranslation: Bool,
         isJoinTranslationLines: Bool,
         chineseCharacterConvertMode: Int,
-        isContentRetention: Bool,
-        isShowWindowShadow: Bool,
-        isWithAnimation: Bool,
         contentStyle: Int,
         portraitCorner: Int,
-        landscapeStyle: Int,
         portraitMaxHeight: Double,
+        landscapeStyle: Int,
         landscapeMaxWidth: Double,
         fontSize: Double,
         fontRate: Double,
-        theColorScheme: Int,
         wordColor: Data,
         transColor: Data,
         backgroundColor: Data,
@@ -110,35 +101,35 @@ struct Settings: Codable {
         useContentBackgroundColor: Bool,
         useContentBackgroundVisualEffect: Bool,
         contentBackGroundVisualEffectMaterial: Int, //NSVisualEffectView.Material
+        theColorScheme: Int,
+        isShowWindowShadow: Bool,
+        isWithAnimation: Bool,
+        isContentRetention: Bool,
         cropperFrame: NSRect,
         contentFrame: NSRect
     ) {
+        self.cropperStyle = cropperStyle
+        self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
+        self.maximumFrameRate = maximumFrameRate
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
-        self.maximumFrameRate = maximumFrameRate
         self.titleWord = titleWord
         self.lemmaSearchLevel = lemmaSearchLevel
         self.isShowPhrases = isShowPhrases
         self.useEntryMode = useEntryMode
-        self.cropperStyle = cropperStyle
-        self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
         self.isDropTitleWord = isDropTitleWord
         self.isAddLineBreak = isAddLineBreak
         self.isAddSpace = isAddSpace
         self.isDropFirstTitleWordInTranslation = isDropFirstTitleWordInTranslation
         self.isJoinTranslationLines = isJoinTranslationLines
         self.chineseCharacterConvertMode = chineseCharacterConvertMode
-        self.isContentRetention = isContentRetention
-        self.isShowWindowShadow = isShowWindowShadow
-        self.isWithAnimation = isWithAnimation
         self.contentStyle = contentStyle
         self.portraitCorner = portraitCorner
-        self.landscapeStyle = landscapeStyle
         self.portraitMaxHeight = portraitMaxHeight
+        self.landscapeStyle = landscapeStyle
         self.landscapeMaxWidth = landscapeMaxWidth
         self.fontSize = fontSize
         self.fontRate = fontRate
-        self.theColorScheme = theColorScheme
         self.wordColor = wordColor
         self.transColor = transColor
         self.backgroundColor = backgroundColor
@@ -150,6 +141,10 @@ struct Settings: Codable {
         self.useContentBackgroundColor = useContentBackgroundColor
         self.useContentBackgroundVisualEffect = useContentBackgroundVisualEffect
         self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
+        self.theColorScheme = theColorScheme
+        self.isShowWindowShadow = isShowWindowShadow
+        self.isWithAnimation = isWithAnimation
+        self.isContentRetention = isContentRetention
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
     }
@@ -166,32 +161,28 @@ func dataToSettings(_ data: Data) -> Settings? {
 }
 
 fileprivate let defaultSettings = Settings(
+    cropperStyle: CropperStyle.leadingBorder.rawValue,
+    isCloseCropperWhenNotPlaying: true,
+    maximumFrameRate: 4,
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
-    maximumFrameRate: 4,
     titleWord: TitleWord.lemma.rawValue,
     lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
     isShowPhrases: true,
     useEntryMode: UseEntryMode.asFirstPriority.rawValue,
-    cropperStyle: CropperStyle.leadingBorder.rawValue,
-    isCloseCropperWhenNotPlaying: true,
     isDropTitleWord: false,
     isAddLineBreak: true,
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
     isJoinTranslationLines: true,
     chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert.rawValue,
-    isContentRetention: false,
-    isShowWindowShadow: true,
-    isWithAnimation: true,
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
-    landscapeStyle: LandscapeStyle.normal.rawValue,
     portraitMaxHeight: 100.0,
+    landscapeStyle: LandscapeStyle.normal.rawValue,
     landscapeMaxWidth: 160.0,
     fontSize: 14.0,
     fontRate: 0.9,
-    theColorScheme: TheColorScheme.system.rawValue,
     wordColor: colorToData(NSColor.labelColor)!,
     transColor: colorToData(NSColor.secondaryLabelColor)!,
     backgroundColor: colorToData(NSColor.windowBackgroundColor)!,
@@ -203,6 +194,10 @@ fileprivate let defaultSettings = Settings(
     useContentBackgroundColor: true,
     useContentBackgroundVisualEffect: false,
     contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
+    theColorScheme: TheColorScheme.system.rawValue,
+    isShowWindowShadow: true,
+    isWithAnimation: true,
+    isContentRetention: false,
     cropperFrame: defaultCropperFrame,
     contentFrame: defaultContentFrame
 )
@@ -367,32 +362,28 @@ fileprivate struct SlotsView: View {
     }
     
     fileprivate func dumpSettings(from s: Settings) {
+        cropperStyle = s.cropperStyle
+        isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
+        maximumFrameRate = s.maximumFrameRate
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
-        maximumFrameRate = s.maximumFrameRate
         titleWord = s.titleWord
         lemmaSearchLevel = s.lemmaSearchLevel
         isShowPhrases = s.isShowPhrases
         useEntryMode = s.useEntryMode
-        cropperStyle = s.cropperStyle
-        isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
         isDropTitleWord = s.isDropTitleWord
         isAddLineBreak = s.isAddLineBreak
         isAddSpace = s.isAddSpace
         isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
         isJoinTranslationLines = s.isJoinTranslationLines
         chineseCharacterConvertMode = s.chineseCharacterConvertMode
-        isContentRetention = s.isContentRetention
-        isShowWindowShadow = s.isShowWindowShadow
-        isWithAnimation = s.isWithAnimation
         contentStyle = s.contentStyle
         portraitCorner = s.portraitCorner
-        landscapeStyle = s.landscapeStyle
         portraitMaxHeight = s.portraitMaxHeight
+        landscapeStyle = s.landscapeStyle
         landscapeMaxWidth = s.landscapeMaxWidth
         fontSize = s.fontSize
         fontRate = s.fontRate
-        theColorScheme = s.theColorScheme
         wordColor = s.wordColor
         transColor = s.transColor
         backgroundColor = s.backgroundColor
@@ -404,60 +395,51 @@ fileprivate struct SlotsView: View {
         useContentBackgroundColor = s.useContentBackgroundColor
         useContentBackgroundVisualEffect = s.useContentBackgroundVisualEffect
         contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
+        theColorScheme = s.theColorScheme
+        isShowWindowShadow = s.isShowWindowShadow
+        isWithAnimation = s.isWithAnimation
+        isContentRetention = s.isContentRetention
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
     }
     
-    // isShowStoreButton need these almost all @AppStorage data
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
+    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
-
     @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
-    
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
-    @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
-
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
     @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
-
-    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
-    
-    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
-
-    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
-    
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
-    
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     @AppStorage(FontRateKey) var fontRate: Double = 0.9
-    
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
-
     @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    
     @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
     @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
     @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
     @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 0
-    
     @AppStorage(UseContentBackgroundColorKey) var useContentBackgroundColor: Bool = true
     @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
+    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
+    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
 }
 
 extension CGFloat {
