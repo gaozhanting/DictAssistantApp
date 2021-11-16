@@ -29,10 +29,8 @@ func initContentWindow() {
 
 func syncContentWindowShadow(from isShowWindowShadow: Bool) {
     if isShowWindowShadow {
-        contentWindow.invalidateShadow()
         contentWindow.hasShadow = true
     } else {
-        contentWindow.invalidateShadow()
         contentWindow.hasShadow = false
     }
 }
