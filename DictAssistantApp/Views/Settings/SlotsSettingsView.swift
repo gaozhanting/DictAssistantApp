@@ -235,8 +235,9 @@ struct SlotsSettingsView: View {
 fileprivate struct InfoView: View {
     var body: some View {
         Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (exclude: global shortcut key, is show toast option, font name). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it.")
+            .font(.callout)
             .padding()
-            .frame(width: 400, height: 280)
+            .frame(width: 400, height: 260)
     }
 }
 
@@ -467,5 +468,6 @@ struct SlotsSettingsView_Previews: PreviewProvider {
             InfoView()
         }
         .environment(\.locale, .init(identifier: "zh-Hans"))
+//        .environment(\.locale, .init(identifier: "en"))
     }
 }
