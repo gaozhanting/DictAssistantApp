@@ -343,16 +343,31 @@ fileprivate struct ColorSchemeSetting: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
 
     var body: some View {
-        Picker("", selection: $theColorScheme) {
-            Text("Light").tag(TheColorScheme.light.rawValue)
-            Text("Dark").tag(TheColorScheme.dark.rawValue)
-            Text("System").tag(TheColorScheme.system.rawValue)
-            Text("SystemReversed").tag(TheColorScheme.systemReversed.rawValue)
+        HStack {
+            Picker("", selection: $theColorScheme) {
+                Text("Light").tag(TheColorScheme.light.rawValue)
+                Text("Dark").tag(TheColorScheme.dark.rawValue)
+                Text("System").tag(TheColorScheme.system.rawValue)
+                Text("SystemReversed").tag(TheColorScheme.systemReversed.rawValue)
+            }
+            .labelsHidden()
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 160)
+            .help("This will effect on visual effect background and system colors.")
+            
+            MiniInfoView {
+                ColorSchemeInfo()
+            }
         }
-        .labelsHidden()
-        .pickerStyle(MenuPickerStyle())
-        .frame(width: 160)
-        .help("This will effect on visual effect background and system colors.")
+    }
+}
+
+private struct ColorSchemeInfo: View {
+    var body: some View {
+        Text("Note: if you select System or SystemReversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors.")
+            .font(.subheadline)
+            .padding()
+            .frame(width: 300, height: 130)
     }
 }
 
@@ -624,14 +639,10 @@ struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             AppearanceSettingsView()
-                .environment(\.locale, .init(identifier: "en"))
             
-//            AppearanceSettingsView()
-//                .environment(\.locale, .init(identifier: "zh-Hans"))
-//
-//            AppearanceSettingsView()
-//                .environment(\.locale, .init(identifier: "zh-Hant"))
+            ColorSchemeInfo()
         }
-            .frame(width: 650, height: 800)
+//        .environment(\.locale, .init(identifier: "en"))
+        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

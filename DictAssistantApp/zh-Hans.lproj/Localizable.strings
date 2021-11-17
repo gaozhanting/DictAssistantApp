@@ -189,7 +189,8 @@
 "Dark" = "暗色";
 "System" = "系统";
 "SystemReversed" = "系统反转";
-"This will effect on visual effect background and system colors." = "此选项会影响特殊视觉效果背景，和系统颜色";
+"This will effect on visual effect background and system colors." = "此选项会影响特殊视觉效果背景，和系统颜色。";
+"Note: if you select System or SystemReversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors." = "注意：如果您选择系统或系统反转，此时我建议您同时选择系统颜色，否则，颜色可能没法同时适配浅色系统和深色系统。您打开颜色选择面板，选择调色板选项卡，接着选择开发者选项，这里的颜色都是系统颜色，能自适配系统外观。";
 "Word:" = "标题单词：";
 "Translation:" = "单词译文：";
 "Background:" = "背景：";
