@@ -256,7 +256,7 @@ private struct OneKeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleStepPlay)
                 MiniInfoView {
-                    Text("recommend: Option-1").padding()
+                    Text("recommend: Option-1").font(.subheadline).padding()
                 }
             }
             .padding()

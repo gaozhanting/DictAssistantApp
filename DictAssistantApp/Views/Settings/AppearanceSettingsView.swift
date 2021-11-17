@@ -296,7 +296,9 @@ fileprivate struct FontSettingView: View {
             }
             
             MiniInfoView {
-                Text("There is a bug: when other TextField is focused, changing font is not work.").padding()
+                Text("There is a bug: when other TextField is focused, changing font is not work.")
+                    .font(.subheadline)
+                    .padding()
             }
         }
     }
@@ -624,11 +626,11 @@ struct AppearanceSettingView_Previews: PreviewProvider {
             AppearanceSettingsView()
                 .environment(\.locale, .init(identifier: "en"))
             
-            AppearanceSettingsView()
-                .environment(\.locale, .init(identifier: "zh-Hans"))
-
-            AppearanceSettingsView()
-                .environment(\.locale, .init(identifier: "zh-Hant"))
+//            AppearanceSettingsView()
+//                .environment(\.locale, .init(identifier: "zh-Hans"))
+//
+//            AppearanceSettingsView()
+//                .environment(\.locale, .init(identifier: "zh-Hant"))
         }
             .frame(width: 650, height: 800)
     }

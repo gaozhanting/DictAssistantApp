@@ -95,5 +95,8 @@ struct RecordingSettingsView_Previews: PreviewProvider {
             RecordingSettingsView()
             MaximumFrameRateInfoPopoverView()
         }
+        .environmentObject(statusData)
+//        .environment(\.locale, .init(identifier: "en"))
+        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

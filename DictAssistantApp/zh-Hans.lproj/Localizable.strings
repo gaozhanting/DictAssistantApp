@@ -162,7 +162,7 @@
 "Colors & Shadow:" = "颜色和阴影：";
 "Content Background Display:" = "内容特殊效果背景：";
 "Make Content Retention" = "让内容滞留";
-"If selected, content will get retention of last recognized tests when new recognized tests is empty." = "如果勾选，若当前识别的文本为空，内容会滞留显示最近识别的非空文本内容";
+"If selected, content will get retention of last recognized tests when new recognized tests is empty." = "如果勾选，若当前识别的文本为空，内容会滞留显示最近识别的非空文本内容。";
 "Show Content Window Shadow" = "内容窗口加阴影";
 "Notice window shadow may mess up content." = "某些时候，勾选此设置会让内容显示混乱。";
 "With animation" = "使用动画";

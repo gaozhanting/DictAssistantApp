@@ -119,5 +119,7 @@ struct VisionSettingsView_Previews: PreviewProvider {
 
             MiniHeigthInfoPopoverView()
         }
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
     }
 }

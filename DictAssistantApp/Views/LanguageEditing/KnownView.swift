@@ -319,8 +319,9 @@ fileprivate struct FirstNPopoverView: View {
 fileprivate struct InfoPopoverView: View {
     var body: some View {
         Text("Edit your known English words, one word or one phrase per line; then add them to or remove them from your known words list.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
+            .font(.subheadline)
             .padding()
-            .frame(width: 300, height: 160)
+            .frame(width: 300, height: 130)
     }
 }
 
@@ -334,6 +335,7 @@ struct KnownView_Previews: PreviewProvider {
             
             InfoPopoverView()
                 .environment(\.locale, .init(identifier: "zh-Hant"))
+//                .environment(\.locale, .init(identifier: "en"))
         }
     }
 }

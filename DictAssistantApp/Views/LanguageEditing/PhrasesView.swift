@@ -179,8 +179,9 @@ fileprivate struct EditingView: View {
 private struct InfoView: View {
     var body: some View {
         Text("The phrases here aim as a database for the app to detect phrases. The App can only detect continuous phrases. The dataset is extracted from Oxford Concise Dict and enwiki words frequency list (hyphen phrases). You can add more phrases here. You can reset, to use this default dataset. You can deselect show phrases option to ignore it. When you add your custom dict entry, if the word is a phrase, it will be automatically added here.")
+            .font(.subheadline)
             .padding()
-            .frame(width: 400, height: 150)
+            .frame(width: 300, height: 160)
     }
 }
 
@@ -190,5 +191,7 @@ struct PhrasesView_Previews: PreviewProvider {
             PhrasesView()
             InfoView()
         }
+//                .environment(\.locale, .init(identifier: "zh-Hans"))
+                .environment(\.locale, .init(identifier: "en"))
     }
 }

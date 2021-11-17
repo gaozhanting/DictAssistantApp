@@ -61,7 +61,7 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleStepPlay)
                 MiniInfoView {
-                    Text("recommend: Option-1").padding()
+                    Text("recommend: Option-1").font(.subheadline).padding()
                 }
             }
             HStack(alignment: .firstTextBaseline) {
@@ -70,7 +70,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
                 MiniInfoView {
-                    Text("recommend: Option-2").padding()
+                    Text("recommend: Option-2").font(.subheadline).padding()
                 }
             }
             HStack(alignment: .firstTextBaseline) {
@@ -79,7 +79,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
                 MiniInfoView {
-                    Text("recommend: Option-3").padding()
+                    Text("recommend: Option-3").font(.subheadline).padding()
                 }
             }
             HStack(alignment: .firstTextBaseline) {
@@ -88,7 +88,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isConcealTranslation).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
                 MiniInfoView {
-                    Text("recommend: Option-4").padding()
+                    Text("recommend: Option-4").font(.subheadline).padding()
                 }
             }
             HStack(alignment: .firstTextBaseline) {
@@ -97,7 +97,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
                 MiniInfoView {
-                    Text("recommend: Option-5").padding()
+                    Text("recommend: Option-5").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -105,7 +105,7 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
                 MiniInfoView {
-                    Text("recommend: Option-S").padding()
+                    Text("recommend: Option-S").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -113,7 +113,7 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .showPhraseInsertPanel)
                 MiniInfoView {
-                    Text("recommend: Option-P").padding()
+                    Text("recommend: Option-P").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -121,7 +121,7 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .showUpsertEntryPanel)
                 MiniInfoView {
-                    Text("recommend: Option-E").padding()
+                    Text("recommend: Option-E").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -129,7 +129,7 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .showPreferencesPanel)
                 MiniInfoView {
-                    Text("recommend: Option-C").padding()
+                    Text("recommend: Option-C").font(.subheadline).padding()
                 }
             }
         }

@@ -330,7 +330,6 @@ private struct DictItemInstallView: View {
                             Text("sourceURL:")
                             Button(action: { openURL(sourceURL) }, label: {
                                 Image(systemName: "arrow.right.circle")
-                                    .font(.footnote)
                             })
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -338,11 +337,11 @@ private struct DictItemInstallView: View {
                             Text("downloadURL:")
                             Button(action: { openURL(downloadURL) }, label: {
                                 Image(systemName: "arrow.right.circle")
-                                    .font(.footnote)
                             })
                             .buttonStyle(PlainButtonStyle())
                         }
                     }
+                    .font(.subheadline)
                     .padding()
                 }
                 Spacer()
@@ -353,11 +352,11 @@ private struct DictItemInstallView: View {
                             Text("sourceURL:")
                             Button(action: { openURL(sourceURL) }, label: {
                                 Image(systemName: "arrow.right.circle")
-                                    .font(.footnote)
                             })
                             .buttonStyle(PlainButtonStyle())
                         }
                     }
+                    .font(.subheadline)
                     .padding()
                 }
                 Spacer()
