@@ -129,6 +129,7 @@
 "as last priority" = "次后使用";
 "only" = "只使用";
 "Choose the way you want to use for your custom entries." = "选择你想使用自定义词条的方式";
+"Note, if you don't select Open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in Apple or Database), then it still can't be shown. Your entries is just another dictionary." = "注意：如果您没有在原型查找等级中选择开放，而且同时您自定义的词条的原型没有找到（从苹果或数据库中），这样该词条依旧不会显示。您的自定义词条只是另一个词典。";
 
 "Content" = "内容";
 "Content Display:" = "内容显示：";
