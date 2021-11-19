@@ -116,6 +116,7 @@
 "Title Word:" = "標題單詞：";
 "primitive" = "原詞";
 "lemma" = "原型";
+"When choose primitive, you take the risk that it may not in your known list although the lemma is." = "當選擇原詞，您需註意您的已知詞匯列表之中很可能只有原型而沒有原詞的情況。";
 "Lemma Search Level:" = "原型查找等級：";
 "apple" = "蘋果";
 "database" = "數據庫";

@@ -31,13 +31,28 @@ private struct TitleWordPicker: View {
     @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     
     var body: some View {
-        Picker("", selection: $titleWord) {
-            Text("lemma").tag(TitleWord.lemma.rawValue)
-            Text("primitive").tag(TitleWord.primitive.rawValue)
+        HStack {
+            Picker("", selection: $titleWord) {
+                Text("lemma").tag(TitleWord.lemma.rawValue)
+                Text("primitive").tag(TitleWord.primitive.rawValue)
+            }
+            .labelsHidden()
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 150)
+            
+            MiniInfoView {
+                TitleWordInfoView()
+            }
         }
-        .labelsHidden()
-        .pickerStyle(MenuPickerStyle())
-        .frame(width: 150)
+    }
+}
+
+private struct TitleWordInfoView: View {
+    var body: some View {
+        Text("When choose primitive, you take the risk that it may not in your known list although the lemma is.")
+            .font(.subheadline)
+            .padding()
+            .frame(width: 300, height: 70)
     }
 }
 
@@ -119,6 +134,8 @@ struct DictSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             EnglishSettingsView()
+            
+            TitleWordInfoView()
             LemmaSearchLevelInfoView()
             UseEntryModeInfoView()
         }
