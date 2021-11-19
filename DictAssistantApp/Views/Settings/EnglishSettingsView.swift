@@ -47,9 +47,9 @@ private struct LemmaSearchLevelPicker: View {
     var body: some View {
         HStack {
             Picker("", selection: $lemmaSearchLevel) {
-                Text("Apple").tag(LemmaSearchLevel.apple.rawValue)
-                Text("Database").tag(LemmaSearchLevel.database.rawValue)
-                Text("Open").tag(LemmaSearchLevel.open.rawValue)
+                Text("apple").tag(LemmaSearchLevel.apple.rawValue)
+                Text("database").tag(LemmaSearchLevel.database.rawValue)
+                Text("open").tag(LemmaSearchLevel.open.rawValue)
             }
             .labelsHidden()
             .pickerStyle(MenuPickerStyle())
@@ -64,7 +64,7 @@ private struct LemmaSearchLevelPicker: View {
 
 private struct LemmaSearchLevelInfoView: View {
     var body: some View {
-        Text("Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect Database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out.")
+        Text("Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out.")
             .font(.subheadline)
             .padding()
             .frame(width: 300, height: 160)
@@ -108,7 +108,7 @@ private struct UseEntryModePicker: View {
 
 private struct UseEntryModeInfoView: View {
     var body: some View {
-        Text("Note, if you don't select Open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in Apple or Database), then it still can't be shown. Your entries is just another dictionary.")
+        Text("Note, if you don't select open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in apple or database), then it still can't be shown. Your entries is just another dictionary.")
             .font(.subheadline)
             .padding()
             .frame(width: 300, height: 110)

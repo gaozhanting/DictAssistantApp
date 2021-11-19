@@ -117,10 +117,10 @@
 "primitive" = "原词";
 "lemma" = "原型";
 "Lemma Search Level:" = "原型查找等级：";
-"Apple" = "苹果";
-"Database" = "数据库";
-"Open" = "开放";
-"Select Apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect Database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect Open when you want include all words, with the risk of all invalid words which are called noises may come out." = "勾选苹果，当您想要排除非法的词汇，这些词汇无法使用苹果自然语言处理查找到原型。\n勾选数据库，当您想要包含更多合法词汇，这些词汇的原型苹果没有包含，但是这里的一个专有的原型数据库包含了。\n勾选开放，当您想要包含所有词汇，此时所有不存在的词汇可能出现，这些被称之为噪音。";
+"apple" = "苹果";
+"database" = "数据库";
+"open" = "开放";
+"Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out." = "勾选苹果，当您想要排除非法的词汇，这些词汇无法使用苹果自然语言处理查找到原型。\n勾选数据库，当您想要包含更多合法词汇，这些词汇的原型苹果没有包含，但是这里的一个专有的原型数据库包含了。\n勾选开放，当您想要包含所有词汇，此时所有不存在的词汇可能出现，这些被称之为噪音。";
 "Phrases:" = "短语：";
 "Show Phrases" = "显示短语";
 "Use Entry Mode:" = "使用自定义词条的方式：";
@@ -129,7 +129,7 @@
 "as last priority" = "次后使用";
 "only" = "只使用";
 "Choose the way you want to use for your custom entries." = "选择你想使用自定义词条的方式";
-"Note, if you don't select Open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in Apple or Database), then it still can't be shown. Your entries is just another dictionary." = "注意：如果您没有在原型查找等级中选择开放，而且同时您自定义的词条的原型没有找到（从苹果或数据库中），这样该词条依旧不会显示。您的自定义词条只是另一个词典。";
+"Note, if you don't select open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in apple or database), then it still can't be shown. Your entries is just another dictionary." = "注意：如果您没有在原型查找等级中选择开放，而且同时您自定义的词条的原型没有找到（从苹果或数据库中），这样该词条依旧不会显示。您的自定义词条只是另一个词典。";
 
 "Content" = "内容";
 "Content Display:" = "内容显示：";
