@@ -55,6 +55,7 @@ struct ContentView_Previews: PreviewProvider {
     static func define(_ word: String) -> String {
         return DictionaryServices.define(word) ?? ""
     }
+    
     static let displayedWords = DisplayedWords(wordCells: [
         WordCell(word: "around", isKnown: .known, trans: ""),
 //        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
@@ -84,19 +85,36 @@ struct ContentView_Previews: PreviewProvider {
 //        WordCell(word: "make up one's mind", isKnown: .unKnown, trans: define("make up one's mind")),
 
     ])
+    
+    static let displayedWords2 = DisplayedWords(wordCells: [
+        WordCell(word: "contemporary", isKnown: .unKnown, trans: define("contemporary")),
+        WordCell(word: "local government", isKnown: .unKnown, trans: define("local government")),
+    ])
+    
+    static let displayedWords3 = DisplayedWords(wordCells: [
+        WordCell(word: "modern history", isKnown: .unKnown, trans: define("modern history")),
+        WordCell(word: "contemporary", isKnown: .unKnown, trans: define("contemporary")),
+        WordCell(word: "local government", isKnown: .unKnown, trans: define("local government")),
+    ])
+    
     static var previews: some View {
         Group {
+            // use max width 170, landscape normal test the displaying difference of "local government"
             LandscapeWordsView()
-                .environmentObject(displayedWords)
-                .frame(width: 1000, height: 300)
+                .environmentObject(displayedWords2)
+                .frame(width: 1000, height: 150)
             
-//            PortraitWordsView()
-//                .environmentObject(displayedWords)
-//                .frame(width: 300, height: 600)
-//
-//            PortraitWordsView()
-//                .environmentObject(displayedWords)
-//                .frame(width: 800, height: 500)
+            LandscapeWordsView()
+                .environmentObject(displayedWords3)
+                .frame(width: 1000, height: 150)
+            
+            PortraitWordsView()
+                .environmentObject(displayedWords2)
+                .frame(width: 300, height: 600)
+
+            PortraitWordsView()
+                .environmentObject(displayedWords3)
+                .frame(width: 300, height: 600)
         }
     }
 }

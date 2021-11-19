@@ -65,6 +65,8 @@ private struct BodyView: View {
                 }
             }
             
+            // This line makes animation better.
+            // This line may cause some shrinking of the SingleWordView, as a result it does not expand its max width. I think it is acceptable.
             Spacer()
         }
         .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
