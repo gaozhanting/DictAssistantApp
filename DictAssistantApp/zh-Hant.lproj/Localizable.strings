@@ -188,9 +188,9 @@
 "Light" = "亮色";
 "Dark" = "暗色";
 "System" = "系統";
-"SystemReversed" = "系統反轉";
+"System Reversed" = "系統反轉";
 "This will effect on visual effect background and system colors." = "此選項會影響特殊視覺效果背景，和系統顏色。";
-"Note: if you select System or SystemReversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors." = "註意：如果您選擇系統或系統反轉，此時我建議您同時選擇系統顏色，否則，顏色可能沒法同時適配淺色系統和深色系統。您打開顏色選擇面板，選擇調色板選項卡，接著選擇開發者選項，這裏的顏色都是系統顏色，能自適配系統外觀。";
+"Note: if you select System or System Reversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors." = "註意：如果您選擇系統或系統反轉，此時我建議您同時選擇系統顏色，否則，顏色可能沒法同時適配淺色系統和深色系統。您打開顏色選擇面板，選擇調色板選項卡，接著選擇開發者選項，這裏的顏色都是系統顏色，能自適配系統外觀。";
 "Word:" = "標題單詞：";
 "Translation:" = "單詞譯文：";
 "Background:" = "背景：";
