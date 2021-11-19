@@ -8,6 +8,21 @@
 import SwiftUI
 
 struct SingleWordView: View {
+    let wordCell: WordCell
+    
+    var body: some View {
+        TextBodyTwisted(wordCell: wordCell)
+            .background((useContentBackgroundColor || useContentBackgroundVisualEffect) ? nil : Color(dataToColor(backgroundColor)!))
+    }
+    
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
+    
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+
+}
+
+struct TextBodyTwisted: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     let wordCell: WordCell
@@ -15,37 +30,22 @@ struct SingleWordView: View {
     var body: some View {
         switch ContentStyle(rawValue: contentStyle)! {
         case .portrait:
-            TextBodyWidthBG(wordCell: wordCell)
+            TextBody(wordCell: wordCell)
         case .landscape:
             if !wordCell.trans.isEmpty {
-                TextBodyWidthBG(wordCell: wordCell)
-                    .frame(maxWidth: CGFloat(landscapeMaxWidth),
-                           maxHeight: .infinity,
-                           alignment: LandscapeStyle(rawValue: landscapeStyle)! == .centered ? .top : .topLeading)
+                TextBody(wordCell: wordCell)
+                    .frame(
+                        maxWidth: CGFloat(landscapeMaxWidth),
+                        alignment: LandscapeStyle(rawValue: landscapeStyle)! == .centered ? .top : .leading
+                    )
             } else {
-                TextBodyWidthBG(wordCell: wordCell)
+                TextBody(wordCell: wordCell)
             }
         }
     }
     
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
-}
-
-private struct TextBodyWidthBG: View {
-    let wordCell: WordCell
-
-    var body: some View {
-        TextBody(wordCell: wordCell)
-            .background((useContentBackgroundColor || useContentBackgroundVisualEffect) ?
-                        nil :
-                            Color(dataToColor(backgroundColor)!))
-    }
-    
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
 }
 
 fileprivate struct TextBody: View {
