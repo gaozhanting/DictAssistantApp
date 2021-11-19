@@ -156,7 +156,7 @@ fileprivate struct InstallPresetDictView: View {
         PageTemplateView(
             title: {
                 VStack {
-                    Text("Install recommened concise dictionary")
+                    Text("Install recommended concise dictionary")
                     Text("If have multi, install which you like.")
                         .font(.footnote)
                     Text("This step is optional, but highly recommended.")
