@@ -55,7 +55,7 @@ fileprivate struct WelcomeView: View {
 
     var body: some View {
         PageTemplateView(
-            title: { Text("Welcome to DictAssistant") },
+            title: { Text("Welcome to English Assistant App") },
             content: {
                 Text("We start three steps to setup.")
             },
