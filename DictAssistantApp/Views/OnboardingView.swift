@@ -165,25 +165,33 @@ fileprivate struct InstallPresetDictView: View {
             },
             content: {
                 VStack(alignment: .leading) {
-                    Text("Open Dictionary App, click menu File/Open Dictionaries Folder.")
-                    Text("This action will create the folder if not have been created before.")
+                    Text("Step 1: Open Dictionary App, click menu File/Open Dictionaries Folder.")
+                    HStack {
+                        Spacer()
+                        Text("This action will create the folder if not have been created before.")
+                            .font(.subheadline)
+                        Spacer()
+                    }
                     Button("Open Dictionary App") {
                         openAppleDictionrayApp()
                     }
                     .font(.body)
                     
-                    Divider().padding(.vertical, 10)
-
-                    GroupBox {
-                        DictInstallView(dicts: targetDicts())
-                            .frame(maxWidth: .infinity)
+                    Spacer()
+                    
+                    HStack {
+                        Text("Step 2:")
+                        GroupBox {
+                            DictInstallView(dicts: targetDicts())
+                                .frame(maxWidth: .infinity)
+                        }
                     }
                     
-                    Divider().padding(.vertical, 10)
+                    Spacer()
                     
-                    Text("Restart Dictionary App, open preferences, make it the first selected dictionary.")
+                    Text("Step 3: Restart Dictionary App, open preferences, drag the installed dict to the top as the first selected dictionary.")
                 }
-                .padding()
+                .padding(.vertical, 40)
             },
             nextButton: {
                 Button("Continue", action: next)

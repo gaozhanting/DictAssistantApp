@@ -225,9 +225,10 @@
 "Install recommened concise dictionary" = "安装推荐的简明词典";
 "If have multi, install which you like." = "如果有多个，安装您喜欢的。";
 "This step is optional, but highly recommended." = "这一步是可跳过的，不过强烈推荐完成。";
-"Open Dictionary App, click menu File/Open Dictionaries Folder." = "打开系统自带的词典应用，点击菜单项：文件/打开词典文件夹。";
+"Step 1: Open Dictionary App, click menu File/Open Dictionaries Folder." = "第一步：打开系统自带的词典应用，点击菜单项：文件/打开词典文件夹。";
 "This action will create the folder if not have been created before." = "如果先前还未创建此文件夹，该动作会创建这个默认的文件夹。";
-"Restart Dictionary App, open preferences, make it the first selected dictionary." = "重新打开词典应用， 打开偏好设置，调整刚安装的词典为第一选择。";
+"Step 2:" = "第二步：";
+"Step 3: Restart Dictionary App, open preferences, drag the installed dict to the top as the first selected dictionary." = "第三步：重新打开词典应用， 打开偏好设置，调整刚安装的词典为第一选择。";
 "Open Dictionary App" = "打开系统自带的词典应用程序";
 "Initialize one global keyboard shortcuts, playing" = "初始化一个全局的键盘快捷键，运行";
 "Playing:" = "运行：";
