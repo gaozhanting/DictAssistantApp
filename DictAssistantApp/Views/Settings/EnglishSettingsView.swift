@@ -50,9 +50,7 @@ private struct TitleWordPicker: View {
 private struct TitleWordInfoView: View {
     var body: some View {
         Text("When choose primitive, you take the risk that it may not in your known list although the lemma is.")
-            .font(.subheadline)
-            .padding()
-            .frame(width: 300, height: 70)
+            .infoStyle()
     }
 }
 
@@ -80,9 +78,7 @@ private struct LemmaSearchLevelPicker: View {
 private struct LemmaSearchLevelInfoView: View {
     var body: some View {
         Text("Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out.")
-            .font(.subheadline)
-            .padding()
-            .frame(width: 300, height: 160)
+            .infoStyle()
     }
 }
 
@@ -124,9 +120,7 @@ private struct UseEntryModePicker: View {
 private struct UseEntryModeInfoView: View {
     var body: some View {
         Text("Note, if you don't select open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in apple or database), then it still can't be shown. Your entries is just another dictionary.")
-            .font(.subheadline)
-            .padding()
-            .frame(width: 300, height: 110)
+            .infoStyle()
     }
 }
 

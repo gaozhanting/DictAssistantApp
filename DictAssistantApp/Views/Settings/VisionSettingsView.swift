@@ -80,9 +80,7 @@ fileprivate struct TRMinimumTextHeightSetting: View {
 fileprivate struct MiniHeigthInfoPopoverView: View {
     var body: some View {
         Text("Specify a floating-point number relative to the image height. \nFor example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. \nThe default value is 1/32, or 0.03125.")
-            .font(.subheadline)
-            .padding()
-            .frame(width: 300, height: 150)
+            .infoStyle()
     }
 }
 

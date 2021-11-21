@@ -25,29 +25,6 @@ struct GeneralSettingsView: View {
     }
 }
 
-struct MiniInfoView<Content: View>: View {
-    let arrowEdge: Edge
-    let content: Content
-    
-    init(arrowEdge: Edge = .top, @ViewBuilder content: () -> Content) {
-        self.arrowEdge = arrowEdge
-        self.content = content()
-    }
-    
-    @State private var isShowingPopover = false
-    
-    var body: some View {
-        Button(action: { isShowingPopover = true }, label: {
-            Image(systemName: "info.circle")
-                .font(.footnote)
-        })
-        .buttonStyle(PlainButtonStyle())
-        .popover(isPresented: $isShowingPopover, arrowEdge: arrowEdge) {
-            content
-        }
-    }
-}
-
 private struct KeyRecordingView: View {
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false

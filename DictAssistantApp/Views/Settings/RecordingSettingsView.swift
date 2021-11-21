@@ -83,9 +83,7 @@ fileprivate struct MaximumFrameRateSetting: View {
 fileprivate struct MaximumFrameRateInfoPopoverView: View {
     var body: some View {
         Text("Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 30 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time.")
-            .font(.subheadline)
-            .padding()
-            .frame(width: 300, height: 200)
+            .infoStyle()
     }
 }
 
