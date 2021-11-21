@@ -567,6 +567,8 @@
 				445355672705CF12007DB9C2 /* TRCallBack.swift */,
 				440824FB268E178E00EA7EEE /* NLPSample.swift */,
 				4453555327042478007DB9C2 /* Menus.swift */,
+				442134D926AADC3100963441 /* GlobalShortCutKey.swift */,
+				442134DF26AB00B500963441 /* UserDefaultSettings.swift */,
 				4479159F26B7DA86002E9F8C /* Windows */,
 				447915A426B7E781002E9F8C /* Utilities */,
 				4440EE4C262EDCA4007FF470 /* Main.storyboard */,
@@ -643,8 +645,6 @@
 			isa = PBXGroup;
 			children = (
 				44BCEC572684BADD002D3D8C /* Utilities.swift */,
-				442134D926AADC3100963441 /* GlobalShortCutKey.swift */,
-				442134DF26AB00B500963441 /* UserDefaultSettings.swift */,
 				4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */,
 				44C0F24A270775AF006CFEFC /* GBig.swift */,
 			);
