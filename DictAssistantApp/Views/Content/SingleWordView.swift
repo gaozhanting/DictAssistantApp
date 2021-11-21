@@ -33,11 +33,21 @@ private struct TextBodyTwisted: View {
             TextBody(wordCell: wordCell)
         case .landscape:
             if !wordCell.trans.isEmpty {
-                TextBody(wordCell: wordCell)
-                    .frame(
-                        maxWidth: CGFloat(landscapeMaxWidth),
-                        alignment: LandscapeStyle(rawValue: landscapeStyle)! == .centered ? .top : .leading
-                    )
+                switch LandscapeStyle(rawValue: landscapeStyle)! {
+                case .normal, .autoScrolling:
+                    TextBody(wordCell: wordCell)
+                        .frame(
+                            maxWidth: CGFloat(landscapeMaxWidth),
+                            maxHeight: .infinity,
+                            alignment: .topLeading
+                        )
+                case .centered:
+                    TextBody(wordCell: wordCell)
+                        .frame(
+                            maxWidth: CGFloat(landscapeMaxWidth),
+                            alignment: .top
+                        )
+                }
             } else {
                 TextBody(wordCell: wordCell)
             }
