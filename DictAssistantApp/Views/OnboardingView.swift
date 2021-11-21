@@ -117,8 +117,10 @@ private struct InitKnownView: View {
         }
         
         let words = Array(wikiFrequencyWords[0 ..< Int(count)!])
-        batchInsertKnown(words) {
-            batchInsertSucceed = true
+        batchDeleteAllKnown {
+            batchInsertKnown(words) {
+                batchInsertSucceed = true
+            }
         }
     }
     
