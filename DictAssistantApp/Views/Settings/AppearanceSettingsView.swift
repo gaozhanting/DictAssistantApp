@@ -565,7 +565,6 @@ private struct ColorSchemeSetting: View {
             
             MiniInfoView {
                 ColorSchemeInfo()
-                    .infoStyle()
             }
         }
     }
