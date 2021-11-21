@@ -263,6 +263,8 @@ private func unzipUsingCommandLine(from dictFile: URL, to distURL: URL, withAuxi
     }
 }
 
+// Note: click Product/Clean Build Folder for testing, otherwise the resources which belongs other targets still stay here.
+// resourcePath is something like: "/Users/gaocong/Library/Developer/Xcode/DerivedData/DictAssistantApp-goxsuyhccnwohycgfcozrneebjnt/Build/Products/Debug/EnglishAssistant.app/Contents/Resources"
 func searchResourceDictZipFiles() -> [String] {
     guard let resourcePath = Bundle.main.resourcePath else {
         logger.error("Could't find bundle main resource path.")
