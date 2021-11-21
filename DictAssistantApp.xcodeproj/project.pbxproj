@@ -329,6 +329,7 @@
 		446E88D2274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
 		446E88D3274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
 		446E88D4274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
+		446E88D5274A43AC00B1789B /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -872,6 +873,7 @@
 				4430EF2427328A5D003B098C /* Main.storyboard in Resources */,
 				4430EF2527328A5D003B098C /* InfoPlist.strings in Resources */,
 				44FA803A2733D6350041A6F2 /* mac-yinghancidian.dictionary.zip in Resources */,
+				446E88D5274A43AC00B1789B /* lazyworm-ec.dictionary.zip in Resources */,
 				4430EF2627328A5D003B098C /* Localizable.strings in Resources */,
 				4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */,
 				4430EF2927328A5D003B098C /* Assets.xcassets in Resources */,
