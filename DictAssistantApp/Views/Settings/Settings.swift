@@ -96,7 +96,7 @@ func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext)
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: NSLocalizedString("Slots", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "cube.fill", accessibilityDescription: "Slots preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "cube", accessibilityDescription: "Slots preferences")!
     ) {
         SlotsSettingsView()
             .environmentObject(statusData)
