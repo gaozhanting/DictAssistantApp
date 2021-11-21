@@ -14,7 +14,7 @@ struct PhrasesView: View {
     }
 }
 
-fileprivate struct SplitView: NSViewControllerRepresentable {
+private struct SplitView: NSViewControllerRepresentable {
     func makeNSViewController(context: Context) -> some NSViewController {
         let controller = SplitViewController()
         return controller
@@ -24,7 +24,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
     }
 }
 
-fileprivate class SplitViewController: NSSplitViewController {
+private class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         let topViewController = NSHostingController(rootView: ConstantPhrasesView())
         addSplitViewItem(
@@ -43,7 +43,7 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct ConstantPhrasesView: View {
+private struct ConstantPhrasesView: View {
     @FetchRequest(
         entity: Phrase.entity(),
         sortDescriptors: []
@@ -70,7 +70,7 @@ extension Array where Element == String {
     }
 }
 
-fileprivate struct EditingView: View {
+private struct EditingView: View {
     @State private var text = ""
     
     var lines: [String] {

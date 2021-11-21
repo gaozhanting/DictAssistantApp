@@ -14,7 +14,7 @@ struct EntriesView: View {
     }
 }
 
-fileprivate struct SplitView: NSViewControllerRepresentable {
+private struct SplitView: NSViewControllerRepresentable {
     func makeNSViewController(context: Context) -> some NSViewController {
         let controller = SplitViewController()
         return controller
@@ -24,7 +24,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
     }
 }
 
-fileprivate class SplitViewController: NSSplitViewController {
+private class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         let topViewController = NSHostingController(rootView: ConstantEntryView())
         addSplitViewItem(
@@ -43,7 +43,7 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate struct ConstantEntryView: View {
+private struct ConstantEntryView: View {
     @FetchRequest(
         entity: Entry.entity(),
         sortDescriptors: []
@@ -60,7 +60,7 @@ fileprivate struct ConstantEntryView: View {
     }
 }
 
-fileprivate struct EditingView: View {
+private struct EditingView: View {
     @State private var text = ""
     
     var lines: [String] {

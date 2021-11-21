@@ -15,7 +15,7 @@ struct KnownView: View {
     }
 }
 
-fileprivate struct SplitView: NSViewControllerRepresentable {
+private struct SplitView: NSViewControllerRepresentable {
     func makeNSViewController(context: Context) -> some NSViewController {
         let controller = SplitViewController()
         return controller
@@ -25,7 +25,7 @@ fileprivate struct SplitView: NSViewControllerRepresentable {
     }
 }
 
-fileprivate class SplitViewController: NSSplitViewController {
+private class SplitViewController: NSSplitViewController {
     override func viewDidLoad() {
         let topViewController = NSHostingController(rootView: ConstantKnownView())
         addSplitViewItem(
@@ -44,13 +44,13 @@ fileprivate class SplitViewController: NSSplitViewController {
     }
 }
 
-fileprivate enum DisplayFilter: Int {
+private enum DisplayFilter: Int {
     case all = 0
     case words = 1
     case phrases = 2
 }
 
-fileprivate struct ConstantKnownView: View {
+private struct ConstantKnownView: View {
     @FetchRequest(
         entity: Known.entity(),
         sortDescriptors: []
@@ -94,7 +94,7 @@ fileprivate struct ConstantKnownView: View {
     }
 }
 
-fileprivate struct EditingView: View {
+private struct EditingView: View {
     @State private var text = ""
     
     var words: [String] {
@@ -227,7 +227,7 @@ fileprivate struct EditingView: View {
     @State private var showingAlert = false
 }
 
-fileprivate struct PasteOxford3000Button: View {
+private struct PasteOxford3000Button: View {
     @Binding var text: String
     
     var body: some View {
@@ -243,13 +243,13 @@ fileprivate struct PasteOxford3000Button: View {
     }
 }
 
-fileprivate var oxford3000Words: [String] {
+private var oxford3000Words: [String] {
     var words = oxford3000Vocabulary.components(separatedBy: .newlines).map{ String($0) }
     words.removeLast()
     return words
 }
 
-fileprivate struct PasteFirstNWikiWordFrequencyButton: View {
+private struct PasteFirstNWikiWordFrequencyButton: View {
     @Binding var text: String
     
     @State private var showPopover = false
@@ -287,7 +287,7 @@ func validateEnWikiCountField(_ count: String) -> Bool {
     return true
 }
 
-fileprivate struct FirstNPopoverView: View {
+private struct FirstNPopoverView: View {
     @Binding var text: String
     @Binding var showPopover: Bool
     
@@ -316,7 +316,7 @@ fileprivate struct FirstNPopoverView: View {
     }
 }
 
-fileprivate struct InfoPopoverView: View {
+private struct InfoPopoverView: View {
     var body: some View {
         Text("Edit your known English words, one word or one phrase per line; then add them to or remove them from your known words list.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.")
             .infoStyle()

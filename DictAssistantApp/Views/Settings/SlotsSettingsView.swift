@@ -160,7 +160,7 @@ func dataToSettings(_ data: Data) -> Settings? {
     return settings
 }
 
-fileprivate let defaultSettings = Settings(
+private let defaultSettings = Settings(
     cropperStyle: CropperStyle.leadingBorder.rawValue,
     isCloseCropperWhenNotPlaying: true,
     maximumFrameRate: 4,
@@ -232,7 +232,7 @@ struct SlotsSettingsView: View {
     }
 }
 
-fileprivate struct InfoView: View {
+private struct InfoView: View {
     var body: some View {
         Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (exclude: global shortcut key, is show toast option, font name). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it. \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when preference settings changed, sorry for the trouble.")
             .font(.callout)
@@ -241,7 +241,7 @@ fileprivate struct InfoView: View {
     }
 }
 
-fileprivate struct ButtonsView: View {
+private struct ButtonsView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
 
     let selectedSlot: Slot?
@@ -297,7 +297,7 @@ fileprivate struct ButtonsView: View {
     @State private var showingAlert = false
 }
 
-fileprivate struct SlotsView: View {
+private struct SlotsView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
         entity: Slot.entity(),
@@ -362,7 +362,7 @@ fileprivate struct SlotsView: View {
         .padding()
     }
     
-    fileprivate func dumpSettings(from s: Settings) {
+    private func dumpSettings(from s: Settings) {
         cropperStyle = s.cropperStyle
         isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
         maximumFrameRate = s.maximumFrameRate

@@ -49,7 +49,7 @@ private struct InfoView: View {
     }
 }
 
-fileprivate struct DropTitleWordToggle: View {
+private struct DropTitleWordToggle: View {
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
 
     var body: some View {
@@ -61,7 +61,7 @@ fileprivate struct DropTitleWordToggle: View {
     }
 }
 
-fileprivate struct AddLineBreakBeforeTranslationToggle: View {
+private struct AddLineBreakBeforeTranslationToggle: View {
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     
     var body: some View {
@@ -72,7 +72,7 @@ fileprivate struct AddLineBreakBeforeTranslationToggle: View {
     }
 }
 
-fileprivate struct AddSpaceBeforeTranslationToggle: View {
+private struct AddSpaceBeforeTranslationToggle: View {
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     
     var body: some View {
@@ -83,7 +83,7 @@ fileprivate struct AddSpaceBeforeTranslationToggle: View {
     }
 }
 
-fileprivate struct DropFirstTitleWordInTranslationToggle: View {
+private struct DropFirstTitleWordInTranslationToggle: View {
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     
     var body: some View {
@@ -95,7 +95,7 @@ fileprivate struct DropFirstTitleWordInTranslationToggle: View {
     }
 }
 
-fileprivate struct JoinTranslationLinesToggle: View {
+private struct JoinTranslationLinesToggle: View {
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
     
     var body: some View {
@@ -106,7 +106,7 @@ fileprivate struct JoinTranslationLinesToggle: View {
     }
 }
 
-fileprivate struct ChineseCharacterConvertingPicker: View {
+private struct ChineseCharacterConvertingPicker: View {
     @State private var showPicker: Bool = false
     
     var binding: Binding<Bool> {

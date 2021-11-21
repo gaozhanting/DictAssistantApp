@@ -138,7 +138,7 @@ enum TheColorScheme: Int, Codable {
 
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
-fileprivate let defaultSlotKV: [String: Any] = [
+private let defaultSlotKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     IsCloseCropperWhenNotPlayingKey: true,
@@ -194,7 +194,7 @@ fileprivate let defaultSlotKV: [String: Any] = [
 ]
 
 // all defaults
-fileprivate let defaultKV: [String: Any] = defaultSlotKV.merging([
+private let defaultKV: [String: Any] = defaultSlotKV.merging([
     IsShowCurrentKnownKey: false,
     IsShowCurrentKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,

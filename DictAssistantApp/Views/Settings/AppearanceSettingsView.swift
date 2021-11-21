@@ -61,7 +61,7 @@ struct AppearanceSettingsView: View {
     }
 }
 
-fileprivate struct ContentRetentionToggle: View {
+private struct ContentRetentionToggle: View {
     @AppStorage(IsContentRetentionKey) private var isContentRetention = false
     
     var body: some View {
@@ -80,7 +80,7 @@ fileprivate struct ContentRetentionToggle: View {
     }
 }
 
-fileprivate struct ContentWindowShadowToggle: View {
+private struct ContentWindowShadowToggle: View {
     @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
     
     var body: some View {
@@ -99,7 +99,7 @@ fileprivate struct ContentWindowShadowToggle: View {
     }
 }
 
-fileprivate struct WithAnimationToggle: View {
+private struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
     
     var body: some View {
@@ -118,7 +118,7 @@ fileprivate struct WithAnimationToggle: View {
     }
 }
 
-fileprivate struct ContentStyleSettingView: View {
+private struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
@@ -257,7 +257,7 @@ private struct LandscapeMaxWidthTextField: View {
     }
 }
 
-fileprivate struct FontSettingView: View {
+private struct FontSettingView: View {
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     
@@ -304,7 +304,7 @@ fileprivate struct FontSettingView: View {
     }
 }
 
-fileprivate struct FontRateSetting: View {
+private struct FontRateSetting: View {
     @AppStorage(FontRateKey) private var fontRateKey: Double = 0.9
     
     func incrementStep() {
@@ -339,7 +339,7 @@ fileprivate struct FontRateSetting: View {
     }
 }
 
-fileprivate struct ColorSchemeSetting: View {
+private struct ColorSchemeSetting: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
 
     var body: some View {
@@ -370,7 +370,7 @@ private struct ColorSchemeInfo: View {
     }
 }
 
-fileprivate struct WordColorPicker: View {
+private struct WordColorPicker: View {
     @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
         
     var binding: Binding<Color> {
@@ -387,7 +387,7 @@ fileprivate struct WordColorPicker: View {
     }
 }
 
-fileprivate struct TransColorPicker: View {
+private struct TransColorPicker: View {
     @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     
     var binding: Binding<Color> {
@@ -404,7 +404,7 @@ fileprivate struct TransColorPicker: View {
     }
 }
 
-fileprivate struct BackgroundColorPicker: View {
+private struct BackgroundColorPicker: View {
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
     var binding: Binding<Color> {
@@ -421,7 +421,7 @@ fileprivate struct BackgroundColorPicker: View {
     }
 }
 
-fileprivate struct TextShadowToggle: View {
+private struct TextShadowToggle: View {
     @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
     
     var binding: Binding<Bool> {
@@ -443,7 +443,7 @@ fileprivate struct TextShadowToggle: View {
     }
 }
 
-fileprivate struct ShadowGroupSettings: View {
+private struct ShadowGroupSettings: View {
     @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
 
     var body: some View {
@@ -461,7 +461,7 @@ fileprivate struct ShadowGroupSettings: View {
     }
 }
 
-fileprivate struct ShadowColorPicker: View {
+private struct ShadowColorPicker: View {
     @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
     
     var binding: Binding<Color> {
@@ -478,7 +478,7 @@ fileprivate struct ShadowColorPicker: View {
     }
 }
 
-fileprivate struct ShadowRadiusPicker: View {
+private struct ShadowRadiusPicker: View {
     @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
     
     @State var showingAlert: Bool = false
@@ -510,7 +510,7 @@ fileprivate struct ShadowRadiusPicker: View {
     }
 }
 
-fileprivate struct ShadowXOffSetPicker: View {
+private struct ShadowXOffSetPicker: View {
     @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
     
     @State var showingAlert: Bool = false
@@ -542,7 +542,7 @@ fileprivate struct ShadowXOffSetPicker: View {
     }
 }
 
-fileprivate struct ShadowYOffSetPicker: View {
+private struct ShadowYOffSetPicker: View {
     @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
     
     @State var showingAlert: Bool = false
@@ -586,7 +586,7 @@ private struct ContentBackgroundColor: View {
     }
 }
 
-fileprivate struct ContentBackgroundVisualEffect: View {
+private struct ContentBackgroundVisualEffect: View {
     @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
 
     var body: some View {
@@ -604,7 +604,7 @@ fileprivate struct ContentBackgroundVisualEffect: View {
     }
 }
 
-fileprivate struct ContentBackGroundVisualEffectMaterial: View {
+private struct ContentBackGroundVisualEffectMaterial: View {
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
     let allCases: [(Int, String)] = [

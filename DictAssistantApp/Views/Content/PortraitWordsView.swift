@@ -27,7 +27,7 @@ struct PortraitWordsView: View {
     }
 }
 
-fileprivate struct BodyView: View {
+private struct BodyView: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
 
     @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
@@ -50,7 +50,7 @@ fileprivate struct BodyView: View {
     }
 }
 
-fileprivate struct PortraitBottomLeadingViewTwoRotation: View {
+private struct PortraitBottomLeadingViewTwoRotation: View {
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue

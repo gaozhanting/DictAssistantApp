@@ -8,7 +8,7 @@
 import SwiftUI
 import KeyboardShortcuts
 
-fileprivate struct PageTemplateView<Title: View, Content: View, NextButton: View>: View {
+private struct PageTemplateView<Title: View, Content: View, NextButton: View>: View {
     let title: Title
     let content: Content
     let nextButton: NextButton
@@ -50,7 +50,7 @@ fileprivate struct PageTemplateView<Title: View, Content: View, NextButton: View
     }
 }
 
-fileprivate struct WelcomeView: View {
+private struct WelcomeView: View {
     let next: () -> Void
 
     var body: some View {
@@ -65,7 +65,7 @@ fileprivate struct WelcomeView: View {
     }
 }
 
-fileprivate struct InitKnownView: View {
+private struct InitKnownView: View {
     let next: () -> Void
     
     @State private var count: String = String(defaultEnWikiCount)
@@ -147,7 +147,7 @@ func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
     return "Concise Oxford English Dictionary 11th"
 }
 
-fileprivate struct InstallPresetDictView: View {
+private struct InstallPresetDictView: View {
     let next: () -> Void
     
     @State var selectedDictName: String = defaultSelectedDictNameFromSystemPreferredLanguage()
@@ -207,7 +207,7 @@ private func openAppleDictionrayApp() {
         completionHandler: nil)
 }
 
-fileprivate struct InitGlobalKeyboardShortcutView: View {
+private struct InitGlobalKeyboardShortcutView: View {
     let next: () -> Void
     @Environment(\.endOnboarding) var endOnboarding
     @AppStorage(IsFinishedOnboardingKey) private var isFinishedOnboarding: Bool = false

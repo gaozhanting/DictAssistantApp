@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-fileprivate struct ToastView: View {
+private struct ToastView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
         entity: Slot.entity(),

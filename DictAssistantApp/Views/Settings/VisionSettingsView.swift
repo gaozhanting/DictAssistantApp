@@ -30,7 +30,7 @@ struct VisionSettingsView: View {
     }
 }
 
-fileprivate struct TRMinimumTextHeightSetting: View {
+private struct TRMinimumTextHeightSetting: View {
     @AppStorage(TRMinimumTextHeightKey) private var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     
     func resetToDefault() {
@@ -77,14 +77,14 @@ fileprivate struct TRMinimumTextHeightSetting: View {
     }
 }
 
-fileprivate struct MiniHeigthInfoPopoverView: View {
+private struct MiniHeigthInfoPopoverView: View {
     var body: some View {
         Text("Specify a floating-point number relative to the image height. \nFor example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. \nThe default value is 1/32, or 0.03125.")
             .infoStyle()
     }
 }
 
-fileprivate struct TRTextRecognitionLevelSetting: View {
+private struct TRTextRecognitionLevelSetting: View {
     @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     
     var body: some View {

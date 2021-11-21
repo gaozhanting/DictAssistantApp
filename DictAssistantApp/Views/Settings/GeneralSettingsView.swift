@@ -114,7 +114,7 @@ private struct KeyRecordingView: View {
     }
 }
 
-fileprivate struct ShowToastToggle: View {
+private struct ShowToastToggle: View {
     @AppStorage(ShowToastToggleKey) private var showToast: Bool = true
     
     var body: some View {

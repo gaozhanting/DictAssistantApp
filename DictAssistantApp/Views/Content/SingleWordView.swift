@@ -48,7 +48,7 @@ struct TextBodyTwisted: View {
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
 }
 
-fileprivate struct TextBody: View {
+private struct TextBody: View {
     let wordCell: WordCell
     
     var word: String {
@@ -162,7 +162,7 @@ private func openDict(_ word: String) {
     task.launch()
 }
 
-fileprivate struct TextWithShadow: View {
+private struct TextWithShadow: View {
     @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
     @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
@@ -190,7 +190,7 @@ fileprivate struct TextWithShadow: View {
 // refer:
 // title title2 : landscape
 // headline callout : portrait
-fileprivate struct TheText: View {
+private struct TheText: View {
     @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     var theWordColor: Color {
