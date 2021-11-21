@@ -28,34 +28,37 @@ extension KeyboardShortcuts.Name {
     static let showPreferencesPanel = Self("showPreferencesPanel")
 }
 
-private enum StepPlay {
-    case begin
-    case ready
+enum StepPlayPhase {
+    case defaultPhase
+    case windowsSettingPhase
 }
 
-private var stepPlay: StepPlay = .begin
+var stepPlayPhase: StepPlayPhase = .defaultPhase
+
+func makeWindowsForSetting() {
+    cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
+    cropperWindow.orderFrontRegardless()
+
+    let emptyView = EmptyView()
+        .background(VisualEffectView(material: .hudWindow))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    contentWindow.contentView = NSHostingView(rootView: emptyView)
+    contentWindow.orderFrontRegardless()
+}
 
 func registerGlobalKey() {
     KeyboardShortcuts.onKeyUp(for: .toggleStepPlay) {
         if !statusData.isPlaying {
-            switch stepPlay {
-            case .begin:
-                cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
-                cropperWindow.orderFrontRegardless()
-
-                let emptyView = EmptyView()
-                    .background(VisualEffectView(material: .hudWindow))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .ignoresSafeArea()
-                contentWindow.contentView = NSHostingView(rootView: emptyView)
-                contentWindow.orderFrontRegardless()
+            switch stepPlayPhase {
+            case .defaultPhase:
+                makeWindowsForSetting()
+                stepPlayPhase = .windowsSettingPhase
                 
-                stepPlay = .ready
-                
-            case .ready:
+            case .windowsSettingPhase:
                 startPlaying()
                 
-                stepPlay = .begin
+                stepPlayPhase = .defaultPhase
             }
         }
         else {
@@ -99,7 +102,7 @@ func registerGlobalKey() {
         if !statusData.isPlaying {
             startPlaying()
             
-            stepPlay = .begin
+            stepPlayPhase = .defaultPhase
         } else {
             stopPlaying()
         }

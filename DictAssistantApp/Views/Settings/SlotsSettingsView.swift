@@ -249,6 +249,14 @@ private struct SlotsView: View {
         
         if statusData.isPlaying {
             restartPlaying()
+        } else {
+            switch stepPlayPhase {
+            case .defaultPhase:
+                logger.info("do nothing special side-effect.")
+            case .windowsSettingPhase:
+                logger.info("do make windows same style as normal windowsSettingPhase, for setting.")
+                makeWindowsForSetting()
+            }
         }
     }
     
