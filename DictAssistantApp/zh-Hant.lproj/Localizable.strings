@@ -32,7 +32,7 @@
 "Phrases Panel" = "短語面板";
 "Add multi phrases" = "添加多個短語";
 "Remove multi phrases" = "刪除多個短語";
-"The phrases here aim as a database for the app to detect phrases. The App can only detect continuous phrases. The dataset is extracted from Oxford Concise Dict and enwiki words frequency list (hyphen phrases). You can add more phrases here. You can reset, to use this default dataset. You can deselect show phrases option to ignore it. When you add your custom dict entry, if the word is a phrase, it will be automatically added here." = "這裏短語庫的目的是讓App方便檢測出它們。App只能檢測出連續的短語。這個數據集是從牛津簡明詞典和EnWiKi詞條頻率表（連字符短語）中抽取的。您能添加更多。您也可以隨時重置為初始數據集。您可以在偏好設置英語欄中不勾選顯示詞條，以忽略它們。當您添加自定義詞條的時候，如果詞條是一個短語，它會自動也加在這兒。";
+"The phrases here aim as a database for the app to detect phrases. The App can only detect continuous phrases. The dataset is extracted from Oxford Concise Dict and enwiki words frequency list (hyphen phrases). You can add more phrases here. You can reset, to use this default dataset. You can deselect show phrases option to ignore it. When you add your custom dict entry, if the word is a phrase, it will be automatically added here." = "這裏短語庫的目的是讓App方便檢測出它們。App只能檢測出連續的短語。這個數據集是從牛津簡明詞典和EnWiKi詞條頻率表（連字符短語）中抽取的。您能添加更多。您也可以隨時重置為初始數據集。您可以在偏好設置英語欄中不勾選顯示短語，以忽略它們。當您添加自定義詞條的時候，如果詞條是一個短語，它會自動也加在這兒。";
 
 "Known Panel" = "已知詞匯面板";
 "All" = "顯示所有";
