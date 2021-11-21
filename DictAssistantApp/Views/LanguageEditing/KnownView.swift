@@ -80,9 +80,9 @@ private struct ConstantKnownView: View {
         TextEditor(text: Binding.constant(flavorKnown))
             .overlay(
                 Picker("", selection: $selectedFlavor) {
-                    Text("All").tag(DisplayFilter.all.rawValue)
-                    Text("Words").tag(DisplayFilter.words.rawValue)
-                    Text("Phrases").tag(DisplayFilter.phrases.rawValue)
+                    Text("All").font(.callout).tag(DisplayFilter.all.rawValue)
+                    Text("Words").font(.callout).tag(DisplayFilter.words.rawValue)
+                    Text("Phrases").font(.callout).tag(DisplayFilter.phrases.rawValue)
                 }
                 .labelsHidden()
                 .frame(maxWidth: 100)
