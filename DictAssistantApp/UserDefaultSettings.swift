@@ -524,7 +524,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsWithAnimationKey, \.isWithAnimation, IsWithAnimationKey)
 }
 
-func combineSlot<T>(
+private func combineSlot<T>(
     _ keypathUserDefaultValue: KeyPath<UserDefaults, T>,
     _ keypathSettingsValue: WritableKeyPath<Settings, T>,
     _ keypathName: String

@@ -223,71 +223,6 @@ private let defaultSettings = Settings(
     contentFrame: defaultContentFrame
 )
 
-private struct InfoView: View {
-    var body: some View {
-        Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (exclude: global shortcut key, is show toast option, font name). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it. \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when preference settings changed, sorry for the trouble.")
-            .font(.callout)
-            .padding()
-            .frame(width: 400)
-    }
-}
-
-private struct ButtonsView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-
-    let selectedSlot: Slot?
-    
-    var body: some View {
-        HStack {
-            Button("Add") {
-                let slot = Slot(context: managedObjectContext)
-                slot.color = colorToData(NSColor.random())
-                slot.label = ""
-                slot.settings = settingsToData(defaultSettings)
-                slot.createdDate = Date()
-                slot.isSelected = false
-                saveContext()
-            }
-            
-            Button("Clone") {
-                if let selectedSlot = selectedSlot {
-                    let slot = Slot(context: managedObjectContext)
-                    slot.color = colorToData(NSColor.random())
-                    slot.label = "\(selectedSlot.label ?? "") cloned"
-                    slot.settings = selectedSlot.settings
-                    slot.createdDate = Date()
-                    slot.isSelected = true
-                    selectedSlot.isSelected = false
-                    saveContext()
-                }
-            }
-            .disabled(selectedSlot == nil)
-            
-            Button("Delete All") {
-                showingAlert = true
-            }
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("Delete All"),
-                    message: Text("Are you sure? This action can't be undo."),
-                    primaryButton: .default(
-                        Text("Cancel"),
-                        action: { print("Cancelled") }
-                    ),
-                    secondaryButton: .destructive(
-                        Text("Delete"),
-                        action: batchDeleteAllSlots
-                    )
-                )
-            }
-        }
-        .padding(.vertical, 5)
-        .padding(.horizontal)
-    }
-    
-    @State private var showingAlert = false
-}
-
 private struct SlotsView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
@@ -301,21 +236,31 @@ private struct SlotsView: View {
         slots.first { $0.isSelected }
     }
     
+    func select(_ slot: Slot) {
+        let settings = dataToSettings(slot.settings!)!
+        
+        for slot in slots {
+            slot.isSelected = false
+        }
+        slot.isSelected = true
+        saveContext()
+        
+        dumpSettings(from: settings)
+        
+        if statusData.isPlaying {
+            restartPlaying()
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             GroupBox {
                 List {
                     ForEach(slots, id: \.createdDate) { slot in
-                        let settings = dataToSettings(slot.settings!)!
                         HStack {
                             HStack {
                                 Button(action: {
-                                    for slot in slots {
-                                        slot.isSelected = false
-                                    }
-                                    slot.isSelected = true
-                                    saveContext()
-                                    dumpSettings(from: settings)
+                                    select(slot)
                                 }) {
                                     Image(systemName: slot.isSelected ? "cube.fill" : "cube")
                                         .font(.title)
@@ -448,6 +393,71 @@ extension NSColor {
            blue:  .random(),
            alpha: 1.0
         )
+    }
+}
+
+private struct ButtonsView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+
+    let selectedSlot: Slot?
+    
+    var body: some View {
+        HStack {
+            Button("Add") {
+                let slot = Slot(context: managedObjectContext)
+                slot.color = colorToData(NSColor.random())
+                slot.label = ""
+                slot.settings = settingsToData(defaultSettings)
+                slot.createdDate = Date()
+                slot.isSelected = false
+                saveContext()
+            }
+            
+            Button("Clone") {
+                if let selectedSlot = selectedSlot {
+                    let slot = Slot(context: managedObjectContext)
+                    slot.color = colorToData(NSColor.random())
+                    slot.label = "\(selectedSlot.label ?? "") cloned"
+                    slot.settings = selectedSlot.settings
+                    slot.createdDate = Date()
+                    slot.isSelected = true
+                    selectedSlot.isSelected = false
+                    saveContext()
+                }
+            }
+            .disabled(selectedSlot == nil)
+            
+            Button("Delete All") {
+                showingAlert = true
+            }
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Delete All"),
+                    message: Text("Are you sure? This action can't be undo."),
+                    primaryButton: .default(
+                        Text("Cancel"),
+                        action: { print("Cancelled") }
+                    ),
+                    secondaryButton: .destructive(
+                        Text("Delete"),
+                        action: batchDeleteAllSlots
+                    )
+                )
+            }
+        }
+        .padding(.vertical, 5)
+        .padding(.horizontal)
+    }
+    
+    @State private var showingAlert = false
+}
+
+private struct InfoView: View {
+    var body: some View {
+        Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (exclude: global shortcut key, is show toast option, font name). This makes you switch them quickly. \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to prompt to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be automatically saved in it. \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when preference settings changed, sorry for the trouble.")
+            .font(.callout)
+            .padding()
+            .frame(width: 400)
     }
 }
 

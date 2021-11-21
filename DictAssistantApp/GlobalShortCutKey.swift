@@ -159,6 +159,11 @@ private func stopPlaying() {
     aVSessionAndTR.stopScreenCapture()
 }
 
+func restartPlaying() {
+    stopPlaying()
+    startPlaying()
+}
+
 // no resizable, not movable
 private func fixCropperWindow() {
     // remove .resizable otherwise can't mouse through
