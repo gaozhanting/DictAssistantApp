@@ -262,7 +262,7 @@ private struct InitGlobalKeyboardShortcutView: View {
                         Text("Playing:")
                             .padding(.bottom, 8)
                         Text("Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window and the content window.")
-                        Text("The cropper window has an animation stoke border, the content window has a translucency and vibrancy effect.")
+                        Text("The cropper window has an animation stoke border, the content window has a translucency and vibrancy effect. Don't overlap them.")
                             .font(.subheadline)
                             .padding(.bottom, 4)
                         Text("Step 2: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)")
