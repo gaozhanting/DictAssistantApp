@@ -80,6 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
         // some functions registers
         combineWindows()
+        combineFPS()
         combineEnglishSettings()
         autoSaveSlotSettings() // has states
 

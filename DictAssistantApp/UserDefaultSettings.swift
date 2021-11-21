@@ -417,6 +417,21 @@ func combineWindows() {
         .sink { _ in }
         .store(in: &subscriptions)
 }
+
+func combineFPS() {
+    UserDefaults.standard
+        .publisher(for: \.MaximumFrameRateKey)
+        .handleEvents(receiveOutput: { fps in
+            if statusData.isPlaying {
+                aVSessionAndTR.lastReconginzedTexts = []
+                aVSessionAndTR.stopScreenCapture()
+                aVSessionAndTR.startScreenCapture()
+            }
+            logger.info("did combine fps")
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
     
 // English settings combine trCallBack and more
 func combineEnglishSettings() {

@@ -54,7 +54,6 @@ private struct CloseCropperWhenNotPlayingToggle: View {
 
 private struct MaximumFrameRateSetting: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
-    @EnvironmentObject var statusData: StatusData
     
     var body: some View {
         HStack {
@@ -66,12 +65,10 @@ private struct MaximumFrameRateSetting: View {
                 return formatter
             }())
             .frame(width: 46)
-            .disabled(statusData.isPlaying)
             
             Button("Use default") {
                 maximumFrameRate = 4
             }
-            .disabled(statusData.isPlaying)
             
             MiniInfoView(arrowEdge: Edge.trailing) {
                 MaximumFrameRateInfoPopoverView()
