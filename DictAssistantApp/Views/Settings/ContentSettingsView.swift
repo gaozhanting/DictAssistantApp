@@ -24,20 +24,11 @@ struct ContentSettingsView: View {
             }
         }
         .overlay(
-            Button(action: { isShowingPopover = true }, label: {
-                Image(systemName: "questionmark").font(.body)
-            })
-                .clipShape(Circle())
-                .padding()
-                .shadow(radius: 1)
-                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
-                    InfoView()
-                })
-            ,
+            QuestionMarkView {
+                InfoView()
+            },
             alignment: .bottomTrailing)
     }
-    
-    @State private var isShowingPopover: Bool = false
 }
 
 private struct InfoView: View {
@@ -45,7 +36,7 @@ private struct InfoView: View {
         Text("If the content is empty when you did run playing, what you can do?\n1. Check if there indeed has some English text in cropper area \n2. Try to turn down the Minimum Text Height \n3. Try to use Text Recognition Level accurate level \n4. Check if the words in the cropper screen are not all in your known words list \n5. Make sure the Use Entry Mode is not only which will ignore Apple Dictionary \n6. Make sure you did selected a valid dictionary in your Apple Dictionary Preferences \n7. Replay (when sometimes you switch screens) \n\nHere are some tips for you:\n1. When you changed the Apple Dictionary Preferences, you need to restart this App(not restart the Apple Dictionary App) in order to take effect, in order to conform the reordered dictionaries you adjusted.\n2. In the content, you can right click (or command click) the word, and there are commands in contextual menu buttons for quick add/remove to known, add/remove noises. Remove From Known will only be available when you toggle Show Current Known Words on; and whether display Add To Noises or Remove From Noises are based on if the word is in noises or not.\n3. Some hotkeys: Option Click the word will add or remove to known; Command Click the word will speak the word using system speech voice; Shift Click the word will open the Dictionary App of the word.")
             .font(.callout)
             .padding()
-            .frame(width: 520, height: 350)
+            .frame(width: 520)
     }
 }
 

@@ -203,8 +203,6 @@ private let defaultSettings = Settings(
 )
 
 struct SlotsSettingsView: View {
-    @State private var isShowingPopover = false
-    
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "") {
@@ -213,16 +211,9 @@ struct SlotsSettingsView: View {
                     
                     SlotsView()
                         .overlay(
-                            Button(action: { isShowingPopover = true }, label: {
-                                Image(systemName: "questionmark").font(.body)
-                            })
-                                .clipShape(Circle())
-                                .padding()
-                                .shadow(radius: 1)
-                                .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
-                                    InfoView()
-                                })
-                            ,
+                            QuestionMarkView {
+                                InfoView()
+                            },
                             alignment: .bottomTrailing)
                     
                     Spacer()
@@ -237,7 +228,7 @@ private struct InfoView: View {
         Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (exclude: global shortcut key, is show toast option, font name). This makes you switch them quickly. \n\nBut, if you switch them when playing, the crop rectangle of screen recording won't switch. You should stop playing before switch them.  \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be auto saved in it. \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when preference settings changed, sorry for the trouble.")
             .font(.callout)
             .padding()
-            .frame(width: 400, height: 340)
+            .frame(width: 400)
     }
 }
 

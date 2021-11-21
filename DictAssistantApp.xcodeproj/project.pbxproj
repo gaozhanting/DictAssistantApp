@@ -324,6 +324,11 @@
 		446E88CC274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
 		446E88CD274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
 		446E88CE274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
+		446E88D0274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
+		446E88D1274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
+		446E88D2274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
+		446E88D3274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
+		446E88D4274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -411,6 +416,7 @@
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Spanish.dictionary.zip; sourceTree = "<group>"; };
 		446E88C9274A050200B1789B /* MiniInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniInfoView.swift; sourceTree = "<group>"; };
+		446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMarkView.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
@@ -586,6 +592,7 @@
 			children = (
 				442134F226AD3C4B00963441 /* VisualEffectView.swift */,
 				446E88C9274A050200B1789B /* MiniInfoView.swift */,
+				446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -963,6 +970,7 @@
 				4430EF0127328A5D003B098C /* PhrasesPersistence.swift in Sources */,
 				4430EF0227328A5D003B098C /* GBig.swift in Sources */,
 				4430EF0327328A5D003B098C /* UserDefaultSettings.swift in Sources */,
+				446E88D2274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
 				4430EF0427328A5D003B098C /* SlotsPersistence.swift in Sources */,
 				446E88CC274A050200B1789B /* MiniInfoView.swift in Sources */,
 				4430EF0527328A5D003B098C /* DictInstallView.swift in Sources */,
@@ -1030,6 +1038,7 @@
 				44383D8227328D9C00A564B5 /* PhrasesPersistence.swift in Sources */,
 				44383D8327328D9C00A564B5 /* GBig.swift in Sources */,
 				44383D8427328D9C00A564B5 /* UserDefaultSettings.swift in Sources */,
+				446E88D3274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
 				44383D8527328D9C00A564B5 /* SlotsPersistence.swift in Sources */,
 				446E88CD274A050200B1789B /* MiniInfoView.swift in Sources */,
 				44383D8627328D9C00A564B5 /* DictInstallView.swift in Sources */,
@@ -1097,6 +1106,7 @@
 				44408CC227159F7D00866BB9 /* PhrasesPersistence.swift in Sources */,
 				44408CC327159F7D00866BB9 /* GBig.swift in Sources */,
 				44408CC427159F7D00866BB9 /* UserDefaultSettings.swift in Sources */,
+				446E88D1274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
 				44408CC527159F7D00866BB9 /* SlotsPersistence.swift in Sources */,
 				446E88CB274A050200B1789B /* MiniInfoView.swift in Sources */,
 				44408CC627159F7D00866BB9 /* DictInstallView.swift in Sources */,
@@ -1164,6 +1174,7 @@
 				445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */,
 				44C0F24B270775AF006CFEFC /* GBig.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,
+				446E88D0274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
 				4453554727020B32007DB9C2 /* SlotsPersistence.swift in Sources */,
 				446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */,
 				44CA55F6270C73D4007D4053 /* DictInstallView.swift in Sources */,
@@ -1231,6 +1242,7 @@
 				44565FAD27329A6E00E7AD21 /* PhrasesPersistence.swift in Sources */,
 				44565FAE27329A6E00E7AD21 /* GBig.swift in Sources */,
 				44565FAF27329A6E00E7AD21 /* UserDefaultSettings.swift in Sources */,
+				446E88D4274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
 				44565FB027329A6E00E7AD21 /* SlotsPersistence.swift in Sources */,
 				446E88CE274A050200B1789B /* MiniInfoView.swift in Sources */,
 				44565FB127329A6E00E7AD21 /* DictInstallView.swift in Sources */,
