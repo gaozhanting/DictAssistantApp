@@ -61,63 +61,6 @@ struct AppearanceSettingsView: View {
     }
 }
 
-private struct ContentRetentionToggle: View {
-    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isContentRetention, label: {
-                Text("Make Content Retention")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            
-            MiniInfoView {
-                Text("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
-                    .font(.subheadline)
-                    .padding()
-            }
-        }
-    }
-}
-
-private struct ContentWindowShadowToggle: View {
-    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isShowWindowShadow, label: {
-                Text("Show Content Window Shadow")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            
-            MiniInfoView {
-                Text("Notice window shadow may mess up content.")
-                    .font(.subheadline)
-                    .padding()
-            }
-        }
-    }
-}
-
-private struct WithAnimationToggle: View {
-    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isWithAnimation, label: {
-                Text("With animation")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            
-            MiniInfoView {
-                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
-                    .font(.subheadline)
-                    .padding()
-            }
-        }
-    }
-}
-
 private struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
@@ -339,37 +282,6 @@ private struct FontRateSetting: View {
     }
 }
 
-private struct ColorSchemeSetting: View {
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
-
-    var body: some View {
-        HStack {
-            Picker("", selection: $theColorScheme) {
-                Text("Light").tag(TheColorScheme.light.rawValue)
-                Text("Dark").tag(TheColorScheme.dark.rawValue)
-                Text("System").tag(TheColorScheme.system.rawValue)
-                Text("System Reversed").tag(TheColorScheme.systemReversed.rawValue)
-            }
-            .labelsHidden()
-            .pickerStyle(MenuPickerStyle())
-            .frame(width: 160)
-            .help("This will effect on visual effect background and system colors.")
-            
-            MiniInfoView {
-                ColorSchemeInfo()
-                    .infoStyle()
-            }
-        }
-    }
-}
-
-private struct ColorSchemeInfo: View {
-    var body: some View {
-        Text("Note: if you select System or System Reversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors.")
-            .infoStyle()
-    }
-}
-
 private struct WordColorPicker: View {
     @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
         
@@ -443,6 +355,7 @@ private struct TextShadowToggle: View {
     }
 }
 
+// MARK: Shadow Group
 private struct ShadowGroupSettings: View {
     @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
 
@@ -631,6 +544,94 @@ private struct ContentBackGroundVisualEffectMaterial: View {
             }
         }
         .pickerStyle(MenuPickerStyle())
+    }
+}
+
+private struct ColorSchemeSetting: View {
+    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+
+    var body: some View {
+        HStack {
+            Picker("", selection: $theColorScheme) {
+                Text("Light").tag(TheColorScheme.light.rawValue)
+                Text("Dark").tag(TheColorScheme.dark.rawValue)
+                Text("System").tag(TheColorScheme.system.rawValue)
+                Text("System Reversed").tag(TheColorScheme.systemReversed.rawValue)
+            }
+            .labelsHidden()
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 160)
+            .help("This will effect on visual effect background and system colors.")
+            
+            MiniInfoView {
+                ColorSchemeInfo()
+                    .infoStyle()
+            }
+        }
+    }
+}
+
+private struct ColorSchemeInfo: View {
+    var body: some View {
+        Text("Note: if you select System or System Reversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors.")
+            .infoStyle()
+    }
+}
+
+private struct ContentWindowShadowToggle: View {
+    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isShowWindowShadow, label: {
+                Text("Show Content Window Shadow")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            
+            MiniInfoView {
+                Text("Notice window shadow may mess up content.")
+                    .font(.subheadline)
+                    .padding()
+            }
+        }
+    }
+}
+
+private struct WithAnimationToggle: View {
+    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isWithAnimation, label: {
+                Text("With animation")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            
+            MiniInfoView {
+                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
+                    .font(.subheadline)
+                    .padding()
+            }
+        }
+    }
+}
+
+private struct ContentRetentionToggle: View {
+    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $isContentRetention, label: {
+                Text("Make Content Retention")
+            })
+            .toggleStyle(CheckboxToggleStyle())
+            
+            MiniInfoView {
+                Text("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
+                    .font(.subheadline)
+                    .padding()
+            }
+        }
     }
 }
 

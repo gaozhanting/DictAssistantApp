@@ -144,7 +144,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 extension AppDelegate {
-    // MARK:- changeFont trigger from FontPanel
+    // MARK: changeFont trigger from FontPanel
     // must adding @IBAction; otherwise will not be called when user select fonts from FontPanel
     @IBAction func changeFont(_ sender: NSFontManager?) {
         guard let sender = sender else { return assertionFailure() }

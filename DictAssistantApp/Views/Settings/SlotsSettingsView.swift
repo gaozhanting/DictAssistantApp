@@ -9,6 +9,27 @@ import SwiftUI
 import Preferences
 import Vision
 
+struct SlotsSettingsView: View {
+    var body: some View {
+        Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: "") {
+                HStack {
+                    Spacer()
+                    
+                    SlotsView()
+                        .overlay(
+                            QuestionMarkView {
+                                InfoView()
+                            },
+                            alignment: .bottomTrailing)
+                    
+                    Spacer()
+                }
+            }
+        }
+    }
+}
+
 struct Settings: Codable {
     // Recording
     var cropperStyle: Int
@@ -201,27 +222,6 @@ private let defaultSettings = Settings(
     cropperFrame: defaultCropperFrame,
     contentFrame: defaultContentFrame
 )
-
-struct SlotsSettingsView: View {
-    var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "") {
-                HStack {
-                    Spacer()
-                    
-                    SlotsView()
-                        .overlay(
-                            QuestionMarkView {
-                                InfoView()
-                            },
-                            alignment: .bottomTrailing)
-                    
-                    Spacer()
-                }
-            }
-        }
-    }
-}
 
 private struct InfoView: View {
     var body: some View {
@@ -439,6 +439,7 @@ extension CGFloat {
         return CGFloat(arc4random()) / CGFloat(UInt32.max)
     }
 }
+
 extension NSColor {
     static func random() -> NSColor {
         return NSColor(

@@ -7,6 +7,18 @@
 
 import SwiftUI
 
+struct ToastOnView: View {
+    var body: some View {
+        ToastView(imageSystemName: "FullToast", info: "ON")
+    }
+}
+
+struct ToastOffView: View {
+    var body: some View {
+        ToastView(imageSystemName: "EmptyToast", info: "OFF")
+    }
+}
+
 private struct ToastView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
@@ -53,18 +65,6 @@ private struct ToastView: View {
         .foregroundColor(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(VisualEffectView(material: .underWindowBackground))
-    }
-}
-
-struct ToastOnView: View {
-    var body: some View {
-        ToastView(imageSystemName: "FullToast", info: "ON")
-    }
-}
-
-struct ToastOffView: View {
-    var body: some View {
-        ToastView(imageSystemName: "EmptyToast", info: "OFF")
     }
 }
 

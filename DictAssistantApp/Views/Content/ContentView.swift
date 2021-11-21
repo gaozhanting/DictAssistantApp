@@ -13,7 +13,7 @@ struct ContentView: View {
     @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     
     var body: some View {
-        ContentView0()
+        ContentModeView()
             .environment(\.colorScheme, toSystemColorScheme(from: theColorScheme, with: colorScheme))
     }
 }
@@ -38,7 +38,7 @@ private func toSystemColorScheme(from theColorScheme: Int, with systemColorSchem
     }
 }
 
-struct ContentView0: View {
+private struct ContentModeView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     var body: some View {

@@ -8,6 +8,39 @@
 import SwiftUI
 import KeyboardShortcuts
 
+struct OnboardingView: View {
+
+    @State private var currentPage: OnboardingPage = .welcome
+    private let pages: [OnboardingPage]
+    
+    init(pages: [OnboardingPage]) {
+        self.pages = pages
+    }
+    
+    var body: some View {
+        VStack {
+            ForEach(pages, id: \.self) { page in
+                if page == currentPage {
+                    page.view(next: showNextPage)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                        .transition(AnyTransition.asymmetric(
+//                                        insertion: .move(edge: .trailing),
+//                                        removal: .move(edge: .leading))
+//                        )
+//                        .animation(.default)
+                }
+            }
+        }
+    }
+    
+    private func showNextPage() {
+        guard let currentIndex = pages.firstIndex(of: currentPage), pages.count > currentIndex + 1 else {
+            return
+        }
+        currentPage = pages[currentIndex + 1]
+    }
+}
+
 private struct PageTemplateView<Title: View, Content: View, NextButton: View>: View {
     let title: Title
     let content: Content
@@ -121,7 +154,7 @@ private struct InitKnownView: View {
     }
 }
 
-func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
+private func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
     for language in Locale.preferredLanguages {
 //        if language.contains("zh-Hans") { return "英漢字典CDic" } // for testing
         if language.contains("zh-Hans") { return "简明英汉字典增强版" }
@@ -297,39 +330,6 @@ enum OnboardingPage: CaseIterable {
         case .initGlobalKeyboardShortcut:
             InitGlobalKeyboardShortcutView(next: next)
         }
-    }
-}
-
-struct OnboardingView: View {
-
-    @State private var currentPage: OnboardingPage = .welcome
-    private let pages: [OnboardingPage]
-    
-    init(pages: [OnboardingPage]) {
-        self.pages = pages
-    }
-    
-    var body: some View {
-        VStack {
-            ForEach(pages, id: \.self) { page in
-                if page == currentPage {
-                    page.view(next: showNextPage)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                        .transition(AnyTransition.asymmetric(
-//                                        insertion: .move(edge: .trailing),
-//                                        removal: .move(edge: .leading))
-//                        )
-//                        .animation(.default)
-                }
-            }
-        }
-    }
-    
-    private func showNextPage() {
-        guard let currentIndex = pages.firstIndex(of: currentPage), pages.count > currentIndex + 1 else {
-            return
-        }
-        currentPage = pages[currentIndex + 1]
     }
 }
 

@@ -22,7 +22,7 @@ struct SingleWordView: View {
 
 }
 
-struct TextBodyTwisted: View {
+private struct TextBodyTwisted: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     let wordCell: WordCell
