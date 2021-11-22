@@ -263,7 +263,7 @@ private struct PasteFirstNWikiWordFrequencyButton: View {
                     alignment: .bottomLeading)
         }
         .buttonStyle(PlainButtonStyle())
-        .popover(isPresented: $showPopover, arrowEdge: .bottom, content: {
+        .popover(isPresented: $showPopover, arrowEdge: .top, content: {
             FirstNPopoverView(text: $text, showPopover: $showPopover)
         })
         .help("Paste first N from first 100_000 of Wiki English word frequency list")
@@ -291,7 +291,7 @@ private struct FirstNPopoverView: View {
     @Binding var text: String
     @Binding var showPopover: Bool
     
-    @State var count: String = String(maxEnWikiCount)
+    @State var count: String = String(defaultEnWikiCount)
     @State var showingAlert: Bool = false
     
     func onCommit() {
