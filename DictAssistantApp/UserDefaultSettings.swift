@@ -418,7 +418,7 @@ func combineWindows() {
         .store(in: &subscriptions)
 }
 
-func combineFPS() {
+func combineForRestartScreenCapture() {
     UserDefaults.standard
         .publisher(for: \.MaximumFrameRateKey)
         .handleEvents(receiveOutput: { fps in
@@ -428,6 +428,19 @@ func combineFPS() {
                 aVSessionAndTR.startScreenCapture()
             }
             logger.info("did combine fps")
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.IsContentRetentionKey)
+        .handleEvents(receiveOutput: { fps in
+            if statusData.isPlaying {
+                aVSessionAndTR.lastReconginzedTexts = []
+                aVSessionAndTR.stopScreenCapture()
+                aVSessionAndTR.startScreenCapture()
+            }
+            logger.info("did combine content retention")
         })
         .sink { _ in }
         .store(in: &subscriptions)
