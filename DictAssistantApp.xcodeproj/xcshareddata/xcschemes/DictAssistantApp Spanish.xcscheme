@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "44565F8927329A6E00E7AD21"
-               BuildableName = "EnglishAssistant.app"
+               BuildableName = "FreedomEnglish.app"
                BlueprintName = "DictAssistantApp Spanish"
                ReferencedContainer = "container:DictAssistantApp.xcodeproj">
             </BuildableReference>
@@ -47,7 +47,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "44565F8927329A6E00E7AD21"
-            BuildableName = "EnglishAssistant.app"
+            BuildableName = "FreedomEnglish.app"
             BlueprintName = "DictAssistantApp Spanish"
             ReferencedContainer = "container:DictAssistantApp.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "44565F8927329A6E00E7AD21"
-            BuildableName = "EnglishAssistant.app"
+            BuildableName = "FreedomEnglish.app"
             BlueprintName = "DictAssistantApp Spanish"
             ReferencedContainer = "container:DictAssistantApp.xcodeproj">
          </BuildableReference>

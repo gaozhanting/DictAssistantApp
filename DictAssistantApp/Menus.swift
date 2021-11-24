@@ -36,7 +36,7 @@ func constructMenuBar() {
     menu.setSubmenu(helpMenu, for: helpMenuItem)
     menu.addItem(NSMenuItem.separator())
     
-    menu.addItem(NSMenuItem(title: NSLocalizedString("Quit", comment: ""), action: #selector(AppDelegate.exit), keyEquivalent: ""))
+    menu.addItem(NSMenuItem(title: NSLocalizedString("Quit Freedom English", comment: ""), action: #selector(AppDelegate.exit), keyEquivalent: "q"))
     
     statusItem.menu = menu
 }
