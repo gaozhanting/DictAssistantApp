@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
-//        Dictionaries.tryPrint(from: "lazyworm-ec copy.csv")
+//        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
         
         // deprecated, updating app version, run appUpdate
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
@@ -65,6 +65,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         constructMenuBar()
         // end
         
+        // what's this?
+//    CoreData: debug: PostSaveMaintenance: fileSize 29758792 greater than prune threshold
+//    CoreData: debug: PostSaveMaintenance: incremental_vacuum with freelist_count - 8747 and pages_to_free 4718
+//    CoreData: annotation: PostSaveMaintenance: wal_checkpoint(TRUNCATE)
+//    CoreData: debug: PostSaveMaintenance: fileSize 36466152 greater than prune threshold
+//    CoreData: annotation: PostSaveMaintenance: wal_checkpoint(TRUNCATE)
+//    CoreData: debug: PostSaveMaintenance: fileSize 9002232 greater than prune threshold
+//    CoreData: annotation: PostSaveMaintenance: wal_checkpoint(TRUNCATE)
 //        batchResetDefaultEntries()
         
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {

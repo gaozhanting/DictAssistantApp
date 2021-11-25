@@ -31,7 +31,7 @@ public struct Dictionaries {
                 let word = String(content[wordRange])
                 
                 let trans = String(content[transRange])
-                let transM = trans.replacingOccurrences(of: "\n", with: "")
+                let transM = trans.replacingOccurrences(of: "\n", with: " ")
                 
                 print("\(word),\(transM)")
             }
