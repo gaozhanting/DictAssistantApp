@@ -27,6 +27,7 @@ let package = Package(
                 .process("Resources/lemma.en.txt"),
                 .process("Resources/phrases.txt"),
                 .process("Resources/noises.txt"),
+                .process("Resources/lazyworm_ec.csv"),
             ]),
         .testTarget(
             name: "DataBasesTests",
