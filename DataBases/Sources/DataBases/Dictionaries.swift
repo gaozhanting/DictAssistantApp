@@ -7,9 +7,8 @@
 
 import Foundation
 
-
-
 public struct Dictionaries {
+    // debug and generate csv file, copy the print console, that is the csv file.
     public static func tryPrint(from filename: String) -> Void {
         guard let path = Bundle.module.url(forResource: filename, withExtension: nil)
         else {
@@ -41,8 +40,6 @@ public struct Dictionaries {
             fatalError("fatalError in tryPrint")
         }
     }
-    
-    
     
     public static func readSmallDict(from filename: String) -> [String: String] {
         guard let path = Bundle.module.url(forResource: filename, withExtension: nil)
