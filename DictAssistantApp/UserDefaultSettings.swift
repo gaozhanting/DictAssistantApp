@@ -491,7 +491,7 @@ func combineEnglishSettings() {
             case .zhS:
                 currentEntries = getAllZhSEntries()
             case .jap:
-                currentEntries = getAllZhSEntries()
+                currentEntries = getAllJapEntries()
             case .none:
                 currentEntries = [:]
             }

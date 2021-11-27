@@ -40,6 +40,7 @@
 		442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */; };
 		442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2995275259C5000B75E2 /* AppleDictionaryService.swift */; };
 		442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */; };
+		442A299A275268A7000B75E2 /* JapEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
 		4430EEE427328A5D003B098C /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
 		4430EEE527328A5D003B098C /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
@@ -393,6 +394,7 @@
 		442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhichEntriesPersistence.swift; sourceTree = "<group>"; };
 		442A2995275259C5000B75E2 /* AppleDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDictionaryService.swift; sourceTree = "<group>"; };
 		442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInDictionaryService.swift; sourceTree = "<group>"; };
+		442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapEntriesPersistence.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4430EF2E27328A5D003B098C /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44383DAF27328D9C00A564B5 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -696,8 +698,9 @@
 		44A451A6274FD0F5001DE18D /* Dictionaries */ = {
 			isa = PBXGroup;
 			children = (
-				44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */,
 				442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */,
+				44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */,
+				442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1176,6 +1179,7 @@
 				442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */,
 				442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
+				442A299A275268A7000B75E2 /* JapEntriesPersistence.swift in Sources */,
 				44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */,
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,

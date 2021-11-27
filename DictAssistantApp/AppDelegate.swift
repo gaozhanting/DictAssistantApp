@@ -18,7 +18,8 @@ import KeyboardShortcuts
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     func forDevelop() {
-        batchInsertZhSEntries()
+//        batchResetZhSEntries()
+        batchResetJapEntries()
     }
     
     // Notice order

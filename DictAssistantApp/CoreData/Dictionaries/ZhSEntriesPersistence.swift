@@ -28,7 +28,7 @@ func getAllZhSEntries() -> Dictionary<String, String> {
     }
 }
 
-func batchInsertZhSEntries() {
+func batchResetZhSEntries() {
     batchDeleteAllZhSEntries {
         let entries: [(String, String)] = zhsEntriesDB.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)

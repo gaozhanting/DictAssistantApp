@@ -55,3 +55,4 @@ let oxford3000Vocabulary = Vocabularies.read(from: "oxford_3000.txt")
 let wikiFrequencyWordsList = Vocabularies.read(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")
 
 let zhsEntriesDB = Vocabularies.readToArray(from: "lazyworm_ec.csv")
+let japEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Japanese.csv")

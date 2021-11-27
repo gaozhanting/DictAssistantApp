@@ -9,6 +9,15 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="JapEntry" representedClassName="JapEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="trans" attributeType="String"/>
+        <attribute name="word" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="word"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="Known" representedClassName="Known" syncable="YES" codeGenerationType="class">
         <attribute name="word" attributeType="String"/>
         <uniquenessConstraints>
@@ -61,5 +70,6 @@
         <element name="Phrase" positionX="-9" positionY="72" width="128" height="44"/>
         <element name="Slot" positionX="0" positionY="54" width="128" height="104"/>
         <element name="ZhSEntry" positionX="-9" positionY="72" width="128" height="59"/>
+        <element name="JapEntry" positionX="-9" positionY="72" width="128" height="59"/>
     </elements>
 </model>
