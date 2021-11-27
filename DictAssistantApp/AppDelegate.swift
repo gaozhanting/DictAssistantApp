@@ -23,11 +23,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-//        forDevelop()
-        
-//        DictionaryServices.define("continuously")
-        
 //        return // for swiftui preview
+        
+//        forDevelop()
         
 //        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
         

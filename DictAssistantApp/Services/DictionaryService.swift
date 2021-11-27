@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import DataBases
 
+// cachedDict is useful when using Apple Dict
 var cachedDict: [String: String?] = [:]
-
 func cachedDictionaryServicesDefine(_ word: String) -> String? {
     if let trans = cachedDict[word] {
         return trans
@@ -19,32 +18,43 @@ func cachedDictionaryServicesDefine(_ word: String) -> String? {
     return trans
 }
 
-func innerDefine(_ word: String) -> String? {
-    return currentEntries[word]
-}
-
 private func queryDefine(_ word: String) -> String? {
     let mode = UseEntryMode.init(rawValue: UserDefaults.standard.integer(forKey: UseEntryModeKey))!
     switch mode {
     case .notUse:
-        return innerDefine(word)
-//        return DictionaryServices.define(word)
+        return mixDefine(word)
     case .asFirstPriority:
-        if let entry = queryEntry(word: word) {
-            return entry
+        if let trans = queryEntry(word: word) {
+            return trans
         }
-        return innerDefine(word)
-//        return DictionaryServices.define(word)
+        return mixDefine(word)
     case .asLastPriority:
-//        if let define = DictionaryServices.define(word) {
-//            return define
-//        }
-        if let define = innerDefine(word) {
-            return define
+        if let trans = mixDefine(word) {
+            return trans
         }
         return queryEntry(word: word)
     case .only:
         return queryEntry(word: word)
+    }
+}
+
+private func mixDefine(_ word: String) -> String? {
+    let mode = UseAppleDictMode.init(rawValue: UserDefaults.standard.integer(forKey: UseAppleDictModeKey))!
+    switch mode {
+    case .notUse:
+        return builtInDefine(word)
+    case .afterBuiltIn:
+        if let trans = builtInDefine(word) {
+            return trans
+        }
+        return appleDefine(word)
+    case .beforeBuiltIn:
+        if let trans = appleDefine(word) {
+            return trans
+        }
+        return builtInDefine(word)
+    case .only:
+        return appleDefine(word)
     }
 }
 

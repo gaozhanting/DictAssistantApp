@@ -39,6 +39,8 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 let TitleWordKey = "TitleWordKey"
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
+let BuiltInLanguageKey = "BuiltInLanguageKey"
+let UseAppleDictModeKey = "UseAppleDictModeKey"
 let UseEntryModeKey = "UseEntryModeKey"
 
 // Content
@@ -99,6 +101,19 @@ enum LemmaSearchLevel: Int, Codable {
     case open = 2
 }
 
+enum BuiltInLanguage: Int, Codable {
+    case zhS = 0
+    case jap = 1
+    case none = 2
+}
+
+enum UseAppleDictMode: Int, Codable {
+    case notUse = 0
+    case afterBuiltIn = 1 // default
+    case beforeBuiltIn = 2
+    case only = 3
+}
+
 enum UseEntryMode: Int, Codable {
     case notUse = 0
     case asFirstPriority = 1
@@ -152,6 +167,8 @@ private let defaultSlotKV: [String: Any] = [
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
+    BuiltInLanguageKey: BuiltInLanguage.zhS.rawValue,
+    UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
     // Content
@@ -249,6 +266,14 @@ extension UserDefaults {
     @objc var IsShowPhrasesKey: Bool {
         get { return bool(forKey: "IsShowPhrasesKey") }
         set { set(newValue, forKey: "IsShowPhrasesKey") }
+    }
+    @objc var BuiltInLanguageKey: Int {
+        get { return integer(forKey: "BuiltInLanguageKey") }
+        set { set(newValue, forKey: "BuiltInLanguageKey") }
+    }
+    @objc var UseAppleDictModeKey: Bool {
+        get { return bool(forKey: "UseAppleDictModeKey") }
+        set { set(newValue, forKey: "UseAppleDictModeKey") }
     }
     @objc var UseEntryModeKey: Int {
         get { return integer(forKey: "UseEntryModeKey") }
@@ -454,6 +479,32 @@ func combineEnglishSettings() {
     UserDefaults.standard
         .publisher(for: \.IsShowPhrasesKey)
         .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.BuiltInLanguageKey)
+        .handleEvents(receiveOutput: { builtInLanguage in
+            switch BuiltInLanguage(rawValue: builtInLanguage)! {
+            case .zhS:
+                currentEntries = getAllZhSEntries()
+            case .jap:
+                currentEntries = getAllZhSEntries()
+            case .none:
+                currentEntries = [:]
+            }
+            cachedDict = [:]
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.UseAppleDictModeKey)
+        .handleEvents(receiveOutput: { _ in
+            cachedDict = [:]
             trCallBack()
         })
         .sink { _ in }

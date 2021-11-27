@@ -20,6 +20,12 @@ struct EnglishSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
+            Preferences.Section(title: NSLocalizedString("Use Build In Dict:", comment: "")) {
+                BuiltInLanguagePicker()
+            }
+            Preferences.Section(title: NSLocalizedString("Use Apple Dict:", comment: "")) {
+                UseAppleDictPicker()
+            }
             Preferences.Section(title: NSLocalizedString("Use Entry Mode:", comment: "")) {
                 UseEntryModePicker()
             }
@@ -91,6 +97,36 @@ private struct ShowPhrasesToggle: View {
         })
             .toggleStyle(CheckboxToggleStyle())
             .help("Select it when you want display all phrase words.")
+    }
+}
+
+private struct BuiltInLanguagePicker: View {
+    @AppStorage(BuiltInLanguageKey) private var builtInLanguage: Int = BuiltInLanguage.zhS.rawValue
+    
+    var body: some View {
+        Picker("", selection: $builtInLanguage) {
+            Text("zhS").tag(BuiltInLanguage.zhS.rawValue)
+            Text("jap").tag(BuiltInLanguage.jap.rawValue)
+        }
+        .labelsHidden()
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 150)
+    }
+}
+
+private struct UseAppleDictPicker: View {
+    @AppStorage(UseAppleDictModeKey) private var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
+    
+    var body: some View {
+        Picker("", selection: $useAppleDictMode) {
+            Text("not use").tag(UseAppleDictMode.notUse.rawValue)
+            Text("after built in").tag(UseAppleDictMode.afterBuiltIn.rawValue)
+            Text("before built in").tag(UseAppleDictMode.beforeBuiltIn.rawValue)
+            Text("only").tag(UseAppleDictMode.only.rawValue)
+        }
+        .labelsHidden()
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 150)
     }
 }
 

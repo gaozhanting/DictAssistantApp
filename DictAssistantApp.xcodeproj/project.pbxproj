@@ -37,6 +37,9 @@
 		442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
 		4422950E272CF77A0015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
 		4422950F272CF7930015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
+		442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */; };
+		442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2995275259C5000B75E2 /* AppleDictionaryService.swift */; };
+		442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
 		4430EEE427328A5D003B098C /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
 		4430EEE527328A5D003B098C /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
@@ -237,11 +240,6 @@
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
 		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
 		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		444D02F9274FD44F009EBF59 /* CurrentEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444D02F8274FD44F009EBF59 /* CurrentEntries.swift */; };
-		444D02FA274FD44F009EBF59 /* CurrentEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444D02F8274FD44F009EBF59 /* CurrentEntries.swift */; };
-		444D02FB274FD44F009EBF59 /* CurrentEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444D02F8274FD44F009EBF59 /* CurrentEntries.swift */; };
-		444D02FC274FD44F009EBF59 /* CurrentEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444D02F8274FD44F009EBF59 /* CurrentEntries.swift */; };
-		444D02FD274FD44F009EBF59 /* CurrentEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444D02F8274FD44F009EBF59 /* CurrentEntries.swift */; };
 		445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
 		445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
 		4453554727020B32007DB9C2 /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
@@ -392,6 +390,9 @@
 		442134E426AC32A700963441 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
+		442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhichEntriesPersistence.swift; sourceTree = "<group>"; };
+		442A2995275259C5000B75E2 /* AppleDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDictionaryService.swift; sourceTree = "<group>"; };
+		442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInDictionaryService.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4430EF2E27328A5D003B098C /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44383DAF27328D9C00A564B5 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -406,7 +407,6 @@
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
 		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
 		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
-		444D02F8274FD44F009EBF59 /* CurrentEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentEntries.swift; sourceTree = "<group>"; };
 		445354C52701D5F2007DB9C2 /* PersistenceStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStack.swift; sourceTree = "<group>"; };
 		445355422701E45F007DB9C2 /* PhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPersistence.swift; sourceTree = "<group>"; };
 		4453554627020B32007DB9C2 /* SlotsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsPersistence.swift; sourceTree = "<group>"; };
@@ -626,7 +626,8 @@
 			isa = PBXGroup;
 			children = (
 				4453554D27020DDA007DB9C2 /* DictionaryService.swift */,
-				444D02F8274FD44F009EBF59 /* CurrentEntries.swift */,
+				442A2995275259C5000B75E2 /* AppleDictionaryService.swift */,
+				442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -696,6 +697,7 @@
 			isa = PBXGroup;
 			children = (
 				44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */,
+				442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1008,7 +1010,6 @@
 				4430EF1127328A5D003B098C /* NoisesPersistence.swift in Sources */,
 				4430EF1227328A5D003B098C /* DictInstallPanel.swift in Sources */,
 				4430EF1327328A5D003B098C /* DictionaryService.swift in Sources */,
-				444D02FB274FD44F009EBF59 /* CurrentEntries.swift in Sources */,
 				4430EF1427328A5D003B098C /* app.xcdatamodeld in Sources */,
 				4430EF1527328A5D003B098C /* CropperWindow.swift in Sources */,
 				4430EF1627328A5D003B098C /* ToastView.swift in Sources */,
@@ -1077,7 +1078,6 @@
 				44383D9227328D9C00A564B5 /* NoisesPersistence.swift in Sources */,
 				44383D9327328D9C00A564B5 /* DictInstallPanel.swift in Sources */,
 				44383D9427328D9C00A564B5 /* DictionaryService.swift in Sources */,
-				444D02FC274FD44F009EBF59 /* CurrentEntries.swift in Sources */,
 				44383D9527328D9C00A564B5 /* app.xcdatamodeld in Sources */,
 				44383D9627328D9C00A564B5 /* CropperWindow.swift in Sources */,
 				44383D9727328D9C00A564B5 /* ToastView.swift in Sources */,
@@ -1146,7 +1146,6 @@
 				44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */,
 				442126D62719B5F100CEF786 /* DictInstallPanel.swift in Sources */,
 				44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */,
-				444D02FA274FD44F009EBF59 /* CurrentEntries.swift in Sources */,
 				44408CD127159F7D00866BB9 /* app.xcdatamodeld in Sources */,
 				44408CD227159F7D00866BB9 /* CropperWindow.swift in Sources */,
 				44408CD327159F7D00866BB9 /* ToastView.swift in Sources */,
@@ -1175,11 +1174,13 @@
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
 				4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */,
 				442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */,
+				442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
 				44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */,
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
+				442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */,
@@ -1191,7 +1192,6 @@
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
-				444D02F9274FD44F009EBF59 /* CurrentEntries.swift in Sources */,
 				44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
@@ -1208,6 +1208,7 @@
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
 				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
+				442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
@@ -1285,7 +1286,6 @@
 				44565FBD27329A6E00E7AD21 /* NoisesPersistence.swift in Sources */,
 				44565FBE27329A6E00E7AD21 /* DictInstallPanel.swift in Sources */,
 				44565FBF27329A6E00E7AD21 /* DictionaryService.swift in Sources */,
-				444D02FD274FD44F009EBF59 /* CurrentEntries.swift in Sources */,
 				44565FC027329A6E00E7AD21 /* app.xcdatamodeld in Sources */,
 				44565FC127329A6E00E7AD21 /* CropperWindow.swift in Sources */,
 				44565FC227329A6E00E7AD21 /* ToastView.swift in Sources */,

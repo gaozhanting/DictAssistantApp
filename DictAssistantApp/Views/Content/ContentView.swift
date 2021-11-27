@@ -53,7 +53,7 @@ private struct ContentModeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static func define(_ word: String) -> String {
-        return DictionaryServices.define(word) ?? ""
+        return appleDefine(word) ?? ""
     }
     
     static let displayedWords = DisplayedWords(wordCells: [
