@@ -14,22 +14,6 @@ import Foundation
 import Vision
 import KeyboardShortcuts
 
-private func appUpdate() {
-    let existingVersion = UserDefaults.standard.string(forKey: "CurrentVersion") // may nil
-    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // not nil
-    if existingVersion != appVersion {
-        logger.info("do app update")
-        batchDeleteAllSlots()
-        UserDefaults.standard.setValue(appVersion, forKey: "CurrentVersion")
-        
-        // customize code
-        let alert = NSAlert()
-        alert.messageText = NSLocalizedString("All Slots Deleted!", comment: "")
-        alert.informativeText = NSLocalizedString("Because when updating the App, the slot data may becomes incompatible, we need to delete all slots. Sorry for the trouble.", comment: "")
-        alert.runModal()
-    }
-}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -85,9 +69,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // show UI
             self.onboarding() // when onboarding end, set IsFinishedOnboardingKey true
-        } else {
-            // not run appUpdate when first launch (means not finished Onboarding)
-            appUpdate()
+        } else { // not run appUpdate when first launch (means not finished Onboarding)
+            let existingVersion = UserDefaults.standard.string(forKey: "CurrentVersion") // may nil
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // not nil
+            if existingVersion != appVersion { // appUpdate side effect
+                logger.info("do app update")
+                batchDeleteAllSlots()
+                UserDefaults.standard.setValue(appVersion, forKey: "CurrentVersion")
+                
+                // customize code
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("All Slots Deleted!", comment: "")
+                alert.informativeText = NSLocalizedString("Because when updating the App, the slot data may becomes incompatible, we need to delete all slots. Sorry for the trouble.", comment: "")
+                alert.runModal()
+            }
         }
                 
         // some functions registers
