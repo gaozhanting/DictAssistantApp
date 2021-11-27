@@ -32,16 +32,6 @@ private func getAllEntries() -> Dictionary<String, String> {
     }
 }
 
-func batchResetDefaultEntries() {
-    batchDeleteAllEntries {
-        let entries: [(String, String)] = defaultEntriesDB.map { line in
-            let wordTrans = line.split(separator: Character(","), maxSplits: 1)
-            return (String(wordTrans[0]), String(wordTrans[1]))
-        }
-        batchUpsertEntries(entries: entries)
-    }
-}
-
 // for directly query (slow, which is similar of system dict service)
 func getEntry(of word: String) -> Entry? {
     let context = persistentContainer.viewContext

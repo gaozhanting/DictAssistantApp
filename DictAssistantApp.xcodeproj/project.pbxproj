@@ -612,8 +612,12 @@
 			isa = PBXGroup;
 			children = (
 				445354C52701D5F2007DB9C2 /* PersistenceStack.swift */,
-				44A451A4274FD051001DE18D /* Preset */,
-				44A451A5274FD08E001DE18D /* Custom */,
+				445355612705C0CF007DB9C2 /* NoisesPersistence.swift */,
+				445355422701E45F007DB9C2 /* PhrasesPersistence.swift */,
+				4453554A27020CA0007DB9C2 /* KnownPersistence.swift */,
+				4453554827020B7D007DB9C2 /* EntriesPersistence.swift */,
+				4453554627020B32007DB9C2 /* SlotsPersistence.swift */,
+				44A451A6274FD0F5001DE18D /* Dictionaries */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -622,6 +626,7 @@
 			isa = PBXGroup;
 			children = (
 				4453554D27020DDA007DB9C2 /* DictionaryService.swift */,
+				444D02F8274FD44F009EBF59 /* CurrentEntries.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -685,27 +690,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		44A451A4274FD051001DE18D /* Preset */ = {
-			isa = PBXGroup;
-			children = (
-				445355612705C0CF007DB9C2 /* NoisesPersistence.swift */,
-				445355422701E45F007DB9C2 /* PhrasesPersistence.swift */,
-				444D02F8274FD44F009EBF59 /* CurrentEntries.swift */,
-				44A451A6274FD0F5001DE18D /* Dictionaries */,
-			);
-			path = Preset;
-			sourceTree = "<group>";
-		};
-		44A451A5274FD08E001DE18D /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				4453554A27020CA0007DB9C2 /* KnownPersistence.swift */,
-				4453554827020B7D007DB9C2 /* EntriesPersistence.swift */,
-				4453554627020B32007DB9C2 /* SlotsPersistence.swift */,
-			);
-			path = Custom;
 			sourceTree = "<group>";
 		};
 		44A451A6274FD0F5001DE18D /* Dictionaries */ = {

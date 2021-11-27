@@ -19,18 +19,27 @@ func cachedDictionaryServicesDefine(_ word: String) -> String? {
     return trans
 }
 
+func innerDefine(_ word: String) -> String? {
+    return currentEntries[word]
+}
+
 private func queryDefine(_ word: String) -> String? {
     let mode = UseEntryMode.init(rawValue: UserDefaults.standard.integer(forKey: UseEntryModeKey))!
     switch mode {
     case .notUse:
-        return DictionaryServices.define(word)
+        return innerDefine(word)
+//        return DictionaryServices.define(word)
     case .asFirstPriority:
         if let entry = queryEntry(word: word) {
             return entry
         }
-        return DictionaryServices.define(word)
+        return innerDefine(word)
+//        return DictionaryServices.define(word)
     case .asLastPriority:
-        if let define = DictionaryServices.define(word) {
+//        if let define = DictionaryServices.define(word) {
+//            return define
+//        }
+        if let define = innerDefine(word) {
             return define
         }
         return queryEntry(word: word)

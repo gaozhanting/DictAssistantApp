@@ -17,8 +17,16 @@ import KeyboardShortcuts
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    func forDevelop() {
+        batchInsertZhSEntries()
+    }
+    
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+//        forDevelop()
+        
+//        DictionaryServices.define("continuously")
+        
 //        return // for swiftui preview
         
 //        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
@@ -48,16 +56,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         constructMenuBar()
         // end
-        
-        // what's this?
-//    CoreData: debug: PostSaveMaintenance: fileSize 29758792 greater than prune threshold
-//    CoreData: debug: PostSaveMaintenance: incremental_vacuum with freelist_count - 8747 and pages_to_free 4718
-//    CoreData: annotation: PostSaveMaintenance: wal_checkpoint(TRUNCATE)
-//    CoreData: debug: PostSaveMaintenance: fileSize 36466152 greater than prune threshold
-//    CoreData: annotation: PostSaveMaintenance: wal_checkpoint(TRUNCATE)
-//    CoreData: debug: PostSaveMaintenance: fileSize 9002232 greater than prune threshold
-//    CoreData: annotation: PostSaveMaintenance: wal_checkpoint(TRUNCATE)
-//        batchResetDefaultEntries()
         
         if !UserDefaults.standard.bool(forKey: IsFinishedOnboardingKey) {
             // init core data
