@@ -339,6 +339,7 @@
 		4476F90627539282006EDAC9 /* DutEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */; };
 		4476F908275395F5006EDAC9 /* SweEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */; };
 		4476F90A27539ABC006EDAC9 /* RusEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */; };
+		4476F90C27539D8D006EDAC9 /* GreEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -349,7 +350,7 @@
 		44A21016275341F800ED1983 /* KorEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A21015275341F800ED1983 /* KorEntriesPersistence.swift */; };
 		44A2101827534E3B00ED1983 /* GerEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */; };
 		44A451A8274FD164001DE18D /* ZhSEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */; };
-		44A4DC342753580A002A9597 /* FreEntriesPersistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A4DC332753580A002A9597 /* FreEntriesPersistance.swift */; };
+		44A4DC342753580A002A9597 /* FreEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A4DC332753580A002A9597 /* FreEntriesPersistence.swift */; };
 		44A4DC3627535AC6002A9597 /* SpaEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */; };
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
 		44BCEC5626842086002D3D8C /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
@@ -441,6 +442,7 @@
 		4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RusEntriesPersistence.swift; sourceTree = "<group>"; };
+		4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreEntriesPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
@@ -451,7 +453,7 @@
 		44A21015275341F800ED1983 /* KorEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KorEntriesPersistence.swift; sourceTree = "<group>"; };
 		44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerEntriesPersistence.swift; sourceTree = "<group>"; };
 		44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhSEntriesPersistence.swift; sourceTree = "<group>"; };
-		44A4DC332753580A002A9597 /* FreEntriesPersistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreEntriesPersistance.swift; sourceTree = "<group>"; };
+		44A4DC332753580A002A9597 /* FreEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreEntriesPersistence.swift; sourceTree = "<group>"; };
 		44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaEntriesPersistence.swift; sourceTree = "<group>"; };
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
 		44BCEC5526842086002D3D8C /* KnownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownView.swift; sourceTree = "<group>"; };
@@ -721,13 +723,14 @@
 				442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */,
 				44A21015275341F800ED1983 /* KorEntriesPersistence.swift */,
 				44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */,
-				44A4DC332753580A002A9597 /* FreEntriesPersistance.swift */,
+				44A4DC332753580A002A9597 /* FreEntriesPersistence.swift */,
 				44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */,
 				4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */,
 				4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */,
 				4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */,
 				4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */,
 				4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */,
+				4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1205,6 +1208,7 @@
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
 				4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */,
 				442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */,
+				4476F90C27539D8D006EDAC9 /* GreEntriesPersistence.swift in Sources */,
 				442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
 				442A299A275268A7000B75E2 /* JapEntriesPersistence.swift in Sources */,
@@ -1239,7 +1243,7 @@
 				446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */,
 				44CA55F6270C73D4007D4053 /* DictInstallView.swift in Sources */,
 				44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */,
-				44A4DC342753580A002A9597 /* FreEntriesPersistance.swift in Sources */,
+				44A4DC342753580A002A9597 /* FreEntriesPersistence.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,

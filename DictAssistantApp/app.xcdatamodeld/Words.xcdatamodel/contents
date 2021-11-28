@@ -36,6 +36,15 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="GreEntry" representedClassName="GreEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="trans" attributeType="String"/>
+        <attribute name="word" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="word"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
     <entity name="ItaEntry" representedClassName="ItaEntry" syncable="YES" codeGenerationType="class">
         <attribute name="trans" attributeType="String"/>
         <attribute name="word" attributeType="String"/>
@@ -161,5 +170,6 @@
         <element name="ZhSEntry" positionX="-9" positionY="72" width="128" height="59"/>
         <element name="SweEntry" positionX="18" positionY="99" width="128" height="59"/>
         <element name="RusEntry" positionX="36" positionY="108" width="128" height="59"/>
+        <element name="GreEntry" positionX="54" positionY="126" width="128" height="59"/>
     </elements>
 </model>
