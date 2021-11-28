@@ -59,3 +59,4 @@ let japEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Japanese.csv"
 let korEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Korean.csv")
 let gerEntriesDB = Vocabularies.readToArray(from: "Babylon_English_German.csv")
 let freEntriesDB = Vocabularies.readToArray(from: "Babylon_English_French.csv")
+let spaEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Spanish.csv")
