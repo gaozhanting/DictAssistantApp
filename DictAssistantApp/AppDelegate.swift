@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         forDevelop()
         
-//        Dictionaries.tryPrint(from: "shabdanjali.csv")
+//        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
         
         // deprecated, updating app version, run appUpdate
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
