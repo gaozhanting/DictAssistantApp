@@ -42,6 +42,7 @@ let package = Package(
                 .process("Resources/Babylon_English_Turkish.csv"),
                 .process("Resources/Babylon_English_Hebrew.csv"),
                 .process("Resources/Babylon_English_Arabic.csv"),
+                .process("Resources/Hindi.csv"),
             ]),
         .testTarget(
             name: "DataBasesTests",

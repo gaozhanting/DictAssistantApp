@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        batchResetTurEntries()
 //        batchResetHebEntries()
 //        batchResetAraEntries()
+//        batchResetHinEntries()
     }
     
     // Notice order
@@ -41,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         forDevelop()
         
-//        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
+//        Dictionaries.tryPrint(from: "shabdanjali.csv")
         
         // deprecated, updating app version, run appUpdate
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)

@@ -117,7 +117,8 @@ enum BuiltInLanguage: Int, Codable {
     case tur = 12
     case heb = 13
     case ara = 14
-    case none = 15
+    case hin = 15
+    case none = 16
 }
 
 enum UseAppleDictMode: Int, Codable {
@@ -531,6 +532,8 @@ func combineEnglishSettings() {
                 currentEntries = getAllHebEntries()
             case .ara:
                 currentEntries = getAllAraEntries()
+            case .hin:
+                currentEntries = getAllHinEntries()
             case .none:
                 currentEntries = [:]
             }
