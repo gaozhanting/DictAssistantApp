@@ -102,7 +102,7 @@ enum LemmaSearchLevel: Int, Codable {
 }
 
 enum BuiltInLanguage: Int, Codable {
-    case zhS = 0
+    case zhs = 0
     case jap = 1
     case kor = 2
     case ger = 3
@@ -116,7 +116,8 @@ enum BuiltInLanguage: Int, Codable {
     case gre = 11
     case tur = 12
     case heb = 13
-    case none = 14
+    case ara = 14
+    case none = 15
 }
 
 enum UseAppleDictMode: Int, Codable {
@@ -179,7 +180,7 @@ private let defaultSlotKV: [String: Any] = [
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
-    BuiltInLanguageKey: BuiltInLanguage.zhS.rawValue, // default to system language, or none if not include
+    BuiltInLanguageKey: BuiltInLanguage.zhs.rawValue, // default to system language, or none if not include
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
@@ -500,7 +501,7 @@ func combineEnglishSettings() {
         .publisher(for: \.BuiltInLanguageKey)
         .handleEvents(receiveOutput: { builtInLanguage in
             switch BuiltInLanguage(rawValue: builtInLanguage)! {
-            case .zhS:
+            case .zhs:
                 currentEntries = getAllZhSEntries()
             case .jap:
                 currentEntries = getAllJapEntries()
@@ -528,6 +529,8 @@ func combineEnglishSettings() {
                 currentEntries = getAllTurEntries()
             case .heb:
                 currentEntries = getAllHebEntries()
+            case .ara:
+                currentEntries = getAllAraEntries()
             case .none:
                 currentEntries = [:]
             }

@@ -102,10 +102,10 @@ private struct ShowPhrasesToggle: View {
 }
 
 private struct BuiltInLanguagePicker: View {
-    @AppStorage(BuiltInLanguageKey) private var builtInLanguage: Int = BuiltInLanguage.zhS.rawValue
+    @AppStorage(BuiltInLanguageKey) private var builtInLanguage: Int = BuiltInLanguage.zhs.rawValue
     
     let allCases: [(Int, String)] = [
-        (BuiltInLanguage.zhS.rawValue, "zhs"),
+        (BuiltInLanguage.zhs.rawValue, "zhs"),
         (BuiltInLanguage.jap.rawValue, "jap"),
         (BuiltInLanguage.kor.rawValue, "kor"),
         (BuiltInLanguage.ger.rawValue, "ger"),
@@ -119,6 +119,7 @@ private struct BuiltInLanguagePicker: View {
         (BuiltInLanguage.gre.rawValue, "gre"),
         (BuiltInLanguage.tur.rawValue, "tur"),
         (BuiltInLanguage.heb.rawValue, "heb"),
+        (BuiltInLanguage.ara.rawValue, "ara"),
         (BuiltInLanguage.none.rawValue, "none")
     ]
     

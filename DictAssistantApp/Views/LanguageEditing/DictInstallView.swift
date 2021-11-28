@@ -172,7 +172,7 @@ let dicts: [String: Dict] = [
     
     "Babylon_English_Arabic.dictionary.zip":
         Dict(name: "Babylon English-Arabic dictionary",
-             sourceURL: URL(string: "https://mdx.mdict.org/%E6%8C%89%E8%AF%8D%E5%85%B8%E8%AF%AD%E7%A7%8D%E6%9D%A5%E5%88%86%E7%B1%BB/%E9%98%BF%E6%8B%89%E4%BC%AF%E8%AF%AD/")!,
+             sourceURL: URL(string: "http://download.huzheng.org/babylon/bidirectional/")!,
              license: "?",
              licenseURL: nil,
              installedName: "Babylon_English_Arabic.dictionary",
