@@ -337,6 +337,7 @@
 		4476F90227535D42006EDAC9 /* PorEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */; };
 		4476F90427535FBA006EDAC9 /* ItaEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */; };
 		4476F90627539282006EDAC9 /* DutEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */; };
+		4476F908275395F5006EDAC9 /* SweEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -437,6 +438,7 @@
 		4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItaEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutEntriesPersistence.swift; sourceTree = "<group>"; };
+		4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweEntriesPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */,
 				4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */,
 				4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */,
+				4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1244,6 +1247,7 @@
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
 				442126C2271996B500CEF786 /* EditingPanel.swift in Sources */,
+				4476F908275395F5006EDAC9 /* SweEntriesPersistence.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */,
 				442126CF2719B26600CEF786 /* DictInstallPanel.swift in Sources */,

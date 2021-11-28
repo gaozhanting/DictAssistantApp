@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Preferences
+import CoreML
 
 struct EnglishSettingsView: View {
     var body: some View {
@@ -103,18 +104,25 @@ private struct ShowPhrasesToggle: View {
 private struct BuiltInLanguagePicker: View {
     @AppStorage(BuiltInLanguageKey) private var builtInLanguage: Int = BuiltInLanguage.zhS.rawValue
     
+    let allCases: [(Int, String)] = [
+        (BuiltInLanguage.zhS.rawValue, "zhs"),
+        (BuiltInLanguage.jap.rawValue, "jap"),
+        (BuiltInLanguage.kor.rawValue, "kor"),
+        (BuiltInLanguage.ger.rawValue, "ger"),
+        (BuiltInLanguage.fre.rawValue, "fre"),
+        (BuiltInLanguage.spa.rawValue, "spa"),
+        (BuiltInLanguage.por.rawValue, "por"),
+        (BuiltInLanguage.ita.rawValue, "ita"),
+        (BuiltInLanguage.dut.rawValue, "dut"),
+        (BuiltInLanguage.swe.rawValue, "swe"),
+        (BuiltInLanguage.none.rawValue, "none")
+    ]
+    
     var body: some View {
         Picker("", selection: $builtInLanguage) {
-            Text("zhS").tag(BuiltInLanguage.zhS.rawValue)
-            Text("jap").tag(BuiltInLanguage.jap.rawValue)
-            Text("kor").tag(BuiltInLanguage.kor.rawValue)
-            Text("ger").tag(BuiltInLanguage.ger.rawValue)
-            Text("fre").tag(BuiltInLanguage.fre.rawValue)
-            Text("spa").tag(BuiltInLanguage.spa.rawValue)
-            Text("por").tag(BuiltInLanguage.por.rawValue)
-            Text("ita").tag(BuiltInLanguage.ita.rawValue)
-            Text("dut").tag(BuiltInLanguage.dut.rawValue)
-            Text("none").tag(BuiltInLanguage.none.rawValue)
+            ForEach(allCases, id: \.self.0) { option in
+                Text(option.1).tag(option.0)
+            }
         }
         .labelsHidden()
         .pickerStyle(MenuPickerStyle())
