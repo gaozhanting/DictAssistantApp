@@ -111,6 +111,7 @@ private struct BuiltInLanguagePicker: View {
             Text("ger").tag(BuiltInLanguage.ger.rawValue)
             Text("fre").tag(BuiltInLanguage.fre.rawValue)
             Text("spa").tag(BuiltInLanguage.spa.rawValue)
+            Text("por").tag(BuiltInLanguage.por.rawValue)
             Text("none").tag(BuiltInLanguage.none.rawValue)
         }
         .labelsHidden()

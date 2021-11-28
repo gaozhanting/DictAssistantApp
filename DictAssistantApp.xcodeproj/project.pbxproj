@@ -334,6 +334,7 @@
 		446E88D3274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
 		446E88D4274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
 		446E88D5274A43AC00B1789B /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
+		4476F90227535D42006EDAC9 /* PorEntryeisPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90127535D42006EDAC9 /* PorEntryeisPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -431,6 +432,7 @@
 		446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Spanish.dictionary.zip; sourceTree = "<group>"; };
 		446E88C9274A050200B1789B /* MiniInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniInfoView.swift; sourceTree = "<group>"; };
 		446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMarkView.swift; sourceTree = "<group>"; };
+		4476F90127535D42006EDAC9 /* PorEntryeisPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorEntryeisPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */,
 				44A4DC332753580A002A9597 /* FreEntriesPersistance.swift */,
 				44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */,
+				4476F90127535D42006EDAC9 /* PorEntryeisPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1196,6 +1199,7 @@
 				44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */,
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
+				4476F90227535D42006EDAC9 /* PorEntryeisPersistence.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
 				442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
