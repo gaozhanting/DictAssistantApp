@@ -57,3 +57,4 @@ let wikiFrequencyWordsList = Vocabularies.read(from: "first_100_000_of_enwiki-20
 let zhsEntriesDB = Vocabularies.readToArray(from: "lazyworm_ec.csv")
 let japEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Japanese.csv")
 let korEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Korean.csv")
+let gerEntriesDB = Vocabularies.readToArray(from: "Babylon_English_German.csv")

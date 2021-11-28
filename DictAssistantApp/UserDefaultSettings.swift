@@ -105,7 +105,8 @@ enum BuiltInLanguage: Int, Codable {
     case zhS = 0
     case jap = 1
     case kor = 2
-    case none = 3
+    case ger = 3
+    case none = 4
 }
 
 enum UseAppleDictMode: Int, Codable {
@@ -495,6 +496,8 @@ func combineEnglishSettings() {
                 currentEntries = getAllJapEntries()
             case .kor:
                 currentEntries = getAllKorEntries()
+            case .ger:
+                currentEntries = getAllGerEntries()
             case .none:
                 currentEntries = [:]
             }
