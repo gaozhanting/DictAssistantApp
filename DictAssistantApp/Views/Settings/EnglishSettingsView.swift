@@ -107,6 +107,7 @@ private struct BuiltInLanguagePicker: View {
         Picker("", selection: $builtInLanguage) {
             Text("zhS").tag(BuiltInLanguage.zhS.rawValue)
             Text("jap").tag(BuiltInLanguage.jap.rawValue)
+            Text("kor").tag(BuiltInLanguage.kor.rawValue)
             Text("none").tag(BuiltInLanguage.none.rawValue)
         }
         .labelsHidden()

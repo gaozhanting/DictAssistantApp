@@ -19,7 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func forDevelop() {
 //        batchResetZhSEntries()
-        batchResetJapEntries()
+//        batchResetJapEntries()
+//        batchResetKorEntries()
     }
     
     // Notice order

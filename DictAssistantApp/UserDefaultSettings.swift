@@ -104,7 +104,8 @@ enum LemmaSearchLevel: Int, Codable {
 enum BuiltInLanguage: Int, Codable {
     case zhS = 0
     case jap = 1
-    case none = 2
+    case kor = 2
+    case none = 3
 }
 
 enum UseAppleDictMode: Int, Codable {
@@ -167,7 +168,7 @@ private let defaultSlotKV: [String: Any] = [
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
-    BuiltInLanguageKey: BuiltInLanguage.zhS.rawValue,
+    BuiltInLanguageKey: BuiltInLanguage.zhS.rawValue, // default to system language, or none if not include
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
@@ -492,6 +493,8 @@ func combineEnglishSettings() {
                 currentEntries = getAllZhSEntries()
             case .jap:
                 currentEntries = getAllJapEntries()
+            case .kor:
+                currentEntries = getAllKorEntries()
             case .none:
                 currentEntries = [:]
             }

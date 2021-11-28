@@ -341,6 +341,7 @@
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
 		4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
+		44A21016275341F800ED1983 /* KorEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A21015275341F800ED1983 /* KorEntriesPersistence.swift */; };
 		44A451A8274FD164001DE18D /* ZhSEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */; };
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
 		44BCEC5626842086002D3D8C /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
@@ -434,6 +435,7 @@
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
 		447F9B5426BD0451009C572F /* SlotsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsSettingsView.swift; sourceTree = "<group>"; };
 		4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentKey.swift; sourceTree = "<group>"; };
+		44A21015275341F800ED1983 /* KorEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KorEntriesPersistence.swift; sourceTree = "<group>"; };
 		44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhSEntriesPersistence.swift; sourceTree = "<group>"; };
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
 		44BCEC5526842086002D3D8C /* KnownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownView.swift; sourceTree = "<group>"; };
@@ -701,6 +703,7 @@
 				442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */,
 				44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */,
 				442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */,
+				44A21015275341F800ED1983 /* KorEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1199,6 +1202,7 @@
 				44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
+				44A21016275341F800ED1983 /* KorEntriesPersistence.swift in Sources */,
 				445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */,
 				44C0F24B270775AF006CFEFC /* GBig.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,

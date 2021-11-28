@@ -51,8 +51,6 @@ import CoreData
 //    }
 //}
 //
-//// batchInsertWhichEntries(zhsEntriesDB)
-//// batchInsertWhichEntries(japEntriesDB)
 //
 //// only for build fixed coredata, from csv dict file
 //func batchInsertWhichEntries(entityName: String, whichEntriesDB: [String]) {
