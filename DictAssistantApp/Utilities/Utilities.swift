@@ -64,3 +64,4 @@ let porEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Portuguese.cs
 let itaEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Italian.csv")
 let dutEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Dutch.csv")
 let sweEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Swedish.csv")
+let rusEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Russian.csv")

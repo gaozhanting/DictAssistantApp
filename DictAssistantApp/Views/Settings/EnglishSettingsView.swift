@@ -115,6 +115,7 @@ private struct BuiltInLanguagePicker: View {
         (BuiltInLanguage.ita.rawValue, "ita"),
         (BuiltInLanguage.dut.rawValue, "dut"),
         (BuiltInLanguage.swe.rawValue, "swe"),
+        (BuiltInLanguage.rus.rawValue, "rus"),
         (BuiltInLanguage.none.rawValue, "none")
     ]
     
