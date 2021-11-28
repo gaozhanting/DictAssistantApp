@@ -26,13 +26,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        batchResetSpaEntries()
 //        batchResetPorEntries()
 //        batchResetItaEntries()
+//        batchResetDutEntries()
     }
     
     // Notice order
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
-//        forDevelop()
+        forDevelop()
         
 //        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
         

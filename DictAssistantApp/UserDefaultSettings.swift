@@ -110,7 +110,8 @@ enum BuiltInLanguage: Int, Codable {
     case spa = 5
     case por = 6
     case ita = 7
-    case none = 8
+    case dut = 8
+    case none = 9
 }
 
 enum UseAppleDictMode: Int, Codable {
@@ -510,6 +511,8 @@ func combineEnglishSettings() {
                 currentEntries = getAllPorEntries()
             case .ita:
                 currentEntries = getAllItaEntries()
+            case .dut:
+                currentEntries = getAllDutEntries()
             case .none:
                 currentEntries = [:]
             }

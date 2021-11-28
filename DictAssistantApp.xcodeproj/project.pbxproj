@@ -336,6 +336,7 @@
 		446E88D5274A43AC00B1789B /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
 		4476F90227535D42006EDAC9 /* PorEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */; };
 		4476F90427535FBA006EDAC9 /* ItaEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */; };
+		4476F90627539282006EDAC9 /* DutEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -435,6 +436,7 @@
 		446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMarkView.swift; sourceTree = "<group>"; };
 		4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItaEntriesPersistence.swift; sourceTree = "<group>"; };
+		4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutEntriesPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
@@ -719,6 +721,7 @@
 				44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */,
 				4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */,
 				4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */,
+				4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1209,6 +1212,7 @@
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */,
 				44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */,
+				4476F90627539282006EDAC9 /* DutEntriesPersistence.swift in Sources */,
 				442126D12719B4C700CEF786 /* DictInstallWithInfoView.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
 				44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */,
