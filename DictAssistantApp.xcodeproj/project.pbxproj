@@ -341,6 +341,7 @@
 		4476F90A27539ABC006EDAC9 /* RusEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */; };
 		4476F90C27539D8D006EDAC9 /* GreEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */; };
 		4476F90E2753A08E006EDAC9 /* TurEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90D2753A08E006EDAC9 /* TurEntriesPersistence.swift */; };
+		4476F9102753BD8E006EDAC9 /* HebEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90F2753BD8E006EDAC9 /* HebEntriesPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
@@ -445,6 +446,7 @@
 		4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RusEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F90D2753A08E006EDAC9 /* TurEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurEntriesPersistence.swift; sourceTree = "<group>"; };
+		4476F90F2753BD8E006EDAC9 /* HebEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HebEntriesPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
@@ -734,6 +736,7 @@
 				4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */,
 				4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */,
 				4476F90D2753A08E006EDAC9 /* TurEntriesPersistence.swift */,
+				4476F90F2753BD8E006EDAC9 /* HebEntriesPersistence.swift */,
 			);
 			path = Dictionaries;
 			sourceTree = "<group>";
@@ -1232,6 +1235,7 @@
 				44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
+				4476F9102753BD8E006EDAC9 /* HebEntriesPersistence.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
 				44A4DC3627535AC6002A9597 /* SpaEntriesPersistence.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
