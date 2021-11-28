@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        batchResetFreEntries()
 //        batchResetSpaEntries()
 //        batchResetPorEntries()
+//        batchResetItaEntries()
     }
     
     // Notice order
