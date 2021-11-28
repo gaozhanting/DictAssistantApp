@@ -30,6 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //        batchResetSweEntries()
 //        batchResetRusEntries()
 //        batchResetGreEntries()
+//        batchResetTurEntries()
     }
     
     // Notice order
