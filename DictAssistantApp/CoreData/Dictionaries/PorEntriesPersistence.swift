@@ -7,6 +7,7 @@
 
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllPorEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -29,6 +30,7 @@ func getAllPorEntries() -> Dictionary<String, String> {
 
 func batchResetPorEntries() {
     batchDeleteAllPorEntries {
+        let porEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Portuguese.csv")
         let entries: [(String, String)] = porEntriesDB.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

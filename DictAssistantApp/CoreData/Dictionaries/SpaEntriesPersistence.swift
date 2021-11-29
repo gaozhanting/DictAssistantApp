@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllSpaEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllSpaEntries() -> Dictionary<String, String> {
 
 func batchResetSpaEntries() {
     batchDeleteAllSpaEntries {
+        let spaEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Spanish.csv")
         let entries: [(String, String)] = spaEntriesDB.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

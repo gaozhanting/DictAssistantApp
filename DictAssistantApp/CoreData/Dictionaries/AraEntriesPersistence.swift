@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllAraEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllAraEntries() -> Dictionary<String, String> {
 
 func batchResetAraEntries() {
     batchDeleteAllAraEntries {
+        let araEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Arabic.csv")
         let entries: [(String, String)] = araEntriesDB.enumerated().map { (index, line) in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

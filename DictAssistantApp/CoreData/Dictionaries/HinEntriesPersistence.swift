@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllHinEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllHinEntries() -> Dictionary<String, String> {
 
 func batchResetHinEntries() {
     batchDeleteAllHinEntries {
+        let hinEntriesDB = Vocabularies.readToArray(from: "Hindi.csv")
         let entries: [(String, String)] = hinEntriesDB.enumerated().map { (index, line) in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

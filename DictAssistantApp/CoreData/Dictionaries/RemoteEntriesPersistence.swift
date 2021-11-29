@@ -28,8 +28,26 @@ func getAllRemoteEntries() -> Dictionary<String, String> {
     }
 }
 
+// only place to access network, in the App
+func makeRemoteEntriesDB(urlString: String) -> [String] {
+    guard let url = URL(string: urlString) else {
+        fatalError("Counldn't get url of \(urlString)")
+    }
+    
+    do {
+        let contents = try String(contentsOf: url, encoding: String.Encoding.utf8)
+        let lines = contents.components(separatedBy: .newlines)
+        return lines
+    } catch {
+        fatalError("contents could not be loaded")
+    }
+}
+
+let testCsvUrlString = "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/gene.csv"
+
 func batchResetRemoteEntries() {
     batchDeleteAllRemoteEntries {
+        let remoteEntriesDB = makeRemoteEntriesDB(urlString: testCsvUrlString)
         let entries: [(String, String)] = remoteEntriesDB.enumerated().map { (index, line) in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

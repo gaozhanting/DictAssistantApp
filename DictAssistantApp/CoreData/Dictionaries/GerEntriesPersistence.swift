@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllGerEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllGerEntries() -> Dictionary<String, String> {
 
 func batchResetGerEntries() {
     batchDeleteAllGerEntries {
+        let gerEntriesDB = Vocabularies.readToArray(from: "Babylon_English_German.csv")
         let entries: [(String, String)] = gerEntriesDB.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllHebEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllHebEntries() -> Dictionary<String, String> {
 
 func batchResetHebEntries() {
     batchDeleteAllHebEntries {
+        let hebEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Hebrew.csv")
         let entries: [(String, String)] = hebEntriesDB.enumerated().map { (index, line) in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

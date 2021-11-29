@@ -54,36 +54,3 @@ let phrasesDB = Vocabularies.readToArray(from: "phrases.txt")
 let oxford3000Vocabulary = Vocabularies.read(from: "oxford_3000.txt")
 let wikiFrequencyWordsList = Vocabularies.read(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")
 
-let zhsEntriesDB = Vocabularies.readToArray(from: "lazyworm-ec.csv")
-let japEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Japanese.csv")
-let korEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Korean.csv")
-let gerEntriesDB = Vocabularies.readToArray(from: "Babylon_English_German.csv")
-let freEntriesDB = Vocabularies.readToArray(from: "Babylon_English_French.csv")
-let spaEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Spanish.csv")
-let porEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Portuguese.csv")
-let itaEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Italian.csv")
-let dutEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Dutch.csv")
-let sweEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Swedish.csv")
-let rusEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Russian.csv")
-let greEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Greek.csv")
-let turEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Turkish.csv")
-let hebEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Hebrew.csv")
-let araEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Arabic.csv")
-let hinEntriesDB = Vocabularies.readToArray(from: "Hindi.csv")
-
-func makeRemoteEntriesDB(urlString: String) -> [String] {
-    guard let url = URL(string: urlString) else {
-        fatalError("Counldn't get url of \(urlString)")
-    }
-    
-    do {
-        let contents = try String(contentsOf: url, encoding: String.Encoding.utf8)
-        let lines = contents.components(separatedBy: .newlines)
-        return lines
-    } catch {
-        fatalError("contents could not be loaded")
-    }
-}
-
-let testCsvUrlString = "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/gene.csv"
-let remoteEntriesDB = makeRemoteEntriesDB(urlString: testCsvUrlString)

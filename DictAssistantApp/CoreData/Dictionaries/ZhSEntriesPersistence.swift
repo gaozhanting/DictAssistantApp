@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllZhSEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllZhSEntries() -> Dictionary<String, String> {
 
 func batchResetZhSEntries() {
     batchDeleteAllZhSEntries {
+        let zhsEntriesDB = Vocabularies.readToArray(from: "lazyworm-ec.csv")
         let entries: [(String, String)] = zhsEntriesDB.map { line in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))

@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 func getAllTurEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
@@ -30,6 +31,7 @@ func getAllTurEntries() -> Dictionary<String, String> {
 
 func batchResetTurEntries() {
     batchDeleteAllTurEntries {
+        let turEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Turkish.csv")
         let entries: [(String, String)] = turEntriesDB.enumerated().map { (index, line) in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))
