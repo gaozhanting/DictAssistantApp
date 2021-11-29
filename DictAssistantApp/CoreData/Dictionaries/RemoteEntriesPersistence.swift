@@ -29,7 +29,7 @@ func getAllRemoteEntries() -> Dictionary<String, String> {
 }
 
 // only place to access network, in the App
-func makeRemoteEntriesDB(urlString: String) -> [String] {
+func makeRemoteEntriesDB(from urlString: String) -> [String] {
     guard let url = URL(string: urlString) else {
         fatalError("Counldn't get url of \(urlString)")
     }
@@ -43,16 +43,16 @@ func makeRemoteEntriesDB(urlString: String) -> [String] {
     }
 }
 
-let testCsvUrlString = "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/gene.csv"
-
-func batchResetRemoteEntries() {
+func batchResetRemoteEntries(from urlString: String, didSucceed: @escaping () -> Void = {}) {
     batchDeleteAllRemoteEntries {
-        let remoteEntriesDB = makeRemoteEntriesDB(urlString: testCsvUrlString)
+        let remoteEntriesDB = makeRemoteEntriesDB(from: urlString)
         let entries: [(String, String)] = remoteEntriesDB.enumerated().map { (index, line) in
             let wordTrans = line.split(separator: Character(","), maxSplits: 1)
             return (String(wordTrans[0]), String(wordTrans[1]))
         }
-        batchInsertRemoteEntries(entries: entries)
+        batchInsertRemoteEntries(entries: entries) {
+            didSucceed()
+        }
     }
 }
 
@@ -72,7 +72,7 @@ private func batchDeleteAllRemoteEntries(didSucceed: @escaping () -> Void = {}) 
     }
 }
 
-private func batchInsertRemoteEntries(entries: [(String, String)]) {
+private func batchInsertRemoteEntries(entries: [(String, String)], didSucceed: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
 
     let insertRequest = NSBatchInsertRequest(
@@ -85,6 +85,7 @@ private func batchInsertRemoteEntries(entries: [(String, String)]) {
 
     do {
         try context.execute(insertRequest)
+        didSucceed()
     } catch {
         logger.error("Failed to batch inert remote entries: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)

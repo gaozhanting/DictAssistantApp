@@ -40,6 +40,7 @@ let TitleWordKey = "TitleWordKey"
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let BuiltInLanguageKey = "BuiltInLanguageKey"
+let RemoteDictURLStringKey = "RemoteDictURLStringKey"
 let UseAppleDictModeKey = "UseAppleDictModeKey"
 let UseEntryModeKey = "UseEntryModeKey"
 
