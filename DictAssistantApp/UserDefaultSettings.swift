@@ -39,7 +39,6 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 let TitleWordKey = "TitleWordKey"
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
-let BuiltInLanguageKey = "BuiltInLanguageKey"
 let RemoteDictURLStringKey = "RemoteDictURLStringKey"
 let UseAppleDictModeKey = "UseAppleDictModeKey"
 let UseEntryModeKey = "UseEntryModeKey"
@@ -102,27 +101,6 @@ enum LemmaSearchLevel: Int, Codable {
     case open = 2
 }
 
-enum BuiltInLanguage: Int, Codable {
-    case zhs = 0
-    case jap = 1
-    case kor = 2
-    case ger = 3
-    case fre = 4
-    case spa = 5
-    case por = 6
-    case ita = 7
-    case dut = 8
-    case swe = 9
-    case rus = 10
-    case gre = 11
-    case tur = 12
-    case heb = 13
-    case ara = 14
-    case hin = 15
-    case remote = 16
-    case none = 17
-}
-
 enum UseAppleDictMode: Int, Codable {
     case notUse = 0
     case afterBuiltIn = 1 // default
@@ -183,7 +161,7 @@ private let defaultSlotKV: [String: Any] = [
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
-    BuiltInLanguageKey: BuiltInLanguage.zhs.rawValue, // default to system language, or none if not include
+    RemoteDictURLStringKey: "", // default from system language
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
@@ -283,9 +261,9 @@ extension UserDefaults {
         get { return bool(forKey: "IsShowPhrasesKey") }
         set { set(newValue, forKey: "IsShowPhrasesKey") }
     }
-    @objc var BuiltInLanguageKey: Int {
-        get { return integer(forKey: "BuiltInLanguageKey") }
-        set { set(newValue, forKey: "BuiltInLanguageKey") }
+    @objc var RemoteDictURLStringKey: String {
+        get { return string(forKey: "RemoteDictURLStringKey") ?? "" }
+        set { set(newValue, forKey: "RemoteDictURLStringKey") }
     }
     @objc var UseAppleDictModeKey: Bool {
         get { return bool(forKey: "UseAppleDictModeKey") }
@@ -500,52 +478,16 @@ func combineEnglishSettings() {
         .sink { _ in }
         .store(in: &subscriptions)
     
-    UserDefaults.standard
-        .publisher(for: \.BuiltInLanguageKey)
-        .handleEvents(receiveOutput: { builtInLanguage in
-            switch BuiltInLanguage(rawValue: builtInLanguage)! {
-            case .zhs:
-                currentEntries = getAllZhSEntries()
-            case .jap:
-                currentEntries = getAllJapEntries()
-            case .kor:
-                currentEntries = getAllKorEntries()
-            case .ger:
-                currentEntries = getAllGerEntries()
-            case .fre:
-                currentEntries = getAllFreEntries()
-            case .spa:
-                currentEntries = getAllSpaEntries()
-            case .por:
-                currentEntries = getAllPorEntries()
-            case .ita:
-                currentEntries = getAllItaEntries()
-            case .dut:
-                currentEntries = getAllDutEntries()
-            case .swe:
-                currentEntries = getAllSweEntries()
-            case .rus:
-                currentEntries = getAllRusEntries()
-            case .gre:
-                currentEntries = getAllGreEntries()
-            case .tur:
-                currentEntries = getAllTurEntries()
-            case .heb:
-                currentEntries = getAllHebEntries()
-            case .ara:
-                currentEntries = getAllAraEntries()
-            case .hin:
-                currentEntries = getAllHinEntries()
-            case .remote:
-                currentEntries = getAllRemoteEntries()
-            case .none:
-                currentEntries = [:]
-            }
-            cachedDict = [:]
-            trCallBack()
-        })
-        .sink { _ in }
-        .store(in: &subscriptions)
+//    UserDefaults.standard
+//        .publisher(for: \.RemoteDictURLStringKey)
+//        .handleEvents(receiveOutput: { remoteDictURLString in
+//            currentEntries = getAllRemoteEntries()
+//            logger.info("init currentEntries from getAllRemoteEntries succeed!")
+//            cachedDict = [:]
+//            trCallBack()
+//        })
+//        .sink { _ in }
+//        .store(in: &subscriptions)
     
     UserDefaults.standard
         .publisher(for: \.UseAppleDictModeKey)

@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="AraEntry" representedClassName="AraEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="DutEntry" representedClassName="DutEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
     <entity name="Entry" representedClassName="Entry" syncable="YES" codeGenerationType="class">
         <attribute name="trans" attributeType="String"/>
         <attribute name="word" attributeType="String"/>
@@ -27,79 +9,7 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="FreEntry" representedClassName="FreEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="GerEntry" representedClassName="GerEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="GreEntry" representedClassName="GreEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="HebEntry" representedClassName="HebEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="HinEntry" representedClassName="HinEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="ItaEntry" representedClassName="ItaEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="JapEntry" representedClassName="JapEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
     <entity name="Known" representedClassName="Known" syncable="YES" codeGenerationType="class">
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="KorEntry" representedClassName="KorEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
         <attribute name="word" attributeType="String"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -123,25 +33,7 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="PorEntry" representedClassName="PorEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
     <entity name="RemoteEntry" representedClassName="RemoteEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="RusEntry" representedClassName="RusEntry" syncable="YES" codeGenerationType="class">
         <attribute name="trans" attributeType="String"/>
         <attribute name="word" attributeType="String"/>
         <uniquenessConstraints>
@@ -162,64 +54,12 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="SpaEntry" representedClassName="SpaEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="SweEntry" representedClassName="SweEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="TurEntry" representedClassName="TurEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
-    <entity name="ZhSEntry" representedClassName="ZhSEntry" syncable="YES" codeGenerationType="class">
-        <attribute name="trans" attributeType="String"/>
-        <attribute name="word" attributeType="String"/>
-        <uniquenessConstraints>
-            <uniquenessConstraint>
-                <constraint value="word"/>
-            </uniquenessConstraint>
-        </uniquenessConstraints>
-    </entity>
     <elements>
-        <element name="AraEntry" positionX="36" positionY="108" width="128" height="59"/>
-        <element name="DutEntry" positionX="9" positionY="90" width="128" height="59"/>
         <element name="Entry" positionX="-9" positionY="72" width="128" height="59"/>
-        <element name="FreEntry" positionX="-9" positionY="72" width="128" height="59"/>
-        <element name="GerEntry" positionX="0" positionY="81" width="128" height="59"/>
-        <element name="GreEntry" positionX="54" positionY="126" width="128" height="59"/>
-        <element name="HebEntry" positionX="27" positionY="99" width="128" height="59"/>
-        <element name="HinEntry" positionX="45" positionY="117" width="128" height="59"/>
-        <element name="ItaEntry" positionX="0" positionY="81" width="128" height="59"/>
-        <element name="JapEntry" positionX="-9" positionY="72" width="128" height="59"/>
         <element name="Known" positionX="-27" positionY="18" width="128" height="44"/>
-        <element name="KorEntry" positionX="-9" positionY="72" width="128" height="59"/>
         <element name="Noise" positionX="0" positionY="81" width="128" height="44"/>
         <element name="Phrase" positionX="-9" positionY="72" width="128" height="44"/>
-        <element name="PorEntry" positionX="-9" positionY="72" width="128" height="59"/>
-        <element name="RusEntry" positionX="36" positionY="108" width="128" height="59"/>
-        <element name="Slot" positionX="0" positionY="54" width="128" height="104"/>
-        <element name="SpaEntry" positionX="0" positionY="81" width="128" height="59"/>
-        <element name="SweEntry" positionX="18" positionY="99" width="128" height="59"/>
-        <element name="TurEntry" positionX="72" positionY="144" width="128" height="59"/>
-        <element name="ZhSEntry" positionX="-9" positionY="72" width="128" height="59"/>
         <element name="RemoteEntry" positionX="54" positionY="126" width="128" height="59"/>
+        <element name="Slot" positionX="0" positionY="54" width="128" height="104"/>
     </elements>
 </model>

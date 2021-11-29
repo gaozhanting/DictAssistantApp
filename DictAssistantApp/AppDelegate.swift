@@ -18,24 +18,8 @@ import KeyboardShortcuts
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     func forDevelop() {
-//        batchResetZhSEntries()
-//        batchResetJapEntries()
-//        batchResetKorEntries()
-//        batchResetGerEntries()
-//        batchResetFreEntries()
-//        batchResetSpaEntries()
-//        batchResetPorEntries()
-//        batchResetItaEntries()
-//        batchResetDutEntries()
-//        batchResetSweEntries()
-//        batchResetRusEntries()
-//        batchResetGreEntries()
-//        batchResetTurEntries()
-//        batchResetHebEntries()
-//        batchResetAraEntries()
-//        batchResetHinEntries()
-        
-//        batchResetRemoteEntries()
+//        batchResetDefaultNoises()
+//        batchResetDefaultPhrases()
     }
     
     // Notice order

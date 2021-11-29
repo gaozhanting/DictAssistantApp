@@ -10,21 +10,13 @@
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
-		442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 442126BC271877A400CEF786 /* gene.dictionary.zip */; };
 		442126C2271996B500CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
-		442126C32719A48600CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
 		442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
 		442126C72719AC3200CEF786 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
 		442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
 		442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
 		442126CF2719B26600CEF786 /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
 		442126D12719B4C700CEF786 /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
-		442126D22719B5E800CEF786 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
-		442126D32719B5EA00CEF786 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
-		442126D42719B5EC00CEF786 /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
-		442126D52719B5EE00CEF786 /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
-		442126D62719B5F100CEF786 /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
-		442126D72719B5F600CEF786 /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
 		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
@@ -36,205 +28,9 @@
 		442134EB26AC5A7400963441 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 442134EA26AC5A7400963441 /* Preferences */; };
 		442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
 		4422950E272CF77A0015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
-		4422950F272CF7930015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
-		442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */; };
 		442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2995275259C5000B75E2 /* AppleDictionaryService.swift */; };
 		442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */; };
-		442A299A275268A7000B75E2 /* JapEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
-		4430EEE427328A5D003B098C /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
-		4430EEE527328A5D003B098C /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
-		4430EEE627328A5D003B098C /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
-		4430EEE727328A5D003B098C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
-		4430EEE827328A5D003B098C /* EnglishSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */; };
-		4430EEE927328A5D003B098C /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
-		4430EEEA27328A5D003B098C /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
-		4430EEEB27328A5D003B098C /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
-		4430EEEC27328A5D003B098C /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
-		4430EEED27328A5D003B098C /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
-		4430EEEE27328A5D003B098C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
-		4430EEEF27328A5D003B098C /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
-		4430EEF027328A5D003B098C /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
-		4430EEF127328A5D003B098C /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
-		4430EEF227328A5D003B098C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
-		4430EEF327328A5D003B098C /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		4430EEF427328A5D003B098C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
-		4430EEF527328A5D003B098C /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
-		4430EEF627328A5D003B098C /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
-		4430EEF727328A5D003B098C /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
-		4430EEF827328A5D003B098C /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
-		4430EEF927328A5D003B098C /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
-		4430EEFA27328A5D003B098C /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
-		4430EEFB27328A5D003B098C /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
-		4430EEFC27328A5D003B098C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
-		4430EEFD27328A5D003B098C /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
-		4430EEFE27328A5D003B098C /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
-		4430EEFF27328A5D003B098C /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
-		4430EF0027328A5D003B098C /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
-		4430EF0127328A5D003B098C /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
-		4430EF0227328A5D003B098C /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
-		4430EF0327328A5D003B098C /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
-		4430EF0427328A5D003B098C /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
-		4430EF0527328A5D003B098C /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
-		4430EF0627328A5D003B098C /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
-		4430EF0727328A5D003B098C /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
-		4430EF0827328A5D003B098C /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
-		4430EF0927328A5D003B098C /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
-		4430EF0A27328A5D003B098C /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
-		4430EF0B27328A5D003B098C /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
-		4430EF0C27328A5D003B098C /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
-		4430EF0D27328A5D003B098C /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
-		4430EF0E27328A5D003B098C /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
-		4430EF0F27328A5D003B098C /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
-		4430EF1027328A5D003B098C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
-		4430EF1127328A5D003B098C /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
-		4430EF1227328A5D003B098C /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
-		4430EF1327328A5D003B098C /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
-		4430EF1427328A5D003B098C /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
-		4430EF1527328A5D003B098C /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
-		4430EF1627328A5D003B098C /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
-		4430EF1727328A5D003B098C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
-		4430EF1827328A5D003B098C /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
-		4430EF1927328A5D003B098C /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
-		4430EF1A27328A5D003B098C /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
-		4430EF1B27328A5D003B098C /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
-		4430EF1C27328A5D003B098C /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
-		4430EF1D27328A5D003B098C /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
-		4430EF1E27328A5D003B098C /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
-		4430EF2027328A5D003B098C /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 4430EEDE27328A5D003B098C /* DataBases */; };
-		4430EF2127328A5D003B098C /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 4430EEE127328A5D003B098C /* Preferences */; };
-		4430EF2227328A5D003B098C /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 4430EEDF27328A5D003B098C /* KeyboardShortcuts */; };
-		4430EF2427328A5D003B098C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
-		4430EF2527328A5D003B098C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
-		4430EF2627328A5D003B098C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
-		4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
-		4430EF2927328A5D003B098C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
-		44383D6527328D9C00A564B5 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
-		44383D6627328D9C00A564B5 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
-		44383D6727328D9C00A564B5 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
-		44383D6827328D9C00A564B5 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
-		44383D6927328D9C00A564B5 /* EnglishSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */; };
-		44383D6A27328D9C00A564B5 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
-		44383D6B27328D9C00A564B5 /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
-		44383D6C27328D9C00A564B5 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
-		44383D6D27328D9C00A564B5 /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
-		44383D6E27328D9C00A564B5 /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
-		44383D6F27328D9C00A564B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
-		44383D7027328D9C00A564B5 /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
-		44383D7127328D9C00A564B5 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
-		44383D7227328D9C00A564B5 /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
-		44383D7327328D9C00A564B5 /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
-		44383D7427328D9C00A564B5 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		44383D7527328D9C00A564B5 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
-		44383D7627328D9C00A564B5 /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
-		44383D7727328D9C00A564B5 /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
-		44383D7827328D9C00A564B5 /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
-		44383D7927328D9C00A564B5 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
-		44383D7A27328D9C00A564B5 /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
-		44383D7B27328D9C00A564B5 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
-		44383D7C27328D9C00A564B5 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
-		44383D7D27328D9C00A564B5 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
-		44383D7E27328D9C00A564B5 /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
-		44383D7F27328D9C00A564B5 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
-		44383D8027328D9C00A564B5 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
-		44383D8127328D9C00A564B5 /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
-		44383D8227328D9C00A564B5 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
-		44383D8327328D9C00A564B5 /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
-		44383D8427328D9C00A564B5 /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
-		44383D8527328D9C00A564B5 /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
-		44383D8627328D9C00A564B5 /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
-		44383D8727328D9C00A564B5 /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
-		44383D8827328D9C00A564B5 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
-		44383D8927328D9C00A564B5 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
-		44383D8A27328D9C00A564B5 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
-		44383D8B27328D9C00A564B5 /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
-		44383D8C27328D9C00A564B5 /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
-		44383D8D27328D9C00A564B5 /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
-		44383D8E27328D9C00A564B5 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
-		44383D8F27328D9C00A564B5 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
-		44383D9027328D9C00A564B5 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
-		44383D9127328D9C00A564B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
-		44383D9227328D9C00A564B5 /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
-		44383D9327328D9C00A564B5 /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
-		44383D9427328D9C00A564B5 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
-		44383D9527328D9C00A564B5 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
-		44383D9627328D9C00A564B5 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
-		44383D9727328D9C00A564B5 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
-		44383D9827328D9C00A564B5 /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
-		44383D9927328D9C00A564B5 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
-		44383D9A27328D9C00A564B5 /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
-		44383D9B27328D9C00A564B5 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
-		44383D9C27328D9C00A564B5 /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
-		44383D9D27328D9C00A564B5 /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
-		44383D9E27328D9C00A564B5 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
-		44383D9F27328D9C00A564B5 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
-		44383DA127328D9C00A564B5 /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 44383D5F27328D9C00A564B5 /* DataBases */; };
-		44383DA227328D9C00A564B5 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 44383D6227328D9C00A564B5 /* Preferences */; };
-		44383DA327328D9C00A564B5 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 44383D6027328D9C00A564B5 /* KeyboardShortcuts */; };
-		44383DA527328D9C00A564B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
-		44383DA627328D9C00A564B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
-		44383DA727328D9C00A564B5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
-		44383DA827328D9C00A564B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
-		44383DAA27328D9C00A564B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
-		44408CA727159F7D00866BB9 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
-		44408CA827159F7D00866BB9 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
-		44408CA927159F7D00866BB9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
-		44408CAA27159F7D00866BB9 /* EnglishSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */; };
-		44408CAC27159F7D00866BB9 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
-		44408CAD27159F7D00866BB9 /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
-		44408CAE27159F7D00866BB9 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
-		44408CAF27159F7D00866BB9 /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
-		44408CB027159F7D00866BB9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
-		44408CB127159F7D00866BB9 /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
-		44408CB227159F7D00866BB9 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
-		44408CB327159F7D00866BB9 /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
-		44408CB427159F7D00866BB9 /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
-		44408CB527159F7D00866BB9 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		44408CB627159F7D00866BB9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
-		44408CB727159F7D00866BB9 /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
-		44408CB827159F7D00866BB9 /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
-		44408CB927159F7D00866BB9 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
-		44408CBA27159F7D00866BB9 /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
-		44408CBB27159F7D00866BB9 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
-		44408CBC27159F7D00866BB9 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
-		44408CBD27159F7D00866BB9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
-		44408CBE27159F7D00866BB9 /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
-		44408CBF27159F7D00866BB9 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
-		44408CC027159F7D00866BB9 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
-		44408CC127159F7D00866BB9 /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
-		44408CC227159F7D00866BB9 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
-		44408CC327159F7D00866BB9 /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
-		44408CC427159F7D00866BB9 /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
-		44408CC527159F7D00866BB9 /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
-		44408CC627159F7D00866BB9 /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
-		44408CC727159F7D00866BB9 /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
-		44408CC827159F7D00866BB9 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
-		44408CC927159F7D00866BB9 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
-		44408CCA27159F7D00866BB9 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
-		44408CCB27159F7D00866BB9 /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
-		44408CCC27159F7D00866BB9 /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
-		44408CCD27159F7D00866BB9 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
-		44408CCE27159F7D00866BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
-		44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
-		44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
-		44408CD127159F7D00866BB9 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
-		44408CD227159F7D00866BB9 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
-		44408CD327159F7D00866BB9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
-		44408CD427159F7D00866BB9 /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
-		44408CD527159F7D00866BB9 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
-		44408CD627159F7D00866BB9 /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
-		44408CD727159F7D00866BB9 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
-		44408CD827159F7D00866BB9 /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
-		44408CD927159F7D00866BB9 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
-		44408CDA27159F7D00866BB9 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
-		44408CDC27159F7D00866BB9 /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 44408CA127159F7D00866BB9 /* DataBases */; };
-		44408CDD27159F7D00866BB9 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 44408CA427159F7D00866BB9 /* Preferences */; };
-		44408CDE27159F7D00866BB9 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 44408CA227159F7D00866BB9 /* KeyboardShortcuts */; };
-		44408CE027159F7D00866BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
-		44408CE227159F7D00866BB9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
-		44408CE327159F7D00866BB9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
-		44408CE427159F7D00866BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
-		44408CEB27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
@@ -253,97 +49,9 @@
 		445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
 		445355642705C4F4007DB9C2 /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
 		445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
-		44565F8627328F4700E7AD21 /* Babylon_English.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44565F8527328F4700E7AD21 /* Babylon_English.dictionary.zip */; };
-		44565F9027329A6E00E7AD21 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
-		44565F9127329A6E00E7AD21 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
-		44565F9227329A6E00E7AD21 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
-		44565F9327329A6E00E7AD21 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
-		44565F9427329A6E00E7AD21 /* EnglishSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* EnglishSettingsView.swift */; };
-		44565F9527329A6E00E7AD21 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
-		44565F9627329A6E00E7AD21 /* NoisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355632705C4F4007DB9C2 /* NoisesView.swift */; };
-		44565F9727329A6E00E7AD21 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555F27042A0B007DB9C2 /* PreferencesWindow.swift */; };
-		44565F9827329A6E00E7AD21 /* KnownPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554A27020CA0007DB9C2 /* KnownPersistence.swift */; };
-		44565F9927329A6E00E7AD21 /* KnownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CA2719B0EC00CEF786 /* KnownPanel.swift */; };
-		44565F9A27329A6E00E7AD21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
-		44565F9B27329A6E00E7AD21 /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
-		44565F9C27329A6E00E7AD21 /* TRCallBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355672705CF12007DB9C2 /* TRCallBack.swift */; };
-		44565F9D27329A6E00E7AD21 /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
-		44565F9E27329A6E00E7AD21 /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
-		44565F9F27329A6E00E7AD21 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		44565FA027329A6E00E7AD21 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
-		44565FA127329A6E00E7AD21 /* EntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554827020B7D007DB9C2 /* EntriesPersistence.swift */; };
-		44565FA227329A6E00E7AD21 /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
-		44565FA327329A6E00E7AD21 /* DictInstallWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictInstallWithInfoView.swift */; };
-		44565FA427329A6E00E7AD21 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
-		44565FA527329A6E00E7AD21 /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
-		44565FA627329A6E00E7AD21 /* OnboardingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555D270428CF007DB9C2 /* OnboardingPanel.swift */; };
-		44565FA727329A6E00E7AD21 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
-		44565FA827329A6E00E7AD21 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
-		44565FA927329A6E00E7AD21 /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
-		44565FAA27329A6E00E7AD21 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
-		44565FAB27329A6E00E7AD21 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
-		44565FAC27329A6E00E7AD21 /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
-		44565FAD27329A6E00E7AD21 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
-		44565FAE27329A6E00E7AD21 /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
-		44565FAF27329A6E00E7AD21 /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
-		44565FB027329A6E00E7AD21 /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
-		44565FB127329A6E00E7AD21 /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
-		44565FB227329A6E00E7AD21 /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
-		44565FB327329A6E00E7AD21 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
-		44565FB427329A6E00E7AD21 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453555327042478007DB9C2 /* Menus.swift */; };
-		44565FB527329A6E00E7AD21 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
-		44565FB627329A6E00E7AD21 /* NoisesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C82719AEDC00CEF786 /* NoisesPanel.swift */; };
-		44565FB727329A6E00E7AD21 /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
-		44565FB827329A6E00E7AD21 /* ContentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */; };
-		44565FB927329A6E00E7AD21 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
-		44565FBA27329A6E00E7AD21 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
-		44565FBB27329A6E00E7AD21 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
-		44565FBC27329A6E00E7AD21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
-		44565FBD27329A6E00E7AD21 /* NoisesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355612705C0CF007DB9C2 /* NoisesPersistence.swift */; };
-		44565FBE27329A6E00E7AD21 /* DictInstallPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictInstallPanel.swift */; };
-		44565FBF27329A6E00E7AD21 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554D27020DDA007DB9C2 /* DictionaryService.swift */; };
-		44565FC027329A6E00E7AD21 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
-		44565FC127329A6E00E7AD21 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
-		44565FC227329A6E00E7AD21 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
-		44565FC327329A6E00E7AD21 /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
-		44565FC427329A6E00E7AD21 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
-		44565FC527329A6E00E7AD21 /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
-		44565FC627329A6E00E7AD21 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
-		44565FC727329A6E00E7AD21 /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
-		44565FC827329A6E00E7AD21 /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
-		44565FC927329A6E00E7AD21 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
-		44565FCA27329A6E00E7AD21 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
-		44565FCC27329A6E00E7AD21 /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 44565F8A27329A6E00E7AD21 /* DataBases */; };
-		44565FCD27329A6E00E7AD21 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 44565F8D27329A6E00E7AD21 /* Preferences */; };
-		44565FCE27329A6E00E7AD21 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 44565F8B27329A6E00E7AD21 /* KeyboardShortcuts */; };
-		44565FD027329A6E00E7AD21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
-		44565FD127329A6E00E7AD21 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
-		44565FD227329A6E00E7AD21 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
-		44565FD427329A6E00E7AD21 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
-		44565FD527329A6E00E7AD21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446B24E626F1F0C400F1301D /* OnboardingView.swift */; };
-		446CDDFD27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */; };
 		446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
-		446E88CB274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
-		446E88CC274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
-		446E88CD274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
-		446E88CE274A050200B1789B /* MiniInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88C9274A050200B1789B /* MiniInfoView.swift */; };
 		446E88D0274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
-		446E88D1274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
-		446E88D2274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
-		446E88D3274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
-		446E88D4274A0BCC00B1789B /* QuestionMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */; };
-		446E88D5274A43AC00B1789B /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
-		4476F90227535D42006EDAC9 /* PorEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */; };
-		4476F90427535FBA006EDAC9 /* ItaEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */; };
-		4476F90627539282006EDAC9 /* DutEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */; };
-		4476F908275395F5006EDAC9 /* SweEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */; };
-		4476F90A27539ABC006EDAC9 /* RusEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */; };
-		4476F90C27539D8D006EDAC9 /* GreEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */; };
-		4476F90E2753A08E006EDAC9 /* TurEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90D2753A08E006EDAC9 /* TurEntriesPersistence.swift */; };
-		4476F9102753BD8E006EDAC9 /* HebEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F90F2753BD8E006EDAC9 /* HebEntriesPersistence.swift */; };
-		4476F9122753C247006EDAC9 /* AraEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F9112753C247006EDAC9 /* AraEntriesPersistence.swift */; };
-		4476F9142753C684006EDAC9 /* HinEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F9132753C684006EDAC9 /* HinEntriesPersistence.swift */; };
 		4476F9162754BA2C006EDAC9 /* RemoteEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F9152754BA2C006EDAC9 /* RemoteEntriesPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
@@ -352,11 +60,6 @@
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
 		447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F9B5426BD0451009C572F /* SlotsSettingsView.swift */; };
 		4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */; };
-		44A21016275341F800ED1983 /* KorEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A21015275341F800ED1983 /* KorEntriesPersistence.swift */; };
-		44A2101827534E3B00ED1983 /* GerEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */; };
-		44A451A8274FD164001DE18D /* ZhSEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */; };
-		44A4DC342753580A002A9597 /* FreEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A4DC332753580A002A9597 /* FreEntriesPersistence.swift */; };
-		44A4DC3627535AC6002A9597 /* SpaEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */; };
 		44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */; };
 		44BCEC5626842086002D3D8C /* KnownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC5526842086002D3D8C /* KnownView.swift */; };
 		44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BCEC572684BADD002D3D8C /* Utilities.swift */; };
@@ -368,10 +71,7 @@
 		44CAC50927145B2700EAFA74 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
 		44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
 		44CAC50D2714641600EAFA74 /* EntryUpsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */; };
-		44CAC5102715724700EAFA74 /* lazyworm-ec.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */; };
 		44DC155D2732709100934207 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
-		44DC155E2732709100934207 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44DC15602732709100934207 /* InfoPlist.strings */; };
-		44FA803A2733D6350041A6F2 /* mac-yinghancidian.dictionary.zip in Resources */ = {isa = PBXBuildFile; fileRef = 44FA80392733D6350041A6F2 /* mac-yinghancidian.dictionary.zip */; };
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
@@ -389,7 +89,6 @@
 		4416417226F5B668007D19FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4416417426F5B66F007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		4416417526F5B672007D19FC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		442126BC271877A400CEF786 /* gene.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = gene.dictionary.zip; sourceTree = "<group>"; };
 		442126C1271996B500CEF786 /* EditingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingPanel.swift; sourceTree = "<group>"; };
 		442126C42719A8DA00CEF786 /* PhrasesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPanel.swift; sourceTree = "<group>"; };
 		442126C62719AC3200CEF786 /* EntriesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPanel.swift; sourceTree = "<group>"; };
@@ -406,15 +105,9 @@
 		442134E426AC32A700963441 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
-		442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhichEntriesPersistence.swift; sourceTree = "<group>"; };
 		442A2995275259C5000B75E2 /* AppleDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDictionaryService.swift; sourceTree = "<group>"; };
 		442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInDictionaryService.swift; sourceTree = "<group>"; };
-		442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapEntriesPersistence.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		4430EF2E27328A5D003B098C /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		44383DAF27328D9C00A564B5 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		44408CE827159F7D00866BB9 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Japanese.dictionary.zip; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -436,22 +129,9 @@
 		445355612705C0CF007DB9C2 /* NoisesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisesPersistence.swift; sourceTree = "<group>"; };
 		445355632705C4F4007DB9C2 /* NoisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoisesView.swift; sourceTree = "<group>"; };
 		445355672705CF12007DB9C2 /* TRCallBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRCallBack.swift; sourceTree = "<group>"; };
-		44565F8527328F4700E7AD21 /* Babylon_English.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English.dictionary.zip; sourceTree = "<group>"; };
-		44565FD927329A6E00E7AD21 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446B24E626F1F0C400F1301D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Babylon_English_Spanish.dictionary.zip; sourceTree = "<group>"; };
 		446E88C9274A050200B1789B /* MiniInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniInfoView.swift; sourceTree = "<group>"; };
 		446E88CF274A0BCC00B1789B /* QuestionMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionMarkView.swift; sourceTree = "<group>"; };
-		4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItaEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RusEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F90D2753A08E006EDAC9 /* TurEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F90F2753BD8E006EDAC9 /* HebEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HebEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F9112753C247006EDAC9 /* AraEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AraEntriesPersistence.swift; sourceTree = "<group>"; };
-		4476F9132753C684006EDAC9 /* HinEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HinEntriesPersistence.swift; sourceTree = "<group>"; };
 		4476F9152754BA2C006EDAC9 /* RemoteEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteEntriesPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
@@ -460,11 +140,6 @@
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
 		447F9B5426BD0451009C572F /* SlotsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsSettingsView.swift; sourceTree = "<group>"; };
 		4495FE7D266C8C7100EFC721 /* CustomEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentKey.swift; sourceTree = "<group>"; };
-		44A21015275341F800ED1983 /* KorEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KorEntriesPersistence.swift; sourceTree = "<group>"; };
-		44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GerEntriesPersistence.swift; sourceTree = "<group>"; };
-		44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZhSEntriesPersistence.swift; sourceTree = "<group>"; };
-		44A4DC332753580A002A9597 /* FreEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreEntriesPersistence.swift; sourceTree = "<group>"; };
-		44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaEntriesPersistence.swift; sourceTree = "<group>"; };
 		44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedWords.swift; sourceTree = "<group>"; };
 		44BCEC5526842086002D3D8C /* KnownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnownView.swift; sourceTree = "<group>"; };
 		44BCEC572684BADD002D3D8C /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -476,11 +151,9 @@
 		44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseInsertView.swift; sourceTree = "<group>"; };
 		44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertPanel.swift; sourceTree = "<group>"; };
 		44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertView.swift; sourceTree = "<group>"; };
-		44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "lazyworm-ec.dictionary.zip"; sourceTree = "<group>"; };
 		44DC155F2732709100934207 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44DC15612732709300934207 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		44DC15622732709700934207 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		44FA80392733D6350041A6F2 /* mac-yinghancidian.dictionary.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "mac-yinghancidian.dictionary.zip"; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -491,36 +164,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4430EF1F27328A5D003B098C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4430EF2027328A5D003B098C /* DataBases in Frameworks */,
-				4430EF2127328A5D003B098C /* Preferences in Frameworks */,
-				4430EF2227328A5D003B098C /* KeyboardShortcuts in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44383DA027328D9C00A564B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44383DA127328D9C00A564B5 /* DataBases in Frameworks */,
-				44383DA227328D9C00A564B5 /* Preferences in Frameworks */,
-				44383DA327328D9C00A564B5 /* KeyboardShortcuts in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44408CDB27159F7D00866BB9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44408CDC27159F7D00866BB9 /* DataBases in Frameworks */,
-				44408CDD27159F7D00866BB9 /* Preferences in Frameworks */,
-				44408CDE27159F7D00866BB9 /* KeyboardShortcuts in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4440EE3D262EDCA3007FF470 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -528,16 +171,6 @@
 				447D61A72643E5E400AB0C1A /* DataBases in Frameworks */,
 				442134EB26AC5A7400963441 /* Preferences in Frameworks */,
 				442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44565FCB27329A6E00E7AD21 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44565FCC27329A6E00E7AD21 /* DataBases in Frameworks */,
-				44565FCD27329A6E00E7AD21 /* Preferences in Frameworks */,
-				44565FCE27329A6E00E7AD21 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,10 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				4440EE40262EDCA3007FF470 /* FreedomEnglish.app */,
-				44408CE827159F7D00866BB9 /* FreedomEnglish.app */,
-				4430EF2E27328A5D003B098C /* FreedomEnglish.app */,
-				44383DAF27328D9C00A564B5 /* FreedomEnglish.app */,
-				44565FD927329A6E00E7AD21 /* FreedomEnglish.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -596,7 +225,6 @@
 		4440EE42262EDCA3007FF470 /* DictAssistantApp */ = {
 			isa = PBXGroup;
 			children = (
-				44CAC50E271571D400EAFA74 /* Resources */,
 				4453554C27020DB9007DB9C2 /* Services */,
 				445354C42701D5AF007DB9C2 /* CoreData */,
 				447D61902643C12F00AB0C1A /* Model */,
@@ -649,7 +277,7 @@
 				4453554A27020CA0007DB9C2 /* KnownPersistence.swift */,
 				4453554827020B7D007DB9C2 /* EntriesPersistence.swift */,
 				4453554627020B32007DB9C2 /* SlotsPersistence.swift */,
-				44A451A6274FD0F5001DE18D /* Dictionaries */,
+				4476F9152754BA2C006EDAC9 /* RemoteEntriesPersistence.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -725,31 +353,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		44A451A6274FD0F5001DE18D /* Dictionaries */ = {
-			isa = PBXGroup;
-			children = (
-				442A2993275258E7000B75E2 /* WhichEntriesPersistence.swift */,
-				44A451A7274FD164001DE18D /* ZhSEntriesPersistence.swift */,
-				442A2999275268A7000B75E2 /* JapEntriesPersistence.swift */,
-				44A21015275341F800ED1983 /* KorEntriesPersistence.swift */,
-				44A2101727534E3B00ED1983 /* GerEntriesPersistence.swift */,
-				44A4DC332753580A002A9597 /* FreEntriesPersistence.swift */,
-				44A4DC3527535AC6002A9597 /* SpaEntriesPersistence.swift */,
-				4476F90127535D42006EDAC9 /* PorEntriesPersistence.swift */,
-				4476F90327535FBA006EDAC9 /* ItaEntriesPersistence.swift */,
-				4476F90527539282006EDAC9 /* DutEntriesPersistence.swift */,
-				4476F907275395F5006EDAC9 /* SweEntriesPersistence.swift */,
-				4476F90927539ABC006EDAC9 /* RusEntriesPersistence.swift */,
-				4476F90B27539D8D006EDAC9 /* GreEntriesPersistence.swift */,
-				4476F90D2753A08E006EDAC9 /* TurEntriesPersistence.swift */,
-				4476F90F2753BD8E006EDAC9 /* HebEntriesPersistence.swift */,
-				4476F9112753C247006EDAC9 /* AraEntriesPersistence.swift */,
-				4476F9132753C684006EDAC9 /* HinEntriesPersistence.swift */,
-				4476F9152754BA2C006EDAC9 /* RemoteEntriesPersistence.swift */,
-			);
-			path = Dictionaries;
-			sourceTree = "<group>";
-		};
 		44C207BB2701A93600419F63 /* LanguageEditing */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,91 +368,12 @@
 			path = LanguageEditing;
 			sourceTree = "<group>";
 		};
-		44CAC50E271571D400EAFA74 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				44FA80392733D6350041A6F2 /* mac-yinghancidian.dictionary.zip */,
-				446CDDFC27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip */,
-				44565F8527328F4700E7AD21 /* Babylon_English.dictionary.zip */,
-				44CAC50F2715724700EAFA74 /* lazyworm-ec.dictionary.zip */,
-				44408CEA27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip */,
-				442126BC271877A400CEF786 /* gene.dictionary.zip */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4430EEDD27328A5D003B098C /* DictAssistantApp Zh_T */ = {
+		4440EE3F262EDCA3007FF470 /* DictAssistantApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4430EF2B27328A5D003B098C /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_T" */;
-			buildPhases = (
-				4430EEE327328A5D003B098C /* Sources */,
-				4430EF1F27328A5D003B098C /* Frameworks */,
-				4430EF2327328A5D003B098C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DictAssistantApp Zh_T";
-			packageProductDependencies = (
-				4430EEDE27328A5D003B098C /* DataBases */,
-				4430EEDF27328A5D003B098C /* KeyboardShortcuts */,
-				4430EEE127328A5D003B098C /* Preferences */,
-			);
-			productName = DictAssistantApp;
-			productReference = 4430EF2E27328A5D003B098C /* FreedomEnglish.app */;
-			productType = "com.apple.product-type.application";
-		};
-		44383D5E27328D9C00A564B5 /* DictAssistantApp English */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 44383DAC27328D9C00A564B5 /* Build configuration list for PBXNativeTarget "DictAssistantApp English" */;
-			buildPhases = (
-				44383D6427328D9C00A564B5 /* Sources */,
-				44383DA027328D9C00A564B5 /* Frameworks */,
-				44383DA427328D9C00A564B5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DictAssistantApp English";
-			packageProductDependencies = (
-				44383D5F27328D9C00A564B5 /* DataBases */,
-				44383D6027328D9C00A564B5 /* KeyboardShortcuts */,
-				44383D6227328D9C00A564B5 /* Preferences */,
-			);
-			productName = DictAssistantApp;
-			productReference = 44383DAF27328D9C00A564B5 /* FreedomEnglish.app */;
-			productType = "com.apple.product-type.application";
-		};
-		44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 44408CE527159F7D00866BB9 /* Build configuration list for PBXNativeTarget "DictAssistantApp Japanese" */;
-			buildPhases = (
-				44408CA627159F7D00866BB9 /* Sources */,
-				44408CDB27159F7D00866BB9 /* Frameworks */,
-				44408CDF27159F7D00866BB9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DictAssistantApp Japanese";
-			packageProductDependencies = (
-				44408CA127159F7D00866BB9 /* DataBases */,
-				44408CA227159F7D00866BB9 /* KeyboardShortcuts */,
-				44408CA427159F7D00866BB9 /* Preferences */,
-			);
-			productName = DictAssistantApp;
-			productReference = 44408CE827159F7D00866BB9 /* FreedomEnglish.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4440EE3F262EDCA3007FF470 /* DictAssistantApp Zh_S */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_S" */;
+			buildConfigurationList = 4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp" */;
 			buildPhases = (
 				4440EE3C262EDCA3007FF470 /* Sources */,
 				4440EE3D262EDCA3007FF470 /* Frameworks */,
@@ -859,7 +383,7 @@
 			);
 			dependencies = (
 			);
-			name = "DictAssistantApp Zh_S";
+			name = DictAssistantApp;
 			packageProductDependencies = (
 				447D61A62643E5E400AB0C1A /* DataBases */,
 				442134D726AADBE800963441 /* KeyboardShortcuts */,
@@ -867,28 +391,6 @@
 			);
 			productName = DictAssistantApp;
 			productReference = 4440EE40262EDCA3007FF470 /* FreedomEnglish.app */;
-			productType = "com.apple.product-type.application";
-		};
-		44565F8927329A6E00E7AD21 /* DictAssistantApp Spanish */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 44565FD627329A6E00E7AD21 /* Build configuration list for PBXNativeTarget "DictAssistantApp Spanish" */;
-			buildPhases = (
-				44565F8F27329A6E00E7AD21 /* Sources */,
-				44565FCB27329A6E00E7AD21 /* Frameworks */,
-				44565FCF27329A6E00E7AD21 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "DictAssistantApp Spanish";
-			packageProductDependencies = (
-				44565F8A27329A6E00E7AD21 /* DataBases */,
-				44565F8B27329A6E00E7AD21 /* KeyboardShortcuts */,
-				44565F8D27329A6E00E7AD21 /* Preferences */,
-			);
-			productName = DictAssistantApp;
-			productReference = 44565FD927329A6E00E7AD21 /* FreedomEnglish.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -924,290 +426,27 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4440EE3F262EDCA3007FF470 /* DictAssistantApp Zh_S */,
-				44408CA027159F7D00866BB9 /* DictAssistantApp Japanese */,
-				4430EEDD27328A5D003B098C /* DictAssistantApp Zh_T */,
-				44383D5E27328D9C00A564B5 /* DictAssistantApp English */,
-				44565F8927329A6E00E7AD21 /* DictAssistantApp Spanish */,
+				4440EE3F262EDCA3007FF470 /* DictAssistantApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4430EF2327328A5D003B098C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4430EF2427328A5D003B098C /* Main.storyboard in Resources */,
-				4430EF2527328A5D003B098C /* InfoPlist.strings in Resources */,
-				44FA803A2733D6350041A6F2 /* mac-yinghancidian.dictionary.zip in Resources */,
-				446E88D5274A43AC00B1789B /* lazyworm-ec.dictionary.zip in Resources */,
-				4430EF2627328A5D003B098C /* Localizable.strings in Resources */,
-				4430EF2727328A5D003B098C /* Preview Assets.xcassets in Resources */,
-				4430EF2927328A5D003B098C /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44383DA427328D9C00A564B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44383DA527328D9C00A564B5 /* Main.storyboard in Resources */,
-				44383DA627328D9C00A564B5 /* InfoPlist.strings in Resources */,
-				44383DA727328D9C00A564B5 /* Localizable.strings in Resources */,
-				44565F8627328F4700E7AD21 /* Babylon_English.dictionary.zip in Resources */,
-				44383DA827328D9C00A564B5 /* Preview Assets.xcassets in Resources */,
-				44383DAA27328D9C00A564B5 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44408CDF27159F7D00866BB9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44408CE027159F7D00866BB9 /* Main.storyboard in Resources */,
-				44DC155E2732709100934207 /* InfoPlist.strings in Resources */,
-				44408CE227159F7D00866BB9 /* Localizable.strings in Resources */,
-				44408CE327159F7D00866BB9 /* Preview Assets.xcassets in Resources */,
-				44408CEB27159F9500866BB9 /* Babylon_English_Japanese.dictionary.zip in Resources */,
-				44408CE427159F7D00866BB9 /* Assets.xcassets in Resources */,
-				442126BD271877A400CEF786 /* gene.dictionary.zip in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4440EE3E262EDCA3007FF470 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */,
 				44DC155D2732709100934207 /* InfoPlist.strings in Resources */,
-				44CAC5102715724700EAFA74 /* lazyworm-ec.dictionary.zip in Resources */,
 				4416417126F5B668007D19FC /* Localizable.strings in Resources */,
 				4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */,
 				4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		44565FCF27329A6E00E7AD21 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44565FD027329A6E00E7AD21 /* Main.storyboard in Resources */,
-				44565FD127329A6E00E7AD21 /* InfoPlist.strings in Resources */,
-				44565FD227329A6E00E7AD21 /* Localizable.strings in Resources */,
-				446CDDFD27329ABB00BF5745 /* Babylon_English_Spanish.dictionary.zip in Resources */,
-				44565FD427329A6E00E7AD21 /* Preview Assets.xcassets in Resources */,
-				44565FD527329A6E00E7AD21 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4430EEE327328A5D003B098C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4430EEE427328A5D003B098C /* EntryUpsertView.swift in Sources */,
-				4430EEE527328A5D003B098C /* EntriesPanel.swift in Sources */,
-				4430EEE627328A5D003B098C /* PhraseInsertView.swift in Sources */,
-				4430EEE727328A5D003B098C /* OnboardingView.swift in Sources */,
-				4430EEE827328A5D003B098C /* EnglishSettingsView.swift in Sources */,
-				4430EEE927328A5D003B098C /* PortraitWordsView.swift in Sources */,
-				4430EEEA27328A5D003B098C /* NoisesView.swift in Sources */,
-				4430EEEB27328A5D003B098C /* PreferencesWindow.swift in Sources */,
-				4430EEEC27328A5D003B098C /* KnownPersistence.swift in Sources */,
-				4430EEED27328A5D003B098C /* KnownPanel.swift in Sources */,
-				4430EEEE27328A5D003B098C /* ContentView.swift in Sources */,
-				4430EEEF27328A5D003B098C /* PhrasesView.swift in Sources */,
-				4430EEF027328A5D003B098C /* TRCallBack.swift in Sources */,
-				4430EEF127328A5D003B098C /* SlotsSettingsView.swift in Sources */,
-				4430EEF227328A5D003B098C /* ToastWindow.swift in Sources */,
-				4430EEF327328A5D003B098C /* LandscapeWordsView.swift in Sources */,
-				4430EEF427328A5D003B098C /* Settings.swift in Sources */,
-				4430EEF527328A5D003B098C /* EntriesPersistence.swift in Sources */,
-				4430EEF627328A5D003B098C /* VisionSettingsView.swift in Sources */,
-				4430EEF727328A5D003B098C /* DictInstallWithInfoView.swift in Sources */,
-				4430EEF827328A5D003B098C /* WordsView.swift in Sources */,
-				4430EEF927328A5D003B098C /* PhraseInsertPanel.swift in Sources */,
-				4430EEFA27328A5D003B098C /* OnboardingPanel.swift in Sources */,
-				4430EEFB27328A5D003B098C /* ContentWindow.swift in Sources */,
-				4430EEFC27328A5D003B098C /* Utilities.swift in Sources */,
-				4430EEFD27328A5D003B098C /* NLPSample.swift in Sources */,
-				4430EEFE27328A5D003B098C /* EntryUpsertPanel.swift in Sources */,
-				4430EEFF27328A5D003B098C /* StatusData.swift in Sources */,
-				4430EF0027328A5D003B098C /* CropperView.swift in Sources */,
-				4430EF0127328A5D003B098C /* PhrasesPersistence.swift in Sources */,
-				4430EF0227328A5D003B098C /* GBig.swift in Sources */,
-				4430EF0327328A5D003B098C /* UserDefaultSettings.swift in Sources */,
-				446E88D2274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
-				4430EF0427328A5D003B098C /* SlotsPersistence.swift in Sources */,
-				446E88CC274A050200B1789B /* MiniInfoView.swift in Sources */,
-				4430EF0527328A5D003B098C /* DictInstallView.swift in Sources */,
-				4430EF0627328A5D003B098C /* RecordingSettingsView.swift in Sources */,
-				4430EF0727328A5D003B098C /* CustomEnvironmentKey.swift in Sources */,
-				4430EF0827328A5D003B098C /* Menus.swift in Sources */,
-				4430EF0927328A5D003B098C /* GeneralSettingsView.swift in Sources */,
-				4430EF0A27328A5D003B098C /* NoisesPanel.swift in Sources */,
-				4430EF0B27328A5D003B098C /* SingleWordView.swift in Sources */,
-				4430EF0C27328A5D003B098C /* ContentSettingsView.swift in Sources */,
-				4430EF0D27328A5D003B098C /* AppearanceSettingsView.swift in Sources */,
-				4430EF0E27328A5D003B098C /* PhrasesPanel.swift in Sources */,
-				4430EF0F27328A5D003B098C /* EditingPanel.swift in Sources */,
-				4430EF1027328A5D003B098C /* AppDelegate.swift in Sources */,
-				4430EF1127328A5D003B098C /* NoisesPersistence.swift in Sources */,
-				4430EF1227328A5D003B098C /* DictInstallPanel.swift in Sources */,
-				4430EF1327328A5D003B098C /* DictionaryService.swift in Sources */,
-				4430EF1427328A5D003B098C /* app.xcdatamodeld in Sources */,
-				4430EF1527328A5D003B098C /* CropperWindow.swift in Sources */,
-				4430EF1627328A5D003B098C /* ToastView.swift in Sources */,
-				4430EF1727328A5D003B098C /* DisplayedWords.swift in Sources */,
-				4430EF1827328A5D003B098C /* EntriesView.swift in Sources */,
-				4430EF1927328A5D003B098C /* KnownView.swift in Sources */,
-				4430EF1A27328A5D003B098C /* PersistenceStack.swift in Sources */,
-				4430EF1B27328A5D003B098C /* GlobalShortCutKey.swift in Sources */,
-				4430EF1C27328A5D003B098C /* CCDelegate.swift in Sources */,
-				4430EF1D27328A5D003B098C /* VisualEffectView.swift in Sources */,
-				4430EF1E27328A5D003B098C /* AVSessionAndTR.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44383D6427328D9C00A564B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44383D6527328D9C00A564B5 /* EntryUpsertView.swift in Sources */,
-				44383D6627328D9C00A564B5 /* EntriesPanel.swift in Sources */,
-				44383D6727328D9C00A564B5 /* PhraseInsertView.swift in Sources */,
-				44383D6827328D9C00A564B5 /* OnboardingView.swift in Sources */,
-				44383D6927328D9C00A564B5 /* EnglishSettingsView.swift in Sources */,
-				44383D6A27328D9C00A564B5 /* PortraitWordsView.swift in Sources */,
-				44383D6B27328D9C00A564B5 /* NoisesView.swift in Sources */,
-				44383D6C27328D9C00A564B5 /* PreferencesWindow.swift in Sources */,
-				44383D6D27328D9C00A564B5 /* KnownPersistence.swift in Sources */,
-				44383D6E27328D9C00A564B5 /* KnownPanel.swift in Sources */,
-				44383D6F27328D9C00A564B5 /* ContentView.swift in Sources */,
-				44383D7027328D9C00A564B5 /* PhrasesView.swift in Sources */,
-				44383D7127328D9C00A564B5 /* TRCallBack.swift in Sources */,
-				44383D7227328D9C00A564B5 /* SlotsSettingsView.swift in Sources */,
-				44383D7327328D9C00A564B5 /* ToastWindow.swift in Sources */,
-				44383D7427328D9C00A564B5 /* LandscapeWordsView.swift in Sources */,
-				44383D7527328D9C00A564B5 /* Settings.swift in Sources */,
-				44383D7627328D9C00A564B5 /* EntriesPersistence.swift in Sources */,
-				44383D7727328D9C00A564B5 /* VisionSettingsView.swift in Sources */,
-				44383D7827328D9C00A564B5 /* DictInstallWithInfoView.swift in Sources */,
-				44383D7927328D9C00A564B5 /* WordsView.swift in Sources */,
-				44383D7A27328D9C00A564B5 /* PhraseInsertPanel.swift in Sources */,
-				44383D7B27328D9C00A564B5 /* OnboardingPanel.swift in Sources */,
-				44383D7C27328D9C00A564B5 /* ContentWindow.swift in Sources */,
-				44383D7D27328D9C00A564B5 /* Utilities.swift in Sources */,
-				44383D7E27328D9C00A564B5 /* NLPSample.swift in Sources */,
-				44383D7F27328D9C00A564B5 /* EntryUpsertPanel.swift in Sources */,
-				44383D8027328D9C00A564B5 /* StatusData.swift in Sources */,
-				44383D8127328D9C00A564B5 /* CropperView.swift in Sources */,
-				44383D8227328D9C00A564B5 /* PhrasesPersistence.swift in Sources */,
-				44383D8327328D9C00A564B5 /* GBig.swift in Sources */,
-				44383D8427328D9C00A564B5 /* UserDefaultSettings.swift in Sources */,
-				446E88D3274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
-				44383D8527328D9C00A564B5 /* SlotsPersistence.swift in Sources */,
-				446E88CD274A050200B1789B /* MiniInfoView.swift in Sources */,
-				44383D8627328D9C00A564B5 /* DictInstallView.swift in Sources */,
-				44383D8727328D9C00A564B5 /* RecordingSettingsView.swift in Sources */,
-				44383D8827328D9C00A564B5 /* CustomEnvironmentKey.swift in Sources */,
-				44383D8927328D9C00A564B5 /* Menus.swift in Sources */,
-				44383D8A27328D9C00A564B5 /* GeneralSettingsView.swift in Sources */,
-				44383D8B27328D9C00A564B5 /* NoisesPanel.swift in Sources */,
-				44383D8C27328D9C00A564B5 /* SingleWordView.swift in Sources */,
-				44383D8D27328D9C00A564B5 /* ContentSettingsView.swift in Sources */,
-				44383D8E27328D9C00A564B5 /* AppearanceSettingsView.swift in Sources */,
-				44383D8F27328D9C00A564B5 /* PhrasesPanel.swift in Sources */,
-				44383D9027328D9C00A564B5 /* EditingPanel.swift in Sources */,
-				44383D9127328D9C00A564B5 /* AppDelegate.swift in Sources */,
-				44383D9227328D9C00A564B5 /* NoisesPersistence.swift in Sources */,
-				44383D9327328D9C00A564B5 /* DictInstallPanel.swift in Sources */,
-				44383D9427328D9C00A564B5 /* DictionaryService.swift in Sources */,
-				44383D9527328D9C00A564B5 /* app.xcdatamodeld in Sources */,
-				44383D9627328D9C00A564B5 /* CropperWindow.swift in Sources */,
-				44383D9727328D9C00A564B5 /* ToastView.swift in Sources */,
-				44383D9827328D9C00A564B5 /* DisplayedWords.swift in Sources */,
-				44383D9927328D9C00A564B5 /* EntriesView.swift in Sources */,
-				44383D9A27328D9C00A564B5 /* KnownView.swift in Sources */,
-				44383D9B27328D9C00A564B5 /* PersistenceStack.swift in Sources */,
-				44383D9C27328D9C00A564B5 /* GlobalShortCutKey.swift in Sources */,
-				44383D9D27328D9C00A564B5 /* CCDelegate.swift in Sources */,
-				44383D9E27328D9C00A564B5 /* VisualEffectView.swift in Sources */,
-				44383D9F27328D9C00A564B5 /* AVSessionAndTR.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44408CA627159F7D00866BB9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44408CA727159F7D00866BB9 /* EntryUpsertView.swift in Sources */,
-				442126D32719B5EA00CEF786 /* EntriesPanel.swift in Sources */,
-				44408CA827159F7D00866BB9 /* PhraseInsertView.swift in Sources */,
-				44408CA927159F7D00866BB9 /* OnboardingView.swift in Sources */,
-				44408CAA27159F7D00866BB9 /* EnglishSettingsView.swift in Sources */,
-				44408CAC27159F7D00866BB9 /* PortraitWordsView.swift in Sources */,
-				44408CAD27159F7D00866BB9 /* NoisesView.swift in Sources */,
-				44408CAE27159F7D00866BB9 /* PreferencesWindow.swift in Sources */,
-				44408CAF27159F7D00866BB9 /* KnownPersistence.swift in Sources */,
-				442126D52719B5EE00CEF786 /* KnownPanel.swift in Sources */,
-				44408CB027159F7D00866BB9 /* ContentView.swift in Sources */,
-				44408CB127159F7D00866BB9 /* PhrasesView.swift in Sources */,
-				44408CB227159F7D00866BB9 /* TRCallBack.swift in Sources */,
-				44408CB327159F7D00866BB9 /* SlotsSettingsView.swift in Sources */,
-				44408CB427159F7D00866BB9 /* ToastWindow.swift in Sources */,
-				44408CB527159F7D00866BB9 /* LandscapeWordsView.swift in Sources */,
-				44408CB627159F7D00866BB9 /* Settings.swift in Sources */,
-				44408CB727159F7D00866BB9 /* EntriesPersistence.swift in Sources */,
-				44408CB827159F7D00866BB9 /* VisionSettingsView.swift in Sources */,
-				442126D72719B5F600CEF786 /* DictInstallWithInfoView.swift in Sources */,
-				44408CB927159F7D00866BB9 /* WordsView.swift in Sources */,
-				44408CBA27159F7D00866BB9 /* PhraseInsertPanel.swift in Sources */,
-				44408CBB27159F7D00866BB9 /* OnboardingPanel.swift in Sources */,
-				44408CBC27159F7D00866BB9 /* ContentWindow.swift in Sources */,
-				44408CBD27159F7D00866BB9 /* Utilities.swift in Sources */,
-				44408CBE27159F7D00866BB9 /* NLPSample.swift in Sources */,
-				44408CBF27159F7D00866BB9 /* EntryUpsertPanel.swift in Sources */,
-				44408CC027159F7D00866BB9 /* StatusData.swift in Sources */,
-				44408CC127159F7D00866BB9 /* CropperView.swift in Sources */,
-				44408CC227159F7D00866BB9 /* PhrasesPersistence.swift in Sources */,
-				44408CC327159F7D00866BB9 /* GBig.swift in Sources */,
-				44408CC427159F7D00866BB9 /* UserDefaultSettings.swift in Sources */,
-				446E88D1274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
-				44408CC527159F7D00866BB9 /* SlotsPersistence.swift in Sources */,
-				446E88CB274A050200B1789B /* MiniInfoView.swift in Sources */,
-				44408CC627159F7D00866BB9 /* DictInstallView.swift in Sources */,
-				44408CC727159F7D00866BB9 /* RecordingSettingsView.swift in Sources */,
-				44408CC827159F7D00866BB9 /* CustomEnvironmentKey.swift in Sources */,
-				44408CC927159F7D00866BB9 /* Menus.swift in Sources */,
-				44408CCA27159F7D00866BB9 /* GeneralSettingsView.swift in Sources */,
-				442126D42719B5EC00CEF786 /* NoisesPanel.swift in Sources */,
-				44408CCB27159F7D00866BB9 /* SingleWordView.swift in Sources */,
-				44408CCC27159F7D00866BB9 /* ContentSettingsView.swift in Sources */,
-				44408CCD27159F7D00866BB9 /* AppearanceSettingsView.swift in Sources */,
-				442126D22719B5E800CEF786 /* PhrasesPanel.swift in Sources */,
-				442126C32719A48600CEF786 /* EditingPanel.swift in Sources */,
-				44408CCE27159F7D00866BB9 /* AppDelegate.swift in Sources */,
-				44408CCF27159F7D00866BB9 /* NoisesPersistence.swift in Sources */,
-				442126D62719B5F100CEF786 /* DictInstallPanel.swift in Sources */,
-				44408CD027159F7D00866BB9 /* DictionaryService.swift in Sources */,
-				44408CD127159F7D00866BB9 /* app.xcdatamodeld in Sources */,
-				44408CD227159F7D00866BB9 /* CropperWindow.swift in Sources */,
-				44408CD327159F7D00866BB9 /* ToastView.swift in Sources */,
-				44408CD427159F7D00866BB9 /* DisplayedWords.swift in Sources */,
-				44408CD527159F7D00866BB9 /* EntriesView.swift in Sources */,
-				44408CD627159F7D00866BB9 /* KnownView.swift in Sources */,
-				44408CD727159F7D00866BB9 /* PersistenceStack.swift in Sources */,
-				44408CD827159F7D00866BB9 /* GlobalShortCutKey.swift in Sources */,
-				4422950F272CF7930015099A /* CCDelegate.swift in Sources */,
-				44408CD927159F7D00866BB9 /* VisualEffectView.swift in Sources */,
-				44408CDA27159F7D00866BB9 /* AVSessionAndTR.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4440EE3C262EDCA3007FF470 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1219,39 +458,29 @@
 				44FEB725270AE3C100701E5D /* EnglishSettingsView.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
 				445355642705C4F4007DB9C2 /* NoisesView.swift in Sources */,
-				44A2101827534E3B00ED1983 /* GerEntriesPersistence.swift in Sources */,
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
 				4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */,
 				442126CB2719B0EC00CEF786 /* KnownPanel.swift in Sources */,
-				4476F90C27539D8D006EDAC9 /* GreEntriesPersistence.swift in Sources */,
-				442A2994275258E7000B75E2 /* WhichEntriesPersistence.swift in Sources */,
 				44FC700A266DEFF80025676B /* ContentView.swift in Sources */,
-				442A299A275268A7000B75E2 /* JapEntriesPersistence.swift in Sources */,
 				44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */,
 				445355682705CF12007DB9C2 /* TRCallBack.swift in Sources */,
 				447F9B5526BD0451009C572F /* SlotsSettingsView.swift in Sources */,
-				4476F90227535D42006EDAC9 /* PorEntriesPersistence.swift in Sources */,
 				447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */,
 				442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */,
 				444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */,
 				442134CE26A6C64200963441 /* Settings.swift in Sources */,
 				4453554927020B7D007DB9C2 /* EntriesPersistence.swift in Sources */,
 				44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */,
-				4476F90627539282006EDAC9 /* DutEntriesPersistence.swift in Sources */,
 				442126D12719B4C700CEF786 /* DictInstallWithInfoView.swift in Sources */,
 				442134E526AC32A700963441 /* WordsView.swift in Sources */,
-				4476F90E2753A08E006EDAC9 /* TurEntriesPersistence.swift in Sources */,
 				44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */,
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
-				4476F9102753BD8E006EDAC9 /* HebEntriesPersistence.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
-				44A4DC3627535AC6002A9597 /* SpaEntriesPersistence.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
 				44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,
-				44A21016275341F800ED1983 /* KorEntriesPersistence.swift in Sources */,
 				445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */,
 				44C0F24B270775AF006CFEFC /* GBig.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,
@@ -1260,7 +489,6 @@
 				446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */,
 				44CA55F6270C73D4007D4053 /* DictInstallView.swift in Sources */,
 				44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */,
-				44A4DC342753580A002A9597 /* FreEntriesPersistence.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
@@ -1270,97 +498,23 @@
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
-				4476F9122753C247006EDAC9 /* AraEntriesPersistence.swift in Sources */,
 				442126C2271996B500CEF786 /* EditingPanel.swift in Sources */,
-				4476F908275395F5006EDAC9 /* SweEntriesPersistence.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,
 				4476F9162754BA2C006EDAC9 /* RemoteEntriesPersistence.swift in Sources */,
 				445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */,
 				442126CF2719B26600CEF786 /* DictInstallPanel.swift in Sources */,
-				4476F90A27539ABC006EDAC9 /* RusEntriesPersistence.swift in Sources */,
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
 				447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
-				4476F9142753C684006EDAC9 /* HinEntriesPersistence.swift in Sources */,
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,
 				44C31D6D26FE035800ED6E08 /* EntriesView.swift in Sources */,
 				44BCEC5626842086002D3D8C /* KnownView.swift in Sources */,
 				445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */,
 				442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */,
-				4476F90427535FBA006EDAC9 /* ItaEntriesPersistence.swift in Sources */,
 				4422950E272CF77A0015099A /* CCDelegate.swift in Sources */,
-				44A451A8274FD164001DE18D /* ZhSEntriesPersistence.swift in Sources */,
 				442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */,
 				4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44565F8F27329A6E00E7AD21 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				44565F9027329A6E00E7AD21 /* EntryUpsertView.swift in Sources */,
-				44565F9127329A6E00E7AD21 /* EntriesPanel.swift in Sources */,
-				44565F9227329A6E00E7AD21 /* PhraseInsertView.swift in Sources */,
-				44565F9327329A6E00E7AD21 /* OnboardingView.swift in Sources */,
-				44565F9427329A6E00E7AD21 /* EnglishSettingsView.swift in Sources */,
-				44565F9527329A6E00E7AD21 /* PortraitWordsView.swift in Sources */,
-				44565F9627329A6E00E7AD21 /* NoisesView.swift in Sources */,
-				44565F9727329A6E00E7AD21 /* PreferencesWindow.swift in Sources */,
-				44565F9827329A6E00E7AD21 /* KnownPersistence.swift in Sources */,
-				44565F9927329A6E00E7AD21 /* KnownPanel.swift in Sources */,
-				44565F9A27329A6E00E7AD21 /* ContentView.swift in Sources */,
-				44565F9B27329A6E00E7AD21 /* PhrasesView.swift in Sources */,
-				44565F9C27329A6E00E7AD21 /* TRCallBack.swift in Sources */,
-				44565F9D27329A6E00E7AD21 /* SlotsSettingsView.swift in Sources */,
-				44565F9E27329A6E00E7AD21 /* ToastWindow.swift in Sources */,
-				44565F9F27329A6E00E7AD21 /* LandscapeWordsView.swift in Sources */,
-				44565FA027329A6E00E7AD21 /* Settings.swift in Sources */,
-				44565FA127329A6E00E7AD21 /* EntriesPersistence.swift in Sources */,
-				44565FA227329A6E00E7AD21 /* VisionSettingsView.swift in Sources */,
-				44565FA327329A6E00E7AD21 /* DictInstallWithInfoView.swift in Sources */,
-				44565FA427329A6E00E7AD21 /* WordsView.swift in Sources */,
-				44565FA527329A6E00E7AD21 /* PhraseInsertPanel.swift in Sources */,
-				44565FA627329A6E00E7AD21 /* OnboardingPanel.swift in Sources */,
-				44565FA727329A6E00E7AD21 /* ContentWindow.swift in Sources */,
-				44565FA827329A6E00E7AD21 /* Utilities.swift in Sources */,
-				44565FA927329A6E00E7AD21 /* NLPSample.swift in Sources */,
-				44565FAA27329A6E00E7AD21 /* EntryUpsertPanel.swift in Sources */,
-				44565FAB27329A6E00E7AD21 /* StatusData.swift in Sources */,
-				44565FAC27329A6E00E7AD21 /* CropperView.swift in Sources */,
-				44565FAD27329A6E00E7AD21 /* PhrasesPersistence.swift in Sources */,
-				44565FAE27329A6E00E7AD21 /* GBig.swift in Sources */,
-				44565FAF27329A6E00E7AD21 /* UserDefaultSettings.swift in Sources */,
-				446E88D4274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
-				44565FB027329A6E00E7AD21 /* SlotsPersistence.swift in Sources */,
-				446E88CE274A050200B1789B /* MiniInfoView.swift in Sources */,
-				44565FB127329A6E00E7AD21 /* DictInstallView.swift in Sources */,
-				44565FB227329A6E00E7AD21 /* RecordingSettingsView.swift in Sources */,
-				44565FB327329A6E00E7AD21 /* CustomEnvironmentKey.swift in Sources */,
-				44565FB427329A6E00E7AD21 /* Menus.swift in Sources */,
-				44565FB527329A6E00E7AD21 /* GeneralSettingsView.swift in Sources */,
-				44565FB627329A6E00E7AD21 /* NoisesPanel.swift in Sources */,
-				44565FB727329A6E00E7AD21 /* SingleWordView.swift in Sources */,
-				44565FB827329A6E00E7AD21 /* ContentSettingsView.swift in Sources */,
-				44565FB927329A6E00E7AD21 /* AppearanceSettingsView.swift in Sources */,
-				44565FBA27329A6E00E7AD21 /* PhrasesPanel.swift in Sources */,
-				44565FBB27329A6E00E7AD21 /* EditingPanel.swift in Sources */,
-				44565FBC27329A6E00E7AD21 /* AppDelegate.swift in Sources */,
-				44565FBD27329A6E00E7AD21 /* NoisesPersistence.swift in Sources */,
-				44565FBE27329A6E00E7AD21 /* DictInstallPanel.swift in Sources */,
-				44565FBF27329A6E00E7AD21 /* DictionaryService.swift in Sources */,
-				44565FC027329A6E00E7AD21 /* app.xcdatamodeld in Sources */,
-				44565FC127329A6E00E7AD21 /* CropperWindow.swift in Sources */,
-				44565FC227329A6E00E7AD21 /* ToastView.swift in Sources */,
-				44565FC327329A6E00E7AD21 /* DisplayedWords.swift in Sources */,
-				44565FC427329A6E00E7AD21 /* EntriesView.swift in Sources */,
-				44565FC527329A6E00E7AD21 /* KnownView.swift in Sources */,
-				44565FC627329A6E00E7AD21 /* PersistenceStack.swift in Sources */,
-				44565FC727329A6E00E7AD21 /* GlobalShortCutKey.swift in Sources */,
-				44565FC827329A6E00E7AD21 /* CCDelegate.swift in Sources */,
-				44565FC927329A6E00E7AD21 /* VisualEffectView.swift in Sources */,
-				44565FCA27329A6E00E7AD21 /* AVSessionAndTR.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1400,156 +554,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4430EF2C27328A5D003B098C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		4430EF2D27328A5D003B098C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		44383DAD27328D9C00A564B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		44383DAE27328D9C00A564B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		44408CE627159F7D00866BB9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		44408CE727159F7D00866BB9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		4440EE51262EDCA4007FF470 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1717,86 +721,9 @@
 			};
 			name = Release;
 		};
-		44565FD727329A6E00E7AD21 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		44565FD827329A6E00E7AD21 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = DictAssistantApp/DictAssistantApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"DictAssistantApp/Preview Content\"";
-				DEVELOPMENT_TEAM = T8LHNZ3EQU;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/DictAssistantApp/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4430EF2B27328A5D003B098C /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_T" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4430EF2C27328A5D003B098C /* Debug */,
-				4430EF2D27328A5D003B098C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		44383DAC27328D9C00A564B5 /* Build configuration list for PBXNativeTarget "DictAssistantApp English" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				44383DAD27328D9C00A564B5 /* Debug */,
-				44383DAE27328D9C00A564B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		44408CE527159F7D00866BB9 /* Build configuration list for PBXNativeTarget "DictAssistantApp Japanese" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				44408CE627159F7D00866BB9 /* Debug */,
-				44408CE727159F7D00866BB9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4440EE3B262EDCA3007FF470 /* Build configuration list for PBXProject "DictAssistantApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1806,20 +733,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp Zh_S" */ = {
+		4440EE53262EDCA4007FF470 /* Build configuration list for PBXNativeTarget "DictAssistantApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4440EE54262EDCA4007FF470 /* Debug */,
 				4440EE55262EDCA4007FF470 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		44565FD627329A6E00E7AD21 /* Build configuration list for PBXNativeTarget "DictAssistantApp Spanish" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				44565FD727329A6E00E7AD21 /* Debug */,
-				44565FD827329A6E00E7AD21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1843,70 +761,6 @@
 				minimumVersion = 2.4.0;
 			};
 		};
-		4430EEE027328A5D003B098C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		4430EEE227328A5D003B098C /* XCRemoteSwiftPackageReference "Preferences" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/Preferences";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.0;
-			};
-		};
-		44383D6127328D9C00A564B5 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		44383D6327328D9C00A564B5 /* XCRemoteSwiftPackageReference "Preferences" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/Preferences";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.0;
-			};
-		};
-		44408CA327159F7D00866BB9 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		44408CA527159F7D00866BB9 /* XCRemoteSwiftPackageReference "Preferences" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/Preferences";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.0;
-			};
-		};
-		44565F8C27329A6E00E7AD21 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		44565F8E27329A6E00E7AD21 /* XCRemoteSwiftPackageReference "Preferences" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/Preferences";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.4.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1918,62 +772,6 @@
 		442134EA26AC5A7400963441 /* Preferences */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 442134E926AC5A7400963441 /* XCRemoteSwiftPackageReference "Preferences" */;
-			productName = Preferences;
-		};
-		4430EEDE27328A5D003B098C /* DataBases */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DataBases;
-		};
-		4430EEDF27328A5D003B098C /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4430EEE027328A5D003B098C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
-		};
-		4430EEE127328A5D003B098C /* Preferences */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4430EEE227328A5D003B098C /* XCRemoteSwiftPackageReference "Preferences" */;
-			productName = Preferences;
-		};
-		44383D5F27328D9C00A564B5 /* DataBases */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DataBases;
-		};
-		44383D6027328D9C00A564B5 /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44383D6127328D9C00A564B5 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
-		};
-		44383D6227328D9C00A564B5 /* Preferences */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44383D6327328D9C00A564B5 /* XCRemoteSwiftPackageReference "Preferences" */;
-			productName = Preferences;
-		};
-		44408CA127159F7D00866BB9 /* DataBases */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DataBases;
-		};
-		44408CA227159F7D00866BB9 /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44408CA327159F7D00866BB9 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
-		};
-		44408CA427159F7D00866BB9 /* Preferences */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44408CA527159F7D00866BB9 /* XCRemoteSwiftPackageReference "Preferences" */;
-			productName = Preferences;
-		};
-		44565F8A27329A6E00E7AD21 /* DataBases */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DataBases;
-		};
-		44565F8B27329A6E00E7AD21 /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44565F8C27329A6E00E7AD21 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
-		};
-		44565F8D27329A6E00E7AD21 /* Preferences */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44565F8E27329A6E00E7AD21 /* XCRemoteSwiftPackageReference "Preferences" */;
 			productName = Preferences;
 		};
 		447D61A62643E5E400AB0C1A /* DataBases */ = {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-var currentEntries: Dictionary<String, String> = getAllZhSEntries()
+var currentEntries: Dictionary<String, String> = getAllRemoteEntries()
 func builtInDefine(_ word: String) -> String? {
     return currentEntries[word]
 }

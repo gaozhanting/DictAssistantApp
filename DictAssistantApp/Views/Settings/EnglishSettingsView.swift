@@ -21,11 +21,8 @@ struct EnglishSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
-            Preferences.Section(title: NSLocalizedString("Set remote dict url:", comment: "")) {
-                SetRemoteDictURLView()
-            }
-            Preferences.Section(title: NSLocalizedString("Use Built In Dict:", comment: "")) {
-                BuiltInLanguagePicker()
+            Preferences.Section(title: NSLocalizedString("Build Dict from remote url:", comment: "")) {
+                BuildDictFromRemoteURLView()
             }
             Preferences.Section(title: NSLocalizedString("Use Apple Dict:", comment: "")) {
                 UseAppleDictPicker()
@@ -104,77 +101,25 @@ private struct ShowPhrasesToggle: View {
     }
 }
 
-private struct SetRemoteDictURLView: View {
+private struct BuildDictFromRemoteURLView: View {
     @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
     
     var body: some View {
-        TextField("url", text: $remoteDictURLString)
-    }
-}
-
-private struct BuiltInLanguagePicker: View {
-    @AppStorage(BuiltInLanguageKey) private var builtInLanguage: Int = BuiltInLanguage.zhs.rawValue
-    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
-    
-    var binding: Binding<Int> {
-        Binding(
-            get: { builtInLanguage },
-            set: { newValue in
-                switch BuiltInLanguage(rawValue: newValue)! {
-                case .zhs:
-                    batchResetZhSEntries()
-                    currentEntries = getAllZhSEntries()
-                case .jap:
-                    batchResetJapEntries()
-                    currentEntries = getAllJapEntries()
-                case .kor:
-                    batchResetKorEntries()
-                    currentEntries = getAllKorEntries()
-                case .remote:
-                    batchResetRemoteEntries(from: remoteDictURLString) {
-                        currentEntries = getAllRemoteEntries()
-                    }
-                case .none:
-                    currentEntries = [:]
-                default:
-                    logger.error("impossible")
+        HStack {
+            TextField("url", text: $remoteDictURLString)
+            
+            Button("build") {
+                logger.info("batchResetRemoteEntries begin!")
+                batchResetRemoteEntries(from: remoteDictURLString) {
+                    logger.info("batchResetRemoteEntries done!")
+                    currentEntries = getAllRemoteEntries()
+                    logger.info("getAllRemoteEntries done!")
+                    
+                    cachedDict = [:]
+                    trCallBack()
                 }
-                
-                builtInLanguage = newValue
-            }
-        )
-    }
-    
-    let allCases: [(Int, String)] = [
-        (BuiltInLanguage.zhs.rawValue, "zhs"),
-        (BuiltInLanguage.jap.rawValue, "jap"),
-        (BuiltInLanguage.kor.rawValue, "kor"),
-//        (BuiltInLanguage.ger.rawValue, "ger"),
-//        (BuiltInLanguage.fre.rawValue, "fre"),
-//        (BuiltInLanguage.spa.rawValue, "spa"),
-//        (BuiltInLanguage.por.rawValue, "por"),
-//        (BuiltInLanguage.ita.rawValue, "ita"),
-//        (BuiltInLanguage.dut.rawValue, "dut"),
-//        (BuiltInLanguage.swe.rawValue, "swe"),
-//        (BuiltInLanguage.rus.rawValue, "rus"),
-//        (BuiltInLanguage.gre.rawValue, "gre"),
-//        (BuiltInLanguage.tur.rawValue, "tur"),
-//        (BuiltInLanguage.heb.rawValue, "heb"),
-//        (BuiltInLanguage.ara.rawValue, "ara"),
-//        (BuiltInLanguage.hin.rawValue, "hin"),
-        (BuiltInLanguage.remote.rawValue, "remote"),
-        (BuiltInLanguage.none.rawValue, "none")
-    ]
-    
-    var body: some View {
-        Picker("", selection: binding) {
-            ForEach(allCases, id: \.self.0) { option in
-                Text(option.1).tag(option.0)
             }
         }
-        .labelsHidden()
-        .pickerStyle(MenuPickerStyle())
-        .frame(width: 150)
     }
 }
 

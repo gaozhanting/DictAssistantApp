@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4440EE3F262EDCA3007FF470"
                BuildableName = "FreedomEnglish.app"
-               BlueprintName = "DictAssistantApp Zh_S"
+               BlueprintName = "DictAssistantApp"
                ReferencedContainer = "container:DictAssistantApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,7 +48,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4440EE3F262EDCA3007FF470"
             BuildableName = "FreedomEnglish.app"
-            BlueprintName = "DictAssistantApp Zh_S"
+            BlueprintName = "DictAssistantApp"
             ReferencedContainer = "container:DictAssistantApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -65,7 +65,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4440EE3F262EDCA3007FF470"
             BuildableName = "FreedomEnglish.app"
-            BlueprintName = "DictAssistantApp Zh_S"
+            BlueprintName = "DictAssistantApp"
             ReferencedContainer = "container:DictAssistantApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
