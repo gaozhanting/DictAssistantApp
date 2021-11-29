@@ -7,7 +7,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2021 GaoZhanting</string>
 	<key>CFBundleDisplayName</key>
-	<string>FreedomEnglish</string>
+	<string>Freedom English</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

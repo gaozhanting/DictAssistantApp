@@ -21,7 +21,7 @@ struct EnglishSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
-            Preferences.Section(title: NSLocalizedString("Use Build In Dict:", comment: "")) {
+            Preferences.Section(title: NSLocalizedString("Use Built In Dict:", comment: "")) {
                 BuiltInLanguagePicker()
             }
             Preferences.Section(title: NSLocalizedString("Use Apple Dict:", comment: "")) {
