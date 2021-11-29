@@ -70,3 +70,20 @@ let turEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Turkish.csv")
 let hebEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Hebrew.csv")
 let araEntriesDB = Vocabularies.readToArray(from: "Babylon_English_Arabic.csv")
 let hinEntriesDB = Vocabularies.readToArray(from: "Hindi.csv")
+
+func makeRemoteEntriesDB(urlString: String) -> [String] {
+    guard let url = URL(string: urlString) else {
+        fatalError("Counldn't get url of \(urlString)")
+    }
+    
+    do {
+        let contents = try String(contentsOf: url, encoding: String.Encoding.utf8)
+        let lines = contents.components(separatedBy: .newlines)
+        return lines
+    } catch {
+        fatalError("contents could not be loaded")
+    }
+}
+
+let testCsvUrlString = "https://github.com/gaozhanting/AppleSmallSizeDicts/raw/main/gene.csv"
+let remoteEntriesDB = makeRemoteEntriesDB(urlString: testCsvUrlString)

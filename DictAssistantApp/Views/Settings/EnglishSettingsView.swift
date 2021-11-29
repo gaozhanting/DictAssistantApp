@@ -121,6 +121,7 @@ private struct BuiltInLanguagePicker: View {
         (BuiltInLanguage.heb.rawValue, "heb"),
         (BuiltInLanguage.ara.rawValue, "ara"),
         (BuiltInLanguage.hin.rawValue, "hin"),
+        (BuiltInLanguage.remote.rawValue, "remote"),
         (BuiltInLanguage.none.rawValue, "none")
     ]
     
