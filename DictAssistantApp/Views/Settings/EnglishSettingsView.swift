@@ -21,7 +21,7 @@ struct EnglishSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
-            Preferences.Section(title: NSLocalizedString("Build Dict from remote url:", comment: "")) {
+            Preferences.Section(title: NSLocalizedString("Build Dict From URL:", comment: "")) {
                 BuildDictFromRemoteURLView()
             }
             Preferences.Section(title: NSLocalizedString("Use Apple Dict:", comment: "")) {
@@ -104,19 +104,42 @@ private struct ShowPhrasesToggle: View {
 private struct BuildDictFromRemoteURLView: View {
     @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
     
+    @State var isBuilding: Bool = false
+    
     var body: some View {
-        HStack {
+        VStack(alignment: .leading) {
             TextField("url", text: $remoteDictURLString)
             
-            Button("build") {
-                logger.info("batchResetRemoteEntries begin!")
-                batchResetRemoteEntries(from: remoteDictURLString) {
-                    logger.info("batchResetRemoteEntries done!")
-                    currentEntries = getAllRemoteEntries()
-                    logger.info("getAllRemoteEntries done!")
-                    
-                    cachedDict = [:]
-                    trCallBack()
+            HStack {
+                Button("build") {
+                    isBuilding = true
+                    batchResetRemoteEntries(
+                        from: remoteDictURLString,
+                        didSucceed: {
+                            DispatchQueue.main.async {
+                                currentEntries = getAllRemoteEntries() // 3s
+                                logger.info("]] getAllRemoteEntries done!")
+                                
+                                cachedDict = [:]
+                                trCallBack()
+                                logger.info("]] trCallBack done!")
+                                
+                                isBuilding = false
+                            }
+                        },
+                        didFailed: {
+                            DispatchQueue.main.async {
+                                isBuilding = false
+                            }
+                        }
+                    )
+                }
+                .disabled(isBuilding)
+                
+                if isBuilding == true {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(x: 0.5, y: 0.5, anchor: .center)
                 }
             }
         }
