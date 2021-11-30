@@ -15,7 +15,7 @@
 "Show Phrases Panel" = "打开短语面板";
 "Show Known Panel" = "打开已知词汇面板";
 "Show Entries Panel" = "打开自定义词条面板";
-"Show Dict Install Panel" = "打开词典安装面板";
+"Show Dict Build Panel" = "打开词典构建面板";
 "Help" = "帮助";
 "Show Onboarding Panel" = "打开新手指引面板";
 "Quit Freedom English" = "退出 自由英语";
@@ -55,7 +55,7 @@
 "Remove multi entries to custom dict" = "从自定义词典中删除多个词条";
 "Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: If the entries becomes huge (count >= 20,000), you'd better convert the csv txt to apple dictionary file using an open source pyglossary tool, and install. The custom entries here aims to make a flexible custom dict in the app which you can play with what you want quickly, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry." = "编辑您的自定义词典，每行一个词条。\n\n添加的每行格式：\n单词,释义 \n\n删除的每行格式：\n单词 \n\n然后点击添加或移除按钮即可。\n\n注意：不能有空行，一行之中也不能只有空白符。因此，不要在结尾添加一个空白行。\n\n注意：如果词条变得很大（数量 >= 20,000)，您最好将这个csv兼容的文本转为苹果词典文件并安装，您可以使用一个开源工具pyglossary来完成转换。这里的目的是为App提供一个灵活的自定义编辑词条的功能，以免您完全受限于苹果词典，这里并非要提供一个标准的词典。尽管它仍然能够工作，不过当词条太多的时候，编辑区会变得卡顿，抱歉。";
 
-"Dict Install Panel" = "词典安装面板";
+"Dict Build Panel" = "词典构建面板";
 "sourceURL:" = "源链接：";
 "downloadURL:" = "下载链接：";
 "Install" = "安装";

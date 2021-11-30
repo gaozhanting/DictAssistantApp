@@ -1,5 +1,5 @@
 //
-//  DictInstallWithInfoView.swift
+//  DictBuildWithInfoView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/10/15.
@@ -7,24 +7,24 @@
 
 import SwiftUI
 
-struct DictInstallWithInfoView: View {
+struct DictBuildWithInfoView: View {
     var body: some View {
         VStack {
             Spacer()
             
             GroupBox {
-                DictInstallView(dicts: targetDicts())
+                DictBuildView()
             }
             .padding()
             
             Spacer()
             
-            DictInstallInfoView()
+            DictBuildInfoView()
         }
     }
 }
 
-private struct DictInstallInfoView: View {
+private struct DictBuildInfoView: View {
     var body: some View {
         HStack {
             Spacer()
@@ -45,13 +45,15 @@ private struct InfoView: View {
     }
 }
 
-struct DictInstallWithInfoView_Previews: PreviewProvider {
+struct DictBuildWithInfoView_Previews: PreviewProvider {
+    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
+    
     static var previews: some View {
         Group {
-            DictInstallWithInfoView()
+            DictBuildWithInfoView()
             InfoView()
         }
-        .environment(\.locale, .init(identifier: "zh-Hans"))
-//        .environment(\.locale, .init(identifier: "en"))
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
     }
 }

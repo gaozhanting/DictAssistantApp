@@ -24,7 +24,7 @@ func constructMenuBar() {
     englishMenu.addItem(withTitle: NSLocalizedString("Show Phrases Panel", comment: ""), action: #selector(AppDelegate.showPhrasePanel), keyEquivalent: "")
     englishMenu.addItem(withTitle: NSLocalizedString("Show Known Panel", comment: ""), action: #selector(AppDelegate.showKnownPanel), keyEquivalent: "")
     englishMenu.addItem(withTitle: NSLocalizedString("Show Entries Panel", comment: ""), action: #selector(AppDelegate.showEntriesPanel), keyEquivalent: "")
-    englishMenu.addItem(withTitle: NSLocalizedString("Show Dict Install Panel", comment: ""), action: #selector(AppDelegate.showDictInstallPanel), keyEquivalent: "")
+    englishMenu.addItem(withTitle: NSLocalizedString("Show Dict Build Panel", comment: ""), action: #selector(AppDelegate.showDictBuildPanel), keyEquivalent: "")
     let englishMenuItem = NSMenuItem(title: NSLocalizedString("English", comment: ""), action: nil, keyEquivalent: "")
     menu.addItem(englishMenuItem)
     menu.setSubmenu(englishMenu, for: englishMenuItem)

@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         initEntriesPanel()
         initNoisesPanel()
         initKnownPanel()
-        initDictInstallPanel()
+        initDictBuildPanel()
         
         initOnboardingPanel()
         

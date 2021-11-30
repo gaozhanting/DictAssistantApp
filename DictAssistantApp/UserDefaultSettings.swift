@@ -13,6 +13,8 @@ import Combine
 // UserDefault keys:
 let IsFinishedOnboardingKey = "IsFinishedOnboardingKey"
 
+let RemoteDictURLStringKey = "RemoteDictURLStringKey"
+
 let defaultFontName = NSFont.systemFont(ofSize: 0).fontName // returns ".AppleSystemUIFont"
 let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
 // -- these not in slots
@@ -39,7 +41,6 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 let TitleWordKey = "TitleWordKey"
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
-let RemoteDictURLStringKey = "RemoteDictURLStringKey"
 let UseAppleDictModeKey = "UseAppleDictModeKey"
 let UseEntryModeKey = "UseEntryModeKey"
 
@@ -161,7 +162,6 @@ private let defaultSlotKV: [String: Any] = [
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: true,
-    RemoteDictURLStringKey: "", // default from system language
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
@@ -260,10 +260,6 @@ extension UserDefaults {
     @objc var IsShowPhrasesKey: Bool {
         get { return bool(forKey: "IsShowPhrasesKey") }
         set { set(newValue, forKey: "IsShowPhrasesKey") }
-    }
-    @objc var RemoteDictURLStringKey: String {
-        get { return string(forKey: "RemoteDictURLStringKey") ?? "" }
-        set { set(newValue, forKey: "RemoteDictURLStringKey") }
     }
     @objc var UseAppleDictModeKey: Bool {
         get { return bool(forKey: "UseAppleDictModeKey") }
@@ -477,17 +473,6 @@ func combineEnglishSettings() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
-    
-//    UserDefaults.standard
-//        .publisher(for: \.RemoteDictURLStringKey)
-//        .handleEvents(receiveOutput: { remoteDictURLString in
-//            currentEntries = getAllRemoteEntries()
-//            logger.info("init currentEntries from getAllRemoteEntries succeed!")
-//            cachedDict = [:]
-//            trCallBack()
-//        })
-//        .sink { _ in }
-//        .store(in: &subscriptions)
     
     UserDefaults.standard
         .publisher(for: \.UseAppleDictModeKey)
