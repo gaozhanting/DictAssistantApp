@@ -23,11 +23,6 @@ struct OnboardingView: View {
                 if page == currentPage {
                     page.view(next: showNextPage)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                        .transition(AnyTransition.asymmetric(
-//                                        insertion: .move(edge: .trailing),
-//                                        removal: .move(edge: .leading))
-//                        )
-//                        .animation(.default)
                 }
             }
         }
@@ -67,8 +62,7 @@ private struct PageTemplateView<Title: View, Content: View, NextButton: View>: V
             VStack {
                 Spacer()
                 content
-                    .font(.title3)
-                    .frame(width: 500)
+                    .frame(width: 650)
                 Spacer()
             }
             
@@ -180,6 +174,107 @@ private func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
     
     // fall to en
     return "Concise Oxford English Dictionary 11th"
+}
+
+private func systemLanguage() -> Lang {
+    for language in Locale.preferredLanguages {
+        if language.contains("zh-Hans") { return .Zhs}
+//        if language.contains("zh-Hant") { return "英漢字典CDic" }
+        if language.contains("ja") { return .Japanese }
+//        if language.contains("ko") { return "Babylon English-Korean dictionary" }
+//        if language.contains("de") { return "Babylon English-German dictionary" }
+//        if language.contains("fr") { return "Babylon English-French dictionary" }
+//        if language.contains("es") { return "Babylon English-Spanish dictionary" }
+//        if language.contains("pt") { return "Babylon English-Portuguese dictionary" }
+//        if language.contains("it") { return "Babylon English-Italian dictionary" }
+//        if language.contains("nl") { return "Babylon English-Dutch dictionary" }
+//        if language.contains("sv") { return "Babylon English-Swedish dictionary" }
+//        if language.contains("ru") { return "Babylon English-Russian dictionary" }
+//        if language.contains("el") { return "Babylon English-Greek dictionary" }
+//        if language.contains("tr") { return "Babylon English-Turkish dictionary" }
+//        if language.contains("he") { return "Babylon English-Hebrew dictionary" }
+//        if language.contains("ar") { return "Babylon English-Arabic dictionary" }
+//        if language.contains("hi") { return "English-Hindi Shabdanjali Dictionary" }
+        if language.contains("en") { return .English }
+    }
+    
+    return .None
+}
+
+private enum Lang: String {
+    case Zhs
+    case Japanese
+    case English
+    case None
+}
+
+private struct BuildDictView: View {
+    let next: () -> Void
+
+    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
+    
+    @State var lang: Lang = systemLanguage()
+    
+    @State var isBuilding: Bool = false
+    
+    var body: some View {
+        PageTemplateView(
+            title: {
+                Text("Build concise dictionary from remote URL.")
+            },
+            content: {
+                GroupBox {
+                    VStack {
+                        Picker("Your language:", selection: $lang) {
+                            Text("Zhs").tag(Lang.Zhs)
+                            Text("Japanese").tag(Lang.Japanese)
+                            Text("English").tag(Lang.English) // need push to github
+                            Text("None").tag(Lang.None) // ??
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .frame(width: 260)
+                        
+                        if lang != .None {
+                            HStack {
+                                Button("build") {
+                                    isBuilding = true
+                                    batchResetRemoteEntries(
+                                        from: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv",
+                                        didSucceed: {
+                                            DispatchQueue.main.async {
+                                                remoteDictURLString = "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv"
+                                                
+                                                currentEntries = getAllRemoteEntries() // 3s
+                                                logger.info("]] getAllRemoteEntries done!")
+                                                
+                                                isBuilding = false
+                                            }
+                                        },
+                                        didFailed: {
+                                            DispatchQueue.main.async {
+                                                isBuilding = false
+                                            }
+                                        }
+                                    )
+                                }
+                                .disabled(isBuilding)
+                                
+                                if isBuilding == true {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle())
+                                        .scaleEffect(x: 0.5, y: 0.5, anchor: .center)
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            },
+            nextButton: {
+                Button("Continue", action: next)
+            }
+        )
+    }
 }
 
 private struct InstallPresetDictView: View {
@@ -317,7 +412,7 @@ private struct OneKeyRecordingView: View {
 enum OnboardingPage: CaseIterable {
     case welcome
     case initKnown
-    case installPresetDict
+    case buildDict
     case initGlobalKeyboardShortcut
     
     @ViewBuilder
@@ -327,8 +422,8 @@ enum OnboardingPage: CaseIterable {
             WelcomeView(next: next)
         case .initKnown:
             InitKnownView(next: next)
-        case .installPresetDict:
-            InstallPresetDictView(next: next)
+        case .buildDict:
+            BuildDictView(next: next)
         case .initGlobalKeyboardShortcut:
             InitGlobalKeyboardShortcutView(next: next)
         }
@@ -340,11 +435,11 @@ struct OnboardingView_Previews: PreviewProvider {
         Group {
             OnboardingPage.welcome.view()
             OnboardingPage.initKnown.view()
-            OnboardingPage.installPresetDict.view()
+            OnboardingPage.buildDict.view()
             OnboardingPage.initGlobalKeyboardShortcut.view()
         }
-        .environment(\.locale, .init(identifier: "zh-Hans"))
-//        .environment(\.locale, .init(identifier: "en"))
-        .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
+//        .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }
