@@ -214,7 +214,7 @@ private struct BuildDictView: View {
                     Text("Build concise dictionary from remote csv file")
                     Text("This step is optional, but highly recommended.")
                         .font(.footnote)
-                    Text("It may take about 10 seconds to build the local dictionary.")
+                    Text("It may takes about 10 to 30 seconds to build the local dictionary.")
                         .font(.footnote)
                 }
             },
