@@ -263,8 +263,8 @@ extension UserDefaults {
         get { return bool(forKey: "IsShowPhrasesKey") }
         set { set(newValue, forKey: "IsShowPhrasesKey") }
     }
-    @objc var UseAppleDictModeKey: Bool {
-        get { return bool(forKey: "UseAppleDictModeKey") }
+    @objc var UseAppleDictModeKey: Int {
+        get { return integer(forKey: "UseAppleDictModeKey") }
         set { set(newValue, forKey: "UseAppleDictModeKey") }
     }
     @objc var UseEntryModeKey: Int {
@@ -513,6 +513,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.TitleWordKey, \.titleWord, TitleWordKey)
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
+    combineSlot(\.UseAppleDictModeKey, \.useAppleDictMode, UseAppleDictModeKey)
     combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
     
     // Content

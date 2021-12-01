@@ -44,6 +44,7 @@ struct Settings: Codable {
     var titleWord: Int
     var lemmaSearchLevel: Int
     var isShowPhrases: Bool
+    var useAppleDictMode: Int
     var useEntryMode: Int
     
     // Content
@@ -98,6 +99,7 @@ struct Settings: Codable {
         titleWord: Int,
         lemmaSearchLevel: Int,
         isShowPhrases: Bool,
+        useAppleDictMode: Int,
         useEntryMode: Int,
         isDropTitleWord: Bool,
         isAddLineBreak: Bool,
@@ -139,6 +141,7 @@ struct Settings: Codable {
         self.titleWord = titleWord
         self.lemmaSearchLevel = lemmaSearchLevel
         self.isShowPhrases = isShowPhrases
+        self.useAppleDictMode = useAppleDictMode
         self.useEntryMode = useEntryMode
         self.isDropTitleWord = isDropTitleWord
         self.isAddLineBreak = isAddLineBreak
@@ -195,6 +198,7 @@ private let defaultSettings = Settings(
     titleWord: TitleWord.lemma.rawValue,
     lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
     isShowPhrases: false,
+    useAppleDictMode: UseAppleDictMode.afterBuiltIn.rawValue,
     useEntryMode: UseEntryMode.asFirstPriority.rawValue,
     
     isDropTitleWord: false,
@@ -330,6 +334,7 @@ private struct SlotsView: View {
         titleWord = s.titleWord
         lemmaSearchLevel = s.lemmaSearchLevel
         isShowPhrases = s.isShowPhrases
+        useAppleDictMode = s.useAppleDictMode
         useEntryMode = s.useEntryMode
         isDropTitleWord = s.isDropTitleWord
         isAddLineBreak = s.isAddLineBreak
@@ -372,6 +377,7 @@ private struct SlotsView: View {
     @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = false
+    @AppStorage(UseAppleDictModeKey) var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
