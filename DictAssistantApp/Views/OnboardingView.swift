@@ -150,36 +150,52 @@ private struct InitKnownView: View {
     }
 }
 
+private enum Lang: String, CaseIterable {
+    case ChineseSimplified
+    case ChineseTraditional
+    case Japanese
+    case Korean
+    case German
+    case French
+    case Spanish
+    case Portuguese
+    case Italian
+    case Dutch
+    case Swedish
+    case Russian
+    case Greek
+    case Turkish
+    case Hebrew
+    case Arabic
+    case Hindi
+    case English
+    case None
+}
+
+// to be tested
 private func systemLanguage() -> Lang {
     for language in Locale.preferredLanguages {
-        if language.contains("zh-Hans") { return .Zhs}
-//        if language.contains("zh-Hant") { return "英漢字典CDic" }
+        if language.contains("zh-Hans") { return .ChineseSimplified }
+        if language.contains("zh-Hant") { return .ChineseTraditional }
         if language.contains("ja") { return .Japanese }
-//        if language.contains("ko") { return "Babylon English-Korean dictionary" }
-//        if language.contains("de") { return "Babylon English-German dictionary" }
-//        if language.contains("fr") { return "Babylon English-French dictionary" }
-//        if language.contains("es") { return "Babylon English-Spanish dictionary" }
-//        if language.contains("pt") { return "Babylon English-Portuguese dictionary" }
-//        if language.contains("it") { return "Babylon English-Italian dictionary" }
-//        if language.contains("nl") { return "Babylon English-Dutch dictionary" }
-//        if language.contains("sv") { return "Babylon English-Swedish dictionary" }
-//        if language.contains("ru") { return "Babylon English-Russian dictionary" }
-//        if language.contains("el") { return "Babylon English-Greek dictionary" }
-//        if language.contains("tr") { return "Babylon English-Turkish dictionary" }
-//        if language.contains("he") { return "Babylon English-Hebrew dictionary" }
-//        if language.contains("ar") { return "Babylon English-Arabic dictionary" }
-//        if language.contains("hi") { return "English-Hindi Shabdanjali Dictionary" }
+        if language.contains("ko") { return .Korean }
+        if language.contains("de") { return .German }
+        if language.contains("fr") { return .French }
+        if language.contains("es") { return .Spanish }
+        if language.contains("pt") { return .Portuguese }
+        if language.contains("it") { return .Italian }
+        if language.contains("nl") { return .Dutch }
+        if language.contains("sv") { return .Swedish }
+        if language.contains("ru") { return .Russian }
+        if language.contains("el") { return .Greek }
+        if language.contains("tr") { return .Turkish }
+        if language.contains("he") { return .Hebrew }
+        if language.contains("ar") { return .Arabic }
+        if language.contains("hi") { return .Hindi }
         if language.contains("en") { return .English }
     }
     
     return .None
-}
-
-private enum Lang: String {
-    case Zhs
-    case Japanese
-    case English
-    case None
 }
 
 private struct BuildDictView: View {
@@ -194,19 +210,20 @@ private struct BuildDictView: View {
     var body: some View {
         PageTemplateView(
             title: {
-                Text("Build concise dictionary from remote URL.")
+                Text("Build concise dictionary from remote csv file")
             },
             content: {
                 GroupBox {
                     VStack {
                         Picker("Your Target Language:", selection: $lang) {
-                            Text("Zhs").tag(Lang.Zhs)
-                            Text("Japanese").tag(Lang.Japanese)
-                            Text("English").tag(Lang.English) // need push to github
-                            Text("None").tag(Lang.None) // ??
+                            ForEach(Lang.allCases, id: \.self) { lang in
+                                Text(lang.rawValue).tag(lang)
+                            }
                         }
                         .pickerStyle(MenuPickerStyle())
                         .frame(width: 260)
+                        
+                        Spacer().frame(height: 40)
                         
                         if lang != .None {
                             HStack {
@@ -237,6 +254,16 @@ private struct BuildDictView: View {
                                     ProgressView()
                                         .progressViewStyle(CircularProgressViewStyle())
                                         .scaleEffect(x: 0.5, y: 0.5, anchor: .center)
+                                } else {
+                                    if remoteDictURLString.isEmpty {
+                                        Circle()
+                                            .frame(width: 13, height: 13)
+                                            .foregroundColor(.gray)
+                                    } else {
+                                        Circle()
+                                            .frame(width: 13, height: 13)
+                                            .foregroundColor(.green)
+                                    }
                                 }
                             }
                         }
