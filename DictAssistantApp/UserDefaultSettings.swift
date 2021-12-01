@@ -60,6 +60,7 @@ let LandscapeStyleKey = "LandscapeStyleKey"
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
 let FontSizeKey = "FontSizeKey"
+let LineSpacingKey = "LineSpacingKey"
 let FontRateKey = "FontRateKey"
 
 let WordColorKey = "WordColorKey"

@@ -184,7 +184,7 @@ private struct TextWithShadow: View {
     
     var body: some View {
         if textShadowToggle {
-            TheText(wordCell: wordCell)
+            TextWithLineSpacing(wordCell: wordCell)
                 .shadow(
                     color: Color(dataToColor(shadowColor)!),
                     radius: CGFloat(shadowRadius), /// shadow radius
@@ -192,8 +192,18 @@ private struct TextWithShadow: View {
                     y: CGFloat(shadowYOffset) //2 /// y offset
                 )
         } else {
-            TheText(wordCell: wordCell)
+            TextWithLineSpacing(wordCell: wordCell)
         }
+    }
+}
+
+private struct TextWithLineSpacing: View {
+    @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
+    let wordCell: WordCell
+    
+    var body: some View {
+        TheText(wordCell: wordCell)
+            .lineSpacing(CGFloat(lineSpacing))
     }
 }
 

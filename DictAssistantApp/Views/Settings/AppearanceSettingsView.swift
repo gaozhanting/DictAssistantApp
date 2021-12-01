@@ -220,30 +220,95 @@ private struct FontSettingView: View {
     }
     
     var body: some View {
-        HStack {
-            TextField(
-                "",
-                text: Binding.constant("\(fontName) \(fontSize)")
-            )
-            .disabled(true)
-            .textFieldStyle(SquareBorderTextFieldStyle())
-            .frame(maxWidth: 200)
-            
-            Button("Select...") {
-                showFontPanel(nil)
+        VStack(alignment: .leading) {
+            HStack {
+                TextField(
+                    "",
+                    text: Binding.constant("\(fontName) \(fontSize)")
+                )
+                    .disabled(true)
+                    .textFieldStyle(SquareBorderTextFieldStyle())
+                    .frame(maxWidth: 200)
+                
+                Button("Select...") {
+                    showFontPanel(nil)
+                }
+                
+                Button("Use default") {
+                    fontName = defaultFontName
+                    fontSize = 14.0
+                }
+                
+                MiniInfoView {
+                    Text("There is a bug: when other TextField is focused, changing font is not work.")
+                        .font(.subheadline)
+                        .padding()
+                }
             }
             
-            Button("Use default") {
-                fontName = defaultFontName
-                fontSize = 14.0
+            HStack {
+                Toggle(isOn: binding, label: {
+                    Text("More...")
+                })
+                    .toggleStyle(SwitchToggleStyle())
+                
+                Spacer()
+                
+                if isShowTextField {
+                    Text("line spacing:")
+                    LineSpacingView(fold: fold)
+                        .frame(width: 30)
+                }
             }
-            
-            MiniInfoView {
-                Text("There is a bug: when other TextField is focused, changing font is not work.")
-                    .font(.subheadline)
-                    .padding()
-            }
+            .frame(width: 280)
         }
+    }
+    
+    func fold() {
+        isShowTextField = false
+    }
+    
+    @State private var isShowTextField: Bool = false
+    
+    var binding: Binding<Bool> {
+        Binding(
+            get: { isShowTextField },
+            set: { newValue in
+                withAnimation {
+                    isShowTextField = newValue
+                }
+            }
+        )
+    }
+}
+
+private struct LineSpacingView: View {
+    let fold: () -> Void
+    
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
+    
+    @State var showingAlert: Bool = false
+    
+    var binding: Binding<String> {
+        Binding(
+            get: { String(lineSpacing) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                lineSpacing = newValue
+            }
+        )
+    }
+    
+    var body: some View {
+        TextField("", text: binding, onCommit: fold)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Invalid value"), message: Text("Value must be number"))
+            }
+        
     }
 }
 
@@ -641,7 +706,7 @@ struct AppearanceSettingView_Previews: PreviewProvider {
             
             ColorSchemeInfo()
         }
-//        .environment(\.locale, .init(identifier: "en"))
-        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

@@ -26,9 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 //        return // for swiftui preview
         
-        forDevelop()
+//        forDevelop()
         
-//        Dictionaries.tryPrint(from: "lazyworm-ec.csv")
+//        Dictionaries.tryPrint(from: "lazyworm-ec-big5.csv")
         
         // deprecated, updating app version, run appUpdate
 //        batchDeleteAllSlots() // run when clear slot (when defaults delete com.gaozhanting.DictAssistantApp) (because slot is not compatible)
