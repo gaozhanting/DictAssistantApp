@@ -182,6 +182,7 @@ private let defaultSlotKV: [String: Any] = [
     LandscapeMaxWidthKey: 160.0,
     
     FontSizeKey: 14.0,
+    LineSpacingKey: 0.0,
     FontRateKey: 0.9,
     
     WordColorKey: colorToData(NSColor.labelColor)!,
@@ -322,6 +323,10 @@ extension UserDefaults {
     @objc var FontSizeKey: Double {
         get { return double(forKey: "FontSizeKey") }
         set { set(newValue, forKey: "FontSizeKey") }
+    }
+    @objc var LineSpacingKey: Double {
+        get { return double(forKey: "LineSpacingKey") }
+        set { set(newValue, forKey: "LineSpacingKey") }
     }
     @objc var FontRateKey: Double {
         get { return double(forKey: "FontRateKey") }
@@ -526,6 +531,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.LandscapeMaxWidthKey, \.landscapeMaxWidth, LandscapeMaxWidthKey)
     
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
+    combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
     combineSlot(\.FontRateKey, \.fontRate, FontRateKey)
     
     combineSlot(\.WordColorKey, \.wordColor, WordColorKey)

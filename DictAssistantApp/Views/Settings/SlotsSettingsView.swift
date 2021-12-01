@@ -62,6 +62,7 @@ struct Settings: Codable {
     var landscapeMaxWidth: Double
     
     var fontSize: Double
+    var lineSpacing: Double
     var fontRate: Double
     
     var wordColor: Data
@@ -110,6 +111,7 @@ struct Settings: Codable {
         landscapeStyle: Int,
         landscapeMaxWidth: Double,
         fontSize: Double,
+        lineSpacing: Double,
         fontRate: Double,
         wordColor: Data,
         transColor: Data,
@@ -150,6 +152,7 @@ struct Settings: Codable {
         self.landscapeStyle = landscapeStyle
         self.landscapeMaxWidth = landscapeMaxWidth
         self.fontSize = fontSize
+        self.lineSpacing = lineSpacing
         self.fontRate = fontRate
         self.wordColor = wordColor
         self.transColor = transColor
@@ -203,6 +206,7 @@ private let defaultSettings = Settings(
     landscapeStyle: LandscapeStyle.normal.rawValue,
     landscapeMaxWidth: 160.0,
     fontSize: 14.0,
+    lineSpacing: 0.0,
     fontRate: 0.9,
     wordColor: colorToData(NSColor.labelColor)!,
     transColor: colorToData(NSColor.secondaryLabelColor)!,
@@ -328,6 +332,7 @@ private struct SlotsView: View {
         landscapeStyle = s.landscapeStyle
         landscapeMaxWidth = s.landscapeMaxWidth
         fontSize = s.fontSize
+        lineSpacing = s.lineSpacing
         fontRate = s.fontRate
         wordColor = s.wordColor
         transColor = s.transColor
@@ -369,6 +374,7 @@ private struct SlotsView: View {
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
     @AppStorage(FontRateKey) var fontRate: Double = 0.9
     @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
