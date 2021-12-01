@@ -162,7 +162,7 @@ private let defaultSlotKV: [String: Any] = [
     // English
     TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
-    IsShowPhrasesKey: true,
+    IsShowPhrasesKey: false,
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     

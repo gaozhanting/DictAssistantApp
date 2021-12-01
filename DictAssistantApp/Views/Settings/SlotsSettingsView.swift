@@ -188,41 +188,52 @@ private let defaultSettings = Settings(
     cropperStyle: CropperStyle.leadingBorder.rawValue,
     isCloseCropperWhenNotPlaying: true,
     maximumFrameRate: 4,
+    
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
+    
     titleWord: TitleWord.lemma.rawValue,
     lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
-    isShowPhrases: true,
+    isShowPhrases: false,
     useEntryMode: UseEntryMode.asFirstPriority.rawValue,
+    
     isDropTitleWord: false,
     isAddLineBreak: true,
     isAddSpace: false,
     isDropFirstTitleWordInTranslation: true,
     isJoinTranslationLines: true,
     chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert.rawValue,
+    
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
     portraitMaxHeight: 100.0,
     landscapeStyle: LandscapeStyle.normal.rawValue,
     landscapeMaxWidth: 160.0,
+    
     fontSize: 14.0,
     lineSpacing: 0.0,
     fontRate: 0.9,
+    
     wordColor: colorToData(NSColor.labelColor)!,
     transColor: colorToData(NSColor.secondaryLabelColor)!,
     backgroundColor: colorToData(NSColor.windowBackgroundColor)!,
+    
     textShadowToggle: false,
     shadowColor: colorToData(NSColor.labelColor)!,
     shadowRadius: 3,
     shadowXOffSet: 0.0,
     shadowYOffSet: 0.0,
+    
     useContentBackgroundColor: true,
     useContentBackgroundVisualEffect: false,
     contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
+    
     theColorScheme: TheColorScheme.system.rawValue,
+    
     isShowWindowShadow: true,
     isWithAnimation: true,
     isContentRetention: false,
+    
     cropperFrame: defaultCropperFrame,
     contentFrame: defaultContentFrame
 )
@@ -360,7 +371,7 @@ private struct SlotsView: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
-    @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = true
+    @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = false
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true

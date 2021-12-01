@@ -87,7 +87,7 @@ private struct LemmaSearchLevelInfoView: View {
 }
 
 private struct ShowPhrasesToggle: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = true
+    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = false
     
     var body: some View {
         Toggle(isOn: $isShowPhrase, label: {
