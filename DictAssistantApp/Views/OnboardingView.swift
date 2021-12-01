@@ -150,32 +150,6 @@ private struct InitKnownView: View {
     }
 }
 
-private func defaultSelectedDictNameFromSystemPreferredLanguage() -> String {
-    for language in Locale.preferredLanguages {
-//        if language.contains("zh-Hans") { return "英漢字典CDic" } // for testing
-        if language.contains("zh-Hans") { return "简明英汉字典增强版" }
-        if language.contains("zh-Hant") { return "英漢字典CDic" }
-        if language.contains("ja") { return "JMDict English-Japanese dictionary" }
-        if language.contains("ko") { return "Babylon English-Korean dictionary" }
-        if language.contains("de") { return "Babylon English-German dictionary" }
-        if language.contains("fr") { return "Babylon English-French dictionary" }
-        if language.contains("es") { return "Babylon English-Spanish dictionary" }
-        if language.contains("pt") { return "Babylon English-Portuguese dictionary" }
-        if language.contains("it") { return "Babylon English-Italian dictionary" }
-        if language.contains("nl") { return "Babylon English-Dutch dictionary" }
-        if language.contains("sv") { return "Babylon English-Swedish dictionary" }
-        if language.contains("ru") { return "Babylon English-Russian dictionary" }
-        if language.contains("el") { return "Babylon English-Greek dictionary" }
-        if language.contains("tr") { return "Babylon English-Turkish dictionary" }
-        if language.contains("he") { return "Babylon English-Hebrew dictionary" }
-        if language.contains("ar") { return "Babylon English-Arabic dictionary" }
-        if language.contains("hi") { return "English-Hindi Shabdanjali Dictionary" }
-    }
-    
-    // fall to en
-    return "Concise Oxford English Dictionary 11th"
-}
-
 private func systemLanguage() -> Lang {
     for language in Locale.preferredLanguages {
         if language.contains("zh-Hans") { return .Zhs}
@@ -225,7 +199,7 @@ private struct BuildDictView: View {
             content: {
                 GroupBox {
                     VStack {
-                        Picker("Your language:", selection: $lang) {
+                        Picker("Your Target Language:", selection: $lang) {
                             Text("Zhs").tag(Lang.Zhs)
                             Text("Japanese").tag(Lang.Japanese)
                             Text("English").tag(Lang.English) // need push to github
@@ -275,66 +249,6 @@ private struct BuildDictView: View {
             }
         )
     }
-}
-
-private struct InstallPresetDictView: View {
-    let next: () -> Void
-    
-    @State var selectedDictName: String = defaultSelectedDictNameFromSystemPreferredLanguage()
-
-    var body: some View {
-        PageTemplateView(
-            title: {
-                VStack {
-                    Text("Install recommended concise dictionary")
-                    Text("If have multi, install which you like.")
-                        .font(.footnote)
-                    Text("This step is optional, but highly recommended.")
-                        .font(.footnote)
-                }
-            },
-            content: {
-                VStack(alignment: .leading) {
-                    Text("Step 1: Open Dictionary App, click menu File/Open Dictionaries Folder.")
-                    HStack {
-                        Spacer()
-                        Text("This action will create the folder if not have been created before.")
-                            .font(.subheadline)
-                        Spacer()
-                    }
-                    Button("Open Dictionary App") {
-                        openAppleDictionrayApp()
-                    }
-                    .font(.body)
-                    
-                    Spacer()
-                    
-                    HStack {
-                        Text("Step 2:")
-                        GroupBox {
-                            DictInstallView(dicts: targetDicts())
-                                .frame(maxWidth: .infinity)
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Text("Step 3: Restart Dictionary App, open preferences, drag the installed dict to the top as the first selected dictionary.")
-                }
-                .padding(.vertical, 40)
-            },
-            nextButton: {
-                Button("Continue", action: next)
-            })
-    }
-}
-
-private func openAppleDictionrayApp() {
-    guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Dictionary") else { return }
-    NSWorkspace.shared.openApplication(
-        at: url,
-        configuration: NSWorkspace.OpenConfiguration(),
-        completionHandler: nil)
 }
 
 private struct InitGlobalKeyboardShortcutView: View {

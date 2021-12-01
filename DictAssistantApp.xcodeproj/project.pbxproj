@@ -67,7 +67,6 @@
 		44C0F24B270775AF006CFEFC /* GBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0F24A270775AF006CFEFC /* GBig.swift */; };
 		44C207BA2701A8E300419F63 /* PhrasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C207B92701A8E300419F63 /* PhrasesView.swift */; };
 		44C31D6D26FE035800ED6E08 /* EntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C31D6C26FE035800ED6E08 /* EntriesView.swift */; };
-		44CA55F6270C73D4007D4053 /* DictInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA55F5270C73D4007D4053 /* DictInstallView.swift */; };
 		44CAC507271459F700EAFA74 /* PhraseInsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */; };
 		44CAC50927145B2700EAFA74 /* PhraseInsertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */; };
 		44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */; };
@@ -148,7 +147,6 @@
 		44C0F24A270775AF006CFEFC /* GBig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBig.swift; sourceTree = "<group>"; };
 		44C207B92701A8E300419F63 /* PhrasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesView.swift; sourceTree = "<group>"; };
 		44C31D6C26FE035800ED6E08 /* EntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesView.swift; sourceTree = "<group>"; };
-		44CA55F5270C73D4007D4053 /* DictInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictInstallView.swift; sourceTree = "<group>"; };
 		44CAC506271459F700EAFA74 /* PhraseInsertPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseInsertPanel.swift; sourceTree = "<group>"; };
 		44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseInsertView.swift; sourceTree = "<group>"; };
 		44CAC50A2714635E00EAFA74 /* EntryUpsertPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryUpsertPanel.swift; sourceTree = "<group>"; };
@@ -364,7 +362,6 @@
 				44C31D6C26FE035800ED6E08 /* EntriesView.swift */,
 				44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */,
 				44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */,
-				44CA55F5270C73D4007D4053 /* DictInstallView.swift */,
 				444FE1642756447700CDF545 /* DictBuildView.swift */,
 				442126D02719B4C700CEF786 /* DictBuildWithInfoView.swift */,
 			);
@@ -490,7 +487,6 @@
 				446E88D0274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
 				4453554727020B32007DB9C2 /* SlotsPersistence.swift in Sources */,
 				446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */,
-				44CA55F6270C73D4007D4053 /* DictInstallView.swift in Sources */,
 				44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,
