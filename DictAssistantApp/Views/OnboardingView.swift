@@ -210,7 +210,13 @@ private struct BuildDictView: View {
     var body: some View {
         PageTemplateView(
             title: {
-                Text("Build concise dictionary from remote csv file")
+                VStack {
+                    Text("Build concise dictionary from remote csv file")
+                    Text("This step is optional, but highly recommended.")
+                        .font(.footnote)
+                    Text("It may take about 10 seconds to build the local dictionary.")
+                        .font(.footnote)
+                }
             },
             content: {
                 GroupBox {
@@ -223,9 +229,9 @@ private struct BuildDictView: View {
                         .pickerStyle(MenuPickerStyle())
                         .frame(width: 260)
                         
-                        Spacer().frame(height: 40)
-                        
                         if lang != .None {
+                            Spacer().frame(height: 40)
+                            
                             HStack {
                                 Button("build") {
                                     isBuilding = true
