@@ -107,7 +107,7 @@
 		442A2995275259C5000B75E2 /* AppleDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDictionaryService.swift; sourceTree = "<group>"; };
 		442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInDictionaryService.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		4440EE40262EDCA3007FF470 /* FreedomEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreedomEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4440EE40262EDCA3007FF470 /* Freedom English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freedom English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 		4440EE41262EDCA3007FF470 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4440EE40262EDCA3007FF470 /* FreedomEnglish.app */,
+				4440EE40262EDCA3007FF470 /* Freedom English.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -387,7 +387,7 @@
 				442134EA26AC5A7400963441 /* Preferences */,
 			);
 			productName = DictAssistantApp;
-			productReference = 4440EE40262EDCA3007FF470 /* FreedomEnglish.app */;
+			productReference = 4440EE40262EDCA3007FF470 /* Freedom English.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -687,7 +687,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
+				PRODUCT_NAME = "Freedom English";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -712,7 +712,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
-				PRODUCT_NAME = FreedomEnglish;
+				PRODUCT_NAME = "Freedom English";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
