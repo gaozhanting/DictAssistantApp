@@ -8,17 +8,27 @@
 import Cocoa
 import SwiftUI
 
-var onboardingPanel: NSPanel!
+var onboardingPanel: NSWindow!
 
 func initOnboardingPanel() {
-    onboardingPanel = EditingPanel(
-        contentRect: NSRect(x: 200, y: 100, width: 650, height: 530),
-        name: NSLocalizedString("Onboarding", comment: "")
+    let contentRect = NSRect(x: 200, y: 100, width: 650, height: 530)
+    let name = NSLocalizedString("Onboarding", comment: "")
+    
+    onboardingPanel = NSWindow.init(
+        contentRect: contentRect,
+        styleMask: [
+            .titled,
+            .closable,
+            .miniaturizable,
+            .resizable,
+        ],
+        backing: .buffered,
+        defer: false
     )
-    onboardingPanel.standardWindowButton(.closeButton)?.isHidden = true
-    onboardingPanel.standardWindowButton(.miniaturizeButton)?.isHidden = true
-    onboardingPanel.standardWindowButton(.zoomButton)?.isHidden = true
-    onboardingPanel.standardWindowButton(.toolbarButton)?.isHidden = true
+    
+    onboardingPanel.setFrameAutosaveName(name)
+    onboardingPanel.title = name
+    onboardingPanel.isReleasedWhenClosed = false
     
     onboardingPanel.close()
 }
@@ -30,7 +40,7 @@ extension AppDelegate {
             .environment(\.endOnboarding, endOnboarding)
             .frame(width: 650, height: 530)
         
-        onboardingPanel.contentViewController = NSHostingController(rootView: view)
+        onboardingPanel.contentView = NSHostingView(rootView: view)
         onboardingPanel.center()
         onboardingPanel.orderFrontRegardless()
     }

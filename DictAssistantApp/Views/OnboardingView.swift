@@ -82,9 +82,9 @@ private struct WelcomeView: View {
 
     var body: some View {
         PageTemplateView(
-            title: { Text("Welcome to English Assistant App") },
+            title: { Text("Welcome to Freedom English App") },
             content: {
-                Text("We start three steps to setup.")
+                Text("We start with three steps to setup.")
             },
             nextButton: {
                 Button("Continue", action: next)
