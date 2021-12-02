@@ -62,37 +62,38 @@ private struct DictBuildView: View {
             
             GroupBox(label: Label("Rebuild From:", systemImage: "hammer")
                         .font(.title2)) {
-                
-                TextField("url", text: $text)
-                
-                Button(action: {
-                    isBuilding = true
-                    batchResetRemoteEntries(
-                        from: text,
-                        didSucceed: {
-                            DispatchQueue.main.async {
-                                remoteDictURLString = text
-                                
-                                currentEntries = getAllRemoteEntries() // 3s
-                                logger.info("]] getAllRemoteEntries done!")
-                                
-                                cachedDict = [:]
-                                trCallBack()
-                                logger.info("]] trCallBack done!")
-                                
-                                isBuilding = false
+                VStack {
+                    TextField("url", text: $text)
+                    
+                    Button(action: {
+                        isBuilding = true
+                        batchResetRemoteEntries(
+                            from: text,
+                            didSucceed: {
+                                DispatchQueue.main.async {
+                                    remoteDictURLString = text
+                                    
+                                    currentEntries = getAllRemoteEntries() // 3s
+                                    logger.info("]] getAllRemoteEntries done!")
+                                    
+                                    cachedDict = [:]
+                                    trCallBack()
+                                    logger.info("]] trCallBack done!")
+                                    
+                                    isBuilding = false
+                                }
+                            },
+                            didFailed: {
+                                DispatchQueue.main.async {
+                                    isBuilding = false
+                                }
                             }
-                        },
-                        didFailed: {
-                            DispatchQueue.main.async {
-                                isBuilding = false
-                            }
-                        }
-                    )
-                }) {
-                    BuildingImageView(isBuilding: $isBuilding)
+                        )
+                    }) {
+                        BuildingImageView(isBuilding: $isBuilding)
+                    }
+                    .disabled(isBuilding)
                 }
-                .disabled(isBuilding)
             }
         }
         .padding()
