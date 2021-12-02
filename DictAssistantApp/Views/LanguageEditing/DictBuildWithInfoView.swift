@@ -45,11 +45,65 @@ struct BuildingImageView: View {
     }
 }
 
+struct BuildActionView: View {
+    let buildFrom: String
+    
+    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
+    
+    @State var isBuilding: Bool = false
+    
+    @State var succeed: Bool = false
+    func toastSucceed() {
+        withAnimation {
+            succeed = true
+            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
+                succeed = false
+            }
+        }
+    }
+    
+    var body: some View {
+        if succeed {
+            Text("Succeed")
+                .transition(.move(edge: .bottom))
+        } else {
+            Button(action: {
+                isBuilding = true
+                batchResetRemoteEntries(
+                    from: buildFrom,
+                    didSucceed: {
+                        DispatchQueue.main.async {
+                            remoteDictURLString = buildFrom
+                            
+                            currentEntries = getAllRemoteEntries() // 3s
+                            logger.info("]] getAllRemoteEntries done!")
+                            
+                            cachedDict = [:]
+                            trCallBack()
+                            logger.info("]] trCallBack done!")
+                            
+                            isBuilding = false
+                            toastSucceed()
+                        }
+                    },
+                    didFailed: {
+                        DispatchQueue.main.async {
+                            isBuilding = false
+                        }
+                    }
+                )
+            }) {
+                BuildingImageView(isBuilding: $isBuilding)
+            }
+            .disabled(isBuilding)
+        }
+    }
+}
+
 private struct DictBuildView: View {
     @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
     
-    @State var text: String = ""
-    @State var isBuilding: Bool = false
+    @State var buildFrom: String = ""
     
     var body: some View {
         VStack {
@@ -63,36 +117,8 @@ private struct DictBuildView: View {
             GroupBox(label: Label("Rebuild From:", systemImage: "hammer")
                         .font(.title2)) {
                 VStack {
-                    TextField("url", text: $text)
-                    
-                    Button(action: {
-                        isBuilding = true
-                        batchResetRemoteEntries(
-                            from: text,
-                            didSucceed: {
-                                DispatchQueue.main.async {
-                                    remoteDictURLString = text
-                                    
-                                    currentEntries = getAllRemoteEntries() // 3s
-                                    logger.info("]] getAllRemoteEntries done!")
-                                    
-                                    cachedDict = [:]
-                                    trCallBack()
-                                    logger.info("]] trCallBack done!")
-                                    
-                                    isBuilding = false
-                                }
-                            },
-                            didFailed: {
-                                DispatchQueue.main.async {
-                                    isBuilding = false
-                                }
-                            }
-                        )
-                    }) {
-                        BuildingImageView(isBuilding: $isBuilding)
-                    }
-                    .disabled(isBuilding)
+                    TextField("url", text: $buildFrom)
+                    BuildActionView(buildFrom: buildFrom)
                 }
             }
         }

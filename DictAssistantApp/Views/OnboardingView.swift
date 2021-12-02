@@ -201,21 +201,7 @@ private func systemLanguage() -> Lang {
 private struct BuildDictView: View {
     let next: () -> Void
 
-    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
-    
     @State var lang: Lang = systemLanguage()
-    
-    @State var isBuilding: Bool = false
-    
-    @State var succeed: Bool = false
-    func toastSucceed() {
-        withAnimation {
-            succeed = true
-            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
-                succeed = false
-            }
-        }
-    }
     
     var body: some View {
         PageTemplateView(
@@ -240,40 +226,7 @@ private struct BuildDictView: View {
                         .frame(width: 360)
                         
                         if lang != .None {
-                            if succeed {
-                                Text("Succeed")
-                                    .transition(.move(edge: .bottom))
-                            } else {
-                                Button(action: {
-                                    isBuilding = true
-                                    batchResetRemoteEntries(
-                                        from: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv",
-                                        didSucceed: {
-                                            DispatchQueue.main.async {
-                                                remoteDictURLString = "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv"
-                                                
-                                                currentEntries = getAllRemoteEntries() // 3s
-                                                logger.info("]] getAllRemoteEntries done!")
-                                                
-                                                cachedDict = [:]
-                                                trCallBack()
-                                                logger.info("]] trCallBack done!")
-                                                
-                                                isBuilding = false
-                                                toastSucceed()
-                                            }
-                                        },
-                                        didFailed: {
-                                            DispatchQueue.main.async {
-                                                isBuilding = false
-                                            }
-                                        }
-                                    )
-                                }) {
-                                    BuildingImageView(isBuilding: $isBuilding)
-                                }
-                                .disabled(isBuilding)
-                            }
+                            BuildActionView(buildFrom: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv")
                         }
                     }
                     .padding()
