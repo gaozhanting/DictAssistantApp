@@ -124,7 +124,11 @@
 "Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out." = "勾选苹果，当您想要排除非法的词汇，这些词汇无法使用苹果自然语言处理查找到原型。\n勾选数据库，当您想要包含更多合法词汇，这些词汇的原型苹果没有包含，但是这里的一个专有的原型数据库包含了。\n勾选开放，当您想要包含所有词汇，此时所有不存在的词汇可能出现，这些被称之为噪音。";
 "Phrases:" = "短语：";
 "Show Phrases" = "显示短语";
-"Use Entry Mode:" = "使用自定义词条的方式：";
+"Use Apple Dict Mode:" = "使用苹果词典的方式：";
+"after built in" = "内置词典之后使用";
+"before built in" = "内置词典之前使用";
+"Builtin Dictionary and Apple Dictionary makes up our dictionary database." = "内置词典和苹果词典一起共同构成我们的词典数据库。";
+"Use Custom Entries Mode:" = "使用自定义词条的方式：";
 "not use" = "不使用";
 "as first priority" = "优先使用";
 "as last priority" = "次后使用";

@@ -21,10 +21,10 @@ struct EnglishSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
                 ShowPhrasesToggle()
             }
-            Preferences.Section(title: NSLocalizedString("Use Apple Dict:", comment: "")) {
-                UseAppleDictPicker()
+            Preferences.Section(title: NSLocalizedString("Use Apple Dict Mode:", comment: "")) {
+                UseAppleDictModePicker()
             }
-            Preferences.Section(title: NSLocalizedString("Use Entry Mode:", comment: "")) {
+            Preferences.Section(title: NSLocalizedString("Use Custom Entries Mode:", comment: "")) {
                 UseEntryModePicker()
             }
         }
@@ -98,19 +98,32 @@ private struct ShowPhrasesToggle: View {
     }
 }
 
-private struct UseAppleDictPicker: View {
+private struct UseAppleDictModePicker: View {
     @AppStorage(UseAppleDictModeKey) private var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
     
     var body: some View {
-        Picker("", selection: $useAppleDictMode) {
-            Text("not use").tag(UseAppleDictMode.notUse.rawValue)
-            Text("after built in").tag(UseAppleDictMode.afterBuiltIn.rawValue)
-            Text("before built in").tag(UseAppleDictMode.beforeBuiltIn.rawValue)
-            Text("only").tag(UseAppleDictMode.only.rawValue)
+        HStack {
+            Picker("", selection: $useAppleDictMode) {
+                Text("not use").tag(UseAppleDictMode.notUse.rawValue)
+                Text("after built in").tag(UseAppleDictMode.afterBuiltIn.rawValue)
+                Text("before built in").tag(UseAppleDictMode.beforeBuiltIn.rawValue)
+                Text("only").tag(UseAppleDictMode.only.rawValue)
+            }
+            .labelsHidden()
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 150)
+            
+            MiniInfoView {
+                UseAppleDictModeInfoView()
+            }
         }
-        .labelsHidden()
-        .pickerStyle(MenuPickerStyle())
-        .frame(width: 150)
+    }
+}
+
+private struct UseAppleDictModeInfoView: View {
+    var body: some View {
+        Text("Builtin Dictionary and Apple Dictionary makes up our dictionary database.")
+            .infoStyle()
     }
 }
 
