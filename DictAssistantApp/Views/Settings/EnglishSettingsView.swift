@@ -122,7 +122,7 @@ private struct UseAppleDictModePicker: View {
 
 private struct UseAppleDictModeInfoView: View {
     var body: some View {
-        Text("Builtin Dictionary and Apple Dictionary makes up our dictionary database.")
+        Text("Builtin Dictionary and Apple Dictionary makes up our local dictionary database.")
             .infoStyle()
     }
 }
@@ -164,6 +164,7 @@ struct DictSettingsView_Previews: PreviewProvider {
             
             TitleWordInfoView()
             LemmaSearchLevelInfoView()
+            UseAppleDictModeInfoView()
             UseEntryModeInfoView()
         }
 //        .environment(\.locale, .init(identifier: "zh-Hans"))

@@ -224,58 +224,60 @@ private struct BuildDictView: View {
                     Text("Build local concise dictionary")
                     Text("This step is optional, but highly recommended.")
                         .font(.footnote)
-                    Text("It may takes about 10 to 30 seconds to build the local dictionary.")
+                    Text("It may takes about 10 to 30 seconds to build.")
                         .font(.footnote)
                 }
             },
             content: {
                 GroupBox {
-                    Picker("Your Target Language:", selection: $lang) {
-                        ForEach(Lang.allCases, id: \.self) { lang in
-                            Text(lang.rawValue).tag(lang)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .frame(width: 360)
-                    
-                    if lang != .None {
-                        if succeed {
-                            Text("Succeed")
-                                .transition(.move(edge: .bottom))
-                        } else {
-                            Button(action: {
-                                isBuilding = true
-                                batchResetRemoteEntries(
-                                    from: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv",
-                                    didSucceed: {
-                                        DispatchQueue.main.async {
-                                            remoteDictURLString = "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv"
-                                            
-                                            currentEntries = getAllRemoteEntries() // 3s
-                                            logger.info("]] getAllRemoteEntries done!")
-                                            
-                                            cachedDict = [:]
-                                            trCallBack()
-                                            logger.info("]] trCallBack done!")
-                                            
-                                            isBuilding = false
-                                            toastSucceed()
-                                        }
-                                    },
-                                    didFailed: {
-                                        DispatchQueue.main.async {
-                                            isBuilding = false
-                                        }
-                                    }
-                                )
-                            }) {
-                                BuildingImageView(isBuilding: $isBuilding)
+                    VStack {
+                        Picker("Your Target Language:", selection: $lang) {
+                            ForEach(Lang.allCases, id: \.self) { lang in
+                                Text(NSLocalizedString(lang.rawValue, comment: "")).tag(lang)
                             }
-                            .disabled(isBuilding)
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .frame(width: 360)
+                        
+                        if lang != .None {
+                            if succeed {
+                                Text("Succeed")
+                                    .transition(.move(edge: .bottom))
+                            } else {
+                                Button(action: {
+                                    isBuilding = true
+                                    batchResetRemoteEntries(
+                                        from: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv",
+                                        didSucceed: {
+                                            DispatchQueue.main.async {
+                                                remoteDictURLString = "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv"
+                                                
+                                                currentEntries = getAllRemoteEntries() // 3s
+                                                logger.info("]] getAllRemoteEntries done!")
+                                                
+                                                cachedDict = [:]
+                                                trCallBack()
+                                                logger.info("]] trCallBack done!")
+                                                
+                                                isBuilding = false
+                                                toastSucceed()
+                                            }
+                                        },
+                                        didFailed: {
+                                            DispatchQueue.main.async {
+                                                isBuilding = false
+                                            }
+                                        }
+                                    )
+                                }) {
+                                    BuildingImageView(isBuilding: $isBuilding)
+                                }
+                                .disabled(isBuilding)
+                            }
                         }
                     }
+                    .padding()
                 }
-                .padding()
             },
             nextButton: {
                 Button("Continue", action: next)

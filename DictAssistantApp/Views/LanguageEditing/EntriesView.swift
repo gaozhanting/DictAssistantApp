@@ -181,7 +181,7 @@ private struct EditingView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: If the entries becomes huge (count >= 20,000), you'd better convert the csv txt to apple dictionary file using an open source pyglossary tool, and install. The custom entries here aims to make a flexible custom dict in the app which you can play with what you want quickly, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry.")
+        Text("Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: The custom entries here aims to make a flexible custom dict in the app which you can play with, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry.")
             .infoStyle()
     }
 }

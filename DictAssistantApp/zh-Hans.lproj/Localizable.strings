@@ -53,12 +53,11 @@
 "Entries Panel" = "自定义词条面板";
 "Add multi entries to custom dict" = "添加多个词条到自定义词典";
 "Remove multi entries to custom dict" = "从自定义词典中删除多个词条";
-"Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: If the entries becomes huge (count >= 20,000), you'd better convert the csv txt to apple dictionary file using an open source pyglossary tool, and install. The custom entries here aims to make a flexible custom dict in the app which you can play with what you want quickly, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry." = "编辑您的自定义词典，每行一个词条。\n\n添加的每行格式：\n单词,释义 \n\n删除的每行格式：\n单词 \n\n然后点击添加或移除按钮即可。\n\n注意：不能有空行，一行之中也不能只有空白符。因此，不要在结尾添加一个空白行。\n\n注意：如果词条变得很大（数量 >= 20,000)，您最好将这个csv兼容的文本转为苹果词典文件并安装，您可以使用一个开源工具pyglossary来完成转换。这里的目的是为App提供一个灵活的自定义编辑词条的功能，以免您完全受限于苹果词典，这里并非要提供一个标准的词典。尽管它仍然能够工作，不过当词条太多的时候，编辑区会变得卡顿，抱歉。";
+"Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: The custom entries here aims to make a flexible custom dict in the app which you can play with, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry." = "编辑您的自定义词典，每行一个词条。\n\n添加的每行格式：\n单词,释义 \n\n删除的每行格式：\n单词 \n\n然后点击添加或移除按钮即可。\n\n注意：不能有空行，一行之中也不能只有空白符。因此，不要在结尾添加一个空白行。\n\n注意：这里的目的是为App提供一个灵活的自定义编辑词条的功能，这里并非要提供一个标准的词典。尽管它仍然能够工作，不过当词条太多的时候，编辑区会变得卡顿，抱歉。";
 
 "Dict Build Panel" = "词典构建面板";
-"sourceURL:" = "源链接：";
-"downloadURL:" = "下载链接：";
-"Install" = "安装";
+"Current Local Dictionary Built From:" = "当前本地词典构建自：";
+"Rebuild From:" = "重新构建自：";
 "We simply build our local concise dictionary from a remote simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more." = "我们只是通过一个远端的简单CSV格式文件，来构建本地的简明词典。这个文件中，每行一个词条，每个词条中仅仅包含单词和它的释义，没有其他的内容。";
 
 "Entry Upsert Panel" = "添加词条面板";
@@ -127,7 +126,7 @@
 "Use Apple Dict Mode:" = "使用苹果词典的方式：";
 "after built in" = "内置词典之后使用";
 "before built in" = "内置词典之前使用";
-"Builtin Dictionary and Apple Dictionary makes up our dictionary database." = "内置词典和苹果词典一起共同构成我们的词典数据库。";
+"Builtin Dictionary and Apple Dictionary makes up our local dictionary database." = "内置词典和苹果词典一起共同构成我们的本地词典数据库。";
 "Use Custom Entries Mode:" = "使用自定义词条的方式：";
 "not use" = "不使用";
 "as first priority" = "优先使用";
@@ -151,7 +150,7 @@
 "not convert" = "不转换";
 "convert to traditional" = "转为繁体中文";
 "convert to simplified" = "转为简体中文";
-"If the content is empty when you did run playing, what you can do?\n1. Check if there indeed has some English text in cropper area \n2. Try to turn down the Minimum Text Height \n3. Try to use Text Recognition Level accurate level \n4. Check if the words in the cropper screen are not all in your known words list \n5. Make sure the Use Entry Mode is not only which will ignore Apple Dictionary \n6. Make sure you did selected a valid dictionary in your Apple Dictionary Preferences \n7. Replay (when sometimes you switch screens) \n\nHere are some tips for you:\n1. When you changed the Apple Dictionary Preferences, you need to restart this App(not restart the Apple Dictionary App) in order to take effect, in order to conform the reordered dictionaries you adjusted.\n2. In the content, you can right click (or command click) the word, and there are commands in contextual menu buttons for quick add/remove to known, add/remove noises. Remove From Known will only be available when you toggle Show Current Known Words on; and whether display Add To Noises or Remove From Noises are based on if the word is in noises or not.\n3. Some hotkeys: Option Click the word will add or remove to known; Command Click the word will speak the word using system speech voice; Shift Click the word will open the Dictionary App of the word." = "如果您运行之后，内容显示为空，怎么办？\n1. 确认屏幕截区确实存在英文 \n2. 尝试调低最小文本比例高这个选项 \n3. 尝试选择文本识别模式为精确模式 \n4. 确认屏幕截区的词汇不全都在您的已知词汇列表中 \n5. 确认使用自定义词条的方式这个选项不是仅使用 \n6. 确认您的确在苹果词典应用中勾选了一个对的词典 \n7. 重新运行 (当您切换屏幕的时候可能需要) \n\n小贴士：\n1. 当你更改了系统词典的偏好设置之后，你需要重启此App(不是重启系统词典App)，才会让您新调整的词典顺序在此App中生效。\n2. 您右键单击(或command 单击)某个词条，会出现一些动作菜单。分别是，添加该单词到已知/从已知中移除该单词；添加该单词为噪音/从噪音中移除该单词。从已知中移除该单词，只会在您勾选了显示当前已知单词时，才会出现。是添加还是删除噪音，取决于该词是否在噪音词单中。\n3. 一些热键： Option单击，从已知中添加/移除；Command单击，使用系统声音朗读该单词；Shift单击，打开系统词典应用。";
+"If the content is empty when you did run playing, what you can do?\n1. Check if there indeed has some English text in cropper area \n2. Try to turn down the Minimum Text Height \n3. Try to use Text Recognition Level accurate level \n4. Check if the words in the cropper screen are not all in your known words list \n5. Make sure the Use Entry Mode is not selected to only when you have no custom entries, which will ignore builtIn dictionary and Apple Dictionary \n6. Make sure you have already built a dictionary successfully, or make sure you did selected a valid dictionary in your Apple Dictionary Preferences if you select to use Apple Dictionary \n7. Replay (when sometimes you switch screens) \n\nHere are some tips for you:\n1. When you changed the Apple Dictionary Preferences, you need to restart this App(not restart the Apple Dictionary App) in order to take effect.\n2. In the content, you can right click (or command click) the word, and there are commands for quick add/remove to known. Remove From Known will only be available when you toggle Show Current Known Words on.\n3. Some hotkeys: Option Click the word will add or remove to known; Command Click the word will speak the word using system speech voice; Shift Click the word will open the Apple Dictionary App of the word." = "如果您运行之后，内容显示为空，怎么办？\n1. 确认屏幕截区确实存在英文 \n2. 尝试调低最小文本比例高这个选项 \n3. 尝试选择文本识别模式为精确模式 \n4. 确认屏幕截区的词汇不全都在您的已知词汇列表中 \n5. 确认使用自定义词条的方式这个选项不是仅使用 \n6. 确保您已经成功构建了词典；或者确认您的确在苹果词典应用中勾选了一个对的词典，如果您勾选了使用苹果词典 \n7. 重新运行 (当您切换屏幕的时候可能需要) \n\n小贴士：\n1. 当你更改了系统词典的偏好设置之后，你需要重启此App(不是重启系统词典App)，才会让您新调整的词典顺序在此App中生效。\n2. 您右键单击(或command 单击)某个词条，会出现一些动作菜单。比如添加该单词到已知/从已知中移除该单词。从已知中移除该单词，只会在您勾选了显示当前已知单词时，才会出现。\n3. 一些热键： Option单击，从已知中添加/移除；Command单击，使用系统声音朗读该单词；Shift单击，打开系统词典应用。";
 
 "Appearance" = "外观";
 "Use Custom Dict Mode:" = "如何使用自定义词典：";
@@ -162,6 +161,7 @@
 "Content Style:" = "内容编排：";
 "Font: " = "字体：";
 "There is a bug: when other TextField is focused, changing font is not work." = "注意这儿有一个Bug：当有其他文本编辑框聚焦的时候，字体没法更改。";
+"line spacing:" = "行间距：";
 "Translation Font Rate:" = "单词译文字体比例：";
 "Appearance:" = "外观：";
 "Colors & Shadow:" = "颜色和阴影：";
@@ -226,14 +226,29 @@
 "Continue" = "继续";
 "Initialize your English vocabulary count, press return" = "初始化您的英语词汇量，按return键提交";
 "My vocabulary count:" = "我的词汇量：";
-"Install recommended concise dictionary" = "安装推荐的简明词典";
-"If have multi, install which you like." = "如果有多个，安装您喜欢的。";
+"Build local concise dictionary" = "构建本地简明词典";
 "This step is optional, but highly recommended." = "这一步是可跳过的，不过强烈推荐完成。";
-"Step 1: Open Dictionary App, click menu File/Open Dictionaries Folder." = "第一步：打开系统自带的词典应用，点击菜单项：文件/打开词典文件夹。";
-"This action will create the folder if not have been created before." = "如果先前还未创建此文件夹，该动作会创建这个默认的文件夹。";
-"Step 2:" = "第二步：";
-"Step 3: Restart Dictionary App, open preferences, drag the installed dict to the top as the first selected dictionary." = "第三步：重新打开词典应用， 打开偏好设置，拖拽刚安装的词典项到顶部并勾选。";
-"Open Dictionary App" = "打开系统自带的词典应用程序";
+"It may takes about 10 to 30 seconds to build." = "构建可能需要10到30秒的时间。";
+"Your Target Language:" = "您的目标语言：";
+"ChineseSimplified" = "简体中文";
+"ChineseTraditional" = "繁体中文";
+"Japanese" = "日语";
+"Korean" = "韩语";
+"German" = "德语";
+"French" = "法语";
+"Spanish" = "西班牙语";
+"Portuguese" = "葡萄牙语";
+"Italian" = "意大利语";
+"Dutch" = "荷兰语";
+"Swedish" = "瑞典语";
+"Russian" = "俄语";
+"Greek" = "希腊语";
+"Turkish" = "土耳其语";
+"Hebrew" = "希伯來语";
+"Arabic" = "阿拉伯语";
+"Hindi" = "印地语";
+"English" = "英语";
+"None" = "无";
 "Initialize one global keyboard shortcuts, playing" = "初始化一个全局的键盘快捷键，运行";
 "Playing:" = "运行：";
 "Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window and the content window." = "步骤1：按 单步运行 快捷键，调整录屏区域和内容区域。";
@@ -242,7 +257,6 @@
 "Stop:" = "停止：";
 "Press Run Step Play keyboard shortcut key to stop playing." = "按 单步运行 快捷键 停止运行。";
 "End" = "完成设置";
-"The installed path should be" = "安装路径必须是";
 
 "Add to Known" = "添加为已知";
 "Remove from Known" = "从已知中移除";
