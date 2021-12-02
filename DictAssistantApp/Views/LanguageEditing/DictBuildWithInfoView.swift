@@ -13,10 +13,34 @@ struct DictBuildWithInfoView: View {
             Spacer()
             
             DictBuildView()
+                .frame(minWidth: 650, maxWidth: .infinity)
             
             Spacer()
             
             DictBuildInfoView()
+        }
+    }
+}
+
+struct BuildingImageView: View {
+    @Binding var isBuilding: Bool
+    
+    @State var degree: Double = 0
+    
+    var body: some View {
+        if !isBuilding {
+            Image(systemName: "hammer")
+        } else {
+            Image(systemName: "hammer")
+                .rotationEffect(.degrees(degree))
+                .onAppear {
+                    withAnimation(.default.repeatForever(autoreverses: true)) {
+                        degree = 40
+                    }
+                }
+                .onDisappear { // this is important
+                    degree = 0
+                }
         }
     }
 }
@@ -29,23 +53,19 @@ private struct DictBuildView: View {
     
     var body: some View {
         VStack {
-            VStack(alignment: .trailing) {
-                HStack {
-                    Text("Current Dict Built From:")
-                    TextField("", text: $remoteDictURLString)
-                        .frame(width: 450)
-                        .disabled(true)
-                }
-                
-                HStack {
-                    Text("Build From:")
-                    TextField("url", text: $text)
-                        .frame(width: 450)
-                }
+            GroupBox(label: Label("Current Local Dictionary Built From:", systemImage: "building.columns")
+                        .font(.title2)) {
+                TextField("", text: Binding.constant(remoteDictURLString))
             }
             
-            HStack {
-                Button("build") {
+            Spacer().frame(height: 30)
+            
+            GroupBox(label: Label("Rebuild From:", systemImage: "hammer")
+                        .font(.title2)) {
+                
+                TextField("url", text: $text)
+                
+                Button(action: {
                     isBuilding = true
                     batchResetRemoteEntries(
                         from: text,
@@ -69,19 +89,15 @@ private struct DictBuildView: View {
                             }
                         }
                     )
+                }) {
+                    BuildingImageView(isBuilding: $isBuilding)
                 }
                 .disabled(isBuilding)
-                
-                if isBuilding == true {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(x: 0.5, y: 0.5, anchor: .center)
-                }
             }
         }
         .padding()
-        .frame(minWidth: 650, maxWidth: .infinity)
     }
+    
 }
 
 private struct DictBuildInfoView: View {
@@ -98,7 +114,7 @@ private struct DictBuildInfoView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("These dictionaries files are some free concise dictionaries I searched from the internet and converted to Apple dictionary format files for you, using an open source tool called pyglossary. These dictionaries, as a complement and third party dictionaries of the system built in dictionary of Apple Dictionary.app, is suitable for this App because these are concise and free. Notice it may have different translation text style, and you could select and deselect some content display options to get a better view.\n\nOf course, you can use built-in dictionary, or other third party dictionaries for Apple Dictionary.app. The database of this App is come from these file through Apple Dictionary.app. It is local and offline.\n\nYou just need to click the install button, and then a save panel will prompt, because it need your permission to save the file at the specific built-in Apple Dictionary.app dictionaries folder, you need to use the default path provided. When all have done, you could open the Dictionary.app preferences to select and re-order them; my recommendation is to order the concise dictionary first, then more detailed dictionary after, anyhow, you are free as your wish.")
+        Text("We simply build our local concise dictionary from a remote simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more.")
             .font(.callout)
             .padding()
             .frame(width: 520)

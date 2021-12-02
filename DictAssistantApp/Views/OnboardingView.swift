@@ -207,11 +207,21 @@ private struct BuildDictView: View {
     
     @State var isBuilding: Bool = false
     
+    @State var succeed: Bool = false
+    func toastSucceed() {
+        withAnimation {
+            succeed = true
+            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { timer in
+                succeed = false
+            }
+        }
+    }
+    
     var body: some View {
         PageTemplateView(
             title: {
                 VStack {
-                    Text("Build concise dictionary from remote csv file")
+                    Text("Build local concise dictionary")
                     Text("This step is optional, but highly recommended.")
                         .font(.footnote)
                     Text("It may takes about 10 to 30 seconds to build the local dictionary.")
@@ -220,62 +230,48 @@ private struct BuildDictView: View {
             },
             content: {
                 GroupBox {
-                    VStack {
-                        Picker("Your Target Language:", selection: $lang) {
-                            ForEach(Lang.allCases, id: \.self) { lang in
-                                Text(lang.rawValue).tag(lang)
-                            }
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .frame(width: 260)
-                        
-                        if lang != .None {
-                            Spacer().frame(height: 40)
-                            
-                            HStack {
-                                Button("build") {
-                                    isBuilding = true
-                                    batchResetRemoteEntries(
-                                        from: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv",
-                                        didSucceed: {
-                                            DispatchQueue.main.async {
-                                                remoteDictURLString = "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv"
-                                                
-                                                currentEntries = getAllRemoteEntries() // 3s
-                                                logger.info("]] getAllRemoteEntries done!")
-                                                
-                                                isBuilding = false
-                                            }
-                                        },
-                                        didFailed: {
-                                            DispatchQueue.main.async {
-                                                isBuilding = false
-                                            }
-                                        }
-                                    )
-                                }
-                                .disabled(isBuilding)
-                                
-                                if isBuilding == true {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle())
-                                        .scaleEffect(x: 0.5, y: 0.5, anchor: .center)
-                                } else {
-                                    if remoteDictURLString.isEmpty {
-                                        Circle()
-                                            .frame(width: 13, height: 13)
-                                            .foregroundColor(.gray)
-                                    } else {
-                                        Circle()
-                                            .frame(width: 13, height: 13)
-                                            .foregroundColor(.green)
-                                    }
-                                }
-                            }
+                    Picker("Your Target Language:", selection: $lang) {
+                        ForEach(Lang.allCases, id: \.self) { lang in
+                            Text(lang.rawValue).tag(lang)
                         }
                     }
-                    .padding()
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 360)
+                    
+                    if lang != .None {
+                        if succeed {
+                            Text("Succeed")
+                                .transition(.move(edge: .bottom))
+                        } else {
+                            Button(action: {
+                                isBuilding = true
+                                batchResetRemoteEntries(
+                                    from: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv",
+                                    didSucceed: {
+                                        DispatchQueue.main.async {
+                                            remoteDictURLString = "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv"
+                                            
+                                            currentEntries = getAllRemoteEntries() // 3s
+                                            logger.info("]] getAllRemoteEntries done!")
+                                            
+                                            isBuilding = false
+                                            toastSucceed()
+                                        }
+                                    },
+                                    didFailed: {
+                                        DispatchQueue.main.async {
+                                            isBuilding = false
+                                        }
+                                    }
+                                )
+                            }) {
+                                BuildingImageView(isBuilding: $isBuilding)
+                            }
+                            .disabled(isBuilding)
+                        }
+                    }
                 }
+                .padding()
             },
             nextButton: {
                 Button("Continue", action: next)
@@ -380,10 +376,10 @@ enum OnboardingPage: CaseIterable {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            OnboardingPage.welcome.view()
-            OnboardingPage.initKnown.view()
+//            OnboardingPage.welcome.view()
+//            OnboardingPage.initKnown.view()
             OnboardingPage.buildDict.view()
-            OnboardingPage.initGlobalKeyboardShortcut.view()
+//            OnboardingPage.initGlobalKeyboardShortcut.view()
         }
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
         .environment(\.locale, .init(identifier: "en"))
