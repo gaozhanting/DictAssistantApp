@@ -37,7 +37,6 @@
 		4440EE4E262EDCA4007FF470 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4C262EDCA4007FF470 /* Main.storyboard */; };
 		444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD426B0417D00791FC2 /* PortraitWordsView.swift */; };
 		444AACD726B041BF00791FC2 /* LandscapeWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */; };
-		444FE1652756447700CDF545 /* DictBuildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FE1642756447700CDF545 /* DictBuildView.swift */; };
 		445354C62701D5F2007DB9C2 /* PersistenceStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445354C52701D5F2007DB9C2 /* PersistenceStack.swift */; };
 		445355432701E45F007DB9C2 /* PhrasesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445355422701E45F007DB9C2 /* PhrasesPersistence.swift */; };
 		4453554727020B32007DB9C2 /* SlotsPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4453554627020B32007DB9C2 /* SlotsPersistence.swift */; };
@@ -117,7 +116,6 @@
 		4440EE50262EDCA4007FF470 /* DictAssistantApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DictAssistantApp.entitlements; sourceTree = "<group>"; };
 		444AACD426B0417D00791FC2 /* PortraitWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitWordsView.swift; sourceTree = "<group>"; };
 		444AACD626B041BF00791FC2 /* LandscapeWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeWordsView.swift; sourceTree = "<group>"; };
-		444FE1642756447700CDF545 /* DictBuildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictBuildView.swift; sourceTree = "<group>"; };
 		445354C52701D5F2007DB9C2 /* PersistenceStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStack.swift; sourceTree = "<group>"; };
 		445355422701E45F007DB9C2 /* PhrasesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPersistence.swift; sourceTree = "<group>"; };
 		4453554627020B32007DB9C2 /* SlotsPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotsPersistence.swift; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 				44C31D6C26FE035800ED6E08 /* EntriesView.swift */,
 				44CAC50827145B2700EAFA74 /* PhraseInsertView.swift */,
 				44CAC50C2714641600EAFA74 /* EntryUpsertView.swift */,
-				444FE1642756447700CDF545 /* DictBuildView.swift */,
 				442126D02719B4C700CEF786 /* DictBuildWithInfoView.swift */,
 			);
 			path = LanguageEditing;
@@ -494,7 +491,6 @@
 				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
 				442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */,
-				444FE1652756447700CDF545 /* DictBuildView.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
