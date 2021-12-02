@@ -254,6 +254,10 @@ private struct BuildDictView: View {
                                             currentEntries = getAllRemoteEntries() // 3s
                                             logger.info("]] getAllRemoteEntries done!")
                                             
+                                            cachedDict = [:]
+                                            trCallBack()
+                                            logger.info("]] trCallBack done!")
+                                            
                                             isBuilding = false
                                             toastSucceed()
                                         }

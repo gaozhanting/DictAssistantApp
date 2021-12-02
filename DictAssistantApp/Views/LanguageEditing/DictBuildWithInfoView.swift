@@ -35,7 +35,7 @@ struct BuildingImageView: View {
                 .rotationEffect(.degrees(degree))
                 .onAppear {
                     withAnimation(.default.repeatForever(autoreverses: true)) {
-                        degree = 40
+                        degree = 50
                     }
                 }
                 .onDisappear { // this is important
