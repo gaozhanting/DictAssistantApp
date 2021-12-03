@@ -141,7 +141,7 @@ private struct DictBuildInfoView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("We simply build our local concise dictionary from a remote simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more.")
+        Text("We simply build our local concise dictionary from a simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more.")
             .font(.callout)
             .padding()
             .frame(width: 520)

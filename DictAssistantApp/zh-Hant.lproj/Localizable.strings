@@ -58,7 +58,7 @@
 "Dict Build Panel" = "詞典構建面板";
 "Current Local Dictionary Built From:" = "當前本地詞典構建自：";
 "Rebuild From:" = "重新構建自：";
-"We simply build our local concise dictionary from a remote simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more." = "我們只是通過一個遠端的簡單CSV格式文件，來構建本地的簡明詞典。這個文件中，每行一個詞條，每個詞條中僅僅包含單詞和它的釋義，沒有其他的內容。";
+"We simply build our local concise dictionary from a simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more." = "我們只是通過一個簡單CSV格式文件，來構建本地的簡明詞典。這個文件中，每行一個詞條，每個詞條中僅僅包含單詞和它的釋義，沒有其他的內容。";
 
 "Entry Upsert Panel" = "添加詞條面板";
 "Phrase Insert Panel" = "添加短語面板";
