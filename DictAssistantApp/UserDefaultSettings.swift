@@ -132,6 +132,7 @@ enum PortraitCorner: Int, Codable {
     case topTrailing = 0
     case topLeading = 1
     case bottomLeading = 2
+    case top = 3
 }
 
 enum LandscapeStyle: Int, Codable {

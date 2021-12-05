@@ -102,6 +102,7 @@ private struct ContentStyleSettingView: View {
                         Text("topTrailing").tag(PortraitCorner.topTrailing.rawValue)
                         Text("topLeading").tag(PortraitCorner.topLeading.rawValue)
                         Text("bottomLeading").tag(PortraitCorner.bottomLeading.rawValue)
+                        Text("top").tag(PortraitCorner.top.rawValue)
                     }
                     .pickerStyle(MenuPickerStyle())
                     .frame(width: 200)
