@@ -18,7 +18,7 @@ func cachedDictionaryServicesDefine(_ word: String) -> String? {
     return trans
 }
 
-private func queryDefine(_ word: String) -> String? {
+func queryDefine(_ word: String) -> String? {
     let mode = UseEntryMode.init(rawValue: UserDefaults.standard.integer(forKey: UseEntryModeKey))!
     switch mode {
     case .notUse:
@@ -38,7 +38,7 @@ private func queryDefine(_ word: String) -> String? {
     }
 }
 
-private func mixDefine(_ word: String) -> String? {
+func mixDefine(_ word: String) -> String? {
     let mode = UseAppleDictMode.init(rawValue: UserDefaults.standard.integer(forKey: UseAppleDictModeKey))!
     switch mode {
     case .notUse:

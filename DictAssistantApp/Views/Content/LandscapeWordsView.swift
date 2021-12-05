@@ -10,28 +10,6 @@ import SwiftUI
 struct LandscapeWordsView: View {
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
-    var body: some View {
-        switch LandscapeStyle(rawValue: landscapeStyle)! {
-        case .normal, .autoScrolling:
-            ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    BodyView(proxy: proxy)
-                }
-            }
-        case .centered:
-            BodyView(proxy: nil)
-        }
-    }
-}
-
-private struct BodyView: View {
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
-    
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
-
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
@@ -45,7 +23,64 @@ private struct BodyView: View {
             isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)
     }
     
+    var body: some View {
+        switch LandscapeStyle(rawValue: landscapeStyle)! {
+        case .normal, .autoScrolling:
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    BodyView(words: words, proxy: proxy)
+                }
+            }
+        case .centered:
+            CenteredView(words: words)
+        }
+    }
+}
+
+struct BodyView: View {
+    let words: [WordCellWithId]
+
     let proxy: ScrollViewProxy?
+    
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            ForEach(words) { wordCellWithId in
+                SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
+            }
+            
+            VStack { Spacer() }
+        }
+        .onChange(of: words) { _ in
+            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
+                proxy?.scrollTo(words.last?.id, anchor: .top)
+            }
+        }
+        .onAppear {
+            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
+                proxy?.scrollTo(words.last?.id, anchor: .top)
+            }
+        }
+        .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
+        .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+    }
+}
+
+struct CenteredView: View {
+    let words: [WordCellWithId]
+    
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    
+    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
     var body: some View {
         VStack {
@@ -54,28 +89,11 @@ private struct BodyView: View {
                     SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
                 }
             }
-            .onChange(of: words) { _ in
-                if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                    proxy?.scrollTo(words.last?.id, anchor: .top)
-                }
-            }
-            .onAppear {
-                if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                    proxy?.scrollTo(words.last?.id, anchor: .top)
-                }
-            }
-            
-            // This line makes animation better.
-            // This line may cause some shrinking of the SingleWordView, as a result it does not expand its max width. I think it is acceptable.
             Spacer()
         }
         .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
         .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
     }
-    
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
 }
 
 //struct LandscapeWordsView_Previews: PreviewProvider {

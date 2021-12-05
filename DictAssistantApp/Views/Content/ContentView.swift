@@ -53,7 +53,14 @@ private struct ContentModeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static func define(_ word: String) -> String {
-        return appleDefine(word) ?? ""
+//        return appleDefine(word) ?? ""
+        return mixDefine(word) ?? ""
+    }
+    
+    static func sampleWords(_ words: [String]) -> DisplayedWords {
+        DisplayedWords(wordCells: words.map { word in
+            WordCell(word: word, isKnown: .unKnown, trans: define(word))
+        })
     }
     
     static let displayedWords = DisplayedWords(wordCells: [
@@ -99,22 +106,30 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            // use max width 170, landscape normal test the displaying difference of "local government"
             LandscapeWordsView()
-                .environmentObject(displayedWords2)
+                .environmentObject(sampleWords(["the left", "scepter"]))
                 .frame(width: 1000, height: 150)
             
             LandscapeWordsView()
-                .environmentObject(displayedWords3)
+                .environmentObject(sampleWords(["scepter"]))
                 .frame(width: 1000, height: 150)
             
+//            // use max width 170, landscape normal test the displaying difference of "local government"
+//            LandscapeWordsView()
+//                .environmentObject(displayedWords2)
+//                .frame(width: 1000, height: 150)
+//
+//            LandscapeWordsView()
+//                .environmentObject(displayedWords3)
+//                .frame(width: 1000, height: 150)
+//
             PortraitWordsView()
                 .environmentObject(displayedWords2)
                 .frame(width: 300, height: 600)
-
-            PortraitWordsView()
-                .environmentObject(displayedWords3)
-                .frame(width: 300, height: 600)
+//
+//            PortraitWordsView()
+//                .environmentObject(displayedWords3)
+//                .frame(width: 300, height: 600)
         }
     }
 }
