@@ -103,7 +103,7 @@ struct BuildActionView: View {
 private struct DictBuildView: View {
     @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
     
-    @State var buildFrom: String = ""
+    @State var remoteFrom: String = ""
     
     var body: some View {
         VStack {
@@ -112,19 +112,59 @@ private struct DictBuildView: View {
                 TextField("", text: Binding.constant(remoteDictURLString))
             }
             
-            Spacer().frame(height: 30)
+            Spacer().frame(height: 50)
             
-            GroupBox(label: Label("Rebuild From:", systemImage: "hammer")
+            GroupBox(label: Label("Rebuild From Remote File:", systemImage: "hammer")
                         .font(.title2)) {
                 VStack {
-                    TextField("url", text: $buildFrom)
-                    BuildActionView(buildFrom: buildFrom)
+                    TextField("url", text: $remoteFrom)
+                    BuildActionView(buildFrom: remoteFrom)
+                }
+            }
+            
+            GroupBox(label: Label("Rebuild From Local File:", systemImage: "hammer").font(.title2)) {
+                VStack {
+                    HStack {
+                        Button("open") {
+                            openLocalFile { localURL in
+                                localFrom = localURL.absoluteString
+                            }
+                        }
+                        TextField("", text: Binding.constant(localFrom))
+                            .disabled(true)
+                    }
+                    
+                    BuildActionView(buildFrom: localFrom)
                 }
             }
         }
         .padding()
     }
     
+    @State var localFrom: String = ""
+    
+    func openLocalFile(didSelected: @escaping (_ localURL: URL) -> Void) {
+        DispatchQueue.main.async {
+            let panel = NSOpenPanel()
+            panel.canChooseFiles = true
+            panel.canChooseDirectories = false
+            panel.allowsMultipleSelection = false
+            
+            guard panel.runModal() == .OK else {
+                logger.info("panel runModal not return OK, refused.")
+                return
+            }
+            
+            guard let url = panel.urls.first else {
+                logger.info("panel not select a file.")
+                return
+            }
+            
+            logger.info("url is:\(url.absoluteString)")
+            
+            didSelected(url)
+        }
+    }
 }
 
 private struct DictBuildInfoView: View {
