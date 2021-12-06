@@ -32,20 +32,24 @@ private struct TextBodyTwisted: View {
         case .portrait:
             TextBody(wordCell: wordCell)
         case .landscape:
-            switch LandscapeStyle(rawValue: landscapeStyle)! {
-            case .normal, .autoScrolling:
+            if !wordCell.trans.isEmpty {
+                switch LandscapeStyle(rawValue: landscapeStyle)! {
+                case .normal, .autoScrolling:
+                    TextBody(wordCell: wordCell)
+                        .frame(
+                            maxWidth: CGFloat(landscapeMaxWidth),
+                            maxHeight: .infinity,
+                            alignment: .topLeading
+                        )
+                case .centered:
+                    TextBody(wordCell: wordCell)
+                        .frame(
+                            maxWidth: CGFloat(landscapeMaxWidth),
+                            alignment: .top
+                        )
+                }
+            } else {
                 TextBody(wordCell: wordCell)
-                    .frame(
-                        maxWidth: CGFloat(landscapeMaxWidth),
-                        maxHeight: .infinity,
-                        alignment: .topLeading
-                    )
-            case .centered:
-                TextBody(wordCell: wordCell)
-                    .frame(
-                        maxWidth: CGFloat(landscapeMaxWidth),
-                        alignment: .top
-                    )
             }
         }
     }
