@@ -9,12 +9,27 @@ import SwiftUI
 
 struct LandscapeWordsView: View {
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    
+
+    var body: some View {
+        switch LandscapeStyle(rawValue: landscapeStyle)! {
+        case .normal, .autoScrolling:
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    BodyView(proxy: proxy)
+                }
+            }
+        case .centered:
+            CenteredView()
+        }
+    }
+}
+
+private struct BodyView: View {
     @EnvironmentObject var displayedWords: DisplayedWords
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
-
+    
     var words: [WordCellWithId] {
         convertToWordCellWithId(
             from: displayedWords.wordCells,
@@ -22,23 +37,6 @@ struct LandscapeWordsView: View {
             isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0,
             isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)
     }
-    
-    var body: some View {
-        switch LandscapeStyle(rawValue: landscapeStyle)! {
-        case .normal, .autoScrolling:
-            ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    BodyView(words: words, proxy: proxy)
-                }
-            }
-        case .centered:
-            CenteredView(words: words)
-        }
-    }
-}
-
-struct BodyView: View {
-    let words: [WordCellWithId]
 
     let proxy: ScrollViewProxy?
     
@@ -52,9 +50,7 @@ struct BodyView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            ForEach(words) { wordCellWithId in
-                SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-            }
+            WordsView()
             
             VStack { Spacer() }
         }
@@ -73,9 +69,7 @@ struct BodyView: View {
     }
 }
 
-struct CenteredView: View {
-    let words: [WordCellWithId]
-    
+private struct CenteredView: View {
     @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
@@ -85,9 +79,7 @@ struct CenteredView: View {
     var body: some View {
         VStack {
             HStack(alignment: .top) {
-                ForEach(words) { wordCellWithId in
-                    SingleWordView(wordCell: wordCellWithId.wordCell).id(wordCellWithId.id)
-                }
+                WordsView()
             }
             Spacer()
         }
