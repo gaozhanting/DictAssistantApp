@@ -29,7 +29,6 @@
 		442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
 		4422950E272CF77A0015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
 		442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2995275259C5000B75E2 /* AppleDictionaryService.swift */; };
-		442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
@@ -105,7 +104,6 @@
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
 		442A2995275259C5000B75E2 /* AppleDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDictionaryService.swift; sourceTree = "<group>"; };
-		442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInDictionaryService.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* Freedom English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freedom English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 			children = (
 				4453554D27020DDA007DB9C2 /* DictionaryService.swift */,
 				442A2995275259C5000B75E2 /* AppleDictionaryService.swift */,
-				442A299727525A59000B75E2 /* BuiltInDictionaryService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -490,7 +487,6 @@
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
 				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
-				442A299827525A59000B75E2 /* BuiltInDictionaryService.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,

@@ -9,25 +9,6 @@ import Foundation
 import Cocoa
 import CoreData
 
-func getAllRemoteEntries() -> Dictionary<String, String> {
-    let context = persistentContainer.viewContext
-
-    let fetchRequest: NSFetchRequest<RemoteEntry> = RemoteEntry.fetchRequest()
-
-    do {
-        let results = try context.fetch(fetchRequest)
-        let tuplesSeq = results.map {
-            ($0.word!, "\($0.word!) \($0.trans!)") // DictionaryServices trans include the title word, simulate Apple Dictionary behavior
-        }
-        let dict = Dictionary.init(uniqueKeysWithValues: tuplesSeq)
-        return dict
-    } catch {
-        logger.error("Failed to fetch request: \(error.localizedDescription)")
-        NSApplication.shared.presentError(error as NSError)
-        return Dictionary()
-    }
-}
-
 func getRemoteEntry(of word: String) -> RemoteEntry? {
     let context = persistentContainer.viewContext
     

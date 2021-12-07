@@ -23,7 +23,7 @@ func queryDefine(_ word: String) -> String? {
     case .notUse:
         return mixDefine(word)
     case .asFirstPriority:
-        if let trans = queryEntry(word: word) {
+        if let trans = customDefine(word: word) {
             return trans
         }
         return mixDefine(word)
@@ -31,9 +31,9 @@ func queryDefine(_ word: String) -> String? {
         if let trans = mixDefine(word) {
             return trans
         }
-        return queryEntry(word: word)
+        return customDefine(word: word)
     case .only:
-        return queryEntry(word: word)
+        return customDefine(word: word)
     }
 }
 
@@ -57,9 +57,18 @@ func mixDefine(_ word: String) -> String? {
     }
 }
 
-private func queryEntry(word: String) -> String? {
-    if let trans = entriesDict[word] {
-        return "\(word)\(trans)"
+func builtInDefine(_ word: String) -> String? {
+    if let remoteEntry = getRemoteEntry(of: word) {
+        // DictionaryServices trans all includes the title word, simulate Apple Dictionary behavior, for consistence for content options.
+        return "\(remoteEntry.word!) \(remoteEntry.trans!)"
+    } else {
+        return nil
+    }
+}
+
+func customDefine(word: String) -> String? {
+    if let customEntry = getCustomEntry(of: word) {
+        return "\(customEntry.word!) \(customEntry.trans!)"
     }
     return nil
 }

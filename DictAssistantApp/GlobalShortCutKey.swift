@@ -160,6 +160,8 @@ private func stopPlaying() {
     displayedWords.wordCells = []
     aVSessionAndTR.lastReconginzedTexts = []
     aVSessionAndTR.stopScreenCapture()
+    
+    cachedDict = [:]
 }
 
 func restartPlaying() {

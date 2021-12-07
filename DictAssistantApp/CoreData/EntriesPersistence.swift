@@ -9,9 +9,6 @@ import Foundation
 import Cocoa
 import CoreData
 
-// for cache for running query (now you have a quick custom dict)
-var entriesDict: Dictionary<String, String> = getAllEntries()
-
 private func getAllEntries() -> Dictionary<String, String> {
     let context = persistentContainer.viewContext
     
@@ -23,7 +20,6 @@ private func getAllEntries() -> Dictionary<String, String> {
             ($0.word!, $0.trans!)
         }
         let dict = Dictionary.init(uniqueKeysWithValues: tuplesSeq)
-//        let dict = Dictionary.init(tuplesSeq, uniquingKeysWith: { (_, last) in last })
         return dict
     } catch {
         logger.error("Failed to fetch request: \(error.localizedDescription)")
@@ -32,8 +28,7 @@ private func getAllEntries() -> Dictionary<String, String> {
     }
 }
 
-// for directly query (slow, which is similar of system dict service)
-func getEntry(of word: String) -> Entry? {
+func getCustomEntry(of word: String) -> Entry? {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
@@ -75,7 +70,6 @@ func batchUpsertEntries(entries: [(String, String)], didSucceed: @escaping () ->
         let changes = [NSInsertedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         
@@ -105,7 +99,6 @@ func batchDeleteAllEntries(didSucceed: @escaping () -> Void = {}) {
         let changes = [NSDeletedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         didSucceed()
@@ -136,7 +129,6 @@ func removeMultiEntries(
     }
     
     saveContext(didSucceed: {
-        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         didSucceed()
@@ -174,7 +166,6 @@ func upsertEntry(word: String, trans: String,
         if word.isPhrase {
             addPhrase(word)
         }
-        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
         didSucceed()
@@ -200,7 +191,6 @@ func removeEntry(word: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        entriesDict = getAllEntries()
         cachedDict = [:]
         trCallBack()
     })
