@@ -7,7 +7,10 @@
 
 import Foundation
 
-var currentEntries: Dictionary<String, String> = getAllRemoteEntries()
 func builtInDefine(_ word: String) -> String? {
-    return currentEntries[word]
+    if let remoteEntry = getRemoteEntry(of: word) {
+        return "\(remoteEntry.word!) \(remoteEntry.trans!)"
+    } else {
+        return nil
+    }
 }

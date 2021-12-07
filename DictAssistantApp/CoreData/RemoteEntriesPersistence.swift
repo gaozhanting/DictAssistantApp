@@ -28,6 +28,27 @@ func getAllRemoteEntries() -> Dictionary<String, String> {
     }
 }
 
+func getRemoteEntry(of word: String) -> RemoteEntry? {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<RemoteEntry> = RemoteEntry.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if let result = results.first {
+            return result
+        } else {
+            return nil
+        }
+    } catch {
+        logger.error("Failed to fetch request: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
+        return nil
+    }
+}
+
 func batchResetRemoteEntries(
     from urlString: String,
     didSucceed: @escaping () -> Void = {},

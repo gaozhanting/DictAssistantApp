@@ -7,7 +7,6 @@
 
 import Foundation
 
-// cachedDict is useful when using Apple Dict
 var cachedDict: [String: String?] = [:]
 func cachedDictionaryServicesDefine(_ word: String) -> String? {
     if let trans = cachedDict[word] {
