@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreData
+import DataBases
 
 // for cache for running query
 var noisesSet: Set<String> = getAllNoiseSet()
@@ -31,6 +32,7 @@ private func getAllNoiseSet() -> Set<String> {
 
 func batchResetDefaultNoises(didSucceed: @escaping () -> Void = {}) {
     batchDeleteAllNoise {
+        let noisesDB = Vocabularies.readToArray(from: "noises.txt")
         batchInsertNoises(noisesDB) {
             didSucceed()
         }

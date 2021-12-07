@@ -7,6 +7,7 @@
 
 import SwiftUI
 import KeyboardShortcuts
+import DataBases
 
 struct OnboardingView: View {
 
@@ -109,6 +110,8 @@ private struct InitKnownView: View {
             showingAlert = true
             return
         }
+        
+        let wikiFrequencyWords = Vocabularies.readToArray(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")
         
         let words = Array(wikiFrequencyWords[0 ..< Int(count)!])
         batchDeleteAllKnown {

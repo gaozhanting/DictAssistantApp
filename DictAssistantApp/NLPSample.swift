@@ -15,6 +15,8 @@ extension String {
     }
 }
 
+let lemmaDB = LemmaDB.read(from: "lemma.en.txt") // take 0.38s
+
 struct NLPSample {
     func tokenize(_ sentence: String, _ tokenUnit: NLTokenUnit) -> [String] {
         var result: [String] = []

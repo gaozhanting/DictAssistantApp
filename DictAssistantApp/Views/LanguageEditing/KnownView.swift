@@ -231,7 +231,10 @@ private struct PasteOxford3000Button: View {
     @Binding var text: String
     
     var body: some View {
-        Button(action: { text = oxford3000Words.joined(separator: "\n") }) {
+        Button(action: {
+            let oxford3000Vocabulary = Vocabularies.readToArray(from: "oxford_3000.txt")
+            text = oxford3000Vocabulary.joined(separator: "\n")
+        }) {
             Image(systemName: "doc.on.clipboard")
                 .overlay(
                     Image(systemName: "o.circle.fill")
@@ -241,12 +244,6 @@ private struct PasteOxford3000Button: View {
         .buttonStyle(PlainButtonStyle())
         .help("Paste Oxford 3000 Vocabulary")
     }
-}
-
-private var oxford3000Words: [String] {
-    var words = oxford3000Vocabulary.components(separatedBy: .newlines).map{ String($0) }
-    words.removeLast()
-    return words
 }
 
 private struct PasteFirstNWikiWordFrequencyButton: View {
@@ -269,8 +266,6 @@ private struct PasteFirstNWikiWordFrequencyButton: View {
         .help("Paste first N from first 100_000 of Wiki English word frequency list")
     }
 }
-
-let wikiFrequencyWords: [String] = wikiFrequencyWordsList.components(separatedBy: .newlines).map{ String($0) }
 
 let minEnWikiCount = 1
 let maxEnWikiCount = 100000
@@ -299,6 +294,8 @@ private struct FirstNPopoverView: View {
             showingAlert = true
             return
         }
+        
+        let wikiFrequencyWords = Vocabularies.readToArray(from: "first_100_000_of_enwiki-20190320-words-frequency.txt")
         
         text = wikiFrequencyWords[0 ..< Int(count)!].joined(separator: "\n")
         showPopover = false
