@@ -229,7 +229,8 @@ private struct BuildDictView: View {
                         .frame(width: 360)
                         
                         if lang != .None {
-                            BuildActionView(buildFrom: "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv")
+                            BuildActionView(
+                                buildFrom: lang == .ChineseSimplified ? "https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv" : "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv")
                         }
                     }
                     .padding()
