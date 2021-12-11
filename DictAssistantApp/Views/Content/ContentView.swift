@@ -106,8 +106,9 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            // colorways apple-dict colourway
             LandscapeWordsView()
-                .environmentObject(sampleWords(["the left", "scepter"]))
+                .environmentObject(sampleWords(["the left", "scepter", "colorway"]))
                 .frame(width: 1000, height: 150)
             
             LandscapeWordsView()
