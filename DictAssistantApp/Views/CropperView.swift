@@ -25,9 +25,35 @@ struct StrokeBorderCropperAnimationView: View {
 }
 
 struct StrokeBorderCropperView: View {
+    @EnvironmentObject var hlBox: HLBox
+    
     var body: some View {
         Rectangle()
             .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
+            .overlay(
+                GeometryReader { geometry in
+                    Rectangle()
+                        .path(in: {
+                            let rect = CGRect(
+                                x: hlBox.box.0.x * geometry.size.width,
+                                y: hlBox.box.0.y,
+                                width: (hlBox.box.1.x - hlBox.box.0.x) * geometry.size.width,
+                                height: (hlBox.box.3.y - hlBox.box.0.y) * geometry.size.height
+                            )
+                            print(">>]] highlightBounds: \(hlBox.box)")
+                            print(">>]] rect: \(rect)")
+                            return rect
+                        }())
+                        .fill(Color.yellow.opacity(0.2))
+//                        .border(.purple)
+//                        .border(width: 2, edges: [.bottom], color: .orange)
+
+//                    Rectangle()
+//                        .path(in: rect)
+////                        .fill(Color.red)
+//                        .stroke(Color.red, lineWidth: 2.0)
+                }
+            )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
     }
@@ -110,11 +136,11 @@ struct EdgeBorder: Shape {
 struct CropperView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            StrokeBorderCropperAnimationView()
+//            StrokeBorderCropperAnimationView()
             StrokeBorderCropperView()
-            RectangleCropperView()
-            LeadingBorderCropperView()
-            TrailingBorderCropperView()
+//            RectangleCropperView()
+//            LeadingBorderCropperView()
+//            TrailingBorderCropperView()
         }
     }
 }

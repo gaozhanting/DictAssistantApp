@@ -144,9 +144,34 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
             results = textRecognitionRequest.results
             
             if let results = results {
-                let texts: [String] = results.map { observation in
-                    let text: String = observation.topCandidates(1)[0].string
-                    return text
+//                let texts: [String] = results.map { observation in
+//                    let text: String = observation.topCandidates(1)[0].string
+//                    return text
+//                }
+                
+                var texts: [String] = []
+                
+                for observation in results {
+                    let candidate: VNRecognizedText = observation.topCandidates(1)[0]
+                    let str = candidate.string
+                    
+                    texts.append(str)
+                    
+                    do {
+//                        let range: Range<String.Index> = candidate.string.startIndex..<candidate.string.endIndex
+                        // todo: func getWordRange(word: String, text: String) -> Range<String.Index> {}
+                        let startIndex = str.startIndex
+//                        let endIndex = str.index(str.startIndex, offsetBy: 3) // fast level works perfectly
+                        let endIndex = str.endIndex
+                        let range = startIndex..<endIndex
+                        let box = try candidate.boundingBox(for: range)
+                        if let box = box {
+                            hlBox.box = (box.bottomLeft, box.bottomRight, box.topRight, box.topLeft)
+                            print(">>]] set highlightBounds: \(hlBox.box)")
+                        }
+                    } catch {
+                        print("Failed to get boundingBox: \(error.localizedDescription)")
+                    }
                 }
                 
                 if texts.elementsEqual(lastReconginzedTexts) {
@@ -193,3 +218,6 @@ let aVSessionAndTR = AVSessionAndTR.init(
     cropperWindow: cropperWindow,
     trCallBack: trCallBack
 )
+
+//var highlightBounds: (CGPoint, CGPoint, CGPoint, CGPoint) = (CGPoint(x: 0,y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0))
+
