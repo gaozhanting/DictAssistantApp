@@ -98,37 +98,50 @@ struct EdgeBorder: Shape {
     }
 }
 
+struct HLBoxView: View {
+    let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
+    let geometrySize: CGSize
+    
+    var body: some View {
+        Rectangle()
+            .path(in: {
+                let rect = CGRect(
+                    x: box.0.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height, // notice here 1-y
+                    width: abs(box.1.x - box.0.x) * geometrySize.width,
+                    height: abs(box.1.y - box.0.y) * geometrySize.height
+                )
+                print(">>]] highlightBounds box: \(box)")
+                print(">>]] rect: \(rect)")
+                return rect
+            }())
+            .fill(Color.yellow.opacity(0.4))
+    }
+}
+
+extension CGPoint: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(y)
+    }
+}
+
 struct StrokeBorderCropperView: View {
     @EnvironmentObject var hlBox: HLBoxs
     
     var body: some View {
-        Rectangle()
-            .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
-            .overlay(
-                GeometryReader { geometry in
-                    Rectangle()
-                        .path(in: {
-                            if let box = hlBox.boxs.first {
-                                let rect = CGRect(
-                                    x: box.0.x * geometry.size.width,
-                                    y: (1 - box.0.y) * geometry.size.height,
-                                    width: abs(box.1.x - box.0.x) * geometry.size.width,
-                                    height: abs(box.1.y - box.0.y) * geometry.size.height
-                                )
-                                for box in hlBox.boxs {
-                                    print(">>]] highlightBounds box: \(box)")
-                                }
-                                print(">>]] rect: \(rect)")
-                                return rect
-                            } else {
-                                return CGRect(x:0,y:0,width:0,height:0)
-                            }
-                        }())
-                        .fill(Color.yellow.opacity(0.2))
+        GeometryReader { geometry in
+            ZStack {
+                Rectangle()
+                    .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
+                
+                ForEach(hlBox.boxs, id: \.self.0) { box in
+                    HLBoxView(box: box, geometrySize: geometry.size)
                 }
-            )
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
     }
 }
 
@@ -137,10 +150,23 @@ struct CropperView_Previews: PreviewProvider {
         Group {
 //            StrokeBorderCropperAnimationView()
             StrokeBorderCropperView()
+                .frame(width: 1087, height: 282)
                 .environmentObject(
                     HLBoxs(boxs: [
                         (CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
-                         CGPoint(x: 0.15073529411764705, y: 0.7773851590106007))
+                         CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)),
+                        
+                        (CGPoint(x: 0.024356617647058848, y: 0.646643109540636),
+                         CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)),
+                        
+                        (CGPoint(x: 0.025735294117647058, y: 0.39399293286219084),
+                         CGPoint(x: 0.21599264705882354, y: 0.2720848056537103)),
+                        
+                        (CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
+                         CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)),
+                        
+                        (CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),
+                         CGPoint(x: 0.7936580882352942, y: 0.04770318021201414))
                     ])
                 )
 //            RectangleCropperView()
