@@ -53,6 +53,7 @@ func trCallBack() {
     let processed = nlpSample.process(textsCache)
     
     let wordCell = processed.map { tagWord($0) }
+    print("wordCell: \(wordCell)")
     
     let primitiveWordCell = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     primitiveWordCellCache = primitiveWordCell
@@ -86,14 +87,20 @@ private func highlight(unKnownWords: [String], results: [VNRecognizedTextObserva
         let candidate: VNRecognizedText = observation.topCandidates(1)[0]
         let text = candidate.string
         
+        // don't duplicate found bound box unknown word; unKnownWords may have duplicated which is Okay there, but not here. Here is one line TR result.
+        var auxiliary: Set<String> = Set.init()
         for unknownWord in unKnownWords {
+            if auxiliary.contains(unknownWord) { continue }
             let nsRange = (text as NSString).range(of: unknownWord)
             if let range = Range(nsRange, in: text) {
                 do {
                     let box = try candidate.boundingBox(for: range)
                     if let box = box {
                         boxs.append((box.topLeft, box.bottomRight))
-                        //                            logger.info(">>]] set highlightBounds: \(hlBox.boxs)")
+                        auxiliary.insert(unknownWord)
+                        print("box: unknownWord: \(unknownWord); text: \(text)")
+                    } else {
+                        print("not box: unknownWord: \(unknownWord); text: \(text)")
                     }
                 } catch {
                     logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
@@ -103,6 +110,11 @@ private func highlight(unKnownWords: [String], results: [VNRecognizedTextObserva
     }
     
     hlBox.boxs = boxs
+    
+    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
+    for box in hlBox.boxs {
+        print(">>]]>> set highlightBounds box: \(box)")
+    }
 }
 
 private func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {

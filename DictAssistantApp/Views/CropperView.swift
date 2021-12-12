@@ -151,8 +151,8 @@ private struct HLBoxView: View {
                     width: abs(box.1.x - box.0.x) * geometrySize.width,
                     height: abs(box.1.y - box.0.y) * geometrySize.height
                 )
-//                logger.info(">>]] highlightBounds box: \(box)")
-//                logger.info(">>]] rect: \(rect)")
+                print(">>]]>> render highlightBounds box: \(box)")
+                print(">>]]>> rect: \(rect)")
                 return rect
             }())
 //            .fill(Color.yellow.opacity(0.2))
