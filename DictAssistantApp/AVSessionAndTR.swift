@@ -159,20 +159,24 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                     
                     texts.append(str)
                     
-                    do {
-//                        let range: Range<String.Index> = candidate.string.startIndex..<candidate.string.endIndex
-                        // todo: func getWordRange(word: String, text: String) -> Range<String.Index> {}
-                        let startIndex = str.startIndex
-//                        let endIndex = str.index(str.startIndex, offsetBy: 3) // fast level works perfectly
-                        let endIndex = str.endIndex
-                        let range = startIndex..<endIndex
-                        let box = try candidate.boundingBox(for: range)
-                        if let box = box {
-                            hlBox.boxs.append((box.topLeft, box.bottomRight))
-                            print(">>]] set highlightBounds: \(hlBox.boxs)")
+                    //                        let range: Range<String.Index> = candidate.string.startIndex..<candidate.string.endIndex
+                    // todo: func getWordRange(word: String, text: String) -> Range<String.Index> {}
+                    let startIndex = str.startIndex
+                    //                        let endIndex = str.index(str.startIndex, offsetBy: 3) // fast level works perfectly
+                    let endIndex = str.endIndex
+                    let range = startIndex..<endIndex
+                    
+                    let range2 = (str as NSString).range(of: "history")
+                    if let range = Range(range2, in: str) {
+                        do {
+                            let box = try candidate.boundingBox(for: range)
+                            if let box = box {
+                                hlBox.boxs.append((box.topLeft, box.bottomRight))
+                                print(">>]] set highlightBounds: \(hlBox.boxs)")
+                            }
+                        } catch {
+                            print("Failed to get boundingBox: \(error.localizedDescription)")
                         }
-                    } catch {
-                        print("Failed to get boundingBox: \(error.localizedDescription)")
                     }
                 }
                 
