@@ -143,35 +143,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         DispatchQueue.main.async { [unowned self] in
             results = textRecognitionRequest.results
             
-            if let results = results {
-                var texts: [String] = []
-                
-                for observation in results {
-                    let candidate: VNRecognizedText = observation.topCandidates(1)[0]
-                    let text = candidate.string
-                    
-                    texts.append(text)
-                }
-                
-                if texts.elementsEqual(lastReconginzedTexts) {
-//                    logger.info("recognizeTextHandler texts == lastReconginzedTexts, so don't run trCallback")
-                } else {
-                    // if this option on, content won't react to new empty results; useful for using chrome live caption.
-                    if UserDefaults.standard.bool(forKey: "IsContentRetentionKey") {
-                        if texts.isEmpty {
-                            logger.info("content got retention")
-                            return
-                        }
-                    }
-                    
-                    logger.info("recognizeTextHandler texts != lastReconginzedTexts, so do run trCallback")
-                    
-                    currentTRTexts = texts
-                    trCallBack()
-
-                    lastReconginzedTexts = texts
-                }
-            }
+            trCallBack()
         }
     }
     
@@ -179,21 +151,13 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     var requestHandler: VNImageRequestHandler?
     var textRecognitionRequest: VNRecognizeTextRequest!
     
-    var lastReconginzedTexts: [String] = []
-    
-    init(
-        cropperWindow: NSWindow!,
-        trCallBack: @escaping () -> Void
-    ) {
+    init(cropperWindow: NSWindow!) {
         self.cropperWindow = cropperWindow
-        self.trCallBack = trCallBack
     }
     let cropperWindow: NSWindow!
-    var trCallBack: () -> Void
 }
 
 // this ! can make it init at applicationDidFinishLaunching(), otherwise, need at init()
 let aVSessionAndTR = AVSessionAndTR.init(
-    cropperWindow: cropperWindow,
-    trCallBack: trCallBack
+    cropperWindow: cropperWindow
 )

@@ -139,7 +139,9 @@ private func startPlaying() {
     statusItem.button?.image = NSImage(named: "FullIcon")
 
     displayedWords.wordCells = []
-    aVSessionAndTR.lastReconginzedTexts = []
+    hlBox.boxs = []
+    textsCache = []
+    primitiveWordCellCache = []
     aVSessionAndTR.startScreenCapture()
 }
 
@@ -158,7 +160,9 @@ private func stopPlaying() {
     statusItem.button?.image = NSImage(named: "EmptyIcon")
 
     displayedWords.wordCells = []
-    aVSessionAndTR.lastReconginzedTexts = []
+    hlBox.boxs = []
+    textsCache = []
+    primitiveWordCellCache = []
     aVSessionAndTR.stopScreenCapture()
     
     cachedDict = [:]

@@ -451,7 +451,6 @@ func combineFPS() {
         .publisher(for: \.MaximumFrameRateKey)
         .handleEvents(receiveOutput: { fps in
             if statusData.isPlaying {
-                aVSessionAndTR.lastReconginzedTexts = []
                 aVSessionAndTR.stopScreenCapture()
                 aVSessionAndTR.startScreenCapture()
             }
