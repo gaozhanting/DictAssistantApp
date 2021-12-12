@@ -30,6 +30,7 @@ let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consisten
 
 // Recording
 let CropperStyleKey = "CropperStyleKey"
+let HighlightColorKey = "HighlightColorKey"
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
@@ -153,6 +154,7 @@ enum TheColorScheme: Int, Codable {
 private let defaultSlotKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
+    HighlightColorKey: colorToData(NSColor.red.withAlphaComponent(0.1))!,
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     
@@ -231,6 +233,10 @@ extension UserDefaults {
     @objc var CropperStyleKey: Int {
         get { return integer(forKey: "CropperStyleKey") }
         set { set(newValue, forKey: "CropperStyleKey") }
+    }
+    @objc var HighlightColorKey: Data {
+        get { return data(forKey: "HighlightColorKey")! }
+        set { set(newValue, forKey: "HighlightColorKey") }
     }
     @objc var IsCloseCropperWhenNotPlayingKey: Bool {
         get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }

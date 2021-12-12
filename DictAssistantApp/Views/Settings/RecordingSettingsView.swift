@@ -14,6 +14,14 @@ struct RecordingSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
                 CropperStyleSettingView()
             }
+            Preferences.Section(title: NSLocalizedString("Highlight:", comment: "")) {
+                GroupBox {
+                    VStack {
+                        HighlightColorPicker()
+                    }
+                    .frame(width: 160)
+                }
+            }
             Preferences.Section(title: NSLocalizedString("Cropper Scheme:", comment: "")) {
                 CloseCropperWhenNotPlayingToggle()
             }
@@ -38,6 +46,23 @@ private struct CropperStyleSettingView: View {
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
         .frame(width: 160)
+    }
+}
+
+private struct HighlightColorPicker: View {
+    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(highlightColor)!) },
+            set: { newValue in
+                highlightColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    var body: some View {
+        ColorPicker("Color:", selection: binding)
     }
 }
 

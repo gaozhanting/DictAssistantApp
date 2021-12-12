@@ -102,6 +102,8 @@ struct HLBoxView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
+    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    
     var body: some View {
         Rectangle()
             .path(in: {
@@ -117,7 +119,8 @@ struct HLBoxView: View {
             }())
 //            .fill(Color.yellow.opacity(0.2))
 //            .fill(Color(NSColor.findHighlightColor).opacity(0.2))
-            .fill(Color.red.opacity(0.1))
+//            .fill(Color.red.opacity(0.1))
+            .fill(Color(dataToColor(highlightColor)!))
     }
 }
 
