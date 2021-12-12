@@ -115,7 +115,7 @@ struct HLBoxView: View {
                 print(">>]] rect: \(rect)")
                 return rect
             }())
-            .fill(Color.yellow.opacity(0.4))
+            .fill(Color.yellow.opacity(0.2))
     }
 }
 

@@ -146,26 +146,11 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
             if let results = results {
                 var texts: [String] = []
                 
-                hlBox.boxs = []
-                
                 for observation in results {
                     let candidate: VNRecognizedText = observation.topCandidates(1)[0]
                     let text = candidate.string
                     
                     texts.append(text)
-                    
-                    let nsRange = (text as NSString).range(of: "history")
-                    if let range = Range(nsRange, in: text) {
-                        do {
-                            let box = try candidate.boundingBox(for: range)
-                            if let box = box {
-                                hlBox.boxs.append((box.topLeft, box.bottomRight))
-                                print(">>]] set highlightBounds: \(hlBox.boxs)")
-                            }
-                        } catch {
-                            print("Failed to get candidate.boundingBox: \(error.localizedDescription)")
-                        }
-                    }
                 }
                 
                 if texts.elementsEqual(lastReconginzedTexts) {
