@@ -24,41 +24,6 @@ struct StrokeBorderCropperAnimationView: View {
     }
 }
 
-struct StrokeBorderCropperView: View {
-    @EnvironmentObject var hlBox: HLBox
-    
-    var body: some View {
-        Rectangle()
-            .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
-            .overlay(
-                GeometryReader { geometry in
-                    Rectangle()
-                        .path(in: {
-                            let rect = CGRect(
-                                x: hlBox.box.0.x * geometry.size.width,
-                                y: hlBox.box.0.y,
-                                width: (hlBox.box.1.x - hlBox.box.0.x) * geometry.size.width,
-                                height: (hlBox.box.3.y - hlBox.box.0.y) * geometry.size.height
-                            )
-                            print(">>]] highlightBounds: \(hlBox.box)")
-                            print(">>]] rect: \(rect)")
-                            return rect
-                        }())
-                        .fill(Color.yellow.opacity(0.2))
-//                        .border(.purple)
-//                        .border(width: 2, edges: [.bottom], color: .orange)
-
-//                    Rectangle()
-//                        .path(in: rect)
-////                        .fill(Color.red)
-//                        .stroke(Color.red, lineWidth: 2.0)
-                }
-            )
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
-    }
-}
-
 struct RectangleCropperView: View {
     var body: some View {
         Spacer()
@@ -133,11 +98,51 @@ struct EdgeBorder: Shape {
     }
 }
 
+struct StrokeBorderCropperView: View {
+    @EnvironmentObject var hlBox: HLBoxs
+    
+    var body: some View {
+        Rectangle()
+            .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
+            .overlay(
+                GeometryReader { geometry in
+                    Rectangle()
+                        .path(in: {
+                            if let box = hlBox.boxs.first {
+                                let rect = CGRect(
+                                    x: box.0.x * geometry.size.width,
+                                    y: (1 - box.0.y) * geometry.size.height,
+                                    width: abs(box.1.x - box.0.x) * geometry.size.width,
+                                    height: abs(box.1.y - box.0.y) * geometry.size.height
+                                )
+                                for box in hlBox.boxs {
+                                    print(">>]] highlightBounds box: \(box)")
+                                }
+                                print(">>]] rect: \(rect)")
+                                return rect
+                            } else {
+                                return CGRect(x:0,y:0,width:0,height:0)
+                            }
+                        }())
+                        .fill(Color.yellow.opacity(0.2))
+                }
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+    }
+}
+
 struct CropperView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
 //            StrokeBorderCropperAnimationView()
             StrokeBorderCropperView()
+                .environmentObject(
+                    HLBoxs(boxs: [
+                        (CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
+                         CGPoint(x: 0.15073529411764705, y: 0.7773851590106007))
+                    ])
+                )
 //            RectangleCropperView()
 //            LeadingBorderCropperView()
 //            TrailingBorderCropperView()

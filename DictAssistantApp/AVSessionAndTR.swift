@@ -151,6 +151,8 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                 
                 var texts: [String] = []
                 
+                hlBox.boxs = []
+                
                 for observation in results {
                     let candidate: VNRecognizedText = observation.topCandidates(1)[0]
                     let str = candidate.string
@@ -166,8 +168,8 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                         let range = startIndex..<endIndex
                         let box = try candidate.boundingBox(for: range)
                         if let box = box {
-                            hlBox.box = (box.bottomLeft, box.bottomRight, box.topRight, box.topLeft)
-                            print(">>]] set highlightBounds: \(hlBox.box)")
+                            hlBox.boxs.append((box.topLeft, box.bottomRight))
+                            print(">>]] set highlightBounds: \(hlBox.boxs)")
                         }
                     } catch {
                         print("Failed to get boundingBox: \(error.localizedDescription)")
@@ -218,6 +220,3 @@ let aVSessionAndTR = AVSessionAndTR.init(
     cropperWindow: cropperWindow,
     trCallBack: trCallBack
 )
-
-//var highlightBounds: (CGPoint, CGPoint, CGPoint, CGPoint) = (CGPoint(x: 0,y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 0))
-
