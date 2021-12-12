@@ -24,19 +24,7 @@ func initCropperWindow() {
 }
 
 func syncCropperView(from cropperStyle: CropperStyle) {
-    switch cropperStyle {
-    case .empty:
-        cropperWindow.contentView = NSHostingView(rootView: EmptyView())
-    case .strokeBorder:
-        cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperView().environmentObject(hlBox)
-        )
-    case .rectangle:
-        cropperWindow.contentView = NSHostingView(rootView: RectangleCropperView())
-    case .leadingBorder:
-        cropperWindow.contentView = NSHostingView(rootView: LeadingBorderCropperView())
-    case .trailingBorder:
-        cropperWindow.contentView = NSHostingView(rootView: TrailingBorderCropperView())
-    }
+    cropperWindow.contentView = NSHostingView(rootView: CropperViewWithHighlight().environmentObject(hlBox))
     cropperWindow.orderFrontRegardless()
 }
 

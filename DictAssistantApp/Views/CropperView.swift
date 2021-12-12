@@ -24,20 +24,60 @@ struct StrokeBorderCropperAnimationView: View {
     }
 }
 
+struct CropperViewWithHighlight: View {
+    @EnvironmentObject var hlBox: HLBoxs
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                CropperView()
+                
+                ForEach(hlBox.boxs, id: \.self.0) { box in
+                    HLBoxView(box: box, geometrySize: geometry.size)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    }
+}
+
+private struct CropperView: View {
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+
+    var body: some View {
+        switch CropperStyle(rawValue: cropperStyle)! {
+        case .empty:
+            EmptyView()
+        case .strokeBorder:
+            StrokeBorderCropperView()
+        case .rectangle:
+            RectangleCropperView()
+        case .leadingBorder:
+            LeadingBorderCropperView()
+        case .trailingBorder:
+            TrailingBorderCropperView()
+        }
+    }
+}
+
+struct StrokeBorderCropperView: View {
+    var body: some View {
+        Rectangle()
+            .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
+    }
+}
+
 struct RectangleCropperView: View {
     var body: some View {
         Spacer()
             .background(Color.accentColor.opacity(0.1))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
     }
 }
 
 struct LeadingBorderCropperView: View {
     var body: some View {
         Spacer()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
             .border(width: 5, edges: [.leading], color: Color.accentColor)
     }
 }
@@ -45,8 +85,6 @@ struct LeadingBorderCropperView: View {
 struct TrailingBorderCropperView: View {
     var body: some View {
         Spacer()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
             .border(width: 5, edges: [.trailing], color: Color.accentColor)
     }
 }
@@ -98,7 +136,7 @@ struct EdgeBorder: Shape {
     }
 }
 
-struct HLBoxView: View {
+private struct HLBoxView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
@@ -128,25 +166,6 @@ extension CGPoint: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(x)
         hasher.combine(y)
-    }
-}
-
-struct StrokeBorderCropperView: View {
-    @EnvironmentObject var hlBox: HLBoxs
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Rectangle()
-                    .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
-                
-                ForEach(hlBox.boxs, id: \.self.0) { box in
-                    HLBoxView(box: box, geometrySize: geometry.size)
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
     }
 }
 
