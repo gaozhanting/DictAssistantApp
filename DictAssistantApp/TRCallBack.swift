@@ -14,7 +14,15 @@ var textsCache: [String] = []
 // highlight need
 var primitiveWordCellCache: [WordCell] = []
 
+// other refreshing action
 func trCallBack() {
+    textsCache = []
+    primitiveWordCellCache = []
+    trCallBackWithCache()
+}
+
+// mainly called by AVSessionAndTR
+func trCallBackWithCache() {
     if !statusData.isPlaying { // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
         return
     }
@@ -64,7 +72,6 @@ func trCallBack() {
         unKnownWords: primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word },
         results: results
     )
-    
 }
 
 private func tagWord(_ word: String) -> WordCell {

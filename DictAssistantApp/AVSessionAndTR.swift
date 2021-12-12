@@ -143,7 +143,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         DispatchQueue.main.async { [unowned self] in
             results = textRecognitionRequest.results
             
-            trCallBack()
+            trCallBackWithCache()
         }
     }
     
