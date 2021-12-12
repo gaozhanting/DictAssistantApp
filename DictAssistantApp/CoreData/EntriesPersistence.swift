@@ -70,7 +70,6 @@ func batchUpsertEntries(entries: [(String, String)], didSucceed: @escaping () ->
         let changes = [NSInsertedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        cachedDict = [:]
         trCallBack()
         
         let phrases = entries.map { $0.0 }.filter { $0.isPhrase }
@@ -99,7 +98,6 @@ func batchDeleteAllEntries(didSucceed: @escaping () -> Void = {}) {
         let changes = [NSDeletedObjectsKey: objectIDArray]
         NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
         
-        cachedDict = [:]
         trCallBack()
         didSucceed()
     } catch {
@@ -129,7 +127,6 @@ func removeMultiEntries(
     }
     
     saveContext(didSucceed: {
-        cachedDict = [:]
         trCallBack()
         didSucceed()
     }, nothingChanged: {
@@ -166,7 +163,6 @@ func upsertEntry(word: String, trans: String,
         if word.isPhrase {
             addPhrase(word)
         }
-        cachedDict = [:]
         trCallBack()
         didSucceed()
     }, nothingChanged: {
@@ -191,7 +187,6 @@ func removeEntry(word: String) {
         NSApplication.shared.presentError(error as NSError)
     }
     saveContext(didSucceed: {
-        cachedDict = [:]
         trCallBack()
     })
 }

@@ -75,7 +75,6 @@ struct BuildActionView: View {
                         DispatchQueue.main.async {
                             remoteDictURLString = buildFrom
                             
-                            cachedDict = [:]
                             trCallBack()
                             logger.info("]] trCallBack done!")
                             

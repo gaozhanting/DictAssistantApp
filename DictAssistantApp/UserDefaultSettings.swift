@@ -489,7 +489,6 @@ func combineEnglishSettings() {
     UserDefaults.standard
         .publisher(for: \.UseAppleDictModeKey)
         .handleEvents(receiveOutput: { _ in
-            cachedDict = [:]
             trCallBack()
         })
         .sink { _ in }
@@ -498,7 +497,6 @@ func combineEnglishSettings() {
     UserDefaults.standard
         .publisher(for: \.UseEntryModeKey)
         .handleEvents(receiveOutput: { _ in
-            cachedDict = [:]
             trCallBack()
         })
         .sink { _ in }

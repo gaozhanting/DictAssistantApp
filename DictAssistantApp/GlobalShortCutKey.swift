@@ -164,8 +164,6 @@ private func stopPlaying() {
     textsCache = []
     primitiveWordCellCache = []
     aVSessionAndTR.stopScreenCapture()
-    
-    cachedDict = [:]
 }
 
 func restartPlaying() {

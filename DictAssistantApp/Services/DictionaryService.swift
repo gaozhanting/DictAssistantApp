@@ -7,13 +7,8 @@
 
 import Foundation
 
-var cachedDict: [String: String?] = [:]
 func cachedDictionaryServicesDefine(_ word: String) -> String? {
-    if let trans = cachedDict[word] {
-        return trans
-    }
     let trans = queryDefine(word)
-    cachedDict[word] = trans
     return trans
 }
 
