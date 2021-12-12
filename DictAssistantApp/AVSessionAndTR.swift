@@ -144,30 +144,18 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
             results = textRecognitionRequest.results
             
             if let results = results {
-//                let texts: [String] = results.map { observation in
-//                    let text: String = observation.topCandidates(1)[0].string
-//                    return text
-//                }
-                
                 var texts: [String] = []
                 
                 hlBox.boxs = []
                 
                 for observation in results {
                     let candidate: VNRecognizedText = observation.topCandidates(1)[0]
-                    let str = candidate.string
+                    let text = candidate.string
                     
-                    texts.append(str)
+                    texts.append(text)
                     
-                    //                        let range: Range<String.Index> = candidate.string.startIndex..<candidate.string.endIndex
-                    // todo: func getWordRange(word: String, text: String) -> Range<String.Index> {}
-                    let startIndex = str.startIndex
-                    //                        let endIndex = str.index(str.startIndex, offsetBy: 3) // fast level works perfectly
-                    let endIndex = str.endIndex
-                    let range = startIndex..<endIndex
-                    
-                    let range2 = (str as NSString).range(of: "history")
-                    if let range = Range(range2, in: str) {
+                    let nsRange = (text as NSString).range(of: "history")
+                    if let range = Range(nsRange, in: text) {
                         do {
                             let box = try candidate.boundingBox(for: range)
                             if let box = box {
@@ -175,7 +163,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
                                 print(">>]] set highlightBounds: \(hlBox.boxs)")
                             }
                         } catch {
-                            print("Failed to get boundingBox: \(error.localizedDescription)")
+                            print("Failed to get candidate.boundingBox: \(error.localizedDescription)")
                         }
                     }
                 }
