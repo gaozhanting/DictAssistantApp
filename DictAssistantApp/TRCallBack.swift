@@ -21,12 +21,11 @@ func trCallBack() {
     
     let wordCell = processed.map { tagWord($0) }
     
-    highlight(unKnownWords: wordCell.filter{ $0.isKnown == .unKnown }.map{ $0.word })
-    
-    let isShowPhrase = UserDefaults.standard.bool(forKey: IsShowPhrasesKey)
-    let primitiveWordCell = isShowPhrase ? wordCell : wordCell.filter { !$0.word.isPhrase }
+    let primitiveWordCell = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     
     mutateDisplayedWords(primitiveWordCell)
+    
+    highlight(unKnownWords: primitiveWordCell.filter{ $0.isKnown == .unKnown }.map{ $0.word })
 }
 
 private func tagWord(_ word: String) -> WordCell {
@@ -44,7 +43,7 @@ private func tagWord(_ word: String) -> WordCell {
 
 private func highlight(unKnownWords: [String]) {
     if let results = aVSessionAndTR.results {
-        hlBox.boxs = []
+        var boxs: [(CGPoint, CGPoint)] = []
         
         for observation in results {
             let candidate: VNRecognizedText = observation.topCandidates(1)[0]
@@ -56,15 +55,17 @@ private func highlight(unKnownWords: [String]) {
                     do {
                         let box = try candidate.boundingBox(for: range)
                         if let box = box {
-                            hlBox.boxs.append((box.topLeft, box.bottomRight))
-                            print(">>]] set highlightBounds: \(hlBox.boxs)")
+                            boxs.append((box.topLeft, box.bottomRight))
+//                            logger.info(">>]] set highlightBounds: \(hlBox.boxs)")
                         }
                     } catch {
-                        print("Failed to get candidate.boundingBox: \(error.localizedDescription)")
+                        logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
                     }
                 }
             }
         }
+        
+        hlBox.boxs = boxs
     }
 }
 

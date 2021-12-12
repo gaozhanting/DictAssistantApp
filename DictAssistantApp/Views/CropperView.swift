@@ -111,11 +111,13 @@ struct HLBoxView: View {
                     width: abs(box.1.x - box.0.x) * geometrySize.width,
                     height: abs(box.1.y - box.0.y) * geometrySize.height
                 )
-                print(">>]] highlightBounds box: \(box)")
-                print(">>]] rect: \(rect)")
+//                logger.info(">>]] highlightBounds box: \(box)")
+//                logger.info(">>]] rect: \(rect)")
                 return rect
             }())
-            .fill(Color.yellow.opacity(0.2))
+//            .fill(Color.yellow.opacity(0.2))
+//            .fill(Color(NSColor.findHighlightColor).opacity(0.2))
+            .fill(Color.red.opacity(0.1))
     }
 }
 
