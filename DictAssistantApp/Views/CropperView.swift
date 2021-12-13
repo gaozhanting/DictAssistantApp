@@ -24,24 +24,6 @@ struct StrokeBorderCropperAnimationView: View {
     }
 }
 
-struct CropperViewWithHighlight: View {
-    @EnvironmentObject var hlBox: HLBoxs
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                CropperView()
-                
-                ForEach(hlBox.boxs, id: \.self.0) { box in
-                    HLBoxView(box: box, geometrySize: geometry.size)
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-    }
-}
-
 private struct CropperView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
 
@@ -135,11 +117,39 @@ private struct EdgeBorder: Shape {
     }
 }
 
+private struct HLDottedBottomLineView: View {
+    let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
+    let geometrySize: CGSize
+    
+    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    
+    var hlColor: Color {
+        Color(dataToColor(highlightColor)!)
+    }
+    
+    var body: some View {
+        Path { path in
+            path.move(to: CGPoint(
+                x: box.1.x * geometrySize.width,
+                y: (1 - box.1.y) * geometrySize.height + 4))
+            path.addLine(to: CGPoint(
+                x: box.0.x * geometrySize.width,
+                y: (1 - box.1.y) * geometrySize.height + 4))
+        }
+        .strokedPath(StrokeStyle(lineWidth: 3.0, lineCap: .round, dash: [1, 5]))
+        .foregroundColor(Color.red)
+    }
+}
+
 private struct HLBoxView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
     @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    
+    var hlColor: Color {
+        Color(dataToColor(highlightColor)!)
+    }
     
     var body: some View {
         Rectangle()
@@ -154,7 +164,38 @@ private struct HLBoxView: View {
                 print(">>]]>> rect: \(rect)")
                 return rect
             }())
-            .fill(Color(dataToColor(highlightColor)!))
+            .fill(hlColor) // 1
+//            .frame(width: abs(box.1.x - box.0.x) * geometrySize.width, height: abs(box.1.y - box.0.y) * geometrySize.height)
+            .border(Color.green)
+//            .padding(.bottom, 10.0)
+//            .background(Color.black)
+//            .stroke(hlColor, lineWidth: 2.0)
+//            .stroke(hlColor, style: StrokeStyle(lineWidth: 2.0, lineCap: .round, dash: [10, 8]))
+    }
+}
+
+struct CropperViewWithHighlight: View {
+    @EnvironmentObject var hlBox: HLBoxs
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                CropperView()
+                
+//                ForEach(hlBox.boxs, id: \.self.0) { box in
+//                    HLBoxView(box: box, geometrySize: geometry.size)
+//                }
+                
+                ForEach(hlBox.boxs, id: \.self.0) { box in
+                    HLDottedBottomLineView(box: box, geometrySize: geometry.size)
+                }
+                
+//                HLBoxView(box: hlBox.boxs.first!, geometrySize: geometry.size)
+//                HLDottedBottomLineView(box: hlBox.boxs.first!, geometrySize: geometry.size)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
     }
 }
 
