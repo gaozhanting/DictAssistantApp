@@ -30,12 +30,19 @@ let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consisten
 
 // Recording
 let CropperStyleKey = "CropperStyleKey"
-let IsShowHighlightKey = "IsShowHighlightKey"
-let HighlightColorKey = "HighlightColorKey"
+
+let HighlightModeKey = "HighlightModeKey"
+
+let HLCoverColorKey = "HLCoverColorKey"
+let CoverVerticalPaddingKey = "CoverVerticalPaddingKey"
+let CoverHorizontalPaddingKey = "CoverHorizontalPaddingKey"
+
+let HLDottedColorKey = "HLDottedColorKey"
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
 let StrokeDashPaintedKey = "StrokeDashPaintedKey"
 let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
+
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
@@ -90,6 +97,12 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 let IsContentRetentionKey = "IsContentRetentionKey"
 
 // Enums
+enum HighlightMode: Int, Codable {
+    case dotted
+    case cover
+    case disabled
+}
+
 enum CropperStyle: Int, Codable {
     case empty = 0
     case rectangle = 1
@@ -159,8 +172,11 @@ enum TheColorScheme: Int, Codable {
 private let defaultSlotKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
-    IsShowHighlightKey: true,
-    HighlightColorKey: colorToData(NSColor.red)!,
+    HighlightModeKey: HighlightMode.dotted.rawValue,
+    HLCoverColorKey: colorToData(NSColor.red.withAlphaComponent(0.1))!,
+    CoverVerticalPaddingKey: 2.0,
+    CoverHorizontalPaddingKey: 5.0,
+    HLDottedColorKey: colorToData(NSColor.red)!,
     StrokeDownwardOffsetKey: 4.0,
     StrokeLineWidthKey: 3.0,
     StrokeDashPaintedKey: 1.0,
@@ -244,9 +260,9 @@ extension UserDefaults {
         get { return integer(forKey: "CropperStyleKey") }
         set { set(newValue, forKey: "CropperStyleKey") }
     }
-    @objc var HighlightColorKey: Data {
-        get { return data(forKey: "HighlightColorKey")! }
-        set { set(newValue, forKey: "HighlightColorKey") }
+    @objc var HLDottedColorKey: Data {
+        get { return data(forKey: "HLDottedColorKey")! }
+        set { set(newValue, forKey: "HLDottedColorKey") }
     }
     @objc var IsCloseCropperWhenNotPlayingKey: Bool {
         get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }

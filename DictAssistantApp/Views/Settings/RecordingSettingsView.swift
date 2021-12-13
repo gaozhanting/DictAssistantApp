@@ -45,31 +45,96 @@ private struct CropperStyleSettingView: View {
 }
 
 private struct HighlightView: View {
-    @AppStorage(IsShowHighlightKey) var isShowHighlight: Bool = true
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     
     var body: some View {
         VStack(alignment: .leading) {
-            Toggle(isOn: $isShowHighlight, label: {
-                Text("Show Dotted Stroke:")
-            })
-                .toggleStyle(SwitchToggleStyle())
+            Picker("", selection: $highlightMode) {
+                Text("Dotted").tag(HighlightMode.dotted.rawValue)
+                Text("Cover").tag(HighlightMode.cover.rawValue)
+                Text("Disabled").tag(HighlightMode.disabled.rawValue)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .labelsHidden()
+            .frame(width: 160)
             
-            if isShowHighlight {
-                HighlightOptionsView()
+            switch HighlightMode(rawValue: highlightMode)! {
+            case .dotted:
+                DottedOptionsView()
+            case .cover:
+                CoverOptionsView()
+            case .disabled:
+                EmptyView()
             }
         }
     }
 }
 
-private struct HighlightOptionsView: View {
-    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red)!
+private let tfWidth: CGFloat = 46
+
+private struct CoverOptionsView: View {
+    @AppStorage(HLCoverColorKey) private var hlCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    @AppStorage(CoverVerticalPaddingKey) var coverVerticalPadding: Double = 2.0
+    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 5.0
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(hlCoverColor)!) },
+            set: { newValue in
+                hlCoverColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    func useDefault() {
+        hlCoverColor = colorToData(NSColor.red.withAlphaComponent(0.1))!
+        coverVerticalPadding = 2.0
+        coverHorizontalPadding = 5.0
+    }
+    
+    var body: some View {
+        GroupBox {
+            VStack(alignment: .leading) {
+                HStack {
+                    Spacer()
+                    ColorPicker("color:", selection: binding)
+                }
+                
+                HStack {
+                    Spacer()
+                    Text("vertical padding:")
+                    TextField("", value: $coverVerticalPadding, formatter: NumberFormatter())
+                        .frame(width: tfWidth)
+                }
+                
+                HStack {
+                    Spacer()
+                    Text("horizontal padding:")
+                    TextField("", value: $coverHorizontalPadding, formatter: NumberFormatter())
+                        .frame(width: tfWidth)
+                }
+                
+                HStack {
+                    Spacer()
+                    Button("Use Default") {
+                        useDefault()
+                    }
+                }
+            }
+            .frame(maxWidth: 190)
+        }
+    }
+}
+
+private struct DottedOptionsView: View {
+    @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
     
     func useDefault() {
-        highlightColor = colorToData(NSColor.red)!
+        hlDottedColor = colorToData(NSColor.red)!
         strokeDownwardOffset = 4.0
         strokeLineWidth = 3.0
         strokeDashPainted = 1.0
@@ -78,9 +143,9 @@ private struct HighlightOptionsView: View {
 
     var binding: Binding<Color> {
         Binding(
-            get: { Color(dataToColor(highlightColor)!) },
+            get: { Color(dataToColor(hlDottedColor)!) },
             set: { newValue in
-                highlightColor = colorToData(NSColor(newValue))!
+                hlDottedColor = colorToData(NSColor(newValue))!
             }
         )
     }
@@ -90,35 +155,35 @@ private struct HighlightOptionsView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()
-                    Text("downward offset:")
-                    TextField("", value: $strokeDownwardOffset, formatter: NumberFormatter())
-                        .frame(width: 36)
+                    ColorPicker("color:", selection: binding)
                 }
                 
                 HStack {
                     Spacer()
-                    ColorPicker("color:", selection: binding)
+                    Text("downward offset:")
+                    TextField("", value: $strokeDownwardOffset, formatter: NumberFormatter())
+                        .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("line width:")
                     TextField("", value: $strokeLineWidth, formatter: NumberFormatter())
-                        .frame(width: 36)
+                        .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("dash painted:")
                     TextField("", value: $strokeDashPainted, formatter: NumberFormatter())
-                        .frame(width: 36)
+                        .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("dash unpainted:")
                     TextField("", value: $strokeDashUnPainted, formatter: NumberFormatter())
-                        .frame(width: 36)
+                        .frame(width: tfWidth)
                 }
                 
                 HStack {

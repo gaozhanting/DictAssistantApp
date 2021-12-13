@@ -117,14 +117,14 @@ private struct EdgeBorder: Shape {
     }
 }
 
-private struct HLDottedBottomLineView: View {
+private struct HLDottedView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red)!
+    @AppStorage(HLDottedColorKey) private var HLDottedColor: Data = colorToData(NSColor.red)!
     
     var hlColor: Color {
-        Color(dataToColor(highlightColor)!)
+        Color(dataToColor(HLDottedColor)!)
     }
     
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
@@ -155,28 +155,30 @@ private struct HLDottedBottomLineView: View {
     }
 }
 
-// not used, because it is subtle hard to use, and not so pretty compared to dotted
-private struct HLBoxView: View {
+private struct HLCoverView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    @AppStorage(HLCoverColorKey) private var HLCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
     
     var hlColor: Color {
-        Color(dataToColor(highlightColor)!)
+        Color(dataToColor(HLCoverColor)!)
     }
+    
+    @AppStorage(CoverVerticalPaddingKey) var coverVerticalPadding: Double = 2.0
+    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 5.0
     
     var body: some View {
         Rectangle()
             .path(in: {
                 let rect = CGRect(
-                    x: box.0.x * geometrySize.width - 2,
-                    y: (1 - box.0.y) * geometrySize.height - 5, // notice here 1-y
-                    width: abs(box.1.x - box.0.x) * geometrySize.width + 4,
-                    height: abs(box.1.y - box.0.y) * geometrySize.height + 10
+                    x: box.0.x * geometrySize.width - CGFloat(coverVerticalPadding),
+                    y: (1 - box.0.y) * geometrySize.height - CGFloat(coverHorizontalPadding), // notice here 1-y
+                    width: abs(box.1.x - box.0.x) * geometrySize.width + CGFloat(coverVerticalPadding) * 2,
+                    height: abs(box.1.y - box.0.y) * geometrySize.height + CGFloat(coverHorizontalPadding) * 2
                 )
-                print(">>]]>> render highlightBounds box: \(box)")
-                print(">>]]>> rect: \(rect)")
+//                print(">>]]>> render highlightBounds box: \(box)")
+//                print(">>]]>> rect: \(rect)")
                 return rect
             }())
             .fill(hlColor)
@@ -184,7 +186,7 @@ private struct HLBoxView: View {
 }
 
 struct CropperViewWithHighlight: View {
-    @AppStorage(IsShowHighlightKey) var isShowHighlight: Bool = true
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     @EnvironmentObject var hlBox: HLBoxs
     
     var body: some View {
@@ -192,10 +194,17 @@ struct CropperViewWithHighlight: View {
             ZStack {
                 CropperView()
                 
-                if isShowHighlight {
+                switch HighlightMode(rawValue: highlightMode)! {
+                case .dotted:
                     ForEach(hlBox.boxs, id: \.self.0) { box in
-                        HLDottedBottomLineView(box: box, geometrySize: geometry.size)
+                        HLDottedView(box: box, geometrySize: geometry.size)
                     }
+                case .cover:
+                    ForEach(hlBox.boxs, id: \.self.0) { box in
+                        HLCoverView(box: box, geometrySize: geometry.size)
+                    }
+                case .disabled:
+                    EmptyView()
                 }
             }
         }

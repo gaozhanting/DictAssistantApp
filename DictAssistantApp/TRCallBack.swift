@@ -88,7 +88,7 @@ private func tagWord(_ word: String) -> WordCell {
 }
 
 private func highlight(unKnownWords: [String], results: [VNRecognizedTextObservation]) {
-    if !UserDefaults.standard.bool(forKey: IsShowHighlightKey) {
+    if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
         hlBox.boxs = []
         return
     }
