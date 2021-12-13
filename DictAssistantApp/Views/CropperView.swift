@@ -164,13 +164,7 @@ private struct HLBoxView: View {
                 print(">>]]>> rect: \(rect)")
                 return rect
             }())
-            .fill(hlColor) // 1
-//            .frame(width: abs(box.1.x - box.0.x) * geometrySize.width, height: abs(box.1.y - box.0.y) * geometrySize.height)
-            .border(Color.green)
-//            .padding(.bottom, 10.0)
-//            .background(Color.black)
-//            .stroke(hlColor, lineWidth: 2.0)
-//            .stroke(hlColor, style: StrokeStyle(lineWidth: 2.0, lineCap: .round, dash: [10, 8]))
+            .fill(hlColor)
     }
 }
 
