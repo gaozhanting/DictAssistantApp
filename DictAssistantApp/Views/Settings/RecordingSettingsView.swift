@@ -56,7 +56,6 @@ private struct HighlightView: View {
             }
             .pickerStyle(MenuPickerStyle())
             .labelsHidden()
-            .frame(width: 160)
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .dotted:
@@ -67,6 +66,7 @@ private struct HighlightView: View {
                 EmptyView()
             }
         }
+        .frame(width: 190)
     }
 }
 
@@ -121,7 +121,6 @@ private struct CoverOptionsView: View {
                     }
                 }
             }
-            .frame(maxWidth: 190)
         }
     }
 }
@@ -193,7 +192,6 @@ private struct DottedOptionsView: View {
                     }
                 }
             }
-            .frame(maxWidth: 170)
         }
     }
 }
