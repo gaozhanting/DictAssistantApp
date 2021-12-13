@@ -61,28 +61,28 @@ private struct CropperView: View {
     }
 }
 
-struct StrokeBorderCropperView: View {
+private struct StrokeBorderCropperView: View {
     var body: some View {
         Rectangle()
             .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 2, dash: [4], dashPhase: 0))
     }
 }
 
-struct RectangleCropperView: View {
+private struct RectangleCropperView: View {
     var body: some View {
         Spacer()
             .background(Color.accentColor.opacity(0.1))
     }
 }
 
-struct LeadingBorderCropperView: View {
+private struct LeadingBorderCropperView: View {
     var body: some View {
         Spacer()
             .border(width: 5, edges: [.leading], color: Color.accentColor)
     }
 }
 
-struct TrailingBorderCropperView: View {
+private struct TrailingBorderCropperView: View {
     var body: some View {
         Spacer()
             .border(width: 5, edges: [.trailing], color: Color.accentColor)
@@ -95,8 +95,7 @@ extension View {
     }
 }
 
-struct EdgeBorder: Shape {
-
+private struct EdgeBorder: Shape {
     var width: CGFloat
     var edges: [Edge]
 
@@ -155,9 +154,6 @@ private struct HLBoxView: View {
                 print(">>]]>> rect: \(rect)")
                 return rect
             }())
-//            .fill(Color.yellow.opacity(0.2))
-//            .fill(Color(NSColor.findHighlightColor).opacity(0.2))
-//            .fill(Color.red.opacity(0.1))
             .fill(Color(dataToColor(highlightColor)!))
     }
 }
@@ -171,31 +167,25 @@ extension CGPoint: Hashable {
 
 struct CropperView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-//            StrokeBorderCropperAnimationView()
-            StrokeBorderCropperView()
-                .frame(width: 1087, height: 282)
-                .environmentObject(
-                    HLBoxs(boxs: [
-                        (CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
-                         CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)),
-                        
-                        (CGPoint(x: 0.024356617647058848, y: 0.646643109540636),
-                         CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)),
-                        
-                        (CGPoint(x: 0.025735294117647058, y: 0.39399293286219084),
-                         CGPoint(x: 0.21599264705882354, y: 0.2720848056537103)),
-                        
-                        (CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
-                         CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)),
-                        
-                        (CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),
-                         CGPoint(x: 0.7936580882352942, y: 0.04770318021201414))
-                    ])
-                )
-//            RectangleCropperView()
-//            LeadingBorderCropperView()
-//            TrailingBorderCropperView()
-        }
+        CropperViewWithHighlight()
+            .frame(width: 1087, height: 282)
+            .environmentObject(
+                HLBoxs(boxs: [
+                    (CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
+                     CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)),
+                    
+                    (CGPoint(x: 0.024356617647058848, y: 0.646643109540636),
+                     CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)),
+                    
+                    (CGPoint(x: 0.025735294117647058, y: 0.39399293286219084),
+                     CGPoint(x: 0.21599264705882354, y: 0.2720848056537103)),
+                    
+                    (CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
+                     CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)),
+                    
+                    (CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),
+                     CGPoint(x: 0.7936580882352942, y: 0.04770318021201414))
+                ])
+            )
     }
 }
