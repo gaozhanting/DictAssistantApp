@@ -184,6 +184,7 @@ private struct HLBoxView: View {
 }
 
 struct CropperViewWithHighlight: View {
+    @AppStorage(IsShowHighlightKey) var isShowHighlight: Bool = true
     @EnvironmentObject var hlBox: HLBoxs
     
     var body: some View {
@@ -191,8 +192,10 @@ struct CropperViewWithHighlight: View {
             ZStack {
                 CropperView()
                 
-                ForEach(hlBox.boxs, id: \.self.0) { box in
-                    HLDottedBottomLineView(box: box, geometrySize: geometry.size)
+                if isShowHighlight {
+                    ForEach(hlBox.boxs, id: \.self.0) { box in
+                        HLDottedBottomLineView(box: box, geometrySize: geometry.size)
+                    }
                 }
             }
         }

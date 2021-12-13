@@ -45,7 +45,7 @@ private struct CropperStyleSettingView: View {
 }
 
 private struct HighlightView: View {
-    @State var isShowHighlight: Bool = true
+    @AppStorage(IsShowHighlightKey) var isShowHighlight: Bool = true
     
     var body: some View {
         VStack(alignment: .leading) {

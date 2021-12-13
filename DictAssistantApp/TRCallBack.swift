@@ -88,6 +88,11 @@ private func tagWord(_ word: String) -> WordCell {
 }
 
 private func highlight(unKnownWords: [String], results: [VNRecognizedTextObservation]) {
+    if !UserDefaults.standard.bool(forKey: IsShowHighlightKey) {
+        hlBox.boxs = []
+        return
+    }
+    
     var boxs: [(CGPoint, CGPoint)] = []
     
     for observation in results {
