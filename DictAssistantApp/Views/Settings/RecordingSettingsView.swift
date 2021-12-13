@@ -14,19 +14,14 @@ struct RecordingSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
                 CropperStyleSettingView()
             }
-            Preferences.Section(title: NSLocalizedString("Highlight:", comment: "")) {
-                GroupBox {
-                    VStack {
-                        HighlightColorPicker()
-                    }
-                    .frame(width: 160)
-                }
-            }
             Preferences.Section(title: NSLocalizedString("Cropper Scheme:", comment: "")) {
                 CloseCropperWhenNotPlayingToggle()
             }
             Preferences.Section(title: NSLocalizedString("Maximum Frame Rate:", comment: "")) {
                 MaximumFrameRateSetting()
+            }
+            Preferences.Section(title: NSLocalizedString("Highlight Unknown:", comment: "")) {
+                HighlightView()
             }
         }
     }
@@ -49,9 +44,38 @@ private struct CropperStyleSettingView: View {
     }
 }
 
-private struct HighlightColorPicker: View {
-    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+private struct HighlightView: View {
+    @State var isShowHighlight: Bool = true
     
+    var body: some View {
+        VStack(alignment: .leading) {
+            Toggle(isOn: $isShowHighlight, label: {
+                Text("Show Dotted Stroke:")
+            })
+                .toggleStyle(SwitchToggleStyle())
+            
+            if isShowHighlight {
+                HighlightOptionsView()
+            }
+        }
+    }
+}
+
+private struct HighlightOptionsView: View {
+    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red)!
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
+    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
+    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
+    
+    func useDefault() {
+        highlightColor = colorToData(NSColor.red)!
+        strokeDownwardOffset = 4.0
+        strokeLineWidth = 3.0
+        strokeDashPainted = 1.0
+        strokeDashUnPainted = 5.0
+    }
+
     var binding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(highlightColor)!) },
@@ -62,7 +86,50 @@ private struct HighlightColorPicker: View {
     }
     
     var body: some View {
-        ColorPicker("Color:", selection: binding)
+        GroupBox {
+            VStack(alignment: .leading) {
+                HStack {
+                    Spacer()
+                    Text("downward offset:")
+                    TextField("", value: $strokeDownwardOffset, formatter: NumberFormatter())
+                        .frame(width: 36)
+                }
+                
+                HStack {
+                    Spacer()
+                    ColorPicker("color:", selection: binding)
+                }
+                
+                HStack {
+                    Spacer()
+                    Text("line width:")
+                    TextField("", value: $strokeLineWidth, formatter: NumberFormatter())
+                        .frame(width: 36)
+                }
+                
+                HStack {
+                    Spacer()
+                    Text("dash painted:")
+                    TextField("", value: $strokeDashPainted, formatter: NumberFormatter())
+                        .frame(width: 36)
+                }
+                
+                HStack {
+                    Spacer()
+                    Text("dash unpainted:")
+                    TextField("", value: $strokeDashUnPainted, formatter: NumberFormatter())
+                        .frame(width: 36)
+                }
+                
+                HStack {
+                    Spacer()
+                    Button("Use Default") {
+                        useDefault()
+                    }
+                }
+            }
+            .frame(maxWidth: 170)
+        }
     }
 }
 
@@ -116,7 +183,7 @@ struct RecordingSettingsView_Previews: PreviewProvider {
             MaximumFrameRateInfoPopoverView()
         }
         .environmentObject(statusData)
-//        .environment(\.locale, .init(identifier: "en"))
-        .environment(\.locale, .init(identifier: "zh-Hans"))
+        .environment(\.locale, .init(identifier: "en"))
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

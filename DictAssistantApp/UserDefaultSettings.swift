@@ -31,6 +31,10 @@ let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consisten
 // Recording
 let CropperStyleKey = "CropperStyleKey"
 let HighlightColorKey = "HighlightColorKey"
+let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
+let StrokeLineWidthKey = "StrokeLineWidthKey"
+let StrokeDashPaintedKey = "StrokeDashPaintedKey"
+let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
@@ -154,7 +158,11 @@ enum TheColorScheme: Int, Codable {
 private let defaultSlotKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
-    HighlightColorKey: colorToData(NSColor.red.withAlphaComponent(0.1))!,
+    HighlightColorKey: colorToData(NSColor.red)!,
+    StrokeDownwardOffsetKey: 4.0,
+    StrokeLineWidthKey: 3.0,
+    StrokeDashPaintedKey: 1.0,
+    StrokeDashUnPaintedKey: 5.0,
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     

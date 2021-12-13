@@ -121,26 +121,41 @@ private struct HLDottedBottomLineView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    @AppStorage(HighlightColorKey) private var highlightColor: Data = colorToData(NSColor.red)!
     
     var hlColor: Color {
         Color(dataToColor(highlightColor)!)
     }
     
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
+    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
+    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
+    
     var body: some View {
         Path { path in
             path.move(to: CGPoint(
                 x: box.1.x * geometrySize.width,
-                y: (1 - box.1.y) * geometrySize.height + 4))
+                y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)))
             path.addLine(to: CGPoint(
                 x: box.0.x * geometrySize.width,
-                y: (1 - box.1.y) * geometrySize.height + 4))
+                y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)))
         }
-        .strokedPath(StrokeStyle(lineWidth: 3.0, lineCap: .round, dash: [1, 5]))
-        .foregroundColor(Color.red)
+        .stroke(
+            hlColor,
+            style: StrokeStyle(
+                lineWidth: CGFloat(strokeLineWidth),
+                lineCap: .round,
+//                lineJoin: .miter,
+//                miterLimit: 0,
+                dash: [CGFloat(strokeDashPainted), CGFloat(strokeDashUnPainted)]
+//                dashPhase: 0
+            )
+        )
     }
 }
 
+// not used, because it is subtle hard to use, and not so pretty compared to dotted
 private struct HLBoxView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
@@ -155,10 +170,10 @@ private struct HLBoxView: View {
         Rectangle()
             .path(in: {
                 let rect = CGRect(
-                    x: box.0.x * geometrySize.width,
-                    y: (1 - box.0.y) * geometrySize.height, // notice here 1-y
-                    width: abs(box.1.x - box.0.x) * geometrySize.width,
-                    height: abs(box.1.y - box.0.y) * geometrySize.height
+                    x: box.0.x * geometrySize.width - 2,
+                    y: (1 - box.0.y) * geometrySize.height - 5, // notice here 1-y
+                    width: abs(box.1.x - box.0.x) * geometrySize.width + 4,
+                    height: abs(box.1.y - box.0.y) * geometrySize.height + 10
                 )
                 print(">>]]>> render highlightBounds box: \(box)")
                 print(">>]]>> rect: \(rect)")
@@ -176,16 +191,9 @@ struct CropperViewWithHighlight: View {
             ZStack {
                 CropperView()
                 
-//                ForEach(hlBox.boxs, id: \.self.0) { box in
-//                    HLBoxView(box: box, geometrySize: geometry.size)
-//                }
-                
                 ForEach(hlBox.boxs, id: \.self.0) { box in
                     HLDottedBottomLineView(box: box, geometrySize: geometry.size)
                 }
-                
-//                HLBoxView(box: hlBox.boxs.first!, geometrySize: geometry.size)
-//                HLDottedBottomLineView(box: hlBox.boxs.first!, geometrySize: geometry.size)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
