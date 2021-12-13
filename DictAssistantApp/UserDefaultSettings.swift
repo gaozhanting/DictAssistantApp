@@ -173,9 +173,9 @@ private let defaultSlotKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     HighlightModeKey: HighlightMode.dotted.rawValue,
-    HLCoverColorKey: colorToData(NSColor.red.withAlphaComponent(0.1))!,
+    HLCoverColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
     CoverVerticalPaddingKey: 2.0,
-    CoverHorizontalPaddingKey: 5.0,
+    CoverHorizontalPaddingKey: 4.0,
     HLDottedColorKey: colorToData(NSColor.red)!,
     StrokeDownwardOffsetKey: 4.0,
     StrokeLineWidthKey: 3.0,

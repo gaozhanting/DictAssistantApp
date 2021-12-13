@@ -159,14 +159,14 @@ private struct HLCoverView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLCoverColorKey) private var HLCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    @AppStorage(HLCoverColorKey) private var HLCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     
     var hlColor: Color {
         Color(dataToColor(HLCoverColor)!)
     }
     
     @AppStorage(CoverVerticalPaddingKey) var coverVerticalPadding: Double = 2.0
-    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 5.0
+    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 4.0
     
     var body: some View {
         Rectangle()

@@ -73,9 +73,9 @@ private struct HighlightView: View {
 private let tfWidth: CGFloat = 46
 
 private struct CoverOptionsView: View {
-    @AppStorage(HLCoverColorKey) private var hlCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.1))!
+    @AppStorage(HLCoverColorKey) private var hlCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     @AppStorage(CoverVerticalPaddingKey) var coverVerticalPadding: Double = 2.0
-    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 5.0
+    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 4.0
     
     var binding: Binding<Color> {
         Binding(
@@ -87,9 +87,9 @@ private struct CoverOptionsView: View {
     }
     
     func useDefault() {
-        hlCoverColor = colorToData(NSColor.red.withAlphaComponent(0.1))!
+        hlCoverColor = colorToData(NSColor.red.withAlphaComponent(0.15))!
         coverVerticalPadding = 2.0
-        coverHorizontalPadding = 5.0
+        coverHorizontalPadding = 4.0
     }
     
     var body: some View {
