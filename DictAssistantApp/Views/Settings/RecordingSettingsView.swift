@@ -137,7 +137,8 @@ private struct DottedNumberOptionsView: View {
     @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
     @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 7.0
-    
+    @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 9.0
+
     var binding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(contentNumberColor)!) },
@@ -168,6 +169,13 @@ private struct DottedNumberOptionsView: View {
                     
                     HStack {
                         Spacer()
+                        Text("Font Size:")
+                        TextField("", value: $numberFontSize, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
                         ColorPicker("color:", selection: binding)
                     }
                 }
@@ -177,11 +185,11 @@ private struct DottedNumberOptionsView: View {
 }
 
 private struct DottedOptionsView: View {
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
-    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
+    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
     func useDefault() {
         hlDottedColor = colorToData(NSColor.red)!

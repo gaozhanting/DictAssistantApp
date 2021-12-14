@@ -128,14 +128,15 @@ private struct HLDottedView: View {
         Color(dataToColor(hlDottedColor)!)
     }
     
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
-    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
+    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
     @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
     @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 7.0
+    @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 9.0
 
     var body0: some View {
         Path { path in
@@ -165,7 +166,7 @@ private struct HLDottedView: View {
                 .overlay(
                     Text(String(index))
                         .foregroundColor(Color(dataToColor(contentNumberColor)!))
-                        .font(.footnote)
+                        .font(.system(size: CGFloat(numberFontSize)))
                         .position(
                             x: box.1.x * geometrySize.width + CGFloat(numberXOffset),
                             y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset))
