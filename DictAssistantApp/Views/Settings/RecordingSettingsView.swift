@@ -126,8 +126,8 @@ private struct RectangleOptionsView: View {
 }
 
 private struct DottedOptionsView: View {
-    @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
+    @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
@@ -154,14 +154,14 @@ private struct DottedOptionsView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Spacer()
-                    ColorPicker("color:", selection: binding)
+                    Text("downward offset:")
+                    TextField("", value: $strokeDownwardOffset, formatter: NumberFormatter())
+                        .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
-                    Text("downward offset:")
-                    TextField("", value: $strokeDownwardOffset, formatter: NumberFormatter())
-                        .frame(width: tfWidth)
+                    ColorPicker("color:", selection: binding)
                 }
                 
                 HStack {
