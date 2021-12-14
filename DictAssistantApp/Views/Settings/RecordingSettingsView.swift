@@ -71,6 +71,11 @@ private struct HighlightView: View {
 }
 
 private let tfWidth: CGFloat = 46
+private let tfDecimalFormatter: NumberFormatter = {
+    let f = NumberFormatter()
+    f.numberStyle = .decimal
+    return f
+}()
 
 private struct RectangleOptionsView: View {
     @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
@@ -103,14 +108,14 @@ private struct RectangleOptionsView: View {
                 HStack {
                     Spacer()
                     Text("vertical padding:")
-                    TextField("", value: $rectangleVerticalPadding, formatter: NumberFormatter())
+                    TextField("", value: $rectangleVerticalPadding, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("horizontal padding:")
-                    TextField("", value: $rectangleHorizontalPadding, formatter: NumberFormatter())
+                    TextField("", value: $rectangleHorizontalPadding, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                 }
                 
@@ -155,7 +160,7 @@ private struct DottedOptionsView: View {
                 HStack {
                     Spacer()
                     Text("downward offset:")
-                    TextField("", value: $strokeDownwardOffset, formatter: NumberFormatter())
+                    TextField("", value: $strokeDownwardOffset, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                 }
                 
@@ -167,21 +172,21 @@ private struct DottedOptionsView: View {
                 HStack {
                     Spacer()
                     Text("line width:")
-                    TextField("", value: $strokeLineWidth, formatter: NumberFormatter())
+                    TextField("", value: $strokeLineWidth, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("dash painted:")
-                    TextField("", value: $strokeDashPainted, formatter: NumberFormatter())
+                    TextField("", value: $strokeDashPainted, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("dash unpainted:")
-                    TextField("", value: $strokeDashUnPainted, formatter: NumberFormatter())
+                    TextField("", value: $strokeDashUnPainted, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                 }
                 
