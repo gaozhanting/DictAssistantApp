@@ -23,9 +23,9 @@ func trCallBack() {
 
 // mainly called by AVSessionAndTR
 func trCallBackWithCache() {
-    if !statusData.isPlaying { // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
-        return
-    }
+//    if !statusData.isPlaying { // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
+//        return
+//    }
     
     guard let results = aVSessionAndTR.results else {
         logger.info("aVSessionAndTR results is empty")
