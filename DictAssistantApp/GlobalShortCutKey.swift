@@ -21,6 +21,10 @@ extension KeyboardShortcuts.Name {
     
     static let runQuickPlay = Self("runQuickPlay")
     
+    static let runCheapSnapshot = Self("runCheapSnapshot")
+    
+    static let stop = Self("stop")
+    
     static let showPhraseInsertPanel = Self("showPhraseInsertPanel")
     
     static let showUpsertEntryPanel = Self("showUpsertEntryPanel")
@@ -108,6 +112,16 @@ func registerGlobalKey() {
         }
     }
     
+    KeyboardShortcuts.onKeyUp(for: .runCheapSnapshot) {
+        snapshotState = 1 // issue when something goes wrong, how to reset this value
+        startPlaying()
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .stop) {
+        snapshotState = 0 // above issue resolved here
+        stopPlaying()
+    }
+    
     KeyboardShortcuts.onKeyUp(for: .showPhraseInsertPanel) {
         showPhraseInsertPanel()
     }
@@ -120,6 +134,8 @@ func registerGlobalKey() {
         showPreferencesPanel()
     }
 }
+
+var snapshotState: Int = 0
 
 private func startPlaying() {
     let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
@@ -142,6 +158,7 @@ private func startPlaying() {
     hlBox.boxs = []
     textsCache = []
     primitiveWordCellCache = []
+    
     aVSessionAndTR.startScreenCapture()
 }
 
@@ -163,6 +180,7 @@ private func stopPlaying() {
     hlBox.boxs = []
     textsCache = []
     primitiveWordCellCache = []
+    
     aVSessionAndTR.stopScreenCapture()
 }
 
@@ -182,7 +200,7 @@ private func fixCropperWindow() {
 }
 
 // resizable, movable
-private func activeCropperWindow() {
+func activeCropperWindow() {
     cropperWindow.styleMask = [
         .fullSizeContentView,
         .resizable,

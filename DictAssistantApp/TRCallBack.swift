@@ -72,6 +72,23 @@ func trCallBackWithCache() {
         unKnownWords: primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word },
         results: results
     )
+    
+    if snapshotState == 1 {
+        // same as stopPlaying except:
+        // not close cropperWindow
+        // not close contentWindow
+        
+        activeCropperWindow()
+        cropperWindow.orderFrontRegardless()
+
+        toastOff()
+        statusData.isPlaying = false
+        statusItem.button?.image = NSImage(named: "EmptyIcon")
+        
+        aVSessionAndTR.stopScreenCapture()
+        
+        snapshotState = 0
+    }
 }
 
 private func tagWord(_ word: String) -> WordCell {

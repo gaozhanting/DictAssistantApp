@@ -25,12 +25,53 @@ struct GeneralSettingsView: View {
     }
 }
 
-private struct KeyRecordingView: View {
+private struct MultiToggles: View {
     @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
+    @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
-    @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
     
+    var body: some View {
+        HStack {
+            Text("Toggle Show Current Known Words")
+            Spacer()
+            Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
+            KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
+            MiniInfoView {
+                Text("recommend: Option-2").font(.subheadline).padding()
+            }
+        }
+        HStack {
+            Text("Toggle Show Current Not-Found Words")
+            Spacer()
+            Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
+            KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
+            MiniInfoView {
+                Text("recommend: Option-3").font(.subheadline).padding()
+            }
+        }
+        HStack {
+            Text("Toggle Conceal Current Known Words")
+            Spacer()
+            Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
+            KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
+            MiniInfoView {
+                Text("recommend: Option-4").font(.subheadline).padding()
+            }
+        }
+        HStack {
+            Text("Toggle Conceal Translation")
+            Spacer()
+            Toggle("", isOn: $isConcealTranslation).labelsHidden()
+            KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
+            MiniInfoView {
+                Text("recommend: Option-5").font(.subheadline).padding()
+            }
+        }
+    }
+}
+
+private struct KeyRecordingView: View {
     var body: some View {
         Group {
             HStack {
@@ -41,48 +82,29 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-1").font(.subheadline).padding()
                 }
             }
-            HStack {
-                Text("Toggle Show Current Known Words")
-                Spacer()
-                Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
-                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
-                MiniInfoView {
-                    Text("recommend: Option-2").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Toggle Show Current Not-Found Words")
-                Spacer()
-                Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
-                KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
-                MiniInfoView {
-                    Text("recommend: Option-3").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Toggle Conceal Current Known Words")
-                Spacer()
-                Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
-                KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
-                MiniInfoView {
-                    Text("recommend: Option-4").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Toggle Conceal Translation")
-                Spacer()
-                Toggle("", isOn: $isConcealTranslation).labelsHidden()
-                KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
-                MiniInfoView {
-                    Text("recommend: Option-5").font(.subheadline).padding()
-                }
-            }
+            MultiToggles()
             HStack {
                 Text("Run Swift Play")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .runQuickPlay)
                 MiniInfoView {
                     Text("recommend: Option-S").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Run Cheap Snapshot")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .runCheapSnapshot)
+                MiniInfoView {
+                    Text("recommend: Option-C").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Stop")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .stop)
+                MiniInfoView {
+                    Text("recommend: Option-X").font(.subheadline).padding()
                 }
             }
             HStack {
