@@ -305,7 +305,7 @@ private struct OneKeyRecordingView: View {
             HStack {
                 Text("Run Step Play")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .toggleStepPlay)
+                KeyboardShortcuts.Recorder(for: .runStepPlay)
                 MiniInfoView {
                     Text("recommend: Option-1").font(.subheadline).padding()
                 }

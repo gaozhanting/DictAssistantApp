@@ -36,7 +36,7 @@ private struct KeyRecordingView: View {
             HStack {
                 Text("Run Step Play")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .toggleStepPlay)
+                KeyboardShortcuts.Recorder(for: .runStepPlay)
                 MiniInfoView {
                     Text("recommend: Option-1").font(.subheadline).padding()
                 }
@@ -80,7 +80,7 @@ private struct KeyRecordingView: View {
             HStack {
                 Text("Run Swift Play")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .toggleQuickPlay)
+                KeyboardShortcuts.Recorder(for: .runQuickPlay)
                 MiniInfoView {
                     Text("recommend: Option-S").font(.subheadline).padding()
                 }
@@ -106,7 +106,7 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .showPreferencesPanel)
                 MiniInfoView {
-                    Text("recommend: Option-C").font(.subheadline).padding()
+                    Text("recommend: Option-Z").font(.subheadline).padding()
                 }
             }
         }

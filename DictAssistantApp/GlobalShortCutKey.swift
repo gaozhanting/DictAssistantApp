@@ -9,17 +9,17 @@ import KeyboardShortcuts
 import SwiftUI
 
 extension KeyboardShortcuts.Name {
-    static let toggleStepPlay = Self("toggleStepPlay")
+    static let runStepPlay = Self("runStepPlay")
     
     static let toggleShowCurrentKnown = Self("toggleShowCurrentKnown")
+    
+    static let toggleShowCurrentNotFoundWords = Self("toggleShowCurrentNotFoundWords")
     
     static let toggleShowCurrentKnownButWithOpacity0 = Self("toggleShowCurrentKnownButWithOpacity0")
     
     static let toggleConcealTranslation = Self("toggleConcealTranslation")
     
-    static let toggleShowCurrentNotFoundWords = Self("toggleShowCurrentNotFoundWords")
-    
-    static let toggleQuickPlay = Self("toggleQuickPlay")
+    static let runQuickPlay = Self("runQuickPlay")
     
     static let showPhraseInsertPanel = Self("showPhraseInsertPanel")
     
@@ -48,7 +48,7 @@ func makeWindowsForSetting() {
 }
 
 func registerGlobalKey() {
-    KeyboardShortcuts.onKeyUp(for: .toggleStepPlay) {
+    KeyboardShortcuts.onKeyUp(for: .runStepPlay) {
         if !statusData.isPlaying {
             switch stepPlayPhase {
             case .defaultPhase:
@@ -98,7 +98,7 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .toggleQuickPlay) {
+    KeyboardShortcuts.onKeyUp(for: .runQuickPlay) {
         if !statusData.isPlaying {
             startPlaying()
             
