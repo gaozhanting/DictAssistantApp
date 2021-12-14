@@ -187,8 +187,8 @@ private let defaultSlotKV: [String: Any] = [
     StrokeDashUnPaintedKey: 3.0,
     IsShowNumberKey: true,
     ContentNumberColorKey: colorToData(NSColor.highlightColor)!,
-    NumberXOffsetKey: 7.0,
-    NumberFontSizeKey: 9.0,
+    NumberXOffsetKey: 6.0,
+    NumberFontSizeKey: 7.0,
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     

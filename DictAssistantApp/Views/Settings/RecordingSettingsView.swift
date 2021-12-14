@@ -136,8 +136,8 @@ private struct RectangleOptionsView: View {
 private struct DottedNumberOptionsView: View {
     @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
     @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 7.0
-    @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 9.0
+    @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 6.0
+    @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 7.0
 
     var binding: Binding<Color> {
         Binding(
