@@ -69,7 +69,7 @@ private struct HighlightView: View {
                 EmptyView()
             }
         }
-        .frame(width: 250)
+        .frame(width: 180)
     }
 }
 
@@ -136,6 +136,7 @@ private struct RectangleOptionsView: View {
 private struct DottedNumberOptionsView: View {
     @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
     @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 7.0
     
     var binding: Binding<Color> {
         Binding(
@@ -148,16 +149,27 @@ private struct DottedNumberOptionsView: View {
     
     var body: some View {
         GroupBox {
-            HStack {
-                Spacer()
-                
-                Toggle(isOn: $isShowNumber, label: {
-                    Text("show number")
-                })
-                    .toggleStyle(SwitchToggleStyle())
+            VStack {
+                HStack {
+                    Spacer()
+                    Toggle(isOn: $isShowNumber, label: {
+                        Text("show number")
+                    })
+                        .toggleStyle(SwitchToggleStyle())
+                }
                 
                 if isShowNumber {
-                    ColorPicker("color:", selection: binding)
+                    HStack {
+                        Spacer()
+                        Text("X Offset:")
+                        TextField("", value: $numberXOffset, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        ColorPicker("color:", selection: binding)
+                    }
                 }
             }
         }
