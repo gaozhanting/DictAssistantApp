@@ -59,7 +59,7 @@ func trCallBackWithCache() {
     let processed = nlpSample.process(texts)
     
     let wordCell = processed.map { tagWord($0) }
-    print("wordCell: \(wordCell)")
+//    print("wordCell: \(wordCell)")
     
     var primitiveWordCell = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     
@@ -90,7 +90,7 @@ func trCallBackWithCache() {
                             primitiveWordCell = primitiveWordCell.map { wc in
                                 var wc = wc // parameter masking to allow local mutation
                                 if wc.word == unknownWord {
-                                    print("number<> n:\(n)")
+//                                    print("number<> n:\(n)")
                                     wc.number = n
                                 }
                                 return wc
@@ -98,9 +98,9 @@ func trCallBackWithCache() {
                         }
                         
                         auxiliary.insert(unknownWord)
-                        print("box: unknownWord: \(unknownWord); text: \(text)")
+//                        print("box: unknownWord: \(unknownWord); text: \(text)")
                     } else {
-                        print("not box: unknownWord: \(unknownWord); text: \(text)")
+//                        print("not box: unknownWord: \(unknownWord); text: \(text)")
                     }
                 } catch {
                     logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
@@ -109,10 +109,10 @@ func trCallBackWithCache() {
         }
     }
     hlBox.boxs = boxs
-    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
-    for box in hlBox.boxs {
-        print(">>]]>> set highlightBounds box: \(box)")
-    }
+//    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
+//    for box in hlBox.boxs {
+////        print(">>]]>> set highlightBounds box: \(box)")
+//    }
     
     if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
         withAnimation {

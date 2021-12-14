@@ -261,10 +261,10 @@ private struct TheText: View {
     
     var number: String {
         if wordCell.number == 0 {
-            print("number<>single:empty")
+//            print("number<>single:empty")
             return ""
         } else {
-            print("number<>single:\(wordCell.number)")
+//            print("number<>single:\(wordCell.number)")
             return "\(wordCell.number) "
         }
     }
