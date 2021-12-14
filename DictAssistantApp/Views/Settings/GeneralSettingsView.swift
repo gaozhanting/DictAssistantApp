@@ -41,7 +41,7 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-1").font(.subheadline).padding()
                 }
             }
-            HStack(alignment: .firstTextBaseline) {
+            HStack {
                 Text("Toggle Show Current Known Words")
                 Spacer()
                 Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
@@ -50,7 +50,7 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-2").font(.subheadline).padding()
                 }
             }
-            HStack(alignment: .firstTextBaseline) {
+            HStack {
                 Text("Toggle Show Current Not-Found Words")
                 Spacer()
                 Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
@@ -59,7 +59,7 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-3").font(.subheadline).padding()
                 }
             }
-            HStack(alignment: .firstTextBaseline) {
+            HStack {
                 Text("Toggle Conceal Current Known Words")
                 Spacer()
                 Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
@@ -68,7 +68,7 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-4").font(.subheadline).padding()
                 }
             }
-            HStack(alignment: .firstTextBaseline) {
+            HStack {
                 Text("Toggle Conceal Translation")
                 Spacer()
                 Toggle("", isOn: $isConcealTranslation).labelsHidden()
