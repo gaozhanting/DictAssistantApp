@@ -32,11 +32,14 @@ private struct CropperStyleSettingView: View {
 
     var body: some View {
         Picker("", selection: $cropperStyle) {
-            Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
-            Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
+            Text("empty").tag(CropperStyle.empty.rawValue)
             Text("rectangle").tag(CropperStyle.rectangle.rawValue)
             Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
-            Text("empty").tag(CropperStyle.empty.rawValue)
+            
+            Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
+            Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
+            Text("topBorder").tag(CropperStyle.topBorder.rawValue)
+            Text("bottomBorder").tag(CropperStyle.bottomBorder.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
         .labelsHidden()
@@ -69,7 +72,7 @@ private struct HighlightView: View {
                 EmptyView()
             }
         }
-        .frame(width: 180)
+        .frame(width: 200)
     }
 }
 

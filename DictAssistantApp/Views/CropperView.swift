@@ -31,14 +31,19 @@ private struct CropperView: View {
         switch CropperStyle(rawValue: cropperStyle)! {
         case .empty:
             EmptyView()
-        case .strokeBorder:
-            StrokeBorderCropperView()
         case .rectangle:
             RectangleCropperView()
+        case .strokeBorder:
+            StrokeBorderCropperView()
+            
         case .leadingBorder:
             LeadingBorderCropperView()
         case .trailingBorder:
             TrailingBorderCropperView()
+        case .topBorder:
+            TopBorderCropperView()
+        case .bottomBorder:
+            BottomBorderCropperView()
         }
     }
 }
@@ -60,14 +65,28 @@ private struct RectangleCropperView: View {
 private struct LeadingBorderCropperView: View {
     var body: some View {
         Spacer()
-            .border(width: 5, edges: [.leading], color: Color.accentColor)
+            .border(width: 3, edges: [.leading], color: Color.accentColor)
     }
 }
 
 private struct TrailingBorderCropperView: View {
     var body: some View {
         Spacer()
-            .border(width: 5, edges: [.trailing], color: Color.accentColor)
+            .border(width: 3, edges: [.trailing], color: Color.accentColor)
+    }
+}
+
+private struct TopBorderCropperView: View {
+    var body: some View {
+        Spacer()
+            .border(width: 1, edges: [.top], color: Color.accentColor)
+    }
+}
+
+private struct BottomBorderCropperView: View {
+    var body: some View {
+        Spacer()
+            .border(width: 1, edges: [.bottom], color: Color.accentColor)
     }
 }
 

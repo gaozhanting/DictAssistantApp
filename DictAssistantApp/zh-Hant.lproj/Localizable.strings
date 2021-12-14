@@ -90,6 +90,8 @@
 "Cropper Style:" = "截屏區樣式：";
 "leadingBorder" = "前導邊框";
 "trailingBorder" = "後導邊框";
+"topBorder" = "上導邊框";
+"bottomBorder" = "下導邊框";
 "rectangle" = "矩形";
 "strokeBorder" = "描邊邊框";
 "empty" = "空";
