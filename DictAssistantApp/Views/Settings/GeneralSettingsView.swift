@@ -51,12 +51,21 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack(alignment: .firstTextBaseline) {
+                Text("Toggle Show Current Not-Found Words")
+                Spacer()
+                Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
+                KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
+                MiniInfoView {
+                    Text("recommend: Option-3").font(.subheadline).padding()
+                }
+            }
+            HStack(alignment: .firstTextBaseline) {
                 Text("Toggle Conceal Current Known Words")
                 Spacer()
                 Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
                 MiniInfoView {
-                    Text("recommend: Option-3").font(.subheadline).padding()
+                    Text("recommend: Option-4").font(.subheadline).padding()
                 }
             }
             HStack(alignment: .firstTextBaseline) {
@@ -64,15 +73,6 @@ private struct KeyRecordingView: View {
                 Spacer()
                 Toggle("", isOn: $isConcealTranslation).labelsHidden()
                 KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
-                MiniInfoView {
-                    Text("recommend: Option-4").font(.subheadline).padding()
-                }
-            }
-            HStack(alignment: .firstTextBaseline) {
-                Text("Toggle Show Current Not-Found Words")
-                Spacer()
-                Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
-                KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
                 MiniInfoView {
                     Text("recommend: Option-5").font(.subheadline).padding()
                 }
