@@ -49,29 +49,78 @@ func trCallBackWithCache() {
     
     if texts.elementsEqual(textsCache) {
         // i.e: youtube pause cause subtitle texts moved although texts not changed.
-        highlight(
-            unKnownWords: primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word },
-            results: results
-        )
+//        highlight(
+//            primitiveWordCell: primitiveWordCellCache,
+//            results: results
+//        )
         return
     }
     
-    textsCache = texts
-    
-    let processed = nlpSample.process(textsCache)
+    let processed = nlpSample.process(texts)
     
     let wordCell = processed.map { tagWord($0) }
     print("wordCell: \(wordCell)")
     
-    let primitiveWordCell = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
-    primitiveWordCellCache = primitiveWordCell
+    var primitiveWordCell = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     
-    mutateDisplayedWords(primitiveWordCellCache)
+    if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
+        hlBox.boxs = []
+        return
+    }
+    let unKnownWords = primitiveWordCell.filter{ $0.isKnown == .unKnown }.map{ $0.word }
+    var boxs: [(CGPoint, CGPoint)] = []
+    var n: Int = 0
+    var auxiliary: Set<String> = Set.init()
+    for observation in results {
+        let candidate: VNRecognizedText = observation.topCandidates(1)[0]
+        let text = candidate.string
+        
+        // don't duplicate found bound box unknown word; unKnownWords may have duplicated which is Okay there, but not here. Here is one line TR result.
+        for unknownWord in unKnownWords {
+            if auxiliary.contains(unknownWord) { continue }
+            let nsRange = (text as NSString).range(of: unknownWord)
+            if let range = Range(nsRange, in: text) {
+                do {
+                    let box = try candidate.boundingBox(for: range)
+                    if let box = box {
+                        boxs.append((box.topLeft, box.bottomRight))
+                        
+                        if UserDefaults.standard.bool(forKey: IsShowNumberKey) {
+                            n += 1
+                            primitiveWordCell = primitiveWordCell.map { wc in
+                                var wc = wc // parameter masking to allow local mutation
+                                if wc.word == unknownWord {
+                                    print("number<> n:\(n)")
+                                    wc.number = n
+                                }
+                                return wc
+                            }
+                        }
+                        
+                        auxiliary.insert(unknownWord)
+                        print("box: unknownWord: \(unknownWord); text: \(text)")
+                    } else {
+                        print("not box: unknownWord: \(unknownWord); text: \(text)")
+                    }
+                } catch {
+                    logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    hlBox.boxs = boxs
+    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
+    for box in hlBox.boxs {
+        print(">>]]>> set highlightBounds box: \(box)")
+    }
     
-    highlight(
-        unKnownWords: primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word },
-        results: results
-    )
+    if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
+        withAnimation {
+            displayedWords.wordCells = primitiveWordCell
+        }
+    } else {
+        displayedWords.wordCells = primitiveWordCell
+    }
     
     if snapshotState == 1 {
         // same as stopPlaying except:
@@ -89,6 +138,9 @@ func trCallBackWithCache() {
         
         snapshotState = 0
     }
+    
+    textsCache = texts
+    primitiveWordCellCache = primitiveWordCell
 }
 
 private func tagWord(_ word: String) -> WordCell {
@@ -103,57 +155,54 @@ private func tagWord(_ word: String) -> WordCell {
         }
     }
 }
-
-private func highlight(unKnownWords: [String], results: [VNRecognizedTextObservation]) {
-    if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
-        hlBox.boxs = []
-        return
-    }
-    
-    var boxs: [(CGPoint, CGPoint)] = []
-    
-    for observation in results {
-        let candidate: VNRecognizedText = observation.topCandidates(1)[0]
-        let text = candidate.string
-        
-        // don't duplicate found bound box unknown word; unKnownWords may have duplicated which is Okay there, but not here. Here is one line TR result.
-        var auxiliary: Set<String> = Set.init()
-        for unknownWord in unKnownWords {
-            if auxiliary.contains(unknownWord) { continue }
-            let nsRange = (text as NSString).range(of: unknownWord)
-            if let range = Range(nsRange, in: text) {
-                do {
-                    let box = try candidate.boundingBox(for: range)
-                    if let box = box {
-                        boxs.append((box.topLeft, box.bottomRight))
-                        auxiliary.insert(unknownWord)
-                        print("box: unknownWord: \(unknownWord); text: \(text)")
-                    } else {
-                        print("not box: unknownWord: \(unknownWord); text: \(text)")
-                    }
-                } catch {
-                    logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    hlBox.boxs = boxs
-    
-    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
-    for box in hlBox.boxs {
-        print(">>]]>> set highlightBounds box: \(box)")
-    }
-}
-
-private func mutateDisplayedWords(_ taggedWordTrans: [WordCell]) {
-    let isWithAnimation = UserDefaults.standard.bool(forKey: IsWithAnimationKey)
-    if isWithAnimation {
-        withAnimation {
-            displayedWords.wordCells = taggedWordTrans
-        }
-    }
-    else {
-        displayedWords.wordCells = taggedWordTrans
-    }
-}
+//
+//private func highlight(primitiveWordCell: [WordCell], results: [VNRecognizedTextObservation]) -> [WordCell] {
+//    if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
+//        hlBox.boxs = []
+//        return attachNumberWordCell
+//    }
+//
+//    let unKnownWords = primitiveWordCell.filter{ $0.isKnown == .unKnown }.map{ $0.word }
+//
+//    var boxs: [(CGPoint, CGPoint)] = []
+//
+//    for observation in results {
+//        let candidate: VNRecognizedText = observation.topCandidates(1)[0]
+//        let text = candidate.string
+//
+//        // don't duplicate found bound box unknown word; unKnownWords may have duplicated which is Okay there, but not here. Here is one line TR result.
+//        var auxiliary: Set<String> = Set.init()
+//        for unknownWord in unKnownWords {
+//            if auxiliary.contains(unknownWord) { continue }
+//            let nsRange = (text as NSString).range(of: unknownWord)
+//            if let range = Range(nsRange, in: text) {
+//                do {
+//                    let box = try candidate.boundingBox(for: range)
+//                    if let box = box {
+//                        boxs.append((box.topLeft, box.bottomRight))
+//
+//                        for wc in attachNumberWordCell {
+//                            if wc.word == unknownWord {
+//                                wc.number += 1
+//                            }
+//                        }
+//
+//                        auxiliary.insert(unknownWord)
+//                        print("box: unknownWord: \(unknownWord); text: \(text)")
+//                    } else {
+//                        print("not box: unknownWord: \(unknownWord); text: \(text)")
+//                    }
+//                } catch {
+//                    logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
+//                }
+//            }
+//        }
+//    }
+//
+//    hlBox.boxs = boxs
+//
+//    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
+//    for box in hlBox.boxs {
+//        print(">>]]>> set highlightBounds box: \(box)")
+//    }
+//}

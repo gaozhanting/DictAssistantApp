@@ -16,6 +16,7 @@ struct WordCell: Equatable {
     let word: String
     let isKnown: IsKnown
     let trans: String
+    var number: Int = 0
 }
 
 // as a bridge of AppDelegate(and our inner system)(write) and WordsView UI(read)

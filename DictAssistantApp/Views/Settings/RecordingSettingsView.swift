@@ -59,14 +59,17 @@ private struct HighlightView: View {
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .dotted:
-                DottedOptionsView()
+                VStack {
+                    DottedOptionsView()
+                    DottedNumberOptionsView()
+                }
             case .rectangle:
                 RectangleOptionsView()
             case .disabled:
                 EmptyView()
             }
         }
-        .frame(width: 190)
+        .frame(width: 250)
     }
 }
 
@@ -124,6 +127,37 @@ private struct RectangleOptionsView: View {
                     Button("Use Default") {
                         useDefault()
                     }
+                }
+            }
+        }
+    }
+}
+
+private struct DottedNumberOptionsView: View {
+    @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
+    @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(contentNumberColor)!) },
+            set: { newValue in
+                contentNumberColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    var body: some View {
+        GroupBox {
+            HStack {
+                Spacer()
+                
+                Toggle(isOn: $isShowNumber, label: {
+                    Text("show number")
+                })
+                    .toggleStyle(SwitchToggleStyle())
+                
+                if isShowNumber {
+                    ColorPicker("color:", selection: binding)
                 }
             }
         }

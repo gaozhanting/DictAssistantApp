@@ -42,6 +42,8 @@ let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
 let StrokeDashPaintedKey = "StrokeDashPaintedKey"
 let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
+let IsShowNumberKey = "IsShowNumberKey"
+let ContentNumberColorKey = "ContentNumberColorKey"
 
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
@@ -181,6 +183,8 @@ private let defaultSlotKV: [String: Any] = [
     StrokeLineWidthKey: 3.0,
     StrokeDashPaintedKey: 1.0,
     StrokeDashUnPaintedKey: 5.0,
+    IsShowNumberKey: true,
+    ContentNumberColorKey: colorToData(NSColor.highlightColor)!,
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     

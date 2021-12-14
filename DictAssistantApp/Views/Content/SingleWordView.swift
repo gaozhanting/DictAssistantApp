@@ -259,6 +259,16 @@ private struct TheText: View {
         wordCell.word
     }
     
+    var number: String {
+        if wordCell.number == 0 {
+            print("number<>single:empty")
+            return ""
+        } else {
+            print("number<>single:\(wordCell.number)")
+            return "\(wordCell.number) "
+        }
+    }
+    
     @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
     var trans: String {
         switch ChineseCharacterConvertMode(rawValue: chineseCharacterConvertMode)! {
@@ -285,18 +295,22 @@ private struct TheText: View {
         return step4
     }
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+    @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
     var unKnownText: Text {
         !isDropTitleWord ?
-            
-            Text(word)
+        
+        Text(number)
+            .foregroundColor(Color(dataToColor(contentNumberColor)!))
+        +
+        Text(word)
             .foregroundColor(theWordColor)
             .font(font)
-            +
-            Text(translation)
+        +
+        Text(translation)
             .foregroundColor(theTransColor)
             .font(transFont) :
-            
-            Text(translation)
+        
+        Text(translation)
             .foregroundColor(theTransColor)
             .font(transFont)
     }

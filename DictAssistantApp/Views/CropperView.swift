@@ -118,6 +118,7 @@ private struct EdgeBorder: Shape {
 }
 
 private struct HLDottedView: View {
+    let index: Int
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
@@ -132,7 +133,9 @@ private struct HLDottedView: View {
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 5.0
     
-    var body: some View {
+    @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
+    
+    var body0: some View {
         Path { path in
             path.move(to: CGPoint(
                 x: box.1.x * geometrySize.width,
@@ -146,12 +149,30 @@ private struct HLDottedView: View {
             style: StrokeStyle(
                 lineWidth: CGFloat(strokeLineWidth),
                 lineCap: .round,
-//                lineJoin: .miter,
-//                miterLimit: 0,
+                //                lineJoin: .miter,
+                //                miterLimit: 0,
                 dash: [CGFloat(strokeDashPainted), CGFloat(strokeDashUnPainted)]
-//                dashPhase: 0
+                //                dashPhase: 0
             )
         )
+    }
+
+    var body: some View {
+        if isShowNumber {
+            body0
+                .overlay(
+                    Text(String(index))
+                        .foregroundColor(hlColor)
+                        .font(.footnote)
+                        .position(
+                            x: box.1.x * geometrySize.width + 9,
+                            y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset))
+                    ,
+                    alignment: .bottomLeading
+                )
+        } else {
+            body0
+        }
     }
 }
 
@@ -196,8 +217,8 @@ struct CropperViewWithHighlight: View {
                 
                 switch HighlightMode(rawValue: highlightMode)! {
                 case .dotted:
-                    ForEach(hlBox.boxs, id: \.self.0) { box in
-                        HLDottedView(box: box, geometrySize: geometry.size)
+                    ForEach(Array(hlBox.boxs.enumerated()), id: \.self.0) { index, box in
+                        HLDottedView(index: index + 1, box: box, geometrySize: geometry.size)
                     }
                 case .rectangle:
                     ForEach(hlBox.boxs, id: \.self.0) { box in
