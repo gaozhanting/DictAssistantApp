@@ -141,6 +141,7 @@ private struct DottedNumberOptionsView: View {
     @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 6.0
     @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 7.0
+    @AppStorage(ContentNumberFontSizeKey) var contentNumberFontSize: Double = 13.0
 
     var binding: Binding<Color> {
         Binding(
@@ -174,6 +175,13 @@ private struct DottedNumberOptionsView: View {
                         Spacer()
                         Text("Font Size:")
                         TextField("", value: $numberFontSize, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Text("Content Font Size:")
+                        TextField("", value: $contentNumberFontSize, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
                     

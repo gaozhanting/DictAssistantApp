@@ -249,6 +249,11 @@ private struct TheText: View {
         return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
     }
     
+    @AppStorage(ContentNumberFontSizeKey) var contentNumberFontSize: Double = 13.0
+    var numberFont: Font {
+        return Font.custom(fontName, size: CGFloat(contentNumberFontSize))
+    }
+    
     let wordCell: WordCell
 
     var unKnown: Bool {
@@ -301,6 +306,7 @@ private struct TheText: View {
         
         Text(number)
             .foregroundColor(Color(dataToColor(contentNumberColor)!))
+            .font(numberFont)
         +
         Text(word)
             .foregroundColor(theWordColor)

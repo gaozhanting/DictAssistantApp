@@ -46,6 +46,7 @@ let IsShowNumberKey = "IsShowNumberKey"
 let ContentNumberColorKey = "ContentNumberColorKey"
 let NumberXOffsetKey = "NumberXOffsetKey"
 let NumberFontSizeKey = "NumberFontSizeKey"
+let ContentNumberFontSizeKey = "ContentNumberFontSizeKey"
 
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
@@ -192,6 +193,7 @@ private let defaultSlotKV: [String: Any] = [
     ContentNumberColorKey: colorToData(NSColor.highlightColor)!,
     NumberXOffsetKey: 6.0,
     NumberFontSizeKey: 7.0,
+    ContentNumberFontSizeKey: 13.0,
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     
