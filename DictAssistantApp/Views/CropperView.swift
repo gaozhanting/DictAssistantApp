@@ -121,10 +121,10 @@ private struct HLDottedView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLDottedColorKey) private var HLDottedColor: Data = colorToData(NSColor.red)!
+    @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
     
     var hlColor: Color {
-        Color(dataToColor(HLDottedColor)!)
+        Color(dataToColor(hlDottedColor)!)
     }
     
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 4.0
@@ -155,27 +155,27 @@ private struct HLDottedView: View {
     }
 }
 
-private struct HLCoverView: View {
+private struct HLRectangleView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLCoverColorKey) private var HLCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     
     var hlColor: Color {
-        Color(dataToColor(HLCoverColor)!)
+        Color(dataToColor(hlRectangleColor)!)
     }
     
-    @AppStorage(CoverVerticalPaddingKey) var coverVerticalPadding: Double = 2.0
-    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 4.0
+    @AppStorage(RectangleVerticalPaddingKey) var rectangleVerticalPadding: Double = 2.0
+    @AppStorage(RectangleHorizontalPaddingKey) var rectangleHorizontalPadding: Double = 4.0
     
     var body: some View {
         Rectangle()
             .path(in: {
                 let rect = CGRect(
-                    x: box.0.x * geometrySize.width - CGFloat(coverVerticalPadding),
-                    y: (1 - box.0.y) * geometrySize.height - CGFloat(coverHorizontalPadding), // notice here 1-y
-                    width: abs(box.1.x - box.0.x) * geometrySize.width + CGFloat(coverVerticalPadding) * 2,
-                    height: abs(box.1.y - box.0.y) * geometrySize.height + CGFloat(coverHorizontalPadding) * 2
+                    x: box.0.x * geometrySize.width - CGFloat(rectangleVerticalPadding),
+                    y: (1 - box.0.y) * geometrySize.height - CGFloat(rectangleHorizontalPadding), // notice here 1-y
+                    width: abs(box.1.x - box.0.x) * geometrySize.width + CGFloat(rectangleVerticalPadding) * 2,
+                    height: abs(box.1.y - box.0.y) * geometrySize.height + CGFloat(rectangleHorizontalPadding) * 2
                 )
 //                print(">>]]>> render highlightBounds box: \(box)")
 //                print(">>]]>> rect: \(rect)")
@@ -199,9 +199,9 @@ struct CropperViewWithHighlight: View {
                     ForEach(hlBox.boxs, id: \.self.0) { box in
                         HLDottedView(box: box, geometrySize: geometry.size)
                     }
-                case .cover:
+                case .rectangle:
                     ForEach(hlBox.boxs, id: \.self.0) { box in
-                        HLCoverView(box: box, geometrySize: geometry.size)
+                        HLRectangleView(box: box, geometrySize: geometry.size)
                     }
                 case .disabled:
                     EmptyView()

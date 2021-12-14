@@ -51,7 +51,7 @@ private struct HighlightView: View {
         VStack(alignment: .leading) {
             Picker("", selection: $highlightMode) {
                 Text("Dotted").tag(HighlightMode.dotted.rawValue)
-                Text("Cover").tag(HighlightMode.cover.rawValue)
+                Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
                 Text("Disabled").tag(HighlightMode.disabled.rawValue)
             }
             .pickerStyle(MenuPickerStyle())
@@ -60,8 +60,8 @@ private struct HighlightView: View {
             switch HighlightMode(rawValue: highlightMode)! {
             case .dotted:
                 DottedOptionsView()
-            case .cover:
-                CoverOptionsView()
+            case .rectangle:
+                RectangleOptionsView()
             case .disabled:
                 EmptyView()
             }
@@ -72,24 +72,24 @@ private struct HighlightView: View {
 
 private let tfWidth: CGFloat = 46
 
-private struct CoverOptionsView: View {
-    @AppStorage(HLCoverColorKey) private var hlCoverColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
-    @AppStorage(CoverVerticalPaddingKey) var coverVerticalPadding: Double = 2.0
-    @AppStorage(CoverHorizontalPaddingKey) var coverHorizontalPadding: Double = 4.0
+private struct RectangleOptionsView: View {
+    @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(RectangleVerticalPaddingKey) var rectangleVerticalPadding: Double = 2.0
+    @AppStorage(RectangleHorizontalPaddingKey) var rectangleHorizontalPadding: Double = 4.0
     
     var binding: Binding<Color> {
         Binding(
-            get: { Color(dataToColor(hlCoverColor)!) },
+            get: { Color(dataToColor(hlRectangleColor)!) },
             set: { newValue in
-                hlCoverColor = colorToData(NSColor(newValue))!
+                hlRectangleColor = colorToData(NSColor(newValue))!
             }
         )
     }
     
     func useDefault() {
-        hlCoverColor = colorToData(NSColor.red.withAlphaComponent(0.15))!
-        coverVerticalPadding = 2.0
-        coverHorizontalPadding = 4.0
+        hlRectangleColor = colorToData(NSColor.red.withAlphaComponent(0.15))!
+        rectangleVerticalPadding = 2.0
+        rectangleHorizontalPadding = 4.0
     }
     
     var body: some View {
@@ -103,14 +103,14 @@ private struct CoverOptionsView: View {
                 HStack {
                     Spacer()
                     Text("vertical padding:")
-                    TextField("", value: $coverVerticalPadding, formatter: NumberFormatter())
+                    TextField("", value: $rectangleVerticalPadding, formatter: NumberFormatter())
                         .frame(width: tfWidth)
                 }
                 
                 HStack {
                     Spacer()
                     Text("horizontal padding:")
-                    TextField("", value: $coverHorizontalPadding, formatter: NumberFormatter())
+                    TextField("", value: $rectangleHorizontalPadding, formatter: NumberFormatter())
                         .frame(width: tfWidth)
                 }
                 

@@ -33,9 +33,9 @@ let CropperStyleKey = "CropperStyleKey"
 
 let HighlightModeKey = "HighlightModeKey"
 
-let HLCoverColorKey = "HLCoverColorKey"
-let CoverVerticalPaddingKey = "CoverVerticalPaddingKey"
-let CoverHorizontalPaddingKey = "CoverHorizontalPaddingKey"
+let HLRectangleColorKey = "HLRectangleColorKey"
+let RectangleVerticalPaddingKey = "RectangleVerticalPaddingKey"
+let RectangleHorizontalPaddingKey = "RectangleHorizontalPaddingKey"
 
 let HLDottedColorKey = "HLDottedColorKey"
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
@@ -99,7 +99,7 @@ let IsContentRetentionKey = "IsContentRetentionKey"
 // Enums
 enum HighlightMode: Int, Codable {
     case dotted
-    case cover
+    case rectangle
     case disabled
 }
 
@@ -173,9 +173,9 @@ private let defaultSlotKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     HighlightModeKey: HighlightMode.dotted.rawValue,
-    HLCoverColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
-    CoverVerticalPaddingKey: 2.0,
-    CoverHorizontalPaddingKey: 4.0,
+    HLRectangleColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
+    RectangleVerticalPaddingKey: 2.0,
+    RectangleHorizontalPaddingKey: 4.0,
     HLDottedColorKey: colorToData(NSColor.red)!,
     StrokeDownwardOffsetKey: 4.0,
     StrokeLineWidthKey: 3.0,
