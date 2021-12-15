@@ -9,58 +9,55 @@ import Foundation
 import SwiftUI
 import Vision
 
-// we use textsCache to reduce nlp work when texts is not changed.
-var textsCache: [String] = []
+// We use cache to reduce nlp work when texts is not changed.
+var trTextsCache: [String] = []
 // highlight need
 var primitiveWordCellCache: [WordCell] = []
 
 // other refreshing action
 func trCallBack() {
-    textsCache = []
+    trTextsCache = []
     primitiveWordCellCache = []
     trCallBackWithCache()
 }
 
 // mainly called by AVSessionAndTR
 func trCallBackWithCache() {
-//    if !statusData.isPlaying { // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
+//    // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
+//    if !statusData.isPlaying {
 //        return
 //    }
     
-    guard let results = aVSessionAndTR.results else {
-        logger.info("aVSessionAndTR results is empty")
+    guard let trResults = aVSessionAndTR.results else {
+        logger.info("trCallBackWithCache: aVSessionAndTR results is empty")
         return
     }
     
-    var texts: [String] = []
-    for observation in results {
+    var trTexts: [String] = []
+    for observation in trResults {
         let candidate: VNRecognizedText = observation.topCandidates(1)[0]
         let text = candidate.string
-        texts.append(text)
+        trTexts.append(text)
     }
     
     // if this option on, content won't react to new empty results; useful for using chrome live caption.
     if UserDefaults.standard.bool(forKey: "IsContentRetentionKey") {
-        if texts.isEmpty {
-            logger.info("content got retention")
+        if trTexts.isEmpty {
+            logger.info("trCallBackWithCache: content got retention")
             return
         }
     }
-    
-    let processed = nlpSample.process(texts)
-    let wordCell = processed.map { tagWord($0) }
-    var primitiveWordCell = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
-    
-    // because we mutate primitiveWordCell
+
+    // because we mutate primitiveWordCellCache
     func highlightAndNumbered() {
         if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
             hlBox.boxs = []
         }
-        let unKnownWords = primitiveWordCell.filter{ $0.isKnown == .unKnown }.map{ $0.word }
+        let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }
         var boxs: [(CGPoint, CGPoint)] = []
         var n: Int = 0
         var auxiliary: Set<String> = Set.init()
-        for observation in results {
+        for observation in trResults {
             let candidate: VNRecognizedText = observation.topCandidates(1)[0]
             let text = candidate.string
             
@@ -76,7 +73,7 @@ func trCallBackWithCache() {
                             
                             if UserDefaults.standard.bool(forKey: IsShowNumberKey) {
                                 n += 1
-                                primitiveWordCell = primitiveWordCell.map { wc in
+                                primitiveWordCellCache = primitiveWordCellCache.map { wc in
                                     var wc = wc // parameter masking to allow local mutation
                                     if wc.word == unknownWord {
                                         //                                    print("number<> n:\(n)")
@@ -103,27 +100,46 @@ func trCallBackWithCache() {
         ////        print(">>]]>> set highlightBounds box: \(box)")
         //    }
     }
-    
-    if texts.elementsEqual(textsCache) {
-        // i.e: youtube pause cause subtitle texts moved although texts not changed.
+        
+    // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
+    if trTexts.elementsEqual(trTextsCache) {
+        // We run highlight even when trTexts not changed, for example: youtube pause cause subtitle texts moved although texts not changed.
         highlightAndNumbered()
         return
+    } else {
+        trTextsCache = trTexts
     }
-
+    
+    // nlp takes heavy CPU, although less than TR
+    let processed = nlpSample.process(trTextsCache)
+    let wordCell = processed.map { tagWord($0) }
+    primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
+    
     highlightAndNumbered()
     
     if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
         withAnimation {
-            displayedWords.wordCells = primitiveWordCell
+            displayedWords.wordCells = primitiveWordCellCache
         }
     } else {
-        displayedWords.wordCells = primitiveWordCell
+        displayedWords.wordCells = primitiveWordCellCache
     }
 
-    textsCache = texts
-    primitiveWordCellCache = primitiveWordCell
-    
     snapShotCallback()
+}
+
+private func tagWord(_ word: String) -> WordCell {
+    if knownSet.contains(word) || knownSet.contains(word.lowercased()) {
+         // Here, not query trans of known words (no matter toggle show or not show known), aims to as an App optimization !
+        return WordCell(word: word, isKnown: .known, trans: "")
+    } else {
+        if let trans = cachedDictionaryServicesDefine(word) {
+            return WordCell(word: word, isKnown: .unKnown, trans: trans)
+        } else {
+            logger.info("   !>>>> translation not found from dicts of word: \(word, privacy: .public)")
+            return WordCell(word: word, isKnown: .unKnown, trans: "")
+        }
+    }
 }
 
 private func snapShotCallback() {
@@ -142,18 +158,5 @@ private func snapShotCallback() {
         aVSessionAndTR.stopScreenCapture()
         
         snapshotState = 0
-    }
-}
-
-private func tagWord(_ word: String) -> WordCell {
-    if knownSet.contains(word) || knownSet.contains(word.lowercased()) {
-        return WordCell(word: word, isKnown: .known, trans: "") // here, not query trans of known words (no matter toggle show or not show known), aim to as an app optimize !
-    } else {
-        if let trans = cachedDictionaryServicesDefine(word) {
-            return WordCell(word: word, isKnown: .unKnown, trans: trans)
-        } else {
-            logger.info("   !>>>> translation not found from dicts of word: \(word, privacy: .public)")
-            return WordCell(word: word, isKnown: .unKnown, trans: "")
-        }
     }
 }

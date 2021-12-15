@@ -156,7 +156,7 @@ private func startPlaying() {
 
     displayedWords.wordCells = []
     hlBox.boxs = []
-    textsCache = []
+    trTextsCache = []
     primitiveWordCellCache = []
     
     aVSessionAndTR.startScreenCapture()
@@ -178,7 +178,7 @@ private func stopPlaying() {
 
     displayedWords.wordCells = []
     hlBox.boxs = []
-    textsCache = []
+    trTextsCache = []
     primitiveWordCellCache = []
     
     aVSessionAndTR.stopScreenCapture()
