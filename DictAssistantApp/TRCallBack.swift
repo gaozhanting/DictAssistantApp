@@ -49,14 +49,18 @@ func trCallBackWithCache() {
     }
 
     // We mutate primitiveWordCellCache
-    func highlightAndNumbered() -> [(CGPoint, CGPoint)] {
+    func retriveBoxesAndsyncIndices() -> [(CGPoint, CGPoint)] {
         if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
             return []
         }
+        
         let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }
+        
         var boxs: [(CGPoint, CGPoint)] = []
-        var n: Int = 0
+        
+        var sentryIndex: Int = 0
         var auxiliary: Set<String> = Set.init()
+        
         for observation in trResults {
             let candidate: VNRecognizedText = observation.topCandidates(1)[0]
             let text = candidate.string
@@ -72,21 +76,18 @@ func trCallBackWithCache() {
                             boxs.append((box.topLeft, box.bottomRight))
                             
                             if UserDefaults.standard.bool(forKey: IsShowNumberKey) {
-                                n += 1
+                                sentryIndex += 1
                                 primitiveWordCellCache = primitiveWordCellCache.map { wc in
                                     var wc = wc // parameter masking to allow local mutation
                                     if wc.word == unknownWord {
-                                        //                                    print("number<> n:\(n)")
-                                        wc.number = n
+                                        wc.index = sentryIndex
                                     }
                                     return wc
                                 }
                             }
                             
                             auxiliary.insert(unknownWord)
-                            //                        print("box: unknownWord: \(unknownWord); text: \(text)")
                         } else {
-                            //                        print("not box: unknownWord: \(unknownWord); text: \(text)")
                         }
                     } catch {
                         logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
@@ -95,14 +96,10 @@ func trCallBackWithCache() {
             }
         }
         return boxs
-        //    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
-        //    for box in hlBox.boxs {
-        ////        print(">>]]>> set highlightBounds box: \(box)")
-        //    }
     }
     
     func refreshHighlightUI() {
-        hlBox.boxs = highlightAndNumbered()
+        hlBox.boxs = retriveBoxesAndsyncIndices()
     }
     
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
@@ -120,7 +117,7 @@ func trCallBackWithCache() {
     primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     
     func refreshUI() {
-        hlBox.boxs = highlightAndNumbered()
+        hlBox.boxs = retriveBoxesAndsyncIndices()
         displayedWords.wordCells = primitiveWordCellCache
     }
     

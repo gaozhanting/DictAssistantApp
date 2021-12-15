@@ -37,11 +37,12 @@ let HLRectangleColorKey = "HLRectangleColorKey"
 let RectangleVerticalPaddingKey = "RectangleVerticalPaddingKey"
 let RectangleHorizontalPaddingKey = "RectangleHorizontalPaddingKey"
 
-let HLDottedColorKey = "HLDottedColorKey"
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
+let HLDottedColorKey = "HLDottedColorKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
 let StrokeDashPaintedKey = "StrokeDashPaintedKey"
 let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
+
 let IsShowNumberKey = "IsShowNumberKey"
 let ContentNumberColorKey = "ContentNumberColorKey"
 let NumberXOffsetKey = "NumberXOffsetKey"

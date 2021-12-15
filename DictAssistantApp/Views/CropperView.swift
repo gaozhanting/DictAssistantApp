@@ -220,8 +220,6 @@ private struct HLRectangleView: View {
                     width: abs(box.1.x - box.0.x) * geometrySize.width + CGFloat(rectangleVerticalPadding) * 2,
                     height: abs(box.1.y - box.0.y) * geometrySize.height + CGFloat(rectangleHorizontalPadding) * 2
                 )
-//                print(">>]]>> render highlightBounds box: \(box)")
-//                print(">>]]>> rect: \(rect)")
                 return rect
             }())
             .fill(hlColor)

@@ -264,13 +264,11 @@ private struct TheText: View {
         wordCell.word
     }
     
-    var number: String {
-        if wordCell.number == 0 {
-//            print("number<>single:empty")
+    var index: String {
+        if wordCell.index == 0 {
             return ""
         } else {
-//            print("number<>single:\(wordCell.number)")
-            return "\(wordCell.number) "
+            return "\(wordCell.index) "
         }
     }
     
@@ -304,7 +302,7 @@ private struct TheText: View {
     var unKnownText: Text {
         !isDropTitleWord ?
         
-        Text(number)
+        Text(index)
             .foregroundColor(Color(dataToColor(contentNumberColor)!))
             .font(numberFont)
         +
