@@ -51,7 +51,7 @@ private struct HighlightView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack {
             Picker("", selection: $highlightMode) {
                 Text("Dotted").tag(HighlightMode.dotted.rawValue)
                 Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
@@ -62,9 +62,11 @@ private struct HighlightView: View {
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .dotted:
-                VStack {
-                    DottedOptionsView()
-                    DottedNumberOptionsView()
+                GroupBox {
+                    HStack(alignment: .top) {
+                        DottedOptionsView()
+                        DottedIndexOptionsView()
+                    }
                 }
             case .rectangle:
                 RectangleOptionsView()
@@ -72,7 +74,7 @@ private struct HighlightView: View {
                 EmptyView()
             }
         }
-        .frame(width: 200)
+        .frame(width: 400)
     }
 }
 
@@ -136,7 +138,7 @@ private struct RectangleOptionsView: View {
     }
 }
 
-private struct DottedNumberOptionsView: View {
+private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
@@ -150,6 +152,14 @@ private struct DottedNumberOptionsView: View {
                 contentIndexColor = colorToData(NSColor(newValue))!
             }
         )
+    }
+    
+    func useDefault() {
+        isShowIndex = true
+        contentIndexColor = colorToData(NSColor.highlightColor)!
+        indexXOffset = 6.0
+        indexFontSize = 7.0
+        contentIndexFontSize = 13.0
     }
     
     var body: some View {
@@ -188,6 +198,13 @@ private struct DottedNumberOptionsView: View {
                     HStack {
                         Spacer()
                         ColorPicker("color:", selection: binding)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Button("Use Default") {
+                            useDefault()
+                        }
                     }
                 }
             }
