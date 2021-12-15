@@ -101,10 +101,14 @@ func trCallBackWithCache() {
         //    }
     }
     
+    func refreshHighlightUI() {
+        hlBox.boxs = highlightAndNumbered()
+    }
+    
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
     if trTexts.elementsEqual(trTextsCache) {
         // We run highlight even when trTexts not changed, for example: youtube pause cause subtitle texts moved although texts not changed.
-        hlBox.boxs = highlightAndNumbered()
+        refreshHighlightUI()
         return
     } else {
         trTextsCache = trTexts
@@ -115,15 +119,17 @@ func trCallBackWithCache() {
     let wordCell = processed.map { tagWord($0) }
     primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     
-    // mutate UI
-    hlBox.boxs = highlightAndNumbered()
+    func refreshUI() {
+        hlBox.boxs = highlightAndNumbered()
+        displayedWords.wordCells = primitiveWordCellCache
+    }
     
     if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
         withAnimation {
-            displayedWords.wordCells = primitiveWordCellCache
+            refreshUI()
         }
     } else {
-        displayedWords.wordCells = primitiveWordCellCache
+        refreshUI()
     }
 
     snapShotCallback()
