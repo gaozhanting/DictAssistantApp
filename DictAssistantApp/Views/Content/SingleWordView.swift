@@ -249,11 +249,6 @@ private struct TheText: View {
         return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
     }
     
-    @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
-    var numberFont: Font {
-        return Font.custom(fontName, size: CGFloat(contentIndexFontSize))
-    }
-    
     let wordCell: WordCell
 
     var unKnown: Bool {
@@ -262,19 +257,6 @@ private struct TheText: View {
     
     var word: String {
         wordCell.word
-    }
-    
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    var index: String {
-        if !isShowIndex {
-            return ""
-        }
-        
-        if wordCell.index == 0 {
-            return ""
-        } else {
-            return "\(wordCell.index) "
-        }
     }
     
     @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
@@ -303,31 +285,53 @@ private struct TheText: View {
         return step4
     }
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+    
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = false
+    @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
+    @AppStorage(ContentIndexFontSizeRKey) var contentIndexFontSizeR: Double = 13.0
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    var indexText: Text {
+        switch HighlightMode(rawValue: highlightMode)! {
+        case .dotted:
+            if !isShowIndex {
+                return Text("").foregroundColor(Color(dataToColor(contentIndexColor)!)).font(.system(size: CGFloat(contentIndexFontSize)))
+            }
+            if wordCell.index == 0 {
+                return Text("").foregroundColor(Color(dataToColor(contentIndexColor)!)).font(.system(size: CGFloat(contentIndexFontSize)))
+            } else {
+                return Text("\(wordCell.index) ").foregroundColor(Color(dataToColor(contentIndexColor)!)).font(.system(size: CGFloat(contentIndexFontSize)))
+            }
+        case .rectangle:
+            if !isShowIndexR {
+                return Text("").foregroundColor(Color(dataToColor(contentIndexColorR)!)).font(.system(size: CGFloat(contentIndexFontSizeR)))
+            }
+            if wordCell.index == 0 {
+                return Text("").foregroundColor(Color(dataToColor(contentIndexColorR)!)).font(.system(size: CGFloat(contentIndexFontSizeR)))
+            } else {
+                return Text("\(wordCell.index) ").foregroundColor(Color(dataToColor(contentIndexColorR)!)).font(.system(size: CGFloat(contentIndexFontSizeR)))
+            }
+        case .disabled:
+            return Text("")
+        }
+    }
+    
     var unKnownText: Text {
         !isDropTitleWord ?
         
-        Text(index)
-            .foregroundColor(Color(dataToColor(contentIndexColor)!))
-            .font(numberFont)
+        indexText
         +
-        Text(word)
-            .foregroundColor(theWordColor)
-            .font(font)
+        Text(word).foregroundColor(theWordColor).font(font)
         +
-        Text(translation)
-            .foregroundColor(theTransColor)
-            .font(transFont) :
+        Text(translation).foregroundColor(theTransColor).font(transFont) :
         
-        Text(translation)
-            .foregroundColor(theTransColor)
-            .font(transFont)
+        Text(translation).foregroundColor(theTransColor).font(transFont)
     }
     
     var knownText: Text {
-        Text(word)
-            .foregroundColor(theKnownWordColor)
-            .font(font)
+        Text(word).foregroundColor(theKnownWordColor).font(font)
     }
     
     var body: Text {

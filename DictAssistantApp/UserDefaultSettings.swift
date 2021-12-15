@@ -37,6 +37,13 @@ let HLRectangleColorKey = "HLRectangleColorKey"
 let RectangleVerticalPaddingKey = "RectangleVerticalPaddingKey"
 let RectangleHorizontalPaddingKey = "RectangleHorizontalPaddingKey"
 
+let IsShowIndexRKey = "IsShowIndexRKey"
+let ContentIndexColorRKey = "ContentIndexColorRKey"
+let IndexXOffsetRKey = "IndexXOffsetRKey"
+let IndexYOffsetRKey = "IndexYOffsetRKey"
+let IndexFontSizeRKey = "IndexFontSizeRKey"
+let ContentIndexFontSizeRKey = "ContentIndexFontSizeRKey"
+
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let HLDottedColorKey = "HLDottedColorKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
@@ -190,11 +197,20 @@ private let defaultSlotKV: [String: Any] = [
     StrokeLineWidthKey: 3.0,
     StrokeDashPaintedKey: 1.6,
     StrokeDashUnPaintedKey: 3.0,
+    
     IsShowIndexKey: true,
     ContentIndexColorKey: colorToData(NSColor.highlightColor)!,
     IndexXOffsetKey: 6.0,
     IndexFontSizeKey: 7.0,
     ContentIndexFontSizeKey: 13.0,
+    
+    IsShowIndexRKey: false,
+    ContentIndexColorRKey: colorToData(NSColor.highlightColor)!,
+    IndexXOffsetRKey: 5.0,
+    IndexYOffsetRKey: 3.0,
+    IndexFontSizeRKey: 7.0,
+    ContentIndexFontSizeRKey: 13.0,
+    
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,
     

@@ -199,6 +199,7 @@ private struct HLDottedView: View {
 }
 
 private struct HLRectangleView: View {
+    let index: Int
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
@@ -211,7 +212,7 @@ private struct HLRectangleView: View {
     @AppStorage(RectangleVerticalPaddingKey) var rectangleVerticalPadding: Double = 2.0
     @AppStorage(RectangleHorizontalPaddingKey) var rectangleHorizontalPadding: Double = 4.0
     
-    var body: some View {
+    var body0: some View {
         Rectangle()
             .path(in: {
                 let rect = CGRect(
@@ -223,6 +224,30 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
+    }
+    
+    @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
+    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
+    @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
+    @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
+    
+    var body: some View {
+        if isShowIndexR {
+            body0
+                .overlay(
+                    Text(String(index))
+                        .foregroundColor(Color(dataToColor(contentIndexColorR)!))
+                        .font(.system(size: CGFloat(indexFontSizeR)))
+                        .position(
+                            x: box.1.x * geometrySize.width - CGFloat(rectangleVerticalPadding) + CGFloat(indexXOffsetR),
+                            y: (1 - box.0.y) * geometrySize.height - CGFloat(rectangleHorizontalPadding) - CGFloat(indexYOffsetR))
+                    ,
+                    alignment: .bottomLeading
+                )
+        } else {
+            body0
+        }
     }
 }
 
@@ -242,7 +267,7 @@ struct CropperViewWithHighlight: View {
                     }
                 case .rectangle:
                     ForEach(hlBox.indexedBoxes) { b in
-                        HLRectangleView(box: b.box, geometrySize: geometry.size)
+                        HLRectangleView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .disabled:
                     EmptyView()

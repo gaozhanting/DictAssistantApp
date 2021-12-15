@@ -69,7 +69,12 @@ private struct HighlightView: View {
                     }
                 }
             case .rectangle:
-                RectangleOptionsView()
+                GroupBox {
+                    HStack(alignment: .top) {
+                        RectangleOptionsView()
+                        RectangleIndexOptionsView()
+                    }
+                }
             case .disabled:
                 EmptyView()
             }
@@ -183,7 +188,7 @@ private struct DottedIndexOptionsView: View {
                     
                     HStack {
                         Spacer()
-                        Text("Font Size:")
+                        Text("Cropper Font Size:")
                         TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
@@ -192,6 +197,89 @@ private struct DottedIndexOptionsView: View {
                         Spacer()
                         Text("Content Font Size:")
                         TextField("", value: $contentIndexFontSize, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        ColorPicker("color:", selection: binding)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Button("Use Default") {
+                            useDefault()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct RectangleIndexOptionsView: View {
+    @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
+    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
+    @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
+    @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
+    @AppStorage(ContentIndexFontSizeRKey) var contentIndexFontSizeR: Double = 13.0
+
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(contentIndexColorR)!) },
+            set: { newValue in
+                contentIndexColorR = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    func useDefault() {
+        isShowIndexR = true
+        contentIndexColorR = colorToData(NSColor.highlightColor)!
+        indexXOffsetR = 6.0
+        indexFontSizeR = 7.0
+        contentIndexFontSizeR = 13.0
+    }
+    
+    
+    var body: some View {
+        GroupBox {
+            VStack {
+                HStack {
+                    Spacer()
+                    Toggle(isOn: $isShowIndexR, label: {
+                        Text("Show Index")
+                    })
+                        .toggleStyle(SwitchToggleStyle())
+                }
+                
+                if isShowIndexR {
+                    HStack {
+                        Spacer()
+                        Text("X Offset:")
+                        TextField("", value: $indexXOffsetR, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Text("Y Offset:")
+                        TextField("", value: $indexYOffsetR, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Text("Cropper Font Size:")
+                        TextField("", value: $indexFontSizeR, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        Text("Content Font Size:")
+                        TextField("", value: $contentIndexFontSizeR, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
                     
