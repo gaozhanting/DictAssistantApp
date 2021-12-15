@@ -174,8 +174,8 @@ struct NLPSample {
         }
         return result
     }
-
-    func processSingle(_ text: String) -> [String] {
+    
+    func processSingle(_ text: String) -> [Word] {
         let primitiveTokens = tokenize(text, .word)
         let primitiveSentence = primitiveTokens.joined(separator: " ")
         logger.info("   >> primitiveSentence: \(primitiveSentence, privacy: .public)")
@@ -202,27 +202,30 @@ struct NLPSample {
         let lemmaedHyphenPhrases = hyphenPhrase(lemmas)
         logger.info("   >> lemmaedHyphenPhrases: \(lemmaedPhrases, privacy: .public)")
         
-        var result: [String] = []
+        var result: [Word] = []
         
         // mix (merge lemma, name, and phrase)
         for (index, word) in words.enumerated() {
-            switch TitleWord(rawValue: UserDefaults.standard.integer(forKey: TitleWordKey))! {
-            case .lemma:
-                result.append(word.lemma)
-            case .primitive:
-                result.append(word.token)
-            }
+            
+//            switch TitleWord(rawValue: UserDefaults.standard.integer(forKey: TitleWordKey))! {
+//            case .lemma:
+//                result.append(word.lemma)
+//            case .primitive:
+//                result.append(word.token)
+//            }
+            
+            result.append(word)
             
             // add the indexed primitiveName or lemmaedName, only one added, primitiveName first
             if let primitiveName = primitiveNames[index] {
                 if primitiveName.caseInsensitiveCompare(word.lemma) != .orderedSame {
-                    result.append(primitiveName)
+                    result.append(Word(token: "", lemma: primitiveName))
                     logger.info("   >>> append primitiveName: \(primitiveName, privacy: .public)")
                 }
             } else {
                 if let lemmaedName = lemmaedNames[index] {
                     if lemmaedName.caseInsensitiveCompare(word.lemma) != .orderedSame {
-                        result.append(lemmaedName)
+                        result.append(Word(token: "", lemma: lemmaedName))
                         logger.info("   >>> append lemmaedName: \(lemmaedName, privacy: .public)")
                     }
                 }
@@ -234,7 +237,7 @@ struct NLPSample {
                 let lemmaedName = lemmaedNames[index] ?? ""
                 if primitivePhrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
                     primitivePhrase.caseInsensitiveCompare(lemmaedName) != .orderedSame { // name first, de-duplicate
-                    result.append(primitivePhrase)
+                    result.append(Word(token: "", lemma: primitivePhrase))
                     logger.info("   >>> append primitivePhrase: \(primitivePhrase, privacy: .public)")
                 }
             }
@@ -247,7 +250,7 @@ struct NLPSample {
                 if lemmaedphrase.caseInsensitiveCompare(primitiveName) != .orderedSame &&
                     lemmaedphrase.caseInsensitiveCompare(lemmaedName) != .orderedSame &&
                     lemmaedphrase.caseInsensitiveCompare(primitivePhrase) != .orderedSame { // name first, de-duplicate
-                    result.append(lemmaedphrase)
+                    result.append(Word(token: "", lemma: lemmaedphrase))
                     logger.info("   >>> append lemmaedPhrase: \(lemmaedphrase, privacy: .public)")
                 }
             }
@@ -255,7 +258,7 @@ struct NLPSample {
             if let primitiveHyphenPhrase = primitiveHyphenPhrases[index] {
                 let primitivePhrase = primitivePhrases[index] ?? ""
                 if primitiveHyphenPhrase.replacingOccurrences(of: "-", with: " ").caseInsensitiveCompare(primitivePhrase) != .orderedSame {
-                    result.append(primitiveHyphenPhrase)
+                    result.append(Word(token: "", lemma: primitiveHyphenPhrase))
                 }
                 logger.info("   >>> append primitiveHyphenPhrase: \(primitiveHyphenPhrase, privacy: .public)")
             }
@@ -265,7 +268,7 @@ struct NLPSample {
                 let lemmaedPhrase = lemmaedPhrases[index] ?? ""
                 if lemmaedHyphenPhrase.caseInsensitiveCompare(primitiveHyphenPhrase) != .orderedSame &&
                     lemmaedHyphenPhrase.replacingOccurrences(of: "-", with: " ").caseInsensitiveCompare(lemmaedPhrase) != .orderedSame {
-                    result.append(lemmaedHyphenPhrase)
+                    result.append(Word(token: "", lemma: lemmaedHyphenPhrase))
                     logger.info("   >>> append lemmaedHyphenPhrase: \(lemmaedHyphenPhrase, privacy: .public)")
                 }
             }
@@ -279,7 +282,7 @@ struct NLPSample {
     // >>> append log
     // >> sentence, names, phrase log
     // > lemma log
-    func process(_ texts: [String]) -> [String] {
+    func process(_ texts: [String]) -> [Word] {
         logger.info("🦉 >>>> NLP process:")
 
         // for debug
@@ -292,7 +295,7 @@ struct NLPSample {
         let sentences = tokenize(primitiveSentences, .sentence)
         
         // for every sentence
-        var results: [String] = []
+        var results: [Word] = []
         for sentence in sentences {
             logger.info("   >>>> 🐱 sentence: \(sentence, privacy: .public)")
             let result = processSingle(sentence)
