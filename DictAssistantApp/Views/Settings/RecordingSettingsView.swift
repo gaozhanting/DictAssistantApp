@@ -168,7 +168,7 @@ private struct DottedIndexOptionsView: View {
                 HStack {
                     Spacer()
                     Toggle(isOn: $isShowIndex, label: {
-                        Text("show number")
+                        Text("Show Index")
                     })
                         .toggleStyle(SwitchToggleStyle())
                 }

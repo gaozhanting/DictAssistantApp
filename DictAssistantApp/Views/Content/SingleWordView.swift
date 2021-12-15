@@ -264,7 +264,12 @@ private struct TheText: View {
         wordCell.word
     }
     
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     var index: String {
+        if !isShowIndex {
+            return ""
+        }
+        
         if wordCell.index == 0 {
             return ""
         } else {
