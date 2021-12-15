@@ -48,10 +48,10 @@ func trCallBackWithCache() {
         }
     }
 
-    // because we mutate primitiveWordCellCache
-    func highlightAndNumbered() {
+    // We mutate primitiveWordCellCache
+    func highlightAndNumbered() -> [(CGPoint, CGPoint)] {
         if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
-            hlBox.boxs = []
+            return []
         }
         let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }
         var boxs: [(CGPoint, CGPoint)] = []
@@ -94,17 +94,17 @@ func trCallBackWithCache() {
                 }
             }
         }
-        hlBox.boxs = boxs
+        return boxs
         //    print(">>]]>> count of highlightBounds box: \(hlBox.boxs.count)")
         //    for box in hlBox.boxs {
         ////        print(">>]]>> set highlightBounds box: \(box)")
         //    }
     }
-        
+    
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
     if trTexts.elementsEqual(trTextsCache) {
         // We run highlight even when trTexts not changed, for example: youtube pause cause subtitle texts moved although texts not changed.
-        highlightAndNumbered()
+        hlBox.boxs = highlightAndNumbered()
         return
     } else {
         trTextsCache = trTexts
@@ -115,7 +115,8 @@ func trCallBackWithCache() {
     let wordCell = processed.map { tagWord($0) }
     primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
     
-    highlightAndNumbered()
+    // mutate UI
+    hlBox.boxs = highlightAndNumbered()
     
     if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
         withAnimation {
