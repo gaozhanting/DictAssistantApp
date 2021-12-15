@@ -228,7 +228,7 @@ private struct HLRectangleView: View {
 
 struct CropperViewWithHighlight: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
-    @EnvironmentObject var hlBox: HLBoxs
+    @EnvironmentObject var hlBox: HLBox
     
     var body: some View {
         GeometryReader { geometry in
@@ -237,12 +237,12 @@ struct CropperViewWithHighlight: View {
                 
                 switch HighlightMode(rawValue: highlightMode)! {
                 case .dotted:
-                    ForEach(Array(hlBox.boxs.enumerated()), id: \.self.0) { index, box in
-                        HLDottedView(index: index + 1, box: box, geometrySize: geometry.size)
+                    ForEach(hlBox.indexedBoxes) { b in
+                        HLDottedView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .rectangle:
-                    ForEach(hlBox.boxs, id: \.self.0) { box in
-                        HLRectangleView(box: box, geometrySize: geometry.size)
+                    ForEach(hlBox.indexedBoxes) { b in
+                        HLRectangleView(box: b.box, geometrySize: geometry.size)
                     }
                 case .disabled:
                     EmptyView()
@@ -254,33 +254,36 @@ struct CropperViewWithHighlight: View {
     }
 }
 
-extension CGPoint: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(x)
-        hasher.combine(y)
-    }
-}
-
 struct CropperView_Previews: PreviewProvider {
     static var previews: some View {
         CropperViewWithHighlight()
             .frame(width: 1087, height: 282)
             .environmentObject(
-                HLBoxs(boxs: [
-                    (CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
-                     CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)),
-                    
-                    (CGPoint(x: 0.024356617647058848, y: 0.646643109540636),
-                     CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)),
-                    
-                    (CGPoint(x: 0.025735294117647058, y: 0.39399293286219084),
-                     CGPoint(x: 0.21599264705882354, y: 0.2720848056537103)),
-                    
-                    (CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
-                     CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)),
-                    
-                    (CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),
-                     CGPoint(x: 0.7936580882352942, y: 0.04770318021201414))
+                HLBox(indexedBoxes: [
+                    IndexedBox(
+                        box: (
+                            CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
+                             CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)
+                            ),
+                        index: 1),
+                    IndexedBox(
+                        box: (
+                            CGPoint(x: 0.024356617647058848, y: 0.646643109540636),
+                             CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)
+                            ),
+                        index: 2),
+                    IndexedBox(
+                        box: (
+                            CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
+                             CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)
+                            ),
+                        index: 1),
+                    IndexedBox(
+                        box: (
+                            CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),
+                             CGPoint(x: 0.7936580882352942, y: 0.04770318021201414)
+                            ),
+                        index: 3)
                 ])
             )
     }

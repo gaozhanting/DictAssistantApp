@@ -155,7 +155,7 @@ private func startPlaying() {
     statusItem.button?.image = NSImage(named: "FullIcon")
 
     displayedWords.wordCells = []
-    hlBox.boxs = []
+    hlBox.indexedBoxes = []
     trTextsCache = []
     primitiveWordCellCache = []
     
@@ -177,7 +177,7 @@ private func stopPlaying() {
     statusItem.button?.image = NSImage(named: "EmptyIcon")
 
     displayedWords.wordCells = []
-    hlBox.boxs = []
+    hlBox.indexedBoxes = []
     trTextsCache = []
     primitiveWordCellCache = []
     

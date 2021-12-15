@@ -12,7 +12,7 @@ import Vision
 // We use cache to reduce nlp work when texts is not changed.
 var trTextsCache: [String] = []
 // highlight need
-var primitiveWordCellCache: [WordCell] = []
+var primitiveWordCellCache: [WordCell2] = []
 
 // other refreshing action
 func trCallBack() {
@@ -49,58 +49,67 @@ func trCallBackWithCache() {
     }
 
     // We mutate primitiveWordCellCache
-    func retriveBoxesAndsyncIndices() -> [(CGPoint, CGPoint)] {
+    func retriveBoxesAndsyncIndices() -> [IndexedBox] {
         if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
             return []
         }
         
         let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }
         
-        var boxs: [(CGPoint, CGPoint)] = []
+        var iboxes: [IndexedBox] = []
         
-        var sentryIndex: Int = 0
-        var auxiliary: Set<String> = Set.init()
+        var sentryIndex = 0
+        var lemmaIndexDict: [String: Int] = [:] // lemma -> index
         
+        // scanning: every observation is one line of TR results, we scan them, and build lemmadIndexDict
         for observation in trResults {
             let candidate: VNRecognizedText = observation.topCandidates(1)[0]
-            let text = candidate.string
-            
-            // don't duplicate found bound box unknown word; unKnownWords may have duplicated which is Okay there, but not here. Here is one line TR result.
             for unknownWord in unKnownWords {
-                if auxiliary.contains(unknownWord) { continue }
-                let nsRange = (text as NSString).range(of: unknownWord)
-                if let range = Range(nsRange, in: text) {
+                let lemma = unknownWord.lemma
+                let token = unknownWord.token
+                let nsRange = (candidate.string as NSString).range(of: token)
+                if let range = Range(nsRange, in: candidate.string) {
                     do {
-                        let box = try candidate.boundingBox(for: range)
-                        if let box = box {
-                            boxs.append((box.topLeft, box.bottomRight))
+                        let boundingBox = try candidate.boundingBox(for: range)
+                        if let boundingBox = boundingBox {
                             
-                            if UserDefaults.standard.bool(forKey: IsShowIndexKey) {
+                            if let index = lemmaIndexDict[lemma] {
+                                iboxes.append(IndexedBox(
+                                    box: (boundingBox.topLeft, boundingBox.bottomRight),
+                                    index: index
+                                ))
+                            } else {
                                 sentryIndex += 1
-                                primitiveWordCellCache = primitiveWordCellCache.map { wc in
-                                    var wc = wc // parameter masking to allow local mutation
-                                    if wc.word == unknownWord {
-                                        wc.index = sentryIndex
-                                    }
-                                    return wc
-                                }
+                                lemmaIndexDict[lemma] = sentryIndex
+                                
+                                iboxes.append(IndexedBox(
+                                    box: (boundingBox.topLeft, boundingBox.bottomRight),
+                                    index: lemmaIndexDict[lemma]!
+                                ))
                             }
-                            
-                            auxiliary.insert(unknownWord)
                         } else {
+                            logger.info("candidate.boundingBox is nil")
                         }
                     } catch {
-                        logger.info("Failed to get candidate.boundingBox: \(error.localizedDescription)")
+                        logger.info("failed to get candidate.boundingBox: \(error.localizedDescription)")
                     }
                 }
             }
         }
         
-        return boxs
+        primitiveWordCellCache = primitiveWordCellCache.map { wc in
+            var wc = wc
+            if let index = lemmaIndexDict[wc.word.lemma] {
+                wc.index = index
+            }
+            return wc
+        }
+        
+        return iboxes
     }
     
     func refreshHighlightUI() {
-        hlBox.boxs = retriveBoxesAndsyncIndices()
+        hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
     }
     
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
@@ -114,12 +123,14 @@ func trCallBackWithCache() {
     
     // nlp takes heavy CPU, although less than TR
     let processed = nlpSample.process(trTextsCache)
-    let wordCell = processed.map { tagWord($0.lemma) }
-    primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell : wordCell.filter { !$0.word.isPhrase }
+    let wordCell2 = processed.map { tagWord($0) }
+    primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell2 : wordCell2.filter { !$0.word.lemma.isPhrase }
     
     func refreshUI() {
-        hlBox.boxs = retriveBoxesAndsyncIndices()
-        displayedWords.wordCells = primitiveWordCellCache
+        hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
+        displayedWords.wordCells = primitiveWordCellCache.map { wc2 in
+            WordCell(word: wc2.word.lemma, isKnown: wc2.isKnown, trans: wc2.trans, index: wc2.index)
+        }
     }
     
     if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
@@ -133,16 +144,23 @@ func trCallBackWithCache() {
     snapShotCallback()
 }
 
-private func tagWord(_ word: String) -> WordCell {
-    if knownSet.contains(word) || knownSet.contains(word.lowercased()) {
+struct WordCell2 {
+    let word: NLPSample.Word
+    let isKnown: IsKnown
+    let trans: String
+    var index: Int = 0
+}
+
+private func tagWord(_ word: NLPSample.Word) -> WordCell2 {
+    if knownSet.contains(word.lemma) || knownSet.contains(word.lemma.lowercased()) {
          // Here, not query trans of known words (no matter toggle show or not show known), aims to as an App optimization !
-        return WordCell(word: word, isKnown: .known, trans: "")
+        return WordCell2(word: word, isKnown: .known, trans: "")
     } else {
-        if let trans = cachedDictionaryServicesDefine(word) {
-            return WordCell(word: word, isKnown: .unKnown, trans: trans)
+        if let trans = cachedDictionaryServicesDefine(word.lemma) {
+            return WordCell2(word: word, isKnown: .unKnown, trans: trans)
         } else {
-            logger.info("   !>>>> translation not found from dicts of word: \(word, privacy: .public)")
-            return WordCell(word: word, isKnown: .unKnown, trans: "")
+//            logger.info("   !>>>> translation not found from dicts of word: \(word.lemma, privacy: .public)")
+            return WordCell2(word: word, isKnown: .unKnown, trans: "")
         }
     }
 }

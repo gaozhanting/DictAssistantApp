@@ -29,7 +29,7 @@
 		442134F326AD3C4B00963441 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134F226AD3C4B00963441 /* VisualEffectView.swift */; };
 		4422950E272CF77A0015099A /* CCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4422950D272CF77A0015099A /* CCDelegate.swift */; };
 		442A2996275259C5000B75E2 /* AppleDictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A2995275259C5000B75E2 /* AppleDictionaryService.swift */; };
-		442D6A17276510C4001ACA08 /* HLBoxs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442D6A16276510C4001ACA08 /* HLBoxs.swift */; };
+		442D6A17276510C4001ACA08 /* HLBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442D6A16276510C4001ACA08 /* HLBox.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
@@ -105,7 +105,7 @@
 		442134F226AD3C4B00963441 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		4422950D272CF77A0015099A /* CCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCDelegate.swift; sourceTree = "<group>"; };
 		442A2995275259C5000B75E2 /* AppleDictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDictionaryService.swift; sourceTree = "<group>"; };
-		442D6A16276510C4001ACA08 /* HLBoxs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLBoxs.swift; sourceTree = "<group>"; };
+		442D6A16276510C4001ACA08 /* HLBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLBox.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* Freedom English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freedom English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 			children = (
 				447D0F7E26564D96004A7173 /* StatusData.swift */,
 				44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */,
-				442D6A16276510C4001ACA08 /* HLBoxs.swift */,
+				442D6A16276510C4001ACA08 /* HLBox.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -474,7 +474,7 @@
 				4453555E270428CF007DB9C2 /* OnboardingPanel.swift in Sources */,
 				44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */,
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
-				442D6A17276510C4001ACA08 /* HLBoxs.swift in Sources */,
+				442D6A17276510C4001ACA08 /* HLBox.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
 				44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
