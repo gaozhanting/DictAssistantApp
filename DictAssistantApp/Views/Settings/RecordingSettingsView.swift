@@ -137,17 +137,17 @@ private struct RectangleOptionsView: View {
 }
 
 private struct DottedNumberOptionsView: View {
-    @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
-    @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 6.0
-    @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 7.0
-    @AppStorage(ContentNumberFontSizeKey) var contentNumberFontSize: Double = 13.0
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
+    @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
 
     var binding: Binding<Color> {
         Binding(
-            get: { Color(dataToColor(contentNumberColor)!) },
+            get: { Color(dataToColor(contentIndexColor)!) },
             set: { newValue in
-                contentNumberColor = colorToData(NSColor(newValue))!
+                contentIndexColor = colorToData(NSColor(newValue))!
             }
         )
     }
@@ -157,31 +157,31 @@ private struct DottedNumberOptionsView: View {
             VStack {
                 HStack {
                     Spacer()
-                    Toggle(isOn: $isShowNumber, label: {
+                    Toggle(isOn: $isShowIndex, label: {
                         Text("show number")
                     })
                         .toggleStyle(SwitchToggleStyle())
                 }
                 
-                if isShowNumber {
+                if isShowIndex {
                     HStack {
                         Spacer()
                         Text("X Offset:")
-                        TextField("", value: $numberXOffset, formatter: tfDecimalFormatter)
+                        TextField("", value: $indexXOffset, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
                     
                     HStack {
                         Spacer()
                         Text("Font Size:")
-                        TextField("", value: $numberFontSize, formatter: tfDecimalFormatter)
+                        TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
                     
                     HStack {
                         Spacer()
                         Text("Content Font Size:")
-                        TextField("", value: $contentNumberFontSize, formatter: tfDecimalFormatter)
+                        TextField("", value: $contentIndexFontSize, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
                     

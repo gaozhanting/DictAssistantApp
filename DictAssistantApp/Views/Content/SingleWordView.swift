@@ -249,9 +249,9 @@ private struct TheText: View {
         return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
     }
     
-    @AppStorage(ContentNumberFontSizeKey) var contentNumberFontSize: Double = 13.0
+    @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
     var numberFont: Font {
-        return Font.custom(fontName, size: CGFloat(contentNumberFontSize))
+        return Font.custom(fontName, size: CGFloat(contentIndexFontSize))
     }
     
     let wordCell: WordCell
@@ -298,12 +298,12 @@ private struct TheText: View {
         return step4
     }
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
-    @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
     var unKnownText: Text {
         !isDropTitleWord ?
         
         Text(index)
-            .foregroundColor(Color(dataToColor(contentNumberColor)!))
+            .foregroundColor(Color(dataToColor(contentIndexColor)!))
             .font(numberFont)
         +
         Text(word)

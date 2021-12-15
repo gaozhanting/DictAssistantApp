@@ -75,7 +75,7 @@ func trCallBackWithCache() {
                         if let box = box {
                             boxs.append((box.topLeft, box.bottomRight))
                             
-                            if UserDefaults.standard.bool(forKey: IsShowNumberKey) {
+                            if UserDefaults.standard.bool(forKey: IsShowIndexKey) {
                                 sentryIndex += 1
                                 primitiveWordCellCache = primitiveWordCellCache.map { wc in
                                     var wc = wc // parameter masking to allow local mutation

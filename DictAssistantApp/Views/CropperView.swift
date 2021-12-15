@@ -152,10 +152,10 @@ private struct HLDottedView: View {
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
-    @AppStorage(IsShowNumberKey) var isShowNumber: Bool = true
-    @AppStorage(ContentNumberColorKey) var contentNumberColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(NumberXOffsetKey) var numberXOffset: Double = 6.0
-    @AppStorage(NumberFontSizeKey) var numberFontSize: Double = 7.0
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
 
     var body0: some View {
         Path { path in
@@ -180,14 +180,14 @@ private struct HLDottedView: View {
     }
 
     var body: some View {
-        if isShowNumber {
+        if isShowIndex {
             body0
                 .overlay(
                     Text(String(index))
-                        .foregroundColor(Color(dataToColor(contentNumberColor)!))
-                        .font(.system(size: CGFloat(numberFontSize)))
+                        .foregroundColor(Color(dataToColor(contentIndexColor)!))
+                        .font(.system(size: CGFloat(indexFontSize)))
                         .position(
-                            x: box.1.x * geometrySize.width + CGFloat(numberXOffset),
+                            x: box.1.x * geometrySize.width + CGFloat(indexXOffset),
                             y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset))
                     ,
                     alignment: .bottomLeading
