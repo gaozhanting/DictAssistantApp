@@ -152,10 +152,6 @@ private struct HLDottedView: View {
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
-    @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
-    @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
 
     var body0: some View {
         Path { path in
@@ -178,14 +174,23 @@ private struct HLDottedView: View {
             )
         )
     }
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
 
+    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
+    var indexFont: Font {
+        Font.custom(fontName, size: CGFloat(indexFontSize))
+    }
+    
     var body: some View {
         if isShowIndex {
             body0
                 .overlay(
                     Text(String(index))
                         .foregroundColor(Color(dataToColor(contentIndexColor)!))
-                        .font(.system(size: CGFloat(indexFontSize)))
+                        .font(indexFont)
                         .position(
                             x: box.1.x * geometrySize.width + CGFloat(indexXOffset),
                             y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset))
@@ -230,7 +235,12 @@ private struct HLRectangleView: View {
     @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
     @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
+    
+    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
     @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
+    var indexFont: Font {
+        Font.custom(fontName, size: CGFloat(indexFontSizeR))
+    }
     
     var body: some View {
         if isShowIndexR {
@@ -238,7 +248,7 @@ private struct HLRectangleView: View {
                 .overlay(
                     Text(String(index))
                         .foregroundColor(Color(dataToColor(contentIndexColorR)!))
-                        .font(.system(size: CGFloat(indexFontSizeR)))
+                        .font(indexFont)
                         .position(
                             x: box.1.x * geometrySize.width - CGFloat(rectangleVerticalPadding) + CGFloat(indexXOffsetR),
                             y: (1 - box.0.y) * geometrySize.height - CGFloat(rectangleHorizontalPadding) - CGFloat(indexYOffsetR))

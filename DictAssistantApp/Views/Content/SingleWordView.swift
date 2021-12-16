@@ -290,28 +290,41 @@ private struct TheText: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = false
     @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
+    var indexFont: Font {
+        Font.custom(fontName, size: CGFloat(contentIndexFontSize))
+    }
     @AppStorage(ContentIndexFontSizeRKey) var contentIndexFontSizeR: Double = 13.0
+    var indexFontR: Font {
+        Font.custom(fontName, size: CGFloat(contentIndexFontSizeR))
+    }
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    var indexColor: Color {
+        Color(dataToColor(contentIndexColor)!)
+    }
     @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    var indexColorR: Color {
+        Color(dataToColor(contentIndexColorR)!)
+    }
+    
     var indexText: Text {
         switch HighlightMode(rawValue: highlightMode)! {
         case .dotted:
             if !isShowIndex {
-                return Text("").foregroundColor(Color(dataToColor(contentIndexColor)!)).font(.system(size: CGFloat(contentIndexFontSize)))
+                return Text("").foregroundColor(indexColor).font(indexFont)
             }
             if wordCell.index == 0 {
-                return Text("").foregroundColor(Color(dataToColor(contentIndexColor)!)).font(.system(size: CGFloat(contentIndexFontSize)))
+                return Text("").foregroundColor(indexColor).font(indexFont)
             } else {
-                return Text("\(wordCell.index) ").foregroundColor(Color(dataToColor(contentIndexColor)!)).font(.system(size: CGFloat(contentIndexFontSize)))
+                return Text("\(wordCell.index) ").foregroundColor(indexColor).font(indexFont)
             }
         case .rectangle:
             if !isShowIndexR {
-                return Text("").foregroundColor(Color(dataToColor(contentIndexColorR)!)).font(.system(size: CGFloat(contentIndexFontSizeR)))
+                return Text("").foregroundColor(indexColorR).font(indexFontR)
             }
             if wordCell.index == 0 {
-                return Text("").foregroundColor(Color(dataToColor(contentIndexColorR)!)).font(.system(size: CGFloat(contentIndexFontSizeR)))
+                return Text("").foregroundColor(indexColorR).font(indexFontR)
             } else {
-                return Text("\(wordCell.index) ").foregroundColor(Color(dataToColor(contentIndexColorR)!)).font(.system(size: CGFloat(contentIndexFontSizeR)))
+                return Text("\(wordCell.index) ").foregroundColor(indexColorR).font(indexFontR)
             }
         case .disabled:
             return Text("")
