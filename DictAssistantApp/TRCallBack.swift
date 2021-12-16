@@ -115,7 +115,8 @@ func trCallBackWithCache() {
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
     if trTexts.elementsEqual(trTextsCache) {
         // We run highlight even when trTexts not changed, for example: youtube pause cause subtitle texts moved although texts not changed.
-        refreshHighlightUI()
+        // ! Not doing this can avoid many Blink
+//        refreshHighlightUI()
         return
     } else {
         trTextsCache = trTexts
