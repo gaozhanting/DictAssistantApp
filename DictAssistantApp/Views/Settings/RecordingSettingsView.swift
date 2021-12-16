@@ -149,6 +149,7 @@ private struct RectangleOptionsView: View {
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
     @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
     @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
@@ -165,6 +166,7 @@ private struct DottedIndexOptionsView: View {
     func useDefault() {
         isShowIndex = true
         indexColor = colorToData(NSColor.labelColor)!
+        indexXBasic = IndexXBasic.trailing.rawValue
         indexXOffset = 6.0
         indexFontSize = 7.0
         contentIndexFontSize = 13.0
@@ -182,6 +184,16 @@ private struct DottedIndexOptionsView: View {
                 }
                 
                 if isShowIndex {
+                    HStack {
+                        Spacer()
+                        Picker("X Basic:", selection: $indexXBasic) {
+                            Text("leading").tag(IndexXBasic.leading.rawValue)
+                            Text("center").tag(IndexXBasic.center.rawValue)
+                            Text("trailing").tag(IndexXBasic.trailing.rawValue)
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                    }
+                    
                     HStack {
                         Spacer()
                         Text("X Offset:")

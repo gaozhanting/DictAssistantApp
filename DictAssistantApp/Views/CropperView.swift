@@ -176,7 +176,25 @@ private struct HLDottedView: View {
     }
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
+    var x: CGFloat {
+        let basicX: CGFloat = {
+            switch IndexXBasic(rawValue: indexXBasic)! {
+            case .leading:
+                return box.0.x * geometrySize.width
+            case .center:
+                return (box.0.x + 0.5 * abs(box.1.x - box.0.x)) * geometrySize.width
+            case .trailing:
+                return box.1.x * geometrySize.width
+            }
+        }()
+        return basicX + CGFloat(indexXOffset)
+    }
+    
+    var y: CGFloat {
+        (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)
+    }
 
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
     @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
@@ -191,12 +209,9 @@ private struct HLDottedView: View {
                     Text(String(index))
                         .foregroundColor(Color(dataToColor(indexColor)!))
                         .font(indexFont)
-                        .position(
-                            x: box.1.x * geometrySize.width + CGFloat(indexXOffset),
-                            y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset))
+                        .position(x: x, y: y)
                     ,
-                    alignment: .bottomLeading
-                )
+                    alignment: .bottomLeading)
         } else {
             body0
         }

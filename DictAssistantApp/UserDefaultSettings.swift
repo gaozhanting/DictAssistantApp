@@ -52,6 +52,7 @@ let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
 
 let IsShowIndexKey = "IsShowIndexKey"
 let IndexColorKey = "IndexColorKey"
+let IndexXBasicKey = "IndexXBasicKey"
 let IndexXOffsetKey = "IndexXOffsetKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
 let ContentIndexFontSizeKey = "ContentIndexFontSizeKey"
@@ -116,6 +117,12 @@ enum HighlightMode: Int, Codable {
     case dotted
     case rectangle
     case disabled
+}
+
+enum IndexXBasic: Int, Codable {
+    case leading
+    case center
+    case trailing
 }
 
 enum CropperStyle: Int, Codable {
@@ -202,6 +209,7 @@ private let defaultSlotKV: [String: Any] = [
     
     IsShowIndexKey: true,
     IndexColorKey: colorToData(NSColor.labelColor)!,
+    IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexXOffsetKey: 6.0,
     IndexFontSizeKey: 7.0,
     ContentIndexFontSizeKey: 13.0,
