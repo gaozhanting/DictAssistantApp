@@ -148,23 +148,23 @@ private struct RectangleOptionsView: View {
 
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
     @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
     @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
 
     var binding: Binding<Color> {
         Binding(
-            get: { Color(dataToColor(contentIndexColor)!) },
+            get: { Color(dataToColor(indexColor)!) },
             set: { newValue in
-                contentIndexColor = colorToData(NSColor(newValue))!
+                indexColor = colorToData(NSColor(newValue))!
             }
         )
     }
     
     func useDefault() {
         isShowIndex = true
-        contentIndexColor = colorToData(NSColor.labelColor)!
+        indexColor = colorToData(NSColor.labelColor)!
         indexXOffset = 6.0
         indexFontSize = 7.0
         contentIndexFontSize = 13.0
@@ -222,7 +222,7 @@ private struct DottedIndexOptionsView: View {
 
 private struct RectangleIndexOptionsView: View {
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
-    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
     @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
@@ -230,16 +230,16 @@ private struct RectangleIndexOptionsView: View {
 
     var binding: Binding<Color> {
         Binding(
-            get: { Color(dataToColor(contentIndexColorR)!) },
+            get: { Color(dataToColor(indexColorR)!) },
             set: { newValue in
-                contentIndexColorR = colorToData(NSColor(newValue))!
+                indexColorR = colorToData(NSColor(newValue))!
             }
         )
     }
     
     func useDefault() {
         isShowIndexR = true
-        contentIndexColorR = colorToData(NSColor.labelColor)!
+        indexColorR = colorToData(NSColor.labelColor)!
         indexXOffsetR = 6.0
         indexFontSizeR = 7.0
         contentIndexFontSizeR = 13.0

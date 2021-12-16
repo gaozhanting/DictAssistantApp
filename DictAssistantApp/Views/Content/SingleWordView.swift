@@ -297,34 +297,34 @@ private struct TheText: View {
     var indexFontR: Font {
         Font.custom(fontName, size: CGFloat(contentIndexFontSizeR))
     }
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
-    var indexColor: Color {
-        Color(dataToColor(contentIndexColor)!)
+    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
+    var iColor: Color {
+        Color(dataToColor(indexColor)!)
     }
-    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.labelColor)!
-    var indexColorR: Color {
-        Color(dataToColor(contentIndexColorR)!)
+    @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
+    var iColorR: Color {
+        Color(dataToColor(indexColorR)!)
     }
     
     var indexText: Text {
         switch HighlightMode(rawValue: highlightMode)! {
         case .dotted:
             if !isShowIndex {
-                return Text("").foregroundColor(indexColor).font(indexFont)
+                return Text("").foregroundColor(iColor).font(indexFont)
             }
             if wordCell.index == 0 {
-                return Text("").foregroundColor(indexColor).font(indexFont)
+                return Text("").foregroundColor(iColor).font(indexFont)
             } else {
-                return Text("\(wordCell.index) ").foregroundColor(indexColor).font(indexFont)
+                return Text("\(wordCell.index) ").foregroundColor(iColor).font(indexFont)
             }
         case .rectangle:
             if !isShowIndexR {
-                return Text("").foregroundColor(indexColorR).font(indexFontR)
+                return Text("").foregroundColor(iColorR).font(indexFontR)
             }
             if wordCell.index == 0 {
-                return Text("").foregroundColor(indexColorR).font(indexFontR)
+                return Text("").foregroundColor(iColorR).font(indexFontR)
             } else {
-                return Text("\(wordCell.index) ").foregroundColor(indexColorR).font(indexFontR)
+                return Text("\(wordCell.index) ").foregroundColor(iColorR).font(indexFontR)
             }
         case .disabled:
             return Text("")

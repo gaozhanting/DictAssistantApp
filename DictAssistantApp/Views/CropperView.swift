@@ -175,7 +175,7 @@ private struct HLDottedView: View {
         )
     }
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
 
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
@@ -189,7 +189,7 @@ private struct HLDottedView: View {
             body0
                 .overlay(
                     Text(String(index))
-                        .foregroundColor(Color(dataToColor(contentIndexColor)!))
+                        .foregroundColor(Color(dataToColor(indexColor)!))
                         .font(indexFont)
                         .position(
                             x: box.1.x * geometrySize.width + CGFloat(indexXOffset),
@@ -232,7 +232,7 @@ private struct HLRectangleView: View {
     }
     
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
-    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
     
@@ -247,7 +247,7 @@ private struct HLRectangleView: View {
             body0
                 .overlay(
                     Text(String(index))
-                        .foregroundColor(Color(dataToColor(contentIndexColorR)!))
+                        .foregroundColor(Color(dataToColor(indexColorR)!))
                         .font(indexFont)
                         .position(
                             x: box.1.x * geometrySize.width - CGFloat(rectangleVerticalPadding) + CGFloat(indexXOffsetR),
