@@ -23,6 +23,9 @@ struct RecordingSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Highlight Unknown:", comment: "")) {
                 HighlightView()
             }
+            Preferences.Section(title: NSLocalizedString("Highlight Scheme:", comment: "")) {
+                HighlightSchemeView()
+            }
         }
     }
 }
@@ -145,7 +148,7 @@ private struct RectangleOptionsView: View {
 
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
     @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
     @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
@@ -161,7 +164,7 @@ private struct DottedIndexOptionsView: View {
     
     func useDefault() {
         isShowIndex = true
-        contentIndexColor = colorToData(NSColor.highlightColor)!
+        contentIndexColor = colorToData(NSColor.labelColor)!
         indexXOffset = 6.0
         indexFontSize = 7.0
         contentIndexFontSize = 13.0
@@ -219,7 +222,7 @@ private struct DottedIndexOptionsView: View {
 
 private struct RectangleIndexOptionsView: View {
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
-    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
     @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
@@ -236,7 +239,7 @@ private struct RectangleIndexOptionsView: View {
     
     func useDefault() {
         isShowIndexR = true
-        contentIndexColorR = colorToData(NSColor.highlightColor)!
+        contentIndexColorR = colorToData(NSColor.labelColor)!
         indexXOffsetR = 6.0
         indexFontSizeR = 7.0
         contentIndexFontSizeR = 13.0
@@ -411,6 +414,16 @@ private struct MaximumFrameRateInfoPopoverView: View {
     var body: some View {
         Text("Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 30 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time.")
             .infoStyle()
+    }
+}
+
+private struct HighlightSchemeView: View {
+    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
+    var body: some View {
+        Toggle(isOn: $isAlwaysRefreshHighlight, label: {
+            Text("Is always refresh highlight")
+        })
+            .toggleStyle(CheckboxToggleStyle())
     }
 }
 

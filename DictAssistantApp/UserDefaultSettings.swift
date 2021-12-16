@@ -56,6 +56,8 @@ let IndexXOffsetKey = "IndexXOffsetKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
 let ContentIndexFontSizeKey = "ContentIndexFontSizeKey"
 
+let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
+
 let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
@@ -199,17 +201,19 @@ private let defaultSlotKV: [String: Any] = [
     StrokeDashUnPaintedKey: 3.0,
     
     IsShowIndexKey: true,
-    ContentIndexColorKey: colorToData(NSColor.highlightColor)!,
+    ContentIndexColorKey: colorToData(NSColor.labelColor)!,
     IndexXOffsetKey: 6.0,
     IndexFontSizeKey: 7.0,
     ContentIndexFontSizeKey: 13.0,
     
     IsShowIndexRKey: false,
-    ContentIndexColorRKey: colorToData(NSColor.highlightColor)!,
+    ContentIndexColorRKey: colorToData(NSColor.labelColor)!,
     IndexXOffsetRKey: 5.0,
     IndexYOffsetRKey: 3.0,
     IndexFontSizeRKey: 7.0,
     ContentIndexFontSizeRKey: 13.0,
+    
+    IsAlwaysRefreshHighlightKey: false,
     
     IsCloseCropperWhenNotPlayingKey: true,
     MaximumFrameRateKey: 4,

@@ -175,7 +175,7 @@ private struct HLDottedView: View {
         )
     }
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
 
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
@@ -232,7 +232,7 @@ private struct HLRectangleView: View {
     }
     
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
-    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
     

@@ -297,11 +297,11 @@ private struct TheText: View {
     var indexFontR: Font {
         Font.custom(fontName, size: CGFloat(contentIndexFontSizeR))
     }
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
     var indexColor: Color {
         Color(dataToColor(contentIndexColor)!)
     }
-    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.highlightColor)!
+    @AppStorage(ContentIndexColorRKey) var contentIndexColorR: Data = colorToData(NSColor.labelColor)!
     var indexColorR: Color {
         Color(dataToColor(contentIndexColorR)!)
     }
