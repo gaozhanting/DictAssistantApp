@@ -112,18 +112,18 @@ struct NLPSample {
     func processSingle(_ sentence: String) -> [Word] {
         let primitiveTokens = tokenize(sentence, .word)
         let primitiveSentence = primitiveTokens.joined(separator: " ")
-        logger.info("   >> primitiveSentence: \(primitiveSentence, privacy: .public)")
+        logger.info("   >>> sentence primitive: \(primitiveSentence, privacy: .public)")
 
         let words = word(primitiveSentence)
         
         // detectNames
         let primitiveNames = name(primitiveSentence)
-        logger.info("   >> names primitive: \(primitiveNames, privacy: .public)")
+        logger.info("   >>> names primitive: \(primitiveNames, privacy: .public)")
         
         let lemmaedSentence = words.map { $0.lemma }.joined(separator: " ")
-        logger.info("   >> lemmaedSentence: \(lemmaedSentence, privacy: .public)")
+        logger.info("   >>> sentence lemmaed  : \(lemmaedSentence, privacy: .public)")
         let lemmaedNames = name(lemmaedSentence)
-        logger.info("   >> names lemmaed: \(lemmaedNames, privacy: .public)")
+        logger.info("   >>> names lemmaed  : \(lemmaedNames, privacy: .public)")
         
         
         // mix (merge lemma, name, and phrase)
@@ -217,12 +217,18 @@ struct NLPSample {
         var results: [Word] = []
         for sentence in sentences {
             logger.info("   >>>> 🐱 sentence: \(sentence, privacy: .public)")
+            
             let result = processSingle(sentence)
-            logger.info("   >>>> 🐶 result: \(result, privacy: .public)")
+            
+            logger.info("   >>>> 🐶 result (token: lemma):")
+            for r in result {
+                logger.info("   >>>> \(r.token, privacy: .public): \(r.lemma, privacy: .public)")
+            }
+            
             results += result
         }
         
-        logger.info("   >>>> NLP process results    : \(results, privacy: .public)")
+//        logger.info("   >>>> NLP process results    : \(results, privacy: .public)")
         return results
     }
 }
