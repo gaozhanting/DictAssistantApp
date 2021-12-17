@@ -12,8 +12,8 @@ extension Preferences.PaneIdentifier {
     static let general = Self("general")
     static let nlp = Self("nlp")
     static let dictionary = Self("dictionary")
-    static let appearance = Self("appearance")
     static let transcript = Self("transcript")
+    static let appearance = Self("appearance")
     static let slots = Self("slots") // -- above are universal options, slot, below are scenario options
     static let recording = Self("recording")
     static let vision = Self("vision")
@@ -57,18 +57,6 @@ func DictionaryPreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func AppearancePreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .appearance,
-        title: NSLocalizedString("Appearance", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
-    ) {
-        AppearanceSettingsView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
 func TranscriptePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .transcript,
@@ -76,6 +64,18 @@ func TranscriptePreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "rectangle.and.pencil.and.ellipsis", accessibilityDescription: "Transcript preferences")!
     ) {
         TranscriptSettingsView()
+    }
+
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func AppearancePreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .appearance,
+        title: NSLocalizedString("Appearance", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
+    ) {
+        AppearanceSettingsView()
     }
 
     return Preferences.PaneHostingController(pane: paneView)

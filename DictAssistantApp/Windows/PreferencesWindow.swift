@@ -13,8 +13,8 @@ var preferencesWindowController = PreferencesWindowController(
         GeneralPreferenceViewController(),
         NLPPreferenceViewController(),
         DictionaryPreferenceViewController(),
-        AppearancePreferenceViewController(),
         TranscriptePreferenceViewController(),
+        AppearancePreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
         RecordingPreferenceViewController(),
         VisionPreferenceViewController(),
@@ -42,8 +42,8 @@ func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
     preferencesWindowController.show(preferencePane: .vision)
     preferencesWindowController.show(preferencePane: .recording)
     preferencesWindowController.show(preferencePane: .slots)
-    preferencesWindowController.show(preferencePane: .transcript)
     preferencesWindowController.show(preferencePane: .appearance)
+    preferencesWindowController.show(preferencePane: .transcript)
     preferencesWindowController.show(preferencePane: .dictionary)
     preferencesWindowController.show(preferencePane: .nlp)
     preferencesWindowController.show(preferencePane: .general)
