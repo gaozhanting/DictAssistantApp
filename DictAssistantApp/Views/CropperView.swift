@@ -142,7 +142,6 @@ private struct HLDottedView: View {
     let geometrySize: CGSize
     
     @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
-    
     var hlColor: Color {
         Color(dataToColor(hlDottedColor)!)
     }
@@ -151,15 +150,13 @@ private struct HLDottedView: View {
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
-    
-
     var body0: some View {
         Path { path in
             path.move(to: CGPoint(
-                x: box.1.x * geometrySize.width,
+                x: box.0.x * geometrySize.width,
                 y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)))
             path.addLine(to: CGPoint(
-                x: box.0.x * geometrySize.width,
+                x: box.1.x * geometrySize.width,
                 y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)))
         }
         .stroke(
@@ -174,6 +171,7 @@ private struct HLDottedView: View {
             )
         )
     }
+    
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
@@ -191,7 +189,6 @@ private struct HLDottedView: View {
         }()
         return basicX + CGFloat(indexXOffset)
     }
-    
     var y: CGFloat {
         (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)
     }
@@ -204,14 +201,26 @@ private struct HLDottedView: View {
     
     var body: some View {
         if isShowIndex {
-            body0
-                .overlay(
-                    Text(String(index))
-                        .foregroundColor(Color(dataToColor(indexColor)!))
-                        .font(indexFont)
-                        .position(x: x, y: y)
-                    ,
-                    alignment: .bottomLeading)
+            ZStack {
+                body0
+                
+                Text(String(index))
+                    .font(indexFont)
+                    .foregroundColor(Color(dataToColor(indexColor)!))
+                    .padding(2)
+                    .background(Color.white)
+                    .clipShape(Circle())
+//                    .shadow(radius: 1)
+                    .position(x: x, y: y)
+            }
+//            body0
+//                .overlay(
+//                    Text(String(index))
+//                        .foregroundColor(Color(dataToColor(indexColor)!))
+//                        .font(indexFont)
+//                        .position(x: x, y: y)
+//                    ,
+//                    alignment: .bottomLeading)
         } else {
             body0
         }
