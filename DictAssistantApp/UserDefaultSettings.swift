@@ -67,7 +67,6 @@ let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 
 // English
-let TitleWordKey = "TitleWordKey"
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let IsShowPhrasesKey = "IsShowPhrasesKey"
 let UseAppleDictModeKey = "UseAppleDictModeKey"
@@ -231,7 +230,6 @@ private let defaultSlotKV: [String: Any] = [
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     
     // English
-    TitleWordKey: TitleWord.lemma.rawValue,
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     IsShowPhrasesKey: false,
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
@@ -326,10 +324,6 @@ extension UserDefaults {
     }
     
     // English
-    @objc var TitleWordKey: Int {
-        get { return integer(forKey: "TitleWordKey") }
-        set { set(newValue, forKey: "TitleWordKey") }
-    }
     @objc var LemmaSearchLevelKey: Int {
         get { return integer(forKey: "LemmaSearchLevelKey") }
         set { set(newValue, forKey: "LemmaSearchLevelKey") }
@@ -531,14 +525,6 @@ func combineFPS() {
 // English settings combine trCallBack and more
 func combineEnglishSettings() {
     UserDefaults.standard
-        .publisher(for: \.TitleWordKey)
-        .handleEvents(receiveOutput: { _ in
-            trCallBack()
-        })
-        .sink { _ in }
-        .store(in: &subscriptions)
-    
-    UserDefaults.standard
         .publisher(for: \.LemmaSearchLevelKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
@@ -582,7 +568,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
     
     // English
-    combineSlot(\.TitleWordKey, \.titleWord, TitleWordKey)
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
     combineSlot(\.UseAppleDictModeKey, \.useAppleDictMode, UseAppleDictModeKey)

@@ -114,10 +114,6 @@
 "Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 30 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time." = "設置屏幕錄製的時候的最大幀率，默認值為4fps，適用於大部分場景。此值越大，App響應屏幕的變化也越迅捷，但是會增加CPU消耗。4到30都可以。\n註意，如果您需要同時開啟精確模式識別，您需要設置此值為一個小點的數值，比如4。因為如果您設為一個很大的值，App很可能會卡頓不流暢，App只是沒法在如此短的時間執行如此超量的任務。";
 
 "English" = "英語";
-"Title Word:" = "標題單詞：";
-"primitive" = "原詞";
-"lemma" = "原型";
-"When choose primitive, you take the risk that it may not in your known list although the lemma is." = "當選擇原詞，您需註意您的已知詞匯列表之中很可能只有原型而沒有原詞的情況。";
 "Lemma Search Level:" = "原型查找等級：";
 "apple" = "蘋果";
 "database" = "數據庫";

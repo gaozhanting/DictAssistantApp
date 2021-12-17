@@ -41,7 +41,6 @@ struct Settings: Codable {
     var tRMinimumTextHeight: Double
     
     // English
-    var titleWord: Int
     var lemmaSearchLevel: Int
     var isShowPhrases: Bool
     var useAppleDictMode: Int
@@ -96,7 +95,6 @@ struct Settings: Codable {
         maximumFrameRate: Double,
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
-        titleWord: Int,
         lemmaSearchLevel: Int,
         isShowPhrases: Bool,
         useAppleDictMode: Int,
@@ -138,7 +136,6 @@ struct Settings: Codable {
         self.maximumFrameRate = maximumFrameRate
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
-        self.titleWord = titleWord
         self.lemmaSearchLevel = lemmaSearchLevel
         self.isShowPhrases = isShowPhrases
         self.useAppleDictMode = useAppleDictMode
@@ -195,7 +192,6 @@ private let defaultSettings = Settings(
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     
-    titleWord: TitleWord.lemma.rawValue,
     lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
     isShowPhrases: false,
     useAppleDictMode: UseAppleDictMode.afterBuiltIn.rawValue,
@@ -331,7 +327,6 @@ private struct SlotsView: View {
         maximumFrameRate = s.maximumFrameRate
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
-        titleWord = s.titleWord
         lemmaSearchLevel = s.lemmaSearchLevel
         isShowPhrases = s.isShowPhrases
         useAppleDictMode = s.useAppleDictMode
@@ -374,7 +369,6 @@ private struct SlotsView: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = false
     @AppStorage(UseAppleDictModeKey) var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue

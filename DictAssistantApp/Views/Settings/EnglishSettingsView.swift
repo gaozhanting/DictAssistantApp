@@ -12,9 +12,6 @@ import CoreML
 struct EnglishSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Title Word:", comment: "")) {
-                TitleWordPicker()
-            }
             Preferences.Section(title: NSLocalizedString("Lemma Search Level:", comment: "")) {
                 LemmaSearchLevelPicker()
             }
@@ -28,33 +25,6 @@ struct EnglishSettingsView: View {
                 UseEntryModePicker()
             }
         }
-    }
-}
-
-private struct TitleWordPicker: View {
-    @AppStorage(TitleWordKey) private var titleWord: Int = TitleWord.lemma.rawValue
-    
-    var body: some View {
-        HStack {
-            Picker("", selection: $titleWord) {
-                Text("lemma").tag(TitleWord.lemma.rawValue)
-                Text("primitive").tag(TitleWord.primitive.rawValue)
-            }
-            .labelsHidden()
-            .pickerStyle(MenuPickerStyle())
-            .frame(width: 150)
-            
-            MiniInfoView {
-                TitleWordInfoView()
-            }
-        }
-    }
-}
-
-private struct TitleWordInfoView: View {
-    var body: some View {
-        Text("When choose primitive, you take the risk that it may not in your known list although the lemma is.")
-            .infoStyle()
     }
 }
 
@@ -162,7 +132,6 @@ struct DictSettingsView_Previews: PreviewProvider {
         Group {
             EnglishSettingsView()
             
-            TitleWordInfoView()
             LemmaSearchLevelInfoView()
             UseAppleDictModeInfoView()
             UseEntryModeInfoView()
