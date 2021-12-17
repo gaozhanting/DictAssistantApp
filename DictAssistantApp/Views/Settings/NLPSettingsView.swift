@@ -50,10 +50,10 @@ private struct LemmaSearchLevelInfoView: View {
 }
 
 private struct ShowPhrasesToggle: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = false
+    @AppStorage(DoPhraseRecognitionKey) private var doPhraseRecognition: Bool = false
     
     var body: some View {
-        Toggle(isOn: $isShowPhrase, label: {
+        Toggle(isOn: $doPhraseRecognition, label: {
             Text("Show Phrases")
         })
             .toggleStyle(CheckboxToggleStyle())

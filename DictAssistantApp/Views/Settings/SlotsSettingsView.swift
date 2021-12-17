@@ -42,7 +42,7 @@ struct Settings: Codable {
     
     // English
     var lemmaSearchLevel: Int
-    var isShowPhrases: Bool
+    var doPhraseRecognition: Bool
     var useAppleDictMode: Int
     var useEntryMode: Int
     
@@ -96,7 +96,7 @@ struct Settings: Codable {
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
         lemmaSearchLevel: Int,
-        isShowPhrases: Bool,
+        doPhraseRecognition: Bool,
         useAppleDictMode: Int,
         useEntryMode: Int,
         isDropTitleWord: Bool,
@@ -137,7 +137,7 @@ struct Settings: Codable {
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
         self.lemmaSearchLevel = lemmaSearchLevel
-        self.isShowPhrases = isShowPhrases
+        self.doPhraseRecognition = doPhraseRecognition
         self.useAppleDictMode = useAppleDictMode
         self.useEntryMode = useEntryMode
         self.isDropTitleWord = isDropTitleWord
@@ -193,7 +193,7 @@ private let defaultSettings = Settings(
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     
     lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
-    isShowPhrases: false,
+    doPhraseRecognition: false,
     useAppleDictMode: UseAppleDictMode.afterBuiltIn.rawValue,
     useEntryMode: UseEntryMode.asFirstPriority.rawValue,
     
@@ -328,7 +328,7 @@ private struct SlotsView: View {
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
         lemmaSearchLevel = s.lemmaSearchLevel
-        isShowPhrases = s.isShowPhrases
+        doPhraseRecognition = s.doPhraseRecognition
         useAppleDictMode = s.useAppleDictMode
         useEntryMode = s.useEntryMode
         isDropTitleWord = s.isDropTitleWord
@@ -370,7 +370,7 @@ private struct SlotsView: View {
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
-    @AppStorage(IsShowPhrasesKey) var isShowPhrases: Bool = false
+    @AppStorage(DoPhraseRecognitionKey) var doPhraseRecognition: Bool = false
     @AppStorage(UseAppleDictModeKey) var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false

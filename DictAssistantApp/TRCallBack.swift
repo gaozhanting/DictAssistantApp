@@ -128,7 +128,7 @@ func trCallBackWithCache() {
     // nlp takes heavy CPU, although less than TR
     let processed = nlpSample.process(trTextsCache)
     let wordCell2 = processed.map { tagWord($0) }
-    primitiveWordCellCache = UserDefaults.standard.bool(forKey: IsShowPhrasesKey) ? wordCell2 : wordCell2.filter { !$0.word.lemma.isPhrase }
+    primitiveWordCellCache = UserDefaults.standard.bool(forKey: DoPhraseRecognitionKey) ? wordCell2 : wordCell2.filter { !$0.word.lemma.isPhrase }
     
     func refreshUI() {
         hlBox.indexedBoxes = retriveBoxesAndsyncIndices()

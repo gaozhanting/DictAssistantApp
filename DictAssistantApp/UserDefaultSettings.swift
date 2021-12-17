@@ -66,9 +66,11 @@ let MaximumFrameRateKey = "MaximumFrameRateKey"
 let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
 let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 
-// English
+// NLP
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
-let IsShowPhrasesKey = "IsShowPhrasesKey"
+let DoPhraseRecognitionKey = "DoPhraseRecognitionKey"
+
+// Dictionary
 let UseAppleDictModeKey = "UseAppleDictModeKey"
 let UseEntryModeKey = "UseEntryModeKey"
 
@@ -231,7 +233,7 @@ private let defaultSlotKV: [String: Any] = [
     
     // English
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
-    IsShowPhrasesKey: false,
+    DoPhraseRecognitionKey: false,
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
@@ -328,9 +330,9 @@ extension UserDefaults {
         get { return integer(forKey: "LemmaSearchLevelKey") }
         set { set(newValue, forKey: "LemmaSearchLevelKey") }
     }
-    @objc var IsShowPhrasesKey: Bool {
-        get { return bool(forKey: "IsShowPhrasesKey") }
-        set { set(newValue, forKey: "IsShowPhrasesKey") }
+    @objc var DoPhraseRecognitionKey: Bool {
+        get { return bool(forKey: "DoPhraseRecognitionKey") }
+        set { set(newValue, forKey: "DoPhraseRecognitionKey") }
     }
     @objc var UseAppleDictModeKey: Int {
         get { return integer(forKey: "UseAppleDictModeKey") }
@@ -533,7 +535,7 @@ func combineEnglishSettings() {
         .store(in: &subscriptions)
     
     UserDefaults.standard
-        .publisher(for: \.IsShowPhrasesKey)
+        .publisher(for: \.DoPhraseRecognitionKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })
@@ -569,7 +571,7 @@ func autoSaveSlotSettings() {
     
     // English
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
-    combineSlot(\.IsShowPhrasesKey, \.isShowPhrases, IsShowPhrasesKey)
+    combineSlot(\.DoPhraseRecognitionKey, \.doPhraseRecognition, DoPhraseRecognitionKey)
     combineSlot(\.UseAppleDictModeKey, \.useAppleDictMode, UseAppleDictModeKey)
     combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
     
