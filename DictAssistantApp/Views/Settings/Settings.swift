@@ -60,7 +60,7 @@ func DictionaryPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .dictionary,
         title: NSLocalizedString("Dictionary", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "textformat.abc", accessibilityDescription: "Dictionary preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Dictionary preferences")!
     ) {
         DictionarySettingsView()
     }
