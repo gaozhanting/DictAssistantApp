@@ -11,13 +11,13 @@ import Preferences
 var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
         GeneralPreferenceViewController(),
-        RecordingPreferenceViewController(),
-        VisionPreferenceViewController(),
         NLPPreferenceViewController(),
         DictionaryPreferenceViewController(),
-        ContentPreferenceViewController(),
         AppearancePreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
+        RecordingPreferenceViewController(),
+        VisionPreferenceViewController(),
+        ContentPreferenceViewController(),
     ],
     style: .toolbarItems,
     animated: true,
@@ -35,13 +35,13 @@ func showPreferencesPanel() {
 }
 
 func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
-    preferencesWindowController.show(preferencePane: .slots)
-    preferencesWindowController.show(preferencePane: .appearance)
     preferencesWindowController.show(preferencePane: .content)
-    preferencesWindowController.show(preferencePane: .dictionary)
-    preferencesWindowController.show(preferencePane: .nlp)
     preferencesWindowController.show(preferencePane: .vision)
     preferencesWindowController.show(preferencePane: .recording)
+    preferencesWindowController.show(preferencePane: .slots)
+    preferencesWindowController.show(preferencePane: .appearance)
+    preferencesWindowController.show(preferencePane: .dictionary)
+    preferencesWindowController.show(preferencePane: .nlp)
     preferencesWindowController.show(preferencePane: .general)
     preferencesWindowController.close()
 }

@@ -67,10 +67,6 @@ struct Settings: Codable {
     var lineSpacing: Double
     var fontRate: Double
     
-    var isShowWindowShadow: Bool
-    var isWithAnimation: Bool
-    var isContentRetention: Bool
-    
     // two frames settings for a slot
     var cropperFrame: NSRect
     var contentFrame: NSRect
@@ -99,9 +95,6 @@ struct Settings: Codable {
         fontSize: Double,
         lineSpacing: Double,
         fontRate: Double,
-        isShowWindowShadow: Bool,
-        isWithAnimation: Bool,
-        isContentRetention: Bool,
         cropperFrame: NSRect,
         contentFrame: NSRect
     ) {
@@ -128,9 +121,6 @@ struct Settings: Codable {
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
         self.fontRate = fontRate
-        self.isShowWindowShadow = isShowWindowShadow
-        self.isWithAnimation = isWithAnimation
-        self.isContentRetention = isContentRetention
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
     }
@@ -175,10 +165,6 @@ private let defaultSettings = Settings(
     fontSize: 14.0,
     lineSpacing: 0.0,
     fontRate: 0.9,
-    
-    isShowWindowShadow: true,
-    isWithAnimation: true,
-    isContentRetention: false,
     
     cropperFrame: defaultCropperFrame,
     contentFrame: defaultContentFrame
@@ -291,9 +277,6 @@ private struct SlotsView: View {
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
         fontRate = s.fontRate
-        isShowWindowShadow = s.isShowWindowShadow
-        isWithAnimation = s.isWithAnimation
-        isContentRetention = s.isContentRetention
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
     }
@@ -321,9 +304,6 @@ private struct SlotsView: View {
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
     @AppStorage(FontRateKey) var fontRate: Double = 0.9
-    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
-    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
-    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
 }
 
 extension CGFloat {

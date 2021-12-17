@@ -11,6 +11,9 @@ import Preferences
 struct ContentSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
+            Preferences.Section(title: NSLocalizedString("Content Style:", comment: "")) {
+                ContentStyleSettingView()
+            }
             Preferences.Section(title: NSLocalizedString("Content Display:", comment: "")) {
                 DropTitleWordToggle()
                 Divider().frame(width: 150)
@@ -28,6 +31,146 @@ struct ContentSettingsView: View {
                 InfoView()
             },
             alignment: .bottomTrailing)
+    }
+}
+
+private struct ContentStyleSettingView: View {
+    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+
+    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    
+    @State private var isShowTextField: Bool = false
+    
+    var binding: Binding<Bool> {
+        Binding(
+            get: { isShowTextField },
+            set: { newValue in
+                withAnimation {
+                    isShowTextField = newValue
+                }
+            }
+        )
+    }
+    
+    // if not fold, this will effect the fontPanel which make change fontSize impossible, a weird issue.
+    func fold() {
+        isShowTextField = false
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Picker("", selection: $contentStyle) {
+                    Text("portrait").tag(ContentStyle.portrait.rawValue)
+                    Text("landscape").tag(ContentStyle.landscape.rawValue)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .labelsHidden()
+                .frame(width: 160)
+                
+                switch ContentStyle(rawValue: contentStyle)! {
+                case .portrait:
+                    Picker("from corner:", selection: $portraitCorner) {
+                        Text("topTrailing").tag(PortraitCorner.topTrailing.rawValue)
+                        Text("topLeading").tag(PortraitCorner.topLeading.rawValue)
+                        Text("bottomLeading").tag(PortraitCorner.bottomLeading.rawValue)
+                        Text("top").tag(PortraitCorner.top.rawValue)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 200)
+                case .landscape:
+                    Picker("style:", selection: $landscapeStyle) {
+                        Text("normal").tag(LandscapeStyle.normal.rawValue)
+                        Text("auto scrolling").tag(LandscapeStyle.autoScrolling.rawValue)
+                        Text("centered").tag(LandscapeStyle.centered.rawValue)
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .frame(width: 200)
+                }
+            }
+            
+            HStack {
+                Toggle(isOn: binding, label: {
+                    Text("More...")
+                })
+                .toggleStyle(SwitchToggleStyle())
+                
+                Spacer()
+                
+                if isShowTextField {
+                    switch ContentStyle(rawValue: contentStyle)! {
+                    case .portrait:
+                        Text("max height for one word:")
+                        PortraitMaxHeightTextField(fold: fold)
+                            .frame(width: 46)
+                    case .landscape:
+                        Text("max width for one word:")
+                        LandscapeMaxWidthTextField(fold: fold)
+                            .frame(width: 46)
+                    }
+                }
+            }
+            .frame(width: 370)
+        }
+    }
+}
+
+private struct PortraitMaxHeightTextField: View {
+    let fold: () -> Void
+    
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+    
+    @State var showingAlert: Bool = false
+
+    var binding: Binding<String> {
+        Binding(
+            get: { String(portraitMaxHeight) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                portraitMaxHeight = newValue
+            }
+        )
+    }
+    
+    var body: some View {
+        TextField("", text: binding, onCommit: fold)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
+            }
+    }
+}
+
+private struct LandscapeMaxWidthTextField: View {
+    let fold: () -> Void
+    
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+    
+    @State var showingAlert: Bool = false
+    
+    var binding: Binding<String> {
+        Binding(
+            get: { String(landscapeMaxWidth) },
+            set: { newValue in
+                guard let newValue = Double(newValue) else {
+                    showingAlert = true
+                    return
+                }
+                
+                landscapeMaxWidth = newValue
+            }
+        )
+    }
+    
+    var body: some View {
+        TextField("", text: binding, onCommit: fold)
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
+            }
     }
 }
 

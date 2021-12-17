@@ -259,10 +259,6 @@ private let scenarioKV: [String: Any] = [
     FontSizeKey: 14.0,
     LineSpacingKey: 0.0,
     FontRateKey: 0.9,
-    
-    IsShowWindowShadowKey: true,
-    IsWithAnimationKey: true,
-    IsContentRetentionKey: false,
 ]
 
 // all defaults
@@ -290,6 +286,10 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
+    
+    IsShowWindowShadowKey: true,
+    IsWithAnimationKey: true,
+    IsContentRetentionKey: false,
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {
@@ -417,14 +417,6 @@ extension UserDefaults {
     @objc var IsShowWindowShadowKey: Bool {
         get { return bool(forKey: "IsShowWindowShadowKey") }
         set { set(newValue, forKey: "IsShowWindowShadowKey") }
-    }
-    @objc var IsWithAnimationKey: Bool {
-        get { return bool(forKey: "IsWithAnimationKey") }
-        set { set(newValue, forKey: "IsWithAnimationKey") }
-    }
-    @objc var IsContentRetentionKey: Bool {
-        get { return bool(forKey: "IsContentRetentionKey") }
-        set { set(newValue, forKey: "IsContentRetentionKey") }
     }
 }
 
@@ -564,10 +556,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
     combineSlot(\.FontRateKey, \.fontRate, FontRateKey)
-    
-    combineSlot(\.IsContentRetentionKey, \.isContentRetention, IsContentRetentionKey)
-    combineSlot(\.IsShowWindowShadowKey, \.isShowWindowShadow, IsShowWindowShadowKey)
-    combineSlot(\.IsWithAnimationKey, \.isWithAnimation, IsWithAnimationKey)
 }
 
 private func combineSlot<T>(

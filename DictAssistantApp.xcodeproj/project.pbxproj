@@ -182,13 +182,13 @@
 			children = (
 				442134CD26A6C64200963441 /* Settings.swift */,
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
+				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
 				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
 				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
 				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
-				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
