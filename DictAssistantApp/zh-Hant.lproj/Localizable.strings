@@ -135,7 +135,6 @@
 
 "Content" = "內容";
 "Content Display:" = "內容顯示：";
-"Select it when you want display all phrase words." = "勾選它，如果您想同時顯示所有的短語";
 "Drop title word" = "不顯示標題單詞";
 "Select it when you don't want to show the title word. Some dictionary make the title word not the first word in translation, but behind, for example: スーパー大辭林 / Super Daijirin Japanese Dictionary. And in some dictionary, title word in translation is broken up into syllables, this case, you could select this while deselect Drop first word in translation, that will be better." = "勾選它，當你不想顯示標題單詞時。有些詞典的詞條中，標題單詞不是第一個單詞，而在後面，比如：スーパー大辭林 / Super Daijirin Japanese Dictionary. 還有些詞典的詞條中，標題單詞被音節拆分顯示，這種情況，您會勾選這個選項，同時勾選丟棄詞條的第一個單詞，這樣會得到更好的整體顯示效果。";
 "Add line break ahead of translation" = "在單詞譯文前加上換行符";

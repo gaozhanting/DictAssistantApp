@@ -117,14 +117,17 @@ struct NLPSample {
         let words = word(primitiveSentence)
         
         // detectNames
-        let primitiveNames = name(primitiveSentence)
-        logger.info("   >>> names primitive: \(primitiveNames, privacy: .public)")
-        
-        let lemmaedSentence = words.map { $0.lemma }.joined(separator: " ")
-        logger.info("   >>> sentence lemmaed  : \(lemmaedSentence, privacy: .public)")
-        let lemmaedNames = name(lemmaedSentence)
-        logger.info("   >>> names lemmaed  : \(lemmaedNames, privacy: .public)")
-        
+        var primitiveNames: [Int: String] = [:]
+        var lemmaedNames: [Int: String] = [:]
+        if UserDefaults.standard.bool(forKey: DoNameRecognitionKey) {
+            primitiveNames = name(primitiveSentence)
+            logger.info("   >>> names primitive: \(primitiveNames, privacy: .public)")
+            
+            let lemmaedSentence = words.map { $0.lemma }.joined(separator: " ")
+            logger.info("   >>> sentence lemmaed  : \(lemmaedSentence, privacy: .public)")
+            lemmaedNames = name(lemmaedSentence)
+            logger.info("   >>> names lemmaed  : \(lemmaedNames, privacy: .public)")
+        }
         
         // mix (merge lemma, name, and phrase)
         // scanning
@@ -134,16 +137,18 @@ struct NLPSample {
                
             // appendNames
             // add the indexed primitiveName or lemmaedName, only one added, primitiveName first
-            if let primitiveName = primitiveNames[index] {
-                if primitiveName.caseInsensitiveCompare(word.lemma) != .orderedSame {
-                    result.append(Word(token: primitiveName, lemma: primitiveName))
-                    logger.info("   >>> append name primitive: \(primitiveName, privacy: .public)")
-                }
-            } else {
-                if let lemmaedName = lemmaedNames[index] {
-                    if lemmaedName.caseInsensitiveCompare(word.lemma) != .orderedSame {
-                        result.append(Word(token: lemmaedName, lemma: lemmaedName)) // need code
-                        logger.info("   >>> append name lemmaed: \(lemmaedName, privacy: .public)")
+            if UserDefaults.standard.bool(forKey: DoNameRecognitionKey) {
+                if let primitiveName = primitiveNames[index] {
+                    if primitiveName.caseInsensitiveCompare(word.lemma) != .orderedSame {
+                        result.append(Word(token: primitiveName, lemma: primitiveName))
+                        logger.info("   >>> append name primitive: \(primitiveName, privacy: .public)")
+                    }
+                } else {
+                    if let lemmaedName = lemmaedNames[index] {
+                        if lemmaedName.caseInsensitiveCompare(word.lemma) != .orderedSame {
+                            result.append(Word(token: lemmaedName, lemma: lemmaedName)) // need code
+                            logger.info("   >>> append name lemmaed: \(lemmaedName, privacy: .public)")
+                        }
                     }
                 }
             }
@@ -192,7 +197,10 @@ struct NLPSample {
                     detectAndAppendPhrase(tPhrase, lPhrase, thPhrase, lhPhrase)
                 }
             }
-            scanPhrases()
+            
+            if UserDefaults.standard.bool(forKey: DoPhraseRecognitionKey) {
+                scanPhrases()
+            }
         }
         return result
     }

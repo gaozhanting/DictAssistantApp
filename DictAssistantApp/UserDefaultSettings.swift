@@ -68,6 +68,7 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 
 // NLP
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
+let DoNameRecognitionKey = "DoNameRecognitionKey"
 let DoPhraseRecognitionKey = "DoPhraseRecognitionKey"
 
 // Dictionary
@@ -233,6 +234,7 @@ private let defaultSlotKV: [String: Any] = [
     
     // NLP
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
+    DoNameRecognitionKey: false,
     DoPhraseRecognitionKey: false,
     
     // Dictionary
@@ -331,6 +333,10 @@ extension UserDefaults {
     @objc var LemmaSearchLevelKey: Int {
         get { return integer(forKey: "LemmaSearchLevelKey") }
         set { set(newValue, forKey: "LemmaSearchLevelKey") }
+    }
+    @objc var DoNameRecognitionKey: Bool {
+        get { return bool(forKey: "DoNameRecognitionKey") }
+        set { set(newValue, forKey: "DoNameRecognitionKey") }
     }
     @objc var DoPhraseRecognitionKey: Bool {
         get { return bool(forKey: "DoPhraseRecognitionKey") }
@@ -532,6 +538,14 @@ func combineFPS() {
 func combineNLPSettings() {
     UserDefaults.standard
         .publisher(for: \.LemmaSearchLevelKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+        
+    UserDefaults.standard
+        .publisher(for: \.DoNameRecognitionKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })

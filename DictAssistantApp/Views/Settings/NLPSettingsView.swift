@@ -14,8 +14,9 @@ struct NLPSettingsView: View {
             Preferences.Section(title: NSLocalizedString("Lemma Search Level:", comment: "")) {
                 LemmaSearchLevelPicker()
             }
-            Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
-                ShowPhrasesToggle()
+            Preferences.Section(title: NSLocalizedString("More Recognitions:", comment: "")) {
+                DoNameRecognitionToggle()
+                DoPhraseRecognitionToggle()
             }
         }
     }
@@ -49,23 +50,29 @@ private struct LemmaSearchLevelInfoView: View {
     }
 }
 
-private struct ShowPhrasesToggle: View {
+private struct DoNameRecognitionToggle: View {
+    @AppStorage(DoNameRecognitionKey) var doNameRecognition: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $doNameRecognition, label: {
+            Text("Do Name Recognition")
+        })
+    }
+}
+
+private struct DoPhraseRecognitionToggle: View {
     @AppStorage(DoPhraseRecognitionKey) private var doPhraseRecognition: Bool = false
     
     var body: some View {
         Toggle(isOn: $doPhraseRecognition, label: {
-            Text("Show Phrases")
+            Text("Do Phrase Reccognition")
         })
             .toggleStyle(CheckboxToggleStyle())
-            .help("Select it when you want display all phrase words.")
     }
 }
 
 struct NLPSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            NLPSettingsView()
-            LemmaSearchLevelInfoView()
-        }
+        NLPSettingsView()
     }
 }
