@@ -40,9 +40,11 @@ struct Settings: Codable {
     var tRTextRecognitionLevel: Int
     var tRMinimumTextHeight: Double
     
-    // English
+    // NLP
     var lemmaSearchLevel: Int
     var doPhraseRecognition: Bool
+    
+    // Dictionary
     var useAppleDictMode: Int
     var useEntryMode: Int
     

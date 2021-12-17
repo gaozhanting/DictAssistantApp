@@ -231,9 +231,11 @@ private let defaultSlotKV: [String: Any] = [
     TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     
-    // English
+    // NLP
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     DoPhraseRecognitionKey: false,
+    
+    // Dictionary
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
@@ -325,7 +327,7 @@ extension UserDefaults {
         set { set(newValue, forKey: "TRMinimumTextHeightKey") }
     }
     
-    // English
+    // NLP
     @objc var LemmaSearchLevelKey: Int {
         get { return integer(forKey: "LemmaSearchLevelKey") }
         set { set(newValue, forKey: "LemmaSearchLevelKey") }
@@ -334,6 +336,8 @@ extension UserDefaults {
         get { return bool(forKey: "DoPhraseRecognitionKey") }
         set { set(newValue, forKey: "DoPhraseRecognitionKey") }
     }
+    
+    // Dictionary
     @objc var UseAppleDictModeKey: Int {
         get { return integer(forKey: "UseAppleDictModeKey") }
         set { set(newValue, forKey: "UseAppleDictModeKey") }
@@ -524,8 +528,8 @@ func combineFPS() {
         .store(in: &subscriptions)
 }
     
-// English settings combine trCallBack and more
-func combineEnglishSettings() {
+// NLP settings combine trCallBack
+func combineNLPSettings() {
     UserDefaults.standard
         .publisher(for: \.LemmaSearchLevelKey)
         .handleEvents(receiveOutput: { _ in
@@ -541,7 +545,10 @@ func combineEnglishSettings() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
-    
+}
+
+// Dictionary settings combine trCallBack and more
+func combineDictionarySettings() {
     UserDefaults.standard
         .publisher(for: \.UseAppleDictModeKey)
         .handleEvents(receiveOutput: { _ in
@@ -569,9 +576,11 @@ func autoSaveSlotSettings() {
     combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
     combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
     
-    // English
+    // NLP
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     combineSlot(\.DoPhraseRecognitionKey, \.doPhraseRecognition, DoPhraseRecognitionKey)
+    
+    // Dictionary
     combineSlot(\.UseAppleDictModeKey, \.useAppleDictMode, UseAppleDictModeKey)
     combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
     
