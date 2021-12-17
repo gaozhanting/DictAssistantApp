@@ -12,6 +12,7 @@ extension Preferences.PaneIdentifier {
     static let general = Self("general")
     static let recording = Self("recording")
     static let vision = Self("vision")
+    static let nlp = Self("nlp")
     static let dictionary = Self("dictionary")
     static let content = Self("content")
     static let appearance = Self("appearance")
@@ -53,6 +54,18 @@ func VisionPreferenceViewController() -> PreferencePane {
         VisionSettingsView()
     }
 
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func NLPPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .nlp,
+        title: NSLocalizedString("NLP", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "n.square", accessibilityDescription: "NLP preferences")!
+    ) {
+        NLPSettingsView()
+    }
+    
     return Preferences.PaneHostingController(pane: paneView)
 }
 

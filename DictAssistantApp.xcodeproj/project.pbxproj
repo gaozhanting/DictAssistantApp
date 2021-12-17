@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44039241276C67E600DD39F6 /* NLPSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039240276C67E600DD39F6 /* NLPSettingsView.swift */; };
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
@@ -81,6 +82,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44039240276C67E600DD39F6 /* NLPSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSettingsView.swift; sourceTree = "<group>"; };
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		440824FB268E178E00EA7EEE /* NLPSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSample.swift; sourceTree = "<group>"; };
 		4416416D26F5B0E1007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
 				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
+				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
 				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
@@ -454,6 +457,7 @@
 				446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */,
 				44FEB725270AE3C100701E5D /* DictionarySettingsView.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
+				44039241276C67E600DD39F6 /* NLPSettingsView.swift in Sources */,
 				445355642705C4F4007DB9C2 /* NoisesView.swift in Sources */,
 				4453556027042A0B007DB9C2 /* PreferencesWindow.swift in Sources */,
 				4453554B27020CA0007DB9C2 /* KnownPersistence.swift in Sources */,

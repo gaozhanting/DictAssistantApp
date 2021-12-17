@@ -12,12 +12,6 @@ import CoreML
 struct DictionarySettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Lemma Search Level:", comment: "")) {
-                LemmaSearchLevelPicker()
-            }
-            Preferences.Section(title: NSLocalizedString("Phrases:", comment: "")) {
-                ShowPhrasesToggle()
-            }
             Preferences.Section(title: NSLocalizedString("Use Apple Dict Mode:", comment: "")) {
                 UseAppleDictModePicker()
             }
@@ -25,46 +19,6 @@ struct DictionarySettingsView: View {
                 UseEntryModePicker()
             }
         }
-    }
-}
-
-private struct LemmaSearchLevelPicker: View {
-    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
-    
-    var body: some View {
-        HStack {
-            Picker("", selection: $lemmaSearchLevel) {
-                Text("apple").tag(LemmaSearchLevel.apple.rawValue)
-                Text("database").tag(LemmaSearchLevel.database.rawValue)
-                Text("open").tag(LemmaSearchLevel.open.rawValue)
-            }
-            .labelsHidden()
-            .pickerStyle(MenuPickerStyle())
-            .frame(width: 150)
-            
-            MiniInfoView {
-                LemmaSearchLevelInfoView()
-            }
-        }
-    }
-}
-
-private struct LemmaSearchLevelInfoView: View {
-    var body: some View {
-        Text("Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out.")
-            .infoStyle()
-    }
-}
-
-private struct ShowPhrasesToggle: View {
-    @AppStorage(IsShowPhrasesKey) private var isShowPhrase: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $isShowPhrase, label: {
-            Text("Show Phrases")
-        })
-            .toggleStyle(CheckboxToggleStyle())
-            .help("Select it when you want display all phrase words.")
     }
 }
 
@@ -132,7 +86,6 @@ struct DictSettingsView_Previews: PreviewProvider {
         Group {
             DictionarySettingsView()
             
-            LemmaSearchLevelInfoView()
             UseAppleDictModeInfoView()
             UseEntryModeInfoView()
         }
