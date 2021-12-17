@@ -67,22 +67,6 @@ struct Settings: Codable {
     var lineSpacing: Double
     var fontRate: Double
     
-    var wordColor: Data
-    var transColor: Data
-    var backgroundColor: Data
-    
-    var textShadowToggle: Bool
-    var shadowColor: Data
-    var shadowRadius: Double
-    var shadowXOffSet: Double
-    var shadowYOffSet: Double
-    
-    var useContentBackgroundColor: Bool
-    var useContentBackgroundVisualEffect: Bool
-    var contentBackGroundVisualEffectMaterial: Int //NSVisualEffectView.Material
-    
-    var theColorScheme: Int
-    
     var isShowWindowShadow: Bool
     var isWithAnimation: Bool
     var isContentRetention: Bool
@@ -115,18 +99,6 @@ struct Settings: Codable {
         fontSize: Double,
         lineSpacing: Double,
         fontRate: Double,
-        wordColor: Data,
-        transColor: Data,
-        backgroundColor: Data,
-        textShadowToggle: Bool,
-        shadowColor: Data,
-        shadowRadius: Double,
-        shadowXOffSet: Double,
-        shadowYOffSet: Double,
-        useContentBackgroundColor: Bool,
-        useContentBackgroundVisualEffect: Bool,
-        contentBackGroundVisualEffectMaterial: Int, //NSVisualEffectView.Material
-        theColorScheme: Int,
         isShowWindowShadow: Bool,
         isWithAnimation: Bool,
         isContentRetention: Bool,
@@ -156,18 +128,6 @@ struct Settings: Codable {
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
         self.fontRate = fontRate
-        self.wordColor = wordColor
-        self.transColor = transColor
-        self.backgroundColor = backgroundColor
-        self.textShadowToggle = textShadowToggle
-        self.shadowColor = shadowColor
-        self.shadowRadius = shadowRadius
-        self.shadowXOffSet = shadowXOffSet
-        self.shadowYOffSet = shadowYOffSet
-        self.useContentBackgroundColor = useContentBackgroundColor
-        self.useContentBackgroundVisualEffect = useContentBackgroundVisualEffect
-        self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
-        self.theColorScheme = theColorScheme
         self.isShowWindowShadow = isShowWindowShadow
         self.isWithAnimation = isWithAnimation
         self.isContentRetention = isContentRetention
@@ -215,22 +175,6 @@ private let defaultSettings = Settings(
     fontSize: 14.0,
     lineSpacing: 0.0,
     fontRate: 0.9,
-    
-    wordColor: colorToData(NSColor.labelColor)!,
-    transColor: colorToData(NSColor.secondaryLabelColor)!,
-    backgroundColor: colorToData(NSColor.windowBackgroundColor)!,
-    
-    textShadowToggle: false,
-    shadowColor: colorToData(NSColor.labelColor)!,
-    shadowRadius: 3,
-    shadowXOffSet: 0.0,
-    shadowYOffSet: 0.0,
-    
-    useContentBackgroundColor: true,
-    useContentBackgroundVisualEffect: false,
-    contentBackGroundVisualEffectMaterial: NSVisualEffectView.Material.titlebar.rawValue,
-    
-    theColorScheme: TheColorScheme.system.rawValue,
     
     isShowWindowShadow: true,
     isWithAnimation: true,
@@ -347,18 +291,6 @@ private struct SlotsView: View {
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
         fontRate = s.fontRate
-        wordColor = s.wordColor
-        transColor = s.transColor
-        backgroundColor = s.backgroundColor
-        textShadowToggle = s.textShadowToggle
-        shadowColor = s.shadowColor
-        shadowRadius = s.shadowRadius
-        shadowXOffSet = s.shadowXOffSet
-        shadowYOffSet = s.shadowYOffSet
-        useContentBackgroundColor = s.useContentBackgroundColor
-        useContentBackgroundVisualEffect = s.useContentBackgroundVisualEffect
-        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial //NSVisualEffectView.Material
-        theColorScheme = s.theColorScheme
         isShowWindowShadow = s.isShowWindowShadow
         isWithAnimation = s.isWithAnimation
         isContentRetention = s.isContentRetention
@@ -389,18 +321,6 @@ private struct SlotsView: View {
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
     @AppStorage(FontRateKey) var fontRate: Double = 0.9
-    @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
-    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    @AppStorage(TextShadowToggleKey) var textShadowToggle: Bool = false
-    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) var shadowXOffSet: Double = 0
-    @AppStorage(ShadowYOffSetKey) var shadowYOffSet: Double = 0
-    @AppStorage(UseContentBackgroundColorKey) var useContentBackgroundColor: Bool = true
-    @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = false
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
     @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     @AppStorage(IsContentRetentionKey) private var isContentRetention = false

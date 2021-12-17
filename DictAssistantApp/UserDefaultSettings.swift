@@ -196,7 +196,7 @@ enum TheColorScheme: Int, Codable {
 
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
-private let defaultSlotKV: [String: Any] = [
+private let scenarioKV: [String: Any] = [
     // Recording
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     HighlightModeKey: HighlightMode.dotted.rawValue,
@@ -260,6 +260,21 @@ private let defaultSlotKV: [String: Any] = [
     LineSpacingKey: 0.0,
     FontRateKey: 0.9,
     
+    IsShowWindowShadowKey: true,
+    IsWithAnimationKey: true,
+    IsContentRetentionKey: false,
+]
+
+// all defaults
+private let universalKV: [String: Any] = scenarioKV.merging([
+    IsShowCurrentKnownKey: false,
+    IsShowCurrentKnownButWithOpacity0Key: false,
+    IsConcealTranslationKey: false,
+    IsShowCurrentNotFoundWordsKey: false,
+    ShowToastToggleKey: true,
+    IsFinishedOnboardingKey: false,
+    FontNameKey: defaultFontName,
+    
     WordColorKey: colorToData(NSColor.labelColor)!,
     TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
     BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
@@ -275,25 +290,10 @@ private let defaultSlotKV: [String: Any] = [
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
-    
-    IsShowWindowShadowKey: true,
-    IsWithAnimationKey: true,
-    IsContentRetentionKey: false,
-]
-
-// all defaults
-private let defaultKV: [String: Any] = defaultSlotKV.merging([
-    IsShowCurrentKnownKey: false,
-    IsShowCurrentKnownButWithOpacity0Key: false,
-    IsConcealTranslationKey: false,
-    IsShowCurrentNotFoundWordsKey: false,
-    ShowToastToggleKey: true,
-    IsFinishedOnboardingKey: false,
-    FontNameKey: defaultFontName,
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {
-    for (key, value) in defaultKV {
+    for (key, value) in universalKV {
         if UserDefaults.standard.object(forKey: key) == nil {
             UserDefaults.standard.setValue(value, forKey: key)
         }
@@ -412,58 +412,6 @@ extension UserDefaults {
     @objc var FontRateKey: Double {
         get { return double(forKey: "FontRateKey") }
         set { set(newValue, forKey: "FontRateKey") }
-    }
-    
-    @objc var WordColorKey: Data {
-        get { return data(forKey: "WordColorKey")! }
-        set { set(newValue, forKey: "WordColorKey") }
-    }
-    @objc var TransColorKey: Data {
-        get { return data(forKey: "TransColorKey")! }
-        set { set(newValue, forKey: "TransColorKey") }
-    }
-    @objc var BackgroundColorKey: Data {
-        get { return data(forKey: "BackgroundColorKey")! }
-        set { set(newValue, forKey: "BackgroundColorKey") }
-    }
-    
-    @objc var TextShadowToggleKey: Bool {
-        get { return bool(forKey: "TextShadowToggleKey") }
-        set { set(newValue, forKey: "TextShadowToggleKey") }
-    }
-    @objc var ShadowColorKey: Data {
-        get { return data(forKey: "ShadowColorKey")! }
-        set { set(newValue, forKey: "ShadowColorKey") }
-    }
-    @objc var ShadowRadiusKey: Double {
-        get { return double(forKey: "ShadowRadiusKey") }
-        set { set(newValue, forKey: "ShadowRadiusKey") }
-    }
-    @objc var ShadowXOffSetKey: Double {
-        get { return double(forKey: "ShadowXOffSetKey") }
-        set { set(newValue, forKey: "ShadowXOffSetKey") }
-    }
-    @objc var ShadowYOffSetKey: Double {
-        get { return double(forKey: "ShadowYOffSetKey") }
-        set { set(newValue, forKey: "ShadowYOffSetKey") }
-    }
-    
-    @objc var UseContentBackgroundColorKey: Bool {
-        get { return bool(forKey: "UseContentBackgroundColorKey") }
-        set { set(newValue, forKey: "UseContentBackgroundColorKey") }
-    }
-    @objc var UseContentBackgroundVisualEffectKey: Bool {
-        get { return bool(forKey: "UseContentBackgroundVisualEffectKey") }
-        set { set(newValue, forKey: "UseContentBackgroundVisualEffectKey") }
-    }
-    @objc var ContentBackGroundVisualEffectMaterialKey: Int {
-        get { return integer(forKey: "ContentBackGroundVisualEffectMaterialKey") }
-        set { set(newValue, forKey: "ContentBackGroundVisualEffectMaterialKey") }
-    }
-    
-    @objc var TheColorSchemeKey: Int {
-        get { return integer(forKey: "TheColorSchemeKey") }
-        set { set(newValue, forKey: "TheColorSchemeKey") }
     }
     
     @objc var IsShowWindowShadowKey: Bool {
@@ -616,22 +564,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
     combineSlot(\.FontRateKey, \.fontRate, FontRateKey)
-    
-    combineSlot(\.WordColorKey, \.wordColor, WordColorKey)
-    combineSlot(\.TransColorKey, \.transColor, TransColorKey)
-    combineSlot(\.BackgroundColorKey, \.backgroundColor, BackgroundColorKey)
-    
-    combineSlot(\.TextShadowToggleKey, \.textShadowToggle, TextShadowToggleKey)
-    combineSlot(\.ShadowColorKey, \.shadowColor, ShadowColorKey)
-    combineSlot(\.ShadowRadiusKey, \.shadowRadius, ShadowRadiusKey)
-    combineSlot(\.ShadowXOffSetKey, \.shadowXOffSet, ShadowXOffSetKey)
-    combineSlot(\.ShadowYOffSetKey, \.shadowYOffSet, ShadowYOffSetKey)
-    
-    combineSlot(\.UseContentBackgroundColorKey, \.useContentBackgroundColor, UseContentBackgroundColorKey)
-    combineSlot(\.UseContentBackgroundVisualEffectKey, \.useContentBackgroundVisualEffect, UseContentBackgroundVisualEffectKey)
-    combineSlot(\.ContentBackGroundVisualEffectMaterialKey, \.contentBackGroundVisualEffectMaterial, ContentBackGroundVisualEffectMaterialKey)
-    
-    combineSlot(\.TheColorSchemeKey, \.theColorScheme, TheColorSchemeKey)
     
     combineSlot(\.IsContentRetentionKey, \.isContentRetention, IsContentRetentionKey)
     combineSlot(\.IsShowWindowShadowKey, \.isShowWindowShadow, IsShowWindowShadowKey)
