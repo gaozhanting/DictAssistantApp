@@ -272,7 +272,7 @@ private struct TextShadowToggle: View {
     
     var body: some View {
         Toggle(isOn: binding, label: {
-            Text("Use Text Shadow:")
+            Text("Use Text Shadow")
         })
         .toggleStyle(SwitchToggleStyle())
     }

@@ -65,7 +65,7 @@ private struct DoPhraseRecognitionToggle: View {
     
     var body: some View {
         Toggle(isOn: $doPhraseRecognition, label: {
-            Text("Do Phrase Reccognition")
+            Text("Do Phrase Recognition")
         })
             .toggleStyle(CheckboxToggleStyle())
     }

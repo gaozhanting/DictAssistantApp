@@ -196,7 +196,7 @@
 "Word:" = "標題單詞：";
 "Translation:" = "單詞譯文：";
 "Background:" = "背景：";
-"Use Text Shadow:" = "使用文本陰影：";
+"Use Text Shadow" = "使用文本陰影";
 "Color:" = "顏色：";
 "Radius:" = "陰影半徑：";
 "X Offset:" = "X偏移：";
