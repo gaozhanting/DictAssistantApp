@@ -1,5 +1,5 @@
 //
-//  EnglishSettingsView.swift
+//  DictionarySettingsView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/10/4.
@@ -9,7 +9,7 @@ import SwiftUI
 import Preferences
 import CoreML
 
-struct EnglishSettingsView: View {
+struct DictionarySettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: NSLocalizedString("Lemma Search Level:", comment: "")) {
@@ -130,7 +130,7 @@ private struct UseEntryModeInfoView: View {
 struct DictSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            EnglishSettingsView()
+            DictionarySettingsView()
             
             LemmaSearchLevelInfoView()
             UseAppleDictModeInfoView()

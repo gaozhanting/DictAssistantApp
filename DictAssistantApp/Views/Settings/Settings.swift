@@ -12,7 +12,7 @@ extension Preferences.PaneIdentifier {
     static let general = Self("general")
     static let recording = Self("recording")
     static let vision = Self("vision")
-    static let english = Self("english")
+    static let dictionary = Self("dictionary")
     static let content = Self("content")
     static let appearance = Self("appearance")
     static let slots = Self("slots")
@@ -56,13 +56,13 @@ func VisionPreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func EnglishPreferenceViewController() -> PreferencePane {
+func DictionaryPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .english,
-        title: NSLocalizedString("English", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "textformat.abc", accessibilityDescription: "English preferences")!
+        identifier: .dictionary,
+        title: NSLocalizedString("Dictionary", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "textformat.abc", accessibilityDescription: "Dictionary preferences")!
     ) {
-        EnglishSettingsView()
+        DictionarySettingsView()
     }
 
     return Preferences.PaneHostingController(pane: paneView)
