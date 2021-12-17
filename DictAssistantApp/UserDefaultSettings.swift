@@ -197,9 +197,79 @@ enum TheColorScheme: Int, Codable {
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
-    // Recording
+    MaximumFrameRateKey: 4,
+    
+    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
+    
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
+    IsCloseCropperWhenNotPlayingKey: true,
+    
+    ContentStyleKey: ContentStyle.portrait.rawValue,
+    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
+    PortraitMaxHeightKey: 100.0,
+    LandscapeStyleKey: LandscapeStyle.normal.rawValue,
+    LandscapeMaxWidthKey: 160.0,
+    
+    FontSizeKey: 14.0,
+    LineSpacingKey: 0.0,
+    FontRateKey: 0.9,
+]
+
+// all defaults
+private let universalKV: [String: Any] = scenarioKV.merging([
+    IsFinishedOnboardingKey: false,
+    
+    FontNameKey: defaultFontName,
+    
+    // General:
+    IsShowCurrentKnownKey: false,
+    IsShowCurrentKnownButWithOpacity0Key: false,
+    IsConcealTranslationKey: false,
+    IsShowCurrentNotFoundWordsKey: false,
+    ShowToastToggleKey: true,
+    
+    // NLP:
+    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
+    DoNameRecognitionKey: false,
+    DoPhraseRecognitionKey: false,
+    
+    // Dictionary:
+    UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
+    UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
+    
+    // Appearance:
+    WordColorKey: colorToData(NSColor.labelColor)!,
+    TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
+    BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
+    
+    TextShadowToggleKey: false,
+    ShadowColorKey: colorToData(NSColor.labelColor)!,
+    ShadowRadiusKey: 3,
+    ShadowXOffSetKey: 0.0,
+    ShadowYOffSetKey: 0.0,
+    
+    UseContentBackgroundColorKey: true,
+    UseContentBackgroundVisualEffectKey: false,
+    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
+    
+    TheColorSchemeKey: TheColorScheme.system.rawValue,
+    
+    IsShowWindowShadowKey: true,
+    IsWithAnimationKey: true,
+    IsContentRetentionKey: false,
+    
+    // Transcript:
+    IsDropTitleWordKey: false,
+    IsAddLineBreakKey: true,
+    IsAddSpaceKey: false,
+    IsDropFirstTitleWordInTranslationKey: true,
+    IsJoinTranslationLinesKey: true,
+    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
+    
+    // Cropper
     HighlightModeKey: HighlightMode.dotted.rawValue,
+    
     HLRectangleColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
     RectangleVerticalPaddingKey: 2.0,
     RectangleHorizontalPaddingKey: 4.0,
@@ -225,70 +295,6 @@ private let scenarioKV: [String: Any] = [
     
     IsAlwaysRefreshHighlightKey: false,
     
-    IsCloseCropperWhenNotPlayingKey: true,
-    MaximumFrameRateKey: 4,
-    
-    // Vision
-    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
-    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
-    
-    // NLP
-    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
-    DoNameRecognitionKey: false,
-    DoPhraseRecognitionKey: false,
-    
-    // Dictionary
-    UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
-    UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
-    
-    // Appearance
-    ContentStyleKey: ContentStyle.portrait.rawValue,
-    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
-    PortraitMaxHeightKey: 100.0,
-    LandscapeStyleKey: LandscapeStyle.normal.rawValue,
-    LandscapeMaxWidthKey: 160.0,
-    
-    FontSizeKey: 14.0,
-    LineSpacingKey: 0.0,
-    FontRateKey: 0.9,
-]
-
-// all defaults
-private let universalKV: [String: Any] = scenarioKV.merging([
-    IsShowCurrentKnownKey: false,
-    IsShowCurrentKnownButWithOpacity0Key: false,
-    IsConcealTranslationKey: false,
-    IsShowCurrentNotFoundWordsKey: false,
-    ShowToastToggleKey: true,
-    IsFinishedOnboardingKey: false,
-    FontNameKey: defaultFontName,
-    
-    WordColorKey: colorToData(NSColor.labelColor)!,
-    TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
-    BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
-    
-    TextShadowToggleKey: false,
-    ShadowColorKey: colorToData(NSColor.labelColor)!,
-    ShadowRadiusKey: 3,
-    ShadowXOffSetKey: 0.0,
-    ShadowYOffSetKey: 0.0,
-    
-    UseContentBackgroundColorKey: true,
-    UseContentBackgroundVisualEffectKey: false,
-    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
-    
-    TheColorSchemeKey: TheColorScheme.system.rawValue,
-    
-    IsShowWindowShadowKey: true,
-    IsWithAnimationKey: true,
-    IsContentRetentionKey: false,
-    
-    IsDropTitleWordKey: false,
-    IsAddLineBreakKey: true,
-    IsAddSpaceKey: false,
-    IsDropFirstTitleWordInTranslationKey: true,
-    IsJoinTranslationLinesKey: true,
-    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {
@@ -300,15 +306,11 @@ func initAllUserDefaultsIfNil() {
 }
 
 extension UserDefaults {
-    // Recording
     @objc var CropperStyleKey: Int {
         get { return integer(forKey: "CropperStyleKey") }
         set { set(newValue, forKey: "CropperStyleKey") }
     }
-    @objc var HLDottedColorKey: Data {
-        get { return data(forKey: "HLDottedColorKey")! }
-        set { set(newValue, forKey: "HLDottedColorKey") }
-    }
+    
     @objc var IsCloseCropperWhenNotPlayingKey: Bool {
         get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }
         set { set(newValue, forKey: "IsCloseCropperWhenNotPlayingKey") }
@@ -318,7 +320,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "MaximumFrameRateKey") }
     }
     
-    // Vision
     @objc var TRTextRecognitionLevelKey: Int {
         get { return integer(forKey: "TRTextRecognitionLevelKey") }
         set { set(newValue, forKey: "TRTextRecognitionLevelKey") }
@@ -328,7 +329,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "TRMinimumTextHeightKey") }
     }
     
-    // NLP
     @objc var LemmaSearchLevelKey: Int {
         get { return integer(forKey: "LemmaSearchLevelKey") }
         set { set(newValue, forKey: "LemmaSearchLevelKey") }
@@ -342,7 +342,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "DoPhraseRecognitionKey") }
     }
     
-    // Dictionary
     @objc var UseAppleDictModeKey: Int {
         get { return integer(forKey: "UseAppleDictModeKey") }
         set { set(newValue, forKey: "UseAppleDictModeKey") }
@@ -352,7 +351,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "UseEntryModeKey") }
     }
     
-    // Appearance
     @objc var ContentStyleKey: Int {
         get { return integer(forKey: "ContentStyleKey") }
         set { set(newValue, forKey: "ContentStyleKey") }
@@ -494,24 +492,14 @@ func combineDictionarySettings() {
 }
 
 func autoSaveSlotSettings() {
-    // Recording
-    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
-    combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
     combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
     
-    // Vision
     combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
     combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
     
-    // NLP
-    combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
-    combineSlot(\.DoPhraseRecognitionKey, \.doPhraseRecognition, DoPhraseRecognitionKey)
+    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
+    combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
     
-    // Dictionary
-    combineSlot(\.UseAppleDictModeKey, \.useAppleDictMode, UseAppleDictModeKey)
-    combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
-    
-    // Appearance
     combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)

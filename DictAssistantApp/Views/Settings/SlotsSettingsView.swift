@@ -31,28 +31,18 @@ struct SlotsSettingsView: View {
 }
 
 struct Settings: Codable {
-    // Recording
-    var cropperStyle: Int
-    var isCloseCropperWhenNotPlaying: Bool
     var maximumFrameRate: Double
     
-    // Vision
     var tRTextRecognitionLevel: Int
     var tRMinimumTextHeight: Double
     
-    // NLP
-    var lemmaSearchLevel: Int
-    var doPhraseRecognition: Bool
+    var cropperStyle: Int
+    var isCloseCropperWhenNotPlaying: Bool
     
-    // Dictionary
-    var useAppleDictMode: Int
-    var useEntryMode: Int
-    
-    // Appearance
     var contentStyle: Int
     var portraitCorner: Int
-    var landscapeStyle: Int
     var portraitMaxHeight: Double
+    var landscapeStyle: Int
     var landscapeMaxWidth: Double
     
     var fontSize: Double
@@ -64,43 +54,45 @@ struct Settings: Codable {
     var contentFrame: NSRect
     
     init(
-        cropperStyle: Int,
-        isCloseCropperWhenNotPlaying: Bool,
         maximumFrameRate: Double,
+        
         tRTextRecognitionLevel: Int,
         tRMinimumTextHeight: Double,
-        lemmaSearchLevel: Int,
-        doPhraseRecognition: Bool,
-        useAppleDictMode: Int,
-        useEntryMode: Int,
+        
+        cropperStyle: Int,
+        isCloseCropperWhenNotPlaying: Bool,
+        
         contentStyle: Int,
         portraitCorner: Int,
         portraitMaxHeight: Double,
         landscapeStyle: Int,
         landscapeMaxWidth: Double,
+        
         fontSize: Double,
         lineSpacing: Double,
         fontRate: Double,
+        
         cropperFrame: NSRect,
         contentFrame: NSRect
     ) {
-        self.cropperStyle = cropperStyle
-        self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
         self.maximumFrameRate = maximumFrameRate
+        
         self.tRTextRecognitionLevel = tRTextRecognitionLevel
         self.tRMinimumTextHeight = tRMinimumTextHeight
-        self.lemmaSearchLevel = lemmaSearchLevel
-        self.doPhraseRecognition = doPhraseRecognition
-        self.useAppleDictMode = useAppleDictMode
-        self.useEntryMode = useEntryMode
+        
+        self.cropperStyle = cropperStyle
+        self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
+        
         self.contentStyle = contentStyle
         self.portraitCorner = portraitCorner
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeStyle = landscapeStyle
         self.landscapeMaxWidth = landscapeMaxWidth
+        
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
         self.fontRate = fontRate
+        
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
     }
@@ -117,17 +109,13 @@ func dataToSettings(_ data: Data) -> Settings? {
 }
 
 private let defaultSettings = Settings(
-    cropperStyle: CropperStyle.leadingBorder.rawValue,
-    isCloseCropperWhenNotPlaying: true,
     maximumFrameRate: 4,
     
     tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     
-    lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
-    doPhraseRecognition: false,
-    useAppleDictMode: UseAppleDictMode.afterBuiltIn.rawValue,
-    useEntryMode: UseEntryMode.asFirstPriority.rawValue,
+    cropperStyle: CropperStyle.leadingBorder.rawValue,
+    isCloseCropperWhenNotPlaying: true,
     
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
@@ -227,41 +215,42 @@ private struct SlotsView: View {
     }
     
     private func dumpSettings(from s: Settings) {
-        cropperStyle = s.cropperStyle
-        isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
         maximumFrameRate = s.maximumFrameRate
+        
         tRTextRecognitionLevel = s.tRTextRecognitionLevel
         tRMinimumTextHeight = s.tRMinimumTextHeight
-        lemmaSearchLevel = s.lemmaSearchLevel
-        doPhraseRecognition = s.doPhraseRecognition
-        useAppleDictMode = s.useAppleDictMode
-        useEntryMode = s.useEntryMode
+        
+        cropperStyle = s.cropperStyle
+        isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
+        
         contentStyle = s.contentStyle
         portraitCorner = s.portraitCorner
         portraitMaxHeight = s.portraitMaxHeight
         landscapeStyle = s.landscapeStyle
         landscapeMaxWidth = s.landscapeMaxWidth
+        
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
         fontRate = s.fontRate
+        
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
     }
     
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
-    @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
+    
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
-    @AppStorage(DoPhraseRecognitionKey) var doPhraseRecognition: Bool = false
-    @AppStorage(UseAppleDictModeKey) var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
-    @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
+    
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
+    
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
+    
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
     @AppStorage(FontRateKey) var fontRate: Double = 0.9
