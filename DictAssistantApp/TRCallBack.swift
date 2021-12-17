@@ -12,7 +12,7 @@ import Vision
 // We use cache to reduce nlp work when texts is not changed.
 var trTextsCache: [String] = []
 // highlight need
-var primitiveWordCellCache: [WordCell2] = []
+var primitiveWordCellCache: [WordCellWithToken] = []
 
 // other refreshing action
 func trCallBack() {
@@ -148,23 +148,23 @@ func trCallBackWithCache() {
     snapShotCallback()
 }
 
-struct WordCell2 {
+struct WordCellWithToken {
     let word: NLPSample.Word
     let isKnown: IsKnown
     let trans: String
     var index: Int = 0
 }
 
-private func tagWord(_ word: NLPSample.Word) -> WordCell2 {
+private func tagWord(_ word: NLPSample.Word) -> WordCellWithToken {
     if knownSet.contains(word.lemma) || knownSet.contains(word.lemma.lowercased()) {
          // Here, not query trans of known words (no matter toggle show or not show known), aims to as an App optimization !
-        return WordCell2(word: word, isKnown: .known, trans: "")
+        return WordCellWithToken(word: word, isKnown: .known, trans: "")
     } else {
         if let trans = cachedDictionaryServicesDefine(word.lemma) {
-            return WordCell2(word: word, isKnown: .unKnown, trans: trans)
+            return WordCellWithToken(word: word, isKnown: .unKnown, trans: trans)
         } else {
 //            logger.info("   !>>>> translation not found from dicts of word: \(word.lemma, privacy: .public)")
-            return WordCell2(word: word, isKnown: .unKnown, trans: "")
+            return WordCellWithToken(word: word, isKnown: .unKnown, trans: "")
         }
     }
 }
