@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		44039241276C67E600DD39F6 /* NLPSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039240276C67E600DD39F6 /* NLPSettingsView.swift */; };
 		44039243276C936F00DD39F6 /* TranscriptSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */; };
+		44039245276C96B600DD39F6 /* CropperSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039244276C96B600DD39F6 /* CropperSettingsView.swift */; };
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
@@ -85,6 +86,7 @@
 /* Begin PBXFileReference section */
 		44039240276C67E600DD39F6 /* NLPSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSettingsView.swift; sourceTree = "<group>"; };
 		44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptSettingsView.swift; sourceTree = "<group>"; };
+		44039244276C96B600DD39F6 /* CropperSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperSettingsView.swift; sourceTree = "<group>"; };
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		440824FB268E178E00EA7EEE /* NLPSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSample.swift; sourceTree = "<group>"; };
 		4416416D26F5B0E1007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
 				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
+				44039244276C96B600DD39F6 /* CropperSettingsView.swift */,
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
 			);
 			path = Settings;
@@ -507,6 +510,7 @@
 				4476F9162754BA2C006EDAC9 /* RemoteEntriesPersistence.swift in Sources */,
 				445355622705C0CF007DB9C2 /* NoisesPersistence.swift in Sources */,
 				442126CF2719B26600CEF786 /* DictBuildPanel.swift in Sources */,
+				44039245276C96B600DD39F6 /* CropperSettingsView.swift in Sources */,
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
 				447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,

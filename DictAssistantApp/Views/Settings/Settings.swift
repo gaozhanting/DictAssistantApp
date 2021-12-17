@@ -17,8 +17,8 @@ extension Preferences.PaneIdentifier {
     static let slots = Self("slots") // -- above are universal options, slot, below are scenario options
     static let recording = Self("recording")
     static let vision = Self("vision")
+    static let cropper = Self("cropper")
     static let content = Self("content")
-    static let dictionaries = Self("dictionaries")
 }
 
 func GeneralPreferenceViewController() -> PreferencePane {
@@ -127,6 +127,18 @@ func ContentPreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "scroll", accessibilityDescription: "Content preferences")!
     ) {
         ContentSettingsView()
+    }
+    
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func CropperPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .cropper,
+        title: NSLocalizedString("Cropper", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "crop", accessibilityDescription: "Cropper preferences")!
+    ) {
+        CropperSettingsView()
     }
     
     return Preferences.PaneHostingController(pane: paneView)

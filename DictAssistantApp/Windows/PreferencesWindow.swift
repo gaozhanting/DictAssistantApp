@@ -18,6 +18,7 @@ var preferencesWindowController = PreferencesWindowController(
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
         RecordingPreferenceViewController(),
         VisionPreferenceViewController(),
+        CropperPreferenceViewController(),
         ContentPreferenceViewController(),
     ],
     style: .toolbarItems,
@@ -37,6 +38,7 @@ func showPreferencesPanel() {
 
 func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
     preferencesWindowController.show(preferencePane: .content)
+    preferencesWindowController.show(preferencePane: .cropper)
     preferencesWindowController.show(preferencePane: .vision)
     preferencesWindowController.show(preferencePane: .recording)
     preferencesWindowController.show(preferencePane: .slots)
