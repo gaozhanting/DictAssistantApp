@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44039241276C67E600DD39F6 /* NLPSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039240276C67E600DD39F6 /* NLPSettingsView.swift */; };
+		44039243276C936F00DD39F6 /* TranscriptSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */; };
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
 		4416417126F5B668007D19FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4416417326F5B668007D19FC /* Localizable.strings */; };
@@ -83,6 +84,7 @@
 
 /* Begin PBXFileReference section */
 		44039240276C67E600DD39F6 /* NLPSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSettingsView.swift; sourceTree = "<group>"; };
+		44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptSettingsView.swift; sourceTree = "<group>"; };
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		440824FB268E178E00EA7EEE /* NLPSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSample.swift; sourceTree = "<group>"; };
 		4416416D26F5B0E1007D19FC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -182,13 +184,14 @@
 			children = (
 				442134CD26A6C64200963441 /* Settings.swift */,
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
+				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
+				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
+				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
+				44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
 				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
-				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
-				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
-				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				44BCEC582684BADD002D3D8C /* Utilities.swift in Sources */,
 				442D6A17276510C4001ACA08 /* HLBox.swift in Sources */,
 				440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */,
+				44039243276C936F00DD39F6 /* TranscriptSettingsView.swift in Sources */,
 				44CAC50B2714635E00EAFA74 /* EntryUpsertPanel.swift in Sources */,
 				447D0F7F26564D96004A7173 /* StatusData.swift in Sources */,
 				440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */,

@@ -48,14 +48,6 @@ struct Settings: Codable {
     var useAppleDictMode: Int
     var useEntryMode: Int
     
-    // Content
-    var isDropTitleWord: Bool
-    var isAddLineBreak: Bool
-    var isAddSpace: Bool
-    var isDropFirstTitleWordInTranslation: Bool
-    var isJoinTranslationLines: Bool
-    var chineseCharacterConvertMode: Int
-    
     // Appearance
     var contentStyle: Int
     var portraitCorner: Int
@@ -81,12 +73,6 @@ struct Settings: Codable {
         doPhraseRecognition: Bool,
         useAppleDictMode: Int,
         useEntryMode: Int,
-        isDropTitleWord: Bool,
-        isAddLineBreak: Bool,
-        isAddSpace: Bool,
-        isDropFirstTitleWordInTranslation: Bool,
-        isJoinTranslationLines: Bool,
-        chineseCharacterConvertMode: Int,
         contentStyle: Int,
         portraitCorner: Int,
         portraitMaxHeight: Double,
@@ -107,12 +93,6 @@ struct Settings: Codable {
         self.doPhraseRecognition = doPhraseRecognition
         self.useAppleDictMode = useAppleDictMode
         self.useEntryMode = useEntryMode
-        self.isDropTitleWord = isDropTitleWord
-        self.isAddLineBreak = isAddLineBreak
-        self.isAddSpace = isAddSpace
-        self.isDropFirstTitleWordInTranslation = isDropFirstTitleWordInTranslation
-        self.isJoinTranslationLines = isJoinTranslationLines
-        self.chineseCharacterConvertMode = chineseCharacterConvertMode
         self.contentStyle = contentStyle
         self.portraitCorner = portraitCorner
         self.portraitMaxHeight = portraitMaxHeight
@@ -148,13 +128,6 @@ private let defaultSettings = Settings(
     doPhraseRecognition: false,
     useAppleDictMode: UseAppleDictMode.afterBuiltIn.rawValue,
     useEntryMode: UseEntryMode.asFirstPriority.rawValue,
-    
-    isDropTitleWord: false,
-    isAddLineBreak: true,
-    isAddSpace: false,
-    isDropFirstTitleWordInTranslation: true,
-    isJoinTranslationLines: true,
-    chineseCharacterConvertMode: ChineseCharacterConvertMode.notConvert.rawValue,
     
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
@@ -263,12 +236,6 @@ private struct SlotsView: View {
         doPhraseRecognition = s.doPhraseRecognition
         useAppleDictMode = s.useAppleDictMode
         useEntryMode = s.useEntryMode
-        isDropTitleWord = s.isDropTitleWord
-        isAddLineBreak = s.isAddLineBreak
-        isAddSpace = s.isAddSpace
-        isDropFirstTitleWordInTranslation = s.isDropFirstTitleWordInTranslation
-        isJoinTranslationLines = s.isJoinTranslationLines
-        chineseCharacterConvertMode = s.chineseCharacterConvertMode
         contentStyle = s.contentStyle
         portraitCorner = s.portraitCorner
         portraitMaxHeight = s.portraitMaxHeight
@@ -290,12 +257,6 @@ private struct SlotsView: View {
     @AppStorage(DoPhraseRecognitionKey) var doPhraseRecognition: Bool = false
     @AppStorage(UseAppleDictModeKey) var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
-    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
-    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0

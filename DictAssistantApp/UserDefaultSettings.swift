@@ -241,14 +241,6 @@ private let scenarioKV: [String: Any] = [
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
-    // Content
-    IsDropTitleWordKey: false,
-    IsAddLineBreakKey: true,
-    IsAddSpaceKey: false,
-    IsDropFirstTitleWordInTranslationKey: true,
-    IsJoinTranslationLinesKey: true,
-    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
-    
     // Appearance
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
@@ -290,6 +282,13 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     IsShowWindowShadowKey: true,
     IsWithAnimationKey: true,
     IsContentRetentionKey: false,
+    
+    IsDropTitleWordKey: false,
+    IsAddLineBreakKey: true,
+    IsAddSpaceKey: false,
+    IsDropFirstTitleWordInTranslationKey: true,
+    IsJoinTranslationLinesKey: true,
+    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {
@@ -353,32 +352,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "UseEntryModeKey") }
     }
     
-    // Content
-    @objc var IsDropTitleWordKey: Bool {
-        get { return bool(forKey: "IsDropTitleWordKey") }
-        set { set(newValue, forKey: "IsDropTitleWordKey") }
-    }
-    @objc var IsAddLineBreakKey: Bool {
-        get { return bool(forKey: "IsAddLineBreakKey") }
-        set { set(newValue, forKey: "IsAddLineBreakKey") }
-    }
-    @objc var IsAddSpaceKey: Bool {
-        get { return bool(forKey: "IsAddSpaceKey") }
-        set { set(newValue, forKey: "IsAddSpaceKey") }
-    }
-    @objc var IsDropFirstTitleWordInTranslationKey: Bool {
-        get { return bool(forKey: "IsDropFirstTitleWordInTranslationKey") }
-        set { set(newValue, forKey: "IsDropFirstTitleWordInTranslationKey") }
-    }
-    @objc var IsJoinTranslationLinesKey: Bool {
-        get { return bool(forKey: "IsJoinTranslationLinesKey") }
-        set { set(newValue, forKey: "IsJoinTranslationLinesKey") }
-    }
-    @objc var ChineseCharacterConvertModeKey: Int {
-        get { return integer(forKey: "ChineseCharacterConvertModeKey") }
-        set { set(newValue, forKey: "ChineseCharacterConvertModeKey") }
-    }
-
     // Appearance
     @objc var ContentStyleKey: Int {
         get { return integer(forKey: "ContentStyleKey") }
@@ -537,14 +510,6 @@ func autoSaveSlotSettings() {
     // Dictionary
     combineSlot(\.UseAppleDictModeKey, \.useAppleDictMode, UseAppleDictModeKey)
     combineSlot(\.UseEntryModeKey, \.useEntryMode, UseEntryModeKey)
-    
-    // Content
-    combineSlot(\.IsDropTitleWordKey, \.isDropTitleWord, IsDropTitleWordKey)
-    combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
-    combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)
-    combineSlot(\.IsDropFirstTitleWordInTranslationKey, \.isDropFirstTitleWordInTranslation, IsDropFirstTitleWordInTranslationKey)
-    combineSlot(\.IsJoinTranslationLinesKey, \.isJoinTranslationLines, IsJoinTranslationLinesKey)
-    combineSlot(\.ChineseCharacterConvertModeKey, \.chineseCharacterConvertMode, ChineseCharacterConvertModeKey)
     
     // Appearance
     combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
