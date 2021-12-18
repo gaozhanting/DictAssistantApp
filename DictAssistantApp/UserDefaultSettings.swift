@@ -52,6 +52,8 @@ let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
 
 let IsShowIndexKey = "IsShowIndexKey"
 let IndexColorKey = "IndexColorKey"
+let IndexBgColorKey = "IndexBgColorKey"
+let IndexPaddingKey = "IndexPaddingKey"
 let IndexXBasicKey = "IndexXBasicKey"
 let IndexXOffsetKey = "IndexXOffsetKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
@@ -281,6 +283,8 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     IsShowIndexKey: true,
     IndexColorKey: colorToData(NSColor.labelColor)!,
+    IndexBgColorKey: colorToData(NSColor.textBackgroundColor)!,
+    IndexPaddingKey: 2.0,
     IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexXOffsetKey: 6.0,
     IndexFontSizeKey: 7.0,

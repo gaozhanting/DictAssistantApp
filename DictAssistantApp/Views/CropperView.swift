@@ -172,6 +172,13 @@ private struct HLDottedView: View {
         )
     }
     
+    var w: CGFloat {
+        abs(box.1.x - box.0.x) * geometrySize.width
+    }
+    var h: CGFloat {
+        abs(box.1.y - box.0.y) * geometrySize.height
+    }
+    
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
@@ -199,28 +206,37 @@ private struct HLDottedView: View {
         Font.custom(fontName, size: CGFloat(indexFontSize))
     }
     
+//    var bodyThree: some View {
+//        HStack {
+//            Spacer().frame(height: strokeLineWidth).background(hlColor)
+//
+//            Text(String(index))
+//                .font(indexFont)
+//                .foregroundColor(color)
+//                .padding(.horizontal, 3)
+//
+//            Spacer().frame(height: strokeLineWidth).background(hlColor)
+//        }
+//        .frame(width: w, height: h)
+//        .position(x: x, y: y)
+//    }
+    
+    @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.textBackgroundColor)!
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    
     var body: some View {
         if isShowIndex {
             ZStack {
                 body0
-                
+
                 Text(String(index))
                     .font(indexFont)
                     .foregroundColor(Color(dataToColor(indexColor)!))
-                    .padding(2)
-                    .background(Color.white)
-                    .clipShape(Circle())
-//                    .shadow(radius: 1)
+                    .padding(indexPadding)
+                    .background(Circle().fill(Color(dataToColor(indexBgColor)!)))
+                    .shadow(radius: 1)
                     .position(x: x, y: y)
             }
-//            body0
-//                .overlay(
-//                    Text(String(index))
-//                        .foregroundColor(Color(dataToColor(indexColor)!))
-//                        .font(indexFont)
-//                        .position(x: x, y: y)
-//                    ,
-//                    alignment: .bottomLeading)
         } else {
             body0
         }
@@ -336,7 +352,7 @@ struct CropperView_Previews: PreviewProvider {
                             CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
                              CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)
                             ),
-                        index: 1),
+                        index: 15),
                     IndexedBox(
                         box: (
                             CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),

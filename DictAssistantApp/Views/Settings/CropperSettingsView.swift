@@ -160,6 +160,18 @@ private struct DottedIndexOptionsView: View {
         )
     }
     
+    var binding2: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(indexBgColor)!) },
+            set: { newValue in
+                indexBgColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.textBackgroundColor)!
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    
     func useDefault() {
         isShowIndex = true
         indexColor = colorToData(NSColor.labelColor)!
@@ -167,6 +179,8 @@ private struct DottedIndexOptionsView: View {
         indexXOffset = 6.0
         indexFontSize = 7.0
         contentIndexFontSize = 13.0
+        indexBgColor = colorToData(NSColor.textBackgroundColor)!
+        indexPadding = 2.0
     }
     
     var body: some View {
@@ -219,6 +233,18 @@ private struct DottedIndexOptionsView: View {
                     
                     HStack {
                         Spacer()
+                        Text("Index Padding:")
+                        TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        ColorPicker("Index BG color:", selection: binding2)
+                    }
+                    
+                    HStack {
+                        Spacer()
                         Button("Use Default") {
                             useDefault()
                         }
@@ -253,8 +279,7 @@ private struct RectangleIndexOptionsView: View {
         indexFontSizeR = 7.0
         contentIndexFontSizeR = 13.0
     }
-    
-    
+
     var body: some View {
         GroupBox {
             VStack {
@@ -299,6 +324,7 @@ private struct RectangleIndexOptionsView: View {
                         Spacer()
                         ColorPicker("color:", selection: binding)
                     }
+
                     
                     HStack {
                         Spacer()
