@@ -39,7 +39,6 @@ let RectangleHorizontalPaddingKey = "RectangleHorizontalPaddingKey"
 
 let IsShowIndexRKey = "IsShowIndexRKey"
 let IndexColorRKey = "IndexColorRKey"
-let IndexXOffsetRKey = "IndexXOffsetRKey"
 let IndexYOffsetRKey = "IndexYOffsetRKey"
 let IndexFontSizeRKey = "IndexFontSizeRKey"
 let ContentIndexFontSizeRKey = "ContentIndexFontSizeRKey"
@@ -52,10 +51,10 @@ let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
 
 let IsShowIndexKey = "IsShowIndexKey"
 let IndexColorKey = "IndexColorKey"
+let ContentIndexColorKey = "ContentIndexColorKey"
 let IndexBgColorKey = "IndexBgColorKey"
 let IndexPaddingKey = "IndexPaddingKey"
 let IndexXBasicKey = "IndexXBasicKey"
-let IndexXOffsetKey = "IndexXOffsetKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
 let ContentIndexFontSizeKey = "ContentIndexFontSizeKey"
 
@@ -282,17 +281,16 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     StrokeDashUnPaintedKey: 3.0,
     
     IsShowIndexKey: true,
-    IndexColorKey: colorToData(NSColor.labelColor)!,
-    IndexBgColorKey: colorToData(NSColor.textBackgroundColor)!,
+    IndexColorKey: colorToData(NSColor.windowBackgroundColor)!,
+    ContentIndexColorKey: colorToData(NSColor.labelColor)!,
+    IndexBgColorKey: colorToData(NSColor.labelColor)!,
     IndexPaddingKey: 2.0,
     IndexXBasicKey: IndexXBasic.trailing.rawValue,
-    IndexXOffsetKey: 6.0,
     IndexFontSizeKey: 7.0,
     ContentIndexFontSizeKey: 13.0,
     
     IsShowIndexRKey: false,
     IndexColorRKey: colorToData(NSColor.labelColor)!,
-    IndexXOffsetRKey: 5.0,
     IndexYOffsetRKey: 3.0,
     IndexFontSizeRKey: 7.0,
     ContentIndexFontSizeRKey: 13.0,

@@ -23,20 +23,12 @@ struct AppearanceSettingsView: View {
             }
             Preferences.Section(title: NSLocalizedString("Colors & Shadow:", comment: "")) {
                 GroupBox {
-                    HStack {
-                        GroupBox {
-                            VStack(alignment: .trailing) {
-                                WordColorPicker()
-                                TransColorPicker()
-                                BackgroundColorPicker()
-                                TextShadowToggle()
-                            }
-                            .frame(width: 160)
-                        }
-                        
+                    HStack(alignment: .top) {
+                        ColorPickers()
                         ShadowGroupSettings()
                     }
                 }
+                .frame(width: 360)
             }
             Preferences.Section(title: NSLocalizedString("Content Background Display:", comment: "")) {
                 ContentBackgroundColor()
@@ -205,10 +197,9 @@ private struct FontRateSetting: View {
     }
 }
 
-private struct WordColorPicker: View {
+private struct ColorPickers: View {
     @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
-        
-    var binding: Binding<Color> {
+    var colorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(wordColor)!) },
             set: { newValue in
@@ -217,15 +208,8 @@ private struct WordColorPicker: View {
         )
     }
     
-    var body: some View {
-        ColorPicker("Word:", selection: binding)
-    }
-}
-
-private struct TransColorPicker: View {
     @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
-    
-    var binding: Binding<Color> {
+    var transColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(transColor)!) },
             set: { newValue in
@@ -233,16 +217,9 @@ private struct TransColorPicker: View {
             }
         )
     }
-    
-    var body: some View {
-        ColorPicker("Translation:", selection: binding)
-    }
-}
 
-private struct BackgroundColorPicker: View {
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    
-    var binding: Binding<Color> {
+    var bgColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(backgroundColor)!) },
             set: { newValue in
@@ -251,12 +228,39 @@ private struct BackgroundColorPicker: View {
         )
     }
     
+    func useDefault() {
+        wordColor = colorToData(NSColor.labelColor)!
+        transColor = colorToData(NSColor.secondaryLabelColor)!
+        backgroundColor = colorToData(NSColor.windowBackgroundColor)!
+    }
+    
     var body: some View {
-        ColorPicker("Background:", selection: binding)
+        GroupBox {
+            VStack {
+                HStack {
+                    Spacer()
+                    ColorPicker("Word:", selection: colorBinding)
+                }
+                HStack {
+                    Spacer()
+                    ColorPicker("Translation:", selection: transColorBinding)
+                }
+                HStack {
+                    Spacer()
+                    ColorPicker("Background:", selection: bgColorBinding)
+                }
+                HStack {
+                    Spacer()
+                    Button("Use Default") {
+                        useDefault()
+                    }
+                }
+            }
+        }
     }
 }
 
-private struct TextShadowToggle: View {
+private struct ShadowGroupSettings: View {
     @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
     
     var binding: Binding<Bool> {
@@ -271,27 +275,22 @@ private struct TextShadowToggle: View {
     }
     
     var body: some View {
-        Toggle(isOn: binding, label: {
-            Text("Use Text Shadow")
-        })
-        .toggleStyle(SwitchToggleStyle())
-    }
-}
-
-// MARK: Shadow Group
-private struct ShadowGroupSettings: View {
-    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
-
-    var body: some View {
-        if textShadowToggle {
-            GroupBox {
-                VStack(alignment: .trailing) {
+        GroupBox {
+            VStack {
+                HStack {
+                    Spacer()
+                    Toggle(isOn: binding, label: {
+                        Text("Use Text Shadow")
+                    })
+                        .toggleStyle(SwitchToggleStyle())
+                }
+                
+                if textShadowToggle {
                     ShadowColorPicker()
                     ShadowRadiusPicker()
                     ShadowXOffSetPicker()
                     ShadowYOffSetPicker()
                 }
-                .frame(width: 130)
             }
         }
     }
@@ -310,7 +309,10 @@ private struct ShadowColorPicker: View {
     }
     
     var body: some View {
-        ColorPicker("Color:", selection: binding)
+        HStack {
+            Spacer()
+            ColorPicker("Color:", selection: binding)
+        }
     }
 }
 

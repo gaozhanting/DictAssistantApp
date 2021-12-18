@@ -180,9 +180,8 @@ private struct HLDottedView: View {
     }
     
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
-    @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
     var x: CGFloat {
         let basicX: CGFloat = {
             switch IndexXBasic(rawValue: indexXBasic)! {
@@ -194,7 +193,7 @@ private struct HLDottedView: View {
                 return box.1.x * geometrySize.width
             }
         }()
-        return basicX + CGFloat(indexXOffset)
+        return basicX
     }
     var y: CGFloat {
         (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)
@@ -221,7 +220,7 @@ private struct HLDottedView: View {
 //        .position(x: x, y: y)
 //    }
     
-    @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.textBackgroundColor)!
+    @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
     
     var body: some View {
@@ -273,7 +272,6 @@ private struct HLRectangleView: View {
     
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
     @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
     
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
@@ -290,7 +288,7 @@ private struct HLRectangleView: View {
                         .foregroundColor(Color(dataToColor(indexColorR)!))
                         .font(indexFont)
                         .position(
-                            x: box.1.x * geometrySize.width - CGFloat(rectangleVerticalPadding) + CGFloat(indexXOffsetR),
+                            x: box.1.x * geometrySize.width - CGFloat(rectangleVerticalPadding),
                             y: (1 - box.0.y) * geometrySize.height - CGFloat(rectangleHorizontalPadding) - CGFloat(indexYOffsetR))
                     ,
                     alignment: .bottomLeading

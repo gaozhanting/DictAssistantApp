@@ -79,7 +79,7 @@ private struct HighlightView: View {
                 EmptyView()
             }
         }
-        .frame(width: 400)
+        .frame(width: 450)
     }
 }
 
@@ -145,13 +145,26 @@ private struct RectangleOptionsView: View {
 
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
-    @AppStorage(IndexXOffsetKey) var indexXOffset: Double = 6.0
     @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
-
-    var binding: Binding<Color> {
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
+    
+    func useDefault() {
+        isShowIndex = true
+        indexXBasic = IndexXBasic.trailing.rawValue
+        indexFontSize = 7.0
+        indexPadding = 2.0
+        indexColor = colorToData(NSColor.windowBackgroundColor)!
+        indexBgColor = colorToData(NSColor.labelColor)!
+        contentIndexFontSize = 13.0
+        contentIndexColor = colorToData(NSColor.labelColor)!
+    }
+    
+    var indexColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(indexColor)!) },
             set: { newValue in
@@ -160,7 +173,7 @@ private struct DottedIndexOptionsView: View {
         )
     }
     
-    var binding2: Binding<Color> {
+    var indexBgColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(indexBgColor)!) },
             set: { newValue in
@@ -169,18 +182,13 @@ private struct DottedIndexOptionsView: View {
         )
     }
     
-    @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.textBackgroundColor)!
-    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
-    
-    func useDefault() {
-        isShowIndex = true
-        indexColor = colorToData(NSColor.labelColor)!
-        indexXBasic = IndexXBasic.trailing.rawValue
-        indexXOffset = 6.0
-        indexFontSize = 7.0
-        contentIndexFontSize = 13.0
-        indexBgColor = colorToData(NSColor.textBackgroundColor)!
-        indexPadding = 2.0
+    var contentIndexColorBinding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(contentIndexColor)!) },
+            set: { newValue in
+                contentIndexColor = colorToData(NSColor(newValue))!
+            }
+        )
     }
     
     var body: some View {
@@ -207,41 +215,42 @@ private struct DottedIndexOptionsView: View {
                     
                     HStack {
                         Spacer()
-                        Text("X Offset:")
-                        TextField("", value: $indexXOffset, formatter: tfDecimalFormatter)
-                            .frame(width: tfWidth)
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        Text("Cropper Font Size:")
+                        Text("Font Size:")
                         TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
                     
                     HStack {
                         Spacer()
+                        Text("Padding:")
+                        TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                    }
+                                       
+                    HStack {
+                        Spacer()
+                        ColorPicker("Color:", selection: indexColorBinding)
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        ColorPicker("Background Color:", selection: indexBgColorBinding)
+                    }
+                    
+                    Divider()
+ 
+                    HStack {
+                        Spacer()
                         Text("Content Font Size:")
                         TextField("", value: $contentIndexFontSize, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
-                    
                     HStack {
                         Spacer()
-                        ColorPicker("color:", selection: binding)
+                        ColorPicker("Content Color:", selection: contentIndexColorBinding)
                     }
                     
-                    HStack {
-                        Spacer()
-                        Text("Index Padding:")
-                        TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
-                            .frame(width: tfWidth)
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        ColorPicker("Index BG color:", selection: binding2)
-                    }
+                    Divider()
                     
                     HStack {
                         Spacer()
@@ -258,7 +267,6 @@ private struct DottedIndexOptionsView: View {
 private struct RectangleIndexOptionsView: View {
     @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
     @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(IndexXOffsetRKey) var indexXOffsetR: Double = 5.0
     @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
     @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
     @AppStorage(ContentIndexFontSizeRKey) var contentIndexFontSizeR: Double = 13.0
@@ -275,7 +283,7 @@ private struct RectangleIndexOptionsView: View {
     func useDefault() {
         isShowIndexR = true
         indexColorR = colorToData(NSColor.labelColor)!
-        indexXOffsetR = 6.0
+        indexYOffsetR = 3.0
         indexFontSizeR = 7.0
         contentIndexFontSizeR = 13.0
     }
@@ -294,13 +302,6 @@ private struct RectangleIndexOptionsView: View {
                 if isShowIndexR {
                     HStack {
                         Spacer()
-                        Text("X Offset:")
-                        TextField("", value: $indexXOffsetR, formatter: tfDecimalFormatter)
-                            .frame(width: tfWidth)
-                    }
-                    
-                    HStack {
-                        Spacer()
                         Text("Y Offset:")
                         TextField("", value: $indexYOffsetR, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
@@ -308,10 +309,17 @@ private struct RectangleIndexOptionsView: View {
                     
                     HStack {
                         Spacer()
-                        Text("Cropper Font Size:")
+                        Text("Font Size:")
                         TextField("", value: $indexFontSizeR, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
+                    
+                    HStack {
+                        Spacer()
+                        ColorPicker("Color:", selection: binding)
+                    }
+                    
+                    Divider()
                     
                     HStack {
                         Spacer()
@@ -319,12 +327,6 @@ private struct RectangleIndexOptionsView: View {
                         TextField("", value: $contentIndexFontSizeR, formatter: tfDecimalFormatter)
                             .frame(width: tfWidth)
                     }
-                    
-                    HStack {
-                        Spacer()
-                        ColorPicker("color:", selection: binding)
-                    }
-
                     
                     HStack {
                         Spacer()
