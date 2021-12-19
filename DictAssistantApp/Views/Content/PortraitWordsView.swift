@@ -27,6 +27,7 @@ struct PortraitWordsView: View {
                         WordsView()
                             .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
+                    .padding()
                     .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
                     .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
                 }
@@ -38,6 +39,7 @@ struct PortraitWordsView: View {
                         WordsView()
                             .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
+                    .padding()
                     .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
                     .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
                 }
@@ -51,6 +53,7 @@ struct PortraitWordsView: View {
                             insertion: .move(edge: .bottom),
                             removal: .identity
                         ))
+                        .padding()
                         .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     
                     HStack { Spacer() }
@@ -68,6 +71,7 @@ struct PortraitWordsView: View {
                     
                     HStack { Spacer() } // only this works
                 }
+                .padding()
                 .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
                 .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
             }

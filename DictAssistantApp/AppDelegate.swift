@@ -91,7 +91,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // comment this when develop with swiftui preview, otherwise it will auto switch editor which is very annoying
         // this will use state showing swiftUI, although not displayed
-        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // takes 0.35s
+//        fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() // takes 0.35s
     }
     
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {

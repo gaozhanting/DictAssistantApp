@@ -54,6 +54,7 @@ private struct BodyView: View {
             
             VStack { Spacer() }
         }
+        .padding()
         .onChange(of: words) { _ in
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
                 proxy?.scrollTo(words.last?.id, anchor: .top)
@@ -81,6 +82,7 @@ private struct CenteredView: View {
             HStack(alignment: .top) {
                 WordsView()
             }
+            .padding()
             Spacer()
         }
         .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)

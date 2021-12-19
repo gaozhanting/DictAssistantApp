@@ -107,9 +107,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             // colorways apple-dict colourway
-//            LandscapeWordsView()
-//                .environmentObject(sampleWords(["the left", "scepter", "colorway", "Latin"]))
-//                .frame(width: 1000, height: 150)
+            LandscapeWordsView()
+                .environmentObject(sampleWords(["the left", "scepter", "colorway", "Latin"]))
+                .frame(width: 1000, height: 110)
 //
 //            LandscapeWordsView()
 //                .environmentObject(sampleWords(["scepter"]))
@@ -124,9 +124,9 @@ struct ContentView_Previews: PreviewProvider {
 //                .environmentObject(displayedWords3)
 //                .frame(width: 1000, height: 150)
 //
-            PortraitWordsView()
-                .environmentObject(displayedWords2)
-                .frame(width: 300, height: 600)
+//            PortraitWordsView()
+//                .environmentObject(displayedWords2)
+//                .frame(width: 300, height: 600)
 //
 //            PortraitWordsView()
 //                .environmentObject(displayedWords3)
