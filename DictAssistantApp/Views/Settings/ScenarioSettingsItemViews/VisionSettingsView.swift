@@ -37,7 +37,7 @@ struct TRMinimumTextHeightSetting: View {
                 value: $minimumTextHeight,
                 in: 0...1
             )
-            .frame(maxWidth: 150)
+                .frame(maxWidth: 150)
             
 //            Text("\(minimumTextHeight, specifier: "%.4f")")
             

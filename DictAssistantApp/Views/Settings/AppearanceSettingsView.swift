@@ -11,14 +11,12 @@ import Preferences
 struct AppearanceSettingsView: View {
     var body: some View {
         VStack(alignment: .leading) {
-//            FontSettingView()
-//
-//            FontRateSetting()
+            FontSettingView()
+            
+            FontRateSetting()
 
-//            HStack(alignment: .top) {
-//                ColorPickers()
-//                ShadowGroupSettings()
-//            }
+            ColorPickers()
+            ShadowGroupSettings()
 
             ContentBackgroundColor()
             ContentBackgroundVisualEffect()
@@ -37,6 +35,7 @@ struct AppearanceSettingsView: View {
 private struct FontSettingView: View {
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
     
     var font: NSFont {
         if let font = NSFont(name: fontName, size: CGFloat(fontSize)) {
@@ -85,98 +84,54 @@ private struct FontSettingView: View {
         }
         
         HStack {
-            Toggle(isOn: binding, label: {
-                Text("More...")
-            })
-                .toggleStyle(SwitchToggleStyle())
-            
-            Spacer()
-            
-            if isShowTextField {
-                Text("line spacing:")
-                LineSpacingView(fold: fold)
-            }
+            Text("Font Line Spacing:")
+            TextField("", value: $lineSpacing, formatter: tfDecimalFormatter).frame(width: tfWidth)
         }
-    }
-    
-    func fold() {
-        isShowTextField = false
-    }
-    
-    @State private var isShowTextField: Bool = false
-    
-    var binding: Binding<Bool> {
-        Binding(
-            get: { isShowTextField },
-            set: { newValue in
-                withAnimation {
-                    isShowTextField = newValue
-                }
-            }
-        )
-    }
-}
-
-private struct LineSpacingView: View {
-    let fold: () -> Void
-    
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
-    
-    @State var showingAlert: Bool = false
-    
-    var binding: Binding<String> {
-        Binding(
-            get: { String(lineSpacing) },
-            set: { newValue in
-                guard let newValue = Double(newValue) else {
-                    showingAlert = true
-                    return
-                }
-                
-                lineSpacing = newValue
-            }
-        )
-    }
-    
-    var body: some View {
-        TextField("", text: binding, onCommit: fold)
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Invalid value"), message: Text("Value must be number"))
-            }
-        
     }
 }
 
 private struct FontRateSetting: View {
-    @AppStorage(FontRateKey) private var fontRateKey: Double = 0.9
+    @AppStorage(FontRateKey) private var fontRate: Double = 0.9
     
     func incrementStep() {
-        fontRateKey += 0.01
-        if fontRateKey > 1 {
-            fontRateKey = 1
+        fontRate += 0.01
+        if fontRate > 1 {
+            fontRate = 1
         }
     }
     
     func decrementStep() {
-        fontRateKey -= 0.01
-        if fontRateKey < 0 {
-            fontRateKey = 0
+        fontRate -= 0.01
+        if fontRate < 0 {
+            fontRate = 0
         }
     }
     
     var body: some View {
         HStack {
-            Text("Font Rate: \(fontRateKey, specifier: "%.2f")")
+            Text("Font Size Rate:")
             
             Slider(
-                value: $fontRateKey,
+                value: $fontRate,
                 in: 0...2
             )
+                .frame(maxWidth: 150)
+            
+//            Text("\(fontRate, specifier: "%.2f")")
+            
+            TextField("", value: $fontRate, formatter: {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .decimal
+                formatter.minimum = 0
+                formatter.maximum = 2
+                return formatter
+            }())
+                .frame(width: tfWidth)
             
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
-            
+
             MiniInfoView {
-                Text("The font rate = font size of translation / font size of word.")
+                Text("The font size rate = font size of translation / font size of word.")
                     .font(.subheadline).padding()
             }
         }
@@ -221,26 +176,15 @@ private struct ColorPickers: View {
     }
     
     var body: some View {
-        GroupBox {
-            VStack {
-                HStack {
-                    Spacer()
-                    ColorPicker("Word:", selection: colorBinding)
-                }
-                HStack {
-                    Spacer()
-                    ColorPicker("Translation:", selection: transColorBinding)
-                }
-                HStack {
-                    Spacer()
-                    ColorPicker("Background:", selection: bgColorBinding)
-                }
-                HStack {
-                    Spacer()
-                    Button("Use Default") {
-                        useDefault()
-                    }
-                }
+        HStack {
+            ColorPicker("Word:", selection: colorBinding)
+            Spacer()
+            ColorPicker("Trans:", selection: transColorBinding)
+            Spacer()
+            ColorPicker("Background:", selection: bgColorBinding)
+            Spacer()
+            Button("Use Default") {
+                useDefault()
             }
         }
     }
@@ -261,25 +205,27 @@ private struct ShadowGroupSettings: View {
     }
     
     var body: some View {
-        GroupBox {
-            VStack {
-                HStack {
-                    Spacer()
-                    Toggle(isOn: binding, label: {
-                        Text("Use Text Shadow")
-                    })
-                        .toggleStyle(SwitchToggleStyle())
-                }
-                
-                if textShadowToggle {
-                    ShadowColorPicker()
-                    ShadowRadiusPicker()
-                    ShadowXOffSetPicker()
-                    ShadowYOffSetPicker()
-                }
+        HStack {
+            Toggle(isOn: binding, label: {
+                Text("Use Text Shadow")
+            })
+            
+            if textShadowToggle {
+                Spacer()
+                ShadowColorPicker()
+                Text("R:")
+                TextField("", value: $shadowRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                Text("X:")
+                TextField("", value: $shadowXOffset, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                Text("Y:")
+                TextField("", value: $shadowYOffset, formatter: tfDecimalFormatter).frame(width: tfWidth)
             }
         }
     }
+    
+    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
 }
 
 private struct ShadowColorPicker: View {
@@ -295,103 +241,7 @@ private struct ShadowColorPicker: View {
     }
     
     var body: some View {
-        HStack {
-            Spacer()
-            ColorPicker("Color:", selection: binding)
-        }
-    }
-}
-
-private struct ShadowRadiusPicker: View {
-    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
-    
-    @State var showingAlert: Bool = false
-    
-    var binding: Binding<String> {
-        Binding(
-            get: { String(shadowRadius) },
-            set: { newValue in
-                guard let newValue = Double(newValue) else {
-                    showingAlert = true
-                    return
-                }
-                
-                shadowRadius = newValue
-            }
-        )
-    }
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Text("Radius:")
-            TextField("", text: binding)
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Invalid value"), message: Text("Value must be a number."))
-                }
-        }
-    }
-}
-
-private struct ShadowXOffSetPicker: View {
-    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
-    
-    @State var showingAlert: Bool = false
-    
-    var binding: Binding<String> {
-        Binding(
-            get: { String(shadowXOffset) },
-            set: { newValue in
-                guard let newValue = Double(newValue) else {
-                    showingAlert = true
-                    return
-                }
-                
-                shadowXOffset = newValue
-            }
-        )
-    }
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Text("X Offset:")
-            TextField("", text: binding)
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
-                }
-        }
-    }
-}
-
-private struct ShadowYOffSetPicker: View {
-    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
-    
-    @State var showingAlert: Bool = false
-    
-    var binding: Binding<String> {
-        Binding(
-            get: { String(shadowYOffset) },
-            set: { newValue in
-                guard let newValue = Double(newValue) else {
-                    showingAlert = true
-                    return
-                }
-                
-                shadowYOffset = newValue
-            }
-        )
-    }
-
-    var body: some View {
-        HStack {
-            Spacer()
-            Text("Y Offset:")
-            TextField("", text: binding)
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
-                }
-        }
+        ColorPicker("Color:", selection: binding)
     }
 }
 
