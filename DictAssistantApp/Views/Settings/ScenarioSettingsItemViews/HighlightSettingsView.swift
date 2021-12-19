@@ -7,33 +7,27 @@
 
 import SwiftUI
 
-struct HighlightView: View {
+struct HighlightSettingsView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     
     var body: some View {
-        VStack {
-            Picker("", selection: $highlightMode) {
+        VStack(alignment: .leading) {
+            Picker("Highlight:", selection: $highlightMode) {
                 Text("Dotted").tag(HighlightMode.dotted.rawValue)
                 Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
                 Text("Disabled").tag(HighlightMode.disabled.rawValue)
             }
+            .frame(width: 200)
             .pickerStyle(MenuPickerStyle())
-            .labelsHidden()
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .dotted:
-                GroupBox {
-                    HStack(alignment: .top) {
-                        DottedOptionsView()
-                        DottedIndexOptionsView()
-                    }
+                VStack(alignment: .leading) {
+                    DottedOptionsView()
+                    DottedIndexOptionsView()
                 }
             case .rectangle:
-                GroupBox {
-                    HStack(alignment: .top) {
-                        RectangleOptionsView()
-                    }
-                }
+                RectangleOptionsView()
             case .disabled:
                 EmptyView()
             }
@@ -62,7 +56,7 @@ private struct DottedOptionsView: View {
         strokeDashPainted = 1.0
         strokeDashUnPainted = 5.0
     }
-
+    
     var binding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(hlDottedColor)!) },
@@ -72,48 +66,47 @@ private struct DottedOptionsView: View {
         )
     }
     
+    var row1: some View {
+        HStack {
+            Text("downward:")
+            TextField("", value: $strokeDownwardOffset, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
+            
+            Spacer()
+            ColorPicker("color:", selection: binding)
+            
+            Spacer()
+            Text("line width:")
+            TextField("", value: $strokeLineWidth, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
+        }
+    }
+    
+    var row2: some View {
+        HStack {
+            Text("dash painted:")
+            TextField("", value: $strokeDashPainted, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
+            
+            Spacer()
+            
+            Text("dash unpainted:")
+            TextField("", value: $strokeDashUnPainted, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
+            
+            Spacer()
+            
+            Button("Use Default") {
+                useDefault()
+            }
+        }
+    }
+    
     var body: some View {
         GroupBox {
             VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    Text("downward:")
-                    TextField("", value: $strokeDownwardOffset, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                }
-                
-                HStack {
-                    Spacer()
-                    ColorPicker("color:", selection: binding)
-                }
-                
-                HStack {
-                    Spacer()
-                    Text("line width:")
-                    TextField("", value: $strokeLineWidth, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                }
-                
-                HStack {
-                    Spacer()
-                    Text("dash painted:")
-                    TextField("", value: $strokeDashPainted, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                }
-                
-                HStack {
-                    Spacer()
-                    Text("dash unpainted:")
-                    TextField("", value: $strokeDashUnPainted, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                }
-                
-                HStack {
-                    Spacer()
-                    Button("Use Default") {
-                        useDefault()
-                    }
-                }
+                row1
+                row2
             }
         }
     }
@@ -167,77 +160,75 @@ private struct DottedIndexOptionsView: View {
         )
     }
     
-    var cropperG: some View {
-        Group{
-            Divider()
-            
-            Text("Cropper:")
-            
+    var row1: some View {
+        HStack {
             Picker("X Basic:", selection: $indexXBasic) {
                 Text("leading").tag(IndexXBasic.leading.rawValue)
                 Text("center").tag(IndexXBasic.center.rawValue)
                 Text("trailing").tag(IndexXBasic.trailing.rawValue)
             }
+            .frame(width: 170)
             .pickerStyle(MenuPickerStyle())
             
-            HStack {
-                Spacer()
-                Text("Font Size:")
-                TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
-                    .frame(width: tfWidth)
-            }
+            Spacer()
             
-            HStack {
-                Spacer()
-                Text("Padding:")
-                TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
-                    .frame(width: tfWidth)
-            }
+            Text("Padding:")
+            TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
+        }
+    }
+    
+    var row2: some View {
+        HStack {
+            Text("Cropper Font Size:")
+            TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
+            
+            Spacer()
             
             ColorPicker("Color:", selection: indexColorBinding)
+            
+            Spacer()
             
             ColorPicker("BG Color:", selection: indexBgColorBinding)
         }
     }
     
-    var contentG: some View {
-        Group {
-            Divider()
+    var row3: some View {
+        HStack {
+            Text("Content Font Size:")
+            TextField("", value: $contentIndexFontSize, formatter: tfDecimalFormatter)
+                .frame(width: tfWidth)
             
-            Text("Content:")
-            
-            HStack {
-                Spacer()
-                Text("Font Size:")
-                TextField("", value: $contentIndexFontSize, formatter: tfDecimalFormatter)
-                    .frame(width: tfWidth)
-            }
+            Spacer()
             
             ColorPicker("Color:", selection: contentIndexColorBinding)
             
+            Spacer()
+            
+            Button("Use Default") {
+                useDefault()
+            }
         }
     }
     
     var body: some View {
-        GroupBox {
-            VStack(alignment: .trailing) {
-                HStack {
-                    Spacer()
-                    Toggle(isOn: $isShowIndex, label: {
-                        Text("Show Index")
-                    })
-                        .toggleStyle(SwitchToggleStyle())
-                }
-                
-                if isShowIndex {
-                    
-                    cropperG
-                    
-                    contentG
-                    
-                    Divider()
-                    Button("Use Default") {
-                        useDefault()
+        Group {
+            Toggle(isOn: $isShowIndex, label: {
+                Text("Show Index")
+            })
+                .toggleStyle(CheckboxToggleStyle())
+            
+            if isShowIndex {
+                GroupBox {
+                    VStack(alignment: .leading) {
+                        if isShowIndex {
+                            VStack {
+                                row1
+                                row2
+                                row3
+                            }
+                        }
                     }
                 }
             }
@@ -267,31 +258,26 @@ private struct RectangleOptionsView: View {
     
     var body: some View {
         GroupBox {
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    ColorPicker("color:", selection: binding)
-                }
+            HStack {
+                ColorPicker("", selection: binding)
+                    .labelsHidden()
                 
-                HStack {
-                    Spacer()
-                    Text("vertical padding:")
-                    TextField("", value: $rectangleVerticalPadding, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                }
+                Spacer()
                 
-                HStack {
-                    Spacer()
-                    Text("horizontal padding:")
-                    TextField("", value: $rectangleHorizontalPadding, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                }
+                Text("v padding:")
+                TextField("", value: $rectangleVerticalPadding, formatter: tfDecimalFormatter)
+                    .frame(width: tfWidth)
                 
-                HStack {
-                    Spacer()
-                    Button("Use Default") {
-                        useDefault()
-                    }
+                Spacer()
+                
+                Text("h padding:")
+                TextField("", value: $rectangleHorizontalPadding, formatter: tfDecimalFormatter)
+                    .frame(width: tfWidth)
+                
+                Spacer()
+                
+                Button("Use Default") {
+                    useDefault()
                 }
             }
         }
@@ -302,12 +288,14 @@ struct HighlightSchemeView: View {
     @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
     
     var body: some View {
-        HStack {
-            Toggle(isOn: $isAlwaysRefreshHighlight, label: {
-                Text("Is always refresh highlight")
-            })
-                .toggleStyle(CheckboxToggleStyle())
-            Spacer()
-        }
+        Toggle(isOn: $isAlwaysRefreshHighlight, label: {
+            Text("Is always refresh highlight")
+        })
     }
 }
+
+//struct HighlightSettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HighlightSettingsView()
+//    }
+//}

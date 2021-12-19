@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct ScenarioSettingsView: View {
+    var hlV: some View {
+        Group {
+            Divider()
+            HighlightSettingsView()
+            HighlightSchemeView()
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             ContentStyleSettingView()
@@ -16,16 +24,14 @@ struct ScenarioSettingsView: View {
             CropperStyleSettingView()
             CloseCropperWhenNotPlayingToggle()
             
-//            Divider()
-//            HighlightView()
-//            HighlightSchemeView()
-//
             Divider()
             TRMinimumTextHeightSetting()
             TRTextRecognitionLevelSetting()
             
             Divider()
             MaximumFrameRateSetting()
+            
+            hlV
         }
         .padding()
         .frame(width: panelWidth)
