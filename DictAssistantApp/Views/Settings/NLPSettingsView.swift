@@ -10,31 +10,31 @@ import Preferences
 
 struct NLPSettingsView: View {
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Lemma Search Level:", comment: "")) {
-                LemmaSearchLevelPicker()
-            }
-            Preferences.Section(title: NSLocalizedString("More Recognitions:", comment: "")) {
-                DoNameRecognitionToggle()
-                DoPhraseRecognitionToggle()
-            }
+        VStack(alignment: .leading) {
+            LemmaSearchLevelPicker()
+            
+            DoNameRecognitionToggle()
+            DoPhraseRecognitionToggle()
         }
+        .padding()
+        .frame(width: panelWidth)
     }
 }
 
-private struct LemmaSearchLevelPicker: View {
+struct LemmaSearchLevelPicker: View {
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     
     var body: some View {
         HStack {
+            Text("Lemma Search Level")
+            Spacer()
             Picker("", selection: $lemmaSearchLevel) {
                 Text("apple").tag(LemmaSearchLevel.apple.rawValue)
                 Text("database").tag(LemmaSearchLevel.database.rawValue)
                 Text("open").tag(LemmaSearchLevel.open.rawValue)
             }
-            .labelsHidden()
+            .frame(width: 200)
             .pickerStyle(MenuPickerStyle())
-            .frame(width: 150)
             
             MiniInfoView {
                 LemmaSearchLevelInfoView()
@@ -43,14 +43,14 @@ private struct LemmaSearchLevelPicker: View {
     }
 }
 
-private struct LemmaSearchLevelInfoView: View {
+struct LemmaSearchLevelInfoView: View {
     var body: some View {
         Text("Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out.")
             .infoStyle()
     }
 }
 
-private struct DoNameRecognitionToggle: View {
+struct DoNameRecognitionToggle: View {
     @AppStorage(DoNameRecognitionKey) var doNameRecognition: Bool = false
     
     var body: some View {
@@ -60,7 +60,7 @@ private struct DoNameRecognitionToggle: View {
     }
 }
 
-private struct DoPhraseRecognitionToggle: View {
+struct DoPhraseRecognitionToggle: View {
     @AppStorage(DoPhraseRecognitionKey) private var doPhraseRecognition: Bool = false
     
     var body: some View {

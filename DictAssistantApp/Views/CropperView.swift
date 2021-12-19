@@ -256,7 +256,7 @@ private struct HLRectangleView: View {
     @AppStorage(RectangleVerticalPaddingKey) var rectangleVerticalPadding: Double = 2.0
     @AppStorage(RectangleHorizontalPaddingKey) var rectangleHorizontalPadding: Double = 4.0
     
-    var body0: some View {
+    var body: some View {
         Rectangle()
             .path(in: {
                 let rect = CGRect(
@@ -268,34 +268,6 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
-    }
-    
-    @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = true
-    @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(IndexYOffsetRKey) var indexYOffsetR: Double = 3.0
-    
-    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(IndexFontSizeRKey) var indexFontSizeR: Double = 7.0
-    var indexFont: Font {
-        Font.custom(fontName, size: CGFloat(indexFontSizeR))
-    }
-    
-    var body: some View {
-        if isShowIndexR {
-            body0
-                .overlay(
-                    Text(String(index))
-                        .foregroundColor(Color(dataToColor(indexColorR)!))
-                        .font(indexFont)
-                        .position(
-                            x: box.1.x * geometrySize.width - CGFloat(rectangleVerticalPadding),
-                            y: (1 - box.0.y) * geometrySize.height - CGFloat(rectangleHorizontalPadding) - CGFloat(indexYOffsetR))
-                    ,
-                    alignment: .bottomLeading
-                )
-        } else {
-            body0
-        }
     }
 }
 

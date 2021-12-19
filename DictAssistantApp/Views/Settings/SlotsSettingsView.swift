@@ -11,21 +11,19 @@ import Vision
 
 struct SlotsSettingsView: View {
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: "") {
-                HStack {
-                    SlotsView()
-//                        .overlay(
-//                            QuestionMarkView {
-//                                InfoView()
-//                            },
-//                            alignment: .bottomTrailing)
-                    
-                    SlotDetailsView()
-                }
-            }
-        }
-
+        SlotsView()
+            .frame(width: panelWidth)
+        
+//        HStack {
+//            SlotsView()
+//            //                        .overlay(
+//            //                            QuestionMarkView {
+//            //                                InfoView()
+//            //                            },
+//            //                            alignment: .bottomTrailing)
+//
+//            SlotDetailsView()
+//        }
     }
 }
 
@@ -279,7 +277,7 @@ private struct ButtonsView: View {
     
     var body: some View {
         HStack {
-            Button("Add") {
+            Button("+") {
                 let slot = Slot(context: managedObjectContext)
                 slot.color = colorToData(NSColor.random())
                 slot.label = ""
@@ -303,7 +301,7 @@ private struct ButtonsView: View {
             }
             .disabled(selectedSlot == nil)
             
-            Button("Delete All") {
+            Button("Clear") {
                 showingAlert = true
             }
             .alert(isPresented: $showingAlert) {
@@ -344,14 +342,22 @@ private struct SlotDetailsView: View {
                     }
                 }
                 Spacer().frame(height: 20)
-   
-                GroupBox(label: Label("Vision", systemImage: "doc.text.viewfinder").font(.headline)) {
+                
+                GroupBox(label: Label("Highlight", systemImage: "highlighter").font(.headline)) {
                     VStack {
-                        TRMinimumTextHeightSetting()
-                        TRTextRecognitionLevelSetting()
+                        HighlightView()
+                        HighlightSchemeView()
                     }
                 }
                 Spacer().frame(height: 20)
+   
+//                GroupBox(label: Label("Vision", systemImage: "doc.text.viewfinder").font(.headline)) {
+//                    VStack {
+//                        TRMinimumTextHeightSetting()
+//                        TRTextRecognitionLevelSetting()
+//                    }
+//                }
+//                Spacer().frame(height: 20)
                 
                 GroupBox(label: Label("Recording", systemImage: "rectangle.dashed.badge.record").font(.headline)) {
                     MaximumFrameRateSetting()
@@ -359,7 +365,7 @@ private struct SlotDetailsView: View {
             }
             .padding()
         }
-        .frame(width: 400)
+        .frame(width: 450)
     }
 }
 

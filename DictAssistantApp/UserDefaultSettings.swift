@@ -37,12 +37,6 @@ let HLRectangleColorKey = "HLRectangleColorKey"
 let RectangleVerticalPaddingKey = "RectangleVerticalPaddingKey"
 let RectangleHorizontalPaddingKey = "RectangleHorizontalPaddingKey"
 
-let IsShowIndexRKey = "IsShowIndexRKey"
-let IndexColorRKey = "IndexColorRKey"
-let IndexYOffsetRKey = "IndexYOffsetRKey"
-let IndexFontSizeRKey = "IndexFontSizeRKey"
-let ContentIndexFontSizeRKey = "ContentIndexFontSizeRKey"
-
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let HLDottedColorKey = "HLDottedColorKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
@@ -288,12 +282,6 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexFontSizeKey: 7.0,
     ContentIndexFontSizeKey: 13.0,
-    
-    IsShowIndexRKey: false,
-    IndexColorRKey: colorToData(NSColor.labelColor)!,
-    IndexYOffsetRKey: 3.0,
-    IndexFontSizeRKey: 7.0,
-    ContentIndexFontSizeRKey: 13.0,
     
     IsAlwaysRefreshHighlightKey: false,
     

@@ -10,43 +10,27 @@ import Preferences
 
 struct AppearanceSettingsView: View {
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Font: ", comment: "")) {
-                FontSettingView()
-            }
-            Preferences.Section(title: NSLocalizedString("Translation Font Rate:", comment: "")) {
-                GroupBox {
-                    VStack(alignment: .leading) {
-                        FontRateSetting()
-                    }
-                }
-            }
-            Preferences.Section(title: NSLocalizedString("Colors & Shadow:", comment: "")) {
-                GroupBox {
-                    HStack(alignment: .top) {
-                        ColorPickers()
-                        ShadowGroupSettings()
-                    }
-                }
-                .frame(width: 360)
-            }
-            Preferences.Section(title: NSLocalizedString("Content Background Display:", comment: "")) {
-                ContentBackgroundColor()
-                ContentBackgroundVisualEffect()
-            }
-            Preferences.Section(title: NSLocalizedString("Appearance:", comment: "")) {
-                ColorSchemeSetting()
-            }
-            Preferences.Section(title: NSLocalizedString("Content Window Shadow Display:", comment: "")) {
-                ContentWindowShadowToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("Content Animation Display:", comment: "")) {
-                WithAnimationToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("Content Retention:", comment: "")) {
-                ContentRetentionToggle()
-            }
+        VStack(alignment: .leading) {
+//            FontSettingView()
+//
+//            FontRateSetting()
+
+//            HStack(alignment: .top) {
+//                ColorPickers()
+//                ShadowGroupSettings()
+//            }
+
+            ContentBackgroundColor()
+            ContentBackgroundVisualEffect()
+
+            ContentWindowShadowToggle()
+            WithAnimationToggle()
+            ContentRetentionToggle()
+
+            ColorSchemeSetting()
         }
+        .padding()
+        .frame(width: panelWidth)
     }
 }
 
@@ -74,48 +58,44 @@ private struct FontSettingView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                TextField(
-                    "",
-                    text: Binding.constant("\(fontName) \(fontSize)")
-                )
-                    .font(showFont)
-                    .disabled(true)
-                    .textFieldStyle(SquareBorderTextFieldStyle())
-                    .frame(maxWidth: 200)
-                
-                Button("Select...") {
-                    showFontPanel(nil)
-                }
-                
-                Button("Use default") {
-                    fontName = defaultFontName
-                    fontSize = 14.0
-                }
-                
-                MiniInfoView {
-                    Text("There is a bug: when other TextField is focused, changing font is not work.")
-                        .font(.subheadline)
-                        .padding()
-                }
+        HStack {
+            Text("Font:")
+            TextField(
+                "",
+                text: Binding.constant("\(fontName) \(fontSize)")
+            )
+                .font(showFont)
+                .disabled(true)
+                .textFieldStyle(SquareBorderTextFieldStyle())
+            
+            Button("Select...") {
+                showFontPanel(nil)
             }
             
-            HStack {
-                Toggle(isOn: binding, label: {
-                    Text("More...")
-                })
-                    .toggleStyle(SwitchToggleStyle())
-                
-                Spacer()
-                
-                if isShowTextField {
-                    Text("line spacing:")
-                    LineSpacingView(fold: fold)
-                        .frame(width: 30)
-                }
+            Button("Use default") {
+                fontName = defaultFontName
+                fontSize = 14.0
             }
-            .frame(width: 280)
+            
+            MiniInfoView {
+                Text("There is a bug: when other TextField is focused, changing font is not work.")
+                    .font(.subheadline)
+                    .padding()
+            }
+        }
+        
+        HStack {
+            Toggle(isOn: binding, label: {
+                Text("More...")
+            })
+                .toggleStyle(SwitchToggleStyle())
+            
+            Spacer()
+            
+            if isShowTextField {
+                Text("line spacing:")
+                LineSpacingView(fold: fold)
+            }
         }
     }
     
@@ -186,19 +166,20 @@ private struct FontRateSetting: View {
     
     var body: some View {
         HStack {
-            Text("\(fontRateKey, specifier: "%.2f")")
+            Text("Font Rate: \(fontRateKey, specifier: "%.2f")")
+            
             Slider(
                 value: $fontRateKey,
                 in: 0...2
             )
-            .frame(maxWidth: 180)
             
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
+            
+            MiniInfoView {
+                Text("The font rate = font size of translation / font size of word.")
+                    .font(.subheadline).padding()
+            }
         }
-                
-        Text("The font rate = fontSizeOfTranslation / fontSizeOfTheWord.")
-            .preferenceDescription()
-            .frame(width: 340, alignment: .leading)
     }
 }
 
@@ -345,7 +326,6 @@ private struct ShadowRadiusPicker: View {
             Spacer()
             Text("Radius:")
             TextField("", text: binding)
-                .frame(maxWidth: 46)
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Invalid value"), message: Text("Value must be a number."))
                 }
@@ -377,7 +357,6 @@ private struct ShadowXOffSetPicker: View {
             Spacer()
             Text("X Offset:")
             TextField("", text: binding)
-                .frame(maxWidth: 46)
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
                 }
@@ -409,7 +388,6 @@ private struct ShadowYOffSetPicker: View {
             Spacer()
             Text("Y Offset:")
             TextField("", text: binding)
-                .frame(maxWidth: 46)
                 .alert(isPresented: $showingAlert) {
                     Alert(title: Text("Invalid value"), message: Text("Value must be a number"))
                 }
@@ -424,7 +402,6 @@ private struct ContentBackgroundColor: View {
         Toggle(isOn: $useContentBackgroundColor, label: {
             Text("Using Background Color")
         })
-            .toggleStyle(SwitchToggleStyle())
             .help("When selected, it will use the background color on all words.")
     }
 }
@@ -437,11 +414,11 @@ private struct ContentBackgroundVisualEffect: View {
             Toggle(isOn: $useContentBackgroundVisualEffect, label: {
                 Text("Using Visual Effect")
             })
-                .toggleStyle(SwitchToggleStyle())
+            
+            Spacer()
             
             if useContentBackgroundVisualEffect {
                 ContentBackGroundVisualEffectMaterial()
-                    .frame(maxWidth: 200)
             }
         }
     }
@@ -468,11 +445,12 @@ private struct ContentBackGroundVisualEffectMaterial: View {
     ]
     
     var body: some View {
-        Picker("with material:", selection: $contentBackGroundVisualEffectMaterial) {
+        Picker("", selection: $contentBackGroundVisualEffectMaterial) {
             ForEach(allCases, id: \.self.0) { option in
                 Text(option.1).tag(option.0)
             }
         }
+        .frame(width: 220)
         .pickerStyle(MenuPickerStyle())
     }
 }
@@ -482,15 +460,16 @@ private struct ColorSchemeSetting: View {
 
     var body: some View {
         HStack {
+            Text("Color Scheme")
+            Spacer()
             Picker("", selection: $theColorScheme) {
                 Text("Light").tag(TheColorScheme.light.rawValue)
                 Text("Dark").tag(TheColorScheme.dark.rawValue)
                 Text("System").tag(TheColorScheme.system.rawValue)
                 Text("System Reversed").tag(TheColorScheme.systemReversed.rawValue)
             }
-            .labelsHidden()
             .pickerStyle(MenuPickerStyle())
-            .frame(width: 160)
+            .frame(width: 200)
             .help("This will effect on visual effect background and system colors.")
             
             MiniInfoView {
@@ -517,11 +496,11 @@ private struct ContentWindowShadowToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
             
-            MiniInfoView {
-                Text("Notice window shadow may mess up content.")
-                    .font(.subheadline)
-                    .padding()
-            }
+//            MiniInfoView {
+//                Text("Notice window shadow may mess up content.")
+//                    .font(.subheadline)
+//                    .padding()
+//            }
         }
     }
 }
@@ -536,11 +515,11 @@ private struct WithAnimationToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
             
-            MiniInfoView {
-                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
-                    .font(.subheadline)
-                    .padding()
-            }
+//            MiniInfoView {
+//                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
+//                    .font(.subheadline)
+//                    .padding()
+//            }
         }
     }
 }
@@ -555,22 +534,22 @@ private struct ContentRetentionToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
             
-            MiniInfoView {
-                Text("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
-                    .font(.subheadline)
-                    .padding()
-            }
+//            MiniInfoView {
+//                Text("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
+//                    .font(.subheadline)
+//                    .padding()
+//            }
         }
     }
 }
 
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
+//        Group {
             AppearanceSettingsView()
             
-            ColorSchemeInfo()
-        }
+//            ColorSchemeInfo()
+//        }
         .environment(\.locale, .init(identifier: "en"))
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
     }

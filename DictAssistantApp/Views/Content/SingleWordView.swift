@@ -288,22 +288,13 @@ private struct TheText: View {
     
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(IsShowIndexRKey) var isShowIndexR: Bool = false
     @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(contentIndexFontSize))
     }
-    @AppStorage(ContentIndexFontSizeRKey) var contentIndexFontSizeR: Double = 13.0
-    var indexFontR: Font {
-        Font.custom(fontName, size: CGFloat(contentIndexFontSizeR))
-    }
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     var iColor: Color {
         Color(dataToColor(contentIndexColor)!)
-    }
-    @AppStorage(IndexColorRKey) var indexColorR: Data = colorToData(NSColor.labelColor)!
-    var iColorR: Color {
-        Color(dataToColor(indexColorR)!)
     }
     
     var indexText: Text {
@@ -318,14 +309,7 @@ private struct TheText: View {
                 return Text("\(wordCell.index) ").foregroundColor(iColor).font(indexFont)
             }
         case .rectangle:
-            if !isShowIndexR {
-                return Text("").foregroundColor(iColorR).font(indexFontR)
-            }
-            if wordCell.index == 0 {
-                return Text("").foregroundColor(iColorR).font(indexFontR)
-            } else {
-                return Text("\(wordCell.index) ").foregroundColor(iColorR).font(indexFontR)
-            }
+            return Text("")
         case .disabled:
             return Text("")
         }

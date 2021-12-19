@@ -40,7 +40,7 @@ struct ContentStyleSettingView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
 //                .labelsHidden()
-                .frame(width: 160)
+//                .frame(width: 160)
                 
                 switch ContentStyle(rawValue: contentStyle)! {
                 case .portrait:
@@ -51,7 +51,7 @@ struct ContentStyleSettingView: View {
                         Text("top").tag(PortraitCorner.top.rawValue)
                     }
                     .pickerStyle(MenuPickerStyle())
-                    .frame(width: 200)
+//                    .frame(width: 200)
                 case .landscape:
                     Picker("style:", selection: $landscapeStyle) {
                         Text("normal").tag(LandscapeStyle.normal.rawValue)
@@ -59,7 +59,7 @@ struct ContentStyleSettingView: View {
                         Text("centered").tag(LandscapeStyle.centered.rawValue)
                     }
                     .pickerStyle(MenuPickerStyle())
-                    .frame(width: 200)
+//                    .frame(width: 200)
                 }
             }
             
@@ -84,7 +84,7 @@ struct ContentStyleSettingView: View {
                     }
                 }
             }
-            .frame(width: 370)
+//            .frame(width: 370)
         }
     }
 }

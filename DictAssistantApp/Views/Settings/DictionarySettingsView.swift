@@ -11,14 +11,12 @@ import CoreML
 
 struct DictionarySettingsView: View {
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Use Apple Dict Mode:", comment: "")) {
-                UseAppleDictModePicker()
-            }
-            Preferences.Section(title: NSLocalizedString("Use Custom Entries Mode:", comment: "")) {
-                UseEntryModePicker()
-            }
+        VStack(alignment: .leading) {
+            UseAppleDictModePicker()
+            UseEntryModePicker()
         }
+        .padding()
+        .frame(width: panelWidth)
     }
 }
 
@@ -27,15 +25,16 @@ private struct UseAppleDictModePicker: View {
     
     var body: some View {
         HStack {
+            Text("Use Apple Dict Mode")
+            Spacer()
             Picker("", selection: $useAppleDictMode) {
                 Text("not use").tag(UseAppleDictMode.notUse.rawValue)
                 Text("after built in").tag(UseAppleDictMode.afterBuiltIn.rawValue)
                 Text("before built in").tag(UseAppleDictMode.beforeBuiltIn.rawValue)
                 Text("only").tag(UseAppleDictMode.only.rawValue)
             }
-            .labelsHidden()
+            .frame(width: 200)
             .pickerStyle(MenuPickerStyle())
-            .frame(width: 150)
             
             MiniInfoView {
                 UseAppleDictModeInfoView()
@@ -56,16 +55,16 @@ private struct UseEntryModePicker: View {
     
     var body: some View {
         HStack {
+            Text("Use Custom Entries Mode")
+            Spacer()
             Picker("", selection: $useEntryMode) {
                 Text("not use").tag(UseEntryMode.notUse.rawValue)
                 Text("as first priority").tag(UseEntryMode.asFirstPriority.rawValue)
                 Text("as last priority").tag(UseEntryMode.asLastPriority.rawValue)
                 Text("only").tag(UseEntryMode.only.rawValue)
             }
-            .labelsHidden()
+            .frame(width: 200)
             .pickerStyle(MenuPickerStyle())
-            .frame(width: 150)
-            .help("Choose the way you want to use for your custom entries.")
             
             MiniInfoView {
                 UseEntryModeInfoView()

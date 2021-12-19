@@ -9,19 +9,17 @@ import SwiftUI
 import Preferences
 import KeyboardShortcuts
 
-let settingPanelWidth: Double = 650.0
+//let settingPanelWidth: Double = 650.0
+let panelWidth: Double = 500
 
 struct GeneralSettingsView: View {
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Global Keyboard Shortcuts:", comment: "")) {
-                KeyRecordingView()
-                    .frame(maxWidth: .infinity)
-            }
-            Preferences.Section(title: NSLocalizedString("Toast:", comment: "")) {
-                ShowToastToggle()
-            }
+        VStack {
+            KeyRecordingView()
+            ShowToastToggle()
         }
+        .padding()
+        .frame(width: panelWidth)
     }
 }
 
@@ -35,7 +33,7 @@ private struct MultiToggles: View {
         HStack {
             Text("Toggle Show Current Known Words")
             Spacer()
-            Toggle("", isOn: $isShowCurrentKnown).labelsHidden()
+            Toggle("", isOn: $isShowCurrentKnown)
             KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
             MiniInfoView {
                 Text("recommend: Option-2").font(.subheadline).padding()
@@ -44,7 +42,7 @@ private struct MultiToggles: View {
         HStack {
             Text("Toggle Show Current Not-Found Words")
             Spacer()
-            Toggle("", isOn: $isShowCurrentNotFoundWords).labelsHidden()
+            Toggle("", isOn: $isShowCurrentNotFoundWords)
             KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
             MiniInfoView {
                 Text("recommend: Option-3").font(.subheadline).padding()
@@ -53,7 +51,7 @@ private struct MultiToggles: View {
         HStack {
             Text("Toggle Conceal Current Known Words")
             Spacer()
-            Toggle("", isOn: $isShowCurrentKnownButWithOpacity0).labelsHidden()
+            Toggle("", isOn: $isShowCurrentKnownButWithOpacity0)
             KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
             MiniInfoView {
                 Text("recommend: Option-4").font(.subheadline).padding()
@@ -62,7 +60,7 @@ private struct MultiToggles: View {
         HStack {
             Text("Toggle Conceal Translation")
             Spacer()
-            Toggle("", isOn: $isConcealTranslation).labelsHidden()
+            Toggle("", isOn: $isConcealTranslation)
             KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
             MiniInfoView {
                 Text("recommend: Option-5").font(.subheadline).padding()

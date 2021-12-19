@@ -10,19 +10,18 @@ import Preferences
 
 struct TranscriptSettingsView: View {
     var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Content Display:", comment: "")) {
-                DropTitleWordToggle()
-                Divider().frame(width: 150)
-                AddLineBreakBeforeTranslationToggle()
-                AddSpaceBeforeTranslationToggle()
-                DropFirstTitleWordInTranslationToggle()
-                JoinTranslationLinesToggle()
-            }
-            Preferences.Section(title: NSLocalizedString("More:", comment: "")) {
-                ChineseCharacterConvertingPicker()
-            }
+        VStack(alignment: .leading) {
+            DropTitleWordToggle()
+            Divider()
+            AddLineBreakBeforeTranslationToggle()
+            AddSpaceBeforeTranslationToggle()
+            DropFirstTitleWordInTranslationToggle()
+            JoinTranslationLinesToggle()
+            Divider()
+            ChineseCharacterConvertingPicker()
         }
+        .padding()
+        .frame(width: panelWidth)
     }
 }
 
@@ -84,39 +83,16 @@ private struct JoinTranslationLinesToggle: View {
 }
 
 private struct ChineseCharacterConvertingPicker: View {
-    @State private var showPicker: Bool = false
-    
-    var binding: Binding<Bool> {
-        Binding(
-            get: { showPicker },
-            set: { newValue in
-                withAnimation {
-                    showPicker = newValue
-                }
-            }
-        )
-    }
-    
     @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
 
     var body: some View {
-        HStack {
-            Toggle(isOn: binding, label: {
-                Text("")
-            })
-            .labelsHidden()
-            .toggleStyle(SwitchToggleStyle())
-            
-            if showPicker {
-                Picker("Chinese Character Convert:", selection: $chineseCharacterConvertMode) {
-                    Text("not convert").tag(ChineseCharacterConvertMode.notConvert.rawValue)
-                    Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional.rawValue)
-                    Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified.rawValue)
-                }
-                .pickerStyle(MenuPickerStyle())
-                .frame(maxWidth: 360)
-            }
+        Picker("Chinese Character Convert:", selection: $chineseCharacterConvertMode) {
+            Text("not convert").tag(ChineseCharacterConvertMode.notConvert.rawValue)
+            Text("convert to traditional").tag(ChineseCharacterConvertMode.convertToTraditional.rawValue)
+            Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified.rawValue)
         }
+        .pickerStyle(MenuPickerStyle())
+        .frame(maxWidth: 300)
     }
 }
 
