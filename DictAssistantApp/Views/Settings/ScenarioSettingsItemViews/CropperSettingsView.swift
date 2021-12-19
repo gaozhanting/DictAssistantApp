@@ -11,7 +11,7 @@ struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
 
     var body: some View {
-        Picker("Style:", selection: $cropperStyle) {
+        Picker("Cropper Style:", selection: $cropperStyle) {
             Text("empty").tag(CropperStyle.empty.rawValue)
             Text("rectangle").tag(CropperStyle.rectangle.rawValue)
             Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
@@ -22,8 +22,7 @@ struct CropperStyleSettingView: View {
             Text("bottomBorder").tag(CropperStyle.bottomBorder.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
-//        .labelsHidden()
-//        .frame(width: 160)
+        .frame(width: 210)
     }
 }
 
@@ -33,7 +32,7 @@ struct CloseCropperWhenNotPlayingToggle: View {
     var body: some View {
         HStack {
             Toggle(isOn: $isCloseCropperWhenNotPlaying, label: {
-                Text("close cropper when not playing")
+                Text("Close cropper when not playing")
             })
                 .toggleStyle(CheckboxToggleStyle())
             

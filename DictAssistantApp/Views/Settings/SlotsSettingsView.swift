@@ -22,7 +22,6 @@ struct SlotsSettingsView: View {
 //            //                            },
 //            //                            alignment: .bottomTrailing)
 //
-//            SlotDetailsView()
 //        }
     }
 }
@@ -175,7 +174,7 @@ private struct SlotsView: View {
                                 Button(action: {
                                     select(slot)
                                 }) {
-                                    Image(systemName: slot.isSelected ? "cube.fill" : "cube")
+                                    Image(systemName: slot.isSelected ? "shippingbox.fill" : "shippingbox")
                                         .font(.title)
                                         .foregroundColor(Color(dataToColor(slot.color!)!))
                                 }
@@ -324,49 +323,6 @@ private struct ButtonsView: View {
     }
     
     @State private var showingAlert = false
-}
-
-private struct SlotDetailsView: View {
-    var body: some View {
-        GroupBox {
-            VStack(alignment: .leading) {
-                GroupBox(label: Label("Content", systemImage: "scroll").font(.headline)) {
-                    ContentStyleSettingView()
-                }
-                Spacer().frame(height: 20)
-
-                GroupBox(label: Label("Cropper", systemImage: "crop").font(.headline)) {
-                    VStack {
-                        CropperStyleSettingView()
-                        CloseCropperWhenNotPlayingToggle()
-                    }
-                }
-                Spacer().frame(height: 20)
-                
-                GroupBox(label: Label("Highlight", systemImage: "highlighter").font(.headline)) {
-                    VStack {
-                        HighlightView()
-                        HighlightSchemeView()
-                    }
-                }
-                Spacer().frame(height: 20)
-   
-//                GroupBox(label: Label("Vision", systemImage: "doc.text.viewfinder").font(.headline)) {
-//                    VStack {
-//                        TRMinimumTextHeightSetting()
-//                        TRTextRecognitionLevelSetting()
-//                    }
-//                }
-//                Spacer().frame(height: 20)
-                
-                GroupBox(label: Label("Recording", systemImage: "rectangle.dashed.badge.record").font(.headline)) {
-                    MaximumFrameRateSetting()
-                }
-            }
-            .padding()
-        }
-        .frame(width: 450)
-    }
 }
 
 private struct InfoView: View {

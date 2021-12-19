@@ -16,9 +16,10 @@ var preferencesWindowController = PreferencesWindowController(
         TranscriptePreferenceViewController(),
         AppearancePreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
+        ScenarioPreferenceViewController()
     ],
     style: .toolbarItems,
-    animated: true,
+    animated: false,
     hidesToolbarForSingleItem: true
 )
 
@@ -33,6 +34,7 @@ func showPreferencesPanel() {
 }
 
 func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
+    preferencesWindowController.show(preferencePane: .scenario)
     preferencesWindowController.show(preferencePane: .slots)
     preferencesWindowController.show(preferencePane: .appearance)
     preferencesWindowController.show(preferencePane: .transcript)

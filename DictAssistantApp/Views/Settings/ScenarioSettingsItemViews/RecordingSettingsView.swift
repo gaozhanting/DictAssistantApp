@@ -12,15 +12,14 @@ struct MaximumFrameRateSetting: View {
     
     var body: some View {
         HStack {
-            Text("FPS:")
+            Text("Screen Recording FPS:")
             TextField("", value: $maximumFrameRate, formatter: {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .none // integer, no decimal
                 formatter.minimum = 4
                 formatter.maximum = 30
                 return formatter
-            }())
-            .frame(width: 46)
+            }()).frame(width: tfWidth)
             
             Button("Use default") {
                 maximumFrameRate = 4

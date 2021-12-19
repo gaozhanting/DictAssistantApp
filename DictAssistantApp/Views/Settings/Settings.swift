@@ -15,6 +15,7 @@ extension Preferences.PaneIdentifier {
     static let transcript = Self("transcript")
     static let appearance = Self("appearance")
     static let slots = Self("slots")
+    static let scenario = Self("scenario")
 }
 
 func GeneralPreferenceViewController() -> PreferencePane {
@@ -81,11 +82,23 @@ func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext)
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: NSLocalizedString("Slots", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "cube.fill", accessibilityDescription: "Slots preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "shippingbox", accessibilityDescription: "Slots preferences")!
     ) {
         SlotsSettingsView()
             .environmentObject(statusData)
             .environment(\.managedObjectContext, managedObjectContext)
+    }
+    
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
+func ScenarioPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .scenario,
+        title: NSLocalizedString("Scenario", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "shippingbox.circle", accessibilityDescription: "Scenario preferences")!
+    ) {
+        ScenarioSettingsView()
     }
     
     return Preferences.PaneHostingController(pane: paneView)

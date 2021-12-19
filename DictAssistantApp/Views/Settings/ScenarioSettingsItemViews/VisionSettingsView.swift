@@ -31,12 +31,24 @@ struct TRMinimumTextHeightSetting: View {
     
     var body: some View {
         HStack {
-            Text("Min Height: \(minimumTextHeight, specifier: "%.4f")")
+            Text("Minimum Text Height:")
+            
             Slider(
                 value: $minimumTextHeight,
                 in: 0...1
             )
-//            .frame(maxWidth: 180)
+            .frame(maxWidth: 150)
+            
+//            Text("\(minimumTextHeight, specifier: "%.4f")")
+            
+            TextField("", value: $minimumTextHeight, formatter: {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .decimal
+                formatter.minimum = 0
+                formatter.maximum = 1
+                return formatter
+            }())
+                .frame(width: tfWidth)
             
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
             
@@ -51,7 +63,6 @@ struct TRMinimumTextHeightSetting: View {
 //            Text("The minimum height of the text expected to be recognized, relative to the image height.")
 //                .preferenceDescription()
 //                .frame(width: 300, height: 30, alignment: .leading)
-            
 
 //        }
     }
@@ -68,13 +79,13 @@ struct TRTextRecognitionLevelSetting: View {
     @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     
     var body: some View {
-        Picker("Level:", selection: $textRecognitionLevel) {
+        Picker("Recognition Level:", selection: $textRecognitionLevel) {
             Text("fast").tag(VNRequestTextRecognitionLevel.fast.rawValue)
             Text("accurate").tag(VNRequestTextRecognitionLevel.accurate.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
 //        .labelsHidden()
-//        .frame(width: 160)
+        .frame(width: 240)
         
 //        if textRecognitionLevel == VNRequestTextRecognitionLevel.fast.rawValue {
 //            Text("Fast is very fast, and cause low CPU usage, you should use this by default, but terrible when text on screen has tough surrounding!")

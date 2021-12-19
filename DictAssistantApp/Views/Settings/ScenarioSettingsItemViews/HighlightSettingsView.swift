@@ -41,8 +41,8 @@ struct HighlightView: View {
     }
 }
 
-private let tfWidth: CGFloat = 46
-private let tfDecimalFormatter: NumberFormatter = {
+let tfWidth: CGFloat = 46
+let tfDecimalFormatter: NumberFormatter = {
     let f = NumberFormatter()
     f.numberStyle = .decimal
     return f

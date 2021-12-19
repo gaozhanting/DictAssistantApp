@@ -59,6 +59,7 @@
 		4476F9162754BA2C006EDAC9 /* RemoteEntriesPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4476F9152754BA2C006EDAC9 /* RemoteEntriesPersistence.swift */; };
 		447915A126B7DAAB002E9F8C /* ToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447915A026B7DAAB002E9F8C /* ToastWindow.swift */; };
 		4479E35626A1852000764D53 /* AVSessionAndTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4479E35526A1852000764D53 /* AVSessionAndTR.swift */; };
+		447C25BD276F5EFC00C97DFF /* ScenarioSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447C25BC276F5EFC00C97DFF /* ScenarioSettingsView.swift */; };
 		447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7226550D02004A7173 /* app.xcdatamodeld */; };
 		447D0F7F26564D96004A7173 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D0F7E26564D96004A7173 /* StatusData.swift */; };
 		447D61A72643E5E400AB0C1A /* DataBases in Frameworks */ = {isa = PBXBuildFile; productRef = 447D61A62643E5E400AB0C1A /* DataBases */; };
@@ -142,6 +143,7 @@
 		4476F9152754BA2C006EDAC9 /* RemoteEntriesPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteEntriesPersistence.swift; sourceTree = "<group>"; };
 		447915A026B7DAAB002E9F8C /* ToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindow.swift; sourceTree = "<group>"; };
 		4479E35526A1852000764D53 /* AVSessionAndTR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionAndTR.swift; sourceTree = "<group>"; };
+		447C25BC276F5EFC00C97DFF /* ScenarioSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioSettingsView.swift; sourceTree = "<group>"; };
 		447D0F7326550D02004A7173 /* Words.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Words.xcdatamodel; sourceTree = "<group>"; };
 		447D0F7E26564D96004A7173 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
 		447D61A42643E5A700AB0C1A /* DataBases */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataBases; sourceTree = "<group>"; };
@@ -193,7 +195,8 @@
 				44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
-				446027F9276F012200B901D4 /* SlotsDetailsItemsViews */,
+				447C25BC276F5EFC00C97DFF /* ScenarioSettingsView.swift */,
+				446027F9276F012200B901D4 /* ScenarioSettingsItemViews */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -297,16 +300,16 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		446027F9276F012200B901D4 /* SlotsDetailsItemsViews */ = {
+		446027F9276F012200B901D4 /* ScenarioSettingsItemViews */ = {
 			isa = PBXGroup;
 			children = (
 				44FEB71E270ACC5600701E5D /* ContentSettingsView.swift */,
 				44039244276C96B600DD39F6 /* CropperSettingsView.swift */,
-				446027FA276F02BD00B901D4 /* HighlightSettingsView.swift */,
-				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
+				44FEB722270AD70500701E5D /* RecordingSettingsView.swift */,
+				446027FA276F02BD00B901D4 /* HighlightSettingsView.swift */,
 			);
-			path = SlotsDetailsItemsViews;
+			path = ScenarioSettingsItemViews;
 			sourceTree = "<group>";
 		};
 		4479159F26B7DA86002E9F8C /* Windows */ = {
@@ -505,6 +508,7 @@
 				44C0F24B270775AF006CFEFC /* GBig.swift in Sources */,
 				442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */,
 				446E88D0274A0BCC00B1789B /* QuestionMarkView.swift in Sources */,
+				447C25BD276F5EFC00C97DFF /* ScenarioSettingsView.swift in Sources */,
 				4453554727020B32007DB9C2 /* SlotsPersistence.swift in Sources */,
 				446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */,
 				446027FB276F02BD00B901D4 /* HighlightSettingsView.swift in Sources */,
