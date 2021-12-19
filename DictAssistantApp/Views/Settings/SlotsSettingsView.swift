@@ -14,19 +14,18 @@ struct SlotsSettingsView: View {
         Preferences.Container(contentWidth: settingPanelWidth) {
             Preferences.Section(title: "") {
                 HStack {
-                    Spacer()
-                    
                     SlotsView()
-                        .overlay(
-                            QuestionMarkView {
-                                InfoView()
-                            },
-                            alignment: .bottomTrailing)
+//                        .overlay(
+//                            QuestionMarkView {
+//                                InfoView()
+//                            },
+//                            alignment: .bottomTrailing)
                     
-                    Spacer()
+                    SlotDetailsView()
                 }
             }
         }
+
     }
 }
 
@@ -193,7 +192,7 @@ private struct SlotsView: View {
                                 ))
                                 .font(.callout)
                                 .textFieldStyle(PlainTextFieldStyle())
-                                .frame(maxWidth: 300)
+                                .frame(maxWidth: 200)
                             }
                         }
                     }
@@ -206,7 +205,7 @@ private struct SlotsView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
-                .frame(width: 300, height: 40 + CGFloat(slots.count) * 35 < 800 ? 40 + CGFloat(slots.count) * 35 : 800)
+                .frame(width: 200, height: 40 + CGFloat(slots.count) * 35 < 800 ? 40 + CGFloat(slots.count) * 35 : 800)
             }
             
             ButtonsView(selectedSlot: selectedSlot)
@@ -329,6 +328,41 @@ private struct ButtonsView: View {
     @State private var showingAlert = false
 }
 
+private struct SlotDetailsView: View {
+    var body: some View {
+        GroupBox {
+            VStack(alignment: .leading) {
+                GroupBox(label: Label("Content", systemImage: "scroll").font(.headline)) {
+                    ContentStyleSettingView()
+                }
+                Spacer().frame(height: 20)
+
+                GroupBox(label: Label("Cropper", systemImage: "crop").font(.headline)) {
+                    VStack {
+                        CropperStyleSettingView()
+                        CloseCropperWhenNotPlayingToggle()
+                    }
+                }
+                Spacer().frame(height: 20)
+   
+                GroupBox(label: Label("Vision", systemImage: "doc.text.viewfinder").font(.headline)) {
+                    VStack {
+                        TRMinimumTextHeightSetting()
+                        TRTextRecognitionLevelSetting()
+                    }
+                }
+                Spacer().frame(height: 20)
+                
+                GroupBox(label: Label("Recording", systemImage: "rectangle.dashed.badge.record").font(.headline)) {
+                    MaximumFrameRateSetting()
+                }
+            }
+            .padding()
+        }
+        .frame(width: 400)
+    }
+}
+
 private struct InfoView: View {
     var body: some View {
         Text("Slot is a stored collection of the cropper window frame, the content window frame, and all preferences settings (exclude: global shortcut key, is show toast option, font name). This makes you switch them quickly. \n\nYou can add a default slot or clone a selected slot, as many as you like. You click the icon to switch and dump the selected slot settings into the current preferences settings. You swipe left to prompt to delete a slot. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be automatically saved in it. \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when preference settings changed, sorry for the trouble.")
@@ -343,6 +377,7 @@ struct SlotsSettingsView_Previews: PreviewProvider {
         Group {
             SlotsSettingsView()
                 .environmentObject(StatusData(isPlaying: false))
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
 
             InfoView()
         }

@@ -6,23 +6,13 @@
 //
 
 import SwiftUI
-import Preferences
 
-struct RecordingSettingsView: View {
-    var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Maximum Frame Rate:", comment: "")) {
-                MaximumFrameRateSetting()
-            }
-        }
-    }
-}
-
-private struct MaximumFrameRateSetting: View {
+struct MaximumFrameRateSetting: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
     
     var body: some View {
         HStack {
+            Text("FPS:")
             TextField("", value: $maximumFrameRate, formatter: {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .none // integer, no decimal
@@ -37,13 +27,13 @@ private struct MaximumFrameRateSetting: View {
             }
             
             MiniInfoView(arrowEdge: Edge.trailing) {
-                MaximumFrameRateInfoPopoverView()
+                InfoView()
             }
         }
     }
 }
 
-private struct MaximumFrameRateInfoPopoverView: View {
+private struct InfoView: View {
     var body: some View {
         Text("Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 30 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time.")
             .infoStyle()
@@ -52,11 +42,8 @@ private struct MaximumFrameRateInfoPopoverView: View {
 
 struct RecordingSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            RecordingSettingsView()
-            MaximumFrameRateInfoPopoverView()
-        }
-        .environment(\.locale, .init(identifier: "en"))
+        InfoView()
+            .environment(\.locale, .init(identifier: "en"))
         //        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

@@ -6,24 +6,8 @@
 //
 
 import SwiftUI
-import Preferences
 
-struct ContentSettingsView: View {
-    var body: some View {
-        Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Content Style:", comment: "")) {
-                ContentStyleSettingView()
-            }
-        }
-        .overlay(
-            QuestionMarkView {
-                InfoView()
-            },
-            alignment: .bottomTrailing)
-    }
-}
-
-private struct ContentStyleSettingView: View {
+struct ContentStyleSettingView: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
@@ -50,17 +34,17 @@ private struct ContentStyleSettingView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Picker("", selection: $contentStyle) {
+                Picker("Style:", selection: $contentStyle) {
                     Text("portrait").tag(ContentStyle.portrait.rawValue)
                     Text("landscape").tag(ContentStyle.landscape.rawValue)
                 }
                 .pickerStyle(MenuPickerStyle())
-                .labelsHidden()
+//                .labelsHidden()
                 .frame(width: 160)
                 
                 switch ContentStyle(rawValue: contentStyle)! {
                 case .portrait:
-                    Picker("from corner:", selection: $portraitCorner) {
+                    Picker("corner", selection: $portraitCorner) {
                         Text("topTrailing").tag(PortraitCorner.topTrailing.rawValue)
                         Text("topLeading").tag(PortraitCorner.topLeading.rawValue)
                         Text("bottomLeading").tag(PortraitCorner.bottomLeading.rawValue)
@@ -174,12 +158,8 @@ private struct InfoView: View {
 
 struct ContentSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ContentSettingsView()
-            
-            InfoView()
-        }
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
-        .environment(\.locale, .init(identifier: "en"))
+        InfoView()
+        //        .environment(\.locale, .init(identifier: "zh-Hans"))
+            .environment(\.locale, .init(identifier: "en"))
     }
 }

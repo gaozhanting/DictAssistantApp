@@ -1,22 +1,16 @@
 //
-//  CropperSettingsView.swift
+//  HighlightSettingsView.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/12/17.
+//  Created by Gao Cong on 2021/12/19.
 //
 
 import SwiftUI
 import Preferences
 
-struct CropperSettingsView: View {
+struct HighlightSettingsView: View {
     var body: some View {
         Preferences.Container(contentWidth: settingPanelWidth) {
-            Preferences.Section(title: NSLocalizedString("Cropper Style:", comment: "")) {
-                CropperStyleSettingView()
-            }
-            Preferences.Section(title: NSLocalizedString("Cropper Scheme:", comment: "")) {
-                CloseCropperWhenNotPlayingToggle()
-            }
             Preferences.Section(title: NSLocalizedString("Highlight Unknown:", comment: "")) {
                 HighlightView()
             }
@@ -24,26 +18,6 @@ struct CropperSettingsView: View {
                 HighlightSchemeView()
             }
         }
-    }
-}
-
-private struct CropperStyleSettingView: View {
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
-
-    var body: some View {
-        Picker("", selection: $cropperStyle) {
-            Text("empty").tag(CropperStyle.empty.rawValue)
-            Text("rectangle").tag(CropperStyle.rectangle.rawValue)
-            Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
-            
-            Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
-            Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
-            Text("topBorder").tag(CropperStyle.topBorder.rawValue)
-            Text("bottomBorder").tag(CropperStyle.bottomBorder.rawValue)
-        }
-        .pickerStyle(MenuPickerStyle())
-        .labelsHidden()
-        .frame(width: 160)
     }
 }
 
@@ -411,16 +385,6 @@ private struct DottedOptionsView: View {
     }
 }
 
-private struct CloseCropperWhenNotPlayingToggle: View {
-    @AppStorage(IsCloseCropperWhenNotPlayingKey) var isCloseCropperWhenNotPlaying: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isCloseCropperWhenNotPlaying, label: {
-            Text("close cropper when not playing")
-        })
-            .toggleStyle(CheckboxToggleStyle())
-    }
-}
 
 private struct HighlightSchemeView: View {
     @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
@@ -429,13 +393,5 @@ private struct HighlightSchemeView: View {
             Text("Is always refresh highlight")
         })
             .toggleStyle(CheckboxToggleStyle())
-    }
-}
-
-struct CropperSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CropperSettingsView()
-            .environment(\.locale, .init(identifier: "en"))
-        //        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

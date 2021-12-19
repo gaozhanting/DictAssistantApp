@@ -33,7 +33,7 @@ func saveContext(
             
             // Customize this code block to include application-specific recovery steps.
             let nserror = error as NSError
-            NSApplication.shared.presentError(nserror)
+            NSApplication.shared.presentError(nserror) // Could not merge change, when develop with SwiftUI ?!
         }
     } else {
         nothingChanged()

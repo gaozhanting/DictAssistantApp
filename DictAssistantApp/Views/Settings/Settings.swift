@@ -14,11 +14,7 @@ extension Preferences.PaneIdentifier {
     static let dictionary = Self("dictionary")
     static let transcript = Self("transcript")
     static let appearance = Self("appearance")
-    static let slots = Self("slots") // -- above are universal options, slot, below are scenario options
-    static let recording = Self("recording")
-    static let vision = Self("vision")
-    static let cropper = Self("cropper")
-    static let content = Self("content")
+    static let slots = Self("slots")
 }
 
 func GeneralPreferenceViewController() -> PreferencePane {
@@ -90,55 +86,6 @@ func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext)
         SlotsSettingsView()
             .environmentObject(statusData)
             .environment(\.managedObjectContext, managedObjectContext)
-    }
-    
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func RecordingPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .recording,
-        title: NSLocalizedString("Recording", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "rectangle.dashed.badge.record", accessibilityDescription: "Recording preferences")!
-    ) {
-        RecordingSettingsView()
-            .environmentObject(statusData)
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func VisionPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .vision,
-        title: NSLocalizedString("Vision", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "doc.text.viewfinder", accessibilityDescription: "Vision preferences")!
-    ) {
-        VisionSettingsView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func ContentPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .content,
-        title: NSLocalizedString("Content", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "scroll", accessibilityDescription: "Content preferences")!
-    ) {
-        ContentSettingsView()
-    }
-    
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func CropperPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .cropper,
-        title: NSLocalizedString("Cropper", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "crop", accessibilityDescription: "Cropper preferences")!
-    ) {
-        CropperSettingsView()
     }
     
     return Preferences.PaneHostingController(pane: paneView)
