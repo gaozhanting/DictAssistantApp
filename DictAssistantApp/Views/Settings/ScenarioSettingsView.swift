@@ -20,7 +20,6 @@ struct ScenarioSettingsView: View {
         VStack(alignment: .leading) {
             ContentStyleSettingView()
             
-            Divider()
             CropperStyleSettingView()
             CloseCropperWhenNotPlayingToggle()
             
@@ -28,7 +27,6 @@ struct ScenarioSettingsView: View {
             TRMinimumTextHeightSetting()
             TRTextRecognitionLevelSetting()
             
-            Divider()
             MaximumFrameRateSetting()
             
             hlV
