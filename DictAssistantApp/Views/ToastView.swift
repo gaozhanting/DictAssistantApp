@@ -41,7 +41,7 @@ private struct ToastView: View {
         VStack {
             if let slot = selectedSlot {
                 HStack {
-                    Image(systemName: "shippingbox.fill")
+                    Image(systemName: "shippingbox.circle.fill")
                         .font(.largeTitle)
                         .foregroundColor(Color(dataToColor(slot.color!)!))
                     
