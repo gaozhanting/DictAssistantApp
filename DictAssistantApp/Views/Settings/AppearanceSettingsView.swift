@@ -69,6 +69,10 @@ private struct FontSettingView: View {
         NSFontManager.shared.orderFrontFontPanel(sender) // why the FontPanel has no system Font (same as CotEditor), but Apple Notes FontPanel does have.
     }
     
+    var showFont: Font {
+        return Font.custom(fontName, size: 13)
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -76,6 +80,7 @@ private struct FontSettingView: View {
                     "",
                     text: Binding.constant("\(fontName) \(fontSize)")
                 )
+                    .font(showFont)
                     .disabled(true)
                     .textFieldStyle(SquareBorderTextFieldStyle())
                     .frame(maxWidth: 200)
