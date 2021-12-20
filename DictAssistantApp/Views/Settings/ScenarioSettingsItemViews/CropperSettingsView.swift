@@ -25,18 +25,3 @@ struct CropperStyleSettingView: View {
         .frame(width: 210)
     }
 }
-
-struct CloseCropperWhenNotPlayingToggle: View {
-    @AppStorage(IsCloseCropperWhenNotPlayingKey) var isCloseCropperWhenNotPlaying: Bool = true
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isCloseCropperWhenNotPlaying, label: {
-                Text("Close cropper when not playing")
-            })
-                .toggleStyle(CheckboxToggleStyle())
-            
-            Spacer()
-        }
-    }
-}

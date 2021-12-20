@@ -33,7 +33,6 @@ struct Settings: Codable {
     var tRMinimumTextHeight: Double
     
     var cropperStyle: Int
-    var isCloseCropperWhenNotPlaying: Bool
     
     var contentStyle: Int
     var portraitCorner: Int
@@ -56,7 +55,6 @@ struct Settings: Codable {
         tRMinimumTextHeight: Double,
         
         cropperStyle: Int,
-        isCloseCropperWhenNotPlaying: Bool,
         
         contentStyle: Int,
         portraitCorner: Int,
@@ -77,7 +75,6 @@ struct Settings: Codable {
         self.tRMinimumTextHeight = tRMinimumTextHeight
         
         self.cropperStyle = cropperStyle
-        self.isCloseCropperWhenNotPlaying = isCloseCropperWhenNotPlaying
         
         self.contentStyle = contentStyle
         self.portraitCorner = portraitCorner
@@ -111,7 +108,6 @@ private let defaultSettings = Settings(
     tRMinimumTextHeight: systemDefaultMinimumTextHeight,
     
     cropperStyle: CropperStyle.leadingBorder.rawValue,
-    isCloseCropperWhenNotPlaying: true,
     
     contentStyle: ContentStyle.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
@@ -217,7 +213,6 @@ private struct SlotsView: View {
         tRMinimumTextHeight = s.tRMinimumTextHeight
         
         cropperStyle = s.cropperStyle
-        isCloseCropperWhenNotPlaying = s.isCloseCropperWhenNotPlaying
         
         contentStyle = s.contentStyle
         portraitCorner = s.portraitCorner
@@ -239,7 +234,6 @@ private struct SlotsView: View {
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
-    @AppStorage(IsCloseCropperWhenNotPlayingKey) private var isCloseCropperWhenNotPlaying: Bool = true
     
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue

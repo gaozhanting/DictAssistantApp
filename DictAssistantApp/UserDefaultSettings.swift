@@ -52,7 +52,6 @@ let ContentIndexFontSizeKey = "ContentIndexFontSizeKey"
 
 let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
 
-let IsCloseCropperWhenNotPlayingKey = "IsCloseCropperWhenNotPlayingKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
 // Vision
@@ -207,7 +206,6 @@ private let scenarioKV: [String: Any] = [
     TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
     
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
-    IsCloseCropperWhenNotPlayingKey: true,
     
     ContentStyleKey: ContentStyle.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
@@ -325,10 +323,6 @@ extension UserDefaults {
         set { set(newValue, forKey: "CropperStyleKey") }
     }
     
-    @objc var IsCloseCropperWhenNotPlayingKey: Bool {
-        get { return bool(forKey: "IsCloseCropperWhenNotPlayingKey") }
-        set { set(newValue, forKey: "IsCloseCropperWhenNotPlayingKey") }
-    }
     @objc var MaximumFrameRateKey: Double {
         get { return double(forKey: "MaximumFrameRateKey") }
         set { set(newValue, forKey: "MaximumFrameRateKey") }
@@ -416,21 +410,6 @@ func combineWindows() {
             }
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
             logger.info("did syncCropperView")
-        })
-        .sink { _ in }
-        .store(in: &subscriptions)
-    
-    UserDefaults.standard
-        .publisher(for: \.IsCloseCropperWhenNotPlayingKey)
-        .handleEvents(receiveOutput: { isCloseCropperWhenNotPlaying in
-            if !statusData.isPlaying {
-                if isCloseCropperWhenNotPlaying {
-                    cropperWindow.close()
-                } else {
-                    cropperWindow.orderFrontRegardless()
-                }
-            }
-            logger.info("did close or show cropperWindow")
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -538,7 +517,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
     
     combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
-    combineSlot(\.IsCloseCropperWhenNotPlayingKey, \.isCloseCropperWhenNotPlaying, IsCloseCropperWhenNotPlayingKey)
     
     combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)

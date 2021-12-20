@@ -14,7 +14,6 @@ struct ScenarioSettingsView: View {
             ContentStyleSettingView()
             
             CropperStyleSettingView()
-            CloseCropperWhenNotPlayingToggle()
         }
     }
     
