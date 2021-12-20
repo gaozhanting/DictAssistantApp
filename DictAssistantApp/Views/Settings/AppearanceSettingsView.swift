@@ -18,7 +18,6 @@ struct AppearanceSettingsView: View {
             ColorPickers()
             ShadowGroupSettings()
 
-            ContentBackgroundColor()
             ContentBackgroundVisualEffect()
 
             ContentWindowShadowToggle()
@@ -56,6 +55,11 @@ private struct FontSettingView: View {
         return Font.custom(fontName, size: 13)
     }
     
+    func useDefault() {
+        fontName = defaultFontName
+        fontSize = 14.0
+    }
+    
     var body: some View {
         HStack {
             Text("Font:")
@@ -71,9 +75,8 @@ private struct FontSettingView: View {
                 showFontPanel(nil)
             }
             
-            Button("Use default") {
-                fontName = defaultFontName
-                fontSize = 14.0
+            Button(action: useDefault) {
+                Image(systemName: "pencil.and.outline")
             }
             
             MiniInfoView {
@@ -169,10 +172,13 @@ private struct ColorPickers: View {
         )
     }
     
+    @AppStorage(ContentCornerRadiusKey) var contentCornerRadius: Double = 10.0
+    
     func useDefault() {
         wordColor = colorToData(NSColor.labelColor)!
         transColor = colorToData(NSColor.secondaryLabelColor)!
         backgroundColor = colorToData(NSColor.windowBackgroundColor)!
+        contentCornerRadius = 10.0
     }
     
     var body: some View {
@@ -181,10 +187,12 @@ private struct ColorPickers: View {
             Spacer()
             ColorPicker("Trans:", selection: transColorBinding)
             Spacer()
-            ColorPicker("Background:", selection: bgColorBinding)
+            ColorPicker("BG:", selection: bgColorBinding)
             Spacer()
-            Button("Use Default") {
-                useDefault()
+            Text("Radius:")
+            TextField("", value: $contentCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
+            Button(action: useDefault) {
+                Image(systemName: "pencil.and.outline")
             }
         }
     }
@@ -242,17 +250,6 @@ private struct ShadowColorPicker: View {
     
     var body: some View {
         ColorPicker("Color:", selection: binding)
-    }
-}
-
-private struct ContentBackgroundColor: View {
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $useContentBackgroundColor, label: {
-            Text("Using Background Color")
-        })
-            .help("When selected, it will use the background color on all words.")
     }
 }
 

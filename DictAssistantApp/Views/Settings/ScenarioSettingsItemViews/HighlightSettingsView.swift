@@ -73,12 +73,13 @@ private struct DottedOptionsView: View {
                 .frame(width: tfWidth)
             
             Spacer()
-            ColorPicker("color:", selection: binding)
-            
-            Spacer()
             Text("line width:")
             TextField("", value: $strokeLineWidth, formatter: tfDecimalFormatter)
                 .frame(width: tfWidth)
+   
+            Spacer()
+            ColorPicker("color:", selection: binding)
+            
         }
     }
     
@@ -96,8 +97,8 @@ private struct DottedOptionsView: View {
             
             Spacer()
             
-            Button("Use Default") {
-                useDefault()
+            Button(action: useDefault) {
+                Image(systemName: "pencil.and.outline")
             }
         }
     }
@@ -206,8 +207,8 @@ private struct DottedIndexOptionsView: View {
             
             Spacer()
             
-            Button("Use Default") {
-                useDefault()
+            Button(action: useDefault) {
+                Image(systemName: "pencil.and.outline")
             }
         }
     }
@@ -276,8 +277,8 @@ private struct RectangleOptionsView: View {
                 
                 Spacer()
                 
-                Button("Use Default") {
-                    useDefault()
+                Button(action: useDefault) {
+                    Image(systemName: "pencil.and.outline")
                 }
             }
         }

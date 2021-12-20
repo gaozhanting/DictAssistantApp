@@ -42,19 +42,13 @@ private struct BodyView: View {
     
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
 
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    
     var body: some View {
         HStack(alignment: .top) {
             WordsView()
             
             VStack { Spacer() }
         }
-        .padding()
+        .decorate()
         .onChange(of: words) { _ in
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
                 proxy?.scrollTo(words.last?.id, anchor: .top)
@@ -65,28 +59,19 @@ private struct BodyView: View {
                 proxy?.scrollTo(words.last?.id, anchor: .top)
             }
         }
-        .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-        .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
     }
 }
 
 private struct CenteredView: View {
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    
     var body: some View {
         VStack {
             HStack(alignment: .top) {
                 WordsView()
             }
-            .padding()
+            .decorate()
+            
             Spacer()
         }
-        .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-        .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
     }
 }
 

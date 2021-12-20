@@ -9,13 +9,7 @@ import SwiftUI
 
 struct PortraitWordsView: View {
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
-    
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     
     var body: some View {
         switch PortraitCorner(rawValue: portraitCorner)! {
@@ -27,9 +21,7 @@ struct PortraitWordsView: View {
                         WordsView()
                             .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
-                    .padding()
-                    .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
-                    .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+                    .decorate()
                 }
             }
         case .topLeading:
@@ -39,9 +31,7 @@ struct PortraitWordsView: View {
                         WordsView()
                             .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
-                    .padding()
-                    .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
-                    .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+                    .decorate()
                 }
                 Spacer()
             }
@@ -58,9 +48,8 @@ struct PortraitWordsView: View {
                     
                     HStack { Spacer() }
                 }
+                .decorate()
                 .rotationEffect(Angle(degrees: 180))
-                .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!) : nil)
-                .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
             }
             .rotationEffect(Angle(degrees: 180))
         case .top:
@@ -71,9 +60,7 @@ struct PortraitWordsView: View {
                     
                     HStack { Spacer() } // only this works
                 }
-                .padding()
-                .background(useContentBackgroundColor ? Color(dataToColor(backgroundColor)!): nil)
-                .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+                .decorate()
             }
         }
     }

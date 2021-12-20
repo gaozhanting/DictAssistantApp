@@ -8,21 +8,6 @@
 import SwiftUI
 
 struct SingleWordView: View {
-    let wordCell: WordCell
-    
-    var body: some View {
-        TextBodyTwisted(wordCell: wordCell)
-            .background((useContentBackgroundColor || useContentBackgroundVisualEffect) ? nil : Color(dataToColor(backgroundColor)!))
-    }
-    
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
-    @AppStorage(UseContentBackgroundColorKey) private var useContentBackgroundColor: Bool = true
-    
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-
-}
-
-private struct TextBodyTwisted: View {
     @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
 
     let wordCell: WordCell

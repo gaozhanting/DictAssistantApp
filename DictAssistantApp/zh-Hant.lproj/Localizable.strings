@@ -110,7 +110,6 @@
 "Fast is very fast, and cause low CPU usage, you should use this by default, but terrible when text on screen has tough surrounding!" = "快速模式速度快，CPU消耗低，您應該默認使用此模式。但是可能效果很差，特別在某些時候屏幕上文本較難識別的情況下。";
 "Accurate is the only rescue when the text is hard to recognized in screen! " = "當文本在屏幕上難以識別的時候，精確模式是唯一的辦法。";
 "Accurate will cause high CPU usage!" = "精確模式會導致CPU使用率急劇上升！";
-"Use default" = "使用默認值";
 "Set the maximum frame rate of the screen capture recording, default is 4fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 30 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time." = "設置屏幕錄製的時候的最大幀率，默認值為4fps，適用於大部分場景。此值越大，App響應屏幕的變化也越迅捷，但是會增加CPU消耗。4到30都可以。\n註意，如果您需要同時開啟精確模式識別，您需要設置此值為一個小點的數值，比如4。因為如果您設為一個很大的值，App很可能會卡頓不流暢，App只是沒法在如此短的時間執行如此超量的任務。";
 
 "Dictionary" = "詞典";
@@ -185,7 +184,6 @@
 "max height for one word:" = "單個詞條顯示最大高度：";
 "max width for one word:" = "單個詞條顯示最大寬度：";
 "Select..." = "選擇...";
-"Use default" = "使用默認值";
 "The font rate = fontSizeOfTranslation / fontSizeOfTheWord." = "譯文字體比例 = 譯文字體大小 / 標題單詞字體大小。";
 "Light" = "亮色";
 "Dark" = "暗色";

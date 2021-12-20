@@ -10,6 +10,10 @@ import SwiftUI
 struct MaximumFrameRateSetting: View {
     @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
     
+    func useDefault() {
+        maximumFrameRate = 4
+    }
+    
     var body: some View {
         HStack {
             Text("Screen Recording FPS:")
@@ -21,8 +25,8 @@ struct MaximumFrameRateSetting: View {
                 return formatter
             }()).frame(width: tfWidth)
             
-            Button("Use default") {
-                maximumFrameRate = 4
+            Button(action: useDefault) {
+                Image(systemName: "pencil.and.outline")
             }
             
             MiniInfoView(arrowEdge: Edge.trailing) {

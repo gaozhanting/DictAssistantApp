@@ -99,7 +99,7 @@ let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
-let UseContentBackgroundColorKey = "UseContentBackgroundColorKey"
+let ContentCornerRadiusKey = "ContentCornerRadiusKey"
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
@@ -244,7 +244,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     ShadowXOffSetKey: 0.0,
     ShadowYOffSetKey: 0.0,
     
-    UseContentBackgroundColorKey: true,
+    ContentCornerRadiusKey: 10.0,
     UseContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
     
