@@ -95,9 +95,7 @@ private struct TextBody: View {
     var body: some View {
         TextWithShadow(wordCell: wordCell)
             .opacity( (known && isPhrase) ? 0.5 : 1)
-//            .padding(.vertical, 2)
-//            .padding(.horizontal, 6)
-//            .padding()
+            .minimalistPadding()
             .contextMenu {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
                     unKnown ? addKnownWord(word) : removeKnownWord(word)

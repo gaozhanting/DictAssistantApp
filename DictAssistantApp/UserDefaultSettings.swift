@@ -97,17 +97,28 @@ let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
 let ShadowYOffSetKey = "ShadowYOffSetKey"
 
-let ContentCornerRadiusKey = "ContentCornerRadiusKey"
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
 let TheColorSchemeKey = "TheColorSchemeKey"
+
+let DisplayStyleKey = "DisplayStyleKey"
+// standard
+let StandardCornerRadiusKey = "StandardCornerRadiusKey"
+// minimalist
+let MinimalistVPaddingKey = "MinimalistVPaddingKey"
+let MinimalistHPaddingKey = "MinimalistHPaddingKey"
 
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 let IsWithAnimationKey = "IsWithAnimationKey"
 let IsContentRetentionKey = "IsContentRetentionKey"
 
 // Enums
+enum DisplayStyle: Int, Codable {
+    case standard
+    case minimalist
+}
+
 enum HighlightMode: Int, Codable {
     case dotted
     case rectangle
@@ -242,11 +253,15 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     ShadowXOffSetKey: 0.0,
     ShadowYOffSetKey: 0.0,
     
-    ContentCornerRadiusKey: 10.0,
     UseContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
+    
+    DisplayStyleKey: DisplayStyle.standard.rawValue,
+    StandardCornerRadiusKey: 10.0,
+    MinimalistVPaddingKey: 2.0,
+    MinimalistHPaddingKey: 6.0,
     
     IsShowWindowShadowKey: true,
     IsWithAnimationKey: true,

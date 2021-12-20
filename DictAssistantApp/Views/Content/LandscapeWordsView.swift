@@ -40,7 +40,7 @@ private struct BodyView: View {
             
             VStack { Spacer() }
         }
-        .decorate()
+        .standardPaddingRR()
         .onChange(of: displayedWords.wordCells) { _ in
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
                 proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
@@ -63,7 +63,7 @@ private struct CenteredView: View {
             
             Spacer()
         }
-        .decorate()
+        .standardPaddingRR()
     }
 }
 

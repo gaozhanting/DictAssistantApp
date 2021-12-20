@@ -23,6 +23,8 @@ struct AppearanceSettingsView: View {
             
             ContentBackgroundVisualEffect()
             ColorSchemeSetting()
+            
+            DisplayStyleSetting()
         }
     }
     
@@ -191,13 +193,10 @@ private struct ColorPickers: View {
         )
     }
     
-    @AppStorage(ContentCornerRadiusKey) var contentCornerRadius: Double = 10.0
-    
     func useDefault() {
         wordColor = colorToData(NSColor.labelColor)!
         transColor = colorToData(NSColor.secondaryLabelColor)!
         backgroundColor = colorToData(NSColor.windowBackgroundColor)!
-        contentCornerRadius = 10.0
     }
     
     var body: some View {
@@ -208,8 +207,6 @@ private struct ColorPickers: View {
             Spacer()
             ColorPicker("BG:", selection: bgColorBinding)
             Spacer()
-            Text("Radius:")
-            TextField("", value: $contentCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
             Button(action: useDefault) {
                 Image(systemName: "pencil.and.outline")
             }
@@ -334,6 +331,7 @@ private struct ColorSchemeSetting: View {
                 Text("System").tag(TheColorScheme.system.rawValue)
                 Text("System Reversed").tag(TheColorScheme.systemReversed.rawValue)
             }
+            .labelsHidden()
             .pickerStyle(MenuPickerStyle())
             .frame(width: 200)
             .help("This will effect on visual effect background and system colors.")
@@ -341,6 +339,55 @@ private struct ColorSchemeSetting: View {
             MiniInfoView {
                 ColorSchemeInfo()
             }
+        }
+    }
+}
+
+private struct DisplayStyleSetting: View {
+    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 10.0
+    @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
+    @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
+    
+    var body: some View {
+        HStack {
+            Picker("Display Style:", selection: $displayStyle) {
+                Text("Standard").tag(DisplayStyle.standard.rawValue)
+                Text("Minimalist").tag(DisplayStyle.minimalist.rawValue)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 200)
+            
+            Spacer()
+            
+            switch DisplayStyle(rawValue: displayStyle)! {
+            case .standard:
+                Group {
+                    Text("Radius:")
+                    TextField("", value: $standardCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                    Button(action: {
+                        standardCornerRadius = 10.0
+                    }) {
+                        Image(systemName: "pencil.and.outline")
+                    }
+                }
+            case .minimalist:
+                Group {
+                    Text("VPad:")
+                    TextField("", value: $minimalistVPadding, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                    
+                    Text("HPad:")
+                    TextField("", value: $minimalistHPadding, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                    
+                    Button(action: {
+                        minimalistVPadding = 2.0
+                        minimalistHPadding = 6.0
+                    }) {
+                        Image(systemName: "pencil.and.outline")
+                    }
+                }
+            }
+            
         }
     }
 }
