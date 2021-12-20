@@ -8,28 +8,38 @@
 import SwiftUI
 
 struct ScenarioSettingsView: View {
-    var hlV: some View {
+    
+    var g1: some View {
         Group {
-            Divider()
-            HighlightSettingsView()
-            HighlightSchemeView()
+            ContentStyleSettingView()
+            
+            CropperStyleSettingView()
+            CloseCropperWhenNotPlayingToggle()
+        }
+    }
+    
+    var g2: some View {
+        Group {
+            TRMinimumTextHeightSetting()
+            TRTextRecognitionLevelSetting()
+            
+            MaximumFrameRateSetting()
         }
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            ContentStyleSettingView()
+            g1
             
-            CropperStyleSettingView()
-            CloseCropperWhenNotPlayingToggle()
-            
+            Spacer().frame(height: 20)
             Divider()
-            TRMinimumTextHeightSetting()
-            TRTextRecognitionLevelSetting()
             
-            MaximumFrameRateSetting()
+            g2
             
-            hlV
+            Spacer().frame(height: 30)
+            Divider()
+            
+            HighlightSettingsView()
         }
         .padding()
         .frame(width: panelWidth)

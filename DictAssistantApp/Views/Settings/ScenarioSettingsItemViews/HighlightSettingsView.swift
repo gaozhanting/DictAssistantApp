@@ -9,16 +9,25 @@ import SwiftUI
 
 struct HighlightSettingsView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
-            Picker("Highlight:", selection: $highlightMode) {
-                Text("Dotted").tag(HighlightMode.dotted.rawValue)
-                Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
-                Text("Disabled").tag(HighlightMode.disabled.rawValue)
+            HStack {
+                Picker("Highlight:", selection: $highlightMode) {
+                    Text("Dotted").tag(HighlightMode.dotted.rawValue)
+                    Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
+                    Text("Disabled").tag(HighlightMode.disabled.rawValue)
+                }
+                .frame(width: 200)
+                .pickerStyle(MenuPickerStyle())
+                
+                Spacer()
+                
+                Toggle(isOn: $isAlwaysRefreshHighlight, label: {
+                    Text("Is always refresh highlight")
+                })
             }
-            .frame(width: 200)
-            .pickerStyle(MenuPickerStyle())
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .dotted:
@@ -265,16 +274,6 @@ private struct RectangleOptionsView: View {
                 }
             }
         }
-    }
-}
-
-struct HighlightSchemeView: View {
-    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $isAlwaysRefreshHighlight, label: {
-            Text("Is always refresh highlight")
-        })
     }
 }
 

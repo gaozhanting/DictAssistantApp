@@ -9,22 +9,41 @@ import SwiftUI
 import Preferences
 
 struct AppearanceSettingsView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
+    var g1: some View {
+        Group {
             FontSettingView()
-            
             FontRateSetting()
-
+        }
+    }
+    
+    var g2: some View {
+        Group {
             ColorPickers()
             ShadowGroupSettings()
-
+            
             ContentBackgroundVisualEffect()
-
+            ColorSchemeSetting()
+        }
+    }
+    
+    var g3: some View {
+        Group {
             ContentWindowShadowToggle()
+            
             WithAnimationToggle()
             ContentRetentionToggle()
-
-            ColorSchemeSetting()
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            g1
+            Spacer().frame(height: 10)
+            Divider()
+            g2
+            Spacer().frame(height: 10)
+            Divider()
+            g3
         }
         .padding()
         .frame(width: panelWidth)
