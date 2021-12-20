@@ -205,21 +205,6 @@ private struct HLDottedView: View {
         Font.custom(fontName, size: CGFloat(indexFontSize))
     }
     
-//    var bodyThree: some View {
-//        HStack {
-//            Spacer().frame(height: strokeLineWidth).background(hlColor)
-//
-//            Text(String(index))
-//                .font(indexFont)
-//                .foregroundColor(color)
-//                .padding(.horizontal, 3)
-//
-//            Spacer().frame(height: strokeLineWidth).background(hlColor)
-//        }
-//        .frame(width: w, height: h)
-//        .position(x: x, y: y)
-//    }
-    
     @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
     
