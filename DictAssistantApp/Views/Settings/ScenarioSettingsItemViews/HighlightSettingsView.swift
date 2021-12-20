@@ -226,12 +226,10 @@ private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
-    @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
     
     func useDefault() {
         indexFontSize = 7.0
         indexPadding = 2.0
-        contentIndexFontSize = 13.0
     }
 
     var body: some View {
@@ -246,12 +244,6 @@ private struct DottedIndexOptionsView: View {
                     
                     Text("cropper size:")
                     TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                    
-                    Spacer()
-                    
-                    Text("content size:")
-                    TextField("", value: $contentIndexFontSize, formatter: tfDecimalFormatter)
                         .frame(width: tfWidth)
                     
                     Spacer()

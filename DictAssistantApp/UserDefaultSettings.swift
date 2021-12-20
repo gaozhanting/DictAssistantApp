@@ -48,7 +48,6 @@ let IndexBgColorKey = "IndexBgColorKey"
 let IndexPaddingKey = "IndexPaddingKey"
 let IndexXBasicKey = "IndexXBasicKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
-let ContentIndexFontSizeKey = "ContentIndexFontSizeKey"
 
 let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
 
@@ -290,7 +289,6 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     IndexPaddingKey: 2.0,
     IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexFontSizeKey: 7.0,
-    ContentIndexFontSizeKey: 13.0,
     
     IsAlwaysRefreshHighlightKey: false,
     

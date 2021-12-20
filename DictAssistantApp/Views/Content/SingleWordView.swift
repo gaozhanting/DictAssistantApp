@@ -272,9 +272,8 @@ private struct TheText: View {
     
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(ContentIndexFontSizeKey) var contentIndexFontSize: Double = 13.0
     var indexFont: Font {
-        Font.custom(fontName, size: CGFloat(contentIndexFontSize))
+        Font.custom(fontName, size: CGFloat(fontSize * 0.6))
     }
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     var iColor: Color {
