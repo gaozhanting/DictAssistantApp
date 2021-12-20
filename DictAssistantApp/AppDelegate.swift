@@ -85,6 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         combineFPS()
         combineNLPSettings()
         combineDictionarySettings()
+        combineShortcutKeyFnsSettings()
         autoSaveSlotSettings() // has states
 
         registerGlobalKey()

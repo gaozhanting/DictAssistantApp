@@ -307,6 +307,19 @@ func initAllUserDefaultsIfNil() {
 }
 
 extension UserDefaults {
+    @objc var IsShowCurrentKnownKey: Bool {
+        get { return bool(forKey: "IsShowCurrentKnownKey") }
+        set { set(newValue, forKey: "IsShowCurrentKnownKey") }
+    }
+    @objc var IsShowCurrentKnownButWithOpacity0Key: Bool {
+        get { return bool(forKey: "IsShowCurrentKnownButWithOpacity0Key") }
+        set { set(newValue, forKey: "IsShowCurrentKnownButWithOpacity0Key") }
+    }
+    @objc var IsShowCurrentNotFoundWordsKey: Bool {
+        get { return bool(forKey: "IsShowCurrentNotFoundWordsKey" )}
+        set { set(newValue, forKey: "IsShowCurrentNotFoundWordsKey") }
+    }
+    
     @objc var CropperStyleKey: Int {
         get { return integer(forKey: "CropperStyleKey") }
         set { set(newValue, forKey: "CropperStyleKey") }
@@ -485,6 +498,32 @@ func combineDictionarySettings() {
     
     UserDefaults.standard
         .publisher(for: \.UseEntryModeKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
+
+func combineShortcutKeyFnsSettings() {
+    UserDefaults.standard
+        .publisher(for: \.IsShowCurrentKnownKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.IsShowCurrentKnownButWithOpacity0Key)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.IsShowCurrentNotFoundWordsKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })
