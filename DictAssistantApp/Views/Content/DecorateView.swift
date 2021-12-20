@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+private struct UglyConditionPadding: ViewModifier {
+    @EnvironmentObject var displayedWords: DisplayedWords
+
+    func body(content: Content) -> some View {
+        if displayedWords.wordCells.isEmpty {
+            content
+        } else {
+            content.padding()
+        }
+    }
+}
+
+extension View {
+    func uglyCP() -> some View {
+        modifier(UglyConditionPadding())
+    }
+}
+
 struct Decorate: ViewModifier {
     @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
@@ -15,7 +33,7 @@ struct Decorate: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding()
+            .uglyCP()
             .background(useContentBackgroundVisualEffect ? nil : Color(dataToColor(backgroundColor)!))
             .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
             .clipShape(RoundedRectangle(cornerRadius: contentCornerRadius))

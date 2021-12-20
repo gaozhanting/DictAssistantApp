@@ -60,10 +60,10 @@ private struct CenteredView: View {
             HStack(alignment: .top) {
                 WordsView()
             }
-            .decorate()
             
             Spacer()
         }
+        .decorate()
     }
 }
 
