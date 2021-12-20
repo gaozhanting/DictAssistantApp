@@ -253,17 +253,14 @@ private struct HLRectangleView: View {
         Color(dataToColor(hlRectangleColor)!)
     }
     
-    @AppStorage(RectangleVerticalPaddingKey) var rectangleVerticalPadding: Double = 2.0
-    @AppStorage(RectangleHorizontalPaddingKey) var rectangleHorizontalPadding: Double = 4.0
-    
     var body: some View {
         Rectangle()
             .path(in: {
                 let rect = CGRect(
-                    x: box.0.x * geometrySize.width - CGFloat(rectangleVerticalPadding),
-                    y: (1 - box.0.y) * geometrySize.height - CGFloat(rectangleHorizontalPadding), // notice here 1-y
-                    width: abs(box.1.x - box.0.x) * geometrySize.width + CGFloat(rectangleVerticalPadding) * 2,
-                    height: abs(box.1.y - box.0.y) * geometrySize.height + CGFloat(rectangleHorizontalPadding) * 2
+                    x: box.0.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height, // notice here 1-y
+                    width: abs(box.1.x - box.0.x) * geometrySize.width,
+                    height: abs(box.1.y - box.0.y) * geometrySize.height
                 )
                 return rect
             }())

@@ -239,8 +239,6 @@ private struct DottedIndexOptionsView: View {
 
 private struct RectangleOptionsView: View {
     @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
-    @AppStorage(RectangleVerticalPaddingKey) var rectangleVerticalPadding: Double = 2.0
-    @AppStorage(RectangleHorizontalPaddingKey) var rectangleHorizontalPadding: Double = 4.0
     
     var binding: Binding<Color> {
         Binding(
@@ -253,27 +251,12 @@ private struct RectangleOptionsView: View {
     
     func useDefault() {
         hlRectangleColor = colorToData(NSColor.red.withAlphaComponent(0.15))!
-        rectangleVerticalPadding = 2.0
-        rectangleHorizontalPadding = 4.0
     }
     
     var body: some View {
         GroupBox {
             HStack {
-                ColorPicker("", selection: binding)
-                    .labelsHidden()
-                
-                Spacer()
-                
-                Text("v padding:")
-                TextField("", value: $rectangleVerticalPadding, formatter: tfDecimalFormatter)
-                    .frame(width: tfWidth)
-                
-                Spacer()
-                
-                Text("h padding:")
-                TextField("", value: $rectangleHorizontalPadding, formatter: tfDecimalFormatter)
-                    .frame(width: tfWidth)
+                ColorPicker("Color:", selection: binding)
                 
                 Spacer()
                 

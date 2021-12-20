@@ -34,8 +34,6 @@ let CropperStyleKey = "CropperStyleKey"
 let HighlightModeKey = "HighlightModeKey"
 
 let HLRectangleColorKey = "HLRectangleColorKey"
-let RectangleVerticalPaddingKey = "RectangleVerticalPaddingKey"
-let RectangleHorizontalPaddingKey = "RectangleHorizontalPaddingKey"
 
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let HLDottedColorKey = "HLDottedColorKey"
@@ -266,8 +264,6 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     HighlightModeKey: HighlightMode.dotted.rawValue,
     
     HLRectangleColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
-    RectangleVerticalPaddingKey: 2.0,
-    RectangleHorizontalPaddingKey: 4.0,
     HLDottedColorKey: colorToData(NSColor.red)!,
     StrokeDownwardOffsetKey: 5.0,
     StrokeLineWidthKey: 3.0,
