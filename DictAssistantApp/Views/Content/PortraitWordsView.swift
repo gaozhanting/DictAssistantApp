@@ -29,7 +29,7 @@ struct PortraitWordsView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
                         WordsView()
-                            .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+                        .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
                     .decorate()
                 }
@@ -39,12 +39,12 @@ struct PortraitWordsView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
                     WordsView()
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .bottom),
-                            removal: .identity
-                        ))
-                        .padding()
-                        .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .bottom),
+                        removal: .identity
+                    ))
+                    .padding()
+                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     
                     HStack { Spacer() }
                 }
@@ -56,7 +56,7 @@ struct PortraitWordsView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
                     WordsView()
-                        .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
+                    .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     
                     HStack { Spacer() } // only this works
                 }

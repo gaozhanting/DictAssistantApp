@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LandscapeWordsView: View {
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-
+    
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
         case .normal, .autoScrolling:
@@ -30,18 +30,10 @@ private struct BodyView: View {
     @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
     @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
     
-    var words: [WordCellWithId] {
-        convertToWordCellWithId(
-            from: displayedWords.wordCells,
-            isShowCurrentKnown: isShowCurrentKnown,
-            isShowCurrentKnownButWithOpacity0: isShowCurrentKnownButWithOpacity0,
-            isShowCurrentNotFoundWords: isShowCurrentNotFoundWords)
-    }
-
     let proxy: ScrollViewProxy?
     
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-
+    
     var body: some View {
         HStack(alignment: .top) {
             WordsView()
@@ -49,14 +41,14 @@ private struct BodyView: View {
             VStack { Spacer() }
         }
         .decorate()
-        .onChange(of: words) { _ in
+        .onChange(of: displayedWords.wordCells) { _ in
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(words.last?.id, anchor: .top)
+                proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
             }
         }
         .onAppear {
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(words.last?.id, anchor: .top)
+                proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
             }
         }
     }

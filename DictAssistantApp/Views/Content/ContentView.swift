@@ -58,51 +58,60 @@ struct ContentView_Previews: PreviewProvider {
     }
     
     static func sampleWords(_ words: [String]) -> DisplayedWords {
-        DisplayedWords(wordCells: words.map { word in
+        let wordCells = words.map { word in
             WordCell(word: word, isKnown: .unKnown, trans: define(word))
-        })
+        }
+        
+        let wordCellIds = convertToWordCellWithId(
+            from: wordCells,
+            isShowCurrentKnown: false,
+            isShowCurrentKnownButWithOpacity0: false,
+            isShowCurrentNotFoundWords: false
+        )
+        
+        return DisplayedWords(wordCells: wordCellIds)
     }
     
-    static let displayedWords = DisplayedWords(wordCells: [
-        WordCell(word: "around", isKnown: .known, trans: ""),
-//        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
-        WordCell(word: "the", isKnown: .known, trans: ""),
-        WordCell(word: "king", isKnown: .known, trans: ""),
-//        WordCell(word: "gotten", isKnown: .unKnown, trans: define("gotten")),
-//        WordCell(word: "grant", isKnown: .unKnown, trans: define("grant")),
-//        WordCell(word: "made", isKnown: .unKnown, trans: define("made")),
-//        WordCell(word: "make it", isKnown: .unKnown, trans: define("make it")),
-//        WordCell(word: "handle", isKnown: .unKnown, trans: define("handle")),
-//        WordCell(word: "beauty", isKnown: .unKnown, trans: define("beauty")),
-//        WordCell(word: "butcher", isKnown: .unKnown, trans: define("butcher")),
-        
-//        WordCell(word: "effort", isKnown: .unKnown, trans: define("effort")),
-//        WordCell(word: "instilled", isKnown: .unKnown, trans: define("instilled")),
-//        WordCell(word: "instilled", isKnown: .unKnown, trans: define("instilled")),
-        
-        
-//        WordCell(word: "fierce", isKnown: .unKnown, trans: define("fierce")),
-        WordCell(word: "man", isKnown: .unKnown, trans: define("man")),
-        WordCell(word: "Dish", isKnown: .unKnown, trans: define("Dish")),
-        WordCell(word: "superstitious", isKnown: .unKnown, trans: define("superstitious")),
-
-        WordCell(word: "and", isKnown: .known, trans: ""),
-//        WordCell(word: "recipe", isKnown: .unKnown, trans: define("recipe")),
-
-//        WordCell(word: "make up one's mind", isKnown: .unKnown, trans: define("make up one's mind")),
-
-    ])
-    
-    static let displayedWords2 = DisplayedWords(wordCells: [
-        WordCell(word: "contemporary", isKnown: .unKnown, trans: define("contemporary")),
-        WordCell(word: "local government", isKnown: .unKnown, trans: define("local government")),
-    ])
-    
-    static let displayedWords3 = DisplayedWords(wordCells: [
-        WordCell(word: "modern history", isKnown: .unKnown, trans: define("modern history")),
-        WordCell(word: "contemporary", isKnown: .unKnown, trans: define("contemporary")),
-        WordCell(word: "local government", isKnown: .unKnown, trans: define("local government")),
-    ])
+//    static let displayedWords = DisplayedWords(wordCells: [
+//        WordCell(word: "around", isKnown: .known, trans: ""),
+////        WordCell(word: "andros", isKnown: .unKnown, trans: define("andros")),
+//        WordCell(word: "the", isKnown: .known, trans: ""),
+//        WordCell(word: "king", isKnown: .known, trans: ""),
+////        WordCell(word: "gotten", isKnown: .unKnown, trans: define("gotten")),
+////        WordCell(word: "grant", isKnown: .unKnown, trans: define("grant")),
+////        WordCell(word: "made", isKnown: .unKnown, trans: define("made")),
+////        WordCell(word: "make it", isKnown: .unKnown, trans: define("make it")),
+////        WordCell(word: "handle", isKnown: .unKnown, trans: define("handle")),
+////        WordCell(word: "beauty", isKnown: .unKnown, trans: define("beauty")),
+////        WordCell(word: "butcher", isKnown: .unKnown, trans: define("butcher")),
+//
+////        WordCell(word: "effort", isKnown: .unKnown, trans: define("effort")),
+////        WordCell(word: "instilled", isKnown: .unKnown, trans: define("instilled")),
+////        WordCell(word: "instilled", isKnown: .unKnown, trans: define("instilled")),
+//
+//
+////        WordCell(word: "fierce", isKnown: .unKnown, trans: define("fierce")),
+//        WordCell(word: "man", isKnown: .unKnown, trans: define("man")),
+//        WordCell(word: "Dish", isKnown: .unKnown, trans: define("Dish")),
+//        WordCell(word: "superstitious", isKnown: .unKnown, trans: define("superstitious")),
+//
+//        WordCell(word: "and", isKnown: .known, trans: ""),
+////        WordCell(word: "recipe", isKnown: .unKnown, trans: define("recipe")),
+//
+////        WordCell(word: "make up one's mind", isKnown: .unKnown, trans: define("make up one's mind")),
+//
+//    ])
+//
+//    static let displayedWords2 = DisplayedWords(wordCells: [
+//        WordCell(word: "contemporary", isKnown: .unKnown, trans: define("contemporary")),
+//        WordCell(word: "local government", isKnown: .unKnown, trans: define("local government")),
+//    ])
+//
+//    static let displayedWords3 = DisplayedWords(wordCells: [
+//        WordCell(word: "modern history", isKnown: .unKnown, trans: define("modern history")),
+//        WordCell(word: "contemporary", isKnown: .unKnown, trans: define("contemporary")),
+//        WordCell(word: "local government", isKnown: .unKnown, trans: define("local government")),
+//    ])
     
     static var previews: some View {
         Group {
@@ -111,9 +120,14 @@ struct ContentView_Previews: PreviewProvider {
 //                .environmentObject(sampleWords(["the left", "scepter", "colorway", "Latin"]))
 //                .frame(width: 1000, height: 110)
 //
-//            LandscapeWordsView()
-//                .environmentObject(sampleWords(["scepter"]))
-//                .frame(width: 1000, height: 150)
+            
+            LandscapeWordsView()
+                .environmentObject(sampleWords([]))
+                .frame(width: 1000, height: 150)
+            
+            LandscapeWordsView()
+                .environmentObject(sampleWords(["scepter"]))
+                .frame(width: 1000, height: 150)
             
 //            // use max width 170, landscape normal test the displaying difference of "local government"
 //            LandscapeWordsView()
@@ -128,9 +142,9 @@ struct ContentView_Previews: PreviewProvider {
 //                .environmentObject(displayedWords2)
 //                .frame(width: 300, height: 600)
 //
-            PortraitWordsView()
-                .environmentObject(displayedWords3)
-                .frame(width: 300, height: 600)
+//            PortraitWordsView()
+//                .environmentObject(displayedWords3)
+//                .frame(width: 300, height: 600)
         }
     }
 }

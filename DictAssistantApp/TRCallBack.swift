@@ -131,9 +131,16 @@ func trCallBackWithCache() {
     
     func refreshUI() {
         hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
-        displayedWords.wordCells = primitiveWordCellCache.map { wc2 in
+        let wordCells = primitiveWordCellCache.map { wc2 in
             WordCell(word: wc2.word.lemma, isKnown: wc2.isKnown, trans: wc2.trans, index: wc2.index)
         }
+        let wordCellIds = convertToWordCellWithId(
+            from: wordCells,
+            isShowCurrentKnown: UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey),
+            isShowCurrentKnownButWithOpacity0: UserDefaults.standard.bool(forKey: IsShowCurrentKnownButWithOpacity0Key),
+            isShowCurrentNotFoundWords: UserDefaults.standard.bool(forKey: IsShowCurrentNotFoundWordsKey)
+        )
+        displayedWords.wordCells = wordCellIds
     }
     
     if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
@@ -185,4 +192,38 @@ private func snapShotCallback() {
         
         snapshotState = 0
     }
+}
+
+func convertToWordCellWithId(
+    from primitiveWordCells: [WordCell],
+    isShowCurrentKnown: Bool,
+    isShowCurrentKnownButWithOpacity0: Bool,
+    isShowCurrentNotFoundWords: Bool
+) -> [WordCellWithId] {
+    let wordCells: [WordCell] = !isShowCurrentNotFoundWords ? // default false
+    primitiveWordCells.filter { !($0.isKnown == .unKnown && $0.trans.isEmpty) } :
+    primitiveWordCells
+    
+    if isShowCurrentKnown || isShowCurrentKnownButWithOpacity0 {
+        var attachedId: [WordCellWithId] = []
+        var auxiliary: [String:Int] = [:]
+        for wordCell in wordCells {
+            let word = wordCell.word
+            auxiliary[word, default: 0] += 1
+            let id = "\(word)_\(auxiliary[word]!)"
+            attachedId.append(WordCellWithId(wordCell: wordCell, id: id))
+        }
+        return attachedId
+    }
+    
+    var deDuplicated: [WordCellWithId] = []
+    var auxiliary: Set<String> = Set.init()
+    for wordCell in wordCells {
+        let word = wordCell.word
+        if !auxiliary.contains(word) {
+            deDuplicated.append(WordCellWithId(wordCell: wordCell, id: word))
+            auxiliary.insert(word)
+        }
+    }
+    return deDuplicated.filter{ $0.wordCell.isKnown == .unKnown }
 }

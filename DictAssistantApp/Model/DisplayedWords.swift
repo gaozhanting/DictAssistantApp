@@ -19,11 +19,16 @@ struct WordCell: Equatable {
     var index: Int = 0
 }
 
+struct WordCellWithId: Identifiable, Equatable {
+    let wordCell: WordCell
+    let id: String
+}
+
 // as a bridge of AppDelegate(and our inner system)(write) and WordsView UI(read)
 class DisplayedWords: ObservableObject {
-    @Published var wordCells: [WordCell] = []
+    @Published var wordCells: [WordCellWithId] = []
     
-    init(wordCells: [WordCell]) {
+    init(wordCells: [WordCellWithId]) {
         self.wordCells = wordCells
     }
 }
