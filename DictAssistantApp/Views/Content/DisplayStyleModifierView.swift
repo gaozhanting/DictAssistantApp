@@ -29,6 +29,23 @@ extension View {
     }
 }
 
+private struct BBBackground: ViewModifier {
+    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    
+    func body(content: Content) -> some View {
+        content
+            .background(useContentBackgroundVisualEffect ? nil : Color(dataToColor(backgroundColor)!))
+            .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+    }
+}
+extension View {
+    func bbBackground() -> some View {
+        modifier(BBBackground())
+    }
+}
+
 private struct UglyConditionPadding: ViewModifier {
     @EnvironmentObject var displayedWords: DisplayedWords
 
@@ -46,26 +63,59 @@ extension View {
     }
 }
 
-private struct StandardPaddingRR: ViewModifier {
+private struct StandardPadding: ViewModifier {
+    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+
+    func body(content: Content) -> some View {
+        switch DisplayStyle(rawValue: displayStyle)! {
+        case .standard:
+            content
+                .padding()
+        case .minimalist:
+            content
+        }
+    }
+}
+extension View {
+    func standardPadding() -> some View {
+        modifier(StandardPadding())
+    }
+}
+
+private struct StandardRR: ViewModifier {
     @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
     @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 10.0
 
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    func body(content: Content) -> some View {
+        switch DisplayStyle(rawValue: displayStyle)! {
+        case .standard:
+            content
+                .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
+        case .minimalist:
+            content
+        }
+    }
+}
+extension View {
+    func standardRR() -> some View {
+        modifier(StandardRR())
+    }
+}
+
+private struct StandardPaddingRR: ViewModifier {
+    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 10.0
     
     func body(content: Content) -> some View {
         switch DisplayStyle(rawValue: displayStyle)! {
         case .standard:
             content
                 .uglyCP()
-                .background(useContentBackgroundVisualEffect ? nil : Color(dataToColor(backgroundColor)!))
-                .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+                .bbBackground()
                 .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
         case .minimalist:
             content
-                .background(useContentBackgroundVisualEffect ? nil : Color(dataToColor(backgroundColor)!))
-                .background(useContentBackgroundVisualEffect ? VisualEffectView(material: NSVisualEffectView.Material(rawValue: contentBackGroundVisualEffectMaterial)!) : nil)
+                .bbBackground()
         }
     }
 }
