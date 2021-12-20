@@ -123,10 +123,13 @@ private struct DottedOptionsView: View {
     }
     
     var body: some View {
-        GroupBox {
-            HStack {
-                r1
-                r2
+        VStack(alignment: .leading) {
+            Text("Dotted Line:")
+            GroupBox {
+                HStack {
+                    r1
+                    r2
+                }
             }
         }
     }
@@ -234,22 +237,25 @@ private struct DottedIndexOptionsView: View {
 
     var body: some View {
         if isShowIndex {
-            GroupBox {
-                HStack {
-                    Text("padding:")
-                    TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                    
-                    Spacer()
-                    
-                    Text("cropper size:")
-                    TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
-                        .frame(width: tfWidth)
-                    
-                    Spacer()
-                    
-                    Button(action: useDefault) {
-                        Image(systemName: "pencil.and.outline")
+            VStack(alignment: .leading) {
+                Text("Dotted Index:")
+                GroupBox {
+                    HStack {
+                        Text("padding:")
+                        TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                        
+                        Spacer()
+                        
+                        Text("cropper size:")
+                        TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
+                            .frame(width: tfWidth)
+                        
+                        Spacer()
+                        
+                        Button(action: useDefault) {
+                            Image(systemName: "pencil.and.outline")
+                        }
                     }
                 }
             }
