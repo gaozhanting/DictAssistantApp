@@ -37,15 +37,28 @@ struct AppearanceSettingsView: View {
         }
     }
     
+    var g4: some View {
+        Group {
+            GeneralRectangleOptionsView()
+            
+            GerneralDottedOptionsView()
+            
+            GeneralDottedIndexOptionsView()
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             g1
-            Spacer().frame(height: 10)
+            Spacer().frame(height: 20)
             Divider()
             g2
-            Spacer().frame(height: 10)
+            Spacer().frame(height: 20)
             Divider()
             g3
+            Spacer().frame(height: 20)
+            Divider()
+            g4
         }
         .padding()
         .frame(width: panelWidth)
