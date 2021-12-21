@@ -173,7 +173,7 @@
 "from corner:" = "缩角：";
 "topTrailing" = "右上";
 "topLeading" = "左上";
-"bottomLeading" = "底部";
+"bottom" = "底部";
 "style:" = "式样：";
 "normal" = "普通";
 "auto scrolling" = "自动滚动";

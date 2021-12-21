@@ -22,7 +22,7 @@ struct LandscapeWordsView: View {
 
 struct LandscapeWordsView1: View {
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-
+    
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
         case .normal, .autoScrolling:
@@ -39,7 +39,7 @@ struct LandscapeWordsView1: View {
 
 struct LandscapeWordsView2: View {
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-
+    
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
         case .normal, .autoScrolling:
