@@ -19,7 +19,7 @@ var preferencesWindowController = PreferencesWindowController(
         ScenarioPreferenceViewController()
     ],
     style: .toolbarItems,
-    animated: true,
+    animated: false,
     hidesToolbarForSingleItem: true
 )
 

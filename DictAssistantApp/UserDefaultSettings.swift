@@ -256,7 +256,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
     DisplayStyleKey: DisplayStyle.standard.rawValue,
-    StandardCornerRadiusKey: 10.0,
+    StandardCornerRadiusKey: 6.0,
     MinimalistVPaddingKey: 2.0,
     MinimalistHPaddingKey: 6.0,
     

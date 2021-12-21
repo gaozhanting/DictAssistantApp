@@ -358,7 +358,7 @@ private struct ColorSchemeSetting: View {
 
 private struct DisplayStyleSetting: View {
     @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 10.0
+    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
     

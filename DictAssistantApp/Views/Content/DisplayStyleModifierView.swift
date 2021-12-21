@@ -84,7 +84,7 @@ extension View {
 
 private struct StandardRR: ViewModifier {
     @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 10.0
+    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
 
     func body(content: Content) -> some View {
         switch DisplayStyle(rawValue: displayStyle)! {
@@ -104,7 +104,7 @@ extension View {
 
 private struct StandardPaddingRR: ViewModifier {
     @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 10.0
+    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
     
     func body(content: Content) -> some View {
         switch DisplayStyle(rawValue: displayStyle)! {
