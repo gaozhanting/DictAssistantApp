@@ -30,7 +30,7 @@ struct ContentPaddingStyleSettingsView: View {
                     Text("Radius:")
                     TextField("", value: $standardCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
                     Button(action: {
-                        standardCornerRadius = 10.0
+                        standardCornerRadius = 6.0
                     }) {
                         Image(systemName: "pencil.and.outline")
                     }
