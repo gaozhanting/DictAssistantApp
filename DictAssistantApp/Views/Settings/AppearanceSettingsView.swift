@@ -65,7 +65,7 @@ struct AppearanceSettingsView: View {
 }
 
 struct FontSizeSettingView: View {
-    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    @AppStorage(FontSizeKey) private var fontSize: Int = 14
     
     func onIncrement() {
         fontSize += 1
@@ -81,7 +81,7 @@ struct FontSizeSettingView: View {
     var body: some View {
         HStack {
             Text("Font Size:")
-            TextField("", value: $fontSize, formatter: NumberFormatter()).frame(width: tfWidth)
+            TextField("", value: $fontSize, formatter: tfIntegerFormatter).frame(width: tfWidth)
             Stepper(onIncrement: onIncrement, onDecrement: onDecrement) {}
         }
     }
@@ -100,7 +100,7 @@ struct FontLineSpacingSettingView: View {
 
 private struct FontSettingView: View {
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    let fixedFontSize: Double = 13.0
+    let fixedFontSize: Int = 13
     
     var font: NSFont {
         if let font = NSFont(name: fontName, size: CGFloat(fixedFontSize)) {
@@ -118,7 +118,7 @@ private struct FontSettingView: View {
     }
     
     var showFont: Font {
-        return Font.custom(fontName, size: fixedFontSize)
+        return Font.custom(fontName, size: CGFloat(fixedFontSize))
     }
     
     func useDefault() {

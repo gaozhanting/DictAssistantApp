@@ -223,14 +223,14 @@ private struct TheText: View {
     }
     
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    @AppStorage(FontSizeKey) private var fontSize: Int = 14
     var font: Font {
         return Font.custom(fontName, size: CGFloat(fontSize))
     }
     
     @AppStorage(FontRatioKey) private var fontRatio: Double = 0.9
     var transFont: Font {
-        return Font.custom(fontName, size: CGFloat(fontSize * fontRatio))
+        return Font.custom(fontName, size: CGFloat(fontSize) * CGFloat(fontRatio))
     }
     
     let wordCell: WordCell
@@ -273,7 +273,7 @@ private struct TheText: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     var indexFont: Font {
-        Font.custom(fontName, size: CGFloat(fontSize * 0.6))
+        Font.custom(fontName, size: CGFloat(fontSize) * 0.6)
     }
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     var iColor: Color {

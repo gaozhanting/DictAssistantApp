@@ -27,64 +27,114 @@ struct SlotsSettingsView: View {
 }
 
 struct Settings: Codable {
-    var maximumFrameRate: Double
-    
-    var tRTextRecognitionLevel: Int
-    var tRMinimumTextHeight: Double
-    
-    var cropperStyle: Int
-    
     var contentLayout: Int
     var portraitCorner: Int
     var portraitMaxHeight: Double
     var landscapeStyle: Int
     var landscapeMaxWidth: Double
     
-    var fontSize: Double
+    var contentPaddingStyle: Int
+    var standardCornerRadius: Double
+    var minimalistVPadding: Double
+    var minimalistHPadding: Double
+    
+    var fontSize: Int
     var lineSpacing: Double
-    var fontRatio: Double
+    
+    var cropperStyle: Int
+    
+    var maximumFrameRate: Double
+    var tRTextRecognitionLevel: Int
+    var tRMinimumTextHeight: Double
+    
+    var lemmaSearchLevel: Int
+    
+    var isAddLineBreak: Bool
+    var isAddSpace: Bool
+    
+    var highlightMode: Int
+    var strokeDownwardOffset: Double
+    var strokeLineWidth: Double
+    var strokeDashPainted: Double
+    var strokeDashUnPainted: Double
+    var indexPadding: Double
+    var indexFontSize: Int
+    var isAlwaysRefreshHighlight: Bool
     
     // two frames settings for a slot
     var cropperFrame: NSRect
     var contentFrame: NSRect
     
     init(
-        maximumFrameRate: Double,
-        
-        tRTextRecognitionLevel: Int,
-        tRMinimumTextHeight: Double,
-        
-        cropperStyle: Int,
-        
         contentLayout: Int,
         portraitCorner: Int,
         portraitMaxHeight: Double,
         landscapeStyle: Int,
         landscapeMaxWidth: Double,
         
-        fontSize: Double,
+        contentPaddingStyle: Int,
+        standardCornerRadius: Double,
+        minimalistVPadding: Double,
+        minimalistHPadding: Double,
+        
+        fontSize: Int,
         lineSpacing: Double,
-        fontRatio: Double,
+        
+        cropperStyle: Int,
+        
+        maximumFrameRate: Double,
+        tRTextRecognitionLevel: Int,
+        tRMinimumTextHeight: Double,
+        lemmaSearchLevel: Int,
+        
+        isAddLineBreak: Bool,
+        isAddSpace: Bool,
+        
+        highlightMode: Int,
+        strokeDownwardOffset: Double,
+        strokeLineWidth: Double,
+        strokeDashPainted: Double,
+        strokeDashUnPainted: Double,
+        indexPadding: Double,
+        indexFontSize: Int,
+        isAlwaysRefreshHighlight: Bool,
         
         cropperFrame: NSRect,
         contentFrame: NSRect
     ) {
-        self.maximumFrameRate = maximumFrameRate
-        
-        self.tRTextRecognitionLevel = tRTextRecognitionLevel
-        self.tRMinimumTextHeight = tRMinimumTextHeight
-        
-        self.cropperStyle = cropperStyle
-        
         self.contentLayout = contentLayout
         self.portraitCorner = portraitCorner
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeStyle = landscapeStyle
         self.landscapeMaxWidth = landscapeMaxWidth
         
+        self.contentPaddingStyle = contentPaddingStyle
+        self.standardCornerRadius = standardCornerRadius
+        self.minimalistVPadding = minimalistVPadding
+        self.minimalistHPadding = minimalistHPadding
+        
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
-        self.fontRatio = fontRatio
+        
+        self.cropperStyle = cropperStyle
+        
+        self.maximumFrameRate = maximumFrameRate
+        self.tRTextRecognitionLevel = tRTextRecognitionLevel
+        self.tRMinimumTextHeight = tRMinimumTextHeight
+        
+        self.lemmaSearchLevel = lemmaSearchLevel
+        
+        self.isAddLineBreak = isAddLineBreak
+        self.isAddSpace = isAddSpace
+        
+        self.highlightMode = highlightMode
+        self.strokeDownwardOffset = strokeDownwardOffset
+        self.strokeLineWidth = strokeLineWidth
+        self.strokeDashPainted = strokeDashPainted
+        self.strokeDashUnPainted = strokeDashUnPainted
+        self.indexPadding = indexPadding
+        self.indexFontSize = indexFontSize
+        self.isAlwaysRefreshHighlight = isAlwaysRefreshHighlight
         
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
@@ -102,23 +152,40 @@ func dataToSettings(_ data: Data) -> Settings? {
 }
 
 private let defaultSettings = Settings(
-    maximumFrameRate: 4,
-    
-    tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
-    tRMinimumTextHeight: systemDefaultMinimumTextHeight,
-    
-    cropperStyle: CropperStyle.leadingBorder.rawValue,
-    
     contentLayout: ContentLayout.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
     portraitMaxHeight: 100.0,
     landscapeStyle: LandscapeStyle.normal.rawValue,
     landscapeMaxWidth: 160.0,
     
-    fontSize: 14.0,
-    lineSpacing: 0.0,
-    fontRatio: 0.9,
+    contentPaddingStyle: ContentPaddingStyle.standard.rawValue,
+    standardCornerRadius: 6.0,
+    minimalistVPadding: 2.0,
+    minimalistHPadding: 6.0,
     
+    fontSize: 14,
+    lineSpacing: 0.0,
+    
+    cropperStyle: CropperStyle.leadingBorder.rawValue,
+    
+    maximumFrameRate: 4.0,
+    tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
+    tRMinimumTextHeight: systemDefaultMinimumTextHeight,
+    lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
+    
+    isAddLineBreak: true,
+    isAddSpace: false,
+    
+    highlightMode: HighlightMode.dotted.rawValue,
+    strokeDownwardOffset: 5.0,
+    strokeLineWidth: 3.0,
+    strokeDashPainted: 1.6,
+    strokeDashUnPainted: 3.0,
+    indexPadding: 2.0,
+    indexFontSize: 7,
+    isAlwaysRefreshHighlight: false,
+    
+    //
     cropperFrame: defaultCropperFrame,
     contentFrame: defaultContentFrame
 )
@@ -207,43 +274,77 @@ private struct SlotsView: View {
     }
     
     private func dumpSettings(from s: Settings) {
-        maximumFrameRate = s.maximumFrameRate
-        
-        tRTextRecognitionLevel = s.tRTextRecognitionLevel
-        tRMinimumTextHeight = s.tRMinimumTextHeight
-        
-        cropperStyle = s.cropperStyle
-        
         contentLayout = s.contentLayout
         portraitCorner = s.portraitCorner
         portraitMaxHeight = s.portraitMaxHeight
         landscapeStyle = s.landscapeStyle
         landscapeMaxWidth = s.landscapeMaxWidth
         
+        contentPaddingStyle = s.contentPaddingStyle
+        standardCornerRadius = s.standardCornerRadius
+        minimalistVPadding = s.minimalistVPadding
+        minimalistHPadding = s.minimalistHPadding
+        
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
-        fontRatio = s.fontRatio
+        
+        cropperStyle = s.cropperStyle
+        
+        maximumFrameRate = s.maximumFrameRate
+        tRTextRecognitionLevel = s.tRTextRecognitionLevel
+        tRMinimumTextHeight = s.tRMinimumTextHeight
+        
+        lemmaSearchLevel = s.lemmaSearchLevel
+        
+        isAddLineBreak = s.isAddLineBreak
+        isAddSpace = s.isAddSpace
+        
+        highlightMode = s.highlightMode
+        strokeDownwardOffset = s.strokeDownwardOffset
+        strokeLineWidth = s.strokeLineWidth
+        strokeDashPainted = s.strokeDashPainted
+        strokeDashUnPainted = s.strokeDashUnPainted
+        indexPadding = s.indexPadding
+        indexFontSize = s.indexFontSize
+        isAlwaysRefreshHighlight = s.isAlwaysRefreshHighlight
         
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
     }
     
-    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
-    
-    @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
-    @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
-    
     @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
-    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
-    
-    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
+    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
+    @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
+    @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
+
+    @AppStorage(FontSizeKey) private var fontSize: Int = 14
     @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
-    @AppStorage(FontRatioKey) var fontRatio: Double = 0.9
+
+    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+
+    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
+    @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+
+    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
+
+    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
+    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
+    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 7
+    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
 }
 
 extension CGFloat {

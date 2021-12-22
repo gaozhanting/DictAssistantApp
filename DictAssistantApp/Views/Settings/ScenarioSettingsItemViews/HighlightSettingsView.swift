@@ -46,6 +46,7 @@ let tfDecimalFormatter: NumberFormatter = {
     f.numberStyle = .decimal
     return f
 }()
+let tfIntegerFormatter = NumberFormatter()
 
 struct GerneralDottedOptionsView: View {
     @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
@@ -78,8 +79,8 @@ struct GerneralDottedOptionsView: View {
 
 private struct DottedOptionsView: View {
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
-    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
+    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
     func useDefault() {
@@ -228,11 +229,11 @@ struct GeneralDottedIndexOptionsView: View {
 
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 7
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
     
     func useDefault() {
-        indexFontSize = 7.0
+        indexFontSize = 7
         indexPadding = 2.0
     }
 
@@ -248,8 +249,8 @@ private struct DottedIndexOptionsView: View {
                         
                         Spacer()
                         
-                        Text("cropper size:")
-                        TextField("", value: $indexFontSize, formatter: tfDecimalFormatter)
+                        Text("font size:")
+                        TextField("", value: $indexFontSize, formatter: tfIntegerFormatter)
                             .frame(width: tfWidth)
                         
                         Spacer()

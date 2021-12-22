@@ -48,6 +48,9 @@ private struct MultiToggles: View {
                 Text("recommend: Option-3").font(.subheadline).padding()
             }
         }
+        
+        Divider()
+        
         HStack {
             Text("Toggle Conceal Current Known Words")
             Spacer()
@@ -112,6 +115,8 @@ private struct KeyRecordingView: View {
             
             MultiToggles()
             
+            Divider()
+            
             HStack {
                 Text("Run Swift Play")
                 Spacer()
@@ -136,6 +141,8 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-X").font(.subheadline).padding()
                 }
             }
+            
+            Divider()
             
             g1
 

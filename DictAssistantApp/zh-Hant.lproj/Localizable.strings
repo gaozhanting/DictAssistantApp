@@ -183,7 +183,6 @@
 "max height for one word:" = "單個詞條顯示最大高度：";
 "max width for one word:" = "單個詞條顯示最大寬度：";
 "Select..." = "選擇...";
-"The font rate = fontSizeOfTranslation / fontSizeOfTheWord." = "譯文字體比例 = 譯文字體大小 / 標題單詞字體大小。";
 "Light" = "亮色";
 "Dark" = "暗色";
 "System" = "系統";

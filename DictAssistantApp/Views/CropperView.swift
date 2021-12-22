@@ -147,8 +147,8 @@ private struct HLDottedView: View {
     }
     
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
-    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 3.0
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.6
+    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
+    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     var body0: some View {
         Path { path in
@@ -200,7 +200,7 @@ private struct HLDottedView: View {
     }
 
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(IndexFontSizeKey) var indexFontSize: Double = 7.0
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 7
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(indexFontSize))
     }

@@ -199,47 +199,66 @@ enum TheColorScheme: Int, Codable {
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
-    MaximumFrameRateKey: 4,
-    
-    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
-    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
-    
-    CropperStyleKey: CropperStyle.leadingBorder.rawValue,
-    
     ContentLayoutKey: ContentLayout.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
     PortraitMaxHeightKey: 100.0,
     LandscapeStyleKey: LandscapeStyle.normal.rawValue,
     LandscapeMaxWidthKey: 160.0,
     
-    FontSizeKey: 14.0,
+    ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
+    StandardCornerRadiusKey: 6.0,
+    MinimalistVPaddingKey: 2.0,
+    MinimalistHPaddingKey: 6.0,
+    
+    FontSizeKey: 14,
     LineSpacingKey: 0.0,
-    FontRatioKey: 0.9,
+    
+    CropperStyleKey: CropperStyle.leadingBorder.rawValue,
+    
+    MaximumFrameRateKey: 4.0,
+    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
+    
+    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
+    
+    IsAddLineBreakKey: true,
+    IsAddSpaceKey: false,
+    
+    HighlightModeKey: HighlightMode.dotted.rawValue,
+    StrokeDownwardOffsetKey: 5.0,
+    StrokeLineWidthKey: 1.6,
+    StrokeDashPaintedKey: 1.0,
+    StrokeDashUnPaintedKey: 3.0,
+    IndexPaddingKey: 2.0,
+    IndexFontSizeKey: 7,
+    IsAlwaysRefreshHighlightKey: false,
 ]
 
 // all defaults
 private let universalKV: [String: Any] = scenarioKV.merging([
     IsFinishedOnboardingKey: false,
     
-    FontNameKey: defaultFontName,
-    
-    // General:
     IsShowCurrentKnownKey: false,
     IsShowCurrentKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,
     IsShowCurrentNotFoundWordsKey: false,
     ShowToastToggleKey: true,
     
-    // NLP:
-    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     DoNameRecognitionKey: false,
     DoPhraseRecognitionKey: false,
     
-    // Dictionary:
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
-    // Appearance:
+    IsDropTitleWordKey: false,
+    IsDropFirstTitleWordInTranslationKey: true,
+    IsJoinTranslationLinesKey: true,
+    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
+
+    // Appearance
+    FontNameKey: defaultFontName,
+    FontRatioKey: 0.9,
+
     WordColorKey: colorToData(NSColor.labelColor)!,
     TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
     BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
@@ -255,43 +274,18 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
-    ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
-    StandardCornerRadiusKey: 6.0,
-    MinimalistVPaddingKey: 2.0,
-    MinimalistHPaddingKey: 6.0,
-    
     IsShowWindowShadowKey: true,
     IsWithAnimationKey: true,
     IsContentRetentionKey: false,
     
-    // Transcript:
-    IsDropTitleWordKey: false,
-    IsAddLineBreakKey: true,
-    IsAddSpaceKey: false,
-    IsDropFirstTitleWordInTranslationKey: true,
-    IsJoinTranslationLinesKey: true,
-    ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
-    
-    // Cropper
-    HighlightModeKey: HighlightMode.dotted.rawValue,
-    
     HLRectangleColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
     HLDottedColorKey: colorToData(NSColor.red)!,
-    StrokeDownwardOffsetKey: 5.0,
-    StrokeLineWidthKey: 3.0,
-    StrokeDashPaintedKey: 1.6,
-    StrokeDashUnPaintedKey: 3.0,
     
     IsShowIndexKey: true,
+    IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexColorKey: colorToData(NSColor.windowBackgroundColor)!,
     ContentIndexColorKey: colorToData(NSColor.labelColor)!,
     IndexBgColorKey: colorToData(NSColor.labelColor)!,
-    IndexPaddingKey: 2.0,
-    IndexXBasicKey: IndexXBasic.trailing.rawValue,
-    IndexFontSizeKey: 7.0,
-    
-    IsAlwaysRefreshHighlightKey: false,
-    
 ]) { (current, _) in current }
 
 func initAllUserDefaultsIfNil() {
@@ -303,6 +297,7 @@ func initAllUserDefaultsIfNil() {
 }
 
 extension UserDefaults {
+    // some combine or both in slots
     @objc var IsShowCurrentKnownKey: Bool {
         get { return bool(forKey: "IsShowCurrentKnownKey") }
         set { set(newValue, forKey: "IsShowCurrentKnownKey") }
@@ -315,17 +310,16 @@ extension UserDefaults {
         get { return bool(forKey: "IsShowCurrentNotFoundWordsKey" )}
         set { set(newValue, forKey: "IsShowCurrentNotFoundWordsKey") }
     }
-    
+
     @objc var CropperStyleKey: Int {
         get { return integer(forKey: "CropperStyleKey") }
         set { set(newValue, forKey: "CropperStyleKey") }
     }
-    
+
     @objc var MaximumFrameRateKey: Double {
         get { return double(forKey: "MaximumFrameRateKey") }
         set { set(newValue, forKey: "MaximumFrameRateKey") }
     }
-    
     @objc var TRTextRecognitionLevelKey: Int {
         get { return integer(forKey: "TRTextRecognitionLevelKey") }
         set { set(newValue, forKey: "TRTextRecognitionLevelKey") }
@@ -334,7 +328,7 @@ extension UserDefaults {
         get { return double(forKey: "TRMinimumTextHeightKey") }
         set { set(newValue, forKey: "TRMinimumTextHeightKey") }
     }
-    
+
     @objc var LemmaSearchLevelKey: Int {
         get { return integer(forKey: "LemmaSearchLevelKey") }
         set { set(newValue, forKey: "LemmaSearchLevelKey") }
@@ -347,7 +341,7 @@ extension UserDefaults {
         get { return bool(forKey: "DoPhraseRecognitionKey") }
         set { set(newValue, forKey: "DoPhraseRecognitionKey") }
     }
-    
+
     @objc var UseAppleDictModeKey: Int {
         get { return integer(forKey: "UseAppleDictModeKey") }
         set { set(newValue, forKey: "UseAppleDictModeKey") }
@@ -356,7 +350,13 @@ extension UserDefaults {
         get { return integer(forKey: "UseEntryModeKey") }
         set { set(newValue, forKey: "UseEntryModeKey") }
     }
+
+    @objc var IsShowWindowShadowKey: Bool {
+        get { return bool(forKey: "IsShowWindowShadowKey") }
+        set { set(newValue, forKey: "IsShowWindowShadowKey") }
+    }
     
+    //// Slot
     @objc var ContentLayoutKey: Int {
         get { return integer(forKey: "ContentLayoutKey") }
         set { set(newValue, forKey: "ContentLayoutKey") }
@@ -378,22 +378,72 @@ extension UserDefaults {
         set { set(newValue, forKey: "LandscapeMaxWidthKey") }
     }
     
-    @objc var FontSizeKey: Double {
-        get { return double(forKey: "FontSizeKey") }
+    @objc var ContentPaddingStyleKey: Int {
+        get { return integer(forKey: "ContentPaddingStyleKey") }
+        set { set(newValue, forKey: "ContentPaddingStyleKey") }
+    }
+    @objc var StandardCornerRadiusKey: Double {
+        get { return double(forKey: "StandardCornerRadiusKey") }
+        set { set(newValue, forKey: "StandardCornerRadiusKey") }
+    }
+    @objc var MinimalistVPaddingKey: Double {
+        get { return double(forKey: "MinimalistVPaddingKey") }
+        set { set(newValue, forKey: "MinimalistVPaddingKey") }
+    }
+    @objc var MinimalistHPaddingKey: Double {
+        get { return double(forKey: "MinimalistHPaddingKey") }
+        set { set(newValue, forKey: "MinimalistHPaddingKey") }
+    }
+    
+    @objc var FontSizeKey: Int {
+        get { return integer(forKey: "FontSizeKey") }
         set { set(newValue, forKey: "FontSizeKey") }
     }
     @objc var LineSpacingKey: Double {
         get { return double(forKey: "LineSpacingKey") }
         set { set(newValue, forKey: "LineSpacingKey") }
     }
-    @objc var FontRatioKey: Double {
-        get { return double(forKey: "FontRatioKey") }
-        set { set(newValue, forKey: "FontRatioKey") }
+    
+    @objc var IsAddLineBreakKey: Bool {
+        get { return bool(forKey: "IsAddLineBreakKey") }
+        set { set(newValue, forKey: "IsAddLineBreakKey") }
+    }
+    @objc var IsAddSpaceKey: Bool {
+        get { return bool(forKey: "IsAddSpaceKey") }
+        set { set(newValue, forKey: "IsAddSpaceKey") }
     }
     
-    @objc var IsShowWindowShadowKey: Bool {
-        get { return bool(forKey: "IsShowWindowShadowKey") }
-        set { set(newValue, forKey: "IsShowWindowShadowKey") }
+    @objc var HighlightModeKey: Int {
+        get { return integer(forKey: "HighlightModeKey") }
+        set { set(newValue, forKey: "HighlightModeKey") }
+    }
+    @objc var StrokeDownwardOffsetKey: Double {
+        get { return double(forKey: "StrokeDownwardOffsetKey") }
+        set { set(newValue, forKey: "StrokeDownwardOffsetKey") }
+    }
+    @objc var StrokeLineWidthKey: Double {
+        get { return double(forKey: "StrokeLineWidthKey") }
+        set { set(newValue, forKey: "StrokeLineWidthKey") }
+    }
+    @objc var StrokeDashPaintedKey: Double {
+        get { return double(forKey: "StrokeDashPaintedKey") }
+        set { set(newValue, forKey: "StrokeDashPaintedKey") }
+    }
+    @objc var StrokeDashUnPaintedKey: Double {
+        get { return double(forKey: "StrokeDashUnPaintedKey") }
+        set { set(newValue, forKey: "StrokeDashUnPaintedKey") }
+    }
+    @objc var IndexPaddingKey: Double {
+        get { return double(forKey: "IndexPaddingKey") }
+        set { set(newValue, forKey: "IndexPaddingKey") }
+    }
+    @objc var IndexFontSizeKey: Int {
+        get { return integer(forKey: "IndexFontSizeKey") }
+        set { set(newValue, forKey: "IndexFontSizeKey") }
+    }
+    @objc var IsAlwaysRefreshHighlightKey: Bool {
+        get { return bool(forKey: "IsAlwaysRefreshHighlightKey") }
+        set { set(newValue, forKey: "IsAlwaysRefreshHighlightKey") }
     }
 }
 
@@ -512,22 +562,39 @@ func combineShortcutKeyFnsSettings() {
 }
 
 func autoSaveSlotSettings() {
-    combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
-    
-    combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
-    combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
-    
-    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
-    
     combineSlot(\.ContentLayoutKey, \.contentLayout, ContentLayoutKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
     combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
     combineSlot(\.LandscapeMaxWidthKey, \.landscapeMaxWidth, LandscapeMaxWidthKey)
     
+    combineSlot(\.ContentPaddingStyleKey, \.contentPaddingStyle, ContentPaddingStyleKey)
+    combineSlot(\.StandardCornerRadiusKey, \.standardCornerRadius, StandardCornerRadiusKey)
+    combineSlot(\.MinimalistVPaddingKey, \.minimalistVPadding, MinimalistVPaddingKey)
+    combineSlot(\.MinimalistHPaddingKey, \.minimalistHPadding, MinimalistHPaddingKey)
+    
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
-    combineSlot(\.FontRatioKey, \.fontRatio, FontRatioKey)
+    
+    combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
+    
+    combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
+    combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
+    combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
+    
+    combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
+    
+    combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
+    combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)
+    
+    combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
+    combineSlot(\.StrokeDownwardOffsetKey, \.strokeDownwardOffset, StrokeDownwardOffsetKey)
+    combineSlot(\.StrokeLineWidthKey, \.strokeLineWidth, StrokeLineWidthKey)
+    combineSlot(\.StrokeDashPaintedKey, \.strokeDashPainted, StrokeDashPaintedKey)
+    combineSlot(\.StrokeDashUnPaintedKey, \.strokeDashUnPainted, StrokeDashUnPaintedKey)
+    combineSlot(\.IndexPaddingKey, \.indexPadding, IndexPaddingKey)
+    combineSlot(\.IndexFontSizeKey, \.indexFontSize, IndexFontSizeKey)
+    combineSlot(\.IsAlwaysRefreshHighlightKey, \.isAlwaysRefreshHighlight, IsAlwaysRefreshHighlightKey)
 }
 
 private func combineSlot<T>(
