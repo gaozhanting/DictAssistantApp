@@ -198,7 +198,7 @@ struct NLPSample {
                 }
             }
             
-            if UserDefaults.standard.bool(forKey: DoPhraseRecognitionKey) {
+            if UserDefaults.standard.bool(forKey: DoPhraseDetectionKey) {
                 scanPhrases()
             }
         }

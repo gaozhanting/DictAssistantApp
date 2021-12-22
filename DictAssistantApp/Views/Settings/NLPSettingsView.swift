@@ -16,7 +16,7 @@ struct NLPSettingsView: View {
                 Spacer()
             }
             HStack {
-                DoPhraseRecognitionToggle()
+                DoPhraseDetectionToggle()
                 Spacer()
             }
         }
@@ -65,12 +65,12 @@ private struct DoNameRecognitionToggle: View {
     }
 }
 
-private struct DoPhraseRecognitionToggle: View {
-    @AppStorage(DoPhraseRecognitionKey) private var doPhraseRecognition: Bool = false
+private struct DoPhraseDetectionToggle: View {
+    @AppStorage(DoPhraseDetectionKey) private var doPhraseDetection: Bool = false
     
     var body: some View {
-        Toggle(isOn: $doPhraseRecognition, label: {
-            Text("Do Phrase Recognition")
+        Toggle(isOn: $doPhraseDetection, label: {
+            Text("Do Phrase Detection")
         })
             .toggleStyle(CheckboxToggleStyle())
     }

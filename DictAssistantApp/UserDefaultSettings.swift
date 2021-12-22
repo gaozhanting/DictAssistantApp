@@ -60,7 +60,7 @@ let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
 // NLP
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
 let DoNameRecognitionKey = "DoNameRecognitionKey"
-let DoPhraseRecognitionKey = "DoPhraseRecognitionKey"
+let DoPhraseDetectionKey = "DoPhraseDetectionKey"
 
 // Dictionary
 let UseAppleDictModeKey = "UseAppleDictModeKey"
@@ -245,7 +245,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     ShowToastToggleKey: true,
     
     DoNameRecognitionKey: false,
-    DoPhraseRecognitionKey: false,
+    DoPhraseDetectionKey: false,
     
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
@@ -337,9 +337,9 @@ extension UserDefaults {
         get { return bool(forKey: "DoNameRecognitionKey") }
         set { set(newValue, forKey: "DoNameRecognitionKey") }
     }
-    @objc var DoPhraseRecognitionKey: Bool {
-        get { return bool(forKey: "DoPhraseRecognitionKey") }
-        set { set(newValue, forKey: "DoPhraseRecognitionKey") }
+    @objc var DoPhraseDetectionKey: Bool {
+        get { return bool(forKey: "DoPhraseDetectionKey") }
+        set { set(newValue, forKey: "DoPhraseDetectionKey") }
     }
 
     @objc var UseAppleDictModeKey: Int {
@@ -508,7 +508,7 @@ func combineNLPSettings() {
         .store(in: &subscriptions)
     
     UserDefaults.standard
-        .publisher(for: \.DoPhraseRecognitionKey)
+        .publisher(for: \.DoPhraseDetectionKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })
