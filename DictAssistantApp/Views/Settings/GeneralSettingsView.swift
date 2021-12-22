@@ -70,6 +70,35 @@ private struct MultiToggles: View {
 }
 
 private struct KeyRecordingView: View {
+    var g1: some View {
+        Group {
+            HStack {
+                Text("Show Mini Known Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .showMiniKnownPanel)
+                MiniInfoView {
+                    Text("recommend: Option-K").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Show Mini Phrase Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .showMiniPhrasePanel)
+                MiniInfoView {
+                    Text("recommend: Option-P").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Show Mini Entry Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .showMiniEntryPanel)
+                MiniInfoView {
+                    Text("recommend: Option-E").font(.subheadline).padding()
+                }
+            }
+        }
+    }
+    
     var body: some View {
         Group {
             HStack {
@@ -80,7 +109,9 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-1").font(.subheadline).padding()
                 }
             }
+            
             MultiToggles()
+            
             HStack {
                 Text("Run Swift Play")
                 Spacer()
@@ -105,22 +136,9 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-X").font(.subheadline).padding()
                 }
             }
-            HStack {
-                Text("Show Phrase Insert Panel")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .showPhraseInsertPanel)
-                MiniInfoView {
-                    Text("recommend: Option-P").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Show Entry Upsert Panel")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .showUpsertEntryPanel)
-                MiniInfoView {
-                    Text("recommend: Option-E").font(.subheadline).padding()
-                }
-            }
+            
+            g1
+
             HStack {
                 Text("Show Preferences Panel")
                 Spacer()

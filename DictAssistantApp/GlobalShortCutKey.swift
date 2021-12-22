@@ -25,9 +25,11 @@ extension KeyboardShortcuts.Name {
     
     static let stop = Self("stop")
     
-    static let showPhraseInsertPanel = Self("showPhraseInsertPanel")
+    static let showMiniKnownPanel = Self("showMiniKnownPanel")
     
-    static let showUpsertEntryPanel = Self("showUpsertEntryPanel")
+    static let showMiniPhrasePanel = Self("showMiniPhrasePanel")
+    
+    static let showMiniEntryPanel = Self("showMiniEntryPanel")
     
     static let showPreferencesPanel = Self("showPreferencesPanel")
 }
@@ -122,12 +124,16 @@ func registerGlobalKey() {
         stopPlaying()
     }
     
-    KeyboardShortcuts.onKeyUp(for: .showPhraseInsertPanel) {
-        showPhraseInsertPanel()
+    KeyboardShortcuts.onKeyUp(for: .showMiniKnownPanel) {
+        showMiniKnownPanel()
     }
     
-    KeyboardShortcuts.onKeyUp(for: .showUpsertEntryPanel) {
-        showEntryUpsertPanel()
+    KeyboardShortcuts.onKeyUp(for: .showMiniPhrasePanel) {
+        showMiniPhrasePanel()
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .showMiniEntryPanel) {
+        showMiniEntryPanel()
     }
     
     KeyboardShortcuts.onKeyUp(for: .showPreferencesPanel) {

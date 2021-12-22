@@ -40,8 +40,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         initToastWindow()
         
-        initPhraseInsertPanel()
-        initEntryUpsertPanel()
+        initMiniKnownPanel()
+        initMiniPhrasePanel()
+        initMiniEntryPanel()
         
         initPhrasePanel()
         initEntriesPanel()

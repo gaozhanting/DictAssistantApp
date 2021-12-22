@@ -60,8 +60,8 @@
 "Rebuild From:" = "重新構建自：";
 "We simply build our local concise dictionary from a simple CSV format file. In this file, every single line is an entry which only includes the title word and the translated text, nothing more." = "我們只是通過一個簡單CSV格式文件，來構建本地的簡明詞典。這個文件中，每行一個詞條，每個詞條中僅僅包含單詞和它的釋義，沒有其他的內容。";
 
-"Entry Upsert Panel" = "添加詞條面板";
-"Phrase Insert Panel" = "添加短語面板";
+"Mini Entry Panel" = "迷你詞條面板";
+"Mini Phrase Panel" = "迷你短語面板";
 
 "General" = "常規";
 "Global Keyboard Shortcuts:" = "全局鍵盤快捷鍵：";
@@ -71,8 +71,8 @@
 "Toggle Conceal Translation" = "切換是否隱藏單詞譯文";
 "Toggle Show Current Not-Found Words" = "切換是否顯示無法查找的單詞";
 "Run Swift Play" = "快速運行";
-"Show Phrase Insert Panel" = "打開添加短語面板";
-"Show Entry Upsert Panel" = "打開添加詞條面板";
+"Show Mini Phrase Panel" = "打開迷你短語面板";
+"Show Mini Entry Panel" = "打開迷你詞條面板";
 "Show Preferences Panel" = "打開偏好設置面板";
 "recommend: Option-1" = "推薦：Option-1";
 "recommend: Option-2" = "推薦：Option-2";

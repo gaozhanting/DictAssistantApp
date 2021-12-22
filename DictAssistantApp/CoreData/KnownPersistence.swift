@@ -106,7 +106,9 @@ func batchDeleteAllKnown(didSucceed: @escaping () -> Void = {}) {
     }
 }
 
-func addKnownWord(_ word: String) {
+func addKnown(_ word: String,
+              didSucceed: @escaping () -> Void = {},
+              nothingChanged: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
@@ -126,10 +128,15 @@ func addKnownWord(_ word: String) {
     saveContext(didSucceed: {
         knownSet = getAllKnownSet()
         trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }
 
-func removeKnownWord(_ word: String) {
+func removeKnown(_ word: String,
+                 didSucceed: @escaping () -> Void = {},
+                 nothingChanged: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
@@ -148,5 +155,8 @@ func removeKnownWord(_ word: String) {
     saveContext(didSucceed: {
         knownSet = getAllKnownSet()
         trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }

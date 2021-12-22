@@ -1,5 +1,5 @@
 //
-//  EntryUpsertView.swift
+//  MiniEntryView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/10/11.
@@ -7,36 +7,37 @@
 
 import SwiftUI
 
-struct EntryUpsertView: View {
+func notifyPanel(panel: NSPanel, title: String, info: String) {
+    panel.title = NSLocalizedString(info, comment: "")
+    Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+        panel.title = NSLocalizedString(title, comment: "")
+    }
+}
+
+struct MiniEntryView: View {
     @State private var text: String = ""
     
     func upsert() {
         let wt = text.split(separator: Character(","), maxSplits: 1)
         upsertEntry(word: String(wt[0]), trans: String(wt[1]), didSucceed: {
-            entryUpsertPanel.title = NSLocalizedString("Succeed", comment: "")
-            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
-                entryUpsertPanel.title = NSLocalizedString("Entry Upsert Panel", comment: "")
-            }
+            notifyPanel(panel: miniEntryPanel, title: "Mini Entry Panel", info: "Succeed")
         }, nothingChanged: {
-            entryUpsertPanel.title = NSLocalizedString("Nothing Changed", comment: "")
-            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
-                entryUpsertPanel.title = NSLocalizedString("Entry Upsert Panel", comment: "")
-            }
+            notifyPanel(panel: miniEntryPanel, title: "Mini Entry Panel", info: "Nothing Changed")
         })
     }
     
-    func valid() -> Bool {
+    var valid: Bool {
         !text.isEmpty && !text.isMultiline && text.split(separator: Character(","), maxSplits: 1).count == 2
     }
     
     var body: some View {
         HStack {
-            TextField("Upsert an entry", text: $text)
+            TextField("Edit an entry", text: $text)
             
             Button(action: upsert) {
-                Image(systemName: "rectangle.badge.plus")
+                Image(systemName: "plus")
             }
-            .disabled(!valid())
+            .disabled(!valid)
             .keyboardShortcut(KeyEquivalent.return)
         }
         .padding()
@@ -54,6 +55,6 @@ extension String {
 
 struct EntryUpsertView_Previews: PreviewProvider {
     static var previews: some View {
-        EntryUpsertView()
+        MiniEntryView()
     }
 }

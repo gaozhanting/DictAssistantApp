@@ -98,7 +98,7 @@ private struct TextBody: View {
             .minimalistPadding()
             .contextMenu {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
-                    unKnown ? addKnownWord(word) : removeKnownWord(word)
+                    unKnown ? addKnown(word) : removeKnown(word)
                 })
                 Button(!noisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
                     !noisesSet.contains(word) ?
@@ -117,7 +117,7 @@ private struct TextBody: View {
                 TapGesture()
                     .modifiers(.option)
                     .onEnded { _ in
-                        unKnown ? addKnownWord(word) : removeKnownWord(word)
+                        unKnown ? addKnown(word) : removeKnown(word)
                     }
             )
             .gesture(
