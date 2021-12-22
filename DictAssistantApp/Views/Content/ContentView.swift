@@ -64,9 +64,9 @@ struct ContentView_Previews: PreviewProvider {
         
         let wordCellIds = convertToWordCellWithId(
             from: wordCells,
-            isShowCurrentKnown: false,
-            isShowCurrentKnownButWithOpacity0: false,
-            isShowCurrentNotFoundWords: false
+            isShowKnown: false,
+            isShowKnownButWithOpacity0: false,
+            isShowNotFound: false
         )
         
         return DisplayedWords(wordCells: wordCellIds)

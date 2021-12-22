@@ -21,10 +21,10 @@ let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
 
 // General
-let IsShowCurrentKnownKey = "IsShowCurrentKnownKey" // not in slot for its core function
-let IsShowCurrentKnownButWithOpacity0Key = "IsShowCurrentKnownButWithOpacity0Key"
+let IsShowKnownKey = "IsShowKnownKey" // not in slot for its core function
+let IsShowKnownButWithOpacity0Key = "IsShowKnownButWithOpacity0Key"
 let IsConcealTranslationKey = "IsConcealTranslationKey"
-let IsShowCurrentNotFoundWordsKey = "IsShowCurrentNotFoundWordsKey"
+let IsShowNotFoundKey = "IsShowNotFoundKey"
 
 let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
 
@@ -238,10 +238,10 @@ private let scenarioKV: [String: Any] = [
 private let universalKV: [String: Any] = scenarioKV.merging([
     IsFinishedOnboardingKey: false,
     
-    IsShowCurrentKnownKey: false,
-    IsShowCurrentKnownButWithOpacity0Key: false,
+    IsShowKnownKey: false,
+    IsShowKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,
-    IsShowCurrentNotFoundWordsKey: false,
+    IsShowNotFoundKey: false,
     ShowToastToggleKey: true,
     
     DoNameRecognitionKey: false,
@@ -298,17 +298,17 @@ func initAllUserDefaultsIfNil() {
 
 extension UserDefaults {
     // some combine or both in slots
-    @objc var IsShowCurrentKnownKey: Bool {
-        get { return bool(forKey: "IsShowCurrentKnownKey") }
-        set { set(newValue, forKey: "IsShowCurrentKnownKey") }
+    @objc var IsShowKnownKey: Bool {
+        get { return bool(forKey: "IsShowKnownKey") }
+        set { set(newValue, forKey: "IsShowKnownKey") }
     }
-    @objc var IsShowCurrentKnownButWithOpacity0Key: Bool {
-        get { return bool(forKey: "IsShowCurrentKnownButWithOpacity0Key") }
-        set { set(newValue, forKey: "IsShowCurrentKnownButWithOpacity0Key") }
+    @objc var IsShowKnownButWithOpacity0Key: Bool {
+        get { return bool(forKey: "IsShowKnownButWithOpacity0Key") }
+        set { set(newValue, forKey: "IsShowKnownButWithOpacity0Key") }
     }
-    @objc var IsShowCurrentNotFoundWordsKey: Bool {
-        get { return bool(forKey: "IsShowCurrentNotFoundWordsKey" )}
-        set { set(newValue, forKey: "IsShowCurrentNotFoundWordsKey") }
+    @objc var IsShowNotFoundKey: Bool {
+        get { return bool(forKey: "IsShowNotFoundKey" )}
+        set { set(newValue, forKey: "IsShowNotFoundKey") }
     }
 
     @objc var CropperStyleKey: Int {
@@ -537,7 +537,7 @@ func combineDictionarySettings() {
 
 func combineShortcutKeyFnsSettings() {
     UserDefaults.standard
-        .publisher(for: \.IsShowCurrentKnownKey)
+        .publisher(for: \.IsShowKnownKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })
@@ -545,7 +545,7 @@ func combineShortcutKeyFnsSettings() {
         .store(in: &subscriptions)
     
     UserDefaults.standard
-        .publisher(for: \.IsShowCurrentKnownButWithOpacity0Key)
+        .publisher(for: \.IsShowKnownButWithOpacity0Key)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })
@@ -553,7 +553,7 @@ func combineShortcutKeyFnsSettings() {
         .store(in: &subscriptions)
     
     UserDefaults.standard
-        .publisher(for: \.IsShowCurrentNotFoundWordsKey)
+        .publisher(for: \.IsShowNotFoundKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })

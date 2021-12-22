@@ -24,26 +24,26 @@ struct GeneralSettingsView: View {
 }
 
 private struct MultiToggles: View {
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    @AppStorage(IsShowCurrentNotFoundWordsKey) private var isShowCurrentNotFoundWords: Bool = false
-    @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
+    @AppStorage(IsShowKnownKey) private var isShowKnown: Bool = false
+    @AppStorage(IsShowNotFoundKey) private var isShowNotFound: Bool = false
+    @AppStorage(IsShowKnownButWithOpacity0Key) private var isShowKnownButWithOpacity0: Bool = false
     @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
     
     var body: some View {
         HStack {
-            Text("Toggle Show Current Known Words")
+            Text("Toggle Show Known")
             Spacer()
-            Toggle("", isOn: $isShowCurrentKnown)
-            KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnown)
+            Toggle("", isOn: $isShowKnown)
+            KeyboardShortcuts.Recorder(for: .toggleShowKnown)
             MiniInfoView {
                 Text("recommend: Option-2").font(.subheadline).padding()
             }
         }
         HStack {
-            Text("Toggle Show Current Not-Found Words")
+            Text("Toggle Show Not-Found")
             Spacer()
-            Toggle("", isOn: $isShowCurrentNotFoundWords)
-            KeyboardShortcuts.Recorder(for: .toggleShowCurrentNotFoundWords)
+            Toggle("", isOn: $isShowNotFound)
+            KeyboardShortcuts.Recorder(for: .toggleShowNotFound)
             MiniInfoView {
                 Text("recommend: Option-3").font(.subheadline).padding()
             }
@@ -52,10 +52,10 @@ private struct MultiToggles: View {
         Divider()
         
         HStack {
-            Text("Toggle Conceal Current Known Words")
+            Text("Toggle Conceal Known")
             Spacer()
-            Toggle("", isOn: $isShowCurrentKnownButWithOpacity0)
-            KeyboardShortcuts.Recorder(for: .toggleShowCurrentKnownButWithOpacity0)
+            Toggle("", isOn: $isShowKnownButWithOpacity0)
+            KeyboardShortcuts.Recorder(for: .toggleShowKnownButWithOpacity0)
             MiniInfoView {
                 Text("recommend: Option-4").font(.subheadline).padding()
             }

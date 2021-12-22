@@ -201,15 +201,15 @@ private struct TheText: View {
         Color(dataToColor(wordColor)!)
     }
     
-    @AppStorage(IsShowCurrentKnownKey) private var isShowCurrentKnown: Bool = false
-    @AppStorage(IsShowCurrentKnownButWithOpacity0Key) private var isShowCurrentKnownButWithOpacity0: Bool = false
+    @AppStorage(IsShowKnownKey) private var isShowKnown: Bool = false
+    @AppStorage(IsShowKnownButWithOpacity0Key) private var isShowKnownButWithOpacity0: Bool = false
 
     var theKnownWordColor: Color {
-        if isShowCurrentKnown {
+        if isShowKnown {
             return theWordColor.opacity(0.5)
         }
         
-        if isShowCurrentKnownButWithOpacity0 {
+        if isShowKnownButWithOpacity0 {
             return theWordColor.opacity(0)
         }
         

@@ -11,11 +11,11 @@ import SwiftUI
 extension KeyboardShortcuts.Name {
     static let runStepPlay = Self("runStepPlay")
     
-    static let toggleShowCurrentKnown = Self("toggleShowCurrentKnown")
+    static let toggleShowKnown = Self("toggleShowKnown")
     
-    static let toggleShowCurrentNotFoundWords = Self("toggleShowCurrentNotFoundWords")
+    static let toggleShowNotFound = Self("toggleShowNotFound")
     
-    static let toggleShowCurrentKnownButWithOpacity0 = Self("toggleShowCurrentKnownButWithOpacity0")
+    static let toggleShowKnownButWithOpacity0 = Self("toggleShowKnownButWithOpacity0")
     
     static let toggleConcealTranslation = Self("toggleConcealTranslation")
     
@@ -72,19 +72,19 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnown) {
-        if UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey) {
-            UserDefaults.standard.setValue(false, forKey: IsShowCurrentKnownKey)
+    KeyboardShortcuts.onKeyUp(for: .toggleShowKnown) {
+        if UserDefaults.standard.bool(forKey: IsShowKnownKey) {
+            UserDefaults.standard.setValue(false, forKey: IsShowKnownKey)
         } else {
-            UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownKey)
+            UserDefaults.standard.setValue(true, forKey: IsShowKnownKey)
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentKnownButWithOpacity0) {
-        if UserDefaults.standard.bool(forKey: IsShowCurrentKnownButWithOpacity0Key) {
-            UserDefaults.standard.setValue(false, forKey: IsShowCurrentKnownButWithOpacity0Key)
+    KeyboardShortcuts.onKeyUp(for: .toggleShowKnownButWithOpacity0) {
+        if UserDefaults.standard.bool(forKey: IsShowKnownButWithOpacity0Key) {
+            UserDefaults.standard.setValue(false, forKey: IsShowKnownButWithOpacity0Key)
         } else {
-            UserDefaults.standard.setValue(true, forKey: IsShowCurrentKnownButWithOpacity0Key)
+            UserDefaults.standard.setValue(true, forKey: IsShowKnownButWithOpacity0Key)
         }
     }
     
@@ -96,11 +96,11 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .toggleShowCurrentNotFoundWords) {
-        if UserDefaults.standard.bool(forKey: IsShowCurrentNotFoundWordsKey) {
-            UserDefaults.standard.setValue(false, forKey: IsShowCurrentNotFoundWordsKey)
+    KeyboardShortcuts.onKeyUp(for: .toggleShowNotFound) {
+        if UserDefaults.standard.bool(forKey: IsShowNotFoundKey) {
+            UserDefaults.standard.setValue(false, forKey: IsShowNotFoundKey)
         } else {
-            UserDefaults.standard.setValue(true, forKey: IsShowCurrentNotFoundWordsKey)
+            UserDefaults.standard.setValue(true, forKey: IsShowNotFoundKey)
         }
     }
     

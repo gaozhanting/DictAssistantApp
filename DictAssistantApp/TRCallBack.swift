@@ -136,9 +136,9 @@ func trCallBackWithCache() {
         }
         let wordCellIds = convertToWordCellWithId(
             from: wordCells,
-            isShowCurrentKnown: UserDefaults.standard.bool(forKey: IsShowCurrentKnownKey),
-            isShowCurrentKnownButWithOpacity0: UserDefaults.standard.bool(forKey: IsShowCurrentKnownButWithOpacity0Key),
-            isShowCurrentNotFoundWords: UserDefaults.standard.bool(forKey: IsShowCurrentNotFoundWordsKey)
+            isShowKnown: UserDefaults.standard.bool(forKey: IsShowKnownKey),
+            isShowKnownButWithOpacity0: UserDefaults.standard.bool(forKey: IsShowKnownButWithOpacity0Key),
+            isShowNotFound: UserDefaults.standard.bool(forKey: IsShowNotFoundKey)
         )
         displayedWords.wordCells = wordCellIds
     }
@@ -205,15 +205,15 @@ private func snapShotCallback() {
 
 func convertToWordCellWithId(
     from primitiveWordCells: [WordCell],
-    isShowCurrentKnown: Bool,
-    isShowCurrentKnownButWithOpacity0: Bool,
-    isShowCurrentNotFoundWords: Bool
+    isShowKnown: Bool,
+    isShowKnownButWithOpacity0: Bool,
+    isShowNotFound: Bool
 ) -> [WordCellWithId] {
-    let wordCells: [WordCell] = !isShowCurrentNotFoundWords ? // default false
+    let wordCells: [WordCell] = !isShowNotFound ? // default false
     primitiveWordCells.filter { !($0.isKnown == .unKnown && $0.trans.isEmpty) } :
     primitiveWordCells
     
-    if isShowCurrentKnown || isShowCurrentKnownButWithOpacity0 {
+    if isShowKnown || isShowKnownButWithOpacity0 {
         var attachedId: [WordCellWithId] = []
         var auxiliary: [String:Int] = [:]
         for wordCell in wordCells {
