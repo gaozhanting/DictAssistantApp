@@ -13,6 +13,8 @@ struct ScenarioSettingsView: View {
         Group {
             ContentLayoutStyleSettingsView()
             ContentPaddingStyleSettingsView()
+            FontSizeSettingView()
+            FontLineSpacingSettingView()
             
             CropperStyleSettingView()
             

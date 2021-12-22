@@ -58,7 +58,7 @@ func TranscriptePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .transcript,
         title: NSLocalizedString("Transcript", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "rectangle.and.pencil.and.ellipsis", accessibilityDescription: "Transcript preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "pencil.tip", accessibilityDescription: "Transcript preferences")!
     ) {
         TranscriptSettingsView()
     }

@@ -163,6 +163,5 @@ extension AppDelegate {
             newFont.fontName
         
         UserDefaults.standard.setValue(fontName, forKey: FontNameKey)
-        UserDefaults.standard.setValue(newFont.pointSize, forKey: FontSizeKey)
     }
 }

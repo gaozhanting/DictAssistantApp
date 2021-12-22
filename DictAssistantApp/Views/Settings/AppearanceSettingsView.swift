@@ -64,16 +64,49 @@ struct AppearanceSettingsView: View {
     }
 }
 
+struct FontSizeSettingView: View {
+    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
+    
+    func onIncrement() {
+        fontSize += 1
+    }
+    
+    func onDecrement() {
+        fontSize -= 1
+        if fontSize < 0 {
+            fontSize = 0
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            Text("Font Size:")
+            TextField("", value: $fontSize, formatter: NumberFormatter()).frame(width: tfWidth)
+            Stepper(onIncrement: onIncrement, onDecrement: onDecrement) {}
+        }
+    }
+}
+
+struct FontLineSpacingSettingView: View {
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
+
+    var body: some View {
+        HStack {
+            Text("Font Line Spacing:")
+            TextField("", value: $lineSpacing, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
+        }
+    }
+}
+
 private struct FontSettingView: View {
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
+    let fixedFontSize: Double = 13.0
     
     var font: NSFont {
-        if let font = NSFont(name: fontName, size: CGFloat(fontSize)) {
+        if let font = NSFont(name: fontName, size: CGFloat(fixedFontSize)) {
             return font
         } else {
-            print("construct 3 font failed: with name:\(fontName), with size:\(fontSize)") // occured when changing default system font size; the FontPanel can't reflect the system font which is unkown why.
+            print("construct 3 font failed: with name:\(fontName), with size:\(fixedFontSize)") // occured when changing default system font size; the FontPanel can't reflect the system font which is unkown why.
             return NSFont.systemFont(ofSize: 14.0)
         }
     }
@@ -85,21 +118,17 @@ private struct FontSettingView: View {
     }
     
     var showFont: Font {
-        return Font.custom(fontName, size: 13)
+        return Font.custom(fontName, size: fixedFontSize)
     }
     
     func useDefault() {
         fontName = defaultFontName
-        fontSize = 14.0
     }
     
     var body: some View {
         HStack {
             Text("Font:")
-            TextField(
-                "",
-                text: Binding.constant("\(fontName) \(fontSize)")
-            )
+            TextField("", text: Binding.constant("\(fontName)"))
                 .font(showFont)
                 .disabled(true)
                 .textFieldStyle(SquareBorderTextFieldStyle())
@@ -117,11 +146,6 @@ private struct FontSettingView: View {
                     .font(.subheadline)
                     .padding()
             }
-        }
-        
-        HStack {
-            Text("Font Line Spacing:")
-            TextField("", value: $lineSpacing, formatter: tfDecimalFormatter).frame(width: tfWidth)
         }
     }
 }
@@ -317,7 +341,7 @@ private struct ContentBackGroundVisualEffectMaterial: View {
                 Text(option.1).tag(option.0)
             }
         }
-        .frame(width: 220)
+        .frame(width: 200)
         .pickerStyle(MenuPickerStyle())
     }
 }
@@ -337,7 +361,7 @@ private struct ColorSchemeSetting: View {
             }
             .labelsHidden()
             .pickerStyle(MenuPickerStyle())
-            .frame(width: 200)
+            .frame(width: 172)
             .help("This will effect on visual effect background and system colors.")
             
             MiniInfoView {
@@ -363,12 +387,7 @@ private struct ContentWindowShadowToggle: View {
                 Text("Show Content Window Shadow")
             })
             .toggleStyle(CheckboxToggleStyle())
-            
-//            MiniInfoView {
-//                Text("Notice window shadow may mess up content.")
-//                    .font(.subheadline)
-//                    .padding()
-//            }
+            .help("Notice window shadow may mess up content.")
         }
     }
 }
@@ -382,12 +401,7 @@ private struct WithAnimationToggle: View {
                 Text("With Animation")
             })
             .toggleStyle(CheckboxToggleStyle())
-            
-//            MiniInfoView {
-//                Text("Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape.")
-//                    .font(.subheadline)
-//                    .padding()
-//            }
+            .help("Notice animation will increase CPU usage. And animation is disabled when using landscape with autoScrolling because it is ugly there.")
         }
     }
 }
@@ -401,12 +415,7 @@ private struct ContentRetentionToggle: View {
                 Text("Make Content Retention")
             })
             .toggleStyle(CheckboxToggleStyle())
-            
-//            MiniInfoView {
-//                Text("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
-//                    .font(.subheadline)
-//                    .padding()
-//            }
+            .help("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
         }
     }
 }

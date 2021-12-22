@@ -37,9 +37,6 @@ struct TRMinimumTextHeightSetting: View {
                 value: $minimumTextHeight,
                 in: 0...1
             )
-                .frame(maxWidth: 150)
-            
-//            Text("\(minimumTextHeight, specifier: "%.4f")")
             
             TextField("", value: $minimumTextHeight, formatter: {
                 let formatter = NumberFormatter()
@@ -53,22 +50,13 @@ struct TRMinimumTextHeightSetting: View {
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
             
             MiniInfoView(arrowEdge: .trailing) {
-                InfoView()
+                HightInfoView()
             }
         }
-        
-//        Button("Reset to default: 0.0315", action: resetToDefault)
-        
-//        HStack {
-//            Text("The minimum height of the text expected to be recognized, relative to the image height.")
-//                .preferenceDescription()
-//                .frame(width: 300, height: 30, alignment: .leading)
-
-//        }
     }
 }
 
-private struct InfoView: View {
+private struct HightInfoView: View {
     var body: some View {
         Text("Specify a floating-point number relative to the image height. \nFor example, to limit recognition to text that is half of the image height, use 0.5. Increasing the size reduces memory consumption and expedites recognition with the tradeoff of ignoring text smaller than the minimum height. \nThe default value is 1/32, or 0.03125.")
             .infoStyle()
@@ -79,30 +67,36 @@ struct TRTextRecognitionLevelSetting: View {
     @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     
     var body: some View {
-        Picker("Recognition Level:", selection: $textRecognitionLevel) {
-            Text("fast").tag(VNRequestTextRecognitionLevel.fast.rawValue)
-            Text("accurate").tag(VNRequestTextRecognitionLevel.accurate.rawValue)
+        HStack {
+            Picker("Recognition Level:", selection: $textRecognitionLevel) {
+                Text("fast").tag(VNRequestTextRecognitionLevel.fast.rawValue)
+                Text("accurate").tag(VNRequestTextRecognitionLevel.accurate.rawValue)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 240)
+            
+            MiniInfoView {
+                LevelInfoView()
+            }
         }
-        .pickerStyle(MenuPickerStyle())
-//        .labelsHidden()
-        .frame(width: 240)
-        
-//        if textRecognitionLevel == VNRequestTextRecognitionLevel.fast.rawValue {
-//            Text("Fast is very fast, and cause low CPU usage, you should use this by default, but terrible when text on screen has tough surrounding!")
-//                .preferenceDescription()
-//                .frame(width: 300, height: 50, alignment: .leading)
-//        } else {
-//            (Text("Accurate is the only rescue when the text is hard to recognized in screen! ")
-//                 + Text("Accurate will cause high CPU usage!").foregroundColor(.red))
-//                .preferenceDescription()
-//                .frame(width: 300, height: 50, alignment: .leading)
-//        }
+    }
+}
+
+struct LevelInfoView: View {
+    var body: some View {
+        (Text("Fast is very fast, and cause low CPU usage, you should use this by default. \nAccurate is the only rescue when the text is hard to be recognized on screen!")
+         + Text("\nAccurate is cool when running cheap snapshot.").foregroundColor(Color(NSColor.systemPurple))
+        + Text("\nAccurate will cause very high CPU usage when streaming!").foregroundColor(Color(NSColor.systemRed)))
+            .infoStyle()
     }
 }
 
 struct VisionSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        InfoView()
+        Group {
+            HightInfoView()
+            LevelInfoView()
+        }
         //        .environment(\.locale, .init(identifier: "zh-Hans"))
             .environment(\.locale, .init(identifier: "en"))
     }

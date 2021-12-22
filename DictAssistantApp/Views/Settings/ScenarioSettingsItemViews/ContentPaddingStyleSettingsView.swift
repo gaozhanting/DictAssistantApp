@@ -16,8 +16,8 @@ struct ContentPaddingStyleSettingsView: View {
     var body: some View {
         HStack {
             Picker("Content Padding Style:", selection: $contentPaddingStyle) {
-                Text("Standard").tag(ContentPaddingStyle.standard.rawValue)
-                Text("Minimalist").tag(ContentPaddingStyle.minimalist.rawValue)
+                Text("standard").tag(ContentPaddingStyle.standard.rawValue)
+                Text("minimalist").tag(ContentPaddingStyle.minimalist.rawValue)
             }
             .pickerStyle(MenuPickerStyle())
             .frame(width: 250)
