@@ -12,7 +12,10 @@ struct AppearanceSettingsView: View {
     var g1: some View {
         Group {
             FontSettingView()
-            FontRateSetting()
+            FontRatioSetting()
+            
+            Spacer().frame(height: 20)
+            Divider()
         }
     }
     
@@ -24,7 +27,8 @@ struct AppearanceSettingsView: View {
             ContentBackgroundVisualEffect()
             ColorSchemeSetting()
             
-            DisplayStyleSetting()
+            Spacer().frame(height: 20)
+            Divider()
         }
     }
     
@@ -34,15 +38,16 @@ struct AppearanceSettingsView: View {
             
             WithAnimationToggle()
             ContentRetentionToggle()
+            
+            Spacer().frame(height: 20)
+            Divider()
         }
     }
     
     var g4: some View {
         Group {
             GeneralRectangleOptionsView()
-            
             GerneralDottedOptionsView()
-            
             GeneralDottedIndexOptionsView()
         }
     }
@@ -50,14 +55,8 @@ struct AppearanceSettingsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             g1
-            Spacer().frame(height: 20)
-            Divider()
             g2
-            Spacer().frame(height: 20)
-            Divider()
             g3
-            Spacer().frame(height: 20)
-            Divider()
             g4
         }
         .padding()
@@ -114,7 +113,7 @@ private struct FontSettingView: View {
             }
             
             MiniInfoView {
-                Text("There is a bug: when other TextField is focused, changing font is not work.")
+                Text("There is a bug: when other TextField is focused, changing font will not work.")
                     .font(.subheadline)
                     .padding()
             }
@@ -127,36 +126,33 @@ private struct FontSettingView: View {
     }
 }
 
-private struct FontRateSetting: View {
-    @AppStorage(FontRateKey) private var fontRate: Double = 0.9
+private struct FontRatioSetting: View {
+    @AppStorage(FontRatioKey) private var fontRatio: Double = 0.9
     
     func incrementStep() {
-        fontRate += 0.01
-        if fontRate > 1 {
-            fontRate = 1
+        fontRatio += 0.01
+        if fontRatio > 1 {
+            fontRatio = 1
         }
     }
     
     func decrementStep() {
-        fontRate -= 0.01
-        if fontRate < 0 {
-            fontRate = 0
+        fontRatio -= 0.01
+        if fontRatio < 0 {
+            fontRatio = 0
         }
     }
     
     var body: some View {
         HStack {
-            Text("Font Size Rate:")
+            Text("Font Size Trans/Word Ratio:")
             
             Slider(
-                value: $fontRate,
+                value: $fontRatio,
                 in: 0...2
             )
-                .frame(maxWidth: 150)
             
-//            Text("\(fontRate, specifier: "%.2f")")
-            
-            TextField("", value: $fontRate, formatter: {
+            TextField("", value: $fontRatio, formatter: {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
                 formatter.minimum = 0
@@ -166,11 +162,6 @@ private struct FontRateSetting: View {
                 .frame(width: tfWidth)
             
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
-
-            MiniInfoView {
-                Text("The font size rate = font size of translation / font size of word.")
-                    .font(.subheadline).padding()
-            }
         }
     }
 }
@@ -356,55 +347,6 @@ private struct ColorSchemeSetting: View {
     }
 }
 
-private struct DisplayStyleSetting: View {
-    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
-    @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
-    @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
-    
-    var body: some View {
-        HStack {
-            Picker("Display Style:", selection: $displayStyle) {
-                Text("Standard").tag(DisplayStyle.standard.rawValue)
-                Text("Minimalist").tag(DisplayStyle.minimalist.rawValue)
-            }
-            .pickerStyle(MenuPickerStyle())
-            .frame(width: 200)
-            
-            Spacer()
-            
-            switch DisplayStyle(rawValue: displayStyle)! {
-            case .standard:
-                Group {
-                    Text("Radius:")
-                    TextField("", value: $standardCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
-                    Button(action: {
-                        standardCornerRadius = 10.0
-                    }) {
-                        Image(systemName: "pencil.and.outline")
-                    }
-                }
-            case .minimalist:
-                Group {
-                    Text("VPad:")
-                    TextField("", value: $minimalistVPadding, formatter: tfDecimalFormatter).frame(width: tfWidth)
-                    
-                    Text("HPad:")
-                    TextField("", value: $minimalistHPadding, formatter: tfDecimalFormatter).frame(width: tfWidth)
-                    
-                    Button(action: {
-                        minimalistVPadding = 2.0
-                        minimalistHPadding = 6.0
-                    }) {
-                        Image(systemName: "pencil.and.outline")
-                    }
-                }
-            }
-            
-        }
-    }
-}
-
 private struct ColorSchemeInfo: View {
     var body: some View {
         Text("Note: if you select System or System Reversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors.")
@@ -437,7 +379,7 @@ private struct WithAnimationToggle: View {
     var body: some View {
         HStack {
             Toggle(isOn: $isWithAnimation, label: {
-                Text("With animation")
+                Text("With Animation")
             })
             .toggleStyle(CheckboxToggleStyle())
             

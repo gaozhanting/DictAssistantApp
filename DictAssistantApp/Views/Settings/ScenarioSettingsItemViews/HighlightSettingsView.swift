@@ -40,6 +40,7 @@ struct HighlightSettingsView: View {
 }
 
 let tfWidth: CGFloat = 46
+let tfSmallWidth: CGFloat = 30
 let tfDecimalFormatter: NumberFormatter = {
     let f = NumberFormatter()
     f.numberStyle = .decimal

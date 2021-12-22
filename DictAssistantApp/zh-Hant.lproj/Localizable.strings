@@ -156,9 +156,8 @@
 "Content Animation Display:" = "內容動畫：";
 "Content Style:" = "內容編排：";
 "Font: " = "字體：";
-"There is a bug: when other TextField is focused, changing font is not work." = "註意這兒有一個Bug：當有其他文本編輯框聚焦的時候，字體沒法更改。";
+"There is a bug: when other TextField is focused, changing font will not work." = "註意這兒有一個Bug：當有其他文本編輯框聚焦的時候，字體沒法更改。";
 "line spacing:" = "行間距：";
-"Translation Font Rate:" = "單詞譯文字體比例：";
 "Appearance:" = "外觀：";
 "Colors & Shadow:" = "顏色和陰影：";
 "Content Background Display:" = "內容特殊效果背景：";
@@ -166,7 +165,7 @@
 "If selected, content will get retention of last recognized tests when new recognized tests is empty." = "如果勾選，若當前識別的文本為空，內容會滯留顯示最近識別的非空文本內容。";
 "Show Content Window Shadow" = "內容窗口加陰影";
 "Notice window shadow may mess up content." = "某些時候，勾選此設置會讓內容顯示混亂。";
-"With animation" = "使用動畫";
+"With Animation" = "使用動畫";
 "Notice animation will increase CPU usage, and it may not be accurate with auto scrolling when using with landscape." = "註意動畫會增加CPU使用率，並且與橫排顯示時，自動滾動會不準確。";
 "portrait" = "縱排顯示";
 "landscape" = "橫排顯示";

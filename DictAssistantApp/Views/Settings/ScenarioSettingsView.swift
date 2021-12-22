@@ -11,9 +11,13 @@ struct ScenarioSettingsView: View {
     
     var g1: some View {
         Group {
-            ContentStyleSettingView()
+            ContentLayoutStyleSettingsView()
+            ContentPaddingStyleSettingsView()
             
             CropperStyleSettingView()
+            
+            Spacer().frame(height: 20)
+            Divider()
         }
     }
     
@@ -23,21 +27,36 @@ struct ScenarioSettingsView: View {
             TRTextRecognitionLevelSetting()
             
             MaximumFrameRateSetting()
+            
+            Spacer().frame(height: 20)
+            Divider()
+        }
+    }
+    
+    var g3: some View {
+        Group {
+            LemmaSearchLevelPicker()
+            
+            Spacer().frame(height: 20)
+            Divider()
+        }
+    }
+    
+    var g4: some View {
+        Group {
+            AddLineBreakBeforeTranslationToggle()
+            AddSpaceBeforeTranslationToggle()
+            Spacer().frame(height: 20)
+            Divider()
         }
     }
     
     var body: some View {
         VStack(alignment: .leading) {
             g1
-            
-            Spacer().frame(height: 20)
-            Divider()
-            
             g2
-            
-            Spacer().frame(height: 30)
-            Divider()
-            
+            g3
+            g4
             HighlightSettingsView()
         }
         .padding()

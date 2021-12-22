@@ -75,7 +75,7 @@ let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
 let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
 // Appearance
-let ContentStyleKey = "ContentStyleKey"
+let ContentLayoutKey = "ContentLayoutKey"
 let PortraitCornerKey = "PortraitCornerKey"
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let LandscapeStyleKey = "LandscapeStyleKey"
@@ -83,7 +83,7 @@ let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 
 let FontSizeKey = "FontSizeKey"
 let LineSpacingKey = "LineSpacingKey"
-let FontRateKey = "FontRateKey"
+let FontRatioKey = "FontRatioKey"
 
 let WordColorKey = "WordColorKey"
 let TransColorKey = "TransColorKey"
@@ -100,7 +100,7 @@ let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMat
 
 let TheColorSchemeKey = "TheColorSchemeKey"
 
-let DisplayStyleKey = "DisplayStyleKey"
+let ContentPaddingStyleKey = "ContentPaddingStyleKey"
 // standard
 let StandardCornerRadiusKey = "StandardCornerRadiusKey"
 // minimalist
@@ -112,7 +112,7 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 let IsContentRetentionKey = "IsContentRetentionKey"
 
 // Enums
-enum DisplayStyle: Int, Codable {
+enum ContentPaddingStyle: Int, Codable {
     case standard
     case minimalist
 }
@@ -171,7 +171,7 @@ enum ChineseCharacterConvertMode: Int, Codable {
     case convertToSimplified = 2
 }
 
-enum ContentStyle: Int, Codable {
+enum ContentLayout: Int, Codable {
     case portrait = 0
     case landscape = 1
 }
@@ -206,7 +206,7 @@ private let scenarioKV: [String: Any] = [
     
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     
-    ContentStyleKey: ContentStyle.portrait.rawValue,
+    ContentLayoutKey: ContentLayout.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
     PortraitMaxHeightKey: 100.0,
     LandscapeStyleKey: LandscapeStyle.normal.rawValue,
@@ -214,7 +214,7 @@ private let scenarioKV: [String: Any] = [
     
     FontSizeKey: 14.0,
     LineSpacingKey: 0.0,
-    FontRateKey: 0.9,
+    FontRatioKey: 0.9,
 ]
 
 // all defaults
@@ -255,7 +255,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
-    DisplayStyleKey: DisplayStyle.standard.rawValue,
+    ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
     StandardCornerRadiusKey: 6.0,
     MinimalistVPaddingKey: 2.0,
     MinimalistHPaddingKey: 6.0,
@@ -357,9 +357,9 @@ extension UserDefaults {
         set { set(newValue, forKey: "UseEntryModeKey") }
     }
     
-    @objc var ContentStyleKey: Int {
-        get { return integer(forKey: "ContentStyleKey") }
-        set { set(newValue, forKey: "ContentStyleKey") }
+    @objc var ContentLayoutKey: Int {
+        get { return integer(forKey: "ContentLayoutKey") }
+        set { set(newValue, forKey: "ContentLayoutKey") }
     }
     @objc var PortraitCornerKey: Int {
         get { return integer(forKey: "PortraitCornerKey") }
@@ -386,9 +386,9 @@ extension UserDefaults {
         get { return double(forKey: "LineSpacingKey") }
         set { set(newValue, forKey: "LineSpacingKey") }
     }
-    @objc var FontRateKey: Double {
-        get { return double(forKey: "FontRateKey") }
-        set { set(newValue, forKey: "FontRateKey") }
+    @objc var FontRatioKey: Double {
+        get { return double(forKey: "FontRatioKey") }
+        set { set(newValue, forKey: "FontRatioKey") }
     }
     
     @objc var IsShowWindowShadowKey: Bool {
@@ -519,7 +519,7 @@ func autoSaveSlotSettings() {
     
     combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
     
-    combineSlot(\.ContentStyleKey, \.contentStyle, ContentStyleKey)
+    combineSlot(\.ContentLayoutKey, \.contentLayout, ContentLayoutKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
     combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
@@ -527,7 +527,7 @@ func autoSaveSlotSettings() {
     
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
-    combineSlot(\.FontRateKey, \.fontRate, FontRateKey)
+    combineSlot(\.FontRatioKey, \.fontRatio, FontRatioKey)
 }
 
 private func combineSlot<T>(

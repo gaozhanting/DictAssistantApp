@@ -1,5 +1,5 @@
 //
-//  DisplayStyleModifierView.swift
+//  ContentPaddingStyleModifierView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/12/20.
@@ -8,12 +8,12 @@
 import SwiftUI
 
 private struct MinimalistPadding: ViewModifier {
-    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
     
     func body(content: Content) -> some View {
-        switch DisplayStyle(rawValue: displayStyle)! {
+        switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
         case .standard:
             content
         case .minimalist:
@@ -64,10 +64,10 @@ extension View {
 }
 
 private struct StandardPadding: ViewModifier {
-    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
 
     func body(content: Content) -> some View {
-        switch DisplayStyle(rawValue: displayStyle)! {
+        switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
         case .standard:
             content
                 .padding()
@@ -83,11 +83,11 @@ extension View {
 }
 
 private struct StandardRR: ViewModifier {
-    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
 
     func body(content: Content) -> some View {
-        switch DisplayStyle(rawValue: displayStyle)! {
+        switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
         case .standard:
             content
                 .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
@@ -103,11 +103,11 @@ extension View {
 }
 
 private struct StandardPaddingRR: ViewModifier {
-    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
     
     func body(content: Content) -> some View {
-        switch DisplayStyle(rawValue: displayStyle)! {
+        switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
         case .standard:
             content
                 .uglyCP()

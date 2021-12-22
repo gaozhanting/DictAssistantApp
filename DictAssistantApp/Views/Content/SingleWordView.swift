@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SingleWordView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
 
     let wordCell: WordCell
     
     var body: some View {
-        switch ContentStyle(rawValue: contentStyle)! {
+        switch ContentLayout(rawValue: contentLayout)! {
         case .portrait:
             TextBody(wordCell: wordCell)
         case .landscape:
@@ -228,9 +228,9 @@ private struct TheText: View {
         return Font.custom(fontName, size: CGFloat(fontSize))
     }
     
-    @AppStorage(FontRateKey) private var fontRate: Double = 0.9
+    @AppStorage(FontRatioKey) private var fontRatio: Double = 0.9
     var transFont: Font {
-        return Font.custom(fontName, size: CGFloat(fontSize * fontRate))
+        return Font.custom(fontName, size: CGFloat(fontSize * fontRatio))
     }
     
     let wordCell: WordCell

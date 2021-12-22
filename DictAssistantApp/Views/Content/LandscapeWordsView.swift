@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct LandscapeWordsView: View {
-    @AppStorage(DisplayStyleKey) var displayStyle: Int = DisplayStyle.standard.rawValue
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     
     var body: some View {
-        switch DisplayStyle(rawValue: displayStyle)! {
+        switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
         case .standard:
             LandscapeWordsView2()
         case .minimalist:

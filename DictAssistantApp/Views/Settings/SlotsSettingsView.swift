@@ -34,7 +34,7 @@ struct Settings: Codable {
     
     var cropperStyle: Int
     
-    var contentStyle: Int
+    var contentLayout: Int
     var portraitCorner: Int
     var portraitMaxHeight: Double
     var landscapeStyle: Int
@@ -42,7 +42,7 @@ struct Settings: Codable {
     
     var fontSize: Double
     var lineSpacing: Double
-    var fontRate: Double
+    var fontRatio: Double
     
     // two frames settings for a slot
     var cropperFrame: NSRect
@@ -56,7 +56,7 @@ struct Settings: Codable {
         
         cropperStyle: Int,
         
-        contentStyle: Int,
+        contentLayout: Int,
         portraitCorner: Int,
         portraitMaxHeight: Double,
         landscapeStyle: Int,
@@ -64,7 +64,7 @@ struct Settings: Codable {
         
         fontSize: Double,
         lineSpacing: Double,
-        fontRate: Double,
+        fontRatio: Double,
         
         cropperFrame: NSRect,
         contentFrame: NSRect
@@ -76,7 +76,7 @@ struct Settings: Codable {
         
         self.cropperStyle = cropperStyle
         
-        self.contentStyle = contentStyle
+        self.contentLayout = contentLayout
         self.portraitCorner = portraitCorner
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeStyle = landscapeStyle
@@ -84,7 +84,7 @@ struct Settings: Codable {
         
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
-        self.fontRate = fontRate
+        self.fontRatio = fontRatio
         
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
@@ -109,7 +109,7 @@ private let defaultSettings = Settings(
     
     cropperStyle: CropperStyle.leadingBorder.rawValue,
     
-    contentStyle: ContentStyle.portrait.rawValue,
+    contentLayout: ContentLayout.portrait.rawValue,
     portraitCorner: PortraitCorner.topTrailing.rawValue,
     portraitMaxHeight: 100.0,
     landscapeStyle: LandscapeStyle.normal.rawValue,
@@ -117,7 +117,7 @@ private let defaultSettings = Settings(
     
     fontSize: 14.0,
     lineSpacing: 0.0,
-    fontRate: 0.9,
+    fontRatio: 0.9,
     
     cropperFrame: defaultCropperFrame,
     contentFrame: defaultContentFrame
@@ -214,7 +214,7 @@ private struct SlotsView: View {
         
         cropperStyle = s.cropperStyle
         
-        contentStyle = s.contentStyle
+        contentLayout = s.contentLayout
         portraitCorner = s.portraitCorner
         portraitMaxHeight = s.portraitMaxHeight
         landscapeStyle = s.landscapeStyle
@@ -222,7 +222,7 @@ private struct SlotsView: View {
         
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
-        fontRate = s.fontRate
+        fontRatio = s.fontRatio
         
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
@@ -235,7 +235,7 @@ private struct SlotsView: View {
     
     @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
     
-    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
@@ -243,7 +243,7 @@ private struct SlotsView: View {
     
     @AppStorage(FontSizeKey) private var fontSize: Double = 14.0
     @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
-    @AppStorage(FontRateKey) var fontRate: Double = 0.9
+    @AppStorage(FontRatioKey) var fontRatio: Double = 0.9
 }
 
 extension CGFloat {

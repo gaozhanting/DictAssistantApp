@@ -1,5 +1,5 @@
 //
-//  ContentSettingsView.swift
+//  ContentLayoutSettingsView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/10/4.
@@ -7,58 +7,62 @@
 
 import SwiftUI
 
-struct ContentStyleSettingView: View {
-    @AppStorage(ContentStyleKey) private var contentStyle: Int = ContentStyle.portrait.rawValue
+struct ContentLayoutStyleSettingsView: View {
+    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
 
     @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
     @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
-
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Picker("Content Style:", selection: $contentStyle) {
-                    Text("portrait").tag(ContentStyle.portrait.rawValue)
-                    Text("landscape").tag(ContentStyle.landscape.rawValue)
+        GroupBox {
+            VStack(alignment: .leading) {
+                HStack {
+                    Picker("Content Layout:", selection: $contentLayout) {
+                        Text("portrait").tag(ContentLayout.portrait.rawValue)
+                        Text("landscape").tag(ContentLayout.landscape.rawValue)
+                    }
+                    .frame(width: 200)
+                    .pickerStyle(MenuPickerStyle())
+                    
+                    Spacer()
+                    
+                    switch ContentLayout(rawValue: contentLayout)! {
+                    case .portrait:
+                        Picker("corner", selection: $portraitCorner) {
+                            Text("topTrailing").tag(PortraitCorner.topTrailing.rawValue)
+                            Text("topLeading").tag(PortraitCorner.topLeading.rawValue)
+                            Text("bottom").tag(PortraitCorner.bottom.rawValue)
+                            Text("top").tag(PortraitCorner.top.rawValue)
+                        }
+                        .frame(width: 180)
+                        .pickerStyle(MenuPickerStyle())
+                    case .landscape:
+                        Picker("style:", selection: $landscapeStyle) {
+                            Text("normal").tag(LandscapeStyle.normal.rawValue)
+                            Text("auto scrolling").tag(LandscapeStyle.autoScrolling.rawValue)
+                            Text("centered").tag(LandscapeStyle.centered.rawValue)
+                        }
+                        .frame(width: 180)
+                        .pickerStyle(MenuPickerStyle())
+                    }
                 }
-                .frame(width: 210)
-                .pickerStyle(MenuPickerStyle())
                 
-                Spacer()
-                
-                switch ContentStyle(rawValue: contentStyle)! {
+                switch ContentLayout(rawValue: contentLayout)! {
                 case .portrait:
-                    Picker("corner", selection: $portraitCorner) {
-                        Text("topTrailing").tag(PortraitCorner.topTrailing.rawValue)
-                        Text("topLeading").tag(PortraitCorner.topLeading.rawValue)
-                        Text("bottom").tag(PortraitCorner.bottom.rawValue)
-                        Text("top").tag(PortraitCorner.top.rawValue)
+                    HStack {
+                        Spacer()
+                        Text("max height per entry:")
+                        TextField("", value: $portraitMaxHeight, formatter: tfDecimalFormatter).frame(width: tfWidth)
                     }
-                    .frame(width: 180)
-                    .pickerStyle(MenuPickerStyle())
                 case .landscape:
-                    Picker("style:", selection: $landscapeStyle) {
-                        Text("normal").tag(LandscapeStyle.normal.rawValue)
-                        Text("auto scrolling").tag(LandscapeStyle.autoScrolling.rawValue)
-                        Text("centered").tag(LandscapeStyle.centered.rawValue)
+                    HStack {
+                        Spacer()
+                        Text("max width per entry:")
+                        TextField("", value: $landscapeMaxWidth, formatter: tfDecimalFormatter).frame(width: tfWidth)
                     }
-                    .frame(width: 180)
-                    .pickerStyle(MenuPickerStyle())
-                }
-            }
-
-            switch ContentStyle(rawValue: contentStyle)! {
-            case .portrait:
-                HStack {
-                    Text("Max height for one entry:")
-                    TextField("", value: $portraitMaxHeight, formatter: tfDecimalFormatter).frame(width: tfWidth)
-                }
-            case .landscape:
-                HStack {
-                    Text("Max width for one entry:")
-                    TextField("", value: $landscapeMaxWidth, formatter: tfDecimalFormatter).frame(width: tfWidth)
                 }
             }
         }

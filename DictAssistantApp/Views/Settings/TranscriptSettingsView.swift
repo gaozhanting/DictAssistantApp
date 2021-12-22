@@ -13,8 +13,6 @@ struct TranscriptSettingsView: View {
         VStack(alignment: .leading) {
             DropTitleWordToggle()
             Divider()
-            AddLineBreakBeforeTranslationToggle()
-            AddSpaceBeforeTranslationToggle()
             DropFirstTitleWordInTranslationToggle()
             JoinTranslationLinesToggle()
             Divider()
@@ -37,7 +35,7 @@ private struct DropTitleWordToggle: View {
     }
 }
 
-private struct AddLineBreakBeforeTranslationToggle: View {
+struct AddLineBreakBeforeTranslationToggle: View {
     @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
     
     var body: some View {
@@ -48,7 +46,7 @@ private struct AddLineBreakBeforeTranslationToggle: View {
     }
 }
 
-private struct AddSpaceBeforeTranslationToggle: View {
+struct AddSpaceBeforeTranslationToggle: View {
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
     
     var body: some View {
