@@ -36,7 +36,7 @@ struct NLPSample {
         return result
     }
     
-    struct Word {
+    struct Word: Equatable, Hashable {
         let token: String
         let lemma: String
     }

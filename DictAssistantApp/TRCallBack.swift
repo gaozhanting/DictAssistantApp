@@ -21,6 +21,22 @@ func trCallBack() {
     trCallBackWithCache()
 }
 
+extension Array where Element: Hashable {
+    func removeDuplicates() -> [Element] {
+        var seen = Set<Element>()
+        var out = [Element]()
+
+        for element in self {
+            if !seen.contains(element) {
+                out.append(element)
+                seen.insert(element)
+            }
+        }
+
+        return out
+    }
+}
+
 // mainly called by AVSessionAndTR
 func trCallBackWithCache() {
 //    // do nothing when not playing, this will execute when manually trigger trCallBack() for refresh
@@ -54,7 +70,7 @@ func trCallBackWithCache() {
             return []
         }
         
-        let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }
+        let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }.removeDuplicates()
         
         var iboxes: [IndexedBox] = []
         
@@ -72,19 +88,21 @@ func trCallBackWithCache() {
                     do {
                         let boundingBox = try candidate.boundingBox(for: range)
                         if let boundingBox = boundingBox {
-                            
                             if let index = lemmaIndexDict[lemma] {
+                                let box = (boundingBox.topLeft, boundingBox.bottomRight)
                                 iboxes.append(IndexedBox(
-                                    box: (boundingBox.topLeft, boundingBox.bottomRight),
+                                    box: box,
                                     index: index
                                 ))
                             } else {
                                 sentryIndex += 1
                                 lemmaIndexDict[lemma] = sentryIndex
                                 
+                                let index = lemmaIndexDict[lemma]!
+                                let box = (boundingBox.topLeft, boundingBox.bottomRight)
                                 iboxes.append(IndexedBox(
-                                    box: (boundingBox.topLeft, boundingBox.bottomRight),
-                                    index: lemmaIndexDict[lemma]!
+                                    box: box,
+                                    index: index
                                 ))
                             }
                         } else {
