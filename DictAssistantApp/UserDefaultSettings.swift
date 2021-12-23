@@ -565,6 +565,16 @@ func combineShortcutKeyFnsSettings() {
         .store(in: &subscriptions)
 }
 
+func combineHighlight() {
+    UserDefaults.standard
+        .publisher(for: \.HighlightModeKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
+
 func autoSaveSlotSettings() {
     combineSlot(\.ContentLayoutKey, \.contentLayout, ContentLayoutKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
