@@ -109,7 +109,6 @@ let MinimalistHPaddingKey = "MinimalistHPaddingKey"
 
 let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 let IsWithAnimationKey = "IsWithAnimationKey"
-let IsContentRetentionKey = "IsContentRetentionKey"
 
 // Enums
 enum ContentPaddingStyle: Int, Codable {
@@ -277,7 +276,6 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     IsShowWindowShadowKey: true,
     IsWithAnimationKey: true,
-    IsContentRetentionKey: false,
     
     HLDottedColorKey: colorToData(NSColor.red)!,
     

@@ -56,9 +56,6 @@ struct LandscapeWordsView2: View {
 
 private struct BodyView1: View {
     @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowKnownKey) private var isShowKnown: Bool = false
-    @AppStorage(IsShowKnownButWithOpacity0Key) private var isShowKnownButWithOpacity0: Bool = false
-    @AppStorage(IsShowNotFoundKey) private var isShowNotFound: Bool = false
     
     let proxy: ScrollViewProxy?
     
@@ -86,9 +83,6 @@ private struct BodyView1: View {
 
 private struct BodyView2: View {
     @EnvironmentObject var displayedWords: DisplayedWords
-    @AppStorage(IsShowKnownKey) private var isShowKnown: Bool = false
-    @AppStorage(IsShowKnownButWithOpacity0Key) private var isShowKnownButWithOpacity0: Bool = false
-    @AppStorage(IsShowNotFoundKey) private var isShowNotFound: Bool = false
     
     let proxy: ScrollViewProxy?
     

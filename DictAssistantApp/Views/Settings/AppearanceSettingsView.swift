@@ -37,7 +37,6 @@ struct AppearanceSettingsView: View {
             ContentWindowShadowToggle()
             
             WithAnimationToggle()
-            ContentRetentionToggle()
             
             Spacer().frame(height: 20)
             Divider()
@@ -401,20 +400,6 @@ private struct WithAnimationToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
             .help("Notice animation will increase CPU usage. And animation is disabled when using landscape with autoScrolling because it is ugly there.")
-        }
-    }
-}
-
-private struct ContentRetentionToggle: View {
-    @AppStorage(IsContentRetentionKey) private var isContentRetention = false
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isContentRetention, label: {
-                Text("Make Content Retention")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            .help("If selected, content will get retention of last recognized tests when new recognized tests is empty.")
         }
     }
 }

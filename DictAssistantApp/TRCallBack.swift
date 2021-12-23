@@ -56,14 +56,6 @@ func trCallBackWithCache() {
         trTexts.append(text)
     }
     
-    // if this option on, content won't react to new empty results; useful for using chrome live caption.
-    if UserDefaults.standard.bool(forKey: "IsContentRetentionKey") {
-        if trTexts.isEmpty {
-            logger.info("trCallBackWithCache: content got retention")
-            return
-        }
-    }
-
     // We mutate primitiveWordCellCache
     func retriveBoxesAndsyncIndices() -> [IndexedBox] {
         if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
