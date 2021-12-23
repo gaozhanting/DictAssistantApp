@@ -46,9 +46,8 @@ struct AppearanceSettingsView: View {
     
     var g4: some View {
         Group {
-            GeneralRectangleOptionsView()
-            GerneralDottedOptionsView()
-            GeneralDottedIndexOptionsView()
+            HighlightDottedOptionsView()
+            HighlightDottedIndexOptionsView()
         }
     }
     

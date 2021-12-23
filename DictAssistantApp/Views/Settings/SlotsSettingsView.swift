@@ -53,6 +53,7 @@ struct Settings: Codable {
     var isAddSpace: Bool
     
     var highlightMode: Int
+    var hLRectangleColor: Data
     var strokeDownwardOffset: Double
     var strokeLineWidth: Double
     var strokeDashPainted: Double
@@ -91,6 +92,7 @@ struct Settings: Codable {
         isAddSpace: Bool,
         
         highlightMode: Int,
+        hLRectangleColor: Data,
         strokeDownwardOffset: Double,
         strokeLineWidth: Double,
         strokeDashPainted: Double,
@@ -128,6 +130,7 @@ struct Settings: Codable {
         self.isAddSpace = isAddSpace
         
         self.highlightMode = highlightMode
+        self.hLRectangleColor = hLRectangleColor
         self.strokeDownwardOffset = strokeDownwardOffset
         self.strokeLineWidth = strokeLineWidth
         self.strokeDashPainted = strokeDashPainted
@@ -177,6 +180,7 @@ private let defaultSettings = Settings(
     isAddSpace: false,
     
     highlightMode: HighlightMode.dotted.rawValue,
+    hLRectangleColor: colorToData(NSColor.red.withAlphaComponent(0.15))!,
     strokeDownwardOffset: 5.0,
     strokeLineWidth: 3.0,
     strokeDashPainted: 1.6,
@@ -300,6 +304,7 @@ private struct SlotsView: View {
         isAddSpace = s.isAddSpace
         
         highlightMode = s.highlightMode
+        hLRectangleColor = s.hLRectangleColor
         strokeDownwardOffset = s.strokeDownwardOffset
         strokeLineWidth = s.strokeLineWidth
         strokeDashPainted = s.strokeDashPainted
@@ -338,6 +343,7 @@ private struct SlotsView: View {
     @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(HLRectangleColorKey) private var hLRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0

@@ -29,11 +29,16 @@ struct HighlightSettingsView: View {
                 })
             }
             
-            if HighlightMode(rawValue: highlightMode)! == .dotted {
+            switch HighlightMode(rawValue: highlightMode)! {
+            case .dotted:
                 VStack(alignment: .leading) {
                     DottedOptionsView()
                     DottedIndexOptionsView()
                 }
+            case .rectangle:
+                RectangleOptionsView()
+            case .disabled:
+                EmptyView()
             }
         }
     }
@@ -48,7 +53,7 @@ let tfDecimalFormatter: NumberFormatter = {
 }()
 let tfIntegerFormatter = NumberFormatter()
 
-struct GerneralDottedOptionsView: View {
+struct HighlightDottedOptionsView: View {
     @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
         
     var binding: Binding<Color> {
@@ -137,7 +142,7 @@ private struct DottedOptionsView: View {
     }
 }
 
-struct GeneralDottedIndexOptionsView: View {
+struct HighlightDottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
@@ -265,7 +270,7 @@ private struct DottedIndexOptionsView: View {
     }
 }
 
-struct GeneralRectangleOptionsView: View {
+private struct RectangleOptionsView: View {
     @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     
     var binding: Binding<Color> {
