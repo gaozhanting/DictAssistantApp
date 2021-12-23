@@ -31,7 +31,7 @@ extension KeyboardShortcuts.Name {
     
     static let showMiniEntryPanel = Self("showMiniEntryPanel")
     
-    static let showPreferencesPanel = Self("showPreferencesPanel")
+    static let showSlotsTab = Self("showSlotsTab")
 }
 
 enum StepPlayPhase {
@@ -136,8 +136,8 @@ func registerGlobalKey() {
         showMiniEntryPanel()
     }
     
-    KeyboardShortcuts.onKeyUp(for: .showPreferencesPanel) {
-        showPreferencesPanel()
+    KeyboardShortcuts.onKeyUp(for: .showSlotsTab) {
+        showSlotsTab()
     }
 }
 

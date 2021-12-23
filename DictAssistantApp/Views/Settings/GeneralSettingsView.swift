@@ -147,9 +147,9 @@ private struct KeyRecordingView: View {
             g1
 
             HStack {
-                Text("Show Preferences Panel")
+                Text("Show Slots Tab")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .showPreferencesPanel)
+                KeyboardShortcuts.Recorder(for: .showSlotsTab)
                 MiniInfoView {
                     Text("recommend: Option-Z").font(.subheadline).padding()
                 }
