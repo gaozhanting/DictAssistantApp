@@ -232,48 +232,14 @@ private struct SlotsView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack {
             GroupBox {
-                List {
-                    ForEach(slots, id: \.createdDate) { slot in
-                        HStack {
-                            HStack {
-                                Button(action: {
-                                    select(slot)
-                                }) {
-                                    Image(systemName: slot.isSelected ? "shippingbox.circle.fill" : "shippingbox.circle")
-                                        .font(.title)
-                                        .foregroundColor(Color(dataToColor(slot.color!)!))
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                
-                                TextField("", text: Binding.init(
-                                    get: { slot.label! },
-                                    set: { newValue in
-                                        slot.label = newValue
-                                        saveContext()
-                                    }
-                                ))
-                                .font(.callout)
-                                .textFieldStyle(PlainTextFieldStyle())
-                                .frame(maxWidth: 200)
-                            }
-                        }
-                    }
-                    .onDelete { offsets in
-                        for index in offsets {
-                            let slot = slots[index]
-                            managedObjectContext.delete(slot)
-                        }
-                        saveContext()
-                    }
-                }
-                .listStyle(PlainListStyle())
-                .frame(width: 200, height: 40 + CGFloat(slots.count) * 35 < 800 ? 40 + CGFloat(slots.count) * 35 : 800)
+                SlotsListView(slots: slots, select: select)
             }
             
-            ButtonsView(selectedSlot: selectedSlot)
+            ButtonsView(slots: slots)
         }
+        .frame(width: 230)
         .padding()
     }
     
@@ -370,39 +336,153 @@ extension NSColor {
     }
 }
 
-private struct ButtonsView: View {
+private struct SlotsListView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    let slots: FetchedResults<Slot>
+    let select: (Slot) -> Void
 
-    let selectedSlot: Slot?
+    var body: some View {
+        List {
+            ForEach(slots, id: \.createdDate) { slot in
+                SlotItemView(slot: slot, select: select)
+            }
+            .onDelete { offsets in
+                for index in offsets {
+                    let slot = slots[index]
+                    managedObjectContext.delete(slot)
+                }
+                saveContext()
+            }
+        }
+        .listStyle(PlainListStyle())
+        .frame(height: 40 + CGFloat(slots.count) * 35 < 800 ? 40 + CGFloat(slots.count) * 35 : 800)
+    }
+}
+
+private struct SlotItemView: View {
+    let slot: Slot
+    let select: (Slot) -> Void
     
     var body: some View {
         HStack {
-            Button("+") {
-                let slot = Slot(context: managedObjectContext)
-                slot.color = colorToData(NSColor.random())
-                slot.label = ""
-                slot.settings = settingsToData(defaultSettings)
-                slot.createdDate = Date()
-                slot.isSelected = false
-                saveContext()
+            HStack {
+                Button(action: {
+                    select(slot)
+                }) {
+                    Image(systemName: slot.isSelected ? "shippingbox.circle.fill" : "shippingbox.circle")
+                        .font(.title)
+                        .foregroundColor(Color(dataToColor(slot.color!)!))
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                TextField("", text: Binding.init(
+                    get: { slot.label! },
+                    set: { newValue in
+                        slot.label = newValue
+                        saveContext()
+                    }
+                ))
+                    .font(.callout)
+                    .textFieldStyle(PlainTextFieldStyle())
             }
-            
-            Button("Clone") {
-                if let selectedSlot = selectedSlot {
-                    let slot = Slot(context: managedObjectContext)
-                    slot.color = colorToData(NSColor.random())
-                    slot.label = "\(selectedSlot.label ?? "") cloned"
-                    slot.settings = selectedSlot.settings
-                    slot.createdDate = Date()
-                    slot.isSelected = true
-                    selectedSlot.isSelected = false
+        }
+    }
+}
+
+private struct ButtonsView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+
+    let slots: FetchedResults<Slot>
+    
+    var selectedSlot: Slot? {
+        slots.first { $0.isSelected }
+    }
+    
+    func add() {
+        let slot = Slot(context: managedObjectContext)
+        slot.color = colorToData(NSColor.random())
+        slot.label = ""
+        slot.settings = settingsToData(defaultSettings)
+        slot.createdDate = Date()
+        slot.isSelected = false
+        saveContext()
+    }
+        
+    func delete() {
+        if let selectedSlot = selectedSlot {
+            managedObjectContext.delete(selectedSlot)
+            saveContext()
+        }
+    }
+    
+    func clone() {
+        if let selectedSlot = selectedSlot {
+            let slot = Slot(context: managedObjectContext)
+            slot.color = colorToData(NSColor.random())
+            slot.label = "\(selectedSlot.label ?? "") cloned"
+            slot.settings = selectedSlot.settings
+            slot.createdDate = Date()
+            slot.isSelected = true
+            selectedSlot.isSelected = false
+            saveContext()
+        }
+    }
+    
+    func up() {
+        if let selectedSlot = selectedSlot {
+            if let i = slots.firstIndex(of: selectedSlot) {
+                if (i - 1) >= 0 {
+                    let previousSlot = slots[i - 1]
+                    (selectedSlot.createdDate, previousSlot.createdDate) = (previousSlot.createdDate, selectedSlot.createdDate)
                     saveContext()
                 }
             }
-            .disabled(selectedSlot == nil)
+        }
+    }
+    
+    func down() {
+        if let selectedSlot = selectedSlot {
+            if let i = slots.firstIndex(of: selectedSlot) {
+                if (i + 1) < slots.count {
+                    let nextSlot = slots[i + 1]
+                    (selectedSlot.createdDate, nextSlot.createdDate) = (nextSlot.createdDate, selectedSlot.createdDate)
+                    saveContext()
+                }
+            }
+        }
+    }
+    
+    func clear() {
+        showingAlert = true
+    }
+    
+    var body: some View {
+        HStack {
+            Button(action: add) {
+                Image(systemName: "plus")
+            }
             
-            Button("Clear") {
-                showingAlert = true
+            HStack {
+                Button(action: delete) {
+                    Image(systemName: "minus")
+                }
+                
+                Button(action: clone) {
+                    Image(systemName: "doc.on.clipboard")
+                }
+                
+                Button(action: up) {
+                    Image(systemName: "arrowtriangle.up")
+                }
+                
+                Button(action: down) {
+                    Image(systemName: "arrowtriangle.down")
+                }
+            }
+            .disabled(selectedSlot == nil)
+
+            Button(action: clear) {
+                Image(systemName: "trash")
             }
             .alert(isPresented: $showingAlert) {
                 Alert(
@@ -442,7 +522,7 @@ struct SlotsSettingsView_Previews: PreviewProvider {
                 .environmentObject(StatusData(isPlaying: false))
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
 
-            InfoView()
+//            InfoView()
         }
 //        .environment(\.locale, .init(identifier: "zh-Hant"))
         .environment(\.locale, .init(identifier: "en"))
