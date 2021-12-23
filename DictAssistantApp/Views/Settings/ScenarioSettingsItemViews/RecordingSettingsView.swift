@@ -26,7 +26,7 @@ struct MaximumFrameRateSetting: View {
             }()).frame(width: tfWidth)
             
             Button(action: useDefault) {
-                Image(systemName: "pencil.and.outline")
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
             
             MiniInfoView(arrowEdge: Edge.trailing) {

@@ -159,7 +159,7 @@ private struct EditingView: View {
                     .help("Delete All")
                     
                     Button(action: batchResetDefault) {
-                        Image(systemName: "pencil.and.outline")
+                        Image(systemName: "arrow.triangle.2.circlepath")
                     }
                     .buttonStyle(PlainButtonStyle())
                     .help("Reset to Default")

@@ -32,7 +32,7 @@ struct ContentPaddingStyleSettingsView: View {
                     Button(action: {
                         standardCornerRadius = 6.0
                     }) {
-                        Image(systemName: "pencil.and.outline")
+                        Image(systemName: "arrow.triangle.2.circlepath")
                     }
                 }
             case .minimalist:
@@ -47,7 +47,7 @@ struct ContentPaddingStyleSettingsView: View {
                         minimalistVPadding = 2.0
                         minimalistHPadding = 6.0
                     }) {
-                        Image(systemName: "pencil.and.outline")
+                        Image(systemName: "arrow.triangle.2.circlepath")
                     }
                 }
             }

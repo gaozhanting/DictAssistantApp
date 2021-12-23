@@ -76,7 +76,7 @@ struct HighlightDottedOptionsView: View {
             ColorPicker("color:", selection: binding)
             Spacer()
             Button(action: useDefault) {
-                Image(systemName: "pencil.and.outline")
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
         }
     }
@@ -124,7 +124,7 @@ private struct DottedOptionsView: View {
             Spacer()
             
             Button(action: useDefault) {
-                Image(systemName: "pencil.and.outline")
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
         }
     }
@@ -215,7 +215,7 @@ struct HighlightDottedIndexOptionsView: View {
                         Spacer()
                         
                         Button(action: useDefault) {
-                            Image(systemName: "pencil.and.outline")
+                            Image(systemName: "arrow.triangle.2.circlepath")
                         }
                     }
                     
@@ -261,7 +261,7 @@ private struct DottedIndexOptionsView: View {
                         Spacer()
                         
                         Button(action: useDefault) {
-                            Image(systemName: "pencil.and.outline")
+                            Image(systemName: "arrow.triangle.2.circlepath")
                         }
                     }
                 }
@@ -297,7 +297,7 @@ private struct RectangleOptionsView: View {
             Spacer()
             
             Button(action: useDefault) {
-                Image(systemName: "pencil.and.outline")
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
         }
     }

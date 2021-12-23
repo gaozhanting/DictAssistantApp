@@ -137,7 +137,7 @@ private struct FontSettingView: View {
             }
             
             Button(action: useDefault) {
-                Image(systemName: "pencil.and.outline")
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
             
             MiniInfoView {
@@ -235,7 +235,7 @@ private struct ColorPickers: View {
             ColorPicker("BG:", selection: bgColorBinding)
             Spacer()
             Button(action: useDefault) {
-                Image(systemName: "pencil.and.outline")
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
         }
     }
