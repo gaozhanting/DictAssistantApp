@@ -84,13 +84,9 @@ private struct ConstantKnownView: View {
                     Text("Words").font(.callout).tag(DisplayFilter.words.rawValue)
                     Text("Phrases").font(.callout).tag(DisplayFilter.phrases.rawValue)
                 }
-                .labelsHidden()
-                .frame(maxWidth: 100)
-                ,
-                
-                alignment: .bottomTrailing
-            )
-        
+                    .labelsHidden()
+                    .frame(maxWidth: 100)
+                , alignment: .bottom)
     }
 }
 
@@ -216,8 +212,9 @@ private struct EditingView: View {
                             InfoPopoverView()
                         }
                     }
+                    .padding(.horizontal)
                     .buttonStyle(PlainButtonStyle())
-                }, alignment: .bottomTrailing)
+                }, alignment: .bottom)
     }
 }
 

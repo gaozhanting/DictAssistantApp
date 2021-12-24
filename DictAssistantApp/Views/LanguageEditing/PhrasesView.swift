@@ -194,8 +194,9 @@ private struct EditingView: View {
                             InfoView()
                         }
                     }
+                    .padding(.horizontal)
                     .buttonStyle(PlainButtonStyle())
-                }, alignment: .bottomTrailing)
+                }, alignment: .bottom)
     }
 }
 

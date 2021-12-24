@@ -457,47 +457,51 @@ private struct ButtonsView: View {
     }
     
     var body: some View {
-        HStack {
-            Button(action: add) {
-                Image(systemName: "plus")
-            }
-            
+        GroupBox {
             HStack {
-                Button(action: delete) {
-                    Image(systemName: "minus")
+                Button(action: add) {
+                    Image(systemName: "plus")
                 }
                 
-                Button(action: clone) {
-                    Image(systemName: "plus.rectangle.on.rectangle")
+                Group {
+                    Button(action: delete) {
+                        Image(systemName: "minus")
+                    }
+                    
+                    Button(action: clone) {
+                        Image(systemName: "plus.rectangle.on.rectangle")
+                    }
+                    .help("clone")
+                    
+                    Button(action: up) {
+                        Image(systemName: "arrow.up")
+                    }
+                    
+                    Button(action: down) {
+                        Image(systemName: "arrow.down")
+                    }
                 }
-                .help("clone")
+                .disabled(selectedSlot == nil)
                 
-                Button(action: up) {
-                    Image(systemName: "arrow.up")
+                Button(action: clear) {
+                    Image(systemName: "trash")
                 }
-                
-                Button(action: down) {
-                    Image(systemName: "arrow.down")
-                }
-            }
-            .disabled(selectedSlot == nil)
-
-            Button(action: clear) {
-                Image(systemName: "trash")
-            }
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("Delete All"),
-                    message: Text("Are you sure? This action can't be undo."),
-                    primaryButton: .default(
-                        Text("Cancel")
-                    ),
-                    secondaryButton: .destructive(
-                        Text("Delete"),
-                        action: batchDeleteAllSlots
+                .alert(isPresented: $showingAlert) {
+                    Alert(
+                        title: Text("Delete All"),
+                        message: Text("Are you sure? This action can't be undo."),
+                        primaryButton: .default(
+                            Text("Cancel")
+                        ),
+                        secondaryButton: .destructive(
+                            Text("Delete"),
+                            action: batchDeleteAllSlots
+                        )
                     )
-                )
+                }
             }
+            .buttonStyle(PlainButtonStyle())
+            .padding(.horizontal)
         }
     }
     

@@ -166,8 +166,9 @@ private struct EditingView: View {
                             InfoView()
                         }
                     }
+                    .padding(.horizontal)
                     .buttonStyle(PlainButtonStyle())
-                }, alignment: .bottomTrailing)
+                }, alignment: .bottom)
     }
     
     @State private var showingAlert = false
