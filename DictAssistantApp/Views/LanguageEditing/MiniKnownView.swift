@@ -33,6 +33,8 @@ struct MiniKnownView: View {
     var body: some View {
         HStack {
             TextField("Edit a word", text: $text)
+                .font(.headline)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             
             Button(action: remove) {
                 Image(systemName: "minus")
@@ -44,7 +46,6 @@ struct MiniKnownView: View {
             }
             .disabled(!valid)
         }
-        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
@@ -52,5 +53,6 @@ struct MiniKnownView: View {
 struct MiniKnownView_Previews: PreviewProvider {
     static var previews: some View {
         MiniKnownView()
+            .frame(width: 200, height: 42)
     }
 }

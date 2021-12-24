@@ -26,6 +26,8 @@ struct MiniPhraseView: View {
     var body: some View {
         HStack {
             TextField("Edit a phrase", text: $text)
+                .font(.headline)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             
             Button(action: add) {
                 Image(systemName: "plus")
@@ -33,7 +35,6 @@ struct MiniPhraseView: View {
             .disabled(!valid)
             .keyboardShortcut(KeyEquivalent.return)
         }
-        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
@@ -41,5 +42,6 @@ struct MiniPhraseView: View {
 struct PhraseInsertView_Previews: PreviewProvider {
     static var previews: some View {
         MiniPhraseView()
+            .frame(width: 300, height: 42)
     }
 }

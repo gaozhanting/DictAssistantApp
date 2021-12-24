@@ -12,7 +12,7 @@ var miniPhrasePanel: NSPanel!
 
 func initMiniPhrasePanel() {
     miniPhrasePanel = EditingPanel(
-        contentRect: NSRect(x: 200, y: 100, width: 300, height: 50),
+        contentRect: NSRect(x: 200, y: 100, width: 300, height: 42),
         name: NSLocalizedString("Mini Phrase Panel", comment: "")
     )
     miniPhrasePanel.close()

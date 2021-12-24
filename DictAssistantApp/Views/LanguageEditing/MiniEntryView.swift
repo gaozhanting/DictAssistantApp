@@ -33,6 +33,8 @@ struct MiniEntryView: View {
     var body: some View {
         HStack {
             TextField("Edit an entry", text: $text)
+                .font(.headline)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             
             Button(action: upsert) {
                 Image(systemName: "plus")
@@ -40,7 +42,6 @@ struct MiniEntryView: View {
             .disabled(!valid)
             .keyboardShortcut(KeyEquivalent.return)
         }
-        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
@@ -56,5 +57,6 @@ extension String {
 struct EntryUpsertView_Previews: PreviewProvider {
     static var previews: some View {
         MiniEntryView()
+            .frame(width: 400, height: 42)
     }
 }

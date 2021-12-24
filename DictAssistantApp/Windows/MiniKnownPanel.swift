@@ -12,7 +12,7 @@ var miniKnownPanel: NSPanel!
 
 func initMiniKnownPanel() {
     miniKnownPanel = EditingPanel(
-        contentRect: NSRect(x: 200, y: 100, width: 300, height: 50),
+        contentRect: NSRect(x: 200, y: 100, width: 200, height: 42),
         name: NSLocalizedString("Mini Known Panel", comment: "")
     )
     miniKnownPanel.close()
