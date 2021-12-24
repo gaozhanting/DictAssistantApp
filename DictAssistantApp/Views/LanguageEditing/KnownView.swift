@@ -86,7 +86,7 @@ private struct ConstantKnownView: View {
                 }
                     .labelsHidden()
                     .frame(maxWidth: 100)
-                , alignment: .bottom)
+                , alignment: .bottomTrailing)
     }
 }
 
