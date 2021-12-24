@@ -163,6 +163,8 @@ private struct EditingView: View {
     @State private var succeed: Bool = false
     @State private var nothingChanged: Bool = false
     
+    @State private var showingAlert = false
+    
     var body: some View {
         TextEditor(text: $text)
             .overlay(
@@ -200,8 +202,7 @@ private struct EditingView: View {
                             title: Text("Delete All"),
                             message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
                             primaryButton: .default(
-                                Text("Cancel"),
-                                action: { print("Cancelled") }
+                                Text("Cancel")
                             ),
                             secondaryButton: .destructive(
                                 Text("Delete"),
@@ -223,8 +224,6 @@ private struct EditingView: View {
                 alignment: .bottomTrailing
             )
     }
-    
-    @State private var showingAlert = false
 }
 
 private struct PasteOxford3000Button: View {

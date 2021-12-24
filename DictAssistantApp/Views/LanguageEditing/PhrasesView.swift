@@ -125,6 +125,9 @@ private struct EditingView: View {
     @State private var succeed: Bool = false
     @State private var nothingChanged: Bool = false
     
+    @State private var showingDeleteAllAlert: Bool = false
+    @State private var showingResetAlert: Bool = false
+    
     var body: some View {
         TextEditor(text: $text)
             .overlay(
@@ -152,17 +155,43 @@ private struct EditingView: View {
                     .disabled(lines.isContainsEmptyLine)
                     .help("Remove multi phrases")
                     
-                    Button(action: batchDeleteAll) {
+                    Button(action: { showingDeleteAllAlert = true }) {
                         Image(systemName: "trash")
                     }
                     .buttonStyle(PlainButtonStyle())
                     .help("Delete All")
+                    .alert(isPresented: $showingDeleteAllAlert) {
+                        Alert(
+                            title: Text("Delete All"),
+                            message: Text("Are you sure? This action can't be undo."),
+                            primaryButton: .default(
+                                Text("Cancel")
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Delete"),
+                                action: batchDeleteAll
+                            )
+                        )
+                    }
                     
-                    Button(action: batchResetDefault) {
+                    Button(action: { showingResetAlert = true }) {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }
                     .buttonStyle(PlainButtonStyle())
                     .help("Reset to Default")
+                    .alert(isPresented: $showingResetAlert) {
+                        Alert(
+                            title: Text("Reset"),
+                            message: Text("Are you sure? This action can't be undo."),
+                            primaryButton: .default(
+                                Text("Cancel")
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Reset"),
+                                action: batchResetDefault
+                            )
+                        )
+                    }
                     
                     MiniInfoView {
                         InfoView()

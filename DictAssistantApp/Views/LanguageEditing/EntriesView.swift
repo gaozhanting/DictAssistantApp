@@ -155,8 +155,7 @@ private struct EditingView: View {
                             title: Text("Delete All"),
                             message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
                             primaryButton: .default(
-                                Text("Cancel"),
-                                action: { print("Cancelled") }
+                                Text("Cancel")
                             ),
                             secondaryButton: .destructive(
                                 Text("Delete"),

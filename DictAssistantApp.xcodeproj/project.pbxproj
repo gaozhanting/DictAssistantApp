@@ -391,14 +391,14 @@
 		44C207BB2701A93600419F63 /* LanguageEditing */ = {
 			isa = PBXGroup;
 			children = (
-				44C207B92701A8E300419F63 /* PhrasesView.swift */,
 				445355632705C4F4007DB9C2 /* NoisesView.swift */,
+				44C207B92701A8E300419F63 /* PhrasesView.swift */,
 				44BCEC5526842086002D3D8C /* KnownView.swift */,
 				44C31D6C26FE035800ED6E08 /* EntriesView.swift */,
+				442126D02719B4C700CEF786 /* DictBuildWithInfoView.swift */,
 				449876B22772E36F00FFDED4 /* MiniKnownView.swift */,
 				44CAC50827145B2700EAFA74 /* MiniPhraseView.swift */,
 				44CAC50C2714641600EAFA74 /* MiniEntryView.swift */,
-				442126D02719B4C700CEF786 /* DictBuildWithInfoView.swift */,
 			);
 			path = LanguageEditing;
 			sourceTree = "<group>";

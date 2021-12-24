@@ -490,8 +490,7 @@ private struct ButtonsView: View {
                     title: Text("Delete All"),
                     message: Text("Are you sure? This action can't be undo."),
                     primaryButton: .default(
-                        Text("Cancel"),
-                        action: { print("Cancelled") }
+                        Text("Cancel")
                     ),
                     secondaryButton: .destructive(
                         Text("Delete"),
