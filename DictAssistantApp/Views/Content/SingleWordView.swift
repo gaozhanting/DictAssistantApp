@@ -268,7 +268,6 @@ private struct TheText: View {
         let step4 = isAddSpace ? " " + step3 : step3
         return step4
     }
-    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
     
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
@@ -298,16 +297,14 @@ private struct TheText: View {
         }
     }
     
-    var unKnownText: Text {
+    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+    var unKnownText0: Text {
         !isDropTitleWord ?
-        
-        indexText
-        +
-        Text(word).foregroundColor(theWordColor).font(font)
-        +
-        Text(translation).foregroundColor(theTransColor).font(transFont) :
-        
+        Text(word).foregroundColor(theWordColor).font(font) + Text(translation).foregroundColor(theTransColor).font(transFont) :
         Text(translation).foregroundColor(theTransColor).font(transFont)
+    }
+    var unKnownText: Text {
+        indexText + unKnownText0
     }
     
     var knownText: Text {
@@ -315,8 +312,6 @@ private struct TheText: View {
     }
     
     var body: Text {
-        unKnown ?
-            unKnownText :
-            knownText
+        unKnown ? unKnownText : knownText
     }
 }
