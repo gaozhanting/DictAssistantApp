@@ -246,17 +246,6 @@ private struct ShadowGroupSettings: View {
     @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
     @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
     
-    var binding: Binding<Bool> {
-        Binding(
-            get: { useTextShadow },
-            set: { newValue in
-                withAnimation {
-                    useTextShadow = newValue
-                }
-            }
-        )
-    }
-    
     func useDefault() {
         useTextShadow = false
         shadowRadius = 3
@@ -266,7 +255,7 @@ private struct ShadowGroupSettings: View {
     
     var body: some View {
         HStack {
-            Toggle(isOn: binding, label: {
+            Toggle(isOn: $useTextShadow, label: {
                 Text("Use Text Shadow")
             })
             
