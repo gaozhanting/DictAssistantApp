@@ -261,16 +261,16 @@ private struct InitGlobalKeyboardShortcutView: View {
                     VStack(alignment: .leading) {
                         Divider()
                         Text("Playing:")
-                            .padding(.bottom, 8)
+                            .padding(.bottom)
                         Text("Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window and the content window.")
-                        Text("The cropper window has an animation stoke border, the content window has a translucency and vibrancy effect. Please don't overlap them.")
+                        Text("The cropper window has an animation stoke border. Please don't overlap them.")
                             .font(.subheadline)
-                            .padding(.bottom, 4)
+                            .padding(.bottom)
                         Text("Step 2: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)")
                         Divider()
-                            .padding(.top, 4)
+                            .padding(.top)
                         Text("Stop:")
-                            .padding(.bottom, 8)
+                            .padding(.bottom)
                         Text("Press Run Step Play keyboard shortcut key to stop playing.")
                     }
                     .padding(.vertical)
@@ -339,13 +339,13 @@ enum OnboardingPage: CaseIterable {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-//            OnboardingPage.welcome.view()
-//            OnboardingPage.initKnown.view()
+            OnboardingPage.welcome.view()
+            OnboardingPage.initKnown.view()
             OnboardingPage.buildDict.view()
-//            OnboardingPage.initGlobalKeyboardShortcut.view()
+            OnboardingPage.initGlobalKeyboardShortcut.view()
         }
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
         .environment(\.locale, .init(identifier: "en"))
-//        .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
+        .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }

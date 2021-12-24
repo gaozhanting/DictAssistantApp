@@ -245,7 +245,7 @@
 "Initialize one global keyboard shortcuts, playing" = "初始化一個全局的鍵盤快捷鍵，運行";
 "Playing:" = "運行：";
 "Step 1: Press Run Step Play keyboard shortcut key and adjust the cropper window and the content window." = "步驟1：按 單步運行 快捷鍵，調整錄屏區域和內容區域。";
-"The cropper window has an animation stoke border, the content window has a translucency and vibrancy effect. Please don't overlap them." = "錄屏區域有一個描邊動畫的效果，而內容區域有一個半透明高光的效果。請不要讓窗口交疊。";
+"The cropper window has an animation stoke border. Please don't overlap them." = "錄屏區域有一個描邊動畫的效果。請不要讓窗口交疊。";
 "Step 2: Press Run Step Play keyboard shortcut key and playing. (Need Screen Recording Permission)" = "步驟2：按 單步運行 快捷鍵 運行。（需要屏幕錄製授權）";
 "Stop:" = "停止：";
 "Press Run Step Play keyboard shortcut key to stop playing." = "按 單步運行 快捷鍵 停止運行。";

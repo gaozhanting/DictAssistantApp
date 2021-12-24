@@ -499,8 +499,6 @@ private struct ButtonsView: View {
                 )
             }
         }
-        .padding(.vertical, 5)
-        .padding(.horizontal)
     }
     
     @State private var showingAlert = false
