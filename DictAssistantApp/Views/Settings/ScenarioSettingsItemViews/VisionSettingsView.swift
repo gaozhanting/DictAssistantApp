@@ -84,9 +84,7 @@ struct TRTextRecognitionLevelSetting: View {
 
 struct LevelInfoView: View {
     var body: some View {
-        (Text("Fast is very fast, and cause low CPU usage, you should use this by default. \nAccurate is the only rescue when the text is hard to be recognized on screen!")
-         + Text("\nAccurate is cool when running cheap snapshot.").foregroundColor(Color(NSColor.systemPurple))
-        + Text("\nAccurate cause high CPU usage when streaming!").foregroundColor(Color(NSColor.systemYellow)))
+        Text("The recognition level determines which techniques the request uses during the text recognition. Set this value to fast to prioritize speed over accuracy, and to accurate for longer, more computationally intensive recognition.")
             .infoStyle()
     }
 }

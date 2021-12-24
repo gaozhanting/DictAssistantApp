@@ -25,10 +25,10 @@ struct ScenarioSettingsView: View {
     
     var g2: some View {
         Group {
-            TRMinimumTextHeightSetting()
-            TRTextRecognitionLevelSetting()
-            
             MaximumFrameRateSetting()
+            
+            TRTextRecognitionLevelSetting()
+            TRMinimumTextHeightSetting()
             
             Spacer().frame(height: 20)
             Divider()
