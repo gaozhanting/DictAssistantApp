@@ -35,6 +35,7 @@
 		442D6A17276510C4001ACA08 /* HLBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442D6A16276510C4001ACA08 /* HLBox.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
 		44332451277572A7007FFF44 /* SettingsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44332450277572A7007FFF44 /* SettingsCommon.swift */; };
+		443324532775BA2E007FFF44 /* LanguageSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443324522775BA2E007FFF44 /* LanguageSettingsView.swift */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
@@ -121,6 +122,7 @@
 		442D6A16276510C4001ACA08 /* HLBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLBox.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		44332450277572A7007FFF44 /* SettingsCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCommon.swift; sourceTree = "<group>"; };
+		443324522775BA2E007FFF44 /* LanguageSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingsView.swift; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* Freedom English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freedom English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,9 +203,8 @@
 				442134CD26A6C64200963441 /* Settings.swift */,
 				44332450277572A7007FFF44 /* SettingsCommon.swift */,
 				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
-				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
-				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
-				44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */,
+				443324522775BA2E007FFF44 /* LanguageSettingsView.swift */,
+				443324542775BA36007FFF44 /* LanguageSettingsItemViews */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
 				447C25BC276F5EFC00C97DFF /* ScenarioSettingsView.swift */,
@@ -223,6 +224,16 @@
 				449876AE2770577800FFDED4 /* ContentPaddingStyleModifierView.swift */,
 			);
 			path = Content;
+			sourceTree = "<group>";
+		};
+		443324542775BA36007FFF44 /* LanguageSettingsItemViews */ = {
+			isa = PBXGroup;
+			children = (
+				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
+				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
+				44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */,
+			);
+			path = LanguageSettingsItemViews;
 			sourceTree = "<group>";
 		};
 		4440EE37262EDCA3007FF470 = {
@@ -489,6 +500,7 @@
 				44CAC50D2714641600EAFA74 /* MiniEntryView.swift in Sources */,
 				442126C72719AC3200CEF786 /* EntriesPanel.swift in Sources */,
 				44CAC50927145B2700EAFA74 /* MiniPhraseView.swift in Sources */,
+				443324532775BA2E007FFF44 /* LanguageSettingsView.swift in Sources */,
 				446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */,
 				44FEB725270AE3C100701E5D /* DictionarySettingsView.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,

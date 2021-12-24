@@ -11,9 +11,7 @@ import Preferences
 var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
         GeneralPreferenceViewController(),
-        NLPPreferenceViewController(),
-        DictionaryPreferenceViewController(),
-        TranscriptePreferenceViewController(),
+        LanguagePreferenceViewController(),
         AppearancePreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
         ScenarioPreferenceViewController()
@@ -33,13 +31,11 @@ func showSlotsTab() {
     preferencesWindowController.show(preferencePane: .slots)
 }
 
-func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
-    preferencesWindowController.show(preferencePane: .scenario)
-    preferencesWindowController.show(preferencePane: .slots)
-    preferencesWindowController.show(preferencePane: .appearance)
-    preferencesWindowController.show(preferencePane: .transcript)
-    preferencesWindowController.show(preferencePane: .dictionary)
-    preferencesWindowController.show(preferencePane: .nlp)
-    preferencesWindowController.show(preferencePane: .general)
-    preferencesWindowController.close()
-}
+//func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
+//    preferencesWindowController.show(preferencePane: .scenario)
+//    preferencesWindowController.show(preferencePane: .slots)
+//    preferencesWindowController.show(preferencePane: .appearance)
+//    preferencesWindowController.show(preferencePane: .language)
+//    preferencesWindowController.show(preferencePane: .general)
+//    preferencesWindowController.close()
+//}

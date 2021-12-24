@@ -9,18 +9,7 @@ import SwiftUI
 import Preferences
 import CoreML
 
-struct DictionarySettingsView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
-            UseAppleDictModePicker()
-            UseEntryModePicker()
-        }
-        .padding()
-        .frame(width: panelWidth)
-    }
-}
-
-private struct UseAppleDictModePicker: View {
+struct UseAppleDictModePicker: View {
     @AppStorage(UseAppleDictModeKey) private var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
     
     var body: some View {
@@ -50,7 +39,7 @@ private struct UseAppleDictModeInfoView: View {
     }
 }
 
-private struct UseEntryModePicker: View {
+struct UseEntryModePicker: View {
     @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     
     var body: some View {
@@ -83,8 +72,6 @@ private struct UseEntryModeInfoView: View {
 struct DictSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            DictionarySettingsView()
-            
             UseAppleDictModeInfoView()
             UseEntryModeInfoView()
         }

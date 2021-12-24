@@ -8,22 +8,7 @@
 import SwiftUI
 import Preferences
 
-struct TranscriptSettingsView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
-            DropTitleWordToggle()
-            Divider()
-            DropFirstTitleWordInTranslationToggle()
-            JoinTranslationLinesToggle()
-            Divider()
-            ChineseCharacterConvertingPicker()
-        }
-        .padding()
-        .frame(width: panelWidth)
-    }
-}
-
-private struct DropTitleWordToggle: View {
+struct DropTitleWordToggle: View {
     @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
 
     var body: some View {
@@ -57,7 +42,7 @@ struct AddSpaceBeforeTranslationToggle: View {
     }
 }
 
-private struct DropFirstTitleWordInTranslationToggle: View {
+struct DropFirstTitleWordInTranslationToggle: View {
     @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
     
     var body: some View {
@@ -69,7 +54,7 @@ private struct DropFirstTitleWordInTranslationToggle: View {
     }
 }
 
-private struct JoinTranslationLinesToggle: View {
+struct JoinTranslationLinesToggle: View {
     @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
     
     var body: some View {
@@ -80,7 +65,7 @@ private struct JoinTranslationLinesToggle: View {
     }
 }
 
-private struct ChineseCharacterConvertingPicker: View {
+struct ChineseCharacterConvertingPicker: View {
     @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
 
     var body: some View {
@@ -94,8 +79,8 @@ private struct ChineseCharacterConvertingPicker: View {
     }
 }
 
-struct TranscriptSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TranscriptSettingsView()
-    }
-}
+//struct TranscriptSettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TranscriptSettingsView()
+//    }
+//}

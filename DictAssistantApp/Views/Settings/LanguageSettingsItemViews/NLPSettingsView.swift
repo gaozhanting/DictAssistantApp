@@ -8,23 +8,6 @@
 import SwiftUI
 import Preferences
 
-struct NLPSettingsView: View {
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                DoNameRecognitionToggle()
-                Spacer()
-            }
-            HStack {
-                DoPhraseDetectionToggle()
-                Spacer()
-            }
-        }
-        .padding()
-        .frame(width: panelWidth)
-    }
-}
-
 struct LemmaSearchLevelPicker: View {
     @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     
@@ -41,20 +24,20 @@ struct LemmaSearchLevelPicker: View {
             .pickerStyle(MenuPickerStyle())
             
             MiniInfoView {
-                LemmaSearchLevelInfoView()
+                InfoView()
             }
         }
     }
 }
 
-private struct LemmaSearchLevelInfoView: View {
+private struct InfoView: View {
     var body: some View {
         Text("Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out.")
             .infoStyle()
     }
 }
 
-private struct DoNameRecognitionToggle: View {
+struct DoNameRecognitionToggle: View {
     @AppStorage(DoNameRecognitionKey) var doNameRecognition: Bool = false
     
     var body: some View {
@@ -65,7 +48,7 @@ private struct DoNameRecognitionToggle: View {
     }
 }
 
-private struct DoPhraseDetectionToggle: View {
+struct DoPhraseDetectionToggle: View {
     @AppStorage(DoPhraseDetectionKey) private var doPhraseDetection: Bool = false
     
     var body: some View {
@@ -78,6 +61,6 @@ private struct DoPhraseDetectionToggle: View {
 
 struct NLPSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        NLPSettingsView()
+        InfoView()
     }
 }

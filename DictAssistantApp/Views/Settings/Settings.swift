@@ -10,9 +10,7 @@ import Preferences
 
 extension Preferences.PaneIdentifier {
     static let general = Self("general")
-    static let nlp = Self("nlp")
-    static let dictionary = Self("dictionary")
-    static let transcript = Self("transcript")
+    static let language = Self("language")
     static let appearance = Self("appearance")
     static let slots = Self("slots")
     static let scenario = Self("scenario")
@@ -30,37 +28,13 @@ func GeneralPreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func NLPPreferenceViewController() -> PreferencePane {
+func LanguagePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .nlp,
-        title: NSLocalizedString("NLP", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "n.square", accessibilityDescription: "NLP preferences")!
+        identifier: .language,
+        title: NSLocalizedString("Language", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Language preferences")!
     ) {
-        NLPSettingsView()
-    }
-    
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func DictionaryPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .dictionary,
-        title: NSLocalizedString("Dictionary", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Dictionary preferences")!
-    ) {
-        DictionarySettingsView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func TranscriptePreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .transcript,
-        title: NSLocalizedString("Transcript", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "pencil.tip", accessibilityDescription: "Transcript preferences")!
-    ) {
-        TranscriptSettingsView()
+        LanguageSettingsView()
     }
 
     return Preferences.PaneHostingController(pane: paneView)
