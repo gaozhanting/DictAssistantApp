@@ -131,77 +131,71 @@ private struct EditingView: View {
     var body: some View {
         TextEditor(text: $text)
             .overlay(
-                HStack {
-                    if succeed {
-                        Text("Succeed")
-                            .transition(.move(edge: .bottom))
-                    }
-                    if nothingChanged {
-                        Text("Nothing Changed")
-                            .transition(.move(edge: .bottom))
-                    }
-                    
-                    Button(action: batchInsert) {
-                        Image(systemName: "rectangle.stack.badge.plus")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(lines.isContainsEmptyLine)
-                    .help("Add multi phrases")
-                    
-                    Button(action: multiRemove) {
-                        Image(systemName: "rectangle.stack.badge.minus")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(lines.isContainsEmptyLine)
-                    .help("Remove multi phrases")
-                    
-                    Button(action: { showingDeleteAllAlert = true }) {
-                        Image(systemName: "trash")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .help("Delete All")
-                    .alert(isPresented: $showingDeleteAllAlert) {
-                        Alert(
-                            title: Text("Delete All"),
-                            message: Text("Are you sure? This action can't be undo."),
-                            primaryButton: .default(
-                                Text("Cancel")
-                            ),
-                            secondaryButton: .destructive(
-                                Text("Delete"),
-                                action: batchDeleteAll
+                GroupBox {
+                    HStack {
+                        if succeed {
+                            Text("Succeed")
+                                .transition(.move(edge: .bottom))
+                        }
+                        if nothingChanged {
+                            Text("Nothing Changed")
+                                .transition(.move(edge: .bottom))
+                        }
+                        
+                        Button(action: batchInsert) {
+                            Image(systemName: "rectangle.stack.badge.plus")
+                        }
+                        .disabled(lines.isContainsEmptyLine)
+                        .help("Add multi phrases")
+                        
+                        Button(action: multiRemove) {
+                            Image(systemName: "rectangle.stack.badge.minus")
+                        }
+                        .disabled(lines.isContainsEmptyLine)
+                        .help("Remove multi phrases")
+                        
+                        Button(action: { showingDeleteAllAlert = true }) {
+                            Image(systemName: "trash")
+                        }
+                        .help("Delete All")
+                        .alert(isPresented: $showingDeleteAllAlert) {
+                            Alert(
+                                title: Text("Delete All"),
+                                message: Text("Are you sure? This action can't be undo."),
+                                primaryButton: .default(
+                                    Text("Cancel")
+                                ),
+                                secondaryButton: .destructive(
+                                    Text("Delete"),
+                                    action: batchDeleteAll
+                                )
                             )
-                        )
-                    }
-                    
-                    Button(action: { showingResetAlert = true }) {
-                        Image(systemName: "arrow.triangle.2.circlepath")
+                        }
+                        
+                        Button(action: { showingResetAlert = true }) {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                        }
+                        .help("Reset to Default")
+                        .alert(isPresented: $showingResetAlert) {
+                            Alert(
+                                title: Text("Reset"),
+                                message: Text("Are you sure? This action can't be undo."),
+                                primaryButton: .default(
+                                    Text("Cancel")
+                                ),
+                                secondaryButton: .destructive(
+                                    Text("Reset"),
+                                    action: batchResetDefault
+                                )
+                            )
+                        }
+                        
+                        MiniInfoView {
+                            InfoView()
+                        }
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .help("Reset to Default")
-                    .alert(isPresented: $showingResetAlert) {
-                        Alert(
-                            title: Text("Reset"),
-                            message: Text("Are you sure? This action can't be undo."),
-                            primaryButton: .default(
-                                Text("Cancel")
-                            ),
-                            secondaryButton: .destructive(
-                                Text("Reset"),
-                                action: batchResetDefault
-                            )
-                        )
-                    }
-                    
-                    MiniInfoView {
-                        InfoView()
-                    }
-                }
-                .padding(.trailing, 20)
-                .padding(.bottom, 5)
-                ,
-                alignment: .bottomTrailing
-            )
+                }, alignment: .bottomTrailing)
     }
 }
 
@@ -216,6 +210,8 @@ struct PhrasesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             PhrasesView()
+                .frame(width: 300, height: 600)
+            
             InfoView()
         }
 //                .environment(\.locale, .init(identifier: "zh-Hans"))

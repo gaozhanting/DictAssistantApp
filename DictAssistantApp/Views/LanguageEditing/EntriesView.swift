@@ -116,63 +116,58 @@ private struct EditingView: View {
     var body: some View {
         TextEditor(text: $text)
             .overlay(
-                HStack {
-                    if succeed {
-                        Text("Succeed")
-                            .transition(.move(edge: .bottom))
-                    }
-                    if nothingChanged {
-                        Text("Nothing Changed")
-                            .transition(.move(edge: .bottom))
-                    }
-                    
-                    Button(action: batchUpsert) {
-                        Image(systemName: "rectangle.stack.badge.plus")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled({
-                        lines.contains { line in
-                            line.split(separator: Character(","), maxSplits: 1)
-                                .count < 2
+                GroupBox {
+                    HStack {
+                        if succeed {
+                            Text("Succeed")
+                                .transition(.move(edge: .bottom))
                         }
-                    }())
-                    .help("Add multi entries to custom dict")
-                    
-                    Button(action: multiRemove) {
-                        Image(systemName: "rectangle.stack.badge.minus")
-                    }
-                    .disabled(lines.isContainsEmptyLine)
-                    .buttonStyle(PlainButtonStyle())
-                    .help("Remove multi entries to custom dict")
-                    
-                    Button(action: { showingAlert = true }) {
-                        Image(systemName: "trash")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .help("Delete All")
-                    .alert(isPresented: $showingAlert) {
-                        Alert(
-                            title: Text("Delete All"),
-                            message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
-                            primaryButton: .default(
-                                Text("Cancel")
-                            ),
-                            secondaryButton: .destructive(
-                                Text("Delete"),
-                                action: batchDeleteAll
+                        if nothingChanged {
+                            Text("Nothing Changed")
+                                .transition(.move(edge: .bottom))
+                        }
+                        
+                        Button(action: batchUpsert) {
+                            Image(systemName: "rectangle.stack.badge.plus")
+                        }
+                        .disabled({
+                            lines.contains { line in
+                                line.split(separator: Character(","), maxSplits: 1)
+                                    .count < 2
+                            }
+                        }())
+                        .help("Add multi entries to custom dict")
+                        
+                        Button(action: multiRemove) {
+                            Image(systemName: "rectangle.stack.badge.minus")
+                        }
+                        .disabled(lines.isContainsEmptyLine)
+                        .help("Remove multi entries to custom dict")
+                        
+                        Button(action: { showingAlert = true }) {
+                            Image(systemName: "trash")
+                        }
+                        .help("Delete All")
+                        .alert(isPresented: $showingAlert) {
+                            Alert(
+                                title: Text("Delete All"),
+                                message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
+                                primaryButton: .default(
+                                    Text("Cancel")
+                                ),
+                                secondaryButton: .destructive(
+                                    Text("Delete"),
+                                    action: batchDeleteAll
+                                )
                             )
-                        )
+                        }
+                        
+                        MiniInfoView {
+                            InfoView()
+                        }
                     }
-                    
-                    MiniInfoView {
-                        InfoView()
-                    }
-                }
-                .padding(.trailing, 20)
-                .padding(.bottom, 5)
-                ,
-                alignment: .bottomTrailing
-            )
+                    .buttonStyle(PlainButtonStyle())
+                }, alignment: .bottomTrailing)
     }
     
     @State private var showingAlert = false
@@ -189,6 +184,7 @@ struct EntryView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             EntriesView()
+                .frame(width: 300, height: 600)
             
             InfoView()
         }

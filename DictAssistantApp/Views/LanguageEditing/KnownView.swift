@@ -168,61 +168,56 @@ private struct EditingView: View {
     var body: some View {
         TextEditor(text: $text)
             .overlay(
-                HStack {
-                    if succeed {
-                        Text("Succeed")
-                            .transition(.move(edge: .bottom))
-                    }
-                    if nothingChanged {
-                        Text("Nothing Changed")
-                            .transition(.move(edge: .bottom))
-                    }
-                    
-                    Button(action: batchInsert) {
-                        Image(systemName: "rectangle.stack.badge.plus")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(isWordsInvalid)
-                    .help("Add multi words to Known")
-                    
-                    Button(action: multiRemove) {
-                        Image(systemName: "rectangle.stack.badge.minus")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(isWordsInvalid)
-                    .help("Remove multi words from Known")
-                    
-                    Button(action: { showingAlert = true }) {
-                        Image(systemName: "trash")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .help("Delete All")
-                    .alert(isPresented: $showingAlert) {
-                        Alert(
-                            title: Text("Delete All"),
-                            message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
-                            primaryButton: .default(
-                                Text("Cancel")
-                            ),
-                            secondaryButton: .destructive(
-                                Text("Delete"),
-                                action: batchDeleteAll
+                GroupBox {
+                    HStack {
+                        if succeed {
+                            Text("Succeed")
+                                .transition(.move(edge: .bottom))
+                        }
+                        if nothingChanged {
+                            Text("Nothing Changed")
+                                .transition(.move(edge: .bottom))
+                        }
+                        
+                        Button(action: batchInsert) {
+                            Image(systemName: "rectangle.stack.badge.plus")
+                        }
+                        .disabled(isWordsInvalid)
+                        .help("Add multi words to Known")
+                        
+                        Button(action: multiRemove) {
+                            Image(systemName: "rectangle.stack.badge.minus")
+                        }
+                        .disabled(isWordsInvalid)
+                        .help("Remove multi words from Known")
+                        
+                        Button(action: { showingAlert = true }) {
+                            Image(systemName: "trash")
+                        }
+                        .help("Delete All")
+                        .alert(isPresented: $showingAlert) {
+                            Alert(
+                                title: Text("Delete All"),
+                                message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
+                                primaryButton: .default(
+                                    Text("Cancel")
+                                ),
+                                secondaryButton: .destructive(
+                                    Text("Delete"),
+                                    action: batchDeleteAll
+                                )
                             )
-                        )
+                        }
+                        
+                        PasteFirstNWikiWordFrequencyButton(text: $text)
+                        PasteOxford3000Button(text: $text)
+                        
+                        MiniInfoView {
+                            InfoPopoverView()
+                        }
                     }
-                    
-                    PasteFirstNWikiWordFrequencyButton(text: $text)
-                    PasteOxford3000Button(text: $text)
-                    
-                    MiniInfoView {
-                        InfoPopoverView()
-                    }
-                }
-                .padding(.trailing, 20)
-                .padding(.bottom, 5)
-                ,
-                alignment: .bottomTrailing
-            )
+                    .buttonStyle(PlainButtonStyle())
+                }, alignment: .bottomTrailing)
     }
 }
 
@@ -240,7 +235,6 @@ private struct PasteOxford3000Button: View {
                         .font(.system(size: 6, weight: .bold, design: .serif)),
                     alignment: .bottomLeading)
         }
-        .buttonStyle(PlainButtonStyle())
         .help("Paste Oxford 3000 Vocabulary")
     }
 }
@@ -258,7 +252,6 @@ private struct PasteFirstNWikiWordFrequencyButton: View {
                         .font(.system(size: 6, weight: .bold, design: .serif)),
                     alignment: .bottomLeading)
         }
-        .buttonStyle(PlainButtonStyle())
         .popover(isPresented: $showPopover, arrowEdge: .top, content: {
             FirstNPopoverView(text: $text, showPopover: $showPopover)
         })
