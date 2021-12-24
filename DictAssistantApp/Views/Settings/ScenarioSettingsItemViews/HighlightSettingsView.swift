@@ -225,7 +225,7 @@ struct HighlightDottedIndexOptionsView: View {
 
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
-    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 7
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
     
     func useDefault() {

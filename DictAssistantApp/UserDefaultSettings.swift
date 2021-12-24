@@ -230,7 +230,7 @@ private let scenarioKV: [String: Any] = [
     StrokeDashPaintedKey: 1.0,
     StrokeDashUnPaintedKey: 3.0,
     IndexPaddingKey: 2.0,
-    IndexFontSizeKey: 7,
+    IndexFontSizeKey: 5,
     IsAlwaysRefreshHighlightKey: false,
 ]
 

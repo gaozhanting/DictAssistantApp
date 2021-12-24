@@ -200,7 +200,7 @@ private struct HLDottedView: View {
     }
 
     @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 7
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(indexFontSize))
     }

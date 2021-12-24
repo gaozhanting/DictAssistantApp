@@ -315,7 +315,7 @@ private struct SlotsView: View {
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
-    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 7
+    @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
 }
 
