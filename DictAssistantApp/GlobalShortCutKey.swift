@@ -63,8 +63,6 @@ func registerGlobalKey() {
                 
             case .windowsSettingPhase:
                 startPlaying()
-                
-                stepPlayPhase = .defaultPhase
             }
         }
         else {
@@ -107,8 +105,6 @@ func registerGlobalKey() {
     KeyboardShortcuts.onKeyUp(for: .runQuickPlay) {
         if !statusData.isPlaying {
             startPlaying()
-            
-            stepPlayPhase = .defaultPhase
         } else {
             stopPlaying()
         }
@@ -144,6 +140,8 @@ func registerGlobalKey() {
 var snapshotState: Int = 0
 
 private func startPlaying() {
+    stepPlayPhase = .defaultPhase
+
     let cropperStyle = CropperStyle(rawValue: UserDefaults.standard.integer(forKey: CropperStyleKey))!
     syncCropperView(from: cropperStyle)
     fixCropperWindow()
@@ -169,6 +167,8 @@ private func startPlaying() {
 }
 
 private func stopPlaying() {
+    stepPlayPhase = .defaultPhase
+
     activeCropperWindow()
     cropperWindow.close()
     contentWindow.close()
