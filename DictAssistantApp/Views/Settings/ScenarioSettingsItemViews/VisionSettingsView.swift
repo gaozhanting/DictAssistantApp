@@ -86,7 +86,7 @@ struct LevelInfoView: View {
     var body: some View {
         (Text("Fast is very fast, and cause low CPU usage, you should use this by default. \nAccurate is the only rescue when the text is hard to be recognized on screen!")
          + Text("\nAccurate is cool when running cheap snapshot.").foregroundColor(Color(NSColor.systemPurple))
-        + Text("\nAccurate will cause very high CPU usage when streaming!").foregroundColor(Color(NSColor.systemRed)))
+        + Text("\nAccurate cause high CPU usage when streaming!").foregroundColor(Color(NSColor.systemYellow)))
             .infoStyle()
     }
 }
