@@ -162,12 +162,12 @@ private struct TextWithShadow: View {
     @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
     @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
 
-    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
+    @AppStorage(UseTextShadowKey) private var useTextShadow: Bool = false
     
     let wordCell: WordCell
     
     var body: some View {
-        if textShadowToggle {
+        if useTextShadow {
             TextWithLineSpacing(wordCell: wordCell)
                 .shadow(
                     color: Color(dataToColor(shadowColor)!),

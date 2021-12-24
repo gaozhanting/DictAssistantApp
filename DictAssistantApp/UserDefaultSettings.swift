@@ -26,7 +26,7 @@ let IsShowKnownButWithOpacity0Key = "IsShowKnownButWithOpacity0Key"
 let IsConcealTranslationKey = "IsConcealTranslationKey"
 let IsShowNotFoundKey = "IsShowNotFoundKey"
 
-let ShowToastToggleKey = "ShowToastToggleKey" // not in slot for basic consistence of an auxiliary extra trick
+let IsShowToastKey = "IsShowToastKey" // not in slot for basic consistence of an auxiliary extra trick
 
 // Recording
 let CropperStyleKey = "CropperStyleKey"
@@ -89,7 +89,7 @@ let WordColorKey = "WordColorKey"
 let TransColorKey = "TransColorKey"
 let BackgroundColorKey = "BackgroundColorKey"
 
-let TextShadowToggleKey = "TextShadowToggleKey"
+let UseTextShadowKey = "UseTextShadowKey"
 let ShadowColorKey = "ShadowColorKey"
 let ShadowRadiusKey = "ShadowRadiusKey"
 let ShadowXOffSetKey = "ShadowXOffSetKey"
@@ -242,7 +242,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     IsShowKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,
     IsShowNotFoundKey: false,
-    ShowToastToggleKey: true,
+    IsShowToastKey: true,
     
     DoNameRecognitionKey: false,
     DoPhraseDetectionKey: false,
@@ -263,7 +263,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
     BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
     
-    TextShadowToggleKey: false,
+    UseTextShadowKey: false,
     ShadowColorKey: colorToData(NSColor.labelColor)!,
     ShadowRadiusKey: 3,
     ShadowXOffSetKey: 0.0,

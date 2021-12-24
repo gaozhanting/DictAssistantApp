@@ -16,7 +16,7 @@ struct GeneralSettingsView: View {
     var body: some View {
         VStack {
             KeyRecordingView()
-            ShowToastToggle()
+            IsShowToastView()
         }
         .padding()
         .frame(width: panelWidth)
@@ -159,11 +159,11 @@ private struct KeyRecordingView: View {
     }
 }
 
-private struct ShowToastToggle: View {
-    @AppStorage(ShowToastToggleKey) private var showToast: Bool = true
+private struct IsShowToastView: View {
+    @AppStorage(IsShowToastKey) private var isShowToast: Bool = true
     
     var body: some View {
-        Toggle(isOn: $showToast, label: {
+        Toggle(isOn: $isShowToast, label: {
             Text("Show Toast")
         })
         .toggleStyle(CheckboxToggleStyle())

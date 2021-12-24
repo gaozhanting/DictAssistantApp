@@ -44,15 +44,6 @@ struct HighlightSettingsView: View {
     }
 }
 
-let tfWidth: CGFloat = 46
-let tfSmallWidth: CGFloat = 30
-let tfDecimalFormatter: NumberFormatter = {
-    let f = NumberFormatter()
-    f.numberStyle = .decimal
-    return f
-}()
-let tfIntegerFormatter = NumberFormatter()
-
 struct HighlightDottedOptionsView: View {
     @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
         

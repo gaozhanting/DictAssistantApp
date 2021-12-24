@@ -21,7 +21,7 @@ func initToastWindow() {
 }
 
 func toastOn() {
-    if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
+    if UserDefaults.standard.bool(forKey: IsShowToastKey) {
         let view = ToastOnView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .ignoresSafeArea()
@@ -38,7 +38,7 @@ func toastOn() {
 }
 
 func toastOff() {
-    if UserDefaults.standard.bool(forKey: ShowToastToggleKey) {
+    if UserDefaults.standard.bool(forKey: IsShowToastKey) {
         let view = ToastOffView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
             .ignoresSafeArea()

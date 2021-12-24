@@ -241,17 +241,27 @@ private struct ColorPickers: View {
 }
 
 private struct ShadowGroupSettings: View {
-    @AppStorage(TextShadowToggleKey) private var textShadowToggle: Bool = false
+    @AppStorage(UseTextShadowKey) private var useTextShadow: Bool = false
+    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
     
     var binding: Binding<Bool> {
         Binding(
-            get: { textShadowToggle },
+            get: { useTextShadow },
             set: { newValue in
                 withAnimation {
-                    textShadowToggle = newValue
+                    useTextShadow = newValue
                 }
             }
         )
+    }
+    
+    func useDefault() {
+        useTextShadow = false
+        shadowRadius = 3
+        shadowXOffset = 0
+        shadowYOffset = 2
     }
     
     var body: some View {
@@ -260,22 +270,23 @@ private struct ShadowGroupSettings: View {
                 Text("Use Text Shadow")
             })
             
-            if textShadowToggle {
+            Group {
                 Spacer()
                 ShadowColorPicker()
                 Text("R:")
-                TextField("", value: $shadowRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                TextField("", value: $shadowRadius, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
                 Text("X:")
-                TextField("", value: $shadowXOffset, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                TextField("", value: $shadowXOffset, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
                 Text("Y:")
-                TextField("", value: $shadowYOffset, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                TextField("", value: $shadowYOffset, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
+            }
+            .disabled(!useTextShadow)
+            
+            Button(action: useDefault) {
+                Image(systemName: "arrow.triangle.2.circlepath")
             }
         }
     }
-    
-    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
 }
 
 private struct ShadowColorPicker: View {
@@ -306,9 +317,8 @@ private struct ContentBackgroundVisualEffect: View {
             
             Spacer()
             
-            if useContentBackgroundVisualEffect {
-                ContentBackGroundVisualEffectMaterial()
-            }
+            ContentBackGroundVisualEffectMaterial()
+                .disabled(!useContentBackgroundVisualEffect)
         }
     }
 }
