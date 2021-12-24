@@ -468,15 +468,16 @@ private struct ButtonsView: View {
                 }
                 
                 Button(action: clone) {
-                    Image(systemName: "doc.on.clipboard")
+                    Image(systemName: "plus.rectangle.on.rectangle")
                 }
+                .help("clone")
                 
                 Button(action: up) {
-                    Image(systemName: "arrowtriangle.up")
+                    Image(systemName: "arrow.up")
                 }
                 
                 Button(action: down) {
-                    Image(systemName: "arrowtriangle.down")
+                    Image(systemName: "arrow.down")
                 }
             }
             .disabled(selectedSlot == nil)
