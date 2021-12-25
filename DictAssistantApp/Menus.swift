@@ -28,7 +28,7 @@ func constructMenuBar() {
     
     let dictionaryMenu = NSMenu(title: NSLocalizedString("Dictionary", comment: ""))
     dictionaryMenu.addItem(withTitle: NSLocalizedString("Show Known Panel", comment: ""), action: #selector(AppDelegate.showKnownPanel), keyEquivalent: "")
-    dictionaryMenu.addItem(withTitle: NSLocalizedString("Show Entries Panel", comment: ""), action: #selector(AppDelegate.showEntriesPanel), keyEquivalent: "")
+    dictionaryMenu.addItem(withTitle: NSLocalizedString("Show Custom Entries Panel", comment: ""), action: #selector(AppDelegate.showEntriesPanel), keyEquivalent: "")
     dictionaryMenu.addItem(withTitle: NSLocalizedString("Show Dict Build Panel", comment: ""), action: #selector(AppDelegate.showDictBuildPanel), keyEquivalent: "")
     let dictionaryMenuItem = NSMenuItem(title: NSLocalizedString("Dictionary", comment: ""), action: nil, keyEquivalent: "")
     menu.addItem(dictionaryMenuItem)
