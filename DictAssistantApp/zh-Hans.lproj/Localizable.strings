@@ -50,7 +50,7 @@
 "Invalid value" = "无效值";
 "Count must be an integer, and must between 1 and 100000, including." = "必须为正整数，并且在1到100000之间(包含1和100000)。";
 
-"Entries Panel" = "自定义词条面板";
+"Custom Entries Panel" = "自定义词条面板";
 "Add multi entries to custom dict" = "添加多个词条到自定义词典";
 "Remove multi entries to custom dict" = "从自定义词典中删除多个词条";
 "Edit your custom dictionary entries, one entry per line. \n\nThe line format for adding is:\nword,translation \n\nThe line format for removing is:\nword \n\nThen add them to or remove them from your custom dict.\n\nNotice: every line you edit must not be empty, and must not be only contains white space characters. So don't add a new empty line.\n\nNote: The custom entries here aims to make a flexible custom dict in the app which you can play with, not aims to be a standard dictionary. Although it still works, the editor here will becomes stuck with huge text, sorry." = "编辑您的自定义词典，每行一个词条。\n\n添加的每行格式：\n单词,释义 \n\n删除的每行格式：\n单词 \n\n然后点击添加或移除按钮即可。\n\n注意：不能有空行，一行之中也不能只有空白符。因此，不要在结尾添加一个空白行。\n\n注意：这里的目的是为App提供一个灵活的自定义编辑词条的功能，这里并非要提供一个标准的词典。尽管它仍然能够工作，不过当词条太多的时候，编辑区会变得卡顿，抱歉。";
