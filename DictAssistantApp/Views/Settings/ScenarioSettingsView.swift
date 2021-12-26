@@ -28,8 +28,7 @@ struct ScenarioSettingsView: View {
             GroupBox {
                 VStack(alignment: .leading) {
                     RecognitionLevelSetting()
-                    Spacer()
-                    UsesLanguageCorrectionSetting()
+                    UsesLanguageCorrectionSetting().padding(.top)
                     MinimumTextHeightSetting()
                 }
             }
