@@ -79,13 +79,14 @@ private struct ConstantKnownView: View {
     var body: some View {
         TextEditor(text: Binding.constant(flavorKnown))
             .overlay(
-                Picker("", selection: $selectedFlavor) {
-                    Text("All").font(.callout).tag(DisplayFilter.all.rawValue)
-                    Text("Words").font(.callout).tag(DisplayFilter.words.rawValue)
-                    Text("Phrases").font(.callout).tag(DisplayFilter.phrases.rawValue)
+                GroupBox {
+                    Picker("Show:", selection: $selectedFlavor) {
+                        Text("All").font(.callout).tag(DisplayFilter.all.rawValue)
+                        Text("Words").font(.callout).tag(DisplayFilter.words.rawValue)
+                        Text("Phrases").font(.callout).tag(DisplayFilter.phrases.rawValue)
+                    }
+                    .frame(maxWidth: 150)
                 }
-                    .labelsHidden()
-                    .frame(maxWidth: 100)
                 , alignment: .bottomTrailing)
     }
 }

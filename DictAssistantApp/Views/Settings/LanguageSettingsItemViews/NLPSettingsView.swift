@@ -13,14 +13,12 @@ struct LemmaSearchLevelPicker: View {
     
     var body: some View {
         HStack {
-            Text("Lemma Search Level")
-            Spacer()
-            Picker("", selection: $lemmaSearchLevel) {
+            Picker("Lemma Search Level:", selection: $lemmaSearchLevel) {
                 Text("apple").tag(LemmaSearchLevel.apple.rawValue)
                 Text("database").tag(LemmaSearchLevel.database.rawValue)
                 Text("open").tag(LemmaSearchLevel.open.rawValue)
             }
-            .frame(width: 200)
+            .frame(width: 250)
             .pickerStyle(MenuPickerStyle())
             
             MiniInfoView {

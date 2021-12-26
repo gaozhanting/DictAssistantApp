@@ -24,7 +24,7 @@ struct ContentLayoutStyleSettingsView: View {
                         Text("portrait").tag(ContentLayout.portrait.rawValue)
                         Text("landscape").tag(ContentLayout.landscape.rawValue)
                     }
-                    .frame(width: 200)
+                    .frame(width: 230)
                     .pickerStyle(MenuPickerStyle())
                     
                     Spacer()

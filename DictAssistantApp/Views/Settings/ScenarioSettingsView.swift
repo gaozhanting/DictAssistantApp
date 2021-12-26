@@ -25,11 +25,16 @@ struct ScenarioSettingsView: View {
     
     var g2: some View {
         Group {
-            MaximumFrameRateSetting()
+            GroupBox {
+                VStack(alignment: .leading) {
+                    RecognitionLevelSetting()
+                    Spacer()
+                    UsesLanguageCorrectionSetting()
+                    MinimumTextHeightSetting()
+                }
+            }
             
-            RecognitionLevelSetting()
-            MinimumTextHeightSetting()
-            UsesLanguageCorrectionSetting()
+            MaximumFrameRateSetting()
             
             LemmaSearchLevelPicker()
             

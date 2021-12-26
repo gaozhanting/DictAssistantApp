@@ -86,8 +86,20 @@ struct UsesLanguageCorrectionSetting: View {
     @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
     
     var body: some View {
-        Toggle("Uses Language Correction", isOn: $usesLanguageCorrection)
-            .help("When this value is true, Vision applies language correction during the recognition process. Disabling this property returns the raw recognition results, which provides performance benefits but less accurate results.")
+        HStack {
+            Toggle("Uses Language Correction", isOn: $usesLanguageCorrection)
+                .toggleStyle(CheckboxToggleStyle())
+            MiniInfoView {
+                UsesLanguageCorrectionInfoView()
+            }
+        }
+    }
+}
+
+struct UsesLanguageCorrectionInfoView: View {
+    var body: some View {
+        Text("When this value is true, Vision applies language correction during the recognition process. Disabling this property returns the raw recognition results, which provides performance benefits but less accurate results.")
+            .infoStyle()
     }
 }
 
@@ -101,8 +113,9 @@ struct LevelInfoView: View {
 struct VisionSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            HightInfoView()
             LevelInfoView()
+            UsesLanguageCorrectionInfoView()
+            HightInfoView()
         }
         //        .environment(\.locale, .init(identifier: "zh-Hans"))
             .environment(\.locale, .init(identifier: "en"))
