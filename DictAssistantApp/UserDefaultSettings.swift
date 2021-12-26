@@ -220,7 +220,7 @@ private let scenarioKV: [String: Any] = [
     MinimumTextHeightKey: systemDefaultMinimumTextHeight,
     UsesLanguageCorrectionKey: false,
     
-    LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
+    LemmaSearchLevelKey: LemmaSearchLevel.open.rawValue,
     
     IsAddLineBreakKey: true,
     IsAddSpaceKey: false,

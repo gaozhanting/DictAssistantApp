@@ -9,7 +9,7 @@ import SwiftUI
 import Preferences
 
 struct LemmaSearchLevelPicker: View {
-    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
+    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.open.rawValue
     
     var body: some View {
         HStack {

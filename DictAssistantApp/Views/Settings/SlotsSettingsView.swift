@@ -179,7 +179,7 @@ private let defaultSettings = Settings(
     recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     minimumTextHeight: systemDefaultMinimumTextHeight,
     usesLanguageCorrection: false,
-    lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
+    lemmaSearchLevel: LemmaSearchLevel.open.rawValue,
     
     isAddLineBreak: true,
     isAddSpace: false,
@@ -310,7 +310,7 @@ private struct SlotsView: View {
     @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
-    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
+    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.open.rawValue
 
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
