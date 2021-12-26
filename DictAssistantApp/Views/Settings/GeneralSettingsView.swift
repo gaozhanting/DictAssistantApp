@@ -24,10 +24,10 @@ struct GeneralSettingsView: View {
 }
 
 private struct MultiToggles: View {
-    @AppStorage(IsShowKnownKey) private var isShowKnown: Bool = false
-    @AppStorage(IsShowNotFoundKey) private var isShowNotFound: Bool = false
-    @AppStorage(IsShowKnownButWithOpacity0Key) private var isShowKnownButWithOpacity0: Bool = false
-    @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
+    @AppStorage(IsShowKnownKey) var isShowKnown: Bool = false
+    @AppStorage(IsShowNotFoundKey) var isShowNotFound: Bool = false
+    @AppStorage(IsShowKnownButWithOpacity0Key) var isShowKnownButWithOpacity0: Bool = false
+    @AppStorage(IsConcealTranslationKey) var isConcealTranslation: Bool = false
     
     var body: some View {
         HStack {
@@ -160,7 +160,7 @@ private struct KeyRecordingView: View {
 }
 
 private struct IsShowToastView: View {
-    @AppStorage(IsShowToastKey) private var isShowToast: Bool = true
+    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
     
     var body: some View {
         Toggle(isOn: $isShowToast, label: {

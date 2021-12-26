@@ -9,7 +9,7 @@ import SwiftUI
 import Preferences
 
 struct DropTitleWordToggle: View {
-    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+    @AppStorage(IsDropTitleWordKey) var isDropTitleWord: Bool = false
 
     var body: some View {
         Toggle(isOn: $isDropTitleWord, label: {
@@ -21,7 +21,7 @@ struct DropTitleWordToggle: View {
 }
 
 struct AddLineBreakBeforeTranslationToggle: View {
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     
     var body: some View {
         Toggle(isOn: $isAddLineBreak, label: {
@@ -32,7 +32,7 @@ struct AddLineBreakBeforeTranslationToggle: View {
 }
 
 struct AddSpaceBeforeTranslationToggle: View {
-    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
     
     var body: some View {
         Toggle(isOn: $isAddSpace, label: {
@@ -43,7 +43,7 @@ struct AddSpaceBeforeTranslationToggle: View {
 }
 
 struct DropFirstTitleWordInTranslationToggle: View {
-    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
+    @AppStorage(IsDropFirstTitleWordInTranslationKey) var isDropFirstTitleWordInTranslation: Bool = true
     
     var body: some View {
         Toggle(isOn: $isDropFirstTitleWordInTranslation, label: {
@@ -55,7 +55,7 @@ struct DropFirstTitleWordInTranslationToggle: View {
 }
 
 struct JoinTranslationLinesToggle: View {
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
+    @AppStorage(IsJoinTranslationLinesKey) var isJoinTranslationLines: Bool = true
     
     var body: some View {
         Toggle(isOn: $isJoinTranslationLines, label: {
@@ -66,7 +66,7 @@ struct JoinTranslationLinesToggle: View {
 }
 
 struct ChineseCharacterConvertingPicker: View {
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
+    @AppStorage(ChineseCharacterConvertModeKey) var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
 
     var body: some View {
         Picker("Chinese Character Convert:", selection: $chineseCharacterConvertMode) {

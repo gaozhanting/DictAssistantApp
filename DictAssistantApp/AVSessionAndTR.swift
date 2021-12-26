@@ -107,9 +107,9 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
-//            logger.info("captureOutput sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer, so don't do later duplicate works")
             return
         }
+        
         logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do run TR")
         
         sampleBufferCache = sampleBuffer
@@ -117,17 +117,8 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         requestHandler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
         textRecognitionRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         
-        let textRecognitionLevel = UserDefaults.standard.integer(forKey: TRTextRecognitionLevelKey)
-        let textRecognitionLevelE = VNRequestTextRecognitionLevel.init(rawValue: textRecognitionLevel)
-        let minimumTextHeight = UserDefaults.standard.double(forKey: TRMinimumTextHeightKey)
-        if let textRecognitionLevelE = textRecognitionLevelE {
-            textRecognitionRequest.recognitionLevel = textRecognitionLevelE
-        } else { // never this case, because we init it when launch app.
-            logger.error("textRecognitionLevelE is nil, impossible!")
-            textRecognitionRequest.recognitionLevel = .fast
-        }
-        textRecognitionRequest.minimumTextHeight = Float(minimumTextHeight)
-        
+        textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.init(rawValue: UserDefaults.standard.integer(forKey: RecognitionLevelKey))!
+        textRecognitionRequest.minimumTextHeight = Float(UserDefaults.standard.double(forKey: MinimumTextHeightKey))
         textRecognitionRequest.usesLanguageCorrection = false
         textRecognitionRequest.recognitionLanguages = ["en-US"]
         

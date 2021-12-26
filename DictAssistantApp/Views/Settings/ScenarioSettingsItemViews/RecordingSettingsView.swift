@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MaximumFrameRateSetting: View {
-    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
+    @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
     
     func useDefault() {
         maximumFrameRate = 4

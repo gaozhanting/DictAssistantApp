@@ -9,7 +9,7 @@ import SwiftUI
 import Vision
 
 struct TRMinimumTextHeightSetting: View {
-    @AppStorage(TRMinimumTextHeightKey) private var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     
     func resetToDefault() {
         minimumTextHeight = systemDefaultMinimumTextHeight
@@ -64,7 +64,7 @@ private struct HightInfoView: View {
 }
 
 struct TRTextRecognitionLevelSetting: View {
-    @AppStorage(TRTextRecognitionLevelKey) private var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(RecognitionLevelKey) var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     
     var body: some View {
         HStack {

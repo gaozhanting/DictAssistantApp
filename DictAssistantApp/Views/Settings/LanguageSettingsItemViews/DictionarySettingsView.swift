@@ -10,7 +10,7 @@ import Preferences
 import CoreML
 
 struct UseAppleDictModePicker: View {
-    @AppStorage(UseAppleDictModeKey) private var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
+    @AppStorage(UseAppleDictModeKey) var useAppleDictMode: Int = UseAppleDictMode.afterBuiltIn.rawValue
     
     var body: some View {
         HStack {
@@ -40,7 +40,7 @@ private struct UseAppleDictModeInfoView: View {
 }
 
 struct UseEntryModePicker: View {
-    @AppStorage(UseEntryModeKey) private var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
+    @AppStorage(UseEntryModeKey) var useEntryMode: Int = UseEntryMode.asFirstPriority.rawValue
     
     var body: some View {
         HStack {

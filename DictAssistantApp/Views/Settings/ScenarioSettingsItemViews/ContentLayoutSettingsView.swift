@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ContentLayoutStyleSettingsView: View {
-    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
+    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
 
-    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
     
     var body: some View {
         GroupBox {

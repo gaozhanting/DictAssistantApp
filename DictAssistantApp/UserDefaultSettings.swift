@@ -54,8 +54,8 @@ let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
 // Vision
-let TRTextRecognitionLevelKey = "TRTextRecognitionLevelKey"
-let TRMinimumTextHeightKey = "TRMinimumTextHeightKey"
+let RecognitionLevelKey = "RecognitionLevelKey"
+let MinimumTextHeightKey = "MinimumTextHeightKey"
 
 // NLP
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
@@ -215,8 +215,8 @@ private let scenarioKV: [String: Any] = [
     CropperStyleKey: CropperStyle.leadingBorder.rawValue,
     
     MaximumFrameRateKey: 4.0,
-    TRTextRecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
-    TRMinimumTextHeightKey: systemDefaultMinimumTextHeight,
+    RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    MinimumTextHeightKey: systemDefaultMinimumTextHeight,
     
     LemmaSearchLevelKey: LemmaSearchLevel.database.rawValue,
     
@@ -321,13 +321,13 @@ extension UserDefaults {
         get { return double(forKey: "MaximumFrameRateKey") }
         set { set(newValue, forKey: "MaximumFrameRateKey") }
     }
-    @objc var TRTextRecognitionLevelKey: Int {
-        get { return integer(forKey: "TRTextRecognitionLevelKey") }
-        set { set(newValue, forKey: "TRTextRecognitionLevelKey") }
+    @objc var RecognitionLevelKey: Int {
+        get { return integer(forKey: "RecognitionLevelKey") }
+        set { set(newValue, forKey: "RecognitionLevelKey") }
     }
-    @objc var TRMinimumTextHeightKey: Double {
-        get { return double(forKey: "TRMinimumTextHeightKey") }
-        set { set(newValue, forKey: "TRMinimumTextHeightKey") }
+    @objc var MinimumTextHeightKey: Double {
+        get { return double(forKey: "MinimumTextHeightKey") }
+        set { set(newValue, forKey: "MinimumTextHeightKey") }
     }
 
     @objc var LemmaSearchLevelKey: Int {
@@ -598,8 +598,8 @@ func autoSaveSlotSettings() {
     combineSlot(\.CropperStyleKey, \.cropperStyle, CropperStyleKey)
     
     combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
-    combineSlot(\.TRTextRecognitionLevelKey, \.tRTextRecognitionLevel, TRTextRecognitionLevelKey)
-    combineSlot(\.TRMinimumTextHeightKey, \.tRMinimumTextHeight, TRMinimumTextHeightKey)
+    combineSlot(\.RecognitionLevelKey, \.recognitionLevel, RecognitionLevelKey)
+    combineSlot(\.MinimumTextHeightKey, \.minimumTextHeight, MinimumTextHeightKey)
     
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     

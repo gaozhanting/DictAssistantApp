@@ -63,7 +63,7 @@ struct AppearanceSettingsView: View {
 }
 
 struct FontSizeSettingView: View {
-    @AppStorage(FontSizeKey) private var fontSize: Int = 14
+    @AppStorage(FontSizeKey) var fontSize: Int = 14
     
     func onIncrement() {
         fontSize += 1
@@ -97,7 +97,7 @@ struct FontLineSpacingSettingView: View {
 }
 
 private struct FontSettingView: View {
-    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
+    @AppStorage(FontNameKey) var fontName: String = defaultFontName
     let fixedFontSize: Int = 13
     
     var font: NSFont {
@@ -149,7 +149,7 @@ private struct FontSettingView: View {
 }
 
 private struct FontRatioSetting: View {
-    @AppStorage(FontRatioKey) private var fontRatio: Double = 0.9
+    @AppStorage(FontRatioKey) var fontRatio: Double = 0.9
     
     func incrementStep() {
         fontRatio += 0.01
@@ -189,7 +189,7 @@ private struct FontRatioSetting: View {
 }
 
 private struct ColorPickers: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
     var colorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(wordColor)!) },
@@ -199,7 +199,7 @@ private struct ColorPickers: View {
         )
     }
     
-    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
+    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     var transColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(transColor)!) },
@@ -209,7 +209,7 @@ private struct ColorPickers: View {
         )
     }
 
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
     var bgColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(backgroundColor)!) },
@@ -241,10 +241,10 @@ private struct ColorPickers: View {
 }
 
 private struct ShadowGroupSettings: View {
-    @AppStorage(UseTextShadowKey) private var useTextShadow: Bool = false
-    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
+    @AppStorage(UseTextShadowKey) var useTextShadow: Bool = false
+    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) var shadowYOffset: Double = 2
     
     func useDefault() {
         useTextShadow = false
@@ -279,7 +279,7 @@ private struct ShadowGroupSettings: View {
 }
 
 private struct ShadowColorPicker: View {
-    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
     
     var binding: Binding<Color> {
         Binding(
@@ -296,7 +296,7 @@ private struct ShadowColorPicker: View {
 }
 
 private struct ContentBackgroundVisualEffect: View {
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = false
 
     var body: some View {
         HStack {
@@ -313,7 +313,7 @@ private struct ContentBackgroundVisualEffect: View {
 }
 
 private struct ContentBackGroundVisualEffectMaterial: View {
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     
     let allCases: [(Int, String)] = [
         (NSVisualEffectView.Material.titlebar.rawValue, "titlebar"),
@@ -344,7 +344,7 @@ private struct ContentBackGroundVisualEffectMaterial: View {
 }
 
 private struct ColorSchemeSetting: View {
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+    @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorScheme.system.rawValue
 
     var body: some View {
         HStack {
@@ -376,7 +376,7 @@ private struct ColorSchemeInfo: View {
 }
 
 private struct ContentWindowShadowToggle: View {
-    @AppStorage(IsShowWindowShadowKey) private var isShowWindowShadow = false
+    @AppStorage(IsShowWindowShadowKey) var isShowWindowShadow = false
     
     var body: some View {
         HStack {
@@ -390,7 +390,7 @@ private struct ContentWindowShadowToggle: View {
 }
 
 private struct WithAnimationToggle: View {
-    @AppStorage(IsWithAnimationKey) private var isWithAnimation: Bool = true
+    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     
     var body: some View {
         HStack {

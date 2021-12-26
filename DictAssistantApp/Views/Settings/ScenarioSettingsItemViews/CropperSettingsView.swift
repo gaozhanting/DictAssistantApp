@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CropperStyleSettingView: View {
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
 
     var body: some View {
         Picker("Cropper Style:", selection: $cropperStyle) {

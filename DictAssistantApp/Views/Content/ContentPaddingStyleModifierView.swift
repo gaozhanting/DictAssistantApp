@@ -30,9 +30,9 @@ extension View {
 }
 
 private struct BBBackground: ViewModifier {
-    @AppStorage(BackgroundColorKey) private var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
-    @AppStorage(ContentBackGroundVisualEffectMaterialKey) private var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
-    @AppStorage(UseContentBackgroundVisualEffectKey) private var useContentBackgroundVisualEffect: Bool = false
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
+    @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = false
     
     func body(content: Content) -> some View {
         content
@@ -84,7 +84,7 @@ extension View {
 
 private struct StandardRR: ViewModifier {
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
+    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
 
     func body(content: Content) -> some View {
         switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
@@ -104,7 +104,7 @@ extension View {
 
 private struct StandardPaddingRR: ViewModifier {
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
+    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     
     func body(content: Content) -> some View {
         switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {

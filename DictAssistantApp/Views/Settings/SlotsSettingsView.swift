@@ -44,8 +44,8 @@ struct Settings: Codable {
     var cropperStyle: Int
     
     var maximumFrameRate: Double
-    var tRTextRecognitionLevel: Int
-    var tRMinimumTextHeight: Double
+    var recognitionLevel: Int
+    var minimumTextHeight: Double
     
     var lemmaSearchLevel: Int
     
@@ -85,8 +85,8 @@ struct Settings: Codable {
         cropperStyle: Int,
         
         maximumFrameRate: Double,
-        tRTextRecognitionLevel: Int,
-        tRMinimumTextHeight: Double,
+        recognitionLevel: Int,
+        minimumTextHeight: Double,
         lemmaSearchLevel: Int,
         
         isAddLineBreak: Bool,
@@ -123,8 +123,8 @@ struct Settings: Codable {
         self.cropperStyle = cropperStyle
         
         self.maximumFrameRate = maximumFrameRate
-        self.tRTextRecognitionLevel = tRTextRecognitionLevel
-        self.tRMinimumTextHeight = tRMinimumTextHeight
+        self.recognitionLevel = recognitionLevel
+        self.minimumTextHeight = minimumTextHeight
         
         self.lemmaSearchLevel = lemmaSearchLevel
         
@@ -175,8 +175,8 @@ private let defaultSettings = Settings(
     cropperStyle: CropperStyle.leadingBorder.rawValue,
     
     maximumFrameRate: 4.0,
-    tRTextRecognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
-    tRMinimumTextHeight: systemDefaultMinimumTextHeight,
+    recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
+    minimumTextHeight: systemDefaultMinimumTextHeight,
     lemmaSearchLevel: LemmaSearchLevel.database.rawValue,
     
     isAddLineBreak: true,
@@ -265,8 +265,8 @@ private struct SlotsView: View {
         cropperStyle = s.cropperStyle
         
         maximumFrameRate = s.maximumFrameRate
-        tRTextRecognitionLevel = s.tRTextRecognitionLevel
-        tRMinimumTextHeight = s.tRMinimumTextHeight
+        recognitionLevel = s.recognitionLevel
+        minimumTextHeight = s.minimumTextHeight
         
         lemmaSearchLevel = s.lemmaSearchLevel
         
@@ -305,8 +305,8 @@ private struct SlotsView: View {
     @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
 
     @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
-    @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
-    @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+    @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
 
     @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
 

@@ -9,7 +9,7 @@ import SwiftUI
 import Preferences
 
 struct LemmaSearchLevelPicker: View {
-    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
+    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
     
     var body: some View {
         HStack {
@@ -49,7 +49,7 @@ struct DoNameRecognitionToggle: View {
 }
 
 struct DoPhraseDetectionToggle: View {
-    @AppStorage(DoPhraseDetectionKey) private var doPhraseDetection: Bool = false
+    @AppStorage(DoPhraseDetectionKey) var doPhraseDetection: Bool = false
     
     var body: some View {
         Toggle(isOn: $doPhraseDetection, label: {
