@@ -27,6 +27,7 @@ struct HighlightSettingsView: View {
                 Toggle(isOn: $isAlwaysRefreshHighlight, label: {
                     Text("Is always refresh highlight")
                 })
+                    .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
             }
             
             switch HighlightMode(rawValue: highlightMode)! {
