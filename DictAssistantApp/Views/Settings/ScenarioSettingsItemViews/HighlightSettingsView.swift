@@ -235,27 +235,26 @@ private struct DottedIndexOptionsView: View {
                     .toggleStyle(CheckboxToggleStyle())
             }
             
-            if isShowIndex {
-                GroupBox {
-                    HStack {
-                        Text("padding:")
-                        TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
-                            .frame(width: tfWidth)
-                        
-                        Spacer()
-                        
-                        Text("font size:")
-                        TextField("", value: $indexFontSize, formatter: tfIntegerFormatter)
-                            .frame(width: tfWidth)
-                        
-                        Spacer()
-                        
-                        Button(action: useDefault) {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                        }
+            GroupBox {
+                HStack {
+                    Text("padding:")
+                    TextField("", value: $indexPadding, formatter: tfDecimalFormatter)
+                        .frame(width: tfWidth)
+                    
+                    Spacer()
+                    
+                    Text("font size:")
+                    TextField("", value: $indexFontSize, formatter: tfIntegerFormatter)
+                        .frame(width: tfWidth)
+                    
+                    Spacer()
+                    
+                    Button(action: useDefault) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
                     }
                 }
             }
+            .disabled(!isShowIndex)
         }
     }
 }
