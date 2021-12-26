@@ -173,7 +173,7 @@ private let defaultSettings = Settings(
     fontSize: 14,
     lineSpacing: 0.0,
     
-    cropperStyle: CropperStyle.leadingBorder.rawValue,
+    cropperStyle: CropperStyle.empty.rawValue,
     
     maximumFrameRate: 4.0,
     recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,

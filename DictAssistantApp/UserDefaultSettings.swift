@@ -213,7 +213,7 @@ private let scenarioKV: [String: Any] = [
     FontSizeKey: 14,
     LineSpacingKey: 0.0,
     
-    CropperStyleKey: CropperStyle.leadingBorder.rawValue,
+    CropperStyleKey: CropperStyle.empty.rawValue,
     
     MaximumFrameRateKey: 4.0,
     RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
