@@ -16,7 +16,7 @@ struct MiniInfoView<Content: View>: View {
         self.content = content()
     }
     
-    @State private var isShowingPopover = false
+    @State var isShowingPopover = false
     
     var body: some View {
         Button(action: { isShowingPopover = true }, label: {

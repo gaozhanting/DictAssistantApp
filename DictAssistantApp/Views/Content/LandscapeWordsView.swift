@@ -21,7 +21,7 @@ struct LandscapeWordsView: View {
 }
 
 struct LandscapeWordsView1: View {
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
@@ -38,7 +38,7 @@ struct LandscapeWordsView1: View {
 }
 
 struct LandscapeWordsView2: View {
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
@@ -59,7 +59,7 @@ private struct BodyView1: View {
     
     let proxy: ScrollViewProxy?
     
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     var body: some View {
         HStack(alignment: .top) {
@@ -86,7 +86,7 @@ private struct BodyView2: View {
     
     let proxy: ScrollViewProxy?
     
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     var body: some View {
         HStack(alignment: .top) {

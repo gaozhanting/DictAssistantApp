@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MiniKnownView: View {
-    @State private var text: String = ""
+    @State var text: String = ""
     
     func remove() {
         removeKnown(text, didSucceed: {

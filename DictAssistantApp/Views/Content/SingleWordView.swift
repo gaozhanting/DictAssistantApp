@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SingleWordView: View {
-    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
+    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
 
     let wordCell: WordCell
     
@@ -39,8 +39,8 @@ struct SingleWordView: View {
         }
     }
     
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
 }
 
 private struct TextBody: View {
@@ -157,12 +157,12 @@ private func openDict(_ word: String) {
 }
 
 private struct TextWithShadow: View {
-    @AppStorage(ShadowColorKey) private var shadowColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ShadowRadiusKey) private var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) private var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) private var shadowYOffset: Double = 2
+    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) var shadowYOffset: Double = 2
 
-    @AppStorage(UseTextShadowKey) private var useTextShadow: Bool = false
+    @AppStorage(UseTextShadowKey) var useTextShadow: Bool = false
     
     let wordCell: WordCell
     
@@ -182,7 +182,7 @@ private struct TextWithShadow: View {
 }
 
 private struct TextWithLineSpacing: View {
-    @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
     let wordCell: WordCell
     
     var body: some View {
@@ -195,14 +195,14 @@ private struct TextWithLineSpacing: View {
 // title title2 : landscape
 // headline callout : portrait
 private struct TheText: View {
-    @AppStorage(WordColorKey) private var wordColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(TransColorKey) private var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
+    @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     var theWordColor: Color {
         Color(dataToColor(wordColor)!)
     }
     
-    @AppStorage(IsShowKnownKey) private var isShowKnown: Bool = false
-    @AppStorage(IsShowKnownButWithOpacity0Key) private var isShowKnownButWithOpacity0: Bool = false
+    @AppStorage(IsShowKnownKey) var isShowKnown: Bool = false
+    @AppStorage(IsShowKnownButWithOpacity0Key) var isShowKnownButWithOpacity0: Bool = false
 
     var theKnownWordColor: Color {
         if isShowKnown {
@@ -216,19 +216,19 @@ private struct TheText: View {
         return theWordColor.opacity(0) // impossible, refer to func convertToWordCellWithId
     }
     
-    @AppStorage(IsConcealTranslationKey) private var isConcealTranslation: Bool = false
+    @AppStorage(IsConcealTranslationKey) var isConcealTranslation: Bool = false
     var theTransColor: Color {
         Color(dataToColor(transColor)!)
             .opacity(isConcealTranslation ? 0 : 1)
     }
     
-    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
-    @AppStorage(FontSizeKey) private var fontSize: Int = 14
+    @AppStorage(FontNameKey) var fontName: String = defaultFontName
+    @AppStorage(FontSizeKey) var fontSize: Int = 14
     var font: Font {
         return Font.custom(fontName, size: CGFloat(fontSize))
     }
     
-    @AppStorage(FontRatioKey) private var fontRatio: Double = 0.9
+    @AppStorage(FontRatioKey) var fontRatio: Double = 0.9
     var transFont: Font {
         return Font.custom(fontName, size: CGFloat(fontSize) * CGFloat(fontRatio))
     }
@@ -243,7 +243,7 @@ private struct TheText: View {
         wordCell.word
     }
     
-    @AppStorage(ChineseCharacterConvertModeKey) private var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
+    @AppStorage(ChineseCharacterConvertModeKey) var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
     var trans: String {
         switch ChineseCharacterConvertMode(rawValue: chineseCharacterConvertMode)! {
         case .notConvert:
@@ -255,10 +255,10 @@ private struct TheText: View {
         }
     }
     
-    @AppStorage(IsJoinTranslationLinesKey) private var isJoinTranslationLines: Bool = true
-    @AppStorage(IsDropFirstTitleWordInTranslationKey) private var isDropFirstTitleWordInTranslation: Bool = true
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+    @AppStorage(IsJoinTranslationLinesKey) var isJoinTranslationLines: Bool = true
+    @AppStorage(IsDropFirstTitleWordInTranslationKey) var isDropFirstTitleWordInTranslation: Bool = true
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
+    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
     var translation: String {
         let step1 = !isJoinTranslationLines ? trans : trans.replacingOccurrences(of: "\n", with: " ")
         let step2 = isDropFirstTitleWordInTranslation ?
@@ -270,11 +270,11 @@ private struct TheText: View {
     }
     
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(fontSize) * 0.6)
     }
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.systemOrange)!
     var iColor: Color {
         Color(dataToColor(contentIndexColor)!)
     }
@@ -297,7 +297,7 @@ private struct TheText: View {
         }
     }
     
-    @AppStorage(IsDropTitleWordKey) private var isDropTitleWord: Bool = false
+    @AppStorage(IsDropTitleWordKey) var isDropTitleWord: Bool = false
     var unKnownText0: Text {
         !isDropTitleWord ?
         Text(word).foregroundColor(theWordColor).font(font) + Text(translation).foregroundColor(theTransColor).font(transFont) :

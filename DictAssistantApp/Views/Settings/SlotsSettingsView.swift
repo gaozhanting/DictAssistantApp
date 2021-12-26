@@ -54,6 +54,7 @@ struct Settings: Codable {
     
     var highlightMode: Int
     var hLRectangleColor: Data
+    var isShowIndex: Bool
     var strokeDownwardOffset: Double
     var strokeLineWidth: Double
     var strokeDashPainted: Double
@@ -93,6 +94,7 @@ struct Settings: Codable {
         
         highlightMode: Int,
         hLRectangleColor: Data,
+        isShowIndex: Bool,
         strokeDownwardOffset: Double,
         strokeLineWidth: Double,
         strokeDashPainted: Double,
@@ -131,6 +133,7 @@ struct Settings: Codable {
         
         self.highlightMode = highlightMode
         self.hLRectangleColor = hLRectangleColor
+        self.isShowIndex = isShowIndex
         self.strokeDownwardOffset = strokeDownwardOffset
         self.strokeLineWidth = strokeLineWidth
         self.strokeDashPainted = strokeDashPainted
@@ -181,6 +184,7 @@ private let defaultSettings = Settings(
     
     highlightMode: HighlightMode.dotted.rawValue,
     hLRectangleColor: colorToData(NSColor.red.withAlphaComponent(0.15))!,
+    isShowIndex: false,
     strokeDownwardOffset: 5.0,
     strokeLineWidth: 1.6,
     strokeDashPainted: 1.0,
@@ -271,6 +275,7 @@ private struct SlotsView: View {
         
         highlightMode = s.highlightMode
         hLRectangleColor = s.hLRectangleColor
+        isShowIndex = s.isShowIndex
         strokeDownwardOffset = s.strokeDownwardOffset
         strokeLineWidth = s.strokeLineWidth
         strokeDashPainted = s.strokeDashPainted
@@ -283,33 +288,34 @@ private struct SlotsView: View {
         contentWindow.setFrame(s.contentFrame, display: true)
     }
     
-    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
-    @AppStorage(PortraitCornerKey) private var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
-    @AppStorage(PortraitMaxHeightKey) private var portraitMaxHeight: Double = 100.0
-    @AppStorage(LandscapeStyleKey) private var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    @AppStorage(LandscapeMaxWidthKey) private var landscapeMaxWidth: Double = 160.0
+    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
+    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
 
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) private var standardCornerRadius: Double = 6.0
+    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
 
-    @AppStorage(FontSizeKey) private var fontSize: Int = 14
-    @AppStorage(LineSpacingKey) private var lineSpacing: Double = 0
+    @AppStorage(FontSizeKey) var fontSize: Int = 14
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
 
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
 
-    @AppStorage(MaximumFrameRateKey) private var maximumFrameRate: Double = 4
+    @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
     @AppStorage(TRTextRecognitionLevelKey) var tRTextRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(TRMinimumTextHeightKey) var tRMinimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
 
-    @AppStorage(LemmaSearchLevelKey) private var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
+    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.database.rawValue
 
-    @AppStorage(IsAddLineBreakKey) private var isAddLineBreak: Bool = true
-    @AppStorage(IsAddSpaceKey) private var isAddSpace: Bool = false
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
+    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
-    @AppStorage(HLRectangleColorKey) private var hLRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
@@ -505,7 +511,7 @@ private struct ButtonsView: View {
         }
     }
     
-    @State private var showingAlert = false
+    @State var showingAlert = false
 }
 
 private struct InfoView: View {

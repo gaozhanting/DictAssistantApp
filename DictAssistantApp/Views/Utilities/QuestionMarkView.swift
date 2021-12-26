@@ -14,7 +14,7 @@ struct QuestionMarkView<Content: View>: View {
         self.content = content()
     }
     
-    @State private var isShowingPopover: Bool = false
+    @State var isShowingPopover: Bool = false
 
     var body: some View {
         Button(action: { isShowingPopover = true }, label: {

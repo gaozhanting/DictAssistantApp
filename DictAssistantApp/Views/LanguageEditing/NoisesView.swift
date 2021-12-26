@@ -61,7 +61,7 @@ private struct ConstantNoisesView: View {
 }
 
 private struct EditingView: View {
-    @State private var text = ""
+    @State var text = ""
     
     var lines: [String] {
         text.components(separatedBy: .newlines)
@@ -113,11 +113,11 @@ private struct EditingView: View {
         }
     }
     
-    @State private var succeed: Bool = false
-    @State private var nothingChanged: Bool = false
+    @State var succeed: Bool = false
+    @State var nothingChanged: Bool = false
     
-    @State private var showingDeleteAllAlert: Bool = false
-    @State private var showingResetAlert: Bool = false
+    @State var showingDeleteAllAlert: Bool = false
+    @State var showingResetAlert: Bool = false
     
     var body: some View {
         TextEditor(text: $text)

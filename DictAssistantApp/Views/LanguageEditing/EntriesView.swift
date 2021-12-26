@@ -61,7 +61,7 @@ private struct ConstantEntryView: View {
 }
 
 private struct EditingView: View {
-    @State private var text = ""
+    @State var text = ""
     
     var lines: [String] {
         text.components(separatedBy: .newlines)
@@ -110,8 +110,8 @@ private struct EditingView: View {
         }
     }
     
-    @State private var succeed: Bool = false
-    @State private var nothingChanged: Bool = false
+    @State var succeed: Bool = false
+    @State var nothingChanged: Bool = false
     
     var body: some View {
         TextEditor(text: $text)
@@ -171,7 +171,7 @@ private struct EditingView: View {
                 }, alignment: .bottom)
     }
     
-    @State private var showingAlert = false
+    @State var showingAlert = false
 }
 
 private struct InfoView: View {

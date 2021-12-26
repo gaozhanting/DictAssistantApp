@@ -15,7 +15,7 @@ func notifyPanel(panel: NSPanel, title: String, info: String) {
 }
 
 struct MiniEntryView: View {
-    @State private var text: String = ""
+    @State var text: String = ""
     
     func upsert() {
         let wt = text.split(separator: Character(","), maxSplits: 1)

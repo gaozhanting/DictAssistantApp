@@ -224,13 +224,17 @@ private let scenarioKV: [String: Any] = [
     IsAddSpaceKey: false,
     
     HighlightModeKey: HighlightMode.dotted.rawValue,
+    
     HLRectangleColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
+    
+    IsShowIndexKey: false,
     StrokeDownwardOffsetKey: 5.0,
     StrokeLineWidthKey: 1.6,
     StrokeDashPaintedKey: 1.0,
     StrokeDashUnPaintedKey: 3.0,
     IndexPaddingKey: 2.0,
     IndexFontSizeKey: 5,
+    
     IsAlwaysRefreshHighlightKey: false,
 ]
 
@@ -279,10 +283,9 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     HLDottedColorKey: colorToData(NSColor.red)!,
     
-    IsShowIndexKey: true,
     IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexColorKey: colorToData(NSColor.windowBackgroundColor)!,
-    ContentIndexColorKey: colorToData(NSColor.labelColor)!,
+    ContentIndexColorKey: colorToData(NSColor.systemOrange)!,
     IndexBgColorKey: colorToData(NSColor.labelColor)!,
 ]) { (current, _) in current }
 
@@ -418,6 +421,10 @@ extension UserDefaults {
     @objc var HLRectangleColorKey: Data {
         get { return data(forKey: "HLRectangleColorKey")! }
         set { set(newValue, forKey: "HLRectangleColorKey") }
+    }
+    @objc var IsShowIndexKey: Bool {
+        get { return bool(forKey: "IsShowIndexKey") }
+        set { set(newValue, forKey: "IsShowIndexKey") }
     }
     @objc var StrokeDownwardOffsetKey: Double {
         get { return double(forKey: "StrokeDownwardOffsetKey") }
@@ -601,6 +608,7 @@ func autoSaveSlotSettings() {
     
     combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
     combineSlot(\.HLRectangleColorKey, \.hLRectangleColor, HLRectangleColorKey)
+    combineSlot(\.IsShowIndexKey, \.isShowIndex, IsShowIndexKey)
     combineSlot(\.StrokeDownwardOffsetKey, \.strokeDownwardOffset, StrokeDownwardOffsetKey)
     combineSlot(\.StrokeLineWidthKey, \.strokeLineWidth, StrokeLineWidthKey)
     combineSlot(\.StrokeDashPaintedKey, \.strokeDashPainted, StrokeDashPaintedKey)

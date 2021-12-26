@@ -56,7 +56,7 @@ private struct ConstantKnownView: View {
         sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
 
-    @State private var selectedFlavor = DisplayFilter.all.rawValue
+    @State var selectedFlavor = DisplayFilter.all.rawValue
     
     func filter(_ word: String) -> Bool {
         switch DisplayFilter(rawValue: selectedFlavor)! {
@@ -91,7 +91,7 @@ private struct ConstantKnownView: View {
 }
 
 private struct EditingView: View {
-    @State private var text = ""
+    @State var text = ""
     
     var words: [String] {
         text.components(separatedBy: .newlines)
@@ -156,10 +156,10 @@ private struct EditingView: View {
         }
     }
     
-    @State private var succeed: Bool = false
-    @State private var nothingChanged: Bool = false
+    @State var succeed: Bool = false
+    @State var nothingChanged: Bool = false
     
-    @State private var showingAlert = false
+    @State var showingAlert = false
     
     var body: some View {
         TextEditor(text: $text)
@@ -239,7 +239,7 @@ private struct PasteOxford3000Button: View {
 private struct PasteFirstNWikiWordFrequencyButton: View {
     @Binding var text: String
     
-    @State private var showPopover = false
+    @State var showPopover = false
     
     var body: some View {
         Button(action: { showPopover = true }) {

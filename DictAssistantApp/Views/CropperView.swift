@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StrokeBorderCropperAnimationView: View {
-    @State private var phase: CGFloat = 0
+    @State var phase: CGFloat = 0
     
     var body: some View {
         Rectangle()
@@ -25,7 +25,7 @@ struct StrokeBorderCropperAnimationView: View {
 }
 
 private struct CropperView: View {
-    @AppStorage(CropperStyleKey) private var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
 
     var body: some View {
         switch CropperStyle(rawValue: cropperStyle)! {
@@ -141,7 +141,7 @@ private struct HLDottedView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
+    @AppStorage(HLDottedColorKey) var hlDottedColor: Data = colorToData(NSColor.red)!
     var hlColor: Color {
         Color(dataToColor(hlDottedColor)!)
     }
@@ -179,7 +179,7 @@ private struct HLDottedView: View {
         abs(box.1.y - box.0.y) * geometrySize.height
     }
     
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     var x: CGFloat {
@@ -199,7 +199,7 @@ private struct HLDottedView: View {
         (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)
     }
 
-    @AppStorage(FontNameKey) private var fontName: String = defaultFontName
+    @AppStorage(FontNameKey) var fontName: String = defaultFontName
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(indexFontSize))
@@ -232,7 +232,7 @@ private struct HLRectangleView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     
     var hlColor: Color {
         Color(dataToColor(hlRectangleColor)!)

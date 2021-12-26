@@ -10,7 +10,7 @@ import DataBases
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+    @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorScheme.system.rawValue
     
     var body: some View {
         ContentLayoutView()
@@ -39,7 +39,7 @@ private func toSystemColorScheme(from theColorScheme: Int, with systemColorSchem
 }
 
 private struct ContentLayoutView: View {
-    @AppStorage(ContentLayoutKey) private var contentLayout: Int = ContentLayout.portrait.rawValue
+    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
 
     var body: some View {
         switch ContentLayout(rawValue: contentLayout)! {

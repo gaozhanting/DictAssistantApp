@@ -32,7 +32,7 @@ private struct ToastView: View {
         slots.first { $0.isSelected }
     }
     
-    @AppStorage(TheColorSchemeKey) private var theColorScheme: Int = TheColorScheme.system.rawValue
+    @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorScheme.system.rawValue
 
     let imageSystemName: String
     let info: String

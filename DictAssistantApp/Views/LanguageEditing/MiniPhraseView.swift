@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MiniPhraseView: View {
-    @State private var text: String = ""
+    @State var text: String = ""
     
     func add() {
         addPhrase(text, didSucceed: {

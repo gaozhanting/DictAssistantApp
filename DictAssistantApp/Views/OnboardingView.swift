@@ -11,8 +11,8 @@ import DataBases
 
 struct OnboardingView: View {
 
-    @State private var currentPage: OnboardingPage = .welcome
-    private let pages: [OnboardingPage]
+    @State var currentPage: OnboardingPage = .welcome
+    let pages: [OnboardingPage]
     
     init(pages: [OnboardingPage]) {
         self.pages = pages
@@ -29,7 +29,7 @@ struct OnboardingView: View {
         }
     }
     
-    private func showNextPage() {
+    func showNextPage() {
         guard let currentIndex = pages.firstIndex(of: currentPage), pages.count > currentIndex + 1 else {
             return
         }
@@ -96,9 +96,9 @@ private struct WelcomeView: View {
 private struct InitKnownView: View {
     let next: () -> Void
     
-    @State private var count: String = String(defaultEnWikiCount)
+    @State var count: String = String(defaultEnWikiCount)
     @State var showingAlert: Bool = false
-    @State private var batchInsertSucceed: Bool = false
+    @State var batchInsertSucceed: Bool = false
 
     @FetchRequest(
         entity: Known.entity(),
@@ -246,9 +246,9 @@ private struct BuildDictView: View {
 private struct InitGlobalKeyboardShortcutView: View {
     let next: () -> Void
     @Environment(\.endOnboarding) var endOnboarding
-    @AppStorage(IsFinishedOnboardingKey) private var isFinishedOnboarding: Bool = false
+    @AppStorage(IsFinishedOnboardingKey) var isFinishedOnboarding: Bool = false
     
-    @State private var showPlaying: Bool = false
+    @State var showPlaying: Bool = false
     
     var body: some View {
         PageTemplateView(

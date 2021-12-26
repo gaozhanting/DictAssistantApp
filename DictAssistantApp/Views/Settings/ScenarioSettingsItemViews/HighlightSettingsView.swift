@@ -45,7 +45,7 @@ struct HighlightSettingsView: View {
 }
 
 struct HighlightDottedOptionsView: View {
-    @AppStorage(HLDottedColorKey) private var hlDottedColor: Data = colorToData(NSColor.red)!
+    @AppStorage(HLDottedColorKey) var hlDottedColor: Data = colorToData(NSColor.red)!
         
     var binding: Binding<Color> {
         Binding(
@@ -134,21 +134,18 @@ private struct DottedOptionsView: View {
 }
 
 struct HighlightDottedIndexOptionsView: View {
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.systemOrange)!
     
     func useDefault() {
-        isShowIndex = true
-        
         indexXBasic = IndexXBasic.trailing.rawValue
         
         indexColor = colorToData(NSColor.windowBackgroundColor)!
         indexBgColor = colorToData(NSColor.labelColor)!
         
-        contentIndexColor = colorToData(NSColor.labelColor)!
+        contentIndexColor = colorToData(NSColor.systemOrange)!
     }
     
     var indexColorBinding: Binding<Color> {
@@ -180,15 +177,7 @@ struct HighlightDottedIndexOptionsView: View {
     
     var body: some View {
         Group {
-            HStack {
-                Text("Highlight Dotted Index:")
-                Spacer()
-                
-                Toggle(isOn: $isShowIndex, label: {
-                    Text("Show Index")
-                })
-                    .toggleStyle(CheckboxToggleStyle())
-            }
+            Text("Highlight Dotted Index:")
             
             GroupBox {
                 VStack(alignment: .leading) {
@@ -224,19 +213,29 @@ struct HighlightDottedIndexOptionsView: View {
 }
 
 private struct DottedIndexOptionsView: View {
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = true
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
     
     func useDefault() {
+        isShowIndex = false
         indexFontSize = 7
         indexPadding = 2.0
     }
-
+    
     var body: some View {
-        if isShowIndex {
-            VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
+            HStack {
                 Text("Dotted Index:")
+                Spacer()
+                
+                Toggle(isOn: $isShowIndex, label: {
+                    Text("Show Index")
+                })
+                    .toggleStyle(CheckboxToggleStyle())
+            }
+            
+            if isShowIndex {
                 GroupBox {
                     HStack {
                         Text("padding:")
@@ -262,7 +261,7 @@ private struct DottedIndexOptionsView: View {
 }
 
 private struct RectangleOptionsView: View {
-    @AppStorage(HLRectangleColorKey) private var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
     
     var binding: Binding<Color> {
         Binding(

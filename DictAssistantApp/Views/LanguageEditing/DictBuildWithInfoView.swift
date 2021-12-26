@@ -48,7 +48,7 @@ struct BuildingImageView: View {
 struct BuildActionView: View {
     let buildFrom: String
     
-    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
+    @AppStorage(RemoteDictURLStringKey) var remoteDictURLString: String = ""
     
     @State var isBuilding: Bool = false
     
@@ -97,7 +97,7 @@ struct BuildActionView: View {
 }
 
 private struct DictBuildView: View {
-    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
+    @AppStorage(RemoteDictURLStringKey) var remoteDictURLString: String = ""
     
     @State var remoteFrom: String = ""
     
@@ -185,7 +185,7 @@ private struct InfoView: View {
 }
 
 struct DictBuildWithInfoView_Previews: PreviewProvider {
-    @AppStorage(RemoteDictURLStringKey) private var remoteDictURLString: String = ""
+    @AppStorage(RemoteDictURLStringKey) var remoteDictURLString: String = ""
     
     static var previews: some View {
         Group {
