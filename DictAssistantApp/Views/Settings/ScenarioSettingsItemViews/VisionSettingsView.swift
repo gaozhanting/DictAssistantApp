@@ -8,7 +8,7 @@
 import SwiftUI
 import Vision
 
-struct TRMinimumTextHeightSetting: View {
+struct MinimumTextHeightSetting: View {
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
     
     func resetToDefault() {
@@ -63,7 +63,7 @@ private struct HightInfoView: View {
     }
 }
 
-struct TRTextRecognitionLevelSetting: View {
+struct RecognitionLevelSetting: View {
     @AppStorage(RecognitionLevelKey) var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     
     var body: some View {
@@ -79,6 +79,15 @@ struct TRTextRecognitionLevelSetting: View {
                 LevelInfoView()
             }
         }
+    }
+}
+
+struct UsesLanguageCorrectionSetting: View {
+    @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
+    
+    var body: some View {
+        Toggle("Uses Language Correction", isOn: $usesLanguageCorrection)
+            .help("When this value is true, Vision applies language correction during the recognition process. Disabling this property returns the raw recognition results, which provides performance benefits but less accurate results.")
     }
 }
 

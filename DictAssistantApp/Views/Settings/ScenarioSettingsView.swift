@@ -27,8 +27,11 @@ struct ScenarioSettingsView: View {
         Group {
             MaximumFrameRateSetting()
             
-            TRTextRecognitionLevelSetting()
-            TRMinimumTextHeightSetting()
+            RecognitionLevelSetting()
+            MinimumTextHeightSetting()
+            UsesLanguageCorrectionSetting()
+            
+            LemmaSearchLevelPicker()
             
             Spacer().frame(height: 20)
             Divider()
@@ -37,8 +40,6 @@ struct ScenarioSettingsView: View {
     
     var g3: some View {
         Group {
-            LemmaSearchLevelPicker()
-            
             AddLineBreakBeforeTranslationToggle()
             AddSpaceBeforeTranslationToggle()
             Spacer().frame(height: 20)

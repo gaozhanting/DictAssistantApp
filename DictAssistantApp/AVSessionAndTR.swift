@@ -119,7 +119,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         
         textRecognitionRequest.recognitionLevel = VNRequestTextRecognitionLevel.init(rawValue: UserDefaults.standard.integer(forKey: RecognitionLevelKey))!
         textRecognitionRequest.minimumTextHeight = Float(UserDefaults.standard.double(forKey: MinimumTextHeightKey))
-        textRecognitionRequest.usesLanguageCorrection = false
+        textRecognitionRequest.usesLanguageCorrection = UserDefaults.standard.bool(forKey: UsesLanguageCorrectionKey)
         textRecognitionRequest.recognitionLanguages = ["en-US"]
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async { [unowned self] in
