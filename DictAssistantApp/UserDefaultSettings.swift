@@ -211,7 +211,7 @@ private let scenarioKV: [String: Any] = [
     MinimalistHPaddingKey: 6.0,
     
     FontSizeKey: 14,
-    LineSpacingKey: 0.0,
+    LineSpacingKey: 2.0,
     
     CropperStyleKey: CropperStyle.empty.rawValue,
     

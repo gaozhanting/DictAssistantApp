@@ -171,7 +171,7 @@ private let defaultSettings = Settings(
     minimalistHPadding: 6.0,
     
     fontSize: 14,
-    lineSpacing: 0.0,
+    lineSpacing: 2.0,
     
     cropperStyle: CropperStyle.empty.rawValue,
     
@@ -302,7 +302,7 @@ private struct SlotsView: View {
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
 
     @AppStorage(FontSizeKey) var fontSize: Int = 14
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
 
     @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
 

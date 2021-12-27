@@ -182,7 +182,7 @@ private struct TextWithShadow: View {
 }
 
 private struct TextWithLineSpacing: View {
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
     let wordCell: WordCell
     
     var body: some View {

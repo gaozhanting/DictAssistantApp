@@ -86,7 +86,7 @@ struct FontSizeSettingView: View {
 }
 
 struct FontLineSpacingSettingView: View {
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 0
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
 
     var body: some View {
         HStack {
