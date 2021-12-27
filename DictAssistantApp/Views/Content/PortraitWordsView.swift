@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PortraitWordsView: View {
-    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
+    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.top.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     
     var body: some View {

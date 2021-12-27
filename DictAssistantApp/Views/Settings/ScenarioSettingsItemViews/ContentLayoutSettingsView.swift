@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentLayoutStyleSettingsView: View {
     @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
 
-    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.topTrailing.rawValue
+    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.top.rawValue
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
     
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0

@@ -200,7 +200,7 @@ enum TheColorScheme: Int, Codable {
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
     ContentLayoutKey: ContentLayout.portrait.rawValue,
-    PortraitCornerKey: PortraitCorner.topTrailing.rawValue,
+    PortraitCornerKey: PortraitCorner.top.rawValue,
     PortraitMaxHeightKey: 100.0,
     LandscapeStyleKey: LandscapeStyle.normal.rawValue,
     LandscapeMaxWidthKey: 160.0,
