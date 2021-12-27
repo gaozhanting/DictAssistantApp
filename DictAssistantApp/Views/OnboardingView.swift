@@ -154,24 +154,24 @@ private struct InitKnownView: View {
 }
 
 private enum Lang: String, CaseIterable {
+    case Arabic
     case ChineseSimplified
     case ChineseTraditional
+    case Dutch
+    case English
+    case French
+    case German
+    case Greek
+    case Hebrew
+    case Hindi
+    case Italian
     case Japanese
     case Korean
-    case German
-    case French
-    case Spanish
     case Portuguese
-    case Italian
-    case Dutch
-    case Swedish
     case Russian
-    case Greek
+    case Spanish
+    case Swedish
     case Turkish
-    case Hebrew
-    case Arabic
-    case Hindi
-    case English
     case None
 }
 
