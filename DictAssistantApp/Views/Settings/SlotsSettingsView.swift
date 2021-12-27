@@ -377,7 +377,7 @@ private struct SlotItemView: View {
                 Button(action: {
                     select(slot)
                 }) {
-                    Image(systemName: slot.isSelected ? "shippingbox.circle.fill" : "shippingbox.circle")
+                    Image(systemName: slot.isSelected ? "cube.fill" : "cube")
                         .font(.title)
                         .foregroundColor(Color(dataToColor(slot.color!)!))
                 }

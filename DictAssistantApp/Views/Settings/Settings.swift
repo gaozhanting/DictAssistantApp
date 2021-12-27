@@ -56,7 +56,7 @@ func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext)
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: NSLocalizedString("Slots", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "shippingbox.circle", accessibilityDescription: "Slots preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "cube", accessibilityDescription: "Slots preferences")!
     ) {
         SlotsSettingsView()
             .environmentObject(statusData)
@@ -70,7 +70,7 @@ func ScenarioPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .scenario,
         title: NSLocalizedString("Scenario", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "shippingbox", accessibilityDescription: "Scenario preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "cube.transparent", accessibilityDescription: "Scenario preferences")!
     ) {
         ScenarioSettingsView()
     }
