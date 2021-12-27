@@ -90,6 +90,7 @@ let FontRatioKey = "FontRatioKey"
 let WordColorKey = "WordColorKey"
 let TransColorKey = "TransColorKey"
 let BackgroundColorKey = "BackgroundColorKey"
+let BackgroundColorDefault = colorToData(NSColor.textBackgroundColor)!
 
 let UseTextShadowKey = "UseTextShadowKey"
 let ShadowColorKey = "ShadowColorKey"
@@ -268,7 +269,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
 
     WordColorKey: colorToData(NSColor.labelColor)!,
     TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
-    BackgroundColorKey: colorToData(NSColor.windowBackgroundColor)!,
+    BackgroundColorKey: BackgroundColorDefault,
     
     UseTextShadowKey: false,
     ShadowColorKey: colorToData(NSColor.labelColor)!,

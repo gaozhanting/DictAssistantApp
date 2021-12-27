@@ -209,7 +209,7 @@ private struct ColorPickers: View {
         )
     }
 
-    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = BackgroundColorDefault
     var bgColorBinding: Binding<Color> {
         Binding(
             get: { Color(dataToColor(backgroundColor)!) },
@@ -222,7 +222,7 @@ private struct ColorPickers: View {
     func useDefault() {
         wordColor = colorToData(NSColor.labelColor)!
         transColor = colorToData(NSColor.secondaryLabelColor)!
-        backgroundColor = colorToData(NSColor.windowBackgroundColor)!
+        backgroundColor = BackgroundColorDefault
     }
     
     var body: some View {

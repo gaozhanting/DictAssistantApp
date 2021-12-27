@@ -30,7 +30,7 @@ extension View {
 }
 
 private struct BBBackground: ViewModifier {
-    @AppStorage(BackgroundColorKey) var backgroundColor: Data = colorToData(NSColor.windowBackgroundColor)!
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = BackgroundColorDefault
     @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = NSVisualEffectView.Material.titlebar.rawValue
     @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = false
     
