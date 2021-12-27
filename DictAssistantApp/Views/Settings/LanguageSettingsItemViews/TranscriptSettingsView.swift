@@ -75,7 +75,7 @@ struct ChineseCharacterConvertingPicker: View {
             Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(width: 300)
+        .frame(width: 350)
     }
 }
 

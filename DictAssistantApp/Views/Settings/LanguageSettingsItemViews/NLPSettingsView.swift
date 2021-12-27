@@ -18,7 +18,7 @@ struct LemmaSearchLevelPicker: View {
                 Text("database").tag(LemmaSearchLevel.database.rawValue)
                 Text("open").tag(LemmaSearchLevel.open.rawValue)
             }
-            .frame(width: 250)
+            .frame(width: 270)
             .pickerStyle(MenuPickerStyle())
             
             MiniInfoView {

@@ -15,7 +15,7 @@ struct ContentPaddingStyleSettingsView: View {
     
     var body: some View {
         HStack {
-            Picker("Content Padding Style:", selection: $contentPaddingStyle) {
+            Picker("Padding Style:", selection: $contentPaddingStyle) {
                 Text("standard").tag(ContentPaddingStyle.standard.rawValue)
                 Text("minimalist").tag(ContentPaddingStyle.minimalist.rawValue)
             }
