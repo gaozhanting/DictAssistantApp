@@ -203,7 +203,7 @@ struct HighlightDottedIndexOptionsView: View {
                     HStack {
                         ColorPicker("Index:", selection: indexColorBinding)
                         Spacer()
-                        ColorPicker("BG:", selection: indexBgColorBinding)
+                        ColorPicker("Background:", selection: indexBgColorBinding)
                         Spacer()
                         ColorPicker("Content:", selection: contentIndexColorBinding)
                     }

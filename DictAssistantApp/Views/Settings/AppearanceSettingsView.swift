@@ -231,7 +231,7 @@ private struct ColorPickers: View {
             Spacer()
             ColorPicker("Trans:", selection: transColorBinding)
             Spacer()
-            ColorPicker("BG:", selection: bgColorBinding)
+            ColorPicker("Background:", selection: bgColorBinding)
             Spacer()
             Button(action: useDefault) {
                 Image(systemName: "arrow.triangle.2.circlepath")
