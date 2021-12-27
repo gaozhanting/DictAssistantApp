@@ -34,6 +34,7 @@ let CropperStyleKey = "CropperStyleKey"
 let HighlightModeKey = "HighlightModeKey"
 
 let HLRectangleColorKey = "HLRectangleColorKey"
+let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.3)!.withAlphaComponent(0.3))!
 
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let HLDottedColorKey = "HLDottedColorKey"
@@ -227,7 +228,7 @@ private let scenarioKV: [String: Any] = [
     
     HighlightModeKey: HighlightMode.dotted.rawValue,
     
-    HLRectangleColorKey: colorToData(NSColor.red.withAlphaComponent(0.15))!,
+    HLRectangleColorKey: HLRectangleColorDefault,
     
     IsShowIndexKey: false,
     StrokeDownwardOffsetKey: 5.0,

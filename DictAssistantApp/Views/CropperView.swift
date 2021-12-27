@@ -232,7 +232,7 @@ private struct HLRectangleView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
     
     var hlColor: Color {
         Color(dataToColor(hlRectangleColor)!)

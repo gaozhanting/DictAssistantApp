@@ -261,7 +261,7 @@ private struct DottedIndexOptionsView: View {
 }
 
 private struct RectangleOptionsView: View {
-    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
     
     var binding: Binding<Color> {
         Binding(
@@ -273,7 +273,7 @@ private struct RectangleOptionsView: View {
     }
     
     func useDefault() {
-        hlRectangleColor = colorToData(NSColor.red.withAlphaComponent(0.15))!
+        hlRectangleColor = HLRectangleColorDefault
     }
     
     var body: some View {

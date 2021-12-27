@@ -185,7 +185,7 @@ private let defaultSettings = Settings(
     isAddSpace: false,
     
     highlightMode: HighlightMode.dotted.rawValue,
-    hLRectangleColor: colorToData(NSColor.red.withAlphaComponent(0.15))!,
+    hLRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
     strokeDownwardOffset: 5.0,
     strokeLineWidth: 1.6,
@@ -316,7 +316,7 @@ private struct SlotsView: View {
     @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
-    @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = colorToData(NSColor.red.withAlphaComponent(0.15))!
+    @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
