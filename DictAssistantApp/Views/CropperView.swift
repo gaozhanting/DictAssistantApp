@@ -206,7 +206,7 @@ private struct HLDottedView: View {
     }
     
     @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
     
     var body: some View {
         if isShowIndex {

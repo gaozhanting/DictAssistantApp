@@ -216,12 +216,12 @@ struct HighlightDottedIndexOptionsView: View {
 private struct DottedIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
-    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
     
     func useDefault() {
         isShowIndex = false
-        indexFontSize = 7
-        indexPadding = 2.0
+        indexFontSize = 5
+        indexPadding = 1.5
     }
     
     var body: some View {

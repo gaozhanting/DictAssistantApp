@@ -191,8 +191,8 @@ private let defaultSettings = Settings(
     strokeLineWidth: 1.6,
     strokeDashPainted: 1.0,
     strokeDashUnPainted: 3.0,
-    indexPadding: 2.0,
-    indexFontSize: 7,
+    indexPadding: 1.5,
+    indexFontSize: 5,
     isAlwaysRefreshHighlight: false,
     
     //
@@ -322,7 +322,7 @@ private struct SlotsView: View {
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
-    @AppStorage(IndexPaddingKey) var indexPadding: Double = 2.0
+    @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
 }
