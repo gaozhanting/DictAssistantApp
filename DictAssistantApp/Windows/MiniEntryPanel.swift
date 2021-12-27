@@ -13,7 +13,7 @@ var miniEntryPanel: NSPanel!
 func initMiniEntryPanel() {
     miniEntryPanel = EditingPanel(
         contentRect: NSRect(x: 200, y: 100, width: 400, height: 42),
-        name: NSLocalizedString("Mini Entry Panel", comment: "")
+        name: NSLocalizedString("Mini Custom Entry Panel", comment: "")
     )
     miniEntryPanel.close()
 }

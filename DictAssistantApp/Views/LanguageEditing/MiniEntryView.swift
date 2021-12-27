@@ -20,9 +20,9 @@ struct MiniEntryView: View {
     func upsert() {
         let wt = text.split(separator: Character(","), maxSplits: 1)
         upsertEntry(word: String(wt[0]), trans: String(wt[1]), didSucceed: {
-            notifyPanel(panel: miniEntryPanel, title: "Mini Entry Panel", info: "Succeed")
+            notifyPanel(panel: miniEntryPanel, title: "Mini Custom Entry Panel", info: "Succeed")
         }, nothingChanged: {
-            notifyPanel(panel: miniEntryPanel, title: "Mini Entry Panel", info: "Nothing Changed")
+            notifyPanel(panel: miniEntryPanel, title: "Mini Custom Entry Panel", info: "Nothing Changed")
         })
     }
     

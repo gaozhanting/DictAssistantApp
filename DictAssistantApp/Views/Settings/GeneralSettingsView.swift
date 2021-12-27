@@ -92,7 +92,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Show Mini Entry Panel")
+                Text("Show Mini Custom Entry Panel")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .showMiniEntryPanel)
                 MiniInfoView {
