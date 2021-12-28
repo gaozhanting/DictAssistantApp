@@ -146,7 +146,7 @@ private struct FontSettingView: View {
 
 private struct FontInfoView: View {
     var body: some View {
-        Text("Here is only the font name you select from, not font size which is under the scenario tab. \nNote there is a issue: when other TextField is focused, changing font will not work, in that case, you could switch tabs and back.")
+        Text("Here is only the font name you select from, not font size which is under the scenario tab. \nNote there is an issue: when other TextField is focused, changing font will not work, in that case, you could switch tabs and back.")
             .infoStyle()
     }
 }
