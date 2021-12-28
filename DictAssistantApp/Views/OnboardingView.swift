@@ -284,6 +284,8 @@ private struct InitGlobalKeyboardShortcutView: View {
                             showPlaying = true
                         }
                         isFinishedOnboarding = true
+                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // not nil
+                        UserDefaults.standard.setValue(appVersion, forKey: "CurrentVersion")
                     }, label: {
                         Text("Continue")
                     })
