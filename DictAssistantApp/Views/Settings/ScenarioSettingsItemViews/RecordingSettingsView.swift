@@ -46,7 +46,5 @@ private struct InfoView: View {
 struct RecordingSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         InfoView()
-            .environment(\.locale, .init(identifier: "en"))
-        //        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

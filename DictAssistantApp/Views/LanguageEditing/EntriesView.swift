@@ -189,7 +189,5 @@ struct EntryView_Previews: PreviewProvider {
             
             InfoView()
         }
-//                .environment(\.locale, .init(identifier: "zh-Hans"))
-                .environment(\.locale, .init(identifier: "en"))
     }
 }

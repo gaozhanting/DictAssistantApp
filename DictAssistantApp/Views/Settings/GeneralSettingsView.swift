@@ -173,6 +173,5 @@ private struct IsShowToastView: View {
 struct GeneralSettingView_Previews: PreviewProvider {
     static var previews: some View {
         GeneralSettingsView()
-            .environment(\.locale, .init(identifier: "en"))
     }
 }

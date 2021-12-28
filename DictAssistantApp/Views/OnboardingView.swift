@@ -364,10 +364,7 @@ struct OnboardingView_Previews: PreviewProvider {
                 OnboardingPage.initGlobalKeyboardShortcut.view()
                 
             }
-            //        .environment(\.locale, .init(identifier: "zh-Hans"))
-            .environment(\.locale, .init(identifier: "en"))
             .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
-            
             
             ChineseMainlandIssueView()
         }

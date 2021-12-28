@@ -13,16 +13,10 @@ struct SlotsSettingsView: View {
     var body: some View {
         SlotsView()
             .frame(width: panelWidth)
-        
-//        HStack {
-//            SlotsView()
-//            //                        .overlay(
-//            //                            QuestionMarkView {
-//            //                                InfoView()
-//            //                            },
-//            //                            alignment: .bottomTrailing)
-//
-//        }
+            .overlay(
+                QuestionMarkView {
+                    InfoView()
+                }, alignment: .bottomTrailing)
     }
 }
 
@@ -532,9 +526,7 @@ struct SlotsSettingsView_Previews: PreviewProvider {
                 .environmentObject(StatusData(isPlaying: false))
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
 
-//            InfoView()
+            InfoView()
         }
-//        .environment(\.locale, .init(identifier: "zh-Hant"))
-        .environment(\.locale, .init(identifier: "en"))
     }
 }

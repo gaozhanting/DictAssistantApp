@@ -75,7 +75,5 @@ struct DictSettingsView_Previews: PreviewProvider {
             UseAppleDictModeInfoView()
             UseEntryModeInfoView()
         }
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
-        .environment(\.locale, .init(identifier: "en"))
     }
 }

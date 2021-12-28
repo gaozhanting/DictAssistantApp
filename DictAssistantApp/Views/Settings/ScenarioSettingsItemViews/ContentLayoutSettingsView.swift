@@ -78,10 +78,8 @@ private struct InfoView: View {
     }
 }
 
-//struct ContentSettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        InfoView()
-//        //        .environment(\.locale, .init(identifier: "zh-Hans"))
-//            .environment(\.locale, .init(identifier: "en"))
-//    }
-//}
+struct ContentSettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        InfoView()
+    }
+}

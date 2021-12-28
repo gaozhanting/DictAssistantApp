@@ -117,7 +117,5 @@ struct VisionSettingsView_Previews: PreviewProvider {
             UsesLanguageCorrectionInfoView()
             HightInfoView()
         }
-        //        .environment(\.locale, .init(identifier: "zh-Hans"))
-            .environment(\.locale, .init(identifier: "en"))
     }
 }

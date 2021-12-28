@@ -192,7 +192,5 @@ struct DictBuildWithInfoView_Previews: PreviewProvider {
             DictBuildWithInfoView()
             InfoView()
         }
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
-        .environment(\.locale, .init(identifier: "en"))
     }
 }

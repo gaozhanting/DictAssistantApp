@@ -319,8 +319,6 @@ struct KnownView_Previews: PreviewProvider {
             FirstNPopoverView(text: Binding.constant(""), showPopover: Binding.constant(false))
             
             InfoPopoverView()
-                .environment(\.locale, .init(identifier: "zh-Hant"))
-//                .environment(\.locale, .init(identifier: "en"))
         }
     }
 }

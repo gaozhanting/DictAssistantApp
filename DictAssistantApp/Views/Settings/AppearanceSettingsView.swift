@@ -394,7 +394,5 @@ struct AppearanceSettingView_Previews: PreviewProvider {
             
 //            ColorSchemeInfo()
 //        }
-        .environment(\.locale, .init(identifier: "en"))
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }
