@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct MiniInfoView<Content: View>: View {
-    let arrowEdge: Edge
     let content: Content
     
-    init(arrowEdge: Edge = .top, @ViewBuilder content: () -> Content) {
-        self.arrowEdge = arrowEdge
+    init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
     
@@ -24,7 +22,7 @@ struct MiniInfoView<Content: View>: View {
                 .font(.footnote)
         })
         .buttonStyle(PlainButtonStyle())
-        .popover(isPresented: $isShowingPopover, arrowEdge: arrowEdge) {
+        .popover(isPresented: $isShowingPopover) {
             content
         }
     }

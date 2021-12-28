@@ -29,7 +29,7 @@ struct MaximumFrameRateSetting: View {
                 Image(systemName: "arrow.triangle.2.circlepath")
             }
             
-            MiniInfoView(arrowEdge: Edge.trailing) {
+            MiniInfoView {
                 InfoView()
             }
         }

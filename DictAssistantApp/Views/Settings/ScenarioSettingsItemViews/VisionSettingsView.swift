@@ -49,7 +49,7 @@ struct MinimumTextHeightSetting: View {
             
             Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
             
-            MiniInfoView(arrowEdge: .trailing) {
+            MiniInfoView {
                 HightInfoView()
             }
         }
