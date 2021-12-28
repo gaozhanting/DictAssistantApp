@@ -46,13 +46,13 @@ struct MiniKnownView: View {
             }
             .disabled(!valid)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .frame(width: 300, height: 40)
     }
 }
 
 struct MiniKnownView_Previews: PreviewProvider {
     static var previews: some View {
         MiniKnownView()
-            .frame(width: 200, height: 42)
     }
 }

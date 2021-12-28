@@ -35,13 +35,13 @@ struct MiniPhraseView: View {
             .disabled(!valid)
             .keyboardShortcut(KeyEquivalent.return)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .frame(width: 350, height: 40)
     }
 }
 
 struct PhraseInsertView_Previews: PreviewProvider {
     static var previews: some View {
         MiniPhraseView()
-            .frame(width: 300, height: 42)
     }
 }

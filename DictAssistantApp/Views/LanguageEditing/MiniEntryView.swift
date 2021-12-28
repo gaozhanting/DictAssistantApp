@@ -42,7 +42,8 @@ struct MiniEntryView: View {
             .disabled(!valid)
             .keyboardShortcut(KeyEquivalent.return)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .frame(width: 450, height: 40)
     }
 }
 
@@ -57,6 +58,5 @@ extension String {
 struct EntryUpsertView_Previews: PreviewProvider {
     static var previews: some View {
         MiniEntryView()
-            .frame(width: 400, height: 42)
     }
 }
