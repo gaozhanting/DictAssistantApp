@@ -269,7 +269,7 @@ private struct TheText: View {
         return step4
     }
     
-    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(fontSize) * 0.6)

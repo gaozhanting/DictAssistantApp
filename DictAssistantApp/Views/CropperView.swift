@@ -254,7 +254,7 @@ private struct HLRectangleView: View {
 }
 
 struct CropperViewWithHighlight: View {
-    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @EnvironmentObject var hlBox: HLBox
     
     var body: some View {

@@ -32,6 +32,7 @@ let IsShowToastKey = "IsShowToastKey" // not in slot for basic consistence of an
 let CropperStyleKey = "CropperStyleKey"
 
 let HighlightModeKey = "HighlightModeKey"
+let HighlightModeDefault = HighlightMode.rectangle.rawValue
 
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.3)!.withAlphaComponent(0.3))!
@@ -227,7 +228,7 @@ private let scenarioKV: [String: Any] = [
     IsAddLineBreakKey: true,
     IsAddSpaceKey: false,
     
-    HighlightModeKey: HighlightMode.dotted.rawValue,
+    HighlightModeKey: HighlightModeDefault,
     
     HLRectangleColorKey: HLRectangleColorDefault,
     

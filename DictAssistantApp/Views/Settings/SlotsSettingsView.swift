@@ -184,7 +184,7 @@ private let defaultSettings = Settings(
     isAddLineBreak: true,
     isAddSpace: false,
     
-    highlightMode: HighlightMode.dotted.rawValue,
+    highlightMode: HighlightModeDefault,
     hLRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
     strokeDownwardOffset: 5.0,
@@ -315,7 +315,7 @@ private struct SlotsView: View {
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
 
-    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0

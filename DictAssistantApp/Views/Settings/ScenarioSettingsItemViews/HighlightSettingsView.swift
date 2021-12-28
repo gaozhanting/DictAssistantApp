@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HighlightSettingsView: View {
-    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightMode.dotted.rawValue
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
     
     var body: some View {

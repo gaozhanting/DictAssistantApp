@@ -58,7 +58,7 @@ func trCallBackWithCache() {
     
     // We mutate primitiveWordCellCache
     func retriveBoxesAndsyncIndices() -> [IndexedBox] {
-        if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: "HighlightModeKey"))! == .disabled {
+        if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: HighlightModeKey))! == .disabled {
             return []
         }
         
