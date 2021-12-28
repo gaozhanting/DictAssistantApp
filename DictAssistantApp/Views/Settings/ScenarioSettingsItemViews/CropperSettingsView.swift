@@ -22,6 +22,6 @@ struct CropperStyleSettingView: View {
             Text("bottomBorder").tag(CropperStyle.bottomBorder.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(width: 210)
+        .frame(width: 250)
     }
 }
