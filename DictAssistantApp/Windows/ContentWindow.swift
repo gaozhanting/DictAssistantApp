@@ -19,18 +19,7 @@ func initContentWindow() {
     
     contentWindow.delegate = ccDelegate
             
-    let isShowWindowShadow = UserDefaults.standard.bool(forKey: IsShowWindowShadowKey)
-    syncContentWindowShadow(from: isShowWindowShadow)
-    
     contentWindow.close()
-}
-
-func syncContentWindowShadow(from isShowWindowShadow: Bool) {
-    if isShowWindowShadow {
-        contentWindow.hasShadow = true
-    } else {
-        contentWindow.hasShadow = false
-    }
 }
 
 private class ContentWindow: NSPanel {
@@ -79,8 +68,6 @@ private class ContentWindow: NSPanel {
         self.standardWindowButton(.zoomButton)?.isHidden = true
         self.standardWindowButton(.toolbarButton)?.isHidden = true
                 
-        self.hasShadow = false
-        
         self.isOpaque = false
         self.backgroundColor = NSColor.clear
     }

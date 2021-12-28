@@ -34,8 +34,6 @@ struct AppearanceSettingsView: View {
     
     var g3: some View {
         Group {
-            ContentWindowShadowToggle()
-            
             WithAnimationToggle()
             
             Spacer().frame(height: 20)
@@ -372,20 +370,6 @@ private struct ColorSchemeInfo: View {
     var body: some View {
         Text("Note: if you select System or System Reversed, then I suggest you select system color as well, otherwise, the color can't be adaptable both on light and dark system mode. You can open the color panel, select the Color Palettes tab, then select Developer option, the colors here are all system colors.")
             .infoStyle()
-    }
-}
-
-private struct ContentWindowShadowToggle: View {
-    @AppStorage(IsShowWindowShadowKey) var isShowWindowShadow = false
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $isShowWindowShadow, label: {
-                Text("Show Content Window Shadow")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-            .help("Notice window shadow may mess up content.")
-        }
     }
 }
 

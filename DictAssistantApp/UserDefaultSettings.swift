@@ -111,7 +111,6 @@ let StandardCornerRadiusKey = "StandardCornerRadiusKey"
 let MinimalistVPaddingKey = "MinimalistVPaddingKey"
 let MinimalistHPaddingKey = "MinimalistHPaddingKey"
 
-let IsShowWindowShadowKey = "IsShowWindowShadowKey"
 let IsWithAnimationKey = "IsWithAnimationKey"
 
 // Enums
@@ -283,7 +282,6 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
-    IsShowWindowShadowKey: true,
     IsWithAnimationKey: true,
     
     HLDottedColorKey: colorToData(NSColor.red)!,
@@ -359,11 +357,6 @@ extension UserDefaults {
     @objc var UseEntryModeKey: Int {
         get { return integer(forKey: "UseEntryModeKey") }
         set { set(newValue, forKey: "UseEntryModeKey") }
-    }
-
-    @objc var IsShowWindowShadowKey: Bool {
-        get { return bool(forKey: "IsShowWindowShadowKey") }
-        set { set(newValue, forKey: "IsShowWindowShadowKey") }
     }
     
     //// Slot
@@ -479,15 +472,6 @@ func combineWindows() {
             }
             syncCropperView(from: CropperStyle(rawValue: cropperStyle)!)
             logger.info("did syncCropperView")
-        })
-        .sink { _ in }
-        .store(in: &subscriptions)
-    
-    UserDefaults.standard
-        .publisher(for: \.IsShowWindowShadowKey)
-        .handleEvents(receiveOutput: { isShowWindowShadow in
-            syncContentWindowShadow(from: isShowWindowShadow)
-            logger.info("did syncContentWindowShadow")
         })
         .sink { _ in }
         .store(in: &subscriptions)
