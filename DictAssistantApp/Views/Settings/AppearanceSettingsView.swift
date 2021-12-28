@@ -138,11 +138,16 @@ private struct FontSettingView: View {
             }
             
             MiniInfoView {
-                Text("There is a bug: when other TextField is focused, changing font will not work.")
-                    .font(.subheadline)
-                    .padding()
+                FontInfoView()
             }
         }
+    }
+}
+
+private struct FontInfoView: View {
+    var body: some View {
+        Text("Here is only the font name you select from, not font size which is under the scenario tab. \nNote there is a issue: when other TextField is focused, changing font will not work, in that case, you could switch tabs and back.")
+            .infoStyle()
     }
 }
 
@@ -389,10 +394,12 @@ private struct WithAnimationToggle: View {
 
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
-//        Group {
+        Group {
             AppearanceSettingsView()
             
-//            ColorSchemeInfo()
-//        }
+            ColorSchemeInfo()
+            
+            FontInfoView()
+        }
     }
 }
