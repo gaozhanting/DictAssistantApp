@@ -254,7 +254,7 @@ private struct BuildDictView: View {
 
 private struct ChineseMainlandIssueView: View {
     var body: some View {
-        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts. You can skip this step.\n\nInstead, you can manually download the csv file with link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build.")
+        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts and the CDN may be very slow sometimes. You could wait some longer time.\n\nOr you can skip this step. Instead, you can manually download the csv file in browser with the CDN link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build.")
             .infoStyle()
     }
 }
