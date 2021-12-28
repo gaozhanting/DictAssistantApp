@@ -13,21 +13,35 @@ struct HighlightSettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Picker("Highlight:", selection: $highlightMode) {
-                    Text("Dotted").tag(HighlightMode.dotted.rawValue)
-                    Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
-                    Text("Disabled").tag(HighlightMode.disabled.rawValue)
+            Form { // Form makes it has an auto padding here
+                HStack {
+                    Group {
+                        Picker("Highlight:", selection: $highlightMode) {
+                            Text("Dotted").tag(HighlightMode.dotted.rawValue)
+                            Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
+                            Text("Disabled").tag(HighlightMode.disabled.rawValue)
+                        }
+                        .frame(width: 200)
+                        .pickerStyle(MenuPickerStyle())
+                        
+                        MiniInfoView {
+                            HighlightInfoView()
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    Group {
+                        Toggle(isOn: $isAlwaysRefreshHighlight, label: {
+                            Text("Is always refresh highlight")
+                        })
+                            .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
+                        
+                        MiniInfoView {
+                            IsAlwaysRefreshHighlightInfoView()
+                        }
+                    }
                 }
-                .frame(width: 200)
-                .pickerStyle(MenuPickerStyle())
-                
-                Spacer()
-                
-                Toggle(isOn: $isAlwaysRefreshHighlight, label: {
-                    Text("Is always refresh highlight")
-                })
-                    .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
             }
             
             switch HighlightMode(rawValue: highlightMode)! {
@@ -42,6 +56,20 @@ struct HighlightSettingsView: View {
                 EmptyView()
             }
         }
+    }
+}
+
+struct HighlightInfoView: View {
+    var body: some View {
+        Text("Highlight are subtle in the App, that is because it is drawn on the cropper window which makes the screen recording cropper area messy, it is overlapped. The highlight will be hidden when the cropper window is covered by some other front window, you should make it the front most when enable highlight. \n\nI recommend using highlight rectangle when reading stream captions, the color should have some dark level and opacity level which somehow is more subtle because it is should be balanced between your eyes and the reading scenario which is watching by AI, otherwise it will cause blink. By the way, recognition accurate level is more tolerant with the color than the fast level. \nI recommend using highlight dotted when reading because it is less subtle, but the index feature is more subtle which is better used in reading books scenario, in that case, App snapshot is more useful than normal playing, and there is no blink with snapshot.\n\nAnyhow, you are free. Highlight is subtle, but it is still useful.")
+            .infoStyle()
+    }
+}
+
+struct IsAlwaysRefreshHighlightInfoView: View {
+    var body: some View {
+        Text("If you check this option, it will continually refresh highlight even when the recognized text is the same but the cropper screen area differs little from last frame, until the frames are the same. This will make the highlight synced with the text whensoever, but it consumes more CPU, and will get more blink odds. \nIf you uncheck this option, highlight sometimes may not be synced with the text, in some cases when the text is the same but the cropper screen area trembled some little position. \n\nI recommend always uncheck it. It is another subtle things.")
+            .infoStyle()
     }
 }
 
@@ -293,8 +321,11 @@ private struct RectangleOptionsView: View {
     }
 }
 
-//struct HighlightSettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HighlightSettingsView()
-//    }
-//}
+struct HighlightSettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            HighlightInfoView()
+            IsAlwaysRefreshHighlightInfoView()
+        }
+    }
+}
