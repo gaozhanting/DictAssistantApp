@@ -229,8 +229,17 @@ private struct BuildDictView: View {
                         .frame(width: 360)
                         
                         if lang != .None {
-                            BuildActionView(
-                                buildFrom: lang == .ChineseSimplified ? "https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv" : "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv")
+                            HStack {
+                                BuildActionView(
+                                    buildFrom: lang == .ChineseSimplified ? "https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv" : "https://github.com/gaozhanting/CsvDicts/raw/main/\(lang.rawValue).csv")
+                                
+                                if lang == .ChineseSimplified {
+                                    MiniInfoView {
+                                        ChineseMainlandIssueView()
+                                    }
+                                }
+                            }
+                            .padding(.top)
                         }
                     }
                     .padding()
@@ -240,6 +249,13 @@ private struct BuildDictView: View {
                 Button("Continue", action: next)
             }
         )
+    }
+}
+
+private struct ChineseMainlandIssueView: View {
+    var body: some View {
+        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts. You can skip this step.\n\nInstead, you can manually download the csv file with link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build.")
+            .infoStyle()
     }
 }
 
@@ -341,13 +357,19 @@ enum OnboardingPage: CaseIterable {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            OnboardingPage.welcome.view()
-            OnboardingPage.initKnown.view()
-            OnboardingPage.buildDict.view()
-            OnboardingPage.initGlobalKeyboardShortcut.view()
+            Group {
+                OnboardingPage.welcome.view()
+                OnboardingPage.initKnown.view()
+                OnboardingPage.buildDict.view()
+                OnboardingPage.initGlobalKeyboardShortcut.view()
+                
+            }
+            //        .environment(\.locale, .init(identifier: "zh-Hans"))
+            .environment(\.locale, .init(identifier: "en"))
+            .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
+            
+            
+            ChineseMainlandIssueView()
         }
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
-        .environment(\.locale, .init(identifier: "en"))
-        .frame(width: 650, height: 530 - 28) // 28 is the height of title bar
     }
 }
