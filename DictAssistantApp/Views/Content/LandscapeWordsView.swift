@@ -12,17 +12,17 @@ struct LandscapeWordsView: View {
     
     var body: some View {
         switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
-        case .standard:
-            LandscapeWordsView2()
         case .minimalist:
             LandscapeWordsView1()
+        case .standard:
+            LandscapeWordsView2()
         }
     }
 }
 
 struct LandscapeWordsView1: View {
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    
+
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
         case .normal, .autoScrolling:
@@ -56,15 +56,15 @@ struct LandscapeWordsView2: View {
 
 private struct BodyView1: View {
     @EnvironmentObject var displayedWords: DisplayedWords
-    
+
     let proxy: ScrollViewProxy?
-    
+
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    
+
     var body: some View {
         HStack(alignment: .top) {
             WordsView()
-            
+
             VStack { Spacer() }
         }
         .bbBackground()
@@ -94,7 +94,7 @@ private struct BodyView2: View {
             
             VStack { Spacer() }
         }
-        .standardPaddingRR() // shrink bug, don't known why
+        .paddingAndBackground() // shrink bug, don't known why; so minimalist need use .bbBackground(), only here diff
         .onChange(of: displayedWords.wordCells) { _ in
             if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
                 proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
@@ -117,7 +117,7 @@ private struct CenteredView: View {
             
             Spacer()
         }
-        .standardPaddingRR()
+        .paddingAndBackground()
     }
 }
 

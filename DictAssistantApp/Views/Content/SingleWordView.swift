@@ -43,19 +43,12 @@ struct SingleWordView: View {
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
 }
 
+
 private struct TextBody: View {
     let wordCell: WordCell
     
     var word: String {
         wordCell.word
-    }
-    
-    var isPhrase: Bool {
-        word.isPhrase
-    }
-    
-    var known: Bool {
-        wordCell.isKnown == .known
     }
     
     var unKnown: Bool {
@@ -93,9 +86,10 @@ private struct TextBody: View {
     }
     
     var body: some View {
-        TextWithShadow(wordCell: wordCell)
-            .opacity( (known && isPhrase) ? 0.5 : 1)
-            .minimalistPadding()
+        TheText(wordCell: wordCell)
+            .lineSpacinged()
+            .minimalistPaddinged()
+            .shadowed()
             .contextMenu {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
                     unKnown ? addKnown(word) : removeKnown(word)
@@ -137,6 +131,68 @@ private struct TextBody: View {
     }
 }
 
+private struct MinimalistPaddinged: ViewModifier {
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
+    var isMinimalist: Bool {
+        ContentPaddingStyle(rawValue: contentPaddingStyle) == .minimalist
+    }
+    
+    @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
+    @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
+    
+    func body(content: Content) -> some View {
+        content
+            .padding(.vertical, isMinimalist ? minimalistVPadding : 0)
+            .padding(.horizontal, isMinimalist ? minimalistHPadding : 0)
+    }
+}
+extension View {
+    func minimalistPaddinged() -> some View {
+        modifier(MinimalistPaddinged())
+    }
+}
+
+private struct Shadowed: ViewModifier {
+    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
+    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
+    @AppStorage(ShadowXOffSetKey) var shadowXOffset: Double = 0
+    @AppStorage(ShadowYOffSetKey) var shadowYOffset: Double = 2
+
+    @AppStorage(UseTextShadowKey) var useTextShadow: Bool = false
+
+    func body(content: Content) -> some View {
+        if useTextShadow {
+            content
+                .shadow(
+                    color: Color(dataToColor(shadowColor)!),
+                    radius: CGFloat(shadowRadius), /// shadow radius
+                    x: CGFloat(shadowXOffset), //0, /// x offset
+                    y: CGFloat(shadowYOffset) //2 /// y offset
+                )
+        } else {
+            content
+        }
+    }
+}
+extension View {
+    func shadowed() -> some View {
+        modifier(Shadowed())
+    }
+}
+
+private struct LineSpacinged: ViewModifier {
+    @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
+
+    func body(content: Content) -> some View {
+        content.lineSpacing(CGFloat(lineSpacing))
+    }
+}
+extension View {
+    func lineSpacinged() -> some View {
+        modifier(LineSpacinged())
+    }
+}
+
 private func say(_ word: String) {
     let task = Process()
     task.launchPath = "/usr/bin/say"
@@ -156,54 +212,27 @@ private func openDict(_ word: String) {
     task.launch()
 }
 
-private struct TextWithShadow: View {
-    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) var shadowYOffset: Double = 2
-
-    @AppStorage(UseTextShadowKey) var useTextShadow: Bool = false
-    
-    let wordCell: WordCell
-    
-    var body: some View {
-        if useTextShadow {
-            TextWithLineSpacing(wordCell: wordCell)
-                .shadow(
-                    color: Color(dataToColor(shadowColor)!),
-                    radius: CGFloat(shadowRadius), /// shadow radius
-                    x: CGFloat(shadowXOffset), //0, /// x offset
-                    y: CGFloat(shadowYOffset) //2 /// y offset
-                )
-        } else {
-            TextWithLineSpacing(wordCell: wordCell)
-        }
-    }
-}
-
-private struct TextWithLineSpacing: View {
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
-    let wordCell: WordCell
-    
-    var body: some View {
-        TheText(wordCell: wordCell)
-            .lineSpacing(CGFloat(lineSpacing))
-    }
-}
-
 // refer:
 // title title2 : landscape
 // headline callout : portrait
 private struct TheText: View {
+    let wordCell: WordCell
+
+    var unKnown: Bool {
+        wordCell.isKnown == .unKnown
+    }
+    
+    var word: String {
+        wordCell.word
+    }
+    
     @AppStorage(WordColorKey) var wordColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     var theWordColor: Color {
         Color(dataToColor(wordColor)!)
     }
     
     @AppStorage(IsShowKnownKey) var isShowKnown: Bool = false
     @AppStorage(IsShowKnownButWithOpacity0Key) var isShowKnownButWithOpacity0: Bool = false
-
     var theKnownWordColor: Color {
         if isShowKnown {
             return theWordColor.opacity(0.5)
@@ -216,6 +245,7 @@ private struct TheText: View {
         return theWordColor.opacity(0) // impossible, refer to func convertToWordCellWithId
     }
     
+    @AppStorage(TransColorKey) var transColor: Data = colorToData(NSColor.secondaryLabelColor)!
     @AppStorage(IsConcealTranslationKey) var isConcealTranslation: Bool = false
     var theTransColor: Color {
         Color(dataToColor(transColor)!)
@@ -232,19 +262,9 @@ private struct TheText: View {
     var transFont: Font {
         return Font.custom(fontName, size: CGFloat(fontSize) * CGFloat(fontRatio))
     }
-    
-    let wordCell: WordCell
 
-    var unKnown: Bool {
-        wordCell.isKnown == .unKnown
-    }
-    
-    var word: String {
-        wordCell.word
-    }
-    
     @AppStorage(ChineseCharacterConvertModeKey) var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
-    var trans: String {
+    var ccTrans: String {
         switch ChineseCharacterConvertMode(rawValue: chineseCharacterConvertMode)! {
         case .notConvert:
             return wordCell.trans
@@ -260,7 +280,7 @@ private struct TheText: View {
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
     var translation: String {
-        let step1 = !isJoinTranslationLines ? trans : trans.replacingOccurrences(of: "\n", with: " ")
+        let step1 = !isJoinTranslationLines ? ccTrans : ccTrans.replacingOccurrences(of: "\n", with: " ")
         let step2 = isDropFirstTitleWordInTranslation ?
             String(step1.dropFirst(word.count).drop { c in c.isWhitespace }) : // drop title word count character (commonly is the title word itself), and also drop whitespace after it.
             step1
@@ -269,16 +289,17 @@ private struct TheText: View {
         return step4
     }
     
-    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
-    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     var indexFont: Font {
         Font.custom(fontName, size: CGFloat(fontSize) * 0.6)
     }
+    
     @AppStorage(ContentIndexColorKey) var contentIndexColor: Data = colorToData(NSColor.systemOrange)!
     var iColor: Color {
         Color(dataToColor(contentIndexColor)!)
     }
     
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
+    @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     var indexText: Text {
         switch HighlightMode(rawValue: highlightMode)! {
         case .dotted:

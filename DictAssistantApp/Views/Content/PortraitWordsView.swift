@@ -21,7 +21,7 @@ struct PortraitWordsView: View {
                         WordsView()
                             .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
-                    .standardPaddingRR()
+                    .paddingAndBackground()
                 }
             }
         case .topLeading:
@@ -31,7 +31,7 @@ struct PortraitWordsView: View {
                         WordsView()
                             .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     }
-                    .standardPaddingRR()
+                    .paddingAndBackground()
                 }
                 Spacer()
             }
@@ -48,7 +48,7 @@ struct PortraitWordsView: View {
                     
                     HStack { Spacer() }
                 }
-                .standardPaddingRR()
+                .paddingAndBackground()
                 .rotationEffect(Angle(degrees: 180))
             }
             .rotationEffect(Angle(degrees: 180))
@@ -60,7 +60,7 @@ struct PortraitWordsView: View {
                     
                     HStack { Spacer() } // only this works
                 }
-                .standardPaddingRR()
+                .paddingAndBackground()
             }
         }
     }
