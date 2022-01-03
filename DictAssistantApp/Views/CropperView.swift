@@ -259,7 +259,7 @@ struct CropperViewWithHighlight: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
+            Group {
                 CropperView()
                 
                 switch HighlightMode(rawValue: highlightMode)! {
@@ -290,26 +290,32 @@ struct CropperView_Previews: PreviewProvider {
                     IndexedBox(
                         box: (
                             CGPoint(x: 0.026194852941176485, y: 0.9134275618374559),
-                             CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)
-                            ),
+                            CGPoint(x: 0.15073529411764705, y: 0.7773851590106007)
+                        ),
                         index: 1),
                     IndexedBox(
                         box: (
-                            CGPoint(x: 0.024356617647058848, y: 0.646643109540636),
-                             CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)
-                            ),
+                            CGPoint(x: 0.024356617647058848, y: 0.686643109540636),
+                            CGPoint(x: 0.3795955882352941, y: 0.5512367491166077)
+                        ),
                         index: 2),
                     IndexedBox(
                         box: (
+                            CGPoint(x: 0.124356617647058848, y: 0.646643109540636),
+                            CGPoint(x: 0.4795955882352941, y: 0.5212367491166077)
+                        ),
+                        index: 4),
+                    IndexedBox(
+                        box: (
                             CGPoint(x: 0.02435661764705881, y: 0.12367491166077738),
-                             CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)
-                            ),
+                            CGPoint(x: 0.17325367647058823, y: 0.04770318021201414)
+                        ),
                         index: 15),
                     IndexedBox(
                         box: (
                             CGPoint(x: 0.7527573529411765, y: 0.12367491166077738),
-                             CGPoint(x: 0.7936580882352942, y: 0.04770318021201414)
-                            ),
+                            CGPoint(x: 0.7936580882352942, y: 0.04770318021201414)
+                        ),
                         index: 3)
                 ])
             )

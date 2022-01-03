@@ -80,22 +80,50 @@ func trCallBackWithCache() {
                     do {
                         let boundingBox = try candidate.boundingBox(for: range)
                         if let boundingBox = boundingBox {
-                            if let index = lemmaIndexDict[lemma] {
-                                let box = (boundingBox.topLeft, boundingBox.bottomRight)
-                                iboxes.append(IndexedBox(
-                                    box: box,
-                                    index: index
-                                ))
+                            let box = (boundingBox.topLeft, boundingBox.bottomRight)
+                            
+                            func collect() {
+                                if let index = lemmaIndexDict[lemma] {
+                                    iboxes.append(IndexedBox(
+                                        box: box,
+                                        index: index
+                                    ))
+                                } else {
+                                    sentryIndex += 1
+                                    lemmaIndexDict[lemma] = sentryIndex
+                                    
+                                    let index = lemmaIndexDict[lemma]!
+                                    iboxes.append(IndexedBox(
+                                        box: box,
+                                        index: index
+                                    ))
+                                }
+                            }
+                            
+                            if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: HighlightModeKey))! == .dotted {
+                                collect()
                             } else {
-                                sentryIndex += 1
-                                lemmaIndexDict[lemma] = sentryIndex
-                                
-                                let index = lemmaIndexDict[lemma]!
-                                let box = (boundingBox.topLeft, boundingBox.bottomRight)
-                                iboxes.append(IndexedBox(
-                                    box: box,
-                                    index: index
-                                ))
+                                // when rectangle highlight: overlap cause color overlap, which will cause blink
+                                let overlappedWithCurrents = iboxes.map{ $0.box }.contains{ currentBox in
+                                    let rect = CGRect(
+                                        x: box.0.x,
+                                        y: 1 - box.0.y,
+                                        width: abs(box.1.x - box.0.x),
+                                        height: abs(box.1.y - box.0.y)
+                                    )
+                                    
+                                    let currentRect = CGRect(
+                                        x: currentBox.0.x,
+                                        y: 1 - currentBox.0.y,
+                                        width: abs(currentBox.1.x - currentBox.0.x),
+                                        height: abs(currentBox.1.y - currentBox.0.y)
+                                    )
+                                    
+                                    return rect.intersects(currentRect)
+                                }
+                                if !overlappedWithCurrents {
+                                    collect()
+                                }
                             }
                         } else {
                             logger.info("candidate.boundingBox is nil")
