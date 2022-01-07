@@ -83,7 +83,7 @@
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
-		44FEB71F270ACC5600701E5D /* ContentLayoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentLayoutSettingsView.swift */; };
+		44FEB71F270ACC5600701E5D /* ContentMaxSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB71E270ACC5600701E5D /* ContentMaxSettingsView.swift */; };
 		44FEB721270ACF5500701E5D /* VisionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB720270ACF5500701E5D /* VisionSettingsView.swift */; };
 		44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB722270AD70500701E5D /* RecordingSettingsView.swift */; };
 		44FEB725270AE3C100701E5D /* DictionarySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */; };
@@ -167,7 +167,7 @@
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		44FEB71E270ACC5600701E5D /* ContentLayoutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentLayoutSettingsView.swift; sourceTree = "<group>"; };
+		44FEB71E270ACC5600701E5D /* ContentMaxSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMaxSettingsView.swift; sourceTree = "<group>"; };
 		44FEB720270ACF5500701E5D /* VisionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionSettingsView.swift; sourceTree = "<group>"; };
 		44FEB722270AD70500701E5D /* RecordingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingSettingsView.swift; sourceTree = "<group>"; };
 		44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionarySettingsView.swift; sourceTree = "<group>"; };
@@ -314,7 +314,7 @@
 		446027F9276F012200B901D4 /* ScenarioSettingsItemViews */ = {
 			isa = PBXGroup;
 			children = (
-				44FEB71E270ACC5600701E5D /* ContentLayoutSettingsView.swift */,
+				44FEB71E270ACC5600701E5D /* ContentMaxSettingsView.swift */,
 				449876B42772F74000FFDED4 /* ContentPaddingStyleSettingsView.swift */,
 				44039244276C96B600DD39F6 /* CropperSettingsView.swift */,
 				44FEB720270ACF5500701E5D /* VisionSettingsView.swift */,
@@ -531,7 +531,7 @@
 				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
 				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
-				44FEB71F270ACC5600701E5D /* ContentLayoutSettingsView.swift in Sources */,
+				44FEB71F270ACC5600701E5D /* ContentMaxSettingsView.swift in Sources */,
 				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
 				442126C2271996B500CEF786 /* EditingPanel.swift in Sources */,

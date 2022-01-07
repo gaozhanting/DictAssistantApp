@@ -193,11 +193,6 @@ func trCallBackWithCache() {
 }
 
 private func isWithAnimation() -> Bool {
-    // because landscape autoScrolling animation is ugly
-    if ContentLayout(rawValue: UserDefaults.standard.integer(forKey: ContentLayoutKey))! == .landscape &&
-        LandscapeStyle(rawValue: UserDefaults.standard.integer(forKey: LandscapeStyleKey))! == .autoScrolling {
-            return false
-        }
     return UserDefaults.standard.bool(forKey: IsWithAnimationKey)
 }
 

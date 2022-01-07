@@ -21,7 +21,6 @@ struct SlotsSettingsView: View {
 }
 
 struct Settings: Codable {
-    var contentLayout: Int
     var portraitCorner: Int
     var portraitMaxHeight: Double
     var landscapeStyle: Int
@@ -62,7 +61,6 @@ struct Settings: Codable {
     var contentFrame: NSRect
     
     init(
-        contentLayout: Int,
         portraitCorner: Int,
         portraitMaxHeight: Double,
         landscapeStyle: Int,
@@ -101,7 +99,6 @@ struct Settings: Codable {
         cropperFrame: NSRect,
         contentFrame: NSRect
     ) {
-        self.contentLayout = contentLayout
         self.portraitCorner = portraitCorner
         self.portraitMaxHeight = portraitMaxHeight
         self.landscapeStyle = landscapeStyle
@@ -153,7 +150,6 @@ func dataToSettings(_ data: Data) -> Settings? {
 }
 
 private let defaultSettings = Settings(
-    contentLayout: ContentLayout.portrait.rawValue,
     portraitCorner: PortraitCorner.top.rawValue,
     portraitMaxHeight: 100.0,
     landscapeStyle: LandscapeStyle.normal.rawValue,
@@ -244,7 +240,6 @@ private struct SlotsView: View {
     }
     
     private func dumpSettings(from s: Settings) {
-        contentLayout = s.contentLayout
         portraitCorner = s.portraitCorner
         portraitMaxHeight = s.portraitMaxHeight
         landscapeStyle = s.landscapeStyle
@@ -284,7 +279,6 @@ private struct SlotsView: View {
         contentWindow.setFrame(s.contentFrame, display: true)
     }
     
-    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
     @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.top.rawValue
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue

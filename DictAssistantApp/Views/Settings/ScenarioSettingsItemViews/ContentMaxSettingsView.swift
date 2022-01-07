@@ -1,5 +1,5 @@
 //
-//  ContentLayoutSettingsView.swift
+//  ContentMaxSettingsView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/10/4.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentLayoutStyleSettingsView: View {
+struct ContentMaxSettingsView: View {
     
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0

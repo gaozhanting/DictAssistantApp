@@ -11,7 +11,7 @@ struct ScenarioSettingsView: View {
     
     var g1: some View {
         Group {
-            ContentLayoutStyleSettingsView()
+            ContentMaxSettingsView()
             ContentPaddingStyleSettingsView()
             FontSizeSettingView()
             FontLineSpacingSettingView()

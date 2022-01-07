@@ -78,7 +78,6 @@ let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
 let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
 // Appearance
-let ContentLayoutKey = "ContentLayoutKey"
 let PortraitCornerKey = "PortraitCornerKey"
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let LandscapeStyleKey = "LandscapeStyleKey"
@@ -201,7 +200,6 @@ enum TheColorScheme: Int, Codable {
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
-    ContentLayoutKey: ContentLayout.portrait.rawValue,
     PortraitCornerKey: PortraitCorner.top.rawValue,
     PortraitMaxHeightKey: 100.0,
     LandscapeStyleKey: LandscapeStyle.normal.rawValue,
@@ -360,10 +358,6 @@ extension UserDefaults {
     }
     
     //// Slot
-    @objc var ContentLayoutKey: Int {
-        get { return integer(forKey: "ContentLayoutKey") }
-        set { set(newValue, forKey: "ContentLayoutKey") }
-    }
     @objc var PortraitCornerKey: Int {
         get { return integer(forKey: "PortraitCornerKey") }
         set { set(newValue, forKey: "PortraitCornerKey") }
@@ -574,7 +568,6 @@ func combineHighlight() {
 }
 
 func autoSaveSlotSettings() {
-    combineSlot(\.ContentLayoutKey, \.contentLayout, ContentLayoutKey)
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
     combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
