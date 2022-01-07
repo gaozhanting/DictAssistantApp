@@ -21,7 +21,7 @@ struct DropTitleWordToggle: View {
 }
 
 struct AddLineBreakBeforeTranslationToggle: View {
-    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
     
     var body: some View {
         Toggle(isOn: $isAddLineBreak, label: {
@@ -32,7 +32,7 @@ struct AddLineBreakBeforeTranslationToggle: View {
 }
 
 struct AddSpaceBeforeTranslationToggle: View {
-    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
+    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = true
     
     var body: some View {
         Toggle(isOn: $isAddSpace, label: {

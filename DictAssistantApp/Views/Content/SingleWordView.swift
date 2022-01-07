@@ -275,8 +275,8 @@ private struct TheText: View {
     
     @AppStorage(IsJoinTranslationLinesKey) var isJoinTranslationLines: Bool = true
     @AppStorage(IsDropFirstTitleWordInTranslationKey) var isDropFirstTitleWordInTranslation: Bool = true
-    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
-    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
+    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = true
     var translation: String {
         let step1 = !isJoinTranslationLines ? ccTrans : ccTrans.replacingOccurrences(of: "\n", with: " ")
         let step2 = isDropFirstTitleWordInTranslation ?

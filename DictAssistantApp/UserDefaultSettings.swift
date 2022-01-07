@@ -215,8 +215,8 @@ private let scenarioKV: [String: Any] = [
     
     IsOpenLemmaKey: false,
     
-    IsAddLineBreakKey: true,
-    IsAddSpaceKey: false,
+    IsAddLineBreakKey: false,
+    IsAddSpaceKey: true,
     
     HighlightModeKey: HighlightModeDefault,
     
