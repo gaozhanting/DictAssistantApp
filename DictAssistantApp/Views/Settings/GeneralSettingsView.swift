@@ -113,6 +113,15 @@ private struct KeyRecordingView: View {
                 }
             }
             
+            HStack {
+                Text("Switch Anchor")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .switchAnchor)
+                MiniInfoView {
+                    Text("recommend: Option-w").font(.subheadline).padding()
+                }
+            }
+            
             MultiToggles()
             
             Divider()

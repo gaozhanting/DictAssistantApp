@@ -11,6 +11,8 @@ import SwiftUI
 extension KeyboardShortcuts.Name {
     static let runStepPlay = Self("runStepPlay")
     
+    static let switchAnchor = Self("switchAnchor")
+    
     static let toggleShowKnown = Self("toggleShowKnown")
     
     static let toggleShowNotFound = Self("toggleShowNotFound")
@@ -67,6 +69,25 @@ func registerGlobalKey() {
         }
         else {
             stopPlaying()
+        }
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .switchAnchor) {
+        switch calculateLayout(from: contentWindow.frame) {
+        case .portrait:
+            switch PortraitCorner(rawValue: UserDefaults.standard.PortraitCornerKey)! {
+            case .bottom:
+                UserDefaults.standard.PortraitCornerKey = PortraitCorner.top.rawValue
+            default:
+                UserDefaults.standard.PortraitCornerKey = PortraitCorner.bottom.rawValue
+            }
+        case .landscape:
+            switch LandscapeStyle(rawValue: UserDefaults.standard.LandscapeStyleKey)! {
+            case .centered:
+                UserDefaults.standard.LandscapeStyleKey = LandscapeStyle.normal.rawValue
+            default:
+                UserDefaults.standard.LandscapeStyleKey = LandscapeStyle.centered.rawValue
+            }
         }
     }
     

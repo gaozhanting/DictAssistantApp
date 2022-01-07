@@ -181,14 +181,14 @@ enum ContentLayout: Int, Codable {
 enum PortraitCorner: Int, Codable {
     case topTrailing = 0
     case topLeading = 1
-    case bottom = 2
-    case top = 3
+    case bottom = 2 // bottom
+    case top = 3 // top
 }
 
 enum LandscapeStyle: Int, Codable {
-    case normal = 0
-    case autoScrolling = 1
-    case centered = 2
+    case normal = 0 // lead
+    case autoScrolling = 1 // trailing
+    case centered = 2 // center
 }
 
 enum TheColorScheme: Int, Codable {

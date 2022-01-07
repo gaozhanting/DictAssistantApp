@@ -43,7 +43,6 @@ struct PortraitWordsView: View {
                             insertion: .move(edge: .bottom),
                             removal: .identity
                         ))
-                        .padding()
                         .frame(maxHeight: CGFloat(portraitMaxHeight), alignment: .leading)
                     
                     HStack { Spacer() }
