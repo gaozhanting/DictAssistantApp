@@ -244,18 +244,12 @@ private struct TheText: View {
         }
     }
     
-    @AppStorage(IsJoinTranslationLinesKey) var isJoinTranslationLines: Bool = true
-    @AppStorage(IsDropFirstTitleWordInTranslationKey) var isDropFirstTitleWordInTranslation: Bool = true
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
-    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = true
     var translation: String {
-        let step1 = !isJoinTranslationLines ? ccTrans : ccTrans.replacingOccurrences(of: "\n", with: " ")
-        let step2 = isDropFirstTitleWordInTranslation ?
-            String(step1.dropFirst(word.count).drop { c in c.isWhitespace }) : // drop title word count character (commonly is the title word itself), and also drop whitespace after it.
-            step1
-        let step3 = isAddLineBreak ? "\n" + step2 : step2
-        let step4 = isAddSpace ? " " + step3 : step3
-        return step4
+        let step1 = ccTrans.replacingOccurrences(of: "\n", with: " ")
+        let step2 = String(step1.dropFirst(word.count).drop { c in c.isWhitespace }) // drop title word count character (commonly is the title word itself), and also drop whitespace after it.
+        let step3 = isAddLineBreak ? "\n" + step2 : " " + step2
+        return step3
     }
     
     var indexFont: Font {
@@ -287,11 +281,8 @@ private struct TheText: View {
         }
     }
     
-    @AppStorage(IsDropTitleWordKey) var isDropTitleWord: Bool = false
     var unKnownText0: Text {
-        !isDropTitleWord ?
-        Text(word).foregroundColor(theWordColor).font(font) + Text(translation).foregroundColor(theTransColor).font(transFont) :
-        Text(translation).foregroundColor(theTransColor).font(transFont)
+        Text(word).foregroundColor(theWordColor).font(font) + Text(translation).foregroundColor(theTransColor).font(transFont)
     }
     var unKnownText: Text {
         indexText + unKnownText0

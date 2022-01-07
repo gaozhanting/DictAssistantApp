@@ -11,7 +11,6 @@ struct ScenarioSettingsView: View {
     var g1: some View {
         Group {
             AddLineBreakBeforeTranslationToggle()
-            AddSpaceBeforeTranslationToggle()
             Divider()
         }
     }

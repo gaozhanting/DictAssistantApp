@@ -42,7 +42,6 @@ struct Settings: Codable {
     var isOpenLemma: Bool
     
     var isAddLineBreak: Bool
-    var isAddSpace: Bool
     
     var highlightMode: Int
     var hLRectangleColor: Data
@@ -81,7 +80,6 @@ struct Settings: Codable {
         isOpenLemma: Bool,
         
         isAddLineBreak: Bool,
-        isAddSpace: Bool,
         
         highlightMode: Int,
         hLRectangleColor: Data,
@@ -118,7 +116,6 @@ struct Settings: Codable {
         self.isOpenLemma = isOpenLemma
         
         self.isAddLineBreak = isAddLineBreak
-        self.isAddSpace = isAddSpace
         
         self.highlightMode = highlightMode
         self.hLRectangleColor = hLRectangleColor
@@ -168,7 +165,6 @@ private let defaultSettings = Settings(
     isOpenLemma: false,
     
     isAddLineBreak: false,
-    isAddSpace: true,
     
     highlightMode: HighlightModeDefault,
     hLRectangleColor: HLRectangleColorDefault,
@@ -257,7 +253,6 @@ private struct SlotsView: View {
         isOpenLemma = s.isOpenLemma
         
         isAddLineBreak = s.isAddLineBreak
-        isAddSpace = s.isAddSpace
         
         highlightMode = s.highlightMode
         hLRectangleColor = s.hLRectangleColor
@@ -295,7 +290,6 @@ private struct SlotsView: View {
     @AppStorage(IsOpenLemmaKey) var isOpenLemma: Bool = false
 
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
-    @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault

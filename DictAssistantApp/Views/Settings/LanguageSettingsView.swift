@@ -16,12 +16,6 @@ struct LanguageSettingsView: View {
             
             UseAppleDictModePicker()
             UseEntryModePicker()
-            Divider()
-            
-            DropTitleWordToggle()
-            DropFirstTitleWordInTranslationToggle()
-            JoinTranslationLinesToggle()
-            ChineseCharacterConvertingPicker()
         }
         .padding()
         .frame(width: panelWidth)

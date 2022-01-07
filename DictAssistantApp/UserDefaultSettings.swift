@@ -70,11 +70,7 @@ let UseAppleDictModeKey = "UseAppleDictModeKey"
 let UseEntryModeKey = "UseEntryModeKey"
 
 // Content
-let IsDropTitleWordKey = "IsDropTitleWordKey"
 let IsAddLineBreakKey = "IsAddLineBreakKey"
-let IsAddSpaceKey = "IsAddSpaceKey"
-let IsDropFirstTitleWordInTranslationKey = "IsDropFirstTitleWordInTranslationKey"
-let IsJoinTranslationLinesKey = "IsJoinTranslationLinesKey"
 let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
 // Appearance
@@ -210,7 +206,6 @@ private let scenarioKV: [String: Any] = [
     IsOpenLemmaKey: false,
     
     IsAddLineBreakKey: false,
-    IsAddSpaceKey: true,
     
     HighlightModeKey: HighlightModeDefault,
     
@@ -243,9 +238,6 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
     
-    IsDropTitleWordKey: false,
-    IsDropFirstTitleWordInTranslationKey: true,
-    IsJoinTranslationLinesKey: true,
     ChineseCharacterConvertModeKey: ChineseCharacterConvertMode.notConvert.rawValue,
 
     // Appearance
@@ -381,10 +373,6 @@ extension UserDefaults {
     @objc var IsAddLineBreakKey: Bool {
         get { return bool(forKey: "IsAddLineBreakKey") }
         set { set(newValue, forKey: "IsAddLineBreakKey") }
-    }
-    @objc var IsAddSpaceKey: Bool {
-        get { return bool(forKey: "IsAddSpaceKey") }
-        set { set(newValue, forKey: "IsAddSpaceKey") }
     }
     
     @objc var HighlightModeKey: Int {
@@ -566,7 +554,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsOpenLemmaKey, \.isOpenLemma, IsOpenLemmaKey)
     
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
-    combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)
     
     combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
     combineSlot(\.HLRectangleColorKey, \.hLRectangleColor, HLRectangleColorKey)

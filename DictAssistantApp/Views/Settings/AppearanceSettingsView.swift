@@ -35,6 +35,7 @@ struct AppearanceSettingsView: View {
         Group {
             WithAnimationToggle()
             IsShowToastView()
+            ChineseCharacterConvertingPicker()
             
             Spacer().frame(height: 20)
             Divider()
