@@ -29,6 +29,7 @@ struct ContentPaddingStyleSettingsView: View {
                 Group {
                     Text("Radius:")
                     TextField("", value: $standardCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
+                    
                     Button(action: {
                         standardCornerRadius = 6.0
                     }) {
