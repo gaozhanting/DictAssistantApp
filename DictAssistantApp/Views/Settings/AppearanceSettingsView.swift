@@ -22,7 +22,6 @@ struct AppearanceSettingsView: View {
     var g2: some View {
         Group {
             ColorPickers()
-            ShadowGroupSettings()
             
             ContentBackgroundVisualEffect()
             ColorSchemeSetting()
@@ -241,61 +240,6 @@ private struct ColorPickers: View {
                 Image(systemName: "arrow.triangle.2.circlepath")
             }
         }
-    }
-}
-
-private struct ShadowGroupSettings: View {
-    @AppStorage(UseTextShadowKey) var useTextShadow: Bool = false
-    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) var shadowYOffset: Double = 2
-    
-    func useDefault() {
-        useTextShadow = false
-        shadowRadius = 3
-        shadowXOffset = 0
-        shadowYOffset = 2
-    }
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $useTextShadow, label: {
-                Text("Use Text Shadow")
-            })
-            
-            Group {
-                Spacer()
-                ShadowColorPicker()
-                Text("R:")
-                TextField("", value: $shadowRadius, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
-                Text("X:")
-                TextField("", value: $shadowXOffset, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
-                Text("Y:")
-                TextField("", value: $shadowYOffset, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
-            }
-            .disabled(!useTextShadow)
-            
-            Button(action: useDefault) {
-                Image(systemName: "arrow.triangle.2.circlepath")
-            }
-        }
-    }
-}
-
-private struct ShadowColorPicker: View {
-    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
-    
-    var binding: Binding<Color> {
-        Binding(
-            get: { Color(dataToColor(shadowColor)!) },
-            set: { newValue in
-                shadowColor = colorToData(NSColor(newValue))!
-            }
-        )
-    }
-    
-    var body: some View {
-        ColorPicker("Color:", selection: binding)
     }
 }
 

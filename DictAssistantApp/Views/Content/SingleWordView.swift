@@ -87,7 +87,6 @@ private struct TextBody: View {
         TheText(wordCell: wordCell)
             .lineSpacinged()
             .minimalistPaddinged()
-            .shadowed()
             .contextMenu {
                 Button(unKnown ? "Add to Known" : "Remove from Known", action: {
                     unKnown ? addKnown(word) : removeKnown(word)
@@ -147,34 +146,6 @@ private struct MinimalistPaddinged: ViewModifier {
 extension View {
     func minimalistPaddinged() -> some View {
         modifier(MinimalistPaddinged())
-    }
-}
-
-private struct Shadowed: ViewModifier {
-    @AppStorage(ShadowColorKey) var shadowColor: Data = colorToData(NSColor.labelColor)!
-    @AppStorage(ShadowRadiusKey) var shadowRadius: Double = 3
-    @AppStorage(ShadowXOffSetKey) var shadowXOffset: Double = 0
-    @AppStorage(ShadowYOffSetKey) var shadowYOffset: Double = 2
-
-    @AppStorage(UseTextShadowKey) var useTextShadow: Bool = false
-
-    func body(content: Content) -> some View {
-        if useTextShadow {
-            content
-                .shadow(
-                    color: Color(dataToColor(shadowColor)!),
-                    radius: CGFloat(shadowRadius), /// shadow radius
-                    x: CGFloat(shadowXOffset), //0, /// x offset
-                    y: CGFloat(shadowYOffset) //2 /// y offset
-                )
-        } else {
-            content
-        }
-    }
-}
-extension View {
-    func shadowed() -> some View {
-        modifier(Shadowed())
     }
 }
 
