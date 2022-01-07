@@ -38,4 +38,4 @@ func timeElapsed(info: String, _ closure: () -> Void) {
     logger.info("time elapsed of \(info, privacy: .public): \(-startingPoint.timeIntervalSinceNow, privacy: .public) seconds")
 }
 
-let systemDefaultMinimumTextHeight: Double = 0.03125
+let systemDefaultMinimumTextHeight: Double = 0

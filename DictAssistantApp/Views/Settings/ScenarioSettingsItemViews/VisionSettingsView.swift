@@ -9,7 +9,7 @@ import SwiftUI
 import Vision
 
 struct MinimumTextHeightSetting: View {
-    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight
     
     func resetToDefault() {
         minimumTextHeight = systemDefaultMinimumTextHeight
