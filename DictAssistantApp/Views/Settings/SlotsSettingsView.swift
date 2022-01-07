@@ -160,7 +160,7 @@ private let defaultSettings = Settings(
     fontSize: 14,
     lineSpacing: 2.0,
     
-    cropperStyle: CropperStyle.empty.rawValue,
+    cropperStyle: CropperStyleDefault,
     
     maximumFrameRate: 4.0,
     recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
@@ -287,7 +287,7 @@ private struct SlotsView: View {
     @AppStorage(FontSizeKey) var fontSize: Int = 14
     @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
 
-    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
 
     @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
     @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0

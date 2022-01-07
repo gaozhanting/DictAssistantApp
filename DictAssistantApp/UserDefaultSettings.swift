@@ -30,6 +30,7 @@ let IsShowToastKey = "IsShowToastKey" // not in slot for basic consistence of an
 
 // Recording
 let CropperStyleKey = "CropperStyleKey"
+let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 
 let HighlightModeKey = "HighlightModeKey"
 let HighlightModeDefault = HighlightMode.rectangle.rawValue
@@ -212,7 +213,7 @@ private let scenarioKV: [String: Any] = [
     FontSizeKey: 14,
     LineSpacingKey: 2.0,
     
-    CropperStyleKey: CropperStyle.empty.rawValue,
+    CropperStyleKey: CropperStyleDefault,
     
     MaximumFrameRateKey: 4.0,
     RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,

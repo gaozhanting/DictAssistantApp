@@ -25,7 +25,7 @@ struct StrokeBorderCropperAnimationView: View {
 }
 
 private struct CropperView: View {
-    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyle.empty.rawValue
+    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
 
     var body: some View {
         switch CropperStyle(rawValue: cropperStyle)! {
