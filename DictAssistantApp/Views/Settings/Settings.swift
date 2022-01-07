@@ -16,6 +16,18 @@ extension Preferences.PaneIdentifier {
     static let slots = Self("slots")
 }
 
+func ScenarioPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .scenario,
+        title: NSLocalizedString("Scenario", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "Scenario preferences")!
+    ) {
+        ScenarioSettingsView()
+    }
+    
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
 func LanguagePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .language,
@@ -40,20 +52,6 @@ func AppearancePreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext) -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .slots,
-        title: NSLocalizedString("Slots", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "cube", accessibilityDescription: "Slots preferences")!
-    ) {
-        SlotsSettingsView()
-            .environmentObject(statusData)
-            .environment(\.managedObjectContext, managedObjectContext)
-    }
-    
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
 func ShortcutsPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .shortcuts,
@@ -66,13 +64,15 @@ func ShortcutsPreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func ScenarioPreferenceViewController() -> PreferencePane {
+func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext) -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .scenario,
-        title: NSLocalizedString("Scenario", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "Scenario preferences")!
+        identifier: .slots,
+        title: NSLocalizedString("Slots", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "cube", accessibilityDescription: "Slots preferences")!
     ) {
-        ScenarioSettingsView()
+        SlotsSettingsView()
+            .environmentObject(statusData)
+            .environment(\.managedObjectContext, managedObjectContext)
     }
     
     return Preferences.PaneHostingController(pane: paneView)

@@ -10,10 +10,10 @@ import Preferences
 
 var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
+        ScenarioPreferenceViewController(),
         LanguagePreferenceViewController(),
         AppearancePreferenceViewController(),
         ShortcutsPreferenceViewController(),
-        ScenarioPreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext)
     ],
     style: .toolbarItems,
