@@ -20,7 +20,7 @@
 		442126CF2719B26600CEF786 /* DictBuildPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126CE2719B26600CEF786 /* DictBuildPanel.swift */; };
 		442126D12719B4C700CEF786 /* DictBuildWithInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126D02719B4C700CEF786 /* DictBuildWithInfoView.swift */; };
 		442134CE26A6C64200963441 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134CD26A6C64200963441 /* Settings.swift */; };
-		442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* GeneralSettingsView.swift */; };
+		442134D526A9A36A00963441 /* ShortcutsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* ShortcutsSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
 		442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
 		442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
@@ -103,7 +103,7 @@
 		442126CE2719B26600CEF786 /* DictBuildPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictBuildPanel.swift; sourceTree = "<group>"; };
 		442126D02719B4C700CEF786 /* DictBuildWithInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictBuildWithInfoView.swift; sourceTree = "<group>"; };
 		442134CD26A6C64200963441 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		442134D426A9A36A00963441 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		442134D426A9A36A00963441 /* ShortcutsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsSettingsView.swift; sourceTree = "<group>"; };
 		442134D926AADC3100963441 /* GlobalShortCutKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutKey.swift; sourceTree = "<group>"; };
 		442134DD26AAF68200963441 /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		442134DF26AB00B500963441 /* UserDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSettings.swift; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 			children = (
 				442134CD26A6C64200963441 /* Settings.swift */,
 				44332450277572A7007FFF44 /* SettingsCommon.swift */,
-				442134D426A9A36A00963441 /* GeneralSettingsView.swift */,
+				442134D426A9A36A00963441 /* ShortcutsSettingsView.swift */,
 				443324522775BA2E007FFF44 /* LanguageSettingsView.swift */,
 				443324542775BA36007FFF44 /* LanguageSettingsItemViews */,
 				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
@@ -528,7 +528,7 @@
 				44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,
-				442134D526A9A36A00963441 /* GeneralSettingsView.swift in Sources */,
+				442134D526A9A36A00963441 /* ShortcutsSettingsView.swift in Sources */,
 				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
 				44FEB71F270ACC5600701E5D /* ContentMaxSettingsView.swift in Sources */,

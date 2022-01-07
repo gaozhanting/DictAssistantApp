@@ -9,23 +9,11 @@ import SwiftUI
 import Preferences
 
 extension Preferences.PaneIdentifier {
-    static let general = Self("general")
+    static let scenario = Self("scenario")
     static let language = Self("language")
     static let appearance = Self("appearance")
+    static let shortcuts = Self("shortcuts")
     static let slots = Self("slots")
-    static let scenario = Self("scenario")
-}
-
-func GeneralPreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .general,
-        title: NSLocalizedString("General", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "gearshape", accessibilityDescription: "General preferences")!
-    ) {
-        GeneralSettingsView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
 }
 
 func LanguagePreferenceViewController() -> PreferencePane {
@@ -66,11 +54,23 @@ func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext)
     return Preferences.PaneHostingController(pane: paneView)
 }
 
+func ShortcutsPreferenceViewController() -> PreferencePane {
+    let paneView = Preferences.Pane(
+        identifier: .shortcuts,
+        title: NSLocalizedString("Shortcuts", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "keyboard", accessibilityDescription: "Shortcuts preferences")!
+    ) {
+        ShortcutsSettingsView()
+    }
+
+    return Preferences.PaneHostingController(pane: paneView)
+}
+
 func ScenarioPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
         identifier: .scenario,
         title: NSLocalizedString("Scenario", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "cube.transparent", accessibilityDescription: "Scenario preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "Scenario preferences")!
     ) {
         ScenarioSettingsView()
     }

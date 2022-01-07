@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct ScenarioSettingsView: View {
-    
     var g1: some View {
+        Group {
+            AddLineBreakBeforeTranslationToggle()
+            AddSpaceBeforeTranslationToggle()
+            Divider()
+        }
+    }
+    
+    var g2: some View {
         Group {
             ContentMaxSettingsView()
             ContentPaddingStyleSettingsView()
@@ -23,7 +30,7 @@ struct ScenarioSettingsView: View {
         }
     }
     
-    var g2: some View {
+    var g3: some View {
         Group {
             GroupBox {
                 VStack(alignment: .leading) {
@@ -40,16 +47,7 @@ struct ScenarioSettingsView: View {
             Divider()
         }
     }
-    
-    var g3: some View {
-        Group {
-            AddLineBreakBeforeTranslationToggle()
-            AddSpaceBeforeTranslationToggle()
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             g1

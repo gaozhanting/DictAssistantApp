@@ -1,5 +1,5 @@
 //
-//  GeneralSettingsView.swift
+//  ShortcutsSettingsView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/7/22.
@@ -12,14 +12,11 @@ import KeyboardShortcuts
 //let settingPanelWidth: Double = 650.0
 let panelWidth: Double = 500
 
-struct GeneralSettingsView: View {
+struct ShortcutsSettingsView: View {
     var body: some View {
-        VStack {
-            KeyRecordingView()
-            IsShowToastView()
-        }
-        .padding()
-        .frame(width: panelWidth)
+        KeyRecordingView()
+            .padding()
+            .frame(width: panelWidth)
     }
 }
 
@@ -168,19 +165,8 @@ private struct KeyRecordingView: View {
     }
 }
 
-private struct IsShowToastView: View {
-    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isShowToast, label: {
-            Text("Show Toast")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-    }
-}
-
-struct GeneralSettingView_Previews: PreviewProvider {
+struct ShortcutsSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingsView()
+        ShortcutsSettingsView()
     }
 }

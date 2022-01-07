@@ -35,6 +35,7 @@ struct AppearanceSettingsView: View {
     var g3: some View {
         Group {
             WithAnimationToggle()
+            IsShowToastView()
             
             Spacer().frame(height: 20)
             Divider()
@@ -389,6 +390,17 @@ private struct WithAnimationToggle: View {
             .toggleStyle(CheckboxToggleStyle())
             .help("Notice animation will increase CPU usage. And animation is disabled when using landscape with autoScrolling because it is ugly there.")
         }
+    }
+}
+
+private struct IsShowToastView: View {
+    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isShowToast, label: {
+            Text("Show Toast")
+        })
+        .toggleStyle(CheckboxToggleStyle())
     }
 }
 

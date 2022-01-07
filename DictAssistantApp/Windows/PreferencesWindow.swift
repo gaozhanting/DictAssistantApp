@@ -10,11 +10,11 @@ import Preferences
 
 var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
-        GeneralPreferenceViewController(),
         LanguagePreferenceViewController(),
         AppearancePreferenceViewController(),
-        SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext),
-        ScenarioPreferenceViewController()
+        ShortcutsPreferenceViewController(),
+        ScenarioPreferenceViewController(),
+        SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext)
     ],
     style: .toolbarItems,
     animated: false,
@@ -30,12 +30,3 @@ extension AppDelegate {
 func showSlotsTab() {
     preferencesWindowController.show(preferencePane: .slots)
 }
-
-//func fixFirstTimeLanuchOddAnimationByImplicitlyShowIt() {
-//    preferencesWindowController.show(preferencePane: .scenario)
-//    preferencesWindowController.show(preferencePane: .slots)
-//    preferencesWindowController.show(preferencePane: .appearance)
-//    preferencesWindowController.show(preferencePane: .language)
-//    preferencesWindowController.show(preferencePane: .general)
-//    preferencesWindowController.close()
-//}
