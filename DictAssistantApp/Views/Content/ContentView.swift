@@ -38,11 +38,15 @@ private func toSystemColorScheme(from theColorScheme: Int, with systemColorSchem
     }
 }
 
-private struct ContentLayoutView: View {
-    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
+func calculateLayout(from contentWindowFrame: NSRect) -> ContentLayout {
+    contentWindowFrame.height > contentWindowFrame.width ?
+        .portrait :
+        .landscape
+}
 
+private struct ContentLayoutView: View {
     var body: some View {
-        switch ContentLayout(rawValue: contentLayout)! {
+        switch calculateLayout(from: contentWindow.frame) {
         case .portrait:
             PortraitWordsView()
         case .landscape:

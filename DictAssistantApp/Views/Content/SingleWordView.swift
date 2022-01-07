@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct SingleWordView: View {
-    @AppStorage(ContentLayoutKey) var contentLayout: Int = ContentLayout.portrait.rawValue
-
     let wordCell: WordCell
     
     var body: some View {
-        switch ContentLayout(rawValue: contentLayout)! {
+        switch calculateLayout(from: contentWindow.frame) {
         case .portrait:
             TextBody(wordCell: wordCell)
         case .landscape:
