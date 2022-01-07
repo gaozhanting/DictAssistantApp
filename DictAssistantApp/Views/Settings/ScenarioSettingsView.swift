@@ -16,10 +16,15 @@ struct ScenarioSettingsView: View {
                     ContentMaxSettingsView()
                 }
             }
-            ContentPaddingStyleSettingsView()
-            FontSizeSettingView()
-            FontLineSpacingSettingView()
+            GroupBox {
+                HStack {
+                    FontSizeSettingView()
+                    Spacer()
+                    FontLineSpacingSettingView()
+                }
+            }
             
+            ContentPaddingStyleSettingsView()
             CropperStyleSettingView()
             
             Spacer().frame(height: 20)
