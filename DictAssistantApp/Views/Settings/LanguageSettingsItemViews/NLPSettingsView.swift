@@ -8,18 +8,16 @@
 import SwiftUI
 import Preferences
 
-struct LemmaSearchLevelPicker: View {
-    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.open.rawValue
+struct IsOpenLemmaToggle: View {
+    @AppStorage(IsOpenLemmaKey) var isOpenLemma: Bool = false
     
     var body: some View {
         HStack {
-            Picker("Lemma Search Level:", selection: $lemmaSearchLevel) {
-                Text("apple").tag(LemmaSearchLevel.apple.rawValue)
-                Text("database").tag(LemmaSearchLevel.database.rawValue)
-                Text("open").tag(LemmaSearchLevel.open.rawValue)
+            Toggle(isOn: $isOpenLemma) {
+                Text("Is Open Lemma")
             }
+            .toggleStyle(CheckboxToggleStyle())
             .frame(width: 270)
-            .pickerStyle(MenuPickerStyle())
             
             MiniInfoView {
                 InfoView()
@@ -30,7 +28,7 @@ struct LemmaSearchLevelPicker: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("Select apple when you want to exclude invalid words which has no lemma by using Apple NLP lemma method. \nSelect database when you want include more valid words those lemma Apple not includes but our specific lemma database does. \nSelect open when you want include all words, with the risk of all invalid words which are called noises may come out.")
+        Text("Because our lemma database is not perfect, you can select open when you want include all words, with the risk of all invalid words which are called noises may come out.")
             .infoStyle()
     }
 }

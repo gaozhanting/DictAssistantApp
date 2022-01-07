@@ -68,20 +68,16 @@ struct NLPSample {
                 return true
             }
             
-            let level = LemmaSearchLevel(rawValue: UserDefaults.standard.integer(forKey: LemmaSearchLevelKey))
-            
-            if level == .database || level == .open {
-                if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
-                    logger.info("   >lemma          found-from-db: \(token, privacy: .public): \(lemma, privacy: .public)")
-                    results.append(Word(token: token, lemma: lemma))
-                } else {
-                    if level == .open {
-                        logger.info("   >lemma not-found-even-from-db: \(token, privacy: .public)")
-                        results.append(Word(token: token, lemma: token)) // lemma self as last rescue ===> ignored when can't look up from dictionaries, refer func tagWords
-                    }
-                }
+            if let lemma = lemmaDB[token.lowercased()] { // because our lemmadDB is all lowercased words
+                logger.info("   >lemma          found-from-db: \(token, privacy: .public): \(lemma, privacy: .public)")
+                results.append(Word(token: token, lemma: lemma))
             }
-            
+                
+            if UserDefaults.standard.bool(forKey: IsOpenLemmaKey) {
+                logger.info("   >lemma not-found-even-from-db: \(token, privacy: .public)")
+                results.append(Word(token: token, lemma: token)) // lemma self as last rescue ===> ignored when can't look up from dictionaries, refer func tagWords
+            }
+                
             return true
         }
         return results

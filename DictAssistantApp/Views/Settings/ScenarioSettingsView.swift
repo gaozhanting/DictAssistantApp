@@ -34,7 +34,7 @@ struct ScenarioSettingsView: View {
             
             MaximumFrameRateSetting()
             
-            LemmaSearchLevelPicker()
+            IsOpenLemmaToggle()
             
             Spacer().frame(height: 20)
             Divider()

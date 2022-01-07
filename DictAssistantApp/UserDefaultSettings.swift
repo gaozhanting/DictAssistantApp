@@ -61,7 +61,7 @@ let RecognitionLevelKey = "RecognitionLevelKey"
 let MinimumTextHeightKey = "MinimumTextHeightKey"
 
 // NLP
-let LemmaSearchLevelKey = "LemmaSearchLevelKey"
+let IsOpenLemmaKey = "IsOpenLemmaKey"
 let DoNameRecognitionKey = "DoNameRecognitionKey"
 let DoPhraseDetectionKey = "DoPhraseDetectionKey"
 
@@ -146,12 +146,6 @@ enum TitleWord: Int, Codable {
     case lemma = 1
 }
 
-enum LemmaSearchLevel: Int, Codable {
-    case apple = 0
-    case database = 1
-    case open = 2
-}
-
 enum UseAppleDictMode: Int, Codable {
     case notUse = 0
     case afterBuiltIn = 1 // default
@@ -219,7 +213,7 @@ private let scenarioKV: [String: Any] = [
     RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     MinimumTextHeightKey: systemDefaultMinimumTextHeight,
     
-    LemmaSearchLevelKey: LemmaSearchLevel.open.rawValue,
+    IsOpenLemmaKey: false,
     
     IsAddLineBreakKey: true,
     IsAddSpaceKey: false,
@@ -330,9 +324,9 @@ extension UserDefaults {
         set { set(newValue, forKey: "MinimumTextHeightKey") }
     }
 
-    @objc var LemmaSearchLevelKey: Int {
-        get { return integer(forKey: "LemmaSearchLevelKey") }
-        set { set(newValue, forKey: "LemmaSearchLevelKey") }
+    @objc var IsOpenLemmaKey: Bool {
+        get { return bool(forKey: "IsOpenLemmaKey") }
+        set { set(newValue, forKey: "IsOpenLemmaKey") }
     }
     @objc var DoNameRecognitionKey: Bool {
         get { return bool(forKey: "DoNameRecognitionKey") }
@@ -483,7 +477,7 @@ func combineFPS() {
 // NLP settings combine trCallBack
 func combineNLPSettings() {
     UserDefaults.standard
-        .publisher(for: \.LemmaSearchLevelKey)
+        .publisher(for: \.IsOpenLemmaKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })
@@ -581,7 +575,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
     combineSlot(\.RecognitionLevelKey, \.recognitionLevel, RecognitionLevelKey)
     combineSlot(\.MinimumTextHeightKey, \.minimumTextHeight, MinimumTextHeightKey)
-    combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
+    combineSlot(\.IsOpenLemmaKey, \.isOpenLemma, IsOpenLemmaKey)
     
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     combineSlot(\.IsAddSpaceKey, \.isAddSpace, IsAddSpaceKey)

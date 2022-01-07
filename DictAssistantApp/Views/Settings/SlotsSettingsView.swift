@@ -39,7 +39,7 @@ struct Settings: Codable {
     var maximumFrameRate: Double
     var recognitionLevel: Int
     var minimumTextHeight: Double
-    var lemmaSearchLevel: Int
+    var isOpenLemma: Bool
     
     var isAddLineBreak: Bool
     var isAddSpace: Bool
@@ -78,7 +78,7 @@ struct Settings: Codable {
         maximumFrameRate: Double,
         recognitionLevel: Int,
         minimumTextHeight: Double,
-        lemmaSearchLevel: Int,
+        isOpenLemma: Bool,
         
         isAddLineBreak: Bool,
         isAddSpace: Bool,
@@ -115,7 +115,7 @@ struct Settings: Codable {
         self.maximumFrameRate = maximumFrameRate
         self.recognitionLevel = recognitionLevel
         self.minimumTextHeight = minimumTextHeight
-        self.lemmaSearchLevel = lemmaSearchLevel
+        self.isOpenLemma = isOpenLemma
         
         self.isAddLineBreak = isAddLineBreak
         self.isAddSpace = isAddSpace
@@ -165,7 +165,7 @@ private let defaultSettings = Settings(
     maximumFrameRate: 4.0,
     recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     minimumTextHeight: systemDefaultMinimumTextHeight,
-    lemmaSearchLevel: LemmaSearchLevel.open.rawValue,
+    isOpenLemma: false,
     
     isAddLineBreak: true,
     isAddSpace: false,
@@ -254,7 +254,7 @@ private struct SlotsView: View {
         maximumFrameRate = s.maximumFrameRate
         recognitionLevel = s.recognitionLevel
         minimumTextHeight = s.minimumTextHeight
-        lemmaSearchLevel = s.lemmaSearchLevel
+        isOpenLemma = s.isOpenLemma
         
         isAddLineBreak = s.isAddLineBreak
         isAddSpace = s.isAddSpace
@@ -292,7 +292,7 @@ private struct SlotsView: View {
     @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
     @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
-    @AppStorage(LemmaSearchLevelKey) var lemmaSearchLevel: Int = LemmaSearchLevel.open.rawValue
+    @AppStorage(IsOpenLemmaKey) var isOpenLemma: Bool = false
 
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     @AppStorage(IsAddSpaceKey) var isAddSpace: Bool = false
