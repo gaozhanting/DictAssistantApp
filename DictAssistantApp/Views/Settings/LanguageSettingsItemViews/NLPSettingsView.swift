@@ -17,7 +17,6 @@ struct IsOpenLemmaToggle: View {
                 Text("Is Open Lemma")
             }
             .toggleStyle(CheckboxToggleStyle())
-            .frame(width: 270)
             
             MiniInfoView {
                 InfoView()
