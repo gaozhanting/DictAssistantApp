@@ -111,12 +111,11 @@ private struct KeyRecordingView: View {
             }
             
             HStack {
-                Text("Switch Anchor")
+                Text("Switch Content Anchor")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .switchAnchor)
                 MiniInfoView {
-                    Text("recommend: Option-w").font(.subheadline).padding()
-                }
+                    Text("recommend: Option-w\nSwitch content between top and bottom, or leading and center.").font(.subheadline).padding() }
             }
             
             MultiToggles()
