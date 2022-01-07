@@ -58,7 +58,6 @@ let MaximumFrameRateKey = "MaximumFrameRateKey"
 // Vision
 let RecognitionLevelKey = "RecognitionLevelKey"
 let MinimumTextHeightKey = "MinimumTextHeightKey"
-let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
 
 // NLP
 let LemmaSearchLevelKey = "LemmaSearchLevelKey"
@@ -218,7 +217,6 @@ private let scenarioKV: [String: Any] = [
     MaximumFrameRateKey: 4.0,
     RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     MinimumTextHeightKey: systemDefaultMinimumTextHeight,
-    UsesLanguageCorrectionKey: false,
     
     LemmaSearchLevelKey: LemmaSearchLevel.open.rawValue,
     
@@ -329,10 +327,6 @@ extension UserDefaults {
     @objc var MinimumTextHeightKey: Double {
         get { return double(forKey: "MinimumTextHeightKey") }
         set { set(newValue, forKey: "MinimumTextHeightKey") }
-    }
-    @objc var UsesLanguageCorrectionKey: Bool {
-        get { return bool(forKey: "UsesLanguageCorrectionKey") }
-        set { set(newValue, forKey: "UsesLanguageCorrectionKey") }
     }
 
     @objc var LemmaSearchLevelKey: Int {
@@ -586,7 +580,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
     combineSlot(\.RecognitionLevelKey, \.recognitionLevel, RecognitionLevelKey)
     combineSlot(\.MinimumTextHeightKey, \.minimumTextHeight, MinimumTextHeightKey)
-    combineSlot(\.UsesLanguageCorrectionKey, \.usesLanguageCorrection, UsesLanguageCorrectionKey)
     combineSlot(\.LemmaSearchLevelKey, \.lemmaSearchLevel, LemmaSearchLevelKey)
     
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
