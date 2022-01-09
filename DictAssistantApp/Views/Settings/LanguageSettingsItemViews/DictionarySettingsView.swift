@@ -64,7 +64,7 @@ struct UseEntryModePicker: View {
 
 private struct UseEntryModeInfoView: View {
     var body: some View {
-        Text("Note, if you don't select open of Lemma Search Level, and at the same time the lemma of your custom entry word can't be found (in apple or database), then it still can't be shown. Your entries is just another dictionary.")
+        Text("Note, if you unselected Is Open Lemma Option in Scenario Tab, and at the same time the lemma of your custom entry word can't be found, then it still can't be shown. \nYour entries is just another dictionary.")
             .infoStyle()
     }
 }

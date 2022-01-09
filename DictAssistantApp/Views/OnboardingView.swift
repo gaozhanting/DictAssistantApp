@@ -85,7 +85,7 @@ private struct WelcomeView: View {
         PageTemplateView(
             title: { Text("Welcome to Freedom English App") },
             content: {
-                Text("We start with three steps to setup.")
+                Text("We start off with three steps.")
             },
             nextButton: {
                 Button("Continue", action: next)
