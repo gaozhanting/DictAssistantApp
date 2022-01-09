@@ -129,74 +129,75 @@ private struct EditingView: View {
     @State var showingResetAlert: Bool = false
     
     var body: some View {
-        TextEditor(text: $text)
-            .overlay(
-                GroupBox {
-                    HStack {
-                        if succeed {
-                            Text("Succeed")
-                                .transition(.move(edge: .bottom))
-                        }
-                        if nothingChanged {
-                            Text("Nothing Changed")
-                                .transition(.move(edge: .bottom))
-                        }
-                        
-                        Button(action: batchInsert) {
-                            Image(systemName: "rectangle.stack.badge.plus")
-                        }
-                        .disabled(lines.isContainsEmptyLine)
-                        .help("Add multi phrases")
-                        
-                        Button(action: multiRemove) {
-                            Image(systemName: "rectangle.stack.badge.minus")
-                        }
-                        .disabled(lines.isContainsEmptyLine)
-                        .help("Remove multi phrases")
-                        
-                        Button(action: { showingDeleteAllAlert = true }) {
-                            Image(systemName: "trash")
-                        }
-                        .help("Delete All")
-                        .alert(isPresented: $showingDeleteAllAlert) {
-                            Alert(
-                                title: Text("Delete All"),
-                                message: Text("Are you sure? This action can't be undo."),
-                                primaryButton: .default(
-                                    Text("Cancel")
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Delete"),
-                                    action: batchDeleteAll
-                                )
-                            )
-                        }
-                        
-                        Button(action: { showingResetAlert = true }) {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                        }
-                        .help("Reset to Default")
-                        .alert(isPresented: $showingResetAlert) {
-                            Alert(
-                                title: Text("Reset"),
-                                message: Text("Are you sure? This action can't be undo."),
-                                primaryButton: .default(
-                                    Text("Cancel")
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Reset"),
-                                    action: batchResetDefault
-                                )
-                            )
-                        }
-                        
-                        MiniInfoView {
-                            InfoView()
-                        }
-                    }
-                    .padding(.horizontal)
-                    .buttonStyle(PlainButtonStyle())
-                }, alignment: .bottom)
+        VStack {
+            TextEditor(text: $text)
+            
+            HStack {
+                Spacer()
+                
+                if succeed {
+                    Text("Succeed")
+                        .transition(.move(edge: .bottom))
+                }
+                if nothingChanged {
+                    Text("Nothing Changed")
+                        .transition(.move(edge: .bottom))
+                }
+                
+                Button(action: batchInsert) {
+                    Image(systemName: "rectangle.stack.badge.plus")
+                }
+                .disabled(lines.isContainsEmptyLine)
+                .help("Add multi phrases")
+                
+                Button(action: multiRemove) {
+                    Image(systemName: "rectangle.stack.badge.minus")
+                }
+                .disabled(lines.isContainsEmptyLine)
+                .help("Remove multi phrases")
+                
+                Button(action: { showingDeleteAllAlert = true }) {
+                    Image(systemName: "trash")
+                }
+                .help("Delete All")
+                .alert(isPresented: $showingDeleteAllAlert) {
+                    Alert(
+                        title: Text("Delete All"),
+                        message: Text("Are you sure? This action can't be undo."),
+                        primaryButton: .default(
+                            Text("Cancel")
+                        ),
+                        secondaryButton: .destructive(
+                            Text("Delete"),
+                            action: batchDeleteAll
+                        )
+                    )
+                }
+                
+                Button(action: { showingResetAlert = true }) {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                }
+                .help("Reset to Default")
+                .alert(isPresented: $showingResetAlert) {
+                    Alert(
+                        title: Text("Reset"),
+                        message: Text("Are you sure? This action can't be undo."),
+                        primaryButton: .default(
+                            Text("Cancel")
+                        ),
+                        secondaryButton: .destructive(
+                            Text("Reset"),
+                            action: batchResetDefault
+                        )
+                    )
+                }
+                
+                MiniInfoView {
+                    InfoView()
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
     }
 }
 

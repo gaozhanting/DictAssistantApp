@@ -485,7 +485,6 @@ private struct ButtonsView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            .padding(.horizontal)
         }
     }
     

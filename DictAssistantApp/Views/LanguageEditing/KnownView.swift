@@ -55,7 +55,7 @@ private struct ConstantKnownView: View {
         entity: Known.entity(),
         sortDescriptors: []
     ) var fetchedKnown: FetchedResults<Known>
-
+    
     @State var selectedFlavor = DisplayFilter.all.rawValue
     
     func filter(_ word: String) -> Bool {
@@ -163,59 +163,60 @@ private struct EditingView: View {
     @State var showingAlert = false
     
     var body: some View {
-        TextEditor(text: $text)
-            .overlay(
-                GroupBox {
-                    HStack {
-                        if succeed {
-                            Text("Succeed")
-                                .transition(.move(edge: .bottom))
-                        }
-                        if nothingChanged {
-                            Text("Nothing Changed")
-                                .transition(.move(edge: .bottom))
-                        }
-                        
-                        Button(action: batchInsert) {
-                            Image(systemName: "rectangle.stack.badge.plus")
-                        }
-                        .disabled(isWordsInvalid)
-                        .help("Add multi words to Known")
-                        
-                        Button(action: multiRemove) {
-                            Image(systemName: "rectangle.stack.badge.minus")
-                        }
-                        .disabled(isWordsInvalid)
-                        .help("Remove multi words from Known")
-                        
-                        Button(action: { showingAlert = true }) {
-                            Image(systemName: "trash")
-                        }
-                        .help("Delete All")
-                        .alert(isPresented: $showingAlert) {
-                            Alert(
-                                title: Text("Delete All"),
-                                message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
-                                primaryButton: .default(
-                                    Text("Cancel")
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Delete"),
-                                    action: batchDeleteAll
-                                )
-                            )
-                        }
-                        
-                        PasteFirstNWikiWordFrequencyButton(text: $text)
-                        PasteOxford3000Button(text: $text)
-                        
-                        MiniInfoView {
-                            InfoPopoverView()
-                        }
-                    }
-                    .padding(.horizontal)
-                    .buttonStyle(PlainButtonStyle())
-                }, alignment: .bottom)
+        VStack {
+            TextEditor(text: $text)
+            
+            HStack {
+                Spacer()
+                
+                if succeed {
+                    Text("Succeed")
+                        .transition(.move(edge: .bottom))
+                }
+                if nothingChanged {
+                    Text("Nothing Changed")
+                        .transition(.move(edge: .bottom))
+                }
+                
+                Button(action: batchInsert) {
+                    Image(systemName: "rectangle.stack.badge.plus")
+                }
+                .disabled(isWordsInvalid)
+                .help("Add multi words to Known")
+                
+                Button(action: multiRemove) {
+                    Image(systemName: "rectangle.stack.badge.minus")
+                }
+                .disabled(isWordsInvalid)
+                .help("Remove multi words from Known")
+                
+                Button(action: { showingAlert = true }) {
+                    Image(systemName: "trash")
+                }
+                .help("Delete All")
+                .alert(isPresented: $showingAlert) {
+                    Alert(
+                        title: Text("Delete All"),
+                        message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
+                        primaryButton: .default(
+                            Text("Cancel")
+                        ),
+                        secondaryButton: .destructive(
+                            Text("Delete"),
+                            action: batchDeleteAll
+                        )
+                    )
+                }
+                
+                PasteFirstNWikiWordFrequencyButton(text: $text)
+                PasteOxford3000Button(text: $text)
+                
+                MiniInfoView {
+                    InfoPopoverView()
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
     }
 }
 

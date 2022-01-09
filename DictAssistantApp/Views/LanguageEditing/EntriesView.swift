@@ -114,61 +114,62 @@ private struct EditingView: View {
     @State var nothingChanged: Bool = false
     
     var body: some View {
-        TextEditor(text: $text)
-            .overlay(
-                GroupBox {
-                    HStack {
-                        if succeed {
-                            Text("Succeed")
-                                .transition(.move(edge: .bottom))
-                        }
-                        if nothingChanged {
-                            Text("Nothing Changed")
-                                .transition(.move(edge: .bottom))
-                        }
-                        
-                        Button(action: batchUpsert) {
-                            Image(systemName: "rectangle.stack.badge.plus")
-                        }
-                        .disabled({
-                            lines.contains { line in
-                                line.split(separator: Character(","), maxSplits: 1)
-                                    .count < 2
-                            }
-                        }())
-                        .help("Add multi entries to custom dict")
-                        
-                        Button(action: multiRemove) {
-                            Image(systemName: "rectangle.stack.badge.minus")
-                        }
-                        .disabled(lines.isContainsEmptyLine)
-                        .help("Remove multi entries to custom dict")
-                        
-                        Button(action: { showingAlert = true }) {
-                            Image(systemName: "trash")
-                        }
-                        .help("Delete All")
-                        .alert(isPresented: $showingAlert) {
-                            Alert(
-                                title: Text("Delete All"),
-                                message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
-                                primaryButton: .default(
-                                    Text("Cancel")
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Delete"),
-                                    action: batchDeleteAll
-                                )
-                            )
-                        }
-                        
-                        MiniInfoView {
-                            InfoView()
-                        }
+        VStack {
+            TextEditor(text: $text)
+            
+            HStack {
+                Spacer()
+                
+                if succeed {
+                    Text("Succeed")
+                        .transition(.move(edge: .bottom))
+                }
+                if nothingChanged {
+                    Text("Nothing Changed")
+                        .transition(.move(edge: .bottom))
+                }
+                
+                Button(action: batchUpsert) {
+                    Image(systemName: "rectangle.stack.badge.plus")
+                }
+                .disabled({
+                    lines.contains { line in
+                        line.split(separator: Character(","), maxSplits: 1)
+                            .count < 2
                     }
-                    .padding(.horizontal)
-                    .buttonStyle(PlainButtonStyle())
-                }, alignment: .bottom)
+                }())
+                .help("Add multi entries to custom dict")
+                
+                Button(action: multiRemove) {
+                    Image(systemName: "rectangle.stack.badge.minus")
+                }
+                .disabled(lines.isContainsEmptyLine)
+                .help("Remove multi entries to custom dict")
+                
+                Button(action: { showingAlert = true }) {
+                    Image(systemName: "trash")
+                }
+                .help("Delete All")
+                .alert(isPresented: $showingAlert) {
+                    Alert(
+                        title: Text("Delete All"),
+                        message: Text("Are you sure? This action can't be undo. Recommend you save the text before, maybe save it in your Apple Notes."),
+                        primaryButton: .default(
+                            Text("Cancel")
+                        ),
+                        secondaryButton: .destructive(
+                            Text("Delete"),
+                            action: batchDeleteAll
+                        )
+                    )
+                }
+                
+                MiniInfoView {
+                    InfoView()
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
     }
     
     @State var showingAlert = false
