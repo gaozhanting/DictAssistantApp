@@ -140,8 +140,8 @@ func removeKnown(_ word: String,
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Known> = Known.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
-    fetchRequest.fetchLimit = 1
+    fetchRequest.predicate = NSPredicate(format: "word = %@ OR word = %@", word, word.lowercased())
+    fetchRequest.fetchLimit = 2
     
     do {
         let results = try context.fetch(fetchRequest)
