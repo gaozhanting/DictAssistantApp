@@ -38,7 +38,7 @@ struct SingleWordView: View {
     }
     
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
 }
 
 

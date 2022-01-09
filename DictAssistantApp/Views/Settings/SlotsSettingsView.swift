@@ -145,9 +145,9 @@ func dataToSettings(_ data: Data) -> Settings? {
 
 private let defaultSettings = Settings(
     portraitCorner: PortraitCorner.top.rawValue,
-    portraitMaxHeight: 100.0,
+    portraitMaxHeight: PortraitMaxHeightDefault,
     landscapeStyle: LandscapeStyle.normal.rawValue,
-    landscapeMaxWidth: 160.0,
+    landscapeMaxWidth: LandscapeMaxWidthDefault,
     
     contentPaddingStyle: ContentPaddingStyle.standard.rawValue,
     standardCornerRadius: 6.0,
@@ -270,9 +270,9 @@ private struct SlotsView: View {
     }
     
     @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.top.rawValue
-    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = 100.0
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = PortraitMaxHeightDefault
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = 160.0
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
 
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0

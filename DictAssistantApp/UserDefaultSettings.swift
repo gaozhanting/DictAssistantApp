@@ -76,8 +76,10 @@ let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 // Appearance
 let PortraitCornerKey = "PortraitCornerKey"
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
+let PortraitMaxHeightDefault = 60.0
 let LandscapeStyleKey = "LandscapeStyleKey"
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
+let LandscapeMaxWidthDefault = 160.0
 
 let FontSizeKey = "FontSizeKey"
 let LineSpacingKey = "LineSpacingKey"
@@ -185,9 +187,9 @@ enum TheColorScheme: Int, Codable {
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
     PortraitCornerKey: PortraitCorner.top.rawValue,
-    PortraitMaxHeightKey: 100.0,
+    PortraitMaxHeightKey: PortraitMaxHeightDefault,
     LandscapeStyleKey: LandscapeStyle.normal.rawValue,
-    LandscapeMaxWidthKey: 160.0,
+    LandscapeMaxWidthKey: LandscapeMaxWidthDefault,
     
     ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
     StandardCornerRadiusKey: 6.0,
