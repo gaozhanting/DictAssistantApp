@@ -9,10 +9,10 @@ import SwiftUI
 import Vision
 
 struct MinimumTextHeightSetting: View {
-    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight
+    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = ZeroDefaultMinimumTextHeight
     
     func resetToDefault() {
-        minimumTextHeight = systemDefaultMinimumTextHeight
+        minimumTextHeight = ZeroDefaultMinimumTextHeight
     }
     
     func incrementStep() {

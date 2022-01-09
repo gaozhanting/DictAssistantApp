@@ -36,10 +36,10 @@ struct DoNameRecognitionToggle: View {
     @AppStorage(DoNameRecognitionKey) var doNameRecognition: Bool = false
     
     var body: some View {
-        Toggle(isOn: $doNameRecognition, label: {
+        Toggle(isOn: $doNameRecognition) {
             Text("Do Name Recognition")
-        })
-            .toggleStyle(CheckboxToggleStyle())
+        }
+        .toggleStyle(CheckboxToggleStyle())
     }
 }
 
@@ -47,10 +47,22 @@ struct DoPhraseDetectionToggle: View {
     @AppStorage(DoPhraseDetectionKey) var doPhraseDetection: Bool = false
     
     var body: some View {
-        Toggle(isOn: $doPhraseDetection, label: {
+        Toggle(isOn: $doPhraseDetection) {
             Text("Do Phrase Detection")
-        })
-            .toggleStyle(CheckboxToggleStyle())
+        }
+        .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+struct UsesLanguageCorrectionToggle: View {
+    @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
+    
+    var body: some View {
+        Toggle(isOn: $usesLanguageCorrection) {
+            Text("Uses Language Correction")
+        }
+        .toggleStyle(CheckboxToggleStyle())
+        .help("This will increase considerable CPU usage.")
     }
 }
 

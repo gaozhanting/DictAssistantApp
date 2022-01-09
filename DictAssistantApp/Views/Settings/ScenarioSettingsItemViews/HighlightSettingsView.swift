@@ -32,10 +32,10 @@ struct HighlightSettingsView: View {
                     Spacer()
                     
                     Group {
-                        Toggle(isOn: $isAlwaysRefreshHighlight, label: {
+                        Toggle(isOn: $isAlwaysRefreshHighlight) {
                             Text("Is always refresh highlight")
-                        })
-                            .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
+                        }
+                        .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
                         
                         MiniInfoView {
                             IsAlwaysRefreshHighlightInfoView()
@@ -258,10 +258,10 @@ private struct DottedIndexOptionsView: View {
                 Text("Dotted Index:")
                 Spacer()
                 
-                Toggle(isOn: $isShowIndex, label: {
+                Toggle(isOn: $isShowIndex) {
                     Text("Show Index")
-                })
-                    .toggleStyle(CheckboxToggleStyle())
+                }
+                .toggleStyle(CheckboxToggleStyle())
             }
             
             GroupBox {

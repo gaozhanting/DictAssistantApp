@@ -144,9 +144,9 @@ func dataToSettings(_ data: Data) -> Settings? {
 }
 
 private let defaultSettings = Settings(
-    portraitCorner: PortraitCorner.top.rawValue,
+    portraitCorner: PortraitCornerDefault,
     portraitMaxHeight: PortraitMaxHeightDefault,
-    landscapeStyle: LandscapeStyle.normal.rawValue,
+    landscapeStyle: LandscapeStyleDefault,
     landscapeMaxWidth: LandscapeMaxWidthDefault,
     
     contentPaddingStyle: ContentPaddingStyle.standard.rawValue,
@@ -161,7 +161,7 @@ private let defaultSettings = Settings(
     
     maximumFrameRate: 4.0,
     recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
-    minimumTextHeight: systemDefaultMinimumTextHeight,
+    minimumTextHeight: ZeroDefaultMinimumTextHeight,
     isOpenLemma: false,
     
     isAddLineBreak: false,
@@ -269,9 +269,9 @@ private struct SlotsView: View {
         contentWindow.setFrame(s.contentFrame, display: true)
     }
     
-    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCorner.top.rawValue
+    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCornerDefault
     @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = PortraitMaxHeightDefault
-    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
 
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
@@ -286,7 +286,7 @@ private struct SlotsView: View {
 
     @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
     @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
-    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = systemDefaultMinimumTextHeight // 0.0315
+    @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = ZeroDefaultMinimumTextHeight
     @AppStorage(IsOpenLemmaKey) var isOpenLemma: Bool = false
 
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false

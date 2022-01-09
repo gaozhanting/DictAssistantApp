@@ -59,11 +59,13 @@ let MaximumFrameRateKey = "MaximumFrameRateKey"
 // Vision
 let RecognitionLevelKey = "RecognitionLevelKey"
 let MinimumTextHeightKey = "MinimumTextHeightKey"
+let ZeroDefaultMinimumTextHeight: Double = 0.0
 
 // NLP
 let IsOpenLemmaKey = "IsOpenLemmaKey"
 let DoNameRecognitionKey = "DoNameRecognitionKey"
 let DoPhraseDetectionKey = "DoPhraseDetectionKey"
+let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
 
 // Dictionary
 let UseAppleDictModeKey = "UseAppleDictModeKey"
@@ -75,9 +77,11 @@ let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
 // Appearance
 let PortraitCornerKey = "PortraitCornerKey"
+let PortraitCornerDefault = PortraitCorner.top.rawValue
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let PortraitMaxHeightDefault = 60.0
 let LandscapeStyleKey = "LandscapeStyleKey"
+let LandscapeStyleDefault = LandscapeStyle.normal.rawValue
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 let LandscapeMaxWidthDefault = 160.0
 
@@ -186,9 +190,9 @@ enum TheColorScheme: Int, Codable {
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
-    PortraitCornerKey: PortraitCorner.top.rawValue,
+    PortraitCornerKey: PortraitCornerDefault,
     PortraitMaxHeightKey: PortraitMaxHeightDefault,
-    LandscapeStyleKey: LandscapeStyle.normal.rawValue,
+    LandscapeStyleKey: LandscapeStyleDefault,
     LandscapeMaxWidthKey: LandscapeMaxWidthDefault,
     
     ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
@@ -203,7 +207,7 @@ private let scenarioKV: [String: Any] = [
     
     MaximumFrameRateKey: 4.0,
     RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
-    MinimumTextHeightKey: systemDefaultMinimumTextHeight,
+    MinimumTextHeightKey: ZeroDefaultMinimumTextHeight,
     
     IsOpenLemmaKey: false,
     
@@ -236,6 +240,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     
     DoNameRecognitionKey: false,
     DoPhraseDetectionKey: false,
+    UsesLanguageCorrectionKey: false,
     
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
@@ -317,6 +322,10 @@ extension UserDefaults {
     @objc var DoPhraseDetectionKey: Bool {
         get { return bool(forKey: "DoPhraseDetectionKey") }
         set { set(newValue, forKey: "DoPhraseDetectionKey") }
+    }
+    @objc var UsesLanguageCorrectionKey: Bool {
+        get { return bool(forKey: "UsesLanguageCorrectionKey") }
+        set { set(newValue, forKey: "UsesLanguageCorrectionKey") }
     }
 
     @objc var UseAppleDictModeKey: Int {
@@ -472,6 +481,14 @@ func combineNLPSettings() {
     
     UserDefaults.standard
         .publisher(for: \.DoPhraseDetectionKey)
+        .handleEvents(receiveOutput: { _ in
+            trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.UsesLanguageCorrectionKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
         })

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SingleWordView: View {
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
+    
     let wordCell: WordCell
     
     var body: some View {
@@ -36,11 +39,7 @@ struct SingleWordView: View {
             }
         }
     }
-    
-    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyle.normal.rawValue
-    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
 }
-
 
 private struct TextBody: View {
     let wordCell: WordCell

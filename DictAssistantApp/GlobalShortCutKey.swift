@@ -78,10 +78,14 @@ func registerGlobalKey() {
         switch calculateLayout(from: contentWindow.frame) {
         case .portrait:
             switch PortraitCorner(rawValue: UserDefaults.standard.PortraitCornerKey)! {
+            case .top:
+                UserDefaults.standard.PortraitCornerKey = PortraitCorner.topTrailing.rawValue
+            case .topTrailing:
+                UserDefaults.standard.PortraitCornerKey = PortraitCorner.topLeading.rawValue
+            case .topLeading:
+                UserDefaults.standard.PortraitCornerKey = PortraitCorner.bottom.rawValue
             case .bottom:
                 UserDefaults.standard.PortraitCornerKey = PortraitCorner.top.rawValue
-            default:
-                UserDefaults.standard.PortraitCornerKey = PortraitCorner.bottom.rawValue
             }
         case .landscape:
             switch LandscapeStyle(rawValue: UserDefaults.standard.LandscapeStyleKey)! {

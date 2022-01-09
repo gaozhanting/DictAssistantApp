@@ -249,10 +249,11 @@ private struct ContentBackgroundVisualEffect: View {
 
     var body: some View {
         HStack {
-            Toggle(isOn: $useContentBackgroundVisualEffect, label: {
+            Toggle(isOn: $useContentBackgroundVisualEffect) {
                 Text("Using Visual Effect")
-            })
-            
+            }
+            .toggleStyle(CheckboxToggleStyle())
+
             Spacer()
             
             ContentBackGroundVisualEffectMaterial()
@@ -333,7 +334,6 @@ private struct WithAnimationToggle: View {
                 Text("With Animation")
             })
             .toggleStyle(CheckboxToggleStyle())
-            .help("Notice animation will increase CPU usage. And animation is disabled when using landscape with autoScrolling because it is ugly there.")
         }
     }
 }
