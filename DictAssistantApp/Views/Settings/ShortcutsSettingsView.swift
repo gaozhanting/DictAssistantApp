@@ -37,7 +37,9 @@ private struct KeyRecordingView: View {
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .switchAnchor)
                 MiniInfoView {
-                    Text("recommend: Option-W\nSwitch content between top topTrailing topLeading and bottom when portrait, or leading and center when landscape.").font(.subheadline).padding() }
+                    Text("recommend: Option-W\nSwitch content between top, topTrailing, topLeading and bottom when portrait, or leading and center when landscape.")
+                        .infoStyle()
+                }
             }
             HStack {
                 Text("Toggle Add Line Break")
