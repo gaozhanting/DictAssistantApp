@@ -18,9 +18,13 @@ func initMiniPhrasePanel() {
     miniPhrasePanel.close()
 }
 
-func showMiniPhrasePanel() {
-    let view = MiniPhraseView()
-    miniPhrasePanel.contentView = NSHostingView(rootView: view)
-    miniPhrasePanel.center()
-    miniPhrasePanel.orderFrontRegardless()
+func toggleMiniPhrasePanel() {
+    if miniPhrasePanel.isVisible {
+        miniPhrasePanel.close()
+    } else {
+        let view = MiniPhraseView()
+        miniPhrasePanel.contentView = NSHostingView(rootView: view)
+        miniPhrasePanel.center()
+        miniPhrasePanel.orderFrontRegardless()
+    }
 }

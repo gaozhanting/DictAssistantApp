@@ -18,9 +18,13 @@ func initMiniEntryPanel() {
     miniEntryPanel.close()
 }
 
-func showMiniEntryPanel() {
-    let view = MiniEntryView()
-    miniEntryPanel.contentView = NSHostingView(rootView: view)
-    miniEntryPanel.center()
-    miniEntryPanel.orderFrontRegardless()
+func toggleMiniEntryPanel() {
+    if miniEntryPanel.isVisible {
+        miniEntryPanel.close()
+    } else {
+        let view = MiniEntryView()
+        miniEntryPanel.contentView = NSHostingView(rootView: view)
+        miniEntryPanel.center()
+        miniEntryPanel.orderFrontRegardless()
+    }
 }

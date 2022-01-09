@@ -8,17 +8,6 @@
 import SwiftUI
 import Preferences
 
-struct AddLineBreakBeforeTranslationToggle: View {
-    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $isAddLineBreak, label: {
-            Text("Add line break ahead of translation")
-        })
-        .toggleStyle(CheckboxToggleStyle())
-    }
-}
-
 struct ChineseCharacterConvertingPicker: View {
     @AppStorage(ChineseCharacterConvertModeKey) var chineseCharacterConvertMode: Int = ChineseCharacterConvertMode.notConvert.rawValue
 
@@ -29,6 +18,6 @@ struct ChineseCharacterConvertingPicker: View {
             Text("convert to simplified").tag(ChineseCharacterConvertMode.convertToSimplified.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
-        .frame(width: 320)
+        .frame(width: 350)
     }
 }

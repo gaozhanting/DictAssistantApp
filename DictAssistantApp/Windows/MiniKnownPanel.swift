@@ -18,9 +18,12 @@ func initMiniKnownPanel() {
     miniKnownPanel.close()
 }
 
-func showMiniKnownPanel() {
-    let view = MiniKnownView()
-    miniKnownPanel.contentView = NSHostingView(rootView: view)
-    miniKnownPanel.center()
-    miniKnownPanel.orderFrontRegardless()
+func toggleMiniKnownPanel() {
+    if miniKnownPanel.isVisible {
+        miniKnownPanel.close()
+    } else {
+        let view = MiniKnownView()
+        miniKnownPanel.contentView = NSHostingView(rootView: view)
+        miniKnownPanel.orderFrontRegardless()
+    }
 }

@@ -13,6 +13,8 @@ extension KeyboardShortcuts.Name {
     
     static let switchAnchor = Self("switchAnchor")
     
+    static let toggleAddLineBreak = Self("toggleAddLineBreak")
+    
     static let toggleShowKnown = Self("toggleShowKnown")
     
     static let toggleShowNotFound = Self("toggleShowNotFound")
@@ -27,11 +29,11 @@ extension KeyboardShortcuts.Name {
     
     static let stop = Self("stop")
     
-    static let showMiniKnownPanel = Self("showMiniKnownPanel")
+    static let toggleMiniKnownPanel = Self("toggleMiniKnownPanel")
     
-    static let showMiniPhrasePanel = Self("showMiniPhrasePanel")
+    static let toggleMiniPhrasePanel = Self("toggleMiniPhrasePanel")
     
-    static let showMiniEntryPanel = Self("showMiniEntryPanel")
+    static let toggleMiniEntryPanel = Self("toggleMiniEntryPanel")
     
     static let showSlotsTab = Self("showSlotsTab")
 }
@@ -91,6 +93,14 @@ func registerGlobalKey() {
         }
     }
     
+    KeyboardShortcuts.onKeyUp(for: .toggleAddLineBreak) {
+        if UserDefaults.standard.bool(forKey: IsAddLineBreakKey) {
+            UserDefaults.standard.setValue(false, forKey: IsAddLineBreakKey)
+        } else {
+            UserDefaults.standard.setValue(true, forKey: IsAddLineBreakKey)
+        }
+    }
+    
     KeyboardShortcuts.onKeyUp(for: .toggleShowKnown) {
         if UserDefaults.standard.bool(forKey: IsShowKnownKey) {
             UserDefaults.standard.setValue(false, forKey: IsShowKnownKey)
@@ -141,16 +151,16 @@ func registerGlobalKey() {
         stopPlaying()
     }
     
-    KeyboardShortcuts.onKeyUp(for: .showMiniKnownPanel) {
-        showMiniKnownPanel()
+    KeyboardShortcuts.onKeyUp(for: .toggleMiniKnownPanel) {
+        toggleMiniKnownPanel()
     }
     
-    KeyboardShortcuts.onKeyUp(for: .showMiniPhrasePanel) {
-        showMiniPhrasePanel()
+    KeyboardShortcuts.onKeyUp(for: .toggleMiniPhrasePanel) {
+        toggleMiniPhrasePanel()
     }
     
-    KeyboardShortcuts.onKeyUp(for: .showMiniEntryPanel) {
-        showMiniEntryPanel()
+    KeyboardShortcuts.onKeyUp(for: .toggleMiniEntryPanel) {
+        toggleMiniEntryPanel()
     }
     
     KeyboardShortcuts.onKeyUp(for: .showSlotsTab) {

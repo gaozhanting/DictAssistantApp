@@ -20,86 +20,9 @@ struct ShortcutsSettingsView: View {
     }
 }
 
-private struct MultiToggles: View {
-    @AppStorage(IsShowKnownKey) var isShowKnown: Bool = false
-    @AppStorage(IsShowNotFoundKey) var isShowNotFound: Bool = false
-    @AppStorage(IsShowKnownButWithOpacity0Key) var isShowKnownButWithOpacity0: Bool = false
-    @AppStorage(IsConcealTranslationKey) var isConcealTranslation: Bool = false
-    
-    var body: some View {
-        HStack {
-            Text("Toggle Show Known")
-            Spacer()
-            Toggle("", isOn: $isShowKnown)
-            KeyboardShortcuts.Recorder(for: .toggleShowKnown)
-            MiniInfoView {
-                Text("recommend: Option-2").font(.subheadline).padding()
-            }
-        }
-        HStack {
-            Text("Toggle Show Not-Found")
-            Spacer()
-            Toggle("", isOn: $isShowNotFound)
-            KeyboardShortcuts.Recorder(for: .toggleShowNotFound)
-            MiniInfoView {
-                Text("recommend: Option-3").font(.subheadline).padding()
-            }
-        }
-        
-        Divider()
-        
-        HStack {
-            Text("Toggle Conceal Known")
-            Spacer()
-            Toggle("", isOn: $isShowKnownButWithOpacity0)
-            KeyboardShortcuts.Recorder(for: .toggleShowKnownButWithOpacity0)
-            MiniInfoView {
-                Text("recommend: Option-4").font(.subheadline).padding()
-            }
-        }
-        HStack {
-            Text("Toggle Conceal Translation")
-            Spacer()
-            Toggle("", isOn: $isConcealTranslation)
-            KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
-            MiniInfoView {
-                Text("recommend: Option-5").font(.subheadline).padding()
-            }
-        }
-    }
-}
-
 private struct KeyRecordingView: View {
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
     var g1: some View {
-        Group {
-            HStack {
-                Text("Show Mini Known Panel")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .showMiniKnownPanel)
-                MiniInfoView {
-                    Text("recommend: Option-K").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Show Mini Phrase Panel")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .showMiniPhrasePanel)
-                MiniInfoView {
-                    Text("recommend: Option-P").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Show Mini Custom Entry Panel")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .showMiniEntryPanel)
-                MiniInfoView {
-                    Text("recommend: Option-E").font(.subheadline).padding()
-                }
-            }
-        }
-    }
-    
-    var body: some View {
         Group {
             HStack {
                 Text("Run Step Play")
@@ -109,19 +32,83 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-1").font(.subheadline).padding()
                 }
             }
-            
             HStack {
                 Text("Switch Content Anchor")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .switchAnchor)
                 MiniInfoView {
-                    Text("recommend: Option-w\nSwitch content between top and bottom, or leading and center.").font(.subheadline).padding() }
+                    Text("recommend: Option-W\nSwitch content between top and bottom, or leading and center.").font(.subheadline).padding() }
             }
-            
-            MultiToggles()
-            
+            HStack {
+                Text("Toggle Add Line Break")
+                Spacer()
+                Toggle("", isOn: $isAddLineBreak)
+                KeyboardShortcuts.Recorder(for: .toggleAddLineBreak)
+                MiniInfoView {
+                    Text("recommend: Option-B").font(.subheadline).padding() }
+            }
+            HStack {
+                Text("Toggle Mini Known Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleMiniKnownPanel)
+                MiniInfoView {
+                    Text("recommend: Option-K").font(.subheadline).padding()
+                }
+            }
             Divider()
-            
+        }
+    }
+    
+    @AppStorage(IsShowKnownKey) var isShowKnown: Bool = false
+    @AppStorage(IsShowNotFoundKey) var isShowNotFound: Bool = false
+    @AppStorage(IsShowKnownButWithOpacity0Key) var isShowKnownButWithOpacity0: Bool = false
+    @AppStorage(IsConcealTranslationKey) var isConcealTranslation: Bool = false
+    var g2: some View {
+        Group {
+
+            HStack {
+                Text("Toggle Show Known")
+                Spacer()
+                Toggle("", isOn: $isShowKnown)
+                KeyboardShortcuts.Recorder(for: .toggleShowKnown)
+                MiniInfoView {
+                    Text("recommend: Option-2").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Toggle Show Not-Found")
+                Spacer()
+                Toggle("", isOn: $isShowNotFound)
+                KeyboardShortcuts.Recorder(for: .toggleShowNotFound)
+                MiniInfoView {
+                    Text("recommend: Option-3").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Toggle Conceal Known")
+                Spacer()
+                Toggle("", isOn: $isShowKnownButWithOpacity0)
+                KeyboardShortcuts.Recorder(for: .toggleShowKnownButWithOpacity0)
+                MiniInfoView {
+                    Text("recommend: Option-4").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Toggle Conceal Translation")
+                Spacer()
+                Toggle("", isOn: $isConcealTranslation)
+                KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
+                MiniInfoView {
+                    Text("recommend: Option-5").font(.subheadline).padding()
+                }
+            }
+            Divider()
+        }
+    }
+
+    
+    var g3: some View {
+        Group {
             HStack {
                 Text("Run Swift Play")
                 Spacer()
@@ -146,11 +133,28 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-X").font(.subheadline).padding()
                 }
             }
-            
             Divider()
-            
-            g1
-
+        }
+    }
+        
+    var g4: some View {
+        Group {
+            HStack {
+                Text("Toggle Mini Phrase Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleMiniPhrasePanel)
+                MiniInfoView {
+                    Text("recommend: Option-P").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Toggle Mini Custom Entry Panel")
+                Spacer()
+                KeyboardShortcuts.Recorder(for: .toggleMiniEntryPanel)
+                MiniInfoView {
+                    Text("recommend: Option-E").font(.subheadline).padding()
+                }
+            }
             HStack {
                 Text("Show Slots Tab")
                 Spacer()
@@ -159,6 +163,15 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-Z").font(.subheadline).padding()
                 }
             }
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            g1
+            g2
+            g3
+            g4
         }
         .toggleStyle(SwitchToggleStyle())
     }
