@@ -89,10 +89,10 @@ func registerGlobalKey() {
             }
         case .landscape:
             switch LandscapeStyle(rawValue: UserDefaults.standard.LandscapeStyleKey)! {
+            case .normal:
+                UserDefaults.standard.LandscapeStyleKey = LandscapeStyle.centered.rawValue
             case .centered:
                 UserDefaults.standard.LandscapeStyleKey = LandscapeStyle.normal.rawValue
-            default:
-                UserDefaults.standard.LandscapeStyleKey = LandscapeStyle.centered.rawValue
             }
         }
     }
