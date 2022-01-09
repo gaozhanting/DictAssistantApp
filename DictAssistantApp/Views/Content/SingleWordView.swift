@@ -20,7 +20,7 @@ struct SingleWordView: View {
         case .landscape:
             if !wordCell.trans.isEmpty {
                 switch LandscapeStyle(rawValue: landscapeStyle)! {
-                case .normal, .autoScrolling:
+                case .normal:
                     TextBody(wordCell: wordCell)
                         .frame(
                             maxWidth: CGFloat(landscapeMaxWidth),

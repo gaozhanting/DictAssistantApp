@@ -181,7 +181,7 @@ func trCallBackWithCache() {
         displayedWords.wordCells = wordCellIds
     }
     
-    if isWithAnimation() {
+    if UserDefaults.standard.bool(forKey: IsWithAnimationKey) {
         withAnimation {
             refreshUI()
         }
@@ -190,10 +190,6 @@ func trCallBackWithCache() {
     }
 
     snapShotCallback()
-}
-
-private func isWithAnimation() -> Bool {
-    return UserDefaults.standard.bool(forKey: IsWithAnimationKey)
 }
 
 struct WordCellWithToken {

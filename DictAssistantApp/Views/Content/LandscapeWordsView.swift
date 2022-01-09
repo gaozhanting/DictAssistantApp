@@ -25,11 +25,9 @@ struct LandscapeWordsView1: View {
 
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
-        case .normal, .autoScrolling:
-            ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    BodyView1(proxy: proxy)
-                }
+        case .normal:
+            ScrollView(.horizontal, showsIndicators: false) {
+                BodyView1()
             }
         case .centered:
             CenteredView()
@@ -42,11 +40,9 @@ struct LandscapeWordsView2: View {
     
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
-        case .normal, .autoScrolling:
-            ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    BodyView2(proxy: proxy)
-                }
+        case .normal:
+            ScrollView(.horizontal, showsIndicators: false) {
+                BodyView2()
             }
         case .centered:
             CenteredView()
@@ -57,8 +53,6 @@ struct LandscapeWordsView2: View {
 private struct BodyView1: View {
     @EnvironmentObject var displayedWords: DisplayedWords
 
-    let proxy: ScrollViewProxy?
-
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
 
     var body: some View {
@@ -68,23 +62,11 @@ private struct BodyView1: View {
             VStack { Spacer() }
         }
         .bbBackground()
-        .onChange(of: displayedWords.wordCells) { _ in
-            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
-            }
-        }
-        .onAppear {
-            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
-            }
-        }
     }
 }
 
 private struct BodyView2: View {
     @EnvironmentObject var displayedWords: DisplayedWords
-    
-    let proxy: ScrollViewProxy?
     
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
     
@@ -95,16 +77,6 @@ private struct BodyView2: View {
             VStack { Spacer() }
         }
         .paddingAndBackground() // shrink bug, don't known why; so minimalist need use .bbBackground(), only here diff
-        .onChange(of: displayedWords.wordCells) { _ in
-            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
-            }
-        }
-        .onAppear {
-            if LandscapeStyle(rawValue: landscapeStyle) == .autoScrolling {
-                proxy?.scrollTo(displayedWords.wordCells.last?.id, anchor: .top)
-            }
-        }
     }
 }
 
