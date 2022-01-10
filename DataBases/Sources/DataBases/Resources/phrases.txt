@@ -1735,98 +1735,6 @@ antarctic ocean
 ante meridiem
 ante post
 anthranilic acid
-anti g suit
-anti-abortion
-anti-aging
-anti-air
-anti-aircraft
-anti-aliasing
-anti-american
-anti-americanism
-anti-apartheid
-anti-authoritarian
-anti-ballistic
-anti-bolshevik
-anti-british
-anti-bullying
-anti-cancer
-anti-capitalist
-anti-catholic
-anti-catholicism
-anti-chinese
-anti-christian
-anti-clerical
-anti-clockwise
-anti-colonial
-anti-communism
-anti-communist
-anti-competitive
-anti-corruption
-anti-defamation
-anti-democratic
-anti-discrimination
-anti-doping
-anti-drug
-anti-establishment
-anti-fascist
-anti-french
-anti-gay
-anti-german
-anti-globalization
-anti-government
-anti-gravity
-anti-hero
-anti-immigrant
-anti-immigration
-anti-imperialist
-anti-inflammatory
-anti-islamic
-anti-israel
-anti-japanese
-anti-jewish
-anti-lock
-anti-lynching
-anti-masonic
-anti-money
-anti-muslim
-anti-nazi
-anti-nuclear
-anti-partisan
-anti-personnel
-anti-piracy
-anti-polish
-anti-poverty
-anti-racism
-anti-racist
-anti-religious
-anti-revolutionary
-anti-roll
-anti-russian
-anti-semite
-anti-semitic
-anti-semitism
-anti-ship
-anti-shipping
-anti-slavery
-anti-smoking
-anti-social
-anti-socialist
-anti-soviet
-anti-submarine
-anti-tank
-anti-terror
-anti-terrorism
-anti-terrorist
-anti-torpedo
-anti-trafficking
-anti-treaty
-anti-trust
-anti-union
-anti-vietnam
-anti-virus
-anti-war
-anti-western
-anti-zionist
 antiaircraft artillery
 antiaircraft dugout
 antiaircraft emplacement
@@ -4114,46 +4022,6 @@ bide one's time
 bidirectional printing
 bielsko-biała
 bien seance
-big band
-big bang
-big beat
-big ben
-big boy
-big brother
-big cheese
-big city
-big deal
-big dipper
-big dog
-big dress
-big fish in a little pond
-big game
-big gun
-big house
-big idea
-big john
-big league
-big mouth
-big name
-big news
-big notse
-big one
-big shot
-big stick
-big talk
-big time
-big top
-big wheel
-big words
-big-band
-big-bang model
-big-box
-big-budget
-big-game
-big-league
-big-name
-big-screen
-big-time
 biggest-selling
 bilge water
 bilinear interpolation
@@ -6882,124 +6750,6 @@ cme into view
 cmos chip
 cn or cin
 cnn-ibn
-co-anchor
-co-anchored
-co-author
-co-authored
-co-authoring
-co-authors
-co-branded
-co-captain
-co-cathedral
-co-ceo
-co-chair
-co-chaired
-co-chairman
-co-chairs
-co-champion
-co-champions
-co-composed
-co-consecrator
-co-consecrators
-co-conspirator
-co-conspirators
-co-created
-co-creator
-co-creators
-co-curated
-co-curricular
-co-defendant
-co-defendants
-co-designed
-co-developed
-co-directed
-co-director
-co-directors
-co-driver
-co-ed
-co-edited
-co-editor
-co-editors
-co-education
-co-educational
-co-emperor
-co-executive
-co-exist
-co-existed
-co-existence
-co-found
-co-founded
-co-founder
-co-founders
-co-founding
-co-head
-co-headlined
-co-headlining
-co-heiress
-co-host
-co-hosted
-co-hosting
-co-hosts
-co-inventor
-co-lead
-co-leader
-co-led
-co-located
-co-manager
-co-op
-co-operate
-co-operated
-co-operating
-co-operation
-co-operative
-co-operatives
-co-ops
-co-opted
-co-ordinate
-co-ordinated
-co-ordinates
-co-ordinating
-co-ordination
-co-ordinator
-co-organized
-co-owned
-co-owner
-co-owners
-co-ownership
-co-owns
-co-pilot
-co-presented
-co-presenter
-co-president
-co-produce
-co-produced
-co-producer
-co-producers
-co-producing
-co-production
-co-productions
-co-published
-co-recipient
-co-regent
-co-ruler
-co-sanctioned
-co-signed
-co-sponsor
-co-sponsored
-co-sponsors
-co-star
-co-starred
-co-starring
-co-stars
-co-winner
-co-worker
-co-workers
-co-write
-co-writer
-co-writers
-co-writing
-co-written
-co-wrote
 coach box
 coal bed
 coal bunker
@@ -7989,22 +7739,6 @@ count up
 count up to
 count upon
 counter to
-counter-attack
-counter-attacked
-counter-attacks
-counter-battery
-counter-clockwise
-counter-culture
-counter-insurgency
-counter-intelligence
-counter-offensive
-counter-productive
-counter-reformation
-counter-revolution
-counter-revolutionary
-counter-strike
-counter-terrorism
-counter-terrorist
 counting frame
 counting house
 counting machine
@@ -8185,29 +7919,6 @@ cross talk
 cross the bar
 cross the cudgel
 cross the great divide
-cross-border
-cross-breeding
-cross-channel
-cross-city
-cross-country
-cross-country race
-cross-cultural
-cross-cutting
-cross-disciplinary
-cross-dressing
-cross-examination
-cross-linked
-cross-linked cluster
-cross-linking
-cross-over
-cross-party
-cross-platform
-cross-section
-cross-sectional
-cross-sections
-cross-shaped
-cross-strait
-cross-town
 crosscut saw
 crosstab table
 crossword puzzle
@@ -9465,32 +9176,6 @@ double taxation
 double time
 double underline
 double up
-double-a
-double-acting
-double-action
-double-blind
-double-cd
-double-deck
-double-decker
-double-decker bus
-double-digit
-double-disc
-double-double
-double-doubles
-double-edged
-double-elimination
-double-ended
-double-ended spanner
-double-entry bookkeeping
-double-headed
-double-header
-double-hung
-double-platinum
-double-sided
-double-strand
-double-stranded
-double-track
-double-tracked
 doubt about
 douglas-fir
 douglas-home
@@ -9918,14 +9603,6 @@ ease over
 ease someone out
 ease up
 easier said than done.
-east african common market
-east pakistan
-east timor
-east-central
-east-facing
-east-northeast
-east-southeast
-east-west
 easter day
 easter egg
 easter egg hunt
@@ -10049,40 +9726,8 @@ egg-laying
 egg-shaped
 eh-ye
 eiffel tower
-eight-ball
-eight-car
-eight-cylinder
-eight-day
-eight-game
-eight-hour
-eight-lane
-eight-man
-eight-member
-eight-minute
-eight-month
-eight-page
-eight-part
-eight-point
-eight-story
-eight-team
-eight-time
-eight-track
-eight-week
-eight-yard
-eight-year
-eight-year-old
-eighteen-year-old
-eighteenth-century
 eighth note
 eighth-place
-eighty-eight
-eighty-five
-eighty-four
-eighty-one
-eighty-seven
-eighty-six
-eighty-three
-eighty-two
 einstein shift
 einstein theory
 eisenbahn-gesellschaft
@@ -10165,8 +9810,6 @@ elephant seal
 elevated railroad
 elevated railway
 elevator shaft
-eleven-year
-eleven-year-old
 eleventh hour
 elf child
 elf fire
@@ -11169,10 +10812,6 @@ field umpire
 field-goal
 fiery cross
 fifo and lifo
-fifteen-minute
-fifteen-year
-fifteen-year-old
-fifteenth-century
 fifth avenue
 fifth column
 fifth columnist
@@ -11185,21 +10824,6 @@ fifth-placed
 fifth-rate
 fifth-round
 fifth-year
-fifty-eight
-fifty-fifth
-fifty-first
-fifty-five
-fifty-four
-fifty-fourth
-fifty-nine
-fifty-one
-fifty-second
-fifty-seven
-fifty-six
-fifty-third
-fifty-three
-fifty-two
-fifty-year
 fig leaf
 fig out
 fig tree
@@ -11487,45 +11111,6 @@ first sergeant
 first string
 first world
 first world war
-first-aid
-first-aid kit
-first-aid station
-first-born
-first-century
-first-choice
-first-class
-first-class stateroom
-first-come
-first-day cover
-first-degree
-first-degree burn
-first-ever
-first-floor
-first-generation
-first-grade
-first-half
-first-hand
-first-innings
-first-level
-first-line
-first-order
-first-past-the-post
-first-person
-first-place
-first-prize
-first-rate
-first-round
-first-run
-first-run cinema
-first-season
-first-seeded
-first-served
-first-stage
-first-team
-first-tier
-first-time
-first-week
-first-year
 fiscal charges
 fiscal law
 fiscal stamp
@@ -11579,44 +11164,6 @@ fit to kill
 fit together
 fitting shop
 fitting-out
-five scenses
-five senses
-five-bay
-five-day
-five-door
-five-eighth
-five-finger discount
-five-game
-five-hour
-five-issue
-five-man
-five-match
-five-member
-five-mile
-five-minute
-five-month
-five-o
-five-part
-five-person
-five-piece
-five-point
-five-pointed
-five-set
-five-song
-five-speed
-five-star
-five-storey
-five-story
-five-time
-five-track
-five-volume
-five-way
-five-week
-five-wicket
-five-yard
-five-year
-five-year plan
-five-year-old
 fix attention on
 fix on
 fix sb.'s flint for him
@@ -12142,25 +11689,6 @@ fortune hunter
 fortune teller
 fortune's wheel
 forty winks
-forty-eight
-forty-eighth
-forty-fifth
-forty-first
-forty-five
-forty-four
-forty-fourth
-forty-nine
-forty-ninth
-forty-one
-forty-second
-forty-seven
-forty-seventh
-forty-six
-forty-sixth
-forty-third
-forty-three
-forty-two
-forty-year
 forward button
 forward command
 forward pass
@@ -12194,84 +11722,6 @@ foundation stone
 founders shares
 foundling home
 fountain pen
-four flush
-four hundred
-four of a kind
-four-and-a-half
-four-barrel
-four-bay
-four-bladed
-four-car
-four-cylinder
-four-day
-four-digit
-four-dimensional
-four-disc
-four-door
-four-door saloon car
-four-engine
-four-engined
-four-fifths
-four-game
-four-hour
-four-issue
-four-lane
-four-leaf clover
-four-legged
-four-letter
-four-letter word
-four-man
-four-member
-four-minute
-four-month
-four-page
-four-part
-four-person
-four-piece
-four-player
-four-point
-four-room
-four-seam
-four-season
-four-seat
-four-seater
-four-sided
-four-song
-four-speed
-four-star
-four-storey
-four-story
-four-stroke
-four-team
-four-time
-four-track
-four-volume
-four-way
-four-week
-four-wheel
-four-wheel drive
-four-wheel-drive
-four-wheeled
-four-yard
-four-year
-four-year-old
-fourteen-year-old
-fourteenth-century
-fourth market
-fourth of july
-fourth-best
-fourth-generation
-fourth-highest
-fourth-largest
-fourth-most
-fourth-place
-fourth-placed
-fourth-quarter
-fourth-round
-fourth-season
-fourth-seeded
-fourth-tier
-fourth-year
 fox brush
 fox trot
 fox's sleep
@@ -12568,39 +12018,6 @@ full size
 full stop
 full swing
 full time
-full-back
-full-blooded
-full-blown
-full-bodied
-full-body
-full-color
-full-contact
-full-day
-full-duplex communication
-full-fledged
-full-forward
-full-frame
-full-grown
-full-height
-full-length
-full-length film
-full-on
-full-page
-full-power
-full-scale
-full-screen
-full-screen application
-full-screen editor
-full-service
-full-service connection
-full-size
-full-sized
-full-text
-full-time
-full-time employment
-full-time job
-full-time work
-full-width
 fully comprehensive insurance
 fully-fledged
 fulminic acid
@@ -14106,36 +13523,6 @@ half time
 half tint
 half title
 half volley
-half-back
-half-blood
-half-breed
-half-brother
-half-brothers
-half-centuries
-half-century
-half-day
-half-dozen
-half-forward
-half-hearted
-half-hour
-half-hourly
-half-human
-half-length
-half-life
-half-lives
-half-mast
-half-mile
-half-pay
-half-plane
-half-price ticket
-half-season
-half-siblings
-half-sister
-half-sisters
-half-timbered
-half-time
-half-way
-half-year
 halfway house
 hall of residence
 halley's comet
@@ -14179,18 +13566,6 @@ hand to fist
 hand to hand
 hand towel
 hand vote
-hand-built
-hand-carved
-hand-crafted
-hand-drawn
-hand-held
-hand-in-hand
-hand-made
-hand-operated
-hand-painted
-hand-picked
-hand-to-hand
-hand-written
 handbag tag
 handle with gloves
 handle without gloves
@@ -14816,85 +14191,9 @@ high treason
 high water
 high wind
 high words
-high-altitude
-high-angle
-high-capacity
-high-class
-high-definition
-high-density
-high-dimensional
-high-dose
-high-efficiency
-high-end
-high-energy
-high-explosive
-high-fidelity
-high-flying
-high-frequency
-high-grade
-high-grade petrol
-high-heel shoe
-high-impact
-high-income
-high-intensity
-high-level
-high-level data link control
-high-level formatting
-high-low lines
-high-octane petrol
-high-performance
-high-pitched
-high-power
-high-powered
-high-precision
-high-pressure
-high-priced
-high-profile
-high-quality
-high-ranking
-high-resolution
-high-rise
-high-rises
-high-risk
-high-school
-high-scoring
-high-security
-high-speed
-high-speed steel
-high-stakes
-high-status
-high-strength
-high-tech
-high-technology
-high-temperature
-high-throughput
-high-value
-high-velocity
-high-voltage
-high-volume
-high-water
-high-wing
-high-yield
 higher education
 higher than a kite
-higher-dimensional
-higher-end
-higher-level
-higher-order
-higher-quality
-higher-ranked
-higher-ranking
 highest peak
-highest-charting
-highest-ever
-highest-grossing
-highest-paid
-highest-placed
-highest-ranked
-highest-ranking
-highest-rated
-highest-scoring
-highest-selling
 highland fling
 highlighted text
 highly developed countries
@@ -17497,38 +16796,6 @@ laser-guided
 laserdisc player
 lash out
 lashkar-e-taiba
-last cell
-last change
-last class
-last day
-last ditch
-last honours
-last hurrah
-last minute
-last modification date
-last month
-last name
-last night
-last offices
-last out
-last printed
-last quarter
-last quarter moon
-last saved
-last saved date
-last sleep
-last straw
-last supper
-last time
-last trump
-last week
-last word
-last words
-last year
-last-ditch
-last-minute
-last-place
-last-second
 latch on
 latchkey child
 late binding
@@ -18589,42 +17856,6 @@ long ton
 long vacation
 long views
 long wave
-long-acting
-long-awaited
-long-billed
-long-chain
-long-delayed
-long-distance
-long-distance bus
-long-duration
-long-eared
-long-established
-long-form
-long-haired
-long-haul
-long-haul aircraft
-long-held
-long-horned
-long-lasting
-long-legged
-long-lived
-long-lost
-long-necked
-long-nosed
-long-playing record
-long-range
-long-range aircraft
-long-run
-long-running
-long-serving
-long-short story
-long-sleeved
-long-standing
-long-suffering
-long-tailed
-long-term
-long-time
-long-wheelbase
 longer-term
 longest-lasting
 longest-lived
@@ -18827,46 +18058,6 @@ low season
 low sunday
 low tide
 low water
-low-altitude
-low-budget
-low-carbon
-low-cost
-low-density
-low-end
-low-energy
-low-floor
-low-flying
-low-frequency
-low-grade
-low-growing
-low-income
-low-intensity
-low-interest
-low-key
-low-level
-low-level formatting
-low-light
-low-lying
-low-mass
-low-orbiting satellite
-low-pass
-low-pitched
-low-power
-low-powered
-low-pressure
-low-priced
-low-profile
-low-quality
-low-ranking
-low-rise
-low-risk
-low-scoring
-low-speed
-low-temperature
-low-voltage
-low-wage
-low-water mark
-low-wing
 lower case
 lower classes
 lower deck
@@ -18876,14 +18067,6 @@ lower one's sail
 lower the boom on
 lower the flag
 lower world
-lower-case
-lower-class
-lower-cost
-lower-income
-lower-level
-lower-middle
-lower-order
-lower-ranking
 lt-col
 lubber's hole
 lubricating oil
@@ -19834,93 +19017,6 @@ micrometer calipers
 microwave oven
 mid off
 mid on
-mid-afternoon
-mid-air
-mid-america
-mid-american
-mid-april
-mid-atlantic
-mid-august
-mid-autumn festival
-mid-career
-mid-century
-mid-continent
-mid-day
-mid-december
-mid-eastern
-mid-eighteenth
-mid-eighties
-mid-engine
-mid-engined
-mid-february
-mid-january
-mid-july
-mid-june
-mid-late
-mid-latitude
-mid-level
-mid-life
-mid-line
-mid-march
-mid-may
-mid-morning
-mid-nineteenth
-mid-nineties
-mid-november
-mid-ocean
-mid-october
-mid-ohio
-mid-range
-mid-season
-mid-september
-mid-sixties
-mid-size
-mid-sized
-mid-south
-mid-summer
-mid-table
-mid-teens
-mid-tempo
-mid-term
-mid-to-late
-mid-twenties
-mid-twentieth
-mid-ulster
-mid-way
-mid-week
-mid-west
-mid-western
-mid-wing
-mid-winter
-mid-year
-middle age
-middle ages
-middle class
-middle course
-middle distance
-middle ear
-middle east
-middle finger
-middle ground
-middle of the road
-middle school
-middle states
-middle term
-middle watch
-middle west
-middle white
-middle-aged
-middle-class
-middle-distance
-middle-distance race
-middle-earth
-middle-east
-middle-eastern
-middle-income
-middle-of-the road
-middle-of-the-road
-middle-order
-middle-school
 middy blouse
 midi mapper
 midi sequencer
@@ -20384,54 +19480,6 @@ mule deer
 mule skinner
 mullet roe
 mulligan stew
-multi computer
-multi-channel
-multi-colored
-multi-coloured
-multi-core
-multi-cultural
-multi-day
-multi-dimensional
-multi-disciplinary
-multi-engine
-multi-ethnic
-multi-faceted
-multi-family
-multi-function
-multi-functional
-multi-generational
-multi-instrumentalist
-multi-layer
-multi-layered
-multi-level
-multi-lingual
-multi-media
-multi-member
-multi-million
-multi-millionaire
-multi-modal
-multi-national
-multi-part
-multi-party
-multi-platform
-multi-platinum
-multi-player
-multi-purpose
-multi-racial
-multi-role
-multi-sport
-multi-sports
-multi-stage
-multi-state
-multi-storey
-multi-story
-multi-touch
-multi-track
-multi-unit
-multi-use
-multi-user
-multi-volume
-multi-year
 multibillion-dollar
 multimillion-dollar
 multimodal interface
@@ -20848,32 +19896,9 @@ nihil ad rem
 nikita khrushchev
 nil admirari
 nilo-saharan
-nine out of ten
-nine tenths
-nine times out of ten
-nine-ball
-nine-cylinder
-nine-day
-nine-game
-nine-hole
-nine-member
-nine-month
-nine-nine
-nine-point
-nine-time
-nine-yard
-nine-year
-nine-year-old
 ninedays' wonder
-nineteen-year-old
 nineteenth hole
-nineteenth-century
-ninety-five
-ninety-nine
-ninety-six
-ninety-two
 ninsolid color
-ninth-century
 ninth-place
 nip and tuck
 nip in the blossom
@@ -20967,209 +19992,6 @@ nominal price
 nominal wages
 nominated bank
 nominative absolute
-non compos mentis
-non seq.
-non sequitur
-non verbal
-non white
-non-abelian
-non-aboriginal
-non-academic
-non-aggression
-non-agricultural
-non-album
-non-alcoholic
-non-aligned
-non-american
-non-arab
-non-avian
-non-believers
-non-binary
-non-binding
-non-breaking hyphen
-non-breeding
-non-british
-non-canon
-non-canonical
-non-catholic
-non-catholics
-non-championship
-non-chinese
-non-christian
-non-christians
-non-citizen
-non-citizens
-non-classical
-non-coding
-non-combat
-non-combatant
-non-combatants
-non-commercial
-non-commissioned
-non-commissioned officer
-non-communist
-non-commutative
-non-competitive
-non-compliance
-non-compliant
-non-conference
-non-conforming
-non-conformist
-non-consecutive
-non-consensual
-non-contact
-non-contiguous
-non-contract
-non-contributing
-non-conventional
-non-cooperation
-non-core
-non-degenerate
-non-degree
-non-denominational
-non-departmental
-non-destructive
-non-deterministic
-non-directional
-non-disclosure
-non-discrimination
-non-discriminatory
-non-electrified
-non-emergency
-non-empty
-non-english
-non-equilibrium
-non-essential
-non-eu
-non-euclidean
-non-euclidean geometry
-non-european
-non-exclusive
-non-executive
-non-existence
-non-existent
-non-families
-non-family
-non-fatal
-non-feature
-non-federal
-non-ferrous
-non-fiction
-non-financial
-non-finite
-non-first-class
-non-flying
-non-food
-non-football
-non-formal
-non-functional
-non-german
-non-government
-non-governmental
-non-han
-non-hispanic
-non-human
-non-indian
-non-indigenous
-non-institutionalized
-non-interactive applications
-non-interference
-non-intervention
-non-invasive
-non-japanese
-non-jewish
-non-jews
-non-league
-non-lethal
-non-linear
-non-living
-non-local
-non-mandatory
-non-marine
-non-medical
-non-member
-non-members
-non-metallic
-non-metropolitan
-non-migratory
-non-military
-non-motile
-non-motorized
-non-musical
-non-muslim
-non-muslims
-non-native
-non-natives
-non-negative
-non-nuclear
-non-obligatory
-non-official
-non-operational
-non-orthodox
-non-overlapping
-non-partisan
-non-party
-non-payment
-non-permanent
-non-physical
-non-playable
-non-player
-non-playing
-non-polar
-non-political
-non-productive
-non-professional
-non-profit
-non-profit making
-non-profits
-non-proliferation
-non-public
-non-ranking
-non-relativistic
-non-religious
-non-renewable
-non-resident
-non-residential
-non-residents
-non-revenue
-non-royal
-non-russian
-non-sectarian
-non-selective
-non-singular
-non-speaking
-non-specific
-non-spore-forming
-non-standard
-non-state
-non-statutory
-non-stop
-non-stop flight to
-non-surgical
-non-swiss
-non-system disk
-non-teaching
-non-technical
-non-title
-non-toxic
-non-traditional
-non-trivial
-non-u
-non-uniform
-non-union
-non-university
-non-us
-non-verbal
-non-violence
-non-violent
-non-volatile
-non-voting
-non-western
-non-white
-non-whites
-non-windows application
-non-working
-non-zero
 nonadjacent selection
 nonaggression pact
 nonanoic acid
@@ -21190,26 +20012,6 @@ normal college
 normal school
 normal style
 norman french
-north america
-north by east
-north by west
-north carolina
-north dakota
-north korea
-north pole
-north star
-north-american
-north-central
-north-east
-north-easterly
-north-eastern
-north-facing
-north-northeast
-north-northwest
-north-south
-north-to-south
-north-west
-north-western
 northeast by east
 northeast by north
 northeast-southwest
@@ -22121,8 +20923,6 @@ one-way ticket
 one-week
 one-woman
 one-yard
-one-year
-one-year-old
 onega lake
 onlie begetter
 online-only
@@ -23722,60 +22522,6 @@ post road
 post time
 post town
 post up
-post-apartheid
-post-apocalyptic
-post-captain
-post-civil
-post-classical
-post-cold
-post-colonial
-post-communist
-post-conflict
-post-credits
-post-crisis
-post-dispatch
-post-doctoral
-post-election
-post-fight
-post-game
-post-gazette
-post-glacial
-post-graduate
-post-graduation
-post-grunge
-post-hardcore
-post-impressionist
-post-independence
-post-industrial
-post-intelligencer
-post-match
-post-medieval
-post-modern
-post-mortem
-post-nominal
-post-office
-post-office box
-post-operative
-post-playing
-post-processing
-post-production
-post-punk
-post-race
-post-release
-post-retirement
-post-revolution
-post-revolutionary
-post-rock
-post-roman
-post-season
-post-second
-post-secondary
-post-soviet
-post-translational
-post-traumatic
-post-war
-post-world
-post-wwii
 postage paid
 postal card
 postal district
@@ -23891,88 +22637,6 @@ prayer meeting
 prayer mill
 prayer wheel
 praying mantis
-pre-arranged
-pre-cast
-pre-christian
-pre-civil
-pre-clinical
-pre-code
-pre-college
-pre-colonial
-pre-columbian
-pre-contact
-pre-contract
-pre-crisis
-pre-date
-pre-dated
-pre-dates
-pre-dating
-pre-dawn
-pre-defined
-pre-determined
-pre-draft
-pre-dreadnought
-pre-dreadnoughts
-pre-election
-pre-eminence
-pre-eminent
-pre-empted
-pre-emptive
-pre-european
-pre-existing
-pre-fabricated
-pre-flight
-pre-game
-pre-hispanic
-pre-historic
-pre-history
-pre-independence
-pre-industrial
-pre-installed
-pre-islamic
-pre-julian
-pre-k
-pre-kindergarten
-pre-loaded
-pre-made
-pre-match
-pre-med
-pre-medical
-pre-modern
-pre-mrna
-pre-olympic
-pre-order
-pre-ordered
-pre-orders
-pre-paid
-pre-planned
-pre-primary
-pre-production
-pre-professional
-pre-programmed
-pre-race
-pre-raphaelite
-pre-recorded
-pre-reformation
-pre-release
-pre-rendered
-pre-revolutionary
-pre-roman
-pre-sale
-pre-school
-pre-season
-pre-selected
-pre-selection
-pre-set
-pre-show
-pre-tax
-pre-teen
-pre-tournament
-pre-transition
-pre-trial
-pre-university
-pre-war
-pre-world
 preach down
 preach to
 preach up
@@ -25217,127 +23881,6 @@ raze out
 raze to the ground
 razor shell
 razor strop
-re-acquired
-re-activated
-re-admitted
-re-aired
-re-appeared
-re-appointed
-re-armament
-re-arranged
-re-arrested
-re-brand
-re-branded
-re-branding
-re-broadcast
-re-building
-re-built
-re-captured
-re-classified
-re-collect oneself
-re-create
-re-created
-re-creation
-re-dedicated
-re-design
-re-designated
-re-designed
-re-developed
-re-development
-re-discovered
-re-edited
-re-education
-re-elected
-re-election
-re-emerge
-re-emerged
-re-emergence
-re-emerging
-re-enacted
-re-enactment
-re-enactments
-re-engined
-re-engineered
-re-enlisted
-re-enter
-re-entered
-re-entering
-re-enters
-re-entry
-re-equip
-re-equipped
-re-erected
-re-establish
-re-established
-re-establishing
-re-establishment
-re-evaluate
-re-evaluated
-re-evaluation
-re-examination
-re-examine
-re-examined
-re-form
-re-formed
-re-founded
-re-hired
-re-imagined
-re-imagining
-re-instated
-re-interred
-re-introduce
-re-introduced
-re-introduction
-re-issue
-re-issued
-re-issues
-re-join
-re-joined
-re-joining
-re-launch
-re-launched
-re-located
-re-mastered
-re-match
-re-named
-re-occupied
-re-open
-re-opened
-re-opening
-re-organisation
-re-organised
-re-organization
-re-organized
-re-published
-re-purposed
-re-raised
-re-record
-re-recorded
-re-recording
-re-recordings
-re-registered
-re-release
-re-released
-re-releases
-re-releasing
-re-routed
-re-run
-re-runs
-re-shot
-re-sign
-re-signed
-re-signing
-re-supply
-re-titled
-re-united
-re-use
-re-used
-re-using
-re-worked
-re-working
-re-write
-re-written
-re-wrote
 reach for
 reach out
 react against
@@ -27155,76 +25698,6 @@ seat belt
 seattle-based
 seattle-tacoma
 sebaceous gland
-second advent
-second baseman
-second best
-second chamber
-second childhood
-second class
-second cousin
-second fiddle
-second floor
-second gear
-second hand
-second lieutenant
-second mate
-second mortgage
-second nature
-second nerve
-second papers
-second person
-second reading
-second run
-second self
-second sight
-second teeth
-second thought
-second thoughts are best.
-second to none
-second wind
-second world war
-second-best
-second-biggest
-second-choice
-second-class
-second-class stateroom
-second-degree
-second-fastest
-second-floor
-second-generation
-second-half
-second-hand
-second-highest
-second-in-command
-second-innings
-second-language
-second-largest
-second-last
-second-level
-second-line
-second-longest
-second-lowest
-second-most
-second-oldest
-second-order
-second-person
-second-place
-second-placed
-second-ranked
-second-rate
-second-round
-second-row
-second-run cinema
-second-season
-second-seeded
-second-story
-second-string
-second-team
-second-tier
-second-to-last
-second-wave
-second-year
-second-youngest
 secondary accent
 secondary boycott
 secondary cell
@@ -27391,122 +25864,6 @@ selenographic chart
 self do and self have.
 self evident
 self incrimination
-self-absorbed
-self-actualization
-self-adjoint
-self-administered
-self-administration
-self-appointed
-self-assembly
-self-assessment
-self-assured
-self-aware
-self-awareness
-self-care
-self-censorship
-self-centered
-self-concept
-self-confidence
-self-confident
-self-conscious
-self-consciously
-self-consciousness
-self-consistency validation
-self-contained
-self-control
-self-criticism
-self-declared
-self-defence
-self-defense
-self-deprecating
-self-described
-self-destruct
-self-destruction
-self-destructive
-self-determination
-self-development
-self-directed
-self-discipline
-self-discovery
-self-doubt
-self-drive car
-self-driving
-self-dual
-self-educated
-self-efficacy
-self-employed
-self-employment
-self-esteem
-self-evident
-self-expression
-self-financed
-self-financing
-self-fulfilling
-self-funded
-self-governance
-self-governing
-self-government
-self-guided
-self-harm
-self-healing
-self-help
-self-identification
-self-identified
-self-identify
-self-identity
-self-image
-self-immolation
-self-imposed
-self-improvement
-self-incrimination
-self-indulgent
-self-inflicted
-self-interest
-self-interested
-self-knowledge
-self-loathing
-self-made
-self-management
-self-organization
-self-organizing
-self-penned
-self-pity
-self-portrait
-self-portraits
-self-preservation
-self-proclaimed
-self-produced
-self-promotion
-self-propelled
-self-published
-self-publishing
-self-realization
-self-reference
-self-referential
-self-reflection
-self-regulating
-self-regulation
-self-regulatory
-self-released
-self-reliance
-self-reliant
-self-replicating
-self-report
-self-reported
-self-respect
-self-rule
-self-sacrifice
-self-service
-self-serving
-self-study
-self-styled
-self-sufficiency
-self-sufficient
-self-supporting
-self-sustaining
-self-taught
-self-titled
-self-worth
 selkirk mountains
 sell by the dozen
 sell for a song
@@ -27525,39 +25882,6 @@ sell up
 sell-out
 seller's market
 selsdon man
-semi-active
-semi-annual
-semi-aquatic
-semi-arid
-semi-autobiographical
-semi-automatic
-semi-autonomous
-semi-circular
-semi-desert
-semi-detached
-semi-evergreen
-semi-final
-semi-finalist
-semi-finalists
-semi-finals
-semi-independent
-semi-legendary
-semi-major
-semi-natural
-semi-nomadic
-semi-official
-semi-open
-semi-permanent
-semi-precious
-semi-private
-semi-pro
-semi-professional
-semi-regular
-semi-retired
-semi-retirement
-semi-rural
-semi-trailer
-semi-transparent
 semicircular canal
 semifinished goods
 semifinished product
@@ -27834,44 +26158,13 @@ settle up
 settle with
 setup book for multiple users
 setup string
-seven deadly sins
-seven principal virtues
-seven sages
-seven seas
-seven wonders of the world
-seven year's war
-seven-day
-seven-game
-seven-inch
-seven-member
-seven-minute
-seven-month
-seven-point
-seven-story
-seven-time
-seven-week
-seven-yard
-seven-year
-seven-year itch
-seven-year-old
 sevenpenny nail
-seventeen-year-old
-seventeenth-century
 seventh chord
 seventh heaven
 seventh-day
 seventh-place
 seventh-round
 seventy times seven
-seventy-eight
-seventy-five
-seventy-four
-seventy-nine
-seventy-one
-seventy-seven
-seventy-six
-seventy-three
-seventy-two
 severance pay
 severe cold
 sew on
@@ -28107,23 +26400,6 @@ shore up
 shore-based
 short  trousers
 short wave
-short-circuit
-short-distance
-short-form
-short-handed
-short-haul
-short-line
-short-listed
-short-lived
-short-range
-short-run
-short-season
-short-sleeved sweater
-short-story
-short-tailed
-short-tempered
-short-term
-short-wave
 shortage of labour
 shortage of manpower
 shortcut key
@@ -28455,62 +26731,6 @@ singe sb.'s beard
 singed cat
 singer-songwriter
 singer-songwriters
-single entry
-single file
-single lens reflex
-single out
-single quotation marks
-single quotes
-single room
-single space
-single standard
-single step
-single tax
-single ticket
-single-a
-single-action
-single-bay
-single-camera
-single-cell
-single-celled
-single-crop farming
-single-cylinder
-single-day
-single-disc
-single-elimination
-single-ended
-single-engine
-single-engined
-single-entry bookkeeping
-single-family
-single-game
-single-handed
-single-handedly
-single-lens
-single-member
-single-minded
-single-parent
-single-party
-single-payer
-single-phase
-single-place
-single-player
-single-point
-single-season
-single-seat
-single-seater
-single-sex
-single-shot
-single-sided
-single-span
-single-stage
-single-storey
-single-storeyed
-single-story
-single-stranded
-single-track
-single-use
-single-user access
 sink down
 sink in
 sink into absurdity
@@ -28570,62 +26790,15 @@ sitting duck
 sitting room
 siwalik hills
 siwalik range
-six to one
-six ways to sunday
-six-car
-six-cylinder
-six-day
-six-episode
-six-figure
-six-foot
-six-game
-six-hour
-six-inch
-six-issue
-six-lane
-six-man
-six-member
-six-minute
-six-month
-six-part
-six-person
-six-piece
-six-point
-six-round
-six-sided
-six-song
-six-speed
-six-story
-six-string
-six-team
-six-time
-six-track
-six-volume
-six-week
-six-yard
-six-year
-six-year-old
-sixteen-year-old
 sixteenth note
-sixteenth-century
 sixth column
 sixth sense
 sixth-form
 sixth-largest
 sixth-place
 sixth-round
-sixth-year
-sixty-eight
-sixty-five
-sixty-four
 sixty-four-dollar question
 sixty-fourth note
-sixty-nine
-sixty-one
-sixty-seven
-sixty-six
-sixty-three
-sixty-two
 size and orientation
 size down
 size for
@@ -28844,27 +27017,6 @@ slush fund
 sm card
 sm-liiga
 smack down
-small arms
-small beer
-small capital
-small caps
-small change
-small farmer
-small hours
-small intestine
-small lake
-small letter
-small mask
-small potatoes
-small suitcase
-small talk
-small tambourine
-small-arms
-small-claims court
-small-scale
-small-sized
-small-time
-small-town
 smaller-scale
 smart aleck
 smart card
@@ -29250,24 +27402,6 @@ source file
 source language
 source listing
 source material
-south africa
-south america
-south american
-south china sea
-south korea
-south pole
-south sea islands
-south-central
-south-east
-south-easterly
-south-eastern
-south-facing
-south-north
-south-southeast
-south-southwest
-south-west
-south-westerly
-south-western
 southend-on-sea
 southern cross
 southern hemisphere
@@ -30352,44 +28486,6 @@ stunt man
 style jumping
 stylus printer
 sub pen
-sub-alpine
-sub-basin
-sub-branch
-sub-categories
-sub-class
-sub-committee
-sub-committees
-sub-continent
-sub-district
-sub-districts
-sub-divided
-sub-division
-sub-divisions
-sub-editor
-sub-group
-sub-groups
-sub-inspector
-sub-label
-sub-lieutenant
-sub-mariner
-sub-national
-sub-par
-sub-plot
-sub-post office
-sub-prefecture
-sub-region
-sub-regional
-sub-regions
-sub-saharan
-sub-section
-sub-series
-sub-species
-sub-standard
-sub-surface
-sub-tropical
-sub-unit
-sub-units
-sub-zero
 subic bay
 subig bay
 subject catalog
@@ -31466,21 +29562,6 @@ temporize with
 tempt fate
 tempt fortune
 tempus fugit
-ten commandments
-ten to one
-ten-cent store
-ten-day
-ten-gallon hat
-ten-man
-ten-minute
-ten-minute man
-ten-month
-ten-pin
-ten-point
-ten-round
-ten-storey office block
-ten-year
-ten-year-old
 tenant farmer
 tenant right
 tenant-in-chief
@@ -31511,7 +29592,6 @@ tent fly
 tent peg
 tent pin
 tent pole
-tenth-century
 tenure-track
 tepary bean
 terephthalic acid
@@ -32077,67 +30157,8 @@ thiopental sodium
 thiopentone sodium
 thiophosphoric acid
 thiosulphuric acid
-third baseman
-third class
-third degree
-third dimension
-third estate
-third finger
-third force
-third party
-third person
-third rail
-third reich
-third-best
-third-choice
-third-class
-third-degree
-third-degree burn
-third-generation
-third-highest
-third-largest
-third-level
-third-most
-third-order
-third-party
-third-party insurance
-third-person
-third-place
-third-placed
-third-rate
-third-round
-third-season
-third-sector
-third-seeded
-third-string
-third-team
-third-tier
-third-year
 thirst for
-thirteen-year-old
-thirteenth-century
 thirty years' war
-thirty-eight
-thirty-eighth
-thirty-fifth
-thirty-first
-thirty-five
-thirty-four
-thirty-fourth
-thirty-minute
-thirty-nine
-thirty-ninth
-thirty-one
-thirty-second
-thirty-second note
-thirty-seven
-thirty-seventh
-thirty-six
-thirty-sixth
-thirty-third
-thirty-three
-thirty-two
-thirty-year
 this afternoon
 this day week
 this evening
@@ -32167,95 +30188,6 @@ thread-like
 threaded newsreader
 threaded safe variables
 threatened abortion
-three character primer
-three cubed
-three of a kind
-three per cent
-three r's
-three score years and ten
-three-act
-three-and-a-half
-three-and-a-half-year
-three-and-out
-three-base hit
-three-bay
-three-bedroom
-three-bladed
-three-bottle man
-three-car
-three-cylinder
-three-day
-three-decker
-three-digit
-three-dimensional
-three-disc
-three-door
-three-fifths
-three-fold
-three-four time
-three-fourths
-three-game
-three-hour
-three-in-a-row
-three-issue
-three-judge
-three-lane
-three-legged
-three-letter
-three-level
-three-light
-three-man
-three-masted
-three-match
-three-member
-three-mile
-three-mile limit
-three-minute
-three-month
-three-part
-three-peat
-three-person
-three-phase
-three-piece
-three-piece suit
-three-point
-three-pointer
-three-pointers
-three-pronged
-three-quarter
-three-quarter coat
-three-quarters
-three-room
-three-round
-three-run
-three-season
-three-seat
-three-set
-three-sided
-three-song
-three-speed
-three-speed  gear
-three-sport
-three-stage
-three-star
-three-step
-three-storey
-three-story
-three-team
-three-term
-three-tier
-three-tiered
-three-time
-three-toed
-three-track
-three-volume
-three-way
-three-week
-three-wheeled
-three-yard
-three-year
-three-year-old
-three-year-olds
 threshing floor
 threshing machine
 thrill through
@@ -33063,44 +30995,6 @@ tools and linesize
 tooth and nail
 tooth powder
 top and tail
-top boot
-top cover
-top drawer
-top end
-top hat
-top lantern
-top left corner
-top line
-top off
-top right corner
-top sawyer
-top scores
-top sergeant
-top something
-top speed
-top up
-top-class
-top-down
-top-five
-top-flight
-top-grossing
-top-level
-top-notch
-top-of-the-line
-top-ranked
-top-ranking
-top-rated
-top-scored
-top-scorer
-top-scoring
-top-secret
-top-seeded
-top-selling
-top-ten
-top-three
-top-tier
-top-twenty
-top-up
 topgallant mast
 topple down
 topple over
@@ -33744,35 +31638,6 @@ tv station
 tv-series
 tweedledum and tweedledee
 twelfth day
-twelfth-century
-twelve apostles
-twelve-month
-twelve-tone
-twelve-tone system
-twelve-year
-twelve-year-old
-twentieth-century
-twenty-eight
-twenty-eighth
-twenty-fifth
-twenty-first
-twenty-five
-twenty-four
-twenty-fourth
-twenty-minute
-twenty-nine
-twenty-ninth
-twenty-one
-twenty-second
-twenty-seven
-twenty-seventh
-twenty-six
-twenty-sixth
-twenty-third
-twenty-three
-twenty-two
-twenty-year
-twenty-year-old
 twice over
 twice-weekly
 twiddle one's thumbs
@@ -33793,98 +31658,6 @@ twist the lion's tail
 twist up
 twisted pair
 twists and turns
-two bits
-two heads are better than one.
-two nights,please
-two of a trade never agree.
-two or three
-two pairs
-two's company,three's none.
-two-act
-two-and-a-half
-two-and-a-half-year
-two-axle
-two-base bit
-two-bay
-two-beaked anvil
-two-bedroom
-two-blade
-two-bladed
-two-car
-two-cd
-two-cylinder
-two-day
-two-digit
-two-dimensional
-two-disc
-two-door
-two-face
-two-fifths
-two-fold
-two-game
-two-goal
-two-handed
-two-headed
-two-hour
-two-lane
-two-legged
-two-letter
-two-level
-two-light
-two-man
-two-match
-two-member
-two-mile
-two-minute
-two-month
-two-out
-two-page
-two-part
-two-party
-two-party system
-two-person
-two-phase
-two-piece
-two-piece dress
-two-player
-two-point
-two-pronged
-two-reel
-two-room
-two-round
-two-run
-two-season
-two-seat
-two-seater
-two-sided
-two-speed
-two-stage
-two-star
-two-state
-two-step
-two-storey
-two-storeyed
-two-storied
-two-story
-two-stroke
-two-stroke engine
-two-term
-two-thirds
-two-tier
-two-tiered
-two-time
-two-to-one
-two-tone
-two-track
-two-volume
-two-way
-two-week
-two-wheel
-two-wheeled
-two-yard
-two-year
-two-year-old
-two-year-olds
 tympanic membrane
 type case
 type metal
@@ -34993,58 +32766,6 @@ well off
 well sinker
 well then
 well up
-well-armed
-well-attended
-well-balanced
-well-behaved
-well-being
-well-built
-well-connected
-well-crafted
-well-defined
-well-deserved
-well-designed
-well-developed
-well-documented
-well-drained
-well-dressed
-well-educated
-well-equipped
-well-established
-well-executed
-well-formed
-well-founded
-well-funded
-well-informed
-well-intentioned
-well-known
-well-liked
-well-made
-well-maintained
-well-marked
-well-meaning
-well-off
-well-ordered
-well-organized
-well-paid
-well-placed
-well-planned
-well-prepared
-well-preserved
-well-publicized
-well-read
-well-received
-well-regarded
-well-researched
-well-respected
-well-rounded
-well-studied
-well-suited
-well-to-do
-well-trained
-well-versed
-well-wishers
-well-written
 welsh rabbit
 welsh-language
 welsh-speaking
@@ -35120,19 +32841,6 @@ went without
 went without saying
 went wrong
 were it not for
-west bengal
-west end
-west germany
-west indies
-west lothiam
-west point
-west pointer
-west-central
-west-east
-west-facing
-west-northwest
-west-northwestward
-west-southwest
 western church
 western empire
 western hemisphere
