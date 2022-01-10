@@ -74,10 +74,6 @@ private struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://www.lexico.com/en/definition/")
     }
     
-    func openDictionary(_ word: String) {
-        openExternalDict(word, urlPrefix: "https://www.dictionary.com/browse/")
-    }
-    
     func openThesaurus(_ word: String) {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
@@ -87,20 +83,21 @@ private struct TextBody: View {
             .lineSpacinged()
             .minimalistPaddinged()
             .contextMenu {
-                Button(unKnown ? "Add to Known" : "Remove from Known", action: {
+                Button(unKnown ? "Add to Known" : "Remove from Known") {
                     unKnown ? addKnown(word) : removeKnown(word)
-                })
-                Button(!noisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
-                    !noisesSet.contains(word) ?
-                        addNoise(word) :
-                        removeNoise(word)
                 }
-                Menu("Online Dict Link") {
-                    Button("Collins", action: { openCollins(word) })
-                    Button("Cambridge", action: { openCambridge(word) })
-                    Button("Lexico", action: { openLexico(word) })
-                    Button("Dictionary", action: { openDictionary(word) })
-                    Button("Thesaurus", action: { openThesaurus(word) })
+                Button("Say") {
+                    say(word)
+                }
+                Menu("Open At") {
+                    Button("Local") { openDict(word) }
+                    Button("Collins") { openCollins(word) }
+                    Button("Cambridge") { openCambridge(word) }
+                    Button("Lexico") { openLexico(word) }
+                    Button("Thesaurus") { openThesaurus(word) }
+                }
+                Button(!noisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
+                    !noisesSet.contains(word) ? addNoise(word) : removeNoise(word)
                 }
             }
             .gesture(
