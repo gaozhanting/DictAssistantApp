@@ -164,7 +164,7 @@ private let defaultSettings = Settings(
     minimumTextHeight: ZeroDefaultMinimumTextHeight,
     isOpenLemma: false,
     
-    isAddLineBreak: false,
+    isAddLineBreak: true,
     
     highlightMode: HighlightModeDefault,
     hLRectangleColor: HLRectangleColorDefault,
@@ -289,7 +289,7 @@ private struct SlotsView: View {
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = ZeroDefaultMinimumTextHeight
     @AppStorage(IsOpenLemmaKey) var isOpenLemma: Bool = false
 
-    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault

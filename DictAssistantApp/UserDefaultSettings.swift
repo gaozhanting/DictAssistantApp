@@ -210,7 +210,7 @@ private let scenarioKV: [String: Any] = [
     
     IsOpenLemmaKey: false,
     
-    IsAddLineBreakKey: false,
+    IsAddLineBreakKey: true,
     
     HighlightModeKey: HighlightModeDefault,
     

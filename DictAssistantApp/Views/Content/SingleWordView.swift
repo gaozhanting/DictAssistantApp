@@ -243,7 +243,7 @@ private struct TheText: View {
         }
     }
     
-    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     var translation: String {
         let step1 = ccTrans.replacingOccurrences(of: "\n", with: " ")
         let step2 = String(step1.dropFirst(word.count).drop { c in c.isWhitespace }) // drop title word count character (commonly is the title word itself), and also drop whitespace after it.

@@ -21,7 +21,7 @@ struct ShortcutsSettingsView: View {
 }
 
 private struct KeyRecordingView: View {
-    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = false
+    @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     var g1: some View {
         Group {
             HStack {
