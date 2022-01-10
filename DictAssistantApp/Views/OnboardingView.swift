@@ -220,7 +220,7 @@ private struct BuildDictView: View {
             content: {
                 GroupBox {
                     VStack {
-                        Picker("Your Target Language:", selection: $lang) {
+                        Picker("Your target language:", selection: $lang) {
                             ForEach(Lang.allCases, id: \.self) { lang in
                                 Text(NSLocalizedString(lang.rawValue, comment: "")).tag(lang)
                             }
@@ -321,7 +321,7 @@ private struct OneKeyRecordingView: View {
     var body: some View {
         GroupBox {
             HStack {
-                Text("Run Step Play")
+                Text("Run step play")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .runStepPlay)
                 MiniInfoView {

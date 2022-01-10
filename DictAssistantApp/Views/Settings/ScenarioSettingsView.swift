@@ -64,12 +64,12 @@ struct ContentMaxSettingsView: View {
     
     var body: some View {
         HStack {
-            Text("Max Height Per Entry:")
+            Text("Max height per entry:")
             TextField("", value: $portraitMaxHeight, formatter: tfDecimalFormatter).frame(width: tfWidth)
             
             Spacer()
             
-            Text("Max Width Per Entry:")
+            Text("Max width per entry:")
             TextField("", value: $landscapeMaxWidth, formatter: tfDecimalFormatter).frame(width: tfWidth)
         }
     }
@@ -83,7 +83,7 @@ struct ContentPaddingStyleSettingsView: View {
     
     var body: some View {
         HStack {
-            Picker("Padding Style:", selection: $contentPaddingStyle) {
+            Picker("Padding style:", selection: $contentPaddingStyle) {
                 Text("standard").tag(ContentPaddingStyle.standard.rawValue)
                 Text("minimalist").tag(ContentPaddingStyle.minimalist.rawValue)
             }
@@ -129,7 +129,7 @@ struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
 
     var body: some View {
-        Picker("Cropper Style:", selection: $cropperStyle) {
+        Picker("Cropper style:", selection: $cropperStyle) {
             Text("empty").tag(CropperStyle.empty.rawValue)
             Text("rectangle").tag(CropperStyle.rectangle.rawValue)
             Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)

@@ -472,7 +472,7 @@ private struct ButtonsView: View {
                 }
                 .alert(isPresented: $showingAlert) {
                     Alert(
-                        title: Text("Delete All"),
+                        title: Text("Delete all"),
                         message: Text("Are you sure? This action can't be undo."),
                         primaryButton: .default(
                             Text("Cancel")

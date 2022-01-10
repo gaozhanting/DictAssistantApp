@@ -14,7 +14,7 @@ struct IsOpenLemmaToggle: View {
     var body: some View {
         HStack {
             Toggle(isOn: $isOpenLemma) {
-                Text("Is Open Lemma")
+                Text("Is open lemma")
             }
             .toggleStyle(CheckboxToggleStyle())
             
@@ -37,7 +37,7 @@ struct DoNameRecognitionToggle: View {
     
     var body: some View {
         Toggle(isOn: $doNameRecognition) {
-            Text("Do Name Recognition")
+            Text("Do name recognition")
         }
         .toggleStyle(CheckboxToggleStyle())
     }
@@ -48,7 +48,7 @@ struct DoPhraseDetectionToggle: View {
     
     var body: some View {
         Toggle(isOn: $doPhraseDetection) {
-            Text("Do Phrase Detection")
+            Text("Do phrase detection")
         }
         .toggleStyle(CheckboxToggleStyle())
     }
@@ -59,7 +59,7 @@ struct UsesLanguageCorrectionToggle: View {
     
     var body: some View {
         Toggle(isOn: $usesLanguageCorrection) {
-            Text("Uses Language Correction")
+            Text("Uses language correction")
         }
         .toggleStyle(CheckboxToggleStyle())
         .help("This will increase considerable CPU usage.")

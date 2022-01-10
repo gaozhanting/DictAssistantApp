@@ -77,7 +77,7 @@ struct FontSizeSettingView: View {
     
     var body: some View {
         HStack {
-            Text("Font Size:")
+            Text("Font size:")
             TextField("", value: $fontSize, formatter: tfIntegerFormatter).frame(width: tfWidth)
             Stepper(onIncrement: onIncrement, onDecrement: onDecrement) {}
         }
@@ -89,7 +89,7 @@ struct FontLineSpacingSettingView: View {
 
     var body: some View {
         HStack {
-            Text("Font Line Spacing:")
+            Text("Font line spacing:")
             TextField("", value: $lineSpacing, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
         }
     }
@@ -171,7 +171,7 @@ private struct FontRatioSetting: View {
     
     var body: some View {
         HStack {
-            Text("Font Size Trans/Word Ratio:")
+            Text("Font size - Trans/Word ratio:")
             
             Slider(
                 value: $fontRatio,
@@ -250,7 +250,7 @@ private struct ContentBackgroundVisualEffect: View {
     var body: some View {
         HStack {
             Toggle(isOn: $useContentBackgroundVisualEffect) {
-                Text("Using Visual Effect")
+                Text("Using visual effect")
             }
             .toggleStyle(CheckboxToggleStyle())
 
@@ -298,13 +298,13 @@ private struct ColorSchemeSetting: View {
 
     var body: some View {
         HStack {
-            Text("Color Scheme")
+            Text("Color scheme")
             Spacer()
             Picker("", selection: $theColorScheme) {
                 Text("Light").tag(TheColorScheme.light.rawValue)
                 Text("Dark").tag(TheColorScheme.dark.rawValue)
                 Text("System").tag(TheColorScheme.system.rawValue)
-                Text("System Reversed").tag(TheColorScheme.systemReversed.rawValue)
+                Text("System reversed").tag(TheColorScheme.systemReversed.rawValue)
             }
             .labelsHidden()
             .pickerStyle(MenuPickerStyle())
@@ -331,7 +331,7 @@ private struct WithAnimationToggle: View {
     var body: some View {
         HStack {
             Toggle(isOn: $isWithAnimation, label: {
-                Text("With Animation")
+                Text("With animation")
             })
             .toggleStyle(CheckboxToggleStyle())
         }
@@ -343,7 +343,7 @@ private struct IsShowToastView: View {
     
     var body: some View {
         Toggle(isOn: $isShowToast, label: {
-            Text("Show Toast")
+            Text("Show toast")
         })
         .toggleStyle(CheckboxToggleStyle())
     }

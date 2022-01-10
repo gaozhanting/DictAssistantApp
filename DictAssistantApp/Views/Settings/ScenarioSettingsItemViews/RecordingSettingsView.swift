@@ -16,7 +16,7 @@ struct MaximumFrameRateSetting: View {
     
     var body: some View {
         HStack {
-            Text("Screen Recording FPS:")
+            Text("Screen recording FPS:")
             TextField("", value: $maximumFrameRate, formatter: {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .none // integer, no decimal

@@ -140,7 +140,7 @@ private struct EditingView: View {
                         .transition(.move(edge: .bottom))
                 }
                 if nothingChanged {
-                    Text("Nothing Changed")
+                    Text("Nothing changed")
                         .transition(.move(edge: .bottom))
                 }
                 
@@ -159,10 +159,10 @@ private struct EditingView: View {
                 Button(action: { showingDeleteAllAlert = true }) {
                     Image(systemName: "trash")
                 }
-                .help("Delete All")
+                .help("Delete all")
                 .alert(isPresented: $showingDeleteAllAlert) {
                     Alert(
-                        title: Text("Delete All"),
+                        title: Text("Delete all"),
                         message: Text("Are you sure? This action can't be undo."),
                         primaryButton: .default(
                             Text("Cancel")

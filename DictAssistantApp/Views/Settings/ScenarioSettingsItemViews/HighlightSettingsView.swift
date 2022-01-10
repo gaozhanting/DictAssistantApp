@@ -91,7 +91,7 @@ struct HighlightDottedOptionsView: View {
     
     var body: some View {
         HStack {
-            Text("Highlight Dotted Line:")
+            Text("Highlight dotted line:")
             Spacer()
             ColorPicker("color:", selection: binding)
             Spacer()
@@ -151,7 +151,7 @@ private struct DottedOptionsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Dotted Line:")
+            Text("Dotted line:")
             GroupBox {
                 HStack {
                     r1
@@ -206,14 +206,14 @@ struct HighlightDottedIndexOptionsView: View {
     
     var body: some View {
         Group {
-            Text("Highlight Dotted Index:")
+            Text("Highlight dotted index:")
             
             GroupBox {
                 VStack(alignment: .leading) {
                     HStack {
                         Spacer()
                         
-                        Picker("X Basic:", selection: $indexXBasic) {
+                        Picker("X basic:", selection: $indexXBasic) {
                             Text("leading").tag(IndexXBasic.leading.rawValue)
                             Text("center").tag(IndexXBasic.center.rawValue)
                             Text("trailing").tag(IndexXBasic.trailing.rawValue)
@@ -255,11 +255,11 @@ private struct DottedIndexOptionsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Dotted Index:")
+                Text("Dotted index:")
                 Spacer()
                 
                 Toggle(isOn: $isShowIndex) {
-                    Text("Show Index")
+                    Text("Show index")
                 }
                 .toggleStyle(CheckboxToggleStyle())
             }

@@ -31,7 +31,7 @@ struct MinimumTextHeightSetting: View {
     
     var body: some View {
         HStack {
-            Text("Minimum Text Height:")
+            Text("Minimum text height:")
             
             Slider(
                 value: $minimumTextHeight,
@@ -68,7 +68,7 @@ struct RecognitionLevelSetting: View {
     
     var body: some View {
         HStack {
-            Picker("Recognition Level:", selection: $textRecognitionLevel) {
+            Picker("Recognition level:", selection: $textRecognitionLevel) {
                 Text("fast").tag(VNRequestTextRecognitionLevel.fast.rawValue)
                 Text("accurate").tag(VNRequestTextRecognitionLevel.accurate.rawValue)
             }

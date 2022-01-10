@@ -25,7 +25,7 @@ private struct KeyRecordingView: View {
     var g1: some View {
         Group {
             HStack {
-                Text("Run Step Play")
+                Text("Run step play")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .runStepPlay)
                 MiniInfoView {
@@ -33,7 +33,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Switch Content Anchor")
+                Text("Switch content anchor")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .switchAnchor)
                 MiniInfoView {
@@ -42,7 +42,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Toggle Add Line Break")
+                Text("Toggle add line break")
                 Spacer()
                 Toggle("", isOn: $isAddLineBreak)
                 KeyboardShortcuts.Recorder(for: .toggleAddLineBreak)
@@ -50,7 +50,7 @@ private struct KeyRecordingView: View {
                     Text("recommend: Option-B").font(.subheadline).padding() }
             }
             HStack {
-                Text("Toggle Mini Known Panel")
+                Text("Toggle mini known panel")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleMiniKnownPanel)
                 MiniInfoView {
@@ -69,7 +69,7 @@ private struct KeyRecordingView: View {
         Group {
 
             HStack {
-                Text("Toggle Show Known")
+                Text("Toggle show known")
                 Spacer()
                 Toggle("", isOn: $isShowKnown)
                 KeyboardShortcuts.Recorder(for: .toggleShowKnown)
@@ -78,7 +78,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Toggle Show Not-Found")
+                Text("Toggle show not-found")
                 Spacer()
                 Toggle("", isOn: $isShowNotFound)
                 KeyboardShortcuts.Recorder(for: .toggleShowNotFound)
@@ -87,7 +87,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Toggle Conceal Known")
+                Text("Toggle conceal known")
                 Spacer()
                 Toggle("", isOn: $isShowKnownButWithOpacity0)
                 KeyboardShortcuts.Recorder(for: .toggleShowKnownButWithOpacity0)
@@ -96,7 +96,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Toggle Conceal Translation")
+                Text("Toggle conceal translation")
                 Spacer()
                 Toggle("", isOn: $isConcealTranslation)
                 KeyboardShortcuts.Recorder(for: .toggleConcealTranslation)
@@ -112,7 +112,7 @@ private struct KeyRecordingView: View {
     var g3: some View {
         Group {
             HStack {
-                Text("Run Swift Play")
+                Text("Run swift play")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .runQuickPlay)
                 MiniInfoView {
@@ -120,7 +120,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Run Cheap Snapshot")
+                Text("Run cheap snapshot")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .runCheapSnapshot)
                 MiniInfoView {
@@ -142,7 +142,7 @@ private struct KeyRecordingView: View {
     var g4: some View {
         Group {
             HStack {
-                Text("Toggle Mini Phrase Panel")
+                Text("Toggle mini phrase panel")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleMiniPhrasePanel)
                 MiniInfoView {
@@ -150,7 +150,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Toggle Mini Custom Entry Panel")
+                Text("Toggle mini custom entry panel")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .toggleMiniEntryPanel)
                 MiniInfoView {
@@ -158,7 +158,7 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Show Slots Tab")
+                Text("Show slots tab")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .showSlotsTab)
                 MiniInfoView {
