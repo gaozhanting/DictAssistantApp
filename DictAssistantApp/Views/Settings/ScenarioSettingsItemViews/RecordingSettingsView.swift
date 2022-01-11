@@ -32,6 +32,8 @@ struct MaximumFrameRateSetting: View {
             MiniInfoView {
                 InfoView()
             }
+            
+            Spacer()
         }
     }
 }
