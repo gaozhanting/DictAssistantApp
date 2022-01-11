@@ -197,7 +197,6 @@ private let scenarioKV: [String: Any] = [
     LandscapeMaxWidthKey: LandscapeMaxWidthDefault,
     
     IsAddLineBreakKey: true,
-    IsShowContentFrameKey: false,
     
     ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
     StandardCornerRadiusKey: 6.0,
@@ -235,6 +234,8 @@ private let scenarioKV: [String: Any] = [
 // all defaults
 private let universalKV: [String: Any] = scenarioKV.merging([
     IsFinishedOnboardingKey: false,
+    
+    IsShowContentFrameKey: false,
     
     IsShowKnownKey: false,
     IsShowKnownButWithOpacity0Key: false,
