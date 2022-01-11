@@ -12,7 +12,6 @@ struct LanguageSettingsView: View {
         VStack(alignment: .leading) {
             DoNameRecognitionToggle()
             DoPhraseDetectionToggle()
-            UsesLanguageCorrectionToggle()
             Divider()
             
             UseAppleDictModePicker()

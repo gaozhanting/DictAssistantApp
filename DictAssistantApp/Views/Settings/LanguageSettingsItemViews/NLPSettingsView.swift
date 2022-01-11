@@ -54,18 +54,6 @@ struct DoPhraseDetectionToggle: View {
     }
 }
 
-struct UsesLanguageCorrectionToggle: View {
-    @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
-    
-    var body: some View {
-        Toggle(isOn: $usesLanguageCorrection) {
-            Text("Uses language correction")
-        }
-        .toggleStyle(CheckboxToggleStyle())
-        .help("This will increase considerable CPU usage.")
-    }
-}
-
 struct NLPSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         InfoView()

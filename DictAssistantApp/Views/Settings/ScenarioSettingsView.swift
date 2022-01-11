@@ -32,15 +32,24 @@ struct ScenarioSettingsView: View {
     var g2: some View {
         Group {
             GroupBox {
-                VStack(alignment: .leading) {
-                    RecognitionLevelSetting()
-                    MinimumTextHeightSetting()
+                Form {
+                    VStack(alignment: .leading) {
+                        RecognitionLevelSetting()
+                        UsesLanguageCorrectionToggle()
+                        MinimumTextHeightSetting()
+                    }
                 }
             }
             
-            MaximumFrameRateSetting()
-            
-            IsOpenLemmaToggle()
+            GroupBox {
+                Form {
+                    VStack(alignment: .leading) {
+                        IsOpenLemmaToggle()
+                        MaximumFrameRateSetting()
+                        IsShowToastView()
+                    }
+                }
+            }
             
             Spacer().frame(height: 20)
             Divider()
@@ -75,7 +84,7 @@ struct ContentMaxSettingsView: View {
     }
 }
 
-struct ContentPaddingStyleSettingsView: View {
+private struct ContentPaddingStyleSettingsView: View {
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
@@ -125,7 +134,7 @@ struct ContentPaddingStyleSettingsView: View {
     }
 }
 
-struct CropperStyleSettingView: View {
+private struct CropperStyleSettingView: View {
     @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
 
     var body: some View {
@@ -141,6 +150,17 @@ struct CropperStyleSettingView: View {
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 250)
+    }
+}
+
+private struct IsShowToastView: View {
+    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isShowToast, label: {
+            Text("Show toast")
+        })
+        .toggleStyle(CheckboxToggleStyle())
     }
 }
 

@@ -39,7 +39,10 @@ struct Settings: Codable {
     var maximumFrameRate: Double
     var recognitionLevel: Int
     var minimumTextHeight: Double
+    var usesLanguageCorrection: Bool
+    
     var isOpenLemma: Bool
+    var isShowToast: Bool
     
     var isAddLineBreak: Bool
     
@@ -77,7 +80,10 @@ struct Settings: Codable {
         maximumFrameRate: Double,
         recognitionLevel: Int,
         minimumTextHeight: Double,
+        usesLanguageCorrection: Bool,
+        
         isOpenLemma: Bool,
+        isShowToast: Bool,
         
         isAddLineBreak: Bool,
         
@@ -113,7 +119,10 @@ struct Settings: Codable {
         self.maximumFrameRate = maximumFrameRate
         self.recognitionLevel = recognitionLevel
         self.minimumTextHeight = minimumTextHeight
+        self.usesLanguageCorrection = usesLanguageCorrection
+        
         self.isOpenLemma = isOpenLemma
+        self.isShowToast = isShowToast
         
         self.isAddLineBreak = isAddLineBreak
         
@@ -162,7 +171,10 @@ private let defaultSettings = Settings(
     maximumFrameRate: 4.0,
     recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
     minimumTextHeight: ZeroDefaultMinimumTextHeight,
+    usesLanguageCorrection: false,
+    
     isOpenLemma: false,
+    isShowToast: true,
     
     isAddLineBreak: true,
     
@@ -250,7 +262,10 @@ private struct SlotsView: View {
         maximumFrameRate = s.maximumFrameRate
         recognitionLevel = s.recognitionLevel
         minimumTextHeight = s.minimumTextHeight
+        usesLanguageCorrection = s.usesLanguageCorrection
+        
         isOpenLemma = s.isOpenLemma
+        isShowToast = s.isShowToast
         
         isAddLineBreak = s.isAddLineBreak
         
@@ -287,7 +302,10 @@ private struct SlotsView: View {
     @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
     @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = ZeroDefaultMinimumTextHeight
+    @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
+    
     @AppStorage(IsOpenLemmaKey) var isOpenLemma: Bool = false
+    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
 
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
 

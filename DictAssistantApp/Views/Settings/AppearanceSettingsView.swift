@@ -34,7 +34,6 @@ struct AppearanceSettingsView: View {
     var g3: some View {
         Group {
             WithAnimationToggle()
-            IsShowToastView()
             ChineseCharacterConvertingPicker()
             
             Spacer().frame(height: 20)
@@ -335,17 +334,6 @@ private struct WithAnimationToggle: View {
             })
             .toggleStyle(CheckboxToggleStyle())
         }
-    }
-}
-
-private struct IsShowToastView: View {
-    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
-    
-    var body: some View {
-        Toggle(isOn: $isShowToast, label: {
-            Text("Show toast")
-        })
-        .toggleStyle(CheckboxToggleStyle())
     }
 }
 

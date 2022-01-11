@@ -20,15 +20,13 @@ let defaultNSFont = NSFont(name: defaultFontName, size: 14.0)!
 // -- these not in slots
 let FontNameKey = "FontNameKey" // not in slot for basic consistence of visual
 
-// General
 let IsShowKnownKey = "IsShowKnownKey" // not in slot for its core function
 let IsShowKnownButWithOpacity0Key = "IsShowKnownButWithOpacity0Key"
 let IsConcealTranslationKey = "IsConcealTranslationKey"
 let IsShowNotFoundKey = "IsShowNotFoundKey"
 
-let IsShowToastKey = "IsShowToastKey" // not in slot for basic consistence of an auxiliary extra trick
+let IsShowToastKey = "IsShowToastKey" // snapshot sometimes need to set false
 
-// Recording
 let CropperStyleKey = "CropperStyleKey"
 let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 
@@ -54,18 +52,19 @@ let IndexFontSizeKey = "IndexFontSizeKey"
 
 let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
 
+// Screen Recording
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
 // Vision
 let RecognitionLevelKey = "RecognitionLevelKey"
 let MinimumTextHeightKey = "MinimumTextHeightKey"
 let ZeroDefaultMinimumTextHeight: Double = 0.0
+let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
 
 // NLP
 let IsOpenLemmaKey = "IsOpenLemmaKey"
 let DoNameRecognitionKey = "DoNameRecognitionKey"
 let DoPhraseDetectionKey = "DoPhraseDetectionKey"
-let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
 
 // Dictionary
 let UseAppleDictModeKey = "UseAppleDictModeKey"
@@ -194,6 +193,8 @@ private let scenarioKV: [String: Any] = [
     LandscapeStyleKey: LandscapeStyleDefault,
     LandscapeMaxWidthKey: LandscapeMaxWidthDefault,
     
+    IsAddLineBreakKey: true,
+    
     ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
     StandardCornerRadiusKey: 6.0,
     MinimalistVPaddingKey: 2.0,
@@ -204,13 +205,13 @@ private let scenarioKV: [String: Any] = [
     
     CropperStyleKey: CropperStyleDefault,
     
-    MaximumFrameRateKey: 4.0,
     RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
     MinimumTextHeightKey: ZeroDefaultMinimumTextHeight,
+    UsesLanguageCorrectionKey: false,
     
+    MaximumFrameRateKey: 4.0,
     IsOpenLemmaKey: false,
-    
-    IsAddLineBreakKey: true,
+    IsShowToastKey: true,
     
     HighlightModeKey: HighlightModeDefault,
     
@@ -235,11 +236,9 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     IsShowKnownButWithOpacity0Key: false,
     IsConcealTranslationKey: false,
     IsShowNotFoundKey: false,
-    IsShowToastKey: true,
     
     DoNameRecognitionKey: false,
     DoPhraseDetectionKey: false,
-    UsesLanguageCorrectionKey: false,
     
     UseAppleDictModeKey: UseAppleDictMode.afterBuiltIn.rawValue,
     UseEntryModeKey: UseEntryMode.asFirstPriority.rawValue,
@@ -309,10 +308,18 @@ extension UserDefaults {
         get { return double(forKey: "MinimumTextHeightKey") }
         set { set(newValue, forKey: "MinimumTextHeightKey") }
     }
+    @objc var UsesLanguageCorrectionKey: Bool {
+        get { return bool(forKey: "UsesLanguageCorrectionKey") }
+        set { set(newValue, forKey: "UsesLanguageCorrectionKey") }
+    }
 
     @objc var IsOpenLemmaKey: Bool {
         get { return bool(forKey: "IsOpenLemmaKey") }
         set { set(newValue, forKey: "IsOpenLemmaKey") }
+    }
+    @objc var IsShowToastKey: Bool {
+        get { return bool(forKey: "IsShowToastKey") }
+        set { set(newValue, forKey: "IsShowToastKey") }
     }
     @objc var DoNameRecognitionKey: Bool {
         get { return bool(forKey: "DoNameRecognitionKey") }
@@ -321,10 +328,6 @@ extension UserDefaults {
     @objc var DoPhraseDetectionKey: Bool {
         get { return bool(forKey: "DoPhraseDetectionKey") }
         set { set(newValue, forKey: "DoPhraseDetectionKey") }
-    }
-    @objc var UsesLanguageCorrectionKey: Bool {
-        get { return bool(forKey: "UsesLanguageCorrectionKey") }
-        set { set(newValue, forKey: "UsesLanguageCorrectionKey") }
     }
 
     @objc var UseAppleDictModeKey: Int {
@@ -569,7 +572,11 @@ func autoSaveSlotSettings() {
     combineSlot(\.MaximumFrameRateKey, \.maximumFrameRate, MaximumFrameRateKey)
     combineSlot(\.RecognitionLevelKey, \.recognitionLevel, RecognitionLevelKey)
     combineSlot(\.MinimumTextHeightKey, \.minimumTextHeight, MinimumTextHeightKey)
+    combineSlot(\.UsesLanguageCorrectionKey, \.usesLanguageCorrection, UsesLanguageCorrectionKey)
+    
     combineSlot(\.IsOpenLemmaKey, \.isOpenLemma, IsOpenLemmaKey)
+    
+    combineSlot(\.IsShowToastKey, \.isShowToast, IsShowToastKey)
     
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     

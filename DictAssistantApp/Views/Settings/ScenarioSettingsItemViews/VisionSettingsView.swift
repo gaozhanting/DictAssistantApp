@@ -79,13 +79,38 @@ struct RecognitionLevelSetting: View {
                 LevelInfoView()
             }
         }
+        .help("Use accurate level will increase huge CPU usage.")
     }
 }
 
-struct LevelInfoView: View {
+private struct LevelInfoView: View {
     var body: some View {
         Text("The recognition level determines which techniques the request uses during the text recognition. Set this value to fast to prioritize speed over accuracy, and to accurate for longer, more computationally intensive recognition.")
             .infoStyle()
+    }
+}
+
+struct UsesLanguageCorrectionToggle: View {
+    @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $usesLanguageCorrection) {
+                Text("Uses language correction")
+            }
+            .toggleStyle(CheckboxToggleStyle())
+            
+            MiniInfoView {
+                UsesLanguageCorrectionInfoView()
+            }
+        }
+        .help("Select this will a certain amount of CPU usage.")
+    }
+}
+
+private struct UsesLanguageCorrectionInfoView: View {
+    var body: some View {
+        Text("When this value is true, Vision applies language correction during the recognition process. Disabling this property returns the raw recognition results, which provides performance benefits but less accurate results.").infoStyle()
     }
 }
 
