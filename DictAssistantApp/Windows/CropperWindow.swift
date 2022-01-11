@@ -96,6 +96,8 @@ private class CropperWindow: NSWindow {
         self.standardWindowButton(.zoomButton)?.isHidden = true
         self.standardWindowButton(.toolbarButton)?.isHidden = true
         
+        self.hasShadow = true
+        
         self.isOpaque = false
         self.backgroundColor = NSColor.clear
     }
