@@ -215,9 +215,10 @@ private struct HLDottedView: View {
 
                 Text(String(index))
                     .font(indexFont)
-                    .foregroundColor(Color(dataToColor(indexColor)!))
                     .padding(indexPadding)
+                    .foregroundColor(Color(dataToColor(indexColor)!))
                     .background(Circle().fill(Color(dataToColor(indexBgColor)!)))
+                    .shadow(radius: 3)
                     .position(x: x, y: y)
             }
         } else {
