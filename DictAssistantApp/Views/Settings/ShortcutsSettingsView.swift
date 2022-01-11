@@ -43,11 +43,11 @@ private struct KeyRecordingView: View {
                 }
             }
             HStack {
-                Text("Switch content anchor")
+                Text("Switch content layout")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .switchAnchor)
                 MiniInfoView {
-                    Text("recommend: Option-W\nSwitch content between top, topTrailing, topLeading and bottom when portrait, or leading and center when landscape.")
+                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait, or leading and center when landscape.")
                         .infoStyle()
                 }
             }
