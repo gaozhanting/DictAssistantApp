@@ -11,6 +11,7 @@
 		44039243276C936F00DD39F6 /* TranscriptSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */; };
 		440824D22689F4EE00EA7EEE /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824D12689F4EE00EA7EEE /* CropperView.swift */; };
 		440824FC268E178E00EA7EEE /* NLPSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440824FB268E178E00EA7EEE /* NLPSample.swift */; };
+		441C606C278D716D0067A258 /* ContentWindowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441C606B278D716D0067A258 /* ContentWindowLayout.swift */; };
 		442126C2271996B500CEF786 /* EditingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C1271996B500CEF786 /* EditingPanel.swift */; };
 		442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C42719A8DA00CEF786 /* PhrasesPanel.swift */; };
 		442126C72719AC3200CEF786 /* EntriesPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442126C62719AC3200CEF786 /* EntriesPanel.swift */; };
@@ -91,6 +92,7 @@
 		44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptSettingsView.swift; sourceTree = "<group>"; };
 		440824D12689F4EE00EA7EEE /* CropperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		440824FB268E178E00EA7EEE /* NLPSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPSample.swift; sourceTree = "<group>"; };
+		441C606B278D716D0067A258 /* ContentWindowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindowLayout.swift; sourceTree = "<group>"; };
 		442126C1271996B500CEF786 /* EditingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingPanel.swift; sourceTree = "<group>"; };
 		442126C42719A8DA00CEF786 /* PhrasesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhrasesPanel.swift; sourceTree = "<group>"; };
 		442126C62719AC3200CEF786 /* EntriesPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesPanel.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				447D0F7E26564D96004A7173 /* StatusData.swift */,
 				44BCEBD326838AC2002D3D8C /* DisplayedWords.swift */,
 				442D6A16276510C4001ACA08 /* HLBox.swift */,
+				441C606B278D716D0067A258 /* ContentWindowLayout.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				4453554E27020DDA007DB9C2 /* DictionaryService.swift in Sources */,
 				447D0F7426550D02004A7173 /* app.xcdatamodeld in Sources */,
 				449876B12772DC1600FFDED4 /* MiniKnownPanel.swift in Sources */,
+				441C606C278D716D0067A258 /* ContentWindowLayout.swift in Sources */,
 				44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */,
 				442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */,
 				44BCEBD426838AC2002D3D8C /* DisplayedWords.swift in Sources */,

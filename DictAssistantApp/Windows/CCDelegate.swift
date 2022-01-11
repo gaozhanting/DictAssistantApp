@@ -18,6 +18,8 @@ class CCDelegate: NSObject, NSWindowDelegate {
     
     func windowDidResize(_ notification: Notification) { // content window && cropper window
         updateSelectedSlot()
+        
+        contentWindowLayout.layout = calculateLayout(from: contentWindow.frame)
     }
 }
 

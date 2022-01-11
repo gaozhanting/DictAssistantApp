@@ -184,6 +184,7 @@ private func startPlaying() {
     let contentView = ContentView()
         .environment(\.managedObjectContext, persistentContainer.viewContext)
         .environmentObject(displayedWords)
+        .environmentObject(contentWindowLayout)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     contentWindow.contentView = NSHostingView(rootView: contentView)
