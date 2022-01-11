@@ -13,6 +13,8 @@ extension KeyboardShortcuts.Name {
     
     static let switchAnchor = Self("switchAnchor")
     
+    static let toggleContentFrame = Self("toggleContentFrame")
+    
     static let toggleAddLineBreak = Self("toggleAddLineBreak")
     
     static let toggleShowKnown = Self("toggleShowKnown")
@@ -94,6 +96,14 @@ func registerGlobalKey() {
             case .centered:
                 UserDefaults.standard.LandscapeStyleKey = LandscapeStyle.normal.rawValue
             }
+        }
+    }
+    
+    KeyboardShortcuts.onKeyUp(for: .toggleContentFrame) {
+        if UserDefaults.standard.bool(forKey: IsShowContentFrameKey) {
+            UserDefaults.standard.setValue(false, forKey: IsShowContentFrameKey)
+        } else {
+            UserDefaults.standard.setValue(true, forKey: IsShowContentFrameKey)
         }
     }
     

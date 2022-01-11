@@ -9,11 +9,26 @@ import SwiftUI
 import DataBases
 
 struct ContentView: View {
+    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = false
+    
+    var body: some View {
+        if isShowContentFrame {
+            GroupBox {
+                ContentColorSchemeView()
+            }
+        } else {
+            ContentColorSchemeView()
+        }
+    }
+}
+
+struct ContentColorSchemeView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorScheme.system.rawValue
     
     var body: some View {
         ContentLayoutView()
+            .shadow(radius: 3)
             .environment(\.colorScheme, toSystemColorScheme(from: theColorScheme, with: colorScheme))
     }
 }

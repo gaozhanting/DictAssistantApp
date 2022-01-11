@@ -21,6 +21,7 @@ struct ShortcutsSettingsView: View {
 }
 
 private struct KeyRecordingView: View {
+    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = false
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     var g1: some View {
         Group {
@@ -30,6 +31,15 @@ private struct KeyRecordingView: View {
                 KeyboardShortcuts.Recorder(for: .runStepPlay)
                 MiniInfoView {
                     Text("recommend: Option-1").font(.subheadline).padding()
+                }
+            }
+            HStack {
+                Text("Toggle content frame")
+                Spacer()
+                Toggle("", isOn: $isShowContentFrame)
+                KeyboardShortcuts.Recorder(for: .toggleContentFrame)
+                MiniInfoView {
+                    Text("recommend: Option-F").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -47,7 +57,8 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isAddLineBreak)
                 KeyboardShortcuts.Recorder(for: .toggleAddLineBreak)
                 MiniInfoView {
-                    Text("recommend: Option-B").font(.subheadline).padding() }
+                    Text("recommend: Option-B").font(.subheadline).padding()
+                }
             }
             HStack {
                 Text("Toggle mini known panel")

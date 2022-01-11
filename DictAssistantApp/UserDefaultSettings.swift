@@ -72,9 +72,12 @@ let UseEntryModeKey = "UseEntryModeKey"
 
 // Content
 let IsAddLineBreakKey = "IsAddLineBreakKey"
+let IsShowContentFrameKey = "IsShowContentFrameKey"
+
 let ChineseCharacterConvertModeKey = "ChineseCharacterConvertModeKey"
 
 // Appearance
+
 let PortraitCornerKey = "PortraitCornerKey"
 let PortraitCornerDefault = PortraitCorner.top.rawValue
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
@@ -194,6 +197,7 @@ private let scenarioKV: [String: Any] = [
     LandscapeMaxWidthKey: LandscapeMaxWidthDefault,
     
     IsAddLineBreakKey: true,
+    IsShowContentFrameKey: false,
     
     ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
     StandardCornerRadiusKey: 6.0,
