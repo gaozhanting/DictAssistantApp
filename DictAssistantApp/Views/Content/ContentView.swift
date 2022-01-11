@@ -11,10 +11,22 @@ import DataBases
 struct ContentView: View {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = false
     
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
+
     var body: some View {
         if isShowContentFrame {
-            GroupBox {
-                ContentColorSchemeView()
+            if LandscapeStyle(rawValue: landscapeStyle) == .centered {
+                GroupBox {
+                    HStack {
+                        Spacer()
+                        ContentColorSchemeView()
+                        Spacer()
+                    }
+                }
+            } else {
+                GroupBox {
+                    ContentColorSchemeView()
+                }
             }
         } else {
             ContentColorSchemeView()

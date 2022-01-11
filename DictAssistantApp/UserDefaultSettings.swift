@@ -392,6 +392,11 @@ extension UserDefaults {
         set { set(newValue, forKey: "IsAddLineBreakKey") }
     }
     
+    @objc var IsShowContentFrameKey: Bool {
+        get { return bool(forKey: "IsShowContentFrameKey") }
+        set { set(newValue, forKey: "IsShowContentFrameKey") }
+    }
+    
     @objc var HighlightModeKey: Int {
         get { return integer(forKey: "HighlightModeKey") }
         set { set(newValue, forKey: "HighlightModeKey") }
@@ -552,6 +557,20 @@ func combineHighlight() {
         .publisher(for: \.HighlightModeKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
+
+func combineIsShowContentFrame() {
+    UserDefaults.standard
+        .publisher(for: \.IsShowContentFrameKey)
+        .handleEvents(receiveOutput: { isShowContentFrame in
+            if isShowContentFrame {
+                contentWindow.hasShadow = false
+            } else {
+                contentWindow.hasShadow = true
+            }
         })
         .sink { _ in }
         .store(in: &subscriptions)

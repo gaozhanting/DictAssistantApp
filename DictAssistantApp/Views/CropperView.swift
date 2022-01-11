@@ -218,11 +218,12 @@ private struct HLDottedView: View {
                     .foregroundColor(Color(dataToColor(indexColor)!))
                     .padding(indexPadding)
                     .background(Circle().fill(Color(dataToColor(indexBgColor)!)))
-                    .shadow(radius: 1)
                     .position(x: x, y: y)
             }
+            .shadow(radius: 3)
         } else {
             body0
+                .shadow(radius: 3)
         }
     }
 }
@@ -250,6 +251,7 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
+            .shadow(radius: 3)
     }
 }
 
@@ -261,6 +263,7 @@ struct CropperViewWithHighlight: View {
         GeometryReader { geometry in
             Group {
                 CropperView()
+                    .shadow(radius: 3)
                 
                 switch HighlightMode(rawValue: highlightMode)! {
                 case .dotted:
