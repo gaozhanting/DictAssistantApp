@@ -40,17 +40,19 @@ private struct ToastView: View {
     var body: some View {
         VStack {
             if let slot = selectedSlot {
-                HStack {
-                    Image(systemName: "gear")
-                        .font(.largeTitle)
-                        .foregroundColor(Color(dataToColor(slot.color!)!))
-                    
-                    Text(slot.label!)
-                        .font(.title2)
-                        .lineLimit(1)
-                        .foregroundColor(Color(NSColor.labelColor))
+                GroupBox {
+                    HStack {
+                        Image(systemName: "gear")
+                            .font(.largeTitle)
+                            .foregroundColor(Color(dataToColor(slot.color!)!))
+                        
+                        Text(slot.label!)
+                            .font(.title2)
+                            .lineLimit(1)
+                            .foregroundColor(Color(NSColor.labelColor))
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
             
             Image(imageSystemName)
@@ -62,6 +64,7 @@ private struct ToastView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color(NSColor.labelColor))
         }
+        .shadow(radius: 3)
         .foregroundColor(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(VisualEffectView(material: .underWindowBackground))
