@@ -89,6 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         combineShortcutKeyFnsSettings()
         combineHighlight()
         combineIsShowContentFrame()
+        combineCropperHasShadow()
         autoSaveSlotSettings() // has states
 
         registerGlobalKey()

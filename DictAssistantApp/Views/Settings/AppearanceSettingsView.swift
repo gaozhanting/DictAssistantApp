@@ -34,6 +34,7 @@ struct AppearanceSettingsView: View {
     var g3: some View {
         Group {
             WithAnimationToggle()
+            CropperHasShadowToggle()
             ChineseCharacterConvertingPicker()
             
             Spacer().frame(height: 20)
@@ -332,6 +333,19 @@ private struct WithAnimationToggle: View {
             Toggle(isOn: $isWithAnimation, label: {
                 Text("With animation")
             })
+            .toggleStyle(CheckboxToggleStyle())
+        }
+    }
+}
+
+private struct CropperHasShadowToggle: View {
+    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $cropperHasShadow) {
+                Text("Cropper has shadow")
+            }
             .toggleStyle(CheckboxToggleStyle())
         }
     }

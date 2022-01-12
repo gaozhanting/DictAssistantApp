@@ -250,6 +250,7 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
+            .shadow(radius: 3)
     }
 }
 

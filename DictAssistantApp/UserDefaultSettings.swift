@@ -31,7 +31,7 @@ let CropperStyleKey = "CropperStyleKey"
 let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 
 let HighlightModeKey = "HighlightModeKey"
-let HighlightModeDefault = HighlightMode.rectangle.rawValue
+let HighlightModeDefault = HighlightMode.disabled.rawValue
 
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.3)!.withAlphaComponent(0.3))!
@@ -109,6 +109,9 @@ let MinimalistVPaddingKey = "MinimalistVPaddingKey"
 let MinimalistHPaddingKey = "MinimalistHPaddingKey"
 
 let IsWithAnimationKey = "IsWithAnimationKey"
+
+let CropperHasShadowKey = "CropperHasShadowKey"
+let CropperHasShadowDefault = true
 
 // Enums
 enum ContentPaddingStyle: Int, Codable {
@@ -264,6 +267,8 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
     IsWithAnimationKey: true,
+    
+    CropperHasShadowKey: CropperHasShadowDefault,
     
     HLDottedColorKey: colorToData(NSColor.red)!,
     
@@ -438,6 +443,11 @@ extension UserDefaults {
         get { return bool(forKey: "IsAlwaysRefreshHighlightKey") }
         set { set(newValue, forKey: "IsAlwaysRefreshHighlightKey") }
     }
+    
+    @objc var CropperHasShadowKey: Bool {
+        get { return bool(forKey: "CropperHasShadowKey") }
+        set { set(newValue, forKey: "CropperHasShadowKey") }
+    }
 }
 
 var subscriptions = Set<AnyCancellable>()
@@ -571,6 +581,20 @@ func combineIsShowContentFrame() {
                 contentWindow.hasShadow = false
             } else {
                 contentWindow.hasShadow = true
+            }
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+}
+
+func combineCropperHasShadow() {
+    UserDefaults.standard
+        .publisher(for: \.CropperHasShadowKey)
+        .handleEvents(receiveOutput: { cropperHasShadow in
+            if cropperHasShadow {
+                cropperWindow.hasShadow = true
+            } else {
+                cropperWindow.hasShadow = false
             }
         })
         .sink { _ in }
