@@ -21,7 +21,7 @@ struct ShortcutsSettingsView: View {
 }
 
 private struct KeyRecordingView: View {
-    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = false
+    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
     var g1: some View {
         Group {
@@ -39,15 +39,15 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowContentFrame)
                 KeyboardShortcuts.Recorder(for: .toggleContentFrame)
                 MiniInfoView {
-                    Text("recommend: Option-F").font(.subheadline).padding()
+                    Text("recommend: Option-F\nThis option belongs to scenario.").font(.subheadline).padding()
                 }
             }
             HStack {
                 Text("Switch content layout")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .switchAnchor)
+                KeyboardShortcuts.Recorder(for: .switchLayout)
                 MiniInfoView {
-                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait, or leading and center when landscape.")
+                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait, or leading and center when landscape.\nThis option belongs to scenario.")
                         .infoStyle()
                 }
             }
@@ -57,7 +57,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isAddLineBreak)
                 KeyboardShortcuts.Recorder(for: .toggleAddLineBreak)
                 MiniInfoView {
-                    Text("recommend: Option-B").font(.subheadline).padding()
+                    Text("recommend: Option-B\nThis option belongs to scenario.").font(.subheadline).padding()
                 }
             }
             HStack {

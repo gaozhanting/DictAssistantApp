@@ -41,19 +41,29 @@ extension View {
 }
 
 private struct PaddingAndBackground: ViewModifier {
+    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
+
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     
     func body(content: Content) -> some View {
         switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
         case .standard:
-            content
-                .uglyCP()
-                .bbBackground()
-                .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
+            if isShowContentFrame {
+                content
+            } else {
+                content
+                    .uglyCP()
+                    .bbBackground()
+                    .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
+            }
         case .minimalist:
-            content
-                .bbBackground()
+            if isShowContentFrame {
+                content
+            } else {
+                content
+                    .bbBackground()
+            }
         }
     }
 }
@@ -61,5 +71,39 @@ private struct PaddingAndBackground: ViewModifier {
 extension View {
     func paddingAndBackground() -> some View {
         modifier(PaddingAndBackground())
+    }
+}
+
+private struct PaddingAndBackground2: ViewModifier {
+    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
+
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
+    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
+    
+    func body(content: Content) -> some View {
+        switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
+        case .standard:
+            if isShowContentFrame {
+                content
+                    .uglyCP()
+                    .bbBackground()
+                    .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
+            } else {
+                content
+            }
+        case .minimalist:
+            if isShowContentFrame {
+                content
+                    .bbBackground()
+            } else {
+                content
+            }
+        }
+    }
+}
+
+extension View {
+    func paddingAndBackground2() -> some View {
+        modifier(PaddingAndBackground2())
     }
 }

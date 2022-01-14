@@ -88,7 +88,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         combineDictionarySettings()
         combineShortcutKeyFnsSettings()
         combineHighlight()
-        combineIsShowContentFrame()
         combineCropperHasShadow()
         autoSaveSlotSettings() // has states
 

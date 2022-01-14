@@ -45,6 +45,7 @@ struct Settings: Codable {
     var isShowToast: Bool
     
     var isAddLineBreak: Bool
+    var isShowContentFrame: Bool
     
     var highlightMode: Int
     var hLRectangleColor: Data
@@ -86,6 +87,7 @@ struct Settings: Codable {
         isShowToast: Bool,
         
         isAddLineBreak: Bool,
+        isShowContentFrame: Bool,
         
         highlightMode: Int,
         hLRectangleColor: Data,
@@ -125,6 +127,7 @@ struct Settings: Codable {
         self.isShowToast = isShowToast
         
         self.isAddLineBreak = isAddLineBreak
+        self.isShowContentFrame = isShowContentFrame
         
         self.highlightMode = highlightMode
         self.hLRectangleColor = hLRectangleColor
@@ -177,6 +180,7 @@ private let defaultSettings = Settings(
     isShowToast: true,
     
     isAddLineBreak: true,
+    isShowContentFrame: true,
     
     highlightMode: HighlightModeDefault,
     hLRectangleColor: HLRectangleColorDefault,
@@ -268,6 +272,7 @@ private struct SlotsView: View {
         isShowToast = s.isShowToast
         
         isAddLineBreak = s.isAddLineBreak
+        isShowContentFrame = s.isShowContentFrame
         
         highlightMode = s.highlightMode
         hLRectangleColor = s.hLRectangleColor
@@ -308,6 +313,7 @@ private struct SlotsView: View {
     @AppStorage(IsShowToastKey) var isShowToast: Bool = true
 
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
+    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault

@@ -9,39 +9,30 @@ import SwiftUI
 import DataBases
 
 struct ContentView: View {
-    @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = false
-    
-    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
-
-    var body: some View {
-        if isShowContentFrame {
-            if LandscapeStyle(rawValue: landscapeStyle) == .centered {
-                GroupBox {
-                    HStack {
-                        Spacer()
-                        ContentColorSchemeView()
-                        Spacer()
-                    }
-                }
-            } else {
-                GroupBox {
-                    ContentColorSchemeView()
-                }
-            }
-        } else {
-            ContentColorSchemeView()
-        }
-    }
-}
-
-struct ContentColorSchemeView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorScheme.system.rawValue
     
     var body: some View {
-        ContentLayoutView()
-            .shadow(radius: 3)
+        ContentViewP()
             .environment(\.colorScheme, toSystemColorScheme(from: theColorScheme, with: colorScheme))
+    }
+}
+
+struct ContentViewP: View {
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
+
+    var body: some View {
+        if LandscapeStyle(rawValue: landscapeStyle) == .centered {
+            HStack {
+                Spacer()
+                ContentLayoutView()
+                Spacer()
+            }
+            .paddingAndBackground2()
+        } else {
+            ContentLayoutView()
+                .paddingAndBackground2()
+        }
     }
 }
 

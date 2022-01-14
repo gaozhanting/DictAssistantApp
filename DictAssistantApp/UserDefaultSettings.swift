@@ -194,6 +194,8 @@ enum TheColorScheme: Int, Codable {
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
 private let scenarioKV: [String: Any] = [
+    IsShowContentFrameKey: true,
+    
     PortraitCornerKey: PortraitCornerDefault,
     PortraitMaxHeightKey: PortraitMaxHeightDefault,
     LandscapeStyleKey: LandscapeStyleDefault,
@@ -237,8 +239,6 @@ private let scenarioKV: [String: Any] = [
 // all defaults
 private let universalKV: [String: Any] = scenarioKV.merging([
     IsFinishedOnboardingKey: false,
-    
-    IsShowContentFrameKey: false,
     
     IsShowKnownKey: false,
     IsShowKnownButWithOpacity0Key: false,
@@ -568,20 +568,6 @@ func combineHighlight() {
         .publisher(for: \.HighlightModeKey)
         .handleEvents(receiveOutput: { _ in
             trCallBack()
-        })
-        .sink { _ in }
-        .store(in: &subscriptions)
-}
-
-func combineIsShowContentFrame() {
-    UserDefaults.standard
-        .publisher(for: \.IsShowContentFrameKey)
-        .handleEvents(receiveOutput: { isShowContentFrame in
-            if isShowContentFrame {
-                contentWindow.hasShadow = false
-            } else {
-                contentWindow.hasShadow = true
-            }
         })
         .sink { _ in }
         .store(in: &subscriptions)

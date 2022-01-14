@@ -11,7 +11,7 @@ import SwiftUI
 extension KeyboardShortcuts.Name {
     static let runStepPlay = Self("runStepPlay")
     
-    static let switchAnchor = Self("switchAnchor")
+    static let switchLayout = Self("switchLayout")
     
     static let toggleContentFrame = Self("toggleContentFrame")
     
@@ -76,7 +76,7 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .switchAnchor) {
+    KeyboardShortcuts.onKeyUp(for: .switchLayout) {
         switch calculateLayout(from: contentWindow.frame) {
         case .portrait:
             switch PortraitCorner(rawValue: UserDefaults.standard.PortraitCornerKey)! {
