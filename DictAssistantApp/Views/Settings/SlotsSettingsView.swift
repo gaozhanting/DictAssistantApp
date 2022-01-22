@@ -27,7 +27,6 @@ struct Settings: Codable {
     var landscapeMaxWidth: Double
     
     var contentPaddingStyle: Int
-    var standardCornerRadius: Double
     var minimalistVPadding: Double
     var minimalistHPadding: Double
     
@@ -69,7 +68,6 @@ struct Settings: Codable {
         landscapeMaxWidth: Double,
         
         contentPaddingStyle: Int,
-        standardCornerRadius: Double,
         minimalistVPadding: Double,
         minimalistHPadding: Double,
         
@@ -109,7 +107,6 @@ struct Settings: Codable {
         self.landscapeMaxWidth = landscapeMaxWidth
         
         self.contentPaddingStyle = contentPaddingStyle
-        self.standardCornerRadius = standardCornerRadius
         self.minimalistVPadding = minimalistVPadding
         self.minimalistHPadding = minimalistHPadding
         
@@ -162,7 +159,6 @@ private let defaultSettings = Settings(
     landscapeMaxWidth: LandscapeMaxWidthDefault,
     
     contentPaddingStyle: ContentPaddingStyle.standard.rawValue,
-    standardCornerRadius: 6.0,
     minimalistVPadding: 2.0,
     minimalistHPadding: 6.0,
     
@@ -254,7 +250,6 @@ private struct SlotsView: View {
         landscapeMaxWidth = s.landscapeMaxWidth
         
         contentPaddingStyle = s.contentPaddingStyle
-        standardCornerRadius = s.standardCornerRadius
         minimalistVPadding = s.minimalistVPadding
         minimalistHPadding = s.minimalistHPadding
         
@@ -295,7 +290,6 @@ private struct SlotsView: View {
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
 
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
 

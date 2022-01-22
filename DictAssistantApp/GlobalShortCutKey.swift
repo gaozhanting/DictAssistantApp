@@ -47,25 +47,17 @@ enum StepPlayPhase {
 
 var stepPlayPhase: StepPlayPhase = .defaultPhase
 
+let standardCornerRadius: Double = 5.0
 func makeWindowsForSetting() {
     cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
     cropperWindow.orderFrontRegardless()
     
-    if ContentPaddingStyle(rawValue: UserDefaults.standard.ContentPaddingStyleKey)! == .standard {
-        let contentViewPre = EmptyView()
-            .background(VisualEffectView(material: .hudWindow))
-            .clipShape(RoundedRectangle(cornerRadius: UserDefaults.standard.StandardCornerRadiusKey))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
-        contentWindow.contentView = NSHostingView(rootView: contentViewPre)
-    } else {
-        let contentViewPre = EmptyView()
-            .background(VisualEffectView(material: .hudWindow))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
-        contentWindow.contentView = NSHostingView(rootView: contentViewPre)
-    }
-    
+    let contentViewPre = EmptyView()
+        .background(VisualEffectView(material: .hudWindow))
+        .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    contentWindow.contentView = NSHostingView(rootView: contentViewPre)
     contentWindow.orderFrontRegardless()
 }
 
@@ -205,6 +197,7 @@ private func startPlaying() {
         .environment(\.managedObjectContext, persistentContainer.viewContext)
         .environmentObject(displayedWords)
         .environmentObject(contentWindowLayout)
+        .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
     contentWindow.contentView = NSHostingView(rootView: contentView)

@@ -86,7 +86,6 @@ struct ContentMaxSettingsView: View {
 
 private struct ContentPaddingStyleSettingsView: View {
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
     
@@ -101,19 +100,7 @@ private struct ContentPaddingStyleSettingsView: View {
             
             Spacer()
             
-            switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
-            case .standard:
-                Group {
-                    Text("Radius:")
-                    TextField("", value: $standardCornerRadius, formatter: tfDecimalFormatter).frame(width: tfWidth)
-                    
-                    Button(action: {
-                        standardCornerRadius = 6.0
-                    }) {
-                        Image(systemName: "arrow.triangle.2.circlepath")
-                    }
-                }
-            case .minimalist:
+            if ContentPaddingStyle(rawValue: contentPaddingStyle) == .minimalist {
                 Group {
                     Text("Vpad:")
                     TextField("", value: $minimalistVPadding, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
@@ -129,7 +116,6 @@ private struct ContentPaddingStyleSettingsView: View {
                     }
                 }
             }
-            
         }
     }
 }

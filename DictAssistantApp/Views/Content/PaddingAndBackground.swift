@@ -44,7 +44,6 @@ private struct PaddingAndBackground: ViewModifier {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     
     func body(content: Content) -> some View {
         switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
@@ -63,6 +62,7 @@ private struct PaddingAndBackground: ViewModifier {
             } else {
                 content
                     .bbBackground()
+                    .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
             }
         }
     }
@@ -78,7 +78,6 @@ private struct PaddingAndBackground2: ViewModifier {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
-    @AppStorage(StandardCornerRadiusKey) var standardCornerRadius: Double = 6.0
     
     func body(content: Content) -> some View {
         switch ContentPaddingStyle(rawValue: contentPaddingStyle)! {
@@ -95,6 +94,7 @@ private struct PaddingAndBackground2: ViewModifier {
             if isShowContentFrame {
                 content
                     .bbBackground()
+                    .clipShape(RoundedRectangle(cornerRadius: standardCornerRadius))
             } else {
                 content
             }

@@ -102,8 +102,6 @@ let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMat
 let TheColorSchemeKey = "TheColorSchemeKey"
 
 let ContentPaddingStyleKey = "ContentPaddingStyleKey"
-// standard
-let StandardCornerRadiusKey = "StandardCornerRadiusKey"
 // minimalist
 let MinimalistVPaddingKey = "MinimalistVPaddingKey"
 let MinimalistHPaddingKey = "MinimalistHPaddingKey"
@@ -204,7 +202,6 @@ private let scenarioKV: [String: Any] = [
     IsAddLineBreakKey: true,
     
     ContentPaddingStyleKey: ContentPaddingStyle.standard.rawValue,
-    StandardCornerRadiusKey: 6.0,
     MinimalistVPaddingKey: 2.0,
     MinimalistHPaddingKey: 6.0,
     
@@ -370,10 +367,6 @@ extension UserDefaults {
     @objc var ContentPaddingStyleKey: Int {
         get { return integer(forKey: "ContentPaddingStyleKey") }
         set { set(newValue, forKey: "ContentPaddingStyleKey") }
-    }
-    @objc var StandardCornerRadiusKey: Double {
-        get { return double(forKey: "StandardCornerRadiusKey") }
-        set { set(newValue, forKey: "StandardCornerRadiusKey") }
     }
     @objc var MinimalistVPaddingKey: Double {
         get { return double(forKey: "MinimalistVPaddingKey") }
@@ -594,7 +587,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.LandscapeMaxWidthKey, \.landscapeMaxWidth, LandscapeMaxWidthKey)
     
     combineSlot(\.ContentPaddingStyleKey, \.contentPaddingStyle, ContentPaddingStyleKey)
-    combineSlot(\.StandardCornerRadiusKey, \.standardCornerRadius, StandardCornerRadiusKey)
     combineSlot(\.MinimalistVPaddingKey, \.minimalistVPadding, MinimalistVPaddingKey)
     combineSlot(\.MinimalistHPaddingKey, \.minimalistHPadding, MinimalistHPaddingKey)
     
