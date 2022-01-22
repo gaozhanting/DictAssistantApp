@@ -68,7 +68,7 @@ struct HighlightInfoView: View {
 
 struct IsAlwaysRefreshHighlightInfoView: View {
     var body: some View {
-        Text("If you check this option, it will continually refresh highlight even when the recognized text is the same but the cropper screen area differs little from last frame, until the frames are the same. This will make the highlight always synced with the text whensoever, but the costs are consuming more CPU and increasing blink odds. \nIf you uncheck this option, highlight sometimes may not be synced with the text, in some cases when the text is the same but the cropper screen area trembled some little position. \n\nI recommend always uncheck it. It is another subtle thing.")
+        Text("If you check this option, it will continually refresh highlight even when the recognized text is the same but the cropper screen area differs little from last frame, until the frames are the same. This will make the highlight always synced with the text whensoever, but the costs are consuming more CPU and increasing blink odds. \nIf you uncheck this option, highlight sometimes may not be synced with the text, in some cases when the text is the same but the cropper screen area trembled some little position.")
             .infoStyle()
     }
 }

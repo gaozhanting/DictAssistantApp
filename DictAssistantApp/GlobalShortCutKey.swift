@@ -50,12 +50,22 @@ var stepPlayPhase: StepPlayPhase = .defaultPhase
 func makeWindowsForSetting() {
     cropperWindow.contentView = NSHostingView(rootView: StrokeBorderCropperAnimationView())
     cropperWindow.orderFrontRegardless()
-
-    let emptyView = EmptyView()
-        .background(VisualEffectView(material: .hudWindow))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-    contentWindow.contentView = NSHostingView(rootView: emptyView)
+    
+    if ContentPaddingStyle(rawValue: UserDefaults.standard.ContentPaddingStyleKey)! == .standard {
+        let contentViewPre = EmptyView()
+            .background(VisualEffectView(material: .hudWindow))
+            .clipShape(RoundedRectangle(cornerRadius: UserDefaults.standard.StandardCornerRadiusKey))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+        contentWindow.contentView = NSHostingView(rootView: contentViewPre)
+    } else {
+        let contentViewPre = EmptyView()
+            .background(VisualEffectView(material: .hudWindow))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+        contentWindow.contentView = NSHostingView(rootView: contentViewPre)
+    }
+    
     contentWindow.orderFrontRegardless()
 }
 
