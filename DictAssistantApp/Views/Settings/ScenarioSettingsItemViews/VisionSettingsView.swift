@@ -79,7 +79,7 @@ struct RecognitionLevelSetting: View {
                 LevelInfoView()
             }
         }
-        .help("Use accurate level will increase huge CPU usage.")
+        .help("Use accurate level will increase a huge amount of CPU usage.")
     }
 }
 
@@ -104,7 +104,7 @@ struct UsesLanguageCorrectionToggle: View {
                 UsesLanguageCorrectionInfoView()
             }
         }
-        .help("Select this will a certain amount of CPU usage.")
+        .help("Select this will increase a certain amount of CPU usage.")
     }
 }
 
