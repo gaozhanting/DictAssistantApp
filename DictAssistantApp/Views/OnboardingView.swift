@@ -282,7 +282,7 @@ private struct InitGlobalKeyboardShortcutView: View {
                         Text("The cropper window has an animation stoke border. Please don't overlap them.")
                             .font(.subheadline)
                             .padding(.bottom)
-                        Text("Step 2: Press the shortcut key and playing. (Need Screen Recording Permission)")
+                        Text("Step 2: Press the shortcut key again and playing. (Need Screen Recording Permission)")
                         Divider()
                             .padding(.top)
                         Text("Stop:")

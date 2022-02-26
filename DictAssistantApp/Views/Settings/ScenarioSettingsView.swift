@@ -129,6 +129,8 @@ private struct CropperStyleSettingView: View {
             Text("rectangle").tag(CropperStyle.rectangle.rawValue)
             Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
             
+            Divider()
+            
             Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
             Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
             Text("topBorder").tag(CropperStyle.topBorder.rawValue)
