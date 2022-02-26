@@ -124,7 +124,11 @@ private struct InitKnownView: View {
     var body: some View {
         PageTemplateView(
             title: {
-                Text("Initialize your English vocabulary count, press return")
+                VStack {
+                    Text("Initialize your English vocabulary")
+                    Text("Enter a number, and then press return key to complete.")
+                        .font(.body)
+                }
             },
             content: {
                 GroupBox {
@@ -211,10 +215,12 @@ private struct BuildDictView: View {
             title: {
                 VStack {
                     Text("Build local concise dictionary")
-                    Text("This step is optional, but highly recommended.")
-                        .font(.footnote)
-                    Text("It may takes about 10 to 30 seconds to build.")
-                        .font(.footnote)
+                    Group {
+                        Text("Click the hammer button, it may takes about 10 to 30 seconds to build.")
+                        Text("It will prompt succeed when completed.")
+                        Text("This step is optional, but highly recommended.")
+                    }
+                    .font(.body)
                 }
             },
             content: {
@@ -268,7 +274,17 @@ private struct InitGlobalKeyboardShortcutView: View {
     
     var body: some View {
         PageTemplateView(
-            title: { Text("Initialize one global keyboard shortcuts, playing") },
+            title: {
+                VStack {
+                    Text("Initialize one global keyboard shortcuts, playing")
+                    Group {
+                        Text("Click the right box, and then press a shortcut key. Recommend Option-1.")
+                        Text("If it shows your key, then succeed; otherwise you need press another shortcut key because it was conflict with some other system shortcut key.")
+                            .multilineTextAlignment(.center)
+                    }
+                    .font(.body)
+                }
+            },
             content: {
                 OneKeyRecordingView()
                     .frame(width: 500)
