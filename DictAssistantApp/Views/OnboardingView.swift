@@ -126,7 +126,7 @@ private struct InitKnownView: View {
             title: {
                 VStack {
                     Text("Initialize your English vocabulary")
-                    Text("Enter a number, and then press return key to complete.")
+                    Text("Estimate a number, and then press return key to complete.")
                         .font(.body)
                 }
             },
@@ -139,7 +139,7 @@ private struct InitKnownView: View {
                             .alert(isPresented: $showingAlert) {
                                 Alert(
                                     title: Text("Invalid value"),
-                                    message: Text("Count must be an integer, and must between \(minEnWikiCount) and \(maxEnWikiCount), including."),
+                                    message: Text("Count must be an integer, and must between 1 and 100000, including."),
                                     dismissButton: .destructive(
                                         Text("Cancel"),
                                         action: { count = String(defaultEnWikiCount) }
@@ -179,6 +179,30 @@ private enum Lang: String, CaseIterable {
     case None
 }
 
+private func nativeLanguageName(lang: Lang) -> String {
+    switch lang {
+    case .Arabic: return "عربي"
+    case .ChineseSimplified: return "简体中文"
+    case .ChineseTraditional: return "繁體中文"
+    case .Dutch: return "Nederlands"
+    case .English: return "English"
+    case .French: return "français"
+    case .German: return "Deutsch"
+    case .Greek: return "Ελληνικά"
+    case .Hebrew: return "עִברִית"
+    case .Hindi: return "हिन्दी"
+    case .Italian: return "Italiana"
+    case .Japanese: return "日本"
+    case .Korean: return "한국어"
+    case .Portuguese: return "português"
+    case .Russian: return "русский"
+    case .Spanish: return "Española"
+    case .Swedish: return "svenska"
+    case .Turkish: return "Türk"
+    case .None: return "None"
+    }
+}
+
 // to be tested
 private func systemLanguage() -> Lang {
     for language in Locale.preferredLanguages {
@@ -216,7 +240,8 @@ private struct BuildDictView: View {
                 VStack {
                     Text("Build local concise dictionary")
                     Group {
-                        Text("Click the hammer button, it may takes about 10 to 30 seconds to build.")
+                        Text("Select your target language, then click the hammer button below, it takes about 10 to 30 seconds.")
+                            .multilineTextAlignment(.center)
                         Text("It will prompt succeed when completed.")
                         Text("This step is optional, but highly recommended.")
                     }
@@ -228,7 +253,7 @@ private struct BuildDictView: View {
                     VStack {
                         Picker("Your target language:", selection: $lang) {
                             ForEach(Lang.allCases, id: \.self) { lang in
-                                Text(NSLocalizedString(lang.rawValue, comment: "")).tag(lang)
+                                Text(nativeLanguageName(lang: lang)).tag(lang)
                             }
                         }
                         .pickerStyle(MenuPickerStyle())
@@ -260,7 +285,7 @@ private struct BuildDictView: View {
 
 private struct ChineseMainlandIssueView: View {
     var body: some View {
-        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts and the CDN may be very slow sometimes. You could wait some longer time.\n\nOr you can skip this step. Instead, you can manually download the csv file in browser with the CDN link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build.")
+        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts/raw/main/ChineseSimplified.csv and the CDN may be very slow sometimes. You could wait some longer time.\n\nOr you can skip this step. Instead, you can manually download the csv file in browser with the CDN link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build.")
             .infoStyle()
     }
 }
@@ -276,10 +301,10 @@ private struct InitGlobalKeyboardShortcutView: View {
         PageTemplateView(
             title: {
                 VStack {
-                    Text("Initialize one global keyboard shortcuts, playing")
+                    Text("Initialize one global keyboard shortcut, playing")
                     Group {
                         Text("Click the right box, and then press a shortcut key. Recommend Option-1.")
-                        Text("If it shows your key, then succeed; otherwise you need press another shortcut key because it was conflict with some other system shortcut key.")
+                        Text("If it shows your key, then succeed; otherwise you need press another shortcut key because the one you just pressed was already used by system or some other Apps.")
                             .multilineTextAlignment(.center)
                     }
                     .font(.body)
@@ -292,21 +317,19 @@ private struct InitGlobalKeyboardShortcutView: View {
                 if showPlaying {
                     VStack(alignment: .leading) {
                         Divider()
-                        Text("Playing:")
-                            .padding(.bottom)
-                        Text("Step 1: Press the shortcut key and adjust the cropper window and content window.")
-                        Text("The cropper window has an animation stoke border. Please don't overlap them.")
+                        Text("How to Play:")
+                            .padding(2)
+                        Text("Step 1: Press the shortcut key and adjust the cropper window and the content window.")
+                        Text("The cropper window has an animation stoke border. The cropper area is the area where the English text in screen you want to be recognized, the content area is the area where you want to locate the corresponding unknown words translation. Please don't overlap them.")
+                            .frame(height: 50)
                             .font(.subheadline)
-                            .padding(.bottom)
-                        Text("Step 2: Press the shortcut key again and playing. (Need Screen Recording Permission)")
+                        Text("Step 2: Press the shortcut key again and playing. (Need Screen Recording Permission First time)")
                         Divider()
-                            .padding(.top)
-                        Text("Stop:")
-                            .padding(.bottom)
-                        Text("Press the shortcut key to stop playing.")
+                        Text("How to Stop:")
+                            .padding(2)
+                        Text("When playing, press the same shortcut key to stop.")
                     }
-                    .padding(.vertical)
-                    .frame(width: 500)
+                    .padding()
                 }
             },
             nextButton: {
@@ -384,5 +407,6 @@ struct OnboardingView_Previews: PreviewProvider {
             
             ChineseMainlandIssueView()
         }
+        .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

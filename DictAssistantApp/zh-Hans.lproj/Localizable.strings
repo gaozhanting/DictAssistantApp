@@ -6,4 +6,31 @@
   
 */
 
+"Onboarding" = "新手指引";
 "Welcome to Freedom English App" = "欢迎使用Freedom English App";
+"We start off with three steps." = "我们开始三步基础设置。";
+"Initialize your English vocabulary" = "初始化您的英文词汇量";
+"Estimate a number, and then press return key to complete." = "预估一个数字，然后按回车键完成。";
+"My vocabulary count:" = "我的词汇量：";
+"Invalid value" = "无效的值";
+"Count must be an integer, and must between 1 and 100000, including." = "数字必须是在1到100000之间的整数";
+"Cancel" = "取消";
+"Build local concise dictionary" = "构建本地简明词典";
+"Select your target language, then click the hammer button below, it takes about 10 to 30 seconds." = "选择您的目标语言，然后点击下方锤子按钮，构建过程一般需要10到30秒。";
+"It will prompt succeed when completed." = "顺利完成会提示成功。";
+"This step is optional, but highly recommended." = "这一步是可跳过的，不过强烈推荐完成。";
+"Your target language:" = "您的目标语言：";
+"Initialize one global keyboard shortcut, playing" = "初始化一个全局的键盘快捷键，运行";
+"Click the right box, and then press a shortcut key. Recommend Option-1." = "点击右边方框，然后按下一个快捷键。推荐Option-1。";
+"If it shows your key, then succeed; otherwise you need press another shortcut key because the one you just pressed was already used by system or some other Apps." = "如果方框中显示了您的快捷键，即为设置成功；否则您需要再按下一个其他的快捷键，因为刚才您按下的快捷键已经被系统或者某个其他App占用了。";
+"How to Play:" = "如何运行：";
+"Step 1: Press the shortcut key and adjust the cropper window and the content window." = "步骤一：按下这个快捷键，然后调整裁剪窗口和内容显示窗口的宽高和位置。";
+"The cropper window has an animation stoke border. The cropper area is the area where the English text in screen you want to be recognized, the content area is the area where you want to locate the corresponding unknown words translation. Please don't overlap them." = "裁剪窗口有一个描边边框动画。裁剪区域是您想要进行文本识别的英文文本屏幕区域，内容区域是您想要放置对应生词查询结果的显示区域。请不要使它们重叠。";
+"Step 2: Press the shortcut key again and playing. (Need Screen Recording Permission First time)" = "步骤二：再次按下该快捷键，运行。（第一次运行需要屏幕录制授权）";
+"How to Stop:" = "如何停止：";
+"When playing, press the same shortcut key to stop." = "运行中按下同样的快捷键，即停止。";
+"Continue" = "继续";
+"End" = "结束";
+"Run step play" = "单步运行";
+"recommend: Option-1" = "推荐：Option-1";
+"If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts/raw/main/ChineseSimplified.csv and the CDN may be very slow sometimes. You could wait some longer time.\n\nOr you can skip this step. Instead, you can manually download the csv file in browser with the CDN link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build." = "如果您身处中国大陆地区，构建词典的时候可能会遇到网络问题，这是因为词典源文件位于 https://github.com/gaozhanting/CsvDicts/raw/main/ChineseSimplified.csv ，而且CDN有时会很慢。您可以等待长一点的时间。\n\n或者您可以先跳过这一步，之后手动在浏览器中使用链接 https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv 来下载这个csv格式的文件，该文件大小为17M，下载可能需要一点时间。然后，再构建本地词典，通过在App的菜单栏/词典/打开词典构建面板/重新通过本地文件构建/打开刚下载的文件然后构建。";
