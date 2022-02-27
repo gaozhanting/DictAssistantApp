@@ -285,7 +285,7 @@ private struct BuildDictView: View {
 
 private struct ChineseMainlandIssueView: View {
     var body: some View {
-        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts/raw/main/ChineseSimplified.csv and the CDN may be very slow sometimes. You could wait some longer time.\n\nOr you can skip this step. Instead, you can manually download the csv file in browser with the CDN link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show Dict Build Panel/Rebuild From Local File/Open the downloaded file and build.")
+        Text("If you are in China mainland, you may have issue downloading and build the dictionary, because the source dictionary file are located at https://github.com/gaozhanting/CsvDicts/raw/main/ChineseSimplified.csv and the CDN may be very slow sometimes. You could wait some longer time.\n\nOr you can skip this step. Instead, you can manually download the csv file in browser with the CDN link: https://cdn.jsdelivr.net/gh/gaozhanting/CsvDicts@main/ChineseSimplified.csv, the file size is about 17M, and it may take a while. And then, build it later using local file from the App menubar/Dictionary/Show dict build panel/Rebuild from local file; click open button, then select the downloaded file and build.")
             .infoStyle()
     }
 }
@@ -320,7 +320,7 @@ private struct InitGlobalKeyboardShortcutView: View {
                         Text("How to Play:")
                             .padding(2)
                         Text("Step 1: Press the shortcut key and adjust the cropper window and the content window.")
-                        Text("The cropper window has an animation stoke border. The cropper area is the area where the English text in screen you want to be recognized, the content area is the area where you want to locate the corresponding unknown words translation. Please don't overlap them.")
+                        Text("The cropper window has an animation stoke border. The cropper area is the area where the English text recorded in screen you want to be recognized, the content area is the area where you want to locate the corresponding unknown words translation. Please don't overlap them.")
                             .frame(height: 50)
                             .font(.subheadline)
                         Text("Step 2: Press the shortcut key again and playing. (Need Screen Recording Permission First time)")

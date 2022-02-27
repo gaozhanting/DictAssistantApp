@@ -103,14 +103,14 @@ private struct DictBuildView: View {
     
     var body: some View {
         VStack {
-            GroupBox(label: Label("Current Local Dictionary Built From:", systemImage: "building.columns")
+            GroupBox(label: Label("Current local dictionary built from:", systemImage: "building.columns")
                         .font(.title2)) {
                 TextField("", text: Binding.constant(remoteDictURLString))
             }
             
             Spacer().frame(height: 50)
             
-            GroupBox(label: Label("Rebuild From Remote File:", systemImage: "hammer")
+            GroupBox(label: Label("Rebuild from remote file:", systemImage: "hammer")
                         .font(.title2)) {
                 VStack {
                     TextField("url", text: $remoteFrom)
@@ -118,7 +118,7 @@ private struct DictBuildView: View {
                 }
             }
             
-            GroupBox(label: Label("Rebuild From Local File:", systemImage: "hammer").font(.title2)) {
+            GroupBox(label: Label("Rebuild from local file:", systemImage: "hammer").font(.title2)) {
                 VStack {
                     HStack {
                         Button("open") {
