@@ -21,7 +21,7 @@ struct MaximumFrameRateSetting: View {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .none // integer, no decimal
                 formatter.minimum = 4
-                formatter.maximum = 12
+                formatter.maximum = 30
                 return formatter
             }()).frame(width: tfWidth)
             
@@ -40,7 +40,7 @@ struct MaximumFrameRateSetting: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("Set the maximum frame rate of the screen capture recording, default is 4 fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 12 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time.")
+        Text("Set the maximum frame rate of the screen capture recording, default is 4 fps which is a decent value for normal usage. \nThe higher the value, the more swift the App react to the cropper screen content changing, but the more CPU it consumes. 4 to 30 is all OK. \nNotice, if you need to set the text recognition level accurate at the same time, you need to set a lower value, for example 4. Because when set as a higher value, it maybe get stuck because it just can't do so much heavy lifting in such a little time.")
             .infoStyle()
     }
 }
