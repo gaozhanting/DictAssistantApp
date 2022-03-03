@@ -59,6 +59,7 @@ func ShortcutsPreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "keyboard", accessibilityDescription: "Shortcuts preferences")!
     ) {
         ShortcutsSettingsView()
+            .environmentObject(contentWindowLayout)
     }
 
     return Preferences.PaneHostingController(pane: paneView)

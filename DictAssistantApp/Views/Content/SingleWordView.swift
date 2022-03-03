@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct SingleWordView: View {
+    @EnvironmentObject var contentWindowLayout: ContentWindowLayout
+    
     @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
     @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
-    
+
     let wordCell: WordCell
     
     var body: some View {
-        switch calculateLayout(from: contentWindow.frame) {
+        switch contentWindowLayout.layout {
         case .portrait:
             TextBody(wordCell: wordCell)
         case .landscape:
             if !wordCell.trans.isEmpty {
                 switch LandscapeStyle(rawValue: landscapeStyle)! {
-                case .normal:
+                case .scroll:
                     TextBody(wordCell: wordCell)
                         .frame(
                             maxWidth: CGFloat(landscapeMaxWidth),
@@ -32,6 +34,12 @@ struct SingleWordView: View {
                         .frame(
                             maxWidth: CGFloat(landscapeMaxWidth),
                             alignment: .top
+                        )
+                case .leading:
+                    TextBody(wordCell: wordCell)
+                        .frame(
+                            maxWidth: CGFloat(landscapeMaxWidth),
+                            alignment: .topLeading
                         )
                 }
             } else {

@@ -83,7 +83,7 @@ let PortraitCornerDefault = PortraitCorner.top.rawValue
 let PortraitMaxHeightKey = "PortraitMaxHeightKey"
 let PortraitMaxHeightDefault = 60.0
 let LandscapeStyleKey = "LandscapeStyleKey"
-let LandscapeStyleDefault = LandscapeStyle.normal.rawValue
+let LandscapeStyleDefault = LandscapeStyle.scroll.rawValue
 let LandscapeMaxWidthKey = "LandscapeMaxWidthKey"
 let LandscapeMaxWidthDefault = 160.0
 
@@ -178,8 +178,9 @@ enum PortraitCorner: Int, Codable {
 }
 
 enum LandscapeStyle: Int, Codable {
-    case normal = 0
+    case scroll = 0
     case centered = 1
+    case leading = 2
 }
 
 enum TheColorScheme: Int, Codable {

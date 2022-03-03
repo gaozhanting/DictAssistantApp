@@ -134,18 +134,17 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             // colorways apple-dict colourway
+            LandscapeWordsView()
+                .environmentObject(sampleWords(["the left", "scepter", "colorway", "Latin"]))
+                .frame(width: 1000, height: 110)
+            
 //            LandscapeWordsView()
-//                .environmentObject(sampleWords(["the left", "scepter", "colorway", "Latin"]))
-//                .frame(width: 1000, height: 110)
+//                .environmentObject(sampleWords([]))
+//                .frame(width: 1000, height: 150)
 //
-            
-            LandscapeWordsView()
-                .environmentObject(sampleWords([]))
-                .frame(width: 1000, height: 150)
-            
-            LandscapeWordsView()
-                .environmentObject(sampleWords(["scepter"]))
-                .frame(width: 1000, height: 150)
+//            LandscapeWordsView()
+//                .environmentObject(sampleWords(["scepter"]))
+//                .frame(width: 1000, height: 150)
             
 //            // use max width 170, landscape normal test the displaying difference of "local government"
 //            LandscapeWordsView()

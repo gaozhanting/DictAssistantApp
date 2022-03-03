@@ -20,9 +20,65 @@ struct ShortcutsSettingsView: View {
     }
 }
 
+private struct TagView: View {
+    let txt: String
+    
+    var body: some View {
+        Text(txt)
+            .padding(.horizontal, 3)
+            .background(Rectangle().fill(Color(NSColor.textBackgroundColor)).shadow(radius: 1))
+    }
+}
+
+private struct ContentWindowLayoutTagView: View {
+    @EnvironmentObject var contentWindowLayout: ContentWindowLayout
+
+    var body: some View {
+        switch contentWindowLayout.layout {
+        case .portrait:
+            TagView(txt: "portrait")
+        case .landscape:
+            TagView(txt: "landscape")
+        }
+    }
+}
+
+private struct ContentInnerLayoutTagView: View {
+    @EnvironmentObject var contentWindowLayout: ContentWindowLayout
+    @AppStorage(PortraitCornerKey) var portraitCorner: Int = PortraitCornerDefault
+    @AppStorage(LandscapeStyleKey) var landscapeStyle: Int = LandscapeStyleDefault
+    
+    var body: some View {
+        switch contentWindowLayout.layout {
+        case .portrait:
+            switch PortraitCorner(rawValue: portraitCorner)! {
+            case .top:
+                TagView(txt: "top")
+            case .topTrailing:
+                TagView(txt: "topTrailing")
+            case .topLeading:
+                TagView(txt: "topLeading")
+            case .bottom:
+                TagView(txt: "bottom")
+            }
+        case .landscape:
+            switch LandscapeStyle(rawValue: landscapeStyle)! {
+            case .scroll:
+                TagView(txt: "scroll")
+            case .centered:
+                TagView(txt: "centered")
+            case .leading:
+                TagView(txt: "leading")
+                
+            }
+        }
+    }
+}
+
 private struct KeyRecordingView: View {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
     @AppStorage(IsAddLineBreakKey) var isAddLineBreak: Bool = true
+    
     var g1: some View {
         Group {
             HStack {
@@ -45,9 +101,11 @@ private struct KeyRecordingView: View {
             HStack {
                 Text("Switch content layout")
                 Spacer()
+                ContentWindowLayoutTagView()
+                ContentInnerLayoutTagView()
                 KeyboardShortcuts.Recorder(for: .switchLayout)
                 MiniInfoView {
-                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait, or leading and center when landscape.\nThis option belongs to scenario.")
+                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait; or scroll, centered and leading when landscape.\nThis option belongs to scenario.")
                         .infoStyle()
                 }
             }

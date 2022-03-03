@@ -12,7 +12,7 @@ struct LandscapeWordsView: View {
     
     var body: some View {
         switch LandscapeStyle(rawValue: landscapeStyle)! {
-        case .normal:
+        case .scroll:
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top) {
                     WordsView()
@@ -21,11 +21,22 @@ struct LandscapeWordsView: View {
                 }
                 .paddingAndBackground()
             }
+            
         case .centered:
             VStack {
                 HStack(alignment: .top) {
                     WordsView()
                 }
+                
+                Spacer()
+            }
+            .paddingAndBackground()
+        
+        case .leading:
+            HStack(alignment: .top) {
+                WordsView()
+                
+                VStack { Spacer() }
                 
                 Spacer()
             }
