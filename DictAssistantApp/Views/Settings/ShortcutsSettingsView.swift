@@ -105,7 +105,7 @@ private struct KeyRecordingView: View {
                 ContentInnerLayoutTagView()
                 KeyboardShortcuts.Recorder(for: .switchLayout)
                 MiniInfoView {
-                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait; or scroll, centered and leading when landscape.\nThis option belongs to scenario.")
+                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait; or scroll, centered and leading when landscape. And whether it is landscape or portrait depends on which is bigger of the content window, width(landscape) or hight(portrait).\nThis option belongs to scenario.")
                         .infoStyle()
                 }
             }
