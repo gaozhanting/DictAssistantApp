@@ -26,7 +26,6 @@ struct SingleWordView: View {
                     TextBody(wordCell: wordCell)
                         .frame(
                             maxWidth: CGFloat(landscapeMaxWidth),
-                            maxHeight: .infinity,
                             alignment: .topLeading
                         )
                 case .centered:
@@ -34,12 +33,6 @@ struct SingleWordView: View {
                         .frame(
                             maxWidth: CGFloat(landscapeMaxWidth),
                             alignment: .top
-                        )
-                case .leading:
-                    TextBody(wordCell: wordCell)
-                        .frame(
-                            maxWidth: CGFloat(landscapeMaxWidth),
-                            alignment: .topLeading
                         )
                 }
             } else {

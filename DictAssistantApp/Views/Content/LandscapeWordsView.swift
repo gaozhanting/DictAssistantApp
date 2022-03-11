@@ -31,16 +31,6 @@ struct LandscapeWordsView: View {
                 Spacer()
             }
             .paddingAndBackground()
-        
-        case .leading:
-            HStack(alignment: .top) {
-                WordsView()
-                
-                VStack { Spacer() }
-                
-                Spacer()
-            }
-            .paddingAndBackground()
         }
     }
 }

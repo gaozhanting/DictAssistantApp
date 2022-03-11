@@ -180,7 +180,6 @@ enum PortraitCorner: Int, Codable {
 enum LandscapeStyle: Int, Codable {
     case scroll = 0
     case centered = 1
-    case leading = 2
 }
 
 enum TheColorScheme: Int, Codable {
