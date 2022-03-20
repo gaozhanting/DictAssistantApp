@@ -136,7 +136,7 @@ private struct MinimalistPaddinged: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(.vertical, isMinimalist ? minimalistVPadding : 0)
+            .padding(.bottom, isMinimalist ? minimalistVPadding : 0)
             .padding(.horizontal, isMinimalist ? minimalistHPadding : 0)
     }
 }
