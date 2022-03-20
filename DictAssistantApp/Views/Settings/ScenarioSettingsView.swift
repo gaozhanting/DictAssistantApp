@@ -102,7 +102,7 @@ private struct ContentPaddingStyleSettingsView: View {
             
             if ContentPaddingStyle(rawValue: contentPaddingStyle) == .minimalist {
                 Group {
-                    Text("Vpad:")
+                    Text("Bpad:")
                     TextField("", value: $minimalistVPadding, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
                     
                     Text("Hpad:")
