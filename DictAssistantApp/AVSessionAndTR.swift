@@ -29,7 +29,7 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
 
     func startScreenCapture() {
         let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
-        screenInput.minFrameDuration = CMTime(seconds: Double(1 / maximumFrameRate), preferredTimescale: 600)
+        screenInput.minFrameDuration = CMTime(seconds: Double(1.0 / maximumFrameRate), preferredTimescale: 600)
         
         screenInput.cropRect = cropperWindow.frame
 
