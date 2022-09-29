@@ -581,6 +581,8 @@ func combineCropperHasShadow() {
 }
 
 func autoSaveSlotSettings() {
+    combineSlot(\.IsShowContentFrameKey, \.isShowContentFrame, IsShowContentFrameKey)
+    
     combineSlot(\.PortraitCornerKey, \.portraitCorner, PortraitCornerKey)
     combineSlot(\.PortraitMaxHeightKey, \.portraitMaxHeight, PortraitMaxHeightKey)
     combineSlot(\.LandscapeStyleKey, \.landscapeStyle, LandscapeStyleKey)
