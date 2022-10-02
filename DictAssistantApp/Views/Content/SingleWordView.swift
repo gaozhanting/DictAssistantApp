@@ -79,6 +79,8 @@ private struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
     
+    @State var isShowingPopover = false
+    
     var body: some View {
         TheText(wordCell: wordCell)
             .lineSpacinged()
@@ -90,6 +92,9 @@ private struct TextBody: View {
                 Button("Say") {
                     say(word)
                 }
+                Button("Customize") {
+                    isShowingPopover = true
+                }
                 Menu("Open At") {
                     Button("Local") { openDict(word) }
                     Button("Collins") { openCollins(word) }
@@ -100,6 +105,9 @@ private struct TextBody: View {
                 Button(!noisesSet.contains(word) ? "Add to Noises" : "Remove from Noises") {
                     !noisesSet.contains(word) ? addNoise(word) : removeNoise(word)
                 }
+            }
+            .popover(isPresented: $isShowingPopover, arrowEdge: .trailing) {
+                MiniEntryView(word: word)
             }
             .gesture(
                 TapGesture()

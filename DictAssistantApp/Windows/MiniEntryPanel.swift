@@ -18,11 +18,11 @@ func initMiniEntryPanel() {
     miniEntryPanel.close()
 }
 
-func toggleMiniEntryPanel() {
+func toggleMiniEntryPanel(word: String) {
     if miniEntryPanel.isVisible {
         miniEntryPanel.close()
     } else {
-        let view = MiniEntryView()
+        let view = MiniEntryView(word: word)
         miniEntryPanel.contentView = NSHostingView(rootView: view)
         miniEntryPanel.center()
         miniEntryPanel.orderFrontRegardless()

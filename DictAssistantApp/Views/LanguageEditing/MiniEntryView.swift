@@ -15,7 +15,17 @@ func notifyPanel(panel: NSPanel, title: String, info: String) {
 }
 
 struct MiniEntryView: View {
-    @State var text: String = ""
+    let word: String = ""
+    
+    @State var text: String
+    
+    init(word: String) {
+        if word.isEmpty {
+            text = ""
+        } else {
+            text = "\(word),"
+        }
+    }
     
     func upsert() {
         let wt = text.split(separator: Character(","), maxSplits: 1)
@@ -57,6 +67,6 @@ extension String {
 
 struct EntryUpsertView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniEntryView()
+        MiniEntryView(word: "someword")
     }
 }
