@@ -170,7 +170,9 @@ func upsertEntry(word: String, trans: String,
     })
 }
 
-func removeEntry(word: String) {
+func removeEntry(word: String,
+                 didSucceed: @escaping () -> Void = {},
+                 nothingChanged: @escaping () -> Void = {}) {
     let context = persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
@@ -186,7 +188,11 @@ func removeEntry(word: String) {
         logger.error("Failed to remove entry: \(error.localizedDescription)")
         NSApplication.shared.presentError(error as NSError)
     }
+    
     saveContext(didSucceed: {
         trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
     })
 }

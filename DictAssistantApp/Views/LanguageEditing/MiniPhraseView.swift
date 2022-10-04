@@ -13,7 +13,14 @@ struct MiniPhraseView: View {
     func add() {
         addPhrase(text, didSucceed: {
             notifyPanel(panel: miniPhrasePanel, title: "Mini Phrase Panel", info: "Succeed")
-            
+        }, nothingChanged: {
+            notifyPanel(panel: miniPhrasePanel, title: "Mini Phrase Panel", info: "Nothing Changed")
+        })
+    }
+    
+    func remove() {
+        removePhrase(text, didSucceed: {
+            notifyPanel(panel: miniPhrasePanel, title: "Mini Phrase Panel", info: "Succeed")
         }, nothingChanged: {
             notifyPanel(panel: miniPhrasePanel, title: "Mini Phrase Panel", info: "Nothing Changed")
         })
@@ -34,6 +41,12 @@ struct MiniPhraseView: View {
             }
             .disabled(!valid)
             .keyboardShortcut(KeyEquivalent.return)
+            
+            Button(action: remove) {
+                Image(systemName: "minus")
+            }
+            .disabled(!valid)
+            .keyboardShortcut(KeyEquivalent.delete)
         }
         .padding()
         .frame(width: 350, height: 40)

@@ -15,11 +15,16 @@ func notifyPanel(panel: NSPanel, title: String, info: String) {
 }
 
 struct MiniEntryView: View {
-    let word: String = ""
+    let showingRemoval: Bool
+    
+    let word: String
     
     @State var text: String
     
-    init(word: String) {
+    init(word: String = "", showingRemoval: Bool = true) {
+        self.showingRemoval = showingRemoval
+        self.word = word
+        
         if word.isEmpty {
             text = ""
         } else {
@@ -36,8 +41,20 @@ struct MiniEntryView: View {
         })
     }
     
-    var valid: Bool {
+    var validUpsert: Bool {
         !text.isEmpty && !text.isMultiline && text.split(separator: Character(","), maxSplits: 1).count == 2
+    }
+    
+    func remove() {
+        removeEntry(word: text, didSucceed: {
+            notifyPanel(panel: miniEntryPanel, title: "Mini Custom Entry Panel", info: "Succeed")
+        }, nothingChanged: {
+            notifyPanel(panel: miniEntryPanel, title: "Mini Custom Entry Panel", info: "Nothing Changed")
+        })
+    }
+
+    var validRemoval: Bool {
+        !text.isEmpty && !text.isMultiline
     }
     
     var body: some View {
@@ -49,8 +66,16 @@ struct MiniEntryView: View {
             Button(action: upsert) {
                 Image(systemName: "plus")
             }
-            .disabled(!valid)
+            .disabled(!validUpsert)
             .keyboardShortcut(KeyEquivalent.return)
+            
+            if showingRemoval {
+                Button(action: remove) {
+                    Image(systemName: "minus")
+                }
+                .disabled(!validRemoval)
+                .keyboardShortcut(KeyEquivalent.delete)
+            }
         }
         .padding()
         .frame(width: 450, height: 40)
@@ -67,6 +92,9 @@ extension String {
 
 struct EntryUpsertView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniEntryView(word: "someword")
+        Group {
+            MiniEntryView(word: "wood")
+            MiniEntryView()
+        }
     }
 }

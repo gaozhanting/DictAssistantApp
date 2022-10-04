@@ -191,3 +191,30 @@ func addPhrase(_ word: String,
         nothingChanged()
     })
 }
+
+func removePhrase(_ word: String,
+                  didSucceed: @escaping () -> Void = {},
+                  nothingChanged: @escaping() -> Void = {}) {
+    let context = persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<Phrase> = Phrase.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "word = %@", word)
+    fetchRequest.fetchLimit = 1
+    
+    do {
+        let results = try context.fetch(fetchRequest)
+        if let result = results.first {
+            context.delete(result)
+        }
+    } catch {
+        logger.error("Failed to remove phrase: \(error.localizedDescription)")
+        NSApplication.shared.presentError(error as NSError)
+    }
+    
+    saveContext(didSucceed: {
+        trCallBack()
+        didSucceed()
+    }, nothingChanged: {
+        nothingChanged()
+    })
+}

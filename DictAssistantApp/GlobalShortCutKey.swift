@@ -176,7 +176,7 @@ func registerGlobalKey() {
     }
     
     KeyboardShortcuts.onKeyUp(for: .toggleMiniEntryPanel) {
-        toggleMiniEntryPanel(word: "")
+        toggleMiniEntryPanel()
     }
     
     KeyboardShortcuts.onKeyUp(for: .showSlotsTab) {

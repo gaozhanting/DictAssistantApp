@@ -79,6 +79,10 @@ private struct TextBody: View {
         openExternalDict(word, urlPrefix: "https://www.thesaurus.com/browse/")
     }
     
+    var isWordCustomized: Bool {
+        customDefine(word: word) != nil
+    }
+    
     @State var isShowingPopover = false
     
     var body: some View {
@@ -92,8 +96,12 @@ private struct TextBody: View {
                 Button("Say") {
                     say(word)
                 }
-                Button("Customize") {
-                    isShowingPopover = true
+                Button( !isWordCustomized ? "Customize" : "Remove from Customized") {
+                    if !isWordCustomized {
+                        isShowingPopover = true
+                    } else {
+                        removeEntry(word: word)
+                    }
                 }
                 Menu("Open At") {
                     Button("Local") { openDict(word) }
@@ -107,7 +115,7 @@ private struct TextBody: View {
                 }
             }
             .popover(isPresented: $isShowingPopover, arrowEdge: .trailing) {
-                MiniEntryView(word: word)
+                MiniEntryView(word: word, showingRemoval: false)
             }
             .gesture(
                 TapGesture()
