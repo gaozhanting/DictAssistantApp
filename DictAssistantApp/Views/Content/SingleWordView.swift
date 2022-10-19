@@ -89,6 +89,7 @@ private struct TextBody: View {
         TheText(wordCell: wordCell)
             .lineSpacinged()
             .minimalistPaddinged()
+            .shadowOrNot()
             .contextMenu {
                 Button(unKnown ? "Add to Known" : "Remove from Known") {
                     unKnown ? addKnown(word) : removeKnown(word)
@@ -172,6 +173,23 @@ private struct LineSpacinged: ViewModifier {
 extension View {
     func lineSpacinged() -> some View {
         modifier(LineSpacinged())
+    }
+}
+
+private struct ShadowOrNot: ViewModifier {
+    @AppStorage(ContentHasShadowKey) var contentHasShadow: Bool = ContentHasShadowDefault
+    
+    func body(content: Content) -> some View {
+        if contentHasShadow {
+            content.shadow(color: .primary, radius: 3)
+        } else {
+            content
+        }
+    }
+}
+extension View {
+    func shadowOrNot() -> some View {
+        modifier(ShadowOrNot())
     }
 }
 

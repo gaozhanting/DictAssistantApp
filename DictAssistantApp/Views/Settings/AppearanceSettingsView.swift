@@ -23,6 +23,7 @@ struct AppearanceSettingsView: View {
         Group {
             ColorPickers()
             
+            ContentHasShadowToggle()
             ContentBackgroundVisualEffect()
             ColorSchemeSetting()
             
@@ -240,6 +241,19 @@ private struct ColorPickers: View {
             Button(action: useDefault) {
                 Image(systemName: "arrow.triangle.2.circlepath")
             }
+        }
+    }
+}
+
+private struct ContentHasShadowToggle: View {
+    @AppStorage(ContentHasShadowKey) var contentHasShadow: Bool = ContentHasShadowDefault
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $contentHasShadow) {
+                Text("Content has shadow")
+            }
+            .toggleStyle(CheckboxToggleStyle())
         }
     }
 }

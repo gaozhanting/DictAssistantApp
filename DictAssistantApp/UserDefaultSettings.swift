@@ -96,6 +96,9 @@ let TransColorKey = "TransColorKey"
 let BackgroundColorKey = "BackgroundColorKey"
 let BackgroundColorDefault = colorToData(NSColor.textBackgroundColor)!
 
+let ContentHasShadowKey = "ContentHasShadowKey"
+let ContentHasShadowDefault = false
+
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
 
@@ -258,6 +261,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
     BackgroundColorKey: BackgroundColorDefault,
     
+    ContentHasShadowKey: ContentHasShadowDefault,
     UseContentBackgroundVisualEffectKey: false,
     ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
     
