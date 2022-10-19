@@ -218,7 +218,7 @@ private struct HLDottedView: View {
                     .padding(indexPadding)
                     .foregroundColor(Color(dataToColor(indexColor)!))
                     .background(Circle().fill(Color(dataToColor(indexBgColor)!)))
-                    .shadow(radius: 3)
+                    .shadow(color: .primary, radius: 3)
                     .position(x: x, y: y)
             }
         } else {
@@ -250,7 +250,7 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
-            .shadow(radius: 3)
+            .shadow(color: .primary, radius: 3)
     }
 }
 

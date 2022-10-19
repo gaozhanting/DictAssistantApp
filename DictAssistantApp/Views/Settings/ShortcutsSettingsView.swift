@@ -26,7 +26,7 @@ private struct TagView: View {
     var body: some View {
         Text(txt)
             .padding(.horizontal, 3)
-            .background(Rectangle().fill(Color(NSColor.textBackgroundColor)).shadow(radius: 1))
+            .background(Rectangle().fill(Color(NSColor.textBackgroundColor)).shadow(color: .primary, radius: 1))
     }
 }
 

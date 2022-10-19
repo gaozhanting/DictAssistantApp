@@ -64,7 +64,7 @@ private struct ToastView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color(NSColor.labelColor))
         }
-        .shadow(radius: 3)
+        .shadow(color: .primary, radius: 3)
         .foregroundColor(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(VisualEffectView(material: .underWindowBackground))

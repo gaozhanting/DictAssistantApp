@@ -22,7 +22,7 @@ struct QuestionMarkView<Content: View>: View {
         })
             .clipShape(Circle())
             .padding()
-            .shadow(radius: 3)
+            .shadow(color: .primary, radius: 3)
             .popover(isPresented: $isShowingPopover, arrowEdge: .leading, content: {
                 content
             })
