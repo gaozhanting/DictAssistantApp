@@ -34,7 +34,7 @@ let HighlightModeKey = "HighlightModeKey"
 let HighlightModeDefault = HighlightMode.disabled.rawValue
 
 let HLRectangleColorKey = "HLRectangleColorKey"
-let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.3)!.withAlphaComponent(0.3))!
+let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
 
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
 let HLDottedColorKey = "HLDottedColorKey"
