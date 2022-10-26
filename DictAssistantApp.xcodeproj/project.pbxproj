@@ -714,7 +714,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
 				PRODUCT_NAME = "Freedom English";
 				SWIFT_VERSION = 5.0;
@@ -739,7 +739,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaozhanting.DictAssistantApp;
 				PRODUCT_NAME = "Freedom English";
 				SWIFT_VERSION = 5.0;
