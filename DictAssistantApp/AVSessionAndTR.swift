@@ -72,34 +72,37 @@ class AVSessionAndTR
                 // test
 //                let excludedApps = [SCRunningApplication]()
                 
-                // exclude self app, seems not work
-//                let excludedApps = availableContent.applications.filter { app in
-//                    Bundle.main.bundleIdentifier == app.bundleIdentifier
+//              // exclude self app, seems not work, todo: infos, ignore self all windows, so can intersect cropper and content, balabala
+                let excludedApps = availableContent.applications.filter { app in
+                    Bundle.main.bundleIdentifier == app.bundleIdentifier
+                }
+
+                let filter = SCContentFilter(display: display,
+                                             excludingApplications: excludedApps,
+                                             exceptingWindows: [])
+                
+                // exclude self app cropper window, works
+//                let excludeWindows = availableContent.windows.filter { window in
+//                    window.windowID == self.cropperWindow.windowNumber
 //                }
 //
 //                let filter = SCContentFilter(display: display,
-//                                             excludingApplications: excludedApps,
-//                                             exceptingWindows: [])
-                
-                // exclude self app cropper window
-                let excludeWindows = availableContent.windows.filter { window in
-                    window.windowID == self.cropperWindow.windowNumber
-                }
-                
-                let filter = SCContentFilter(display: display,
-                                             excludingWindows: excludeWindows)
+//                                             excludingWindows: excludeWindows)
                 
                 let streamConfig = SCStreamConfiguration()
                 let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
                 streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(maximumFrameRate))
                 streamConfig.showsCursor = false
-                streamConfig.sourceRect = CGRect(
+                let theRect = CGRect(
                     origin: CGPoint(
                         x: self.cropperWindow.frame.origin.x,
-                        y: CGFloat(313.0)
-//                        y: CGFloat(display.height) - self.cropperWindow.frame.origin.y
+//                        y: self.cropperWindow.frame.
+//                        y: CGFloat(313.0)
+                        y: CGFloat(display.height) - self.cropperWindow.frame.maxY // why?
                     ),
                     size: self.cropperWindow.frame.size)
+                streamConfig.sourceRect = theRect
+                streamConfig.destinationRect = theRect
 //                self.cropperWindow.frame
 //                streamConfig.destinationRect = self.cropperWindow.frame
                 
