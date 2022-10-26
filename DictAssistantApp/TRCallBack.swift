@@ -82,6 +82,9 @@ func trCallBackWithCache() {
                         if let boundingBox = boundingBox {
                             let box = (boundingBox.topLeft, boundingBox.bottomRight)
                             
+                            logger.info(">>boundingBox>>: topLeft XY:\(boundingBox.topLeft.x), \(boundingBox.topLeft.y), bottomRight XY:\(boundingBox.bottomRight.x), \(boundingBox.bottomLeft.y)")
+
+                            
                             func collect() {
                                 if let index = lemmaIndexDict[lemma] {
                                     iboxes.append(IndexedBox(
