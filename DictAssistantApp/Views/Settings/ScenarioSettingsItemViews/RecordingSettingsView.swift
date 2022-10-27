@@ -20,7 +20,7 @@ struct MaximumFrameRateSetting: View {
             TextField("", value: $maximumFrameRate, formatter: {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .none // integer, no decimal
-                formatter.minimum = 4
+                formatter.minimum = 1
                 formatter.maximum = 30
                 return formatter
             }()).frame(width: tfWidth)
