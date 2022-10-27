@@ -82,8 +82,6 @@ func trCallBackWithCache() {
                         if let boundingBox = boundingBox {
                             let box = (boundingBox.topLeft, boundingBox.bottomRight)
                             
-                            logger.info(">>boundingBox>>: topLeft XY:\(boundingBox.topLeft.x), \(boundingBox.topLeft.y), bottomRight XY:\(boundingBox.bottomRight.x), \(boundingBox.bottomLeft.y)")
-                            
                             func collect() {
                                 if let index = lemmaIndexDict[lemma] {
                                     iboxes.append(IndexedBox(
@@ -102,31 +100,8 @@ func trCallBackWithCache() {
                                 }
                             }
                             
-//                            if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: HighlightModeKey))! == .dotted {
-                                collect()
-//                            } else {
-//                                // when rectangle highlight: overlap cause color overlap, which will cause blink
-//                                let overlappedWithCurrents = iboxes.map{ $0.box }.contains{ currentBox in
-//                                    let rect = CGRect(
-//                                        x: box.0.x,
-//                                        y: 1 - box.0.y,
-//                                        width: abs(box.1.x - box.0.x),
-//                                        height: abs(box.1.y - box.0.y)
-//                                    )
-//
-//                                    let currentRect = CGRect(
-//                                        x: currentBox.0.x,
-//                                        y: 1 - currentBox.0.y,
-//                                        width: abs(currentBox.1.x - currentBox.0.x),
-//                                        height: abs(currentBox.1.y - currentBox.0.y)
-//                                    )
-//
-//                                    return rect.intersects(currentRect)
-//                                }
-//                                if !overlappedWithCurrents {
-//                                    collect()
-//                                }
-//                            }
+                            collect()
+
                         } else {
                             logger.info("candidate.boundingBox is nil")
                         }

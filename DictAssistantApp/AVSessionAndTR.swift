@@ -102,7 +102,9 @@ class AVSessionAndTR
                     ),
                     size: self.cropperWindow.frame.size)
                 streamConfig.sourceRect = theRect
-                streamConfig.destinationRect = theRect
+                streamConfig.height = Int(self.cropperWindow.frame.height)
+                streamConfig.width = Int(self.cropperWindow.frame.width)
+//                streamConfig.destinationRect = theRect
 //                self.cropperWindow.frame
 //                streamConfig.destinationRect = self.cropperWindow.frame
                 
