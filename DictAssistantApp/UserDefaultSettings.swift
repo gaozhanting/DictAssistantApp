@@ -192,7 +192,7 @@ enum TheColorScheme: Int, Codable {
 
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
-private let scenarioKV: [String: Any] = [
+private let sceneKV: [String: Any] = [
     IsShowContentFrameKey: true,
     
     PortraitCornerKey: PortraitCornerDefault,
@@ -233,7 +233,7 @@ private let scenarioKV: [String: Any] = [
 ]
 
 // all defaults
-private let universalKV: [String: Any] = scenarioKV.merging([
+private let universalKV: [String: Any] = sceneKV.merging([
     IsFinishedOnboardingKey: false,
     
     IsShowKnownKey: false,

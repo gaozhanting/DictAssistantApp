@@ -9,20 +9,20 @@ import SwiftUI
 import Preferences
 
 extension Preferences.PaneIdentifier {
-    static let scenario = Self("scenario")
+    static let scene = Self("scene")
     static let language = Self("language")
     static let appearance = Self("appearance")
     static let shortcuts = Self("shortcuts")
     static let slots = Self("slots")
 }
 
-func ScenarioPreferenceViewController() -> PreferencePane {
+func ScenePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .scenario,
-        title: NSLocalizedString("Scenario", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "Scenario preferences")!
+        identifier: .scene,
+        title: NSLocalizedString("Scene", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "Scene preferences")!
     ) {
-        ScenarioSettingsView()
+        SceneSettingsView()
     }
     
     return Preferences.PaneHostingController(pane: paneView)

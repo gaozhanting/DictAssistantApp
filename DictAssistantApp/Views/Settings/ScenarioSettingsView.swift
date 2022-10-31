@@ -1,5 +1,5 @@
 //
-//  ScenarioSettingsView.swift
+//  SceneSettingsView.swift
 //  DictAssistantApp
 //
 //  Created by Gao Cong on 2021/12/19.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScenarioSettingsView: View {
+struct SceneSettingsView: View {
     var g1: some View {
         Group {
             GroupBox {
@@ -152,8 +152,8 @@ private struct IsShowToastView: View {
     }
 }
 
-struct ScenarioSettingsView_Previews: PreviewProvider {
+struct SceneSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        ScenarioSettingsView()
+        SceneSettingsView()
     }
 }

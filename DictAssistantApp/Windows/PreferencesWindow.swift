@@ -10,7 +10,7 @@ import Preferences
 
 var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
-        ScenarioPreferenceViewController(),
+        ScenePreferenceViewController(),
         LanguagePreferenceViewController(),
         AppearancePreferenceViewController(),
         ShortcutsPreferenceViewController(),
