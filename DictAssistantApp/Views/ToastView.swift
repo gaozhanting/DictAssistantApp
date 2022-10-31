@@ -42,7 +42,7 @@ private struct ToastView: View {
             if let slot = selectedSlot {
                 GroupBox {
                     HStack {
-                        Image(systemName: "gear")
+                        Image(systemName: "shippingbox.circle.fill")
                             .font(.largeTitle)
                             .foregroundColor(Color(dataToColor(slot.color!)!))
                         
