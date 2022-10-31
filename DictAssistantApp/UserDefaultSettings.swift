@@ -50,8 +50,6 @@ let IndexPaddingKey = "IndexPaddingKey"
 let IndexXBasicKey = "IndexXBasicKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
 
-let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
-
 // Screen Recording
 let MaximumFrameRateKey = "MaximumFrameRateKey"
 
@@ -232,8 +230,6 @@ private let scenarioKV: [String: Any] = [
     StrokeDashUnPaintedKey: 3.0,
     IndexPaddingKey: 1.5,
     IndexFontSizeKey: 5,
-    
-    IsAlwaysRefreshHighlightKey: false,
 ]
 
 // all defaults
@@ -436,10 +432,6 @@ extension UserDefaults {
         get { return integer(forKey: "IndexFontSizeKey") }
         set { set(newValue, forKey: "IndexFontSizeKey") }
     }
-    @objc var IsAlwaysRefreshHighlightKey: Bool {
-        get { return bool(forKey: "IsAlwaysRefreshHighlightKey") }
-        set { set(newValue, forKey: "IsAlwaysRefreshHighlightKey") }
-    }
     
     @objc var CropperHasShadowKey: Bool {
         get { return bool(forKey: "CropperHasShadowKey") }
@@ -621,7 +613,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.StrokeDashUnPaintedKey, \.strokeDashUnPainted, StrokeDashUnPaintedKey)
     combineSlot(\.IndexPaddingKey, \.indexPadding, IndexPaddingKey)
     combineSlot(\.IndexFontSizeKey, \.indexFontSize, IndexFontSizeKey)
-    combineSlot(\.IsAlwaysRefreshHighlightKey, \.isAlwaysRefreshHighlight, IsAlwaysRefreshHighlightKey)
 }
 
 private func combineSlot<T>(

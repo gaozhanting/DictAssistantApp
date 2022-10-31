@@ -129,12 +129,7 @@ func trCallBackWithCache() {
     
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
     if trTexts.elementsEqual(trTextsCache) {
-        if UserDefaults.standard.bool(forKey: IsAlwaysRefreshHighlightKey) {
-            // We run highlight even when trTexts not changed, for example: youtube pause cause its subtitle texts moved although texts not changed.
-            refreshHighlightUI()
-        } else {
-            // ! Not doing this can avoid many Blink, for example: reading
-        }
+        refreshHighlightUI()
         return
     } else {
         trTextsCache = trTexts
@@ -145,7 +140,7 @@ func trCallBackWithCache() {
     primitiveWordCellCache = processed.map { tagWord($0) }
     
     func refreshUI() {
-        hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
+        refreshHighlightUI()
         let wordCells = primitiveWordCellCache.map { wc2 in
             WordCell(word: wc2.word.lemma, isKnown: wc2.isKnown, trans: wc2.trans, index: wc2.index)
         }

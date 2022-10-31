@@ -55,7 +55,6 @@ struct Settings: Codable {
     var strokeDashUnPainted: Double
     var indexPadding: Double
     var indexFontSize: Int
-    var isAlwaysRefreshHighlight: Bool
     
     // two frames settings for a slot
     var cropperFrame: NSRect
@@ -96,7 +95,6 @@ struct Settings: Codable {
         strokeDashUnPainted: Double,
         indexPadding: Double,
         indexFontSize: Int,
-        isAlwaysRefreshHighlight: Bool,
         
         cropperFrame: NSRect,
         contentFrame: NSRect
@@ -135,7 +133,6 @@ struct Settings: Codable {
         self.strokeDashUnPainted = strokeDashUnPainted
         self.indexPadding = indexPadding
         self.indexFontSize = indexFontSize
-        self.isAlwaysRefreshHighlight = isAlwaysRefreshHighlight
         
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
@@ -187,7 +184,6 @@ private let defaultSettings = Settings(
     strokeDashUnPainted: 3.0,
     indexPadding: 1.5,
     indexFontSize: 5,
-    isAlwaysRefreshHighlight: false,
     
     //
     cropperFrame: defaultCropperFrame,
@@ -278,7 +274,6 @@ private struct SlotsView: View {
         strokeDashUnPainted = s.strokeDashUnPainted
         indexPadding = s.indexPadding
         indexFontSize = s.indexFontSize
-        isAlwaysRefreshHighlight = s.isAlwaysRefreshHighlight
         
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
@@ -318,7 +313,6 @@ private struct SlotsView: View {
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
-    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
 }
 
 extension CGFloat {

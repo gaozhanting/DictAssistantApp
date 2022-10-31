@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HighlightSettingsView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
-    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -30,17 +29,6 @@ struct HighlightSettingsView: View {
                     }
                     
                     Spacer()
-                    
-                    Group {
-                        Toggle(isOn: $isAlwaysRefreshHighlight) {
-                            Text("Is always refresh highlight")
-                        }
-                        .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
-                        
-                        MiniInfoView {
-                            IsAlwaysRefreshHighlightInfoView()
-                        }
-                    }
                 }
             }
             
@@ -62,13 +50,6 @@ struct HighlightSettingsView: View {
 struct HighlightInfoView: View {
     var body: some View {
         Text("Highlights are drawn on the cropper window. It must be on the front most of the screen, otherwise it is covered and invisible. \n\nHighlight color should have some opacity level, otherwise it will make the text below covered and invisible.")
-            .infoStyle()
-    }
-}
-
-struct IsAlwaysRefreshHighlightInfoView: View {
-    var body: some View {
-        Text("If you check this option, it will continually refresh highlight even when the recognized text is the same but the cropper screen area differs little from last frame, until the frames are the same. This will make the highlight always synced with the text whensoever, but the costs are consuming more CPU and increasing blink odds. \nIf you uncheck this option, highlight sometimes may not be synced with the text, in some cases when the text is the same but the cropper screen area trembled some little position.")
             .infoStyle()
     }
 }
@@ -325,7 +306,6 @@ struct HighlightSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HighlightInfoView()
-            IsAlwaysRefreshHighlightInfoView()
         }
     }
 }
