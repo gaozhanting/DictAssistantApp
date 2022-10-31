@@ -7,33 +7,10 @@
 
 import Cocoa
 import Foundation
-import AVFoundation
 import Vision
 import ScreenCaptureKit
 
-class CaptureEngineStreamOutput: NSObject, SCStreamOutput, SCStreamDelegate {
-        
-    func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of outputType: SCStreamOutputType) {
-        guard sampleBuffer.isValid else { return }
-        
-        DispatchQueue.main.async {
-            aVSessionAndTR.dealWith(sampleBuffer: sampleBuffer)
-        }
-    }
-    
-    func stream(_ stream: SCStream, didStopWithError error: Error) {
-        logger.error("error: \(error.localizedDescription)")
-    }
-}
-
-let captureEngineStreamOutput = CaptureEngineStreamOutput.init()
-
-class AVSessionAndTR {
-    
-    let session: AVCaptureSession = AVCaptureSession()
-    let screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
-    
-    let dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
+class AVSessionAndTR : NSObject, SCStreamOutput, SCStreamDelegate {
     let videoDataOutputQueue = DispatchQueue(
         label: "CameraFeedDataOutput",
         qos: .userInitiated,
@@ -41,17 +18,23 @@ class AVSessionAndTR {
         autoreleaseFrequency: .workItem
     )
     
-    private var stream: SCStream?
+    private var theStream: SCStream?
+    
     func startScreenCapture() {
         SCShareableContent.getExcludingDesktopWindows(false, onScreenWindowsOnly: true) { (availableContent, error ) in
             DispatchQueue.main.async {
-                
-                guard let availableContent = availableContent else { fatalError("No shareable content.") }
+                guard let availableContent = availableContent else {
+                    logger.error("No shareable content.")
+                    return
+                }
                 
                 let availableDisplays = availableContent.displays
                 let selectedDisplay = availableDisplays.first
                 
-                guard let display = selectedDisplay else { fatalError("No display selected.") }
+                guard let display = selectedDisplay else {
+                    logger.error("No display selected.")
+                    return
+                }
                 
                 let excludedApps = availableContent.applications.filter { app in
                     Bundle.main.bundleIdentifier == app.bundleIdentifier
@@ -61,43 +44,41 @@ class AVSessionAndTR {
                                              excludingApplications: excludedApps,
                                              exceptingWindows: [])
                 
-                
                 let streamConfig = SCStreamConfiguration()
                 let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
                 streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(maximumFrameRate))
                 streamConfig.showsCursor = false
-                let theRect = CGRect(
+                streamConfig.sourceRect = CGRect(
                     origin: CGPoint(
                         x: self.cropperWindow.frame.origin.x,
                         y: CGFloat(display.height) - self.cropperWindow.frame.maxY // why?
                     ),
                     size: self.cropperWindow.frame.size)
-                streamConfig.sourceRect = theRect
                 streamConfig.height = Int(self.cropperWindow.frame.height)
                 streamConfig.width = Int(self.cropperWindow.frame.width)
                 
                 do {
-                    self.stream = SCStream(filter: filter, configuration: streamConfig, delegate: captureEngineStreamOutput)
-                    try self.stream?.addStreamOutput(captureEngineStreamOutput, type: .screen, sampleHandlerQueue: self.videoDataOutputQueue)
-                    self.stream?.startCapture()
+                    self.theStream = SCStream(filter: filter, configuration: streamConfig, delegate: self)
+                    try self.theStream?.addStreamOutput(self, type: .screen, sampleHandlerQueue: self.videoDataOutputQueue)
+                    self.theStream?.startCapture()
                 } catch {
                     logger.error("Failed to capture: \(error.localizedDescription)")
                 }
             }
         }
     }
-
-    func stopScreenCapture() {
-        stream?.stopCapture()
+    
+    func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of outputType: SCStreamOutputType) {
+        guard sampleBuffer.isValid else { return }
+        
+        DispatchQueue.main.async {
+            aVSessionAndTR.dealWith(sampleBuffer: sampleBuffer)
+        }
     }
     
     var sampleBufferCache: CMSampleBuffer? = nil
     
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        dealWith(sampleBuffer: sampleBuffer)
-    }
-    
-    func dealWith(sampleBuffer: CMSampleBuffer) {
+    private func dealWith(sampleBuffer: CMSampleBuffer) {
         if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
             return
         }
@@ -122,6 +103,14 @@ class AVSessionAndTR {
                 logger.error("TextRecognize failed: \(error.localizedDescription, privacy: .public)")
             }
         }
+    }
+    
+    func stream(_ stream: SCStream, didStopWithError error: Error) {
+        logger.error("error: \(error.localizedDescription)")
+    }
+
+    func stopScreenCapture() {
+        theStream?.stopCapture()
     }
 
     func recognizeTextHandler(request: VNRequest, error: Error?) {
