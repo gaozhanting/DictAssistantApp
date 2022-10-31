@@ -61,7 +61,7 @@ struct HighlightSettingsView: View {
 
 struct HighlightInfoView: View {
     var body: some View {
-        Text("Highlight are subtle in the App, that is because it is drawn on the cropper window which makes the screen recording cropper area messy, it is overlapped, it may cause blink. The cropper window must be the front most when enable highlight otherwise the highlight is covered and hidden. \n\nI recommend using highlight rectangle when reading stream captions, the color should have some dark level and opacity level which somehow is more subtle because it should be balanced between your eyes and the reading scenario which is watching by AI, otherwise it will cause blink. By the way, recognition accurate level is more tolerant with the color than the fast level. \nI recommend using highlight dotted when reading because it is less subtle, but the index feature is more subtle which is better used in reading books scenario, in that case, App snapshot is more useful than normal playing, and there is no blink with snapshot.\n\nAnyhow, you are free. Highlight is subtle, but it is still useful.")
+        Text("Highlights are drawn on the cropper window. It must be on the front most of the screen, otherwise it is covered and invisible. \n\nHighlight color should have some opacity level, otherwise it will make the text below covered and invisible.")
             .infoStyle()
     }
 }
