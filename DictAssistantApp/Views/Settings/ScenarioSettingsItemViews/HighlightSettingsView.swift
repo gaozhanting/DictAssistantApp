@@ -57,7 +57,24 @@ struct HighlightInfoView: View {
     }
 }
 
-struct HighlightDottedOptionsView: View {
+struct HighlightDottedView: View {
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
+    
+    var body: some View {
+        switch HighlightMode(rawValue: highlightMode)! {
+        case .dotted:
+            Group {
+                Divider()
+                HighlightDottedOptionsView()
+                HighlightDottedIndexOptionsView()
+            }
+        default:
+            EmptyView()
+        }
+    }
+}
+
+private struct HighlightDottedOptionsView: View {
     @AppStorage(HLDottedColorKey) var hlDottedColor: Data = colorToData(NSColor.red)!
         
     var binding: Binding<Color> {
@@ -86,7 +103,7 @@ struct HighlightDottedOptionsView: View {
     }
 }
 
-private struct DottedOptionsView: View {
+struct DottedOptionsView: View {
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
@@ -146,7 +163,7 @@ private struct DottedOptionsView: View {
     }
 }
 
-struct HighlightDottedIndexOptionsView: View {
+private struct HighlightDottedIndexOptionsView: View {
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!

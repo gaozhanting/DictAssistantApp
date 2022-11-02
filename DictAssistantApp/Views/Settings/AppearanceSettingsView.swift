@@ -25,11 +25,7 @@ struct AppearanceSettingsView: View {
             WithAnimationToggle()
             CropperHasShadowToggle()
             ChineseCharacterConvertingPicker()
-            Divider()
-            Group {
-                HighlightDottedOptionsView()
-                HighlightDottedIndexOptionsView()
-            }
+            HighlightDottedView()
         }
         .padding()
         .frame(width: panelWidth)
