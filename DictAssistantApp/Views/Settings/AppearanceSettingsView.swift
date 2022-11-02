@@ -238,6 +238,8 @@ private struct ContentHasShadowToggle: View {
                 Text("Content has shadow")
             }
             .toggleStyle(CheckboxToggleStyle())
+            
+            Spacer()
         }
     }
 }
