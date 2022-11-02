@@ -25,8 +25,6 @@ extension KeyboardShortcuts.Name {
     
     static let toggleConcealTranslation = Self("toggleConcealTranslation")
     
-    static let runQuickPlay = Self("runQuickPlay")
-    
     static let runCheapSnapshot = Self("runCheapSnapshot")
     
     static let stop = Self("stop")
@@ -146,14 +144,6 @@ func registerGlobalKey() {
             UserDefaults.standard.setValue(false, forKey: IsShowNotFoundKey)
         } else {
             UserDefaults.standard.setValue(true, forKey: IsShowNotFoundKey)
-        }
-    }
-    
-    KeyboardShortcuts.onKeyUp(for: .runQuickPlay) {
-        if !statusData.isPlaying {
-            startPlaying()
-        } else {
-            stopPlaying()
         }
     }
     

@@ -178,14 +178,6 @@ private struct KeyRecordingView: View {
     var g3: some View {
         Group {
             HStack {
-                Text("Run swift play")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .runQuickPlay)
-                MiniInfoView {
-                    Text("recommend: Option-S").font(.subheadline).padding()
-                }
-            }
-            HStack {
                 Text("Run cheap snapshot")
                 Spacer()
                 KeyboardShortcuts.Recorder(for: .runCheapSnapshot)
