@@ -80,6 +80,7 @@
 		44CAC50927145B2700EAFA74 /* MiniPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50827145B2700EAFA74 /* MiniPhraseView.swift */; };
 		44CAC50B2714635E00EAFA74 /* MiniEntryPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50A2714635E00EAFA74 /* MiniEntryPanel.swift */; };
 		44CAC50D2714641600EAFA74 /* MiniEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CAC50C2714641600EAFA74 /* MiniEntryView.swift */; };
+		44E6E9BF291247F800525E6E /* SelectedSlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E6E9BE291247F800525E6E /* SelectedSlotView.swift */; };
 		44FBE4692674EBCE002A7599 /* ContentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE4682674EBCE002A7599 /* ContentWindow.swift */; };
 		44FBE46B2674ED28002A7599 /* CropperWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBE46A2674ED28002A7599 /* CropperWindow.swift */; };
 		44FC700A266DEFF80025676B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FC7009266DEFF80025676B /* ContentView.swift */; };
@@ -164,6 +165,7 @@
 		44CAC50827145B2700EAFA74 /* MiniPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPhraseView.swift; sourceTree = "<group>"; };
 		44CAC50A2714635E00EAFA74 /* MiniEntryPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniEntryPanel.swift; sourceTree = "<group>"; };
 		44CAC50C2714641600EAFA74 /* MiniEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniEntryView.swift; sourceTree = "<group>"; };
+		44E6E9BE291247F800525E6E /* SelectedSlotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedSlotView.swift; sourceTree = "<group>"; };
 		44FBE4682674EBCE002A7599 /* ContentWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWindow.swift; sourceTree = "<group>"; };
 		44FBE46A2674ED28002A7599 /* CropperWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropperWindow.swift; sourceTree = "<group>"; };
 		44FC7009266DEFF80025676B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 			children = (
 				446B24E626F1F0C400F1301D /* OnboardingView.swift */,
 				442E94DB26B2AA2E00B71FFA /* ToastView.swift */,
+				44E6E9BE291247F800525E6E /* SelectedSlotView.swift */,
 				440824D12689F4EE00EA7EEE /* CropperView.swift */,
 				445354C32701C4E5007DB9C2 /* Utilities */,
 				44C207BB2701A93600419F63 /* LanguageEditing */,
@@ -524,6 +527,7 @@
 				4453554727020B32007DB9C2 /* SlotsPersistence.swift in Sources */,
 				446E88CA274A050200B1789B /* MiniInfoView.swift in Sources */,
 				446027FB276F02BD00B901D4 /* HighlightSettingsView.swift in Sources */,
+				44E6E9BF291247F800525E6E /* SelectedSlotView.swift in Sources */,
 				44FEB723270AD70500701E5D /* RecordingSettingsView.swift in Sources */,
 				4495FE7E266C8C7100EFC721 /* CustomEnvironmentKey.swift in Sources */,
 				4453555427042478007DB9C2 /* Menus.swift in Sources */,

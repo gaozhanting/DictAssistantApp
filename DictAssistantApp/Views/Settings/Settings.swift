@@ -23,6 +23,7 @@ func ScenePreferenceViewController() -> PreferencePane {
         toolbarIcon: NSImage(systemSymbolName: "shippingbox.fill", accessibilityDescription: "Scene preferences")!
     ) {
         SceneSettingsView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
     }
     
     return Preferences.PaneHostingController(pane: paneView)

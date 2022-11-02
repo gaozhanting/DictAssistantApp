@@ -9,60 +9,44 @@ import SwiftUI
 import Preferences
 
 struct AppearanceSettingsView: View {
-    var g1: some View {
-        Group {
-            FontSettingView()
-            FontRatioSetting()
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
-    var g2: some View {
-        Group {
-            ColorPickers()
-            
-            ContentHasShadowToggle()
-            ContentBackgroundVisualEffect()
-            ColorSchemeSetting()
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
-    var g3: some View {
-        Group {
+    var body: some View {
+        VStack(alignment: .leading) {
+            GroupBox {
+                FontSettingView()
+                FontRatioSetting()
+            }
+            GroupBox {
+                ColorPickers()
+                
+                ContentHasShadowToggle()
+                ContentBackgroundVisualEffect()
+                ColorSchemeSetting()
+            }
             WithAnimationToggle()
             CropperHasShadowToggle()
             ChineseCharacterConvertingPicker()
-            
-            Spacer().frame(height: 20)
             Divider()
-        }
-    }
-    
-    var g4: some View {
-        Group {
-            HighlightDottedOptionsView()
-            HighlightDottedIndexOptionsView()
-        }
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            g1
-            g2
-            g3
-            g4
+            Group {
+                HighlightDottedOptionsView()
+                HighlightDottedIndexOptionsView()
+            }
         }
         .padding()
         .frame(width: panelWidth)
     }
 }
 
-struct FontSizeSettingView: View {
+struct FontConfigView: View {
+    var body: some View {
+        HStack {
+            FontSizeSettingView()
+            Spacer()
+            FontLineSpacingSettingView()
+        }
+    }
+}
+
+private struct FontSizeSettingView: View {
     @AppStorage(FontSizeKey) var fontSize: Int = 14
     
     func onIncrement() {
@@ -85,7 +69,7 @@ struct FontSizeSettingView: View {
     }
 }
 
-struct FontLineSpacingSettingView: View {
+private struct FontLineSpacingSettingView: View {
     @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
 
     var body: some View {

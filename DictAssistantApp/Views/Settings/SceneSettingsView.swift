@@ -8,58 +8,30 @@
 import SwiftUI
 
 struct SceneSettingsView: View {
-    var g1: some View {
-        Group {
-            GroupBox {
-                ContentMaxSettingsView()
-            }
-            GroupBox {
-                HStack {
-                    FontSizeSettingView()
-                    Spacer()
-                    FontLineSpacingSettingView()
-                }
-            }
-            
-            ContentPaddingStyleSettingsView()
-            CropperStyleSettingView()
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
-    var g2: some View {
-        Group {
-            GroupBox {
-                Form {
-                    VStack(alignment: .leading) {
-                        RecognitionLevelSetting()
-                        UsesLanguageCorrectionToggle()
-                        MinimumTextHeightSetting()
-                    }
-                }
-            }
-            
-            GroupBox {
-                Form {
-                    VStack(alignment: .leading) {
-                        IsOpenLemmaToggle()
-                        MaximumFrameRateSetting()
-                        IsShowToastView()
-                    }
-                }
-            }
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-
     var body: some View {
         VStack(alignment: .leading) {
-            g1
-            g2
+            SelectedSlotView(imageFont: .title, textFont: .callout)
+            GroupBox {
+                VStack(alignment: .leading) {
+                    RecognitionLevelSetting()
+                    MaximumFrameRateSetting()
+                }
+            }
+            GroupBox {
+                VStack(alignment: .leading) {
+                    MinimumTextHeightSetting()
+                    UsesLanguageCorrectionToggle()
+                    IsOpenLemmaToggle()
+                    IsShowToastView()
+                }
+            }
+            GroupBox {
+                FontConfigView()
+                ContentMaxSettingsView()
+            }
+            ContentPaddingStyleSettingsView()
+            CropperStyleSettingView()
+            Divider()
             HighlightSettingsView()
         }
         .padding()
@@ -155,5 +127,6 @@ private struct IsShowToastView: View {
 struct SceneSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SceneSettingsView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
     }
 }

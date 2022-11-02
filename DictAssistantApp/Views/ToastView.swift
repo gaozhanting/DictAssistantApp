@@ -20,18 +20,6 @@ struct ToastOffView: View {
 }
 
 private struct ToastView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(
-        entity: Slot.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Slot.createdDate, ascending: true)
-        ]
-    ) var slots: FetchedResults<Slot>
-    
-    var selectedSlot: Slot? {
-        slots.first { $0.isSelected }
-    }
-    
     @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorScheme.system.rawValue
 
     let imageSystemName: String
@@ -39,20 +27,9 @@ private struct ToastView: View {
     
     var body: some View {
         VStack {
-            if let slot = selectedSlot {
-                GroupBox {
-                    HStack {
-                        Image(systemName: "shippingbox.circle.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(Color(dataToColor(slot.color!)!))
-                        
-                        Text(slot.label!)
-                            .font(.title2)
-                            .lineLimit(1)
-                            .foregroundColor(Color(NSColor.labelColor))
-                    }
+            GroupBox {
+                SelectedSlotView(imageFont: .largeTitle, textFont: .title2)
                     .padding(.horizontal)
-                }
             }
             
             Image(imageSystemName)

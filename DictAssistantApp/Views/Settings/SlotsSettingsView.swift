@@ -378,9 +378,10 @@ private struct SlotItemView: View {
                         saveContext()
                     }
                 ))
-                    .font(.callout)
-                    .textFieldStyle(PlainTextFieldStyle())
+                .font(.callout)
+                .textFieldStyle(PlainTextFieldStyle())
             }
+            .shadow(color: slot.isSelected ? Color.primary : Color.clear, radius: slot.isSelected ? 1 : 0)
         }
     }
 }
