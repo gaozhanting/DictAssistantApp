@@ -16,8 +16,9 @@ struct HighlightSettingsView: View {
                 HStack {
                     Group {
                         Picker("Highlight:", selection: $highlightMode) {
-                            Text("Dotted").tag(HighlightMode.dotted.rawValue)
+                            Text("Bordered").tag(HighlightMode.bordered.rawValue)
                             Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
+                            Text("Dotted").tag(HighlightMode.dotted.rawValue)
                             Text("Disabled").tag(HighlightMode.disabled.rawValue)
                         }
                         .frame(width: 200)
@@ -33,13 +34,15 @@ struct HighlightSettingsView: View {
             }
             
             switch HighlightMode(rawValue: highlightMode)! {
+            case .bordered:
+                EmptyView()
+            case .rectangle:
+                RectangleOptionsView()
             case .dotted:
                 VStack(alignment: .leading) {
                     DottedOptionsView()
                     DottedIndexOptionsView()
                 }
-            case .rectangle:
-                RectangleOptionsView()
             case .disabled:
                 EmptyView()
             }
@@ -287,10 +290,6 @@ private struct RectangleOptionsView: View {
     
     var body: some View {
         HStack {
-            Text("Highlight Rectangle:")
-            
-            Spacer()
-            
             ColorPicker("Color:", selection: binding)
             
             Spacer()

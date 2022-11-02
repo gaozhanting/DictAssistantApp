@@ -250,9 +250,57 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
-            .shadow(color: .primary, radius: 3)
     }
 }
+
+private struct HLBorderedView: View {
+    let index: Int
+    let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
+    let geometrySize: CGSize
+    
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
+    
+    var hlColor: Color {
+        Color(dataToColor(hlRectangleColor)!)
+    }
+    
+    var body: some View {
+        Rectangle()
+            .path(in: {
+                let rect = CGRect(
+                    x: box.0.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height, // notice here 1-y
+                    width: abs(box.1.x - box.0.x) * geometrySize.width,
+                    height: abs(box.1.y - box.0.y) * geometrySize.height
+                )
+                return rect
+            }())
+
+//            .strokeBorder(Color.blue,lineWidth: 4)
+//            .fill(hlColor)
+//            .fill(Color.primary.opacity(0.1))
+//            .shadow(color: .primary, radius: 3)
+//            .stroke(Color.yellow, style: StrokeStyle(lineWidth: 1, dash: [1], dashPhase: 0))
+        
+//            .border(width: 2, edges: [.top, .bottom], color: pureYellow)
+//            .border(width: 5, edges: [.leading, .trailing], color: pureYellow)
+        
+            .stroke(
+                Color(NSColor.findHighlightColor),
+                style: StrokeStyle(
+//                    lineWidth: 4,
+                    lineWidth: 2,
+                    lineCap: .round
+                    //                lineJoin: .miter,
+                    //                miterLimit: 0,
+//                    dash: [CGFloat(strokeDashPainted), CGFloat(strokeDashUnPainted)]
+                    //                dashPhase: 0
+                )
+            )
+    }
+}
+
+private let pureYellow = Color(red: 1.0, green: 1.0, blue: 0)
 
 struct CropperViewWithHighlight: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
@@ -264,13 +312,17 @@ struct CropperViewWithHighlight: View {
                 CropperView()
                 
                 switch HighlightMode(rawValue: highlightMode)! {
-                case .dotted:
+                case .bordered:
                     ForEach(hlBox.indexedBoxes) { b in
-                        HLDottedView(index: b.index, box: b.box, geometrySize: geometry.size)
+                        HLBorderedView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .rectangle:
                     ForEach(hlBox.indexedBoxes) { b in
                         HLRectangleView(index: b.index, box: b.box, geometrySize: geometry.size)
+                    }
+                case .dotted:
+                    ForEach(hlBox.indexedBoxes) { b in
+                        HLDottedView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .disabled:
                     EmptyView()

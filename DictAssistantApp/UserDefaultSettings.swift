@@ -119,8 +119,9 @@ enum ContentPaddingStyle: Int, Codable {
 }
 
 enum HighlightMode: Int, Codable {
-    case dotted
+    case bordered
     case rectangle
+    case dotted
     case disabled
 }
 
