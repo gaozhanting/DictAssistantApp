@@ -264,39 +264,54 @@ private struct HLBorderedView: View {
         Color(dataToColor(hlRectangleColor)!)
     }
     
+    let verticalBorderWidth: Double = 2.0 // default 5.0
+    var fixSpotWidth: Double {
+        verticalBorderWidth / 2.0
+    }
+    let horizontalBorderWidth: Double = 1.0 // default 2.0
+    
     var body: some View {
-        Rectangle()
-            .path(in: {
-                let rect = CGRect(
+        Group {
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.0.x * geometrySize.width - fixSpotWidth, // 2.5 = 5 / 2 // 5 = lineWidth vertical
+                    y: (1 - box.1.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.1.x * geometrySize.width + fixSpotWidth,
+                    y: (1 - box.1.y) * geometrySize.height))
+            }
+            .stroke(Color(NSColor.findHighlightColor), lineWidth: horizontalBorderWidth)
+            
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.0.x * geometrySize.width - fixSpotWidth,
+                    y: (1 - box.0.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.1.x * geometrySize.width + fixSpotWidth,
+                    y: (1 - box.0.y) * geometrySize.height))
+            }
+            .stroke(Color(NSColor.findHighlightColor), lineWidth: horizontalBorderWidth)
+            
+            Path { path in
+                path.move(to: CGPoint(
                     x: box.0.x * geometrySize.width,
-                    y: (1 - box.0.y) * geometrySize.height, // notice here 1-y
-                    width: abs(box.1.x - box.0.x) * geometrySize.width,
-                    height: abs(box.1.y - box.0.y) * geometrySize.height
-                )
-                return rect
-            }())
-
-//            .strokeBorder(Color.blue,lineWidth: 4)
-//            .fill(hlColor)
-//            .fill(Color.primary.opacity(0.1))
-//            .shadow(color: .primary, radius: 3)
-//            .stroke(Color.yellow, style: StrokeStyle(lineWidth: 1, dash: [1], dashPhase: 0))
-        
-//            .border(width: 2, edges: [.top, .bottom], color: pureYellow)
-//            .border(width: 5, edges: [.leading, .trailing], color: pureYellow)
-        
-            .stroke(
-                Color(NSColor.findHighlightColor),
-                style: StrokeStyle(
-//                    lineWidth: 4,
-                    lineWidth: 2,
-                    lineCap: .round
-                    //                lineJoin: .miter,
-                    //                miterLimit: 0,
-//                    dash: [CGFloat(strokeDashPainted), CGFloat(strokeDashUnPainted)]
-                    //                dashPhase: 0
-                )
-            )
+                    y: (1 - box.1.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.0.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height))
+            }
+            .stroke(Color(NSColor.findHighlightColor), lineWidth: verticalBorderWidth)
+            
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.1.x * geometrySize.width,
+                    y: (1 - box.1.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.1.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height))
+            }
+            .stroke(Color(NSColor.findHighlightColor), lineWidth: verticalBorderWidth)
+        }
     }
 }
 
