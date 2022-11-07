@@ -31,7 +31,7 @@ let CropperStyleKey = "CropperStyleKey"
 let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 
 let HighlightModeKey = "HighlightModeKey"
-let HighlightModeDefault = HighlightMode.disabled.rawValue
+let HighlightModeDefault = HighlightMode.bordered.rawValue
 
 let HLBorderedStyleKey = "HLBorderedStyleKey"
 let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
@@ -55,9 +55,11 @@ let IndexFontSizeKey = "IndexFontSizeKey"
 
 // Screen Recording
 let MaximumFrameRateKey = "MaximumFrameRateKey"
+let MaximumFrameRateDefault: Int = 3
 
 // Vision
 let RecognitionLevelKey = "RecognitionLevelKey"
+let RecognitionLevelDefault = VNRequestTextRecognitionLevel.accurate.rawValue // fast 1, accurate 0
 let MinimumTextHeightKey = "MinimumTextHeightKey"
 let ZeroDefaultMinimumTextHeight: Double = 0.0
 let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
@@ -220,11 +222,11 @@ private let sceneKV: [String: Any] = [
     
     CropperStyleKey: CropperStyleDefault,
     
-    RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    RecognitionLevelKey: RecognitionLevelDefault,
     MinimumTextHeightKey: ZeroDefaultMinimumTextHeight,
     UsesLanguageCorrectionKey: false,
     
-    MaximumFrameRateKey: 4.0,
+    MaximumFrameRateKey: MaximumFrameRateDefault,
     IsOpenLemmaKey: false,
     IsShowToastKey: true,
     
@@ -314,8 +316,8 @@ extension UserDefaults {
         set { set(newValue, forKey: "CropperStyleKey") }
     }
 
-    @objc var MaximumFrameRateKey: Double {
-        get { return double(forKey: "MaximumFrameRateKey") }
+    @objc var MaximumFrameRateKey: Int {
+        get { return integer(forKey: "MaximumFrameRateKey") }
         set { set(newValue, forKey: "MaximumFrameRateKey") }
     }
     @objc var RecognitionLevelKey: Int {

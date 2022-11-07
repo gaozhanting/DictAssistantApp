@@ -35,7 +35,7 @@ struct Settings: Codable {
     
     var cropperStyle: Int
     
-    var maximumFrameRate: Double
+    var maximumFrameRate: Int
     var recognitionLevel: Int
     var minimumTextHeight: Double
     var usesLanguageCorrection: Bool
@@ -76,7 +76,7 @@ struct Settings: Codable {
         
         cropperStyle: Int,
         
-        maximumFrameRate: Double,
+        maximumFrameRate: Int,
         recognitionLevel: Int,
         minimumTextHeight: Double,
         usesLanguageCorrection: Bool,
@@ -167,8 +167,8 @@ private let defaultSettings = Settings(
     
     cropperStyle: CropperStyleDefault,
     
-    maximumFrameRate: 4.0,
-    recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
+    maximumFrameRate: MaximumFrameRateDefault,
+    recognitionLevel: RecognitionLevelDefault,
     minimumTextHeight: ZeroDefaultMinimumTextHeight,
     usesLanguageCorrection: false,
     
@@ -298,8 +298,8 @@ private struct SlotsView: View {
 
     @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
 
-    @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
-    @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Int = MaximumFrameRateDefault
+    @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = RecognitionLevelDefault
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = ZeroDefaultMinimumTextHeight
     @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
     

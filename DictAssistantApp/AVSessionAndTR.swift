@@ -45,7 +45,7 @@ class AVSessionAndTR : NSObject, SCStreamOutput, SCStreamDelegate {
                                              exceptingWindows: [])
                 
                 let streamConfig = SCStreamConfiguration()
-                let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
+                let maximumFrameRate = UserDefaults.standard.integer(forKey: MaximumFrameRateKey)
                 streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(maximumFrameRate))
                 streamConfig.showsCursor = false
                 streamConfig.sourceRect = CGRect(
