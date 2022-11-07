@@ -33,6 +33,9 @@ let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 let HighlightModeKey = "HighlightModeKey"
 let HighlightModeDefault = HighlightMode.disabled.rawValue
 
+let HLBorderedStyleKey = "HLBorderedStyleKey"
+let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
+
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
 
@@ -123,6 +126,11 @@ enum HighlightMode: Int, Codable {
     case rectangle
     case dotted
     case disabled
+}
+
+enum HLBorderedStyle: Int, Codable {
+    case regular
+    case light
 }
 
 enum IndexXBasic: Int, Codable {
@@ -221,6 +229,8 @@ private let sceneKV: [String: Any] = [
     IsShowToastKey: true,
     
     HighlightModeKey: HighlightModeDefault,
+    
+    HLBorderedStyleKey: HLBorderedStyleDefault,
     
     HLRectangleColorKey: HLRectangleColorDefault,
     
@@ -401,6 +411,10 @@ extension UserDefaults {
         get { return integer(forKey: "HighlightModeKey") }
         set { set(newValue, forKey: "HighlightModeKey") }
     }
+    @objc var HLBorderedStyleKey: Int {
+        get { return integer(forKey: "HLBorderedStyleKey") }
+        set { set(newValue, forKey: "HLBorderedStyleKey") }
+    }
     @objc var HLRectangleColorKey: Data {
         get { return data(forKey: "HLRectangleColorKey")! }
         set { set(newValue, forKey: "HLRectangleColorKey") }
@@ -561,6 +575,14 @@ func combineHighlight() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
+    
+//    UserDefaults.standard
+//        .publisher(for: \.HLBorderedStyleKey)
+//        .handleEvents(receiveOutput: { _ in
+//            trCallBack()
+//        })
+//        .sink { _ in }
+//        .store(in: &subscriptions)
 }
 
 func combineCropperHasShadow() {
@@ -606,6 +628,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     
     combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
+    combineSlot(\.HLBorderedStyleKey, \.hLBorderedStyle, HLBorderedStyleKey)
     combineSlot(\.HLRectangleColorKey, \.hLRectangleColor, HLRectangleColorKey)
     combineSlot(\.IsShowIndexKey, \.isShowIndex, IsShowIndexKey)
     combineSlot(\.StrokeDownwardOffsetKey, \.strokeDownwardOffset, StrokeDownwardOffsetKey)

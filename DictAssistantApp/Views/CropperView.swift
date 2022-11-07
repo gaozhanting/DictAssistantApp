@@ -264,11 +264,26 @@ private struct HLBorderedView: View {
         Color(dataToColor(hlRectangleColor)!)
     }
     
-    let verticalBorderWidth: Double = 2.0 // default 5.0
+    @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
+    var verticalBorderWidth: Double {
+        switch HLBorderedStyle(rawValue: hLBorderedStyle)! {
+        case .regular:
+            return 5.0
+        case .light:
+            return 2.0
+        }
+    }
     var fixSpotWidth: Double {
         verticalBorderWidth / 2.0
     }
-    let horizontalBorderWidth: Double = 1.0 // default 2.0
+    var horizontalBorderWidth: Double {
+        switch HLBorderedStyle(rawValue: hLBorderedStyle)! {
+        case .regular:
+            return 3.0
+        case .light:
+            return 1.0
+        }
+    }
     
     var body: some View {
         Group {

@@ -35,7 +35,7 @@ struct HighlightSettingsView: View {
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .bordered:
-                EmptyView()
+                BorderedOptionsView()
             case .rectangle:
                 RectangleOptionsView()
             case .dotted:
@@ -286,6 +286,19 @@ private struct DottedIndexOptionsView: View {
             }
             .disabled(!isShowIndex)
         }
+    }
+}
+
+private struct BorderedOptionsView: View {
+    @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
+    
+    var body: some View {
+        Picker("Style:", selection: $hLBorderedStyle) {
+            Text("regular").tag(HLBorderedStyle.regular.rawValue)
+            Text("light").tag(HLBorderedStyle.light.rawValue)
+        }
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 150)
     }
 }
 

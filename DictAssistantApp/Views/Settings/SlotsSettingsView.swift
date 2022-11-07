@@ -47,6 +47,7 @@ struct Settings: Codable {
     var isShowContentFrame: Bool
     
     var highlightMode: Int
+    var hLBorderedStyle: Int
     var hLRectangleColor: Data
     var isShowIndex: Bool
     var strokeDownwardOffset: Double
@@ -87,6 +88,7 @@ struct Settings: Codable {
         isShowContentFrame: Bool,
         
         highlightMode: Int,
+        hLBorderedStyle: Int,
         hLRectangleColor: Data,
         isShowIndex: Bool,
         strokeDownwardOffset: Double,
@@ -125,6 +127,7 @@ struct Settings: Codable {
         self.isShowContentFrame = isShowContentFrame
         
         self.highlightMode = highlightMode
+        self.hLBorderedStyle = hLBorderedStyle
         self.hLRectangleColor = hLRectangleColor
         self.isShowIndex = isShowIndex
         self.strokeDownwardOffset = strokeDownwardOffset
@@ -176,6 +179,7 @@ private let defaultSettings = Settings(
     isShowContentFrame: true,
     
     highlightMode: HighlightModeDefault,
+    hLBorderedStyle: HLBorderedStyleDefault,
     hLRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
     strokeDownwardOffset: 5.0,
@@ -266,6 +270,7 @@ private struct SlotsView: View {
         isShowContentFrame = s.isShowContentFrame
         
         highlightMode = s.highlightMode
+        hLBorderedStyle = s.hLBorderedStyle
         hLRectangleColor = s.hLRectangleColor
         isShowIndex = s.isShowIndex
         strokeDownwardOffset = s.strokeDownwardOffset
@@ -305,6 +310,7 @@ private struct SlotsView: View {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
+    @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
     @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
