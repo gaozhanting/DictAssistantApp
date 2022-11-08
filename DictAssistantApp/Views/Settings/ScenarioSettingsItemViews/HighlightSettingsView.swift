@@ -52,7 +52,7 @@ struct HighlightSettingsView: View {
 
 struct HighlightInfoView: View {
     var body: some View {
-        Text("Highlights are drawn on the cropper window. It must be on the front most of the screen, otherwise it is covered and invisible. \n\nHighlight color should have some opacity level, otherwise it will make the text below covered and invisible.")
+        Text("Highlights are drawn on the cropper window. It must be on the front most of the screen, otherwise it is covered and invisible.")
             .infoStyle()
     }
 }
@@ -320,7 +320,13 @@ private struct RectangleOptionsView: View {
     
     var body: some View {
         HStack {
-            ColorPicker("Color:", selection: binding)
+            Group {
+                ColorPicker("Color:", selection: binding)
+                
+                MiniInfoView {
+                    HLRectangleInfoView()
+                }
+            }
             
             Spacer()
             
@@ -331,10 +337,18 @@ private struct RectangleOptionsView: View {
     }
 }
 
+struct HLRectangleInfoView: View {
+    var body: some View {
+        Text("Rectangle highlight color should have some opacity level, otherwise it will make the text below covered and invisible.")
+            .infoStyle()
+    }
+}
+
 struct HighlightSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HighlightInfoView()
+            HLRectangleInfoView()
         }
     }
 }
