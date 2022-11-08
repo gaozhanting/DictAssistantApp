@@ -16,10 +16,10 @@ struct HighlightSettingsView: View {
                 HStack {
                     Group {
                         Picker("Highlight:", selection: $highlightMode) {
-                            Text("Bordered").tag(HighlightMode.bordered.rawValue)
-                            Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
-                            Text("Dotted").tag(HighlightMode.dotted.rawValue)
-                            Text("Disabled").tag(HighlightMode.disabled.rawValue)
+                            Text("bordered").tag(HighlightMode.bordered.rawValue)
+                            Text("rectangle").tag(HighlightMode.rectangle.rawValue)
+                            Text("underscored").tag(HighlightMode.underscored.rawValue)
+                            Text("disabled").tag(HighlightMode.disabled.rawValue)
                         }
                         .frame(width: 200)
                         .pickerStyle(MenuPickerStyle())
@@ -38,10 +38,10 @@ struct HighlightSettingsView: View {
                 BorderedOptionsView()
             case .rectangle:
                 RectangleOptionsView()
-            case .dotted:
+            case .underscored:
                 VStack(alignment: .leading) {
-                    DottedOptionsView()
-                    DottedIndexOptionsView()
+                    UnderscoredOptionsView()
+                    UnderscoredIndexOptionsView()
                 }
             case .disabled:
                 EmptyView()
@@ -57,16 +57,16 @@ struct HighlightInfoView: View {
     }
 }
 
-struct HighlightDottedView: View {
+struct HighlightUnderscoredView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     
     var body: some View {
         switch HighlightMode(rawValue: highlightMode)! {
-        case .dotted:
+        case .underscored:
             Group {
                 Divider()
-                HighlightDottedOptionsView()
-                HighlightDottedIndexOptionsView()
+                HighlightUnderscoredOptionsView()
+                HighlightUnderscoredIndexOptionsView()
             }
         default:
             EmptyView()
@@ -74,25 +74,25 @@ struct HighlightDottedView: View {
     }
 }
 
-private struct HighlightDottedOptionsView: View {
-    @AppStorage(HLDottedColorKey) var hlDottedColor: Data = colorToData(NSColor.red)!
+private struct HighlightUnderscoredOptionsView: View {
+    @AppStorage(HLUnderscoredColorKey) var hlUnderscoredColor: Data = colorToData(NSColor.red)!
         
     var binding: Binding<Color> {
         Binding(
-            get: { Color(dataToColor(hlDottedColor)!) },
+            get: { Color(dataToColor(hlUnderscoredColor)!) },
             set: { newValue in
-                hlDottedColor = colorToData(NSColor(newValue))!
+                hlUnderscoredColor = colorToData(NSColor(newValue))!
             }
         )
     }
     
     func useDefault() {
-        hlDottedColor = colorToData(NSColor.red)!
+        hlUnderscoredColor = colorToData(NSColor.red)!
     }
     
     var body: some View {
         HStack {
-            Text("Highlight dotted line:")
+            Text("Highlight underscored line:")
             Spacer()
             ColorPicker("color:", selection: binding)
             Spacer()
@@ -103,67 +103,21 @@ private struct HighlightDottedOptionsView: View {
     }
 }
 
-struct DottedOptionsView: View {
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
-    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
-    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
-    
-    func useDefault() {
-        strokeDownwardOffset = 4.0
-        strokeLineWidth = 3.0
-        strokeDashPainted = 1.0
-        strokeDashUnPainted = 5.0
-    }
-    
-    var r1: some View {
-        Group {
-            Text("down:")
-            TextField("", value: $strokeDownwardOffset, formatter: tfDecimalFormatter)
-                .frame(width: tfWidth)
-            
-            Spacer()
-            
-            Text("width:")
-            TextField("", value: $strokeLineWidth, formatter: tfDecimalFormatter)
-                .frame(width: tfWidth)
-            
-            Text("paint:")
-            TextField("", value: $strokeDashPainted, formatter: tfDecimalFormatter)
-                .frame(width: tfWidth)
-            
-            Spacer()
-            
-            Text("unpaint:")
-            TextField("", value: $strokeDashUnPainted, formatter: tfDecimalFormatter)
-                .frame(width: tfWidth)
-        }
-    }
-    
-    var r2: some View {
-        Group {
-            Spacer()
-            
-            Button(action: useDefault) {
-                Image(systemName: "arrow.triangle.2.circlepath")
-            }
-        }
-    }
-    
+struct UnderscoredOptionsView: View {
+    @AppStorage(HLUnderscoredSizeKey) var hlUnderscoredSize: Int = HLUnderscoredSizeDefault
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Dotted line:")
-            GroupBox {
-                HStack {
-                    r1
-                    r2
-                }
-            }
+        Picker("Size:", selection: $hlUnderscoredSize) {
+            Text("light").tag(HLUnderscoredSize.light.rawValue)
+            Text("regular").tag(HLUnderscoredSize.regular.rawValue)
+            Text("bold").tag(HLUnderscoredSize.bold.rawValue)
         }
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 150)
     }
 }
 
-private struct HighlightDottedIndexOptionsView: View {
+private struct HighlightUnderscoredIndexOptionsView: View {
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
@@ -207,7 +161,7 @@ private struct HighlightDottedIndexOptionsView: View {
     
     var body: some View {
         Group {
-            Text("Highlight dotted index:")
+            Text("Highlight underscored index:")
             
             GroupBox {
                 VStack(alignment: .leading) {
@@ -242,7 +196,7 @@ private struct HighlightDottedIndexOptionsView: View {
     }
 }
 
-private struct DottedIndexOptionsView: View {
+private struct UnderscoredIndexOptionsView: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
@@ -256,7 +210,7 @@ private struct DottedIndexOptionsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Dotted index:")
+                Text("Underscored index:")
                 Spacer()
                 
                 Toggle(isOn: $isShowIndex) {
@@ -294,8 +248,8 @@ private struct BorderedOptionsView: View {
     
     var body: some View {
         Picker("Style:", selection: $hLBorderedStyle) {
-            Text("regular").tag(HLBorderedStyle.regular.rawValue)
             Text("light").tag(HLBorderedStyle.light.rawValue)
+            Text("regular").tag(HLBorderedStyle.regular.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 150)

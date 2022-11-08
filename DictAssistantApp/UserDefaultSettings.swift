@@ -39,11 +39,9 @@ let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
 
-let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
-let HLDottedColorKey = "HLDottedColorKey"
-let StrokeLineWidthKey = "StrokeLineWidthKey"
-let StrokeDashPaintedKey = "StrokeDashPaintedKey"
-let StrokeDashUnPaintedKey = "StrokeDashUnPaintedKey"
+let HLUnderscoredColorKey = "HLUnderscoredColorKey"
+let HLUnderscoredSizeKey = "HLUnderscoredSizeKey"
+let HLUnderscoredSizeDefault = HLUnderscoredSize.regular.rawValue
 
 let IsShowIndexKey = "IsShowIndexKey"
 let IndexColorKey = "IndexColorKey"
@@ -126,13 +124,19 @@ enum ContentPaddingStyle: Int, Codable {
 enum HighlightMode: Int, Codable {
     case bordered
     case rectangle
-    case dotted
+    case underscored
     case disabled
 }
 
 enum HLBorderedStyle: Int, Codable {
-    case regular
     case light
+    case regular
+}
+
+enum HLUnderscoredSize: Int, Codable {
+    case light
+    case regular
+    case bold
 }
 
 enum IndexXBasic: Int, Codable {
@@ -237,10 +241,7 @@ private let sceneKV: [String: Any] = [
     HLRectangleColorKey: HLRectangleColorDefault,
     
     IsShowIndexKey: false,
-    StrokeDownwardOffsetKey: 5.0,
-    StrokeLineWidthKey: 1.6,
-    StrokeDashPaintedKey: 1.0,
-    StrokeDashUnPaintedKey: 3.0,
+    HLUnderscoredSizeKey: HLUnderscoredSizeDefault,
     IndexPaddingKey: 1.5,
     IndexFontSizeKey: 5,
 ]
@@ -280,7 +281,7 @@ private let universalKV: [String: Any] = sceneKV.merging([
     
     CropperHasShadowKey: CropperHasShadowDefault,
     
-    HLDottedColorKey: colorToData(NSColor.red)!,
+    HLUnderscoredColorKey: colorToData(NSColor.red)!,
     
     IndexXBasicKey: IndexXBasic.trailing.rawValue,
     IndexColorKey: colorToData(NSColor.windowBackgroundColor)!,
@@ -425,21 +426,9 @@ extension UserDefaults {
         get { return bool(forKey: "IsShowIndexKey") }
         set { set(newValue, forKey: "IsShowIndexKey") }
     }
-    @objc var StrokeDownwardOffsetKey: Double {
-        get { return double(forKey: "StrokeDownwardOffsetKey") }
-        set { set(newValue, forKey: "StrokeDownwardOffsetKey") }
-    }
-    @objc var StrokeLineWidthKey: Double {
-        get { return double(forKey: "StrokeLineWidthKey") }
-        set { set(newValue, forKey: "StrokeLineWidthKey") }
-    }
-    @objc var StrokeDashPaintedKey: Double {
-        get { return double(forKey: "StrokeDashPaintedKey") }
-        set { set(newValue, forKey: "StrokeDashPaintedKey") }
-    }
-    @objc var StrokeDashUnPaintedKey: Double {
-        get { return double(forKey: "StrokeDashUnPaintedKey") }
-        set { set(newValue, forKey: "StrokeDashUnPaintedKey") }
+    @objc var HLUnderscoredSizeKey: Int {
+        get { return integer(forKey: "HLUnderscoredSizeKey") }
+        set { set(newValue, forKey: "HLUnderscoredSizeKey") }
     }
     @objc var IndexPaddingKey: Double {
         get { return double(forKey: "IndexPaddingKey") }
@@ -633,10 +622,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.HLBorderedStyleKey, \.hLBorderedStyle, HLBorderedStyleKey)
     combineSlot(\.HLRectangleColorKey, \.hLRectangleColor, HLRectangleColorKey)
     combineSlot(\.IsShowIndexKey, \.isShowIndex, IsShowIndexKey)
-    combineSlot(\.StrokeDownwardOffsetKey, \.strokeDownwardOffset, StrokeDownwardOffsetKey)
-    combineSlot(\.StrokeLineWidthKey, \.strokeLineWidth, StrokeLineWidthKey)
-    combineSlot(\.StrokeDashPaintedKey, \.strokeDashPainted, StrokeDashPaintedKey)
-    combineSlot(\.StrokeDashUnPaintedKey, \.strokeDashUnPainted, StrokeDashUnPaintedKey)
+    combineSlot(\.HLUnderscoredSizeKey, \.hLUnderscoredSize, HLUnderscoredSizeKey)
     combineSlot(\.IndexPaddingKey, \.indexPadding, IndexPaddingKey)
     combineSlot(\.IndexFontSizeKey, \.indexFontSize, IndexFontSizeKey)
 }

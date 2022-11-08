@@ -300,7 +300,7 @@ private struct TheText: View {
             return Text("")
         case .rectangle:
             return Text("")
-        case .dotted:
+        case .underscored:
             if !isShowIndex {
                 return Text("").foregroundColor(iColor).font(indexFont)
             }

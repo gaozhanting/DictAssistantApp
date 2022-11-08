@@ -136,40 +136,37 @@ private struct EdgeBorder: Shape {
     }
 }
 
-private struct HLDottedView: View {
+private struct HLUnderscoredView: View {
     let index: Int
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLDottedColorKey) var hlDottedColor: Data = colorToData(NSColor.red)!
+    @AppStorage(HLUnderscoredColorKey) var hLUnderscoredColor: Data = colorToData(NSColor.red)!
     var hlColor: Color {
-        Color(dataToColor(hlDottedColor)!)
+        Color(dataToColor(hLUnderscoredColor)!)
     }
     
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
-    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
-    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
+    @AppStorage(HLUnderscoredSizeKey) var hLUnderscoredSize: Int = HLUnderscoredSizeDefault
+    var strokeSize: Double {
+        switch HLUnderscoredSize(rawValue: hLUnderscoredSize)! {
+        case .light:
+            return 1
+        case .regular:
+            return 1.5
+        case .bold:
+            return 3
+        }
+    }
     var body0: some View {
         Path { path in
             path.move(to: CGPoint(
                 x: box.0.x * geometrySize.width,
-                y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)))
+                y: (1 - box.1.y) * geometrySize.height))
             path.addLine(to: CGPoint(
                 x: box.1.x * geometrySize.width,
-                y: (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)))
+                y: (1 - box.1.y) * geometrySize.height))
         }
-        .stroke(
-            hlColor,
-            style: StrokeStyle(
-                lineWidth: CGFloat(strokeLineWidth),
-                lineCap: .round,
-                //                lineJoin: .miter,
-                //                miterLimit: 0,
-                dash: [CGFloat(strokeDashPainted), CGFloat(strokeDashUnPainted)]
-                //                dashPhase: 0
-            )
-        )
+        .stroke(hlColor, lineWidth: strokeSize)
     }
     
     var w: CGFloat {
@@ -196,7 +193,7 @@ private struct HLDottedView: View {
         return basicX
     }
     var y: CGFloat {
-        (1 - box.1.y) * geometrySize.height + CGFloat(strokeDownwardOffset)
+        (1 - box.1.y) * geometrySize.height
     }
 
     @AppStorage(FontNameKey) var fontName: String = defaultFontName
@@ -267,10 +264,10 @@ private struct HLBorderedView: View {
     @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
     var verticalBorderWidth: Double {
         switch HLBorderedStyle(rawValue: hLBorderedStyle)! {
-        case .regular:
-            return 5.0
         case .light:
             return 2.0
+        case .regular:
+            return 5.0
         }
     }
     var fixSpotWidth: Double {
@@ -278,10 +275,10 @@ private struct HLBorderedView: View {
     }
     var horizontalBorderWidth: Double {
         switch HLBorderedStyle(rawValue: hLBorderedStyle)! {
-        case .regular:
-            return 3.0
         case .light:
             return 1.0
+        case .regular:
+            return 3.0
         }
     }
     
@@ -350,9 +347,9 @@ struct CropperViewWithHighlight: View {
                     ForEach(hlBox.indexedBoxes) { b in
                         HLRectangleView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
-                case .dotted:
+                case .underscored:
                     ForEach(hlBox.indexedBoxes) { b in
-                        HLDottedView(index: b.index, box: b.box, geometrySize: geometry.size)
+                        HLUnderscoredView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .disabled:
                     EmptyView()

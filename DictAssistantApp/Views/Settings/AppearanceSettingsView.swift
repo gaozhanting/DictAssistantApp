@@ -25,7 +25,7 @@ struct AppearanceSettingsView: View {
             WithAnimationToggle()
             CropperHasShadowToggle()
             ChineseCharacterConvertingPicker()
-            HighlightDottedView()
+            HighlightUnderscoredView()
         }
         .padding()
         .frame(width: panelWidth)

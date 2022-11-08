@@ -50,10 +50,7 @@ struct Settings: Codable {
     var hLBorderedStyle: Int
     var hLRectangleColor: Data
     var isShowIndex: Bool
-    var strokeDownwardOffset: Double
-    var strokeLineWidth: Double
-    var strokeDashPainted: Double
-    var strokeDashUnPainted: Double
+    var hLUnderscoredSize: Int
     var indexPadding: Double
     var indexFontSize: Int
     
@@ -91,10 +88,7 @@ struct Settings: Codable {
         hLBorderedStyle: Int,
         hLRectangleColor: Data,
         isShowIndex: Bool,
-        strokeDownwardOffset: Double,
-        strokeLineWidth: Double,
-        strokeDashPainted: Double,
-        strokeDashUnPainted: Double,
+        hLUnderscoredSize: Int,
         indexPadding: Double,
         indexFontSize: Int,
         
@@ -130,10 +124,7 @@ struct Settings: Codable {
         self.hLBorderedStyle = hLBorderedStyle
         self.hLRectangleColor = hLRectangleColor
         self.isShowIndex = isShowIndex
-        self.strokeDownwardOffset = strokeDownwardOffset
-        self.strokeLineWidth = strokeLineWidth
-        self.strokeDashPainted = strokeDashPainted
-        self.strokeDashUnPainted = strokeDashUnPainted
+        self.hLUnderscoredSize = hLUnderscoredSize
         self.indexPadding = indexPadding
         self.indexFontSize = indexFontSize
         
@@ -182,10 +173,7 @@ private let defaultSettings = Settings(
     hLBorderedStyle: HLBorderedStyleDefault,
     hLRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
-    strokeDownwardOffset: 5.0,
-    strokeLineWidth: 1.6,
-    strokeDashPainted: 1.0,
-    strokeDashUnPainted: 3.0,
+    hLUnderscoredSize: HLUnderscoredSizeDefault,
     indexPadding: 1.5,
     indexFontSize: 5,
     
@@ -273,10 +261,7 @@ private struct SlotsView: View {
         hLBorderedStyle = s.hLBorderedStyle
         hLRectangleColor = s.hLRectangleColor
         isShowIndex = s.isShowIndex
-        strokeDownwardOffset = s.strokeDownwardOffset
-        strokeLineWidth = s.strokeLineWidth
-        strokeDashPainted = s.strokeDashPainted
-        strokeDashUnPainted = s.strokeDashUnPainted
+        hLUnderscoredSize = s.hLUnderscoredSize
         indexPadding = s.indexPadding
         indexFontSize = s.indexFontSize
         
@@ -313,10 +298,7 @@ private struct SlotsView: View {
     @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
     @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
-    @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
-    @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
-    @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
+    @AppStorage(HLUnderscoredSizeKey) var hLUnderscoredSize: Int = HLUnderscoredSizeDefault
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
 }
