@@ -573,18 +573,18 @@ func combineHighlight() {
     UserDefaults.standard
         .publisher(for: \.HighlightModeKey)
         .handleEvents(receiveOutput: { _ in
-            trCallBack()
+            hlBox.indexedBoxes = indexedBoxesCache // force refresh highlight UI
         })
         .sink { _ in }
         .store(in: &subscriptions)
     
-//    UserDefaults.standard
-//        .publisher(for: \.HLBorderedStyleKey)
-//        .handleEvents(receiveOutput: { _ in
-//            trCallBack()
-//        })
-//        .sink { _ in }
-//        .store(in: &subscriptions)
+    UserDefaults.standard
+        .publisher(for: \.HLBorderedStyleKey)
+        .handleEvents(receiveOutput: { _ in
+            hlBox.indexedBoxes = indexedBoxesCache // force refresh highlight UI
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
 }
 
 func combineCropperHasShadow() {

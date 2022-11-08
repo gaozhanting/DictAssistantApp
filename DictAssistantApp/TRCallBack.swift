@@ -14,10 +14,14 @@ var trTextsCache: [String] = []
 // highlight need
 var primitiveWordCellCache: [WordCellWithToken] = []
 
+// when cache not diff, don't refresh highlight UI
+var indexedBoxesCache: [IndexedBox] = []
+
 // other refreshing action
 func trCallBack() {
     trTextsCache = []
     primitiveWordCellCache = []
+    indexedBoxesCache = []
     trCallBackWithCache()
 }
 
@@ -58,10 +62,6 @@ func trCallBackWithCache() {
     
     // We mutate primitiveWordCellCache
     func retriveBoxesAndsyncIndices() -> [IndexedBox] {
-        if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: HighlightModeKey))! == .disabled {
-            return []
-        }
-        
         let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }.removeDuplicates()
         
         var iboxes: [IndexedBox] = []
@@ -124,11 +124,16 @@ func trCallBackWithCache() {
     }
     
     func refreshHighlightUI() {
-        hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
+        indexedBoxesCache = retriveBoxesAndsyncIndices()
+        if !hlBox.indexedBoxes.elementsEqual(indexedBoxesCache) {
+            logger.info("refreshHighlightUI executed, cache diff")
+            hlBox.indexedBoxes = indexedBoxesCache
+        }
     }
     
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
     if trTexts.elementsEqual(trTextsCache) {
+        logger.info(">>> refreshHighlightUI only")
         refreshHighlightUI()
         return
     } else {
@@ -140,6 +145,7 @@ func trCallBackWithCache() {
     primitiveWordCellCache = processed.map { tagWord($0) }
     
     func refreshUI() {
+        logger.info(">>> refreshUI")
         refreshHighlightUI()
         let wordCells = primitiveWordCellCache.map { wc2 in
             WordCell(word: wc2.word.lemma, isKnown: wc2.isKnown, trans: wc2.trans, index: wc2.index)
