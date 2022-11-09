@@ -129,6 +129,9 @@ func trCallBackWithCache() {
             logger.info("refreshHighlightUI executed, cache diff")
             hlBox.indexedBoxes = indexedBoxesCache
         }
+        if UserDefaults.standard.bool(forKey: CropperHasShadowKey) { // seems resolve shadow bug, but cpu not to 0
+            cropperWindow.invalidateShadow()
+        }
     }
     
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
