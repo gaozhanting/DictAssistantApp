@@ -47,6 +47,12 @@ func initCropperWindow() {
         name: "cropperWindow"
     )
     
+    if UserDefaults.standard.bool(forKey: CropperHasShadowKey) {
+        cropperWindow.hasShadow = true
+    } else {
+        cropperWindow.hasShadow = false
+    }
+    
     cropperWindow.delegate = ccDelegate
     
     cropperWindow.close()
@@ -96,7 +102,6 @@ private class CropperWindow: NSWindow {
         self.standardWindowButton(.zoomButton)?.isHidden = true
         self.standardWindowButton(.toolbarButton)?.isHidden = true
         
-        self.hasShadow = true
         
         self.isOpaque = false
         self.backgroundColor = NSColor.clear
