@@ -47,6 +47,7 @@ struct Settings: Codable {
     var isShowContentFrame: Bool
     
     var highlightMode: Int
+    var cropperHasShadow: Bool
     var hlBorderedStyle: Int
     var hlBorderedColor: Data
     var hlRectangleColor: Data
@@ -89,6 +90,7 @@ struct Settings: Codable {
         isShowContentFrame: Bool,
         
         highlightMode: Int,
+        cropperHasShadow: Bool,
         hlBorderedStyle: Int,
         hlBorderedColor: Data,
         hlRectangleColor: Data,
@@ -129,6 +131,7 @@ struct Settings: Codable {
         self.isShowContentFrame = isShowContentFrame
         
         self.highlightMode = highlightMode
+        self.cropperHasShadow = cropperHasShadow
         self.hlBorderedStyle = hlBorderedStyle
         self.hlBorderedColor = hlBorderedColor
         self.hlRectangleColor = hlRectangleColor
@@ -182,6 +185,7 @@ private let defaultSettings = Settings(
     isShowContentFrame: true,
     
     highlightMode: HighlightModeDefault,
+    cropperHasShadow: CropperHasShadowDefault,
     hlBorderedStyle: HLBorderedStyleDefault,
     hlBorderedColor: HLBorderedColorDefault,
     hlRectangleColor: HLRectangleColorDefault,
@@ -274,6 +278,7 @@ private struct SlotsView: View {
         isShowContentFrame = s.isShowContentFrame
         
         highlightMode = s.highlightMode
+        cropperHasShadow = s.cropperHasShadow
         hlBorderedStyle = s.hlBorderedStyle
         hlBorderedColor = s.hlBorderedColor
         hlRectangleColor = s.hlRectangleColor
@@ -315,6 +320,7 @@ private struct SlotsView: View {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
+    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
     @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
     @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
     @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault

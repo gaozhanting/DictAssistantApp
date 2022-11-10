@@ -23,7 +23,6 @@ struct AppearanceSettingsView: View {
                 ColorSchemeSetting()
             }
             WithAnimationToggle()
-            CropperHasShadowToggle()
             ChineseCharacterConvertingPicker()
             HighlightDottedView()
         }
@@ -321,12 +320,6 @@ private struct ColorSchemeInfo: View {
     }
 }
 
-private struct CropperHasShadowInfo: View {
-    var body: some View {
-        Text("Set this true when you like the window shadow effect. It will persistently rerender the cropper window shadow which will make the highlight shadow always synchronized, thus consumes CPU.")
-            .infoStyle()
-    }
-}
 
 private struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
@@ -341,23 +334,6 @@ private struct WithAnimationToggle: View {
     }
 }
 
-private struct CropperHasShadowToggle: View {
-    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $cropperHasShadow) {
-                Text("Cropper has shadow")
-            }
-            .toggleStyle(CheckboxToggleStyle())
-            
-            MiniInfoView {
-                CropperHasShadowInfo()
-            }
-        }
-    }
-}
-
 struct AppearanceSettingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -366,8 +342,6 @@ struct AppearanceSettingView_Previews: PreviewProvider {
             ColorSchemeInfo()
             
             FontInfoView()
-            
-            CropperHasShadowInfo()
         }
     }
 }

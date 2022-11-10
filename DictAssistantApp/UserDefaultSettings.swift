@@ -33,6 +33,9 @@ let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 let HighlightModeKey = "HighlightModeKey"
 let HighlightModeDefault = HighlightMode.bordered.rawValue
 
+let CropperHasShadowKey = "CropperHasShadowKey"
+let CropperHasShadowDefault = true
+
 let HLBorderedStyleKey = "HLBorderedStyleKey"
 let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
 let HLBorderedColorKey = "HLBorderedColorKey"
@@ -115,9 +118,6 @@ let MinimalistVPaddingKey = "MinimalistVPaddingKey"
 let MinimalistHPaddingKey = "MinimalistHPaddingKey"
 
 let IsWithAnimationKey = "IsWithAnimationKey"
-
-let CropperHasShadowKey = "CropperHasShadowKey"
-let CropperHasShadowDefault = true
 
 // Enums
 enum ContentPaddingStyle: Int, Codable {
@@ -233,6 +233,7 @@ private let sceneKV: [String: Any] = [
     IsShowToastKey: true,
     
     HighlightModeKey: HighlightModeDefault,
+    CropperHasShadowKey: CropperHasShadowDefault,
     
     HLBorderedStyleKey: HLBorderedStyleDefault,
     HLBorderedColorKey: HLBorderedColorDefault,
@@ -280,8 +281,6 @@ private let universalKV: [String: Any] = sceneKV.merging([
     TheColorSchemeKey: TheColorScheme.system.rawValue,
     
     IsWithAnimationKey: true,
-    
-    CropperHasShadowKey: CropperHasShadowDefault,
     
     HLDottedColorKey: colorToData(NSColor.red)!,
     
@@ -416,6 +415,11 @@ extension UserDefaults {
         get { return integer(forKey: "HighlightModeKey") }
         set { set(newValue, forKey: "HighlightModeKey") }
     }
+    @objc var CropperHasShadowKey: Bool {
+        get { return bool(forKey: "CropperHasShadowKey") }
+        set { set(newValue, forKey: "CropperHasShadowKey") }
+    }
+
     @objc var HLBorderedStyleKey: Int {
         get { return integer(forKey: "HLBorderedStyleKey") }
         set { set(newValue, forKey: "HLBorderedStyleKey") }
@@ -455,11 +459,6 @@ extension UserDefaults {
     @objc var IndexFontSizeKey: Int {
         get { return integer(forKey: "IndexFontSizeKey") }
         set { set(newValue, forKey: "IndexFontSizeKey") }
-    }
-    
-    @objc var CropperHasShadowKey: Bool {
-        get { return bool(forKey: "CropperHasShadowKey") }
-        set { set(newValue, forKey: "CropperHasShadowKey") }
     }
 }
 
@@ -584,17 +583,7 @@ func combineHighlight() {
         })
         .sink { _ in }
         .store(in: &subscriptions)
-    
-    UserDefaults.standard
-        .publisher(for: \.HLBorderedStyleKey)
-        .handleEvents(receiveOutput: { _ in
-            hlBox.indexedBoxes = indexedBoxesCache // force refresh highlight UI
-        })
-        .sink { _ in }
-        .store(in: &subscriptions)
-}
-
-func combineCropperHasShadow() {
+        
     UserDefaults.standard
         .publisher(for: \.CropperHasShadowKey)
         .handleEvents(receiveOutput: { cropperHasShadow in
@@ -603,6 +592,14 @@ func combineCropperHasShadow() {
             } else {
                 cropperWindow.hasShadow = false
             }
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.HLBorderedStyleKey)
+        .handleEvents(receiveOutput: { _ in
+            hlBox.indexedBoxes = indexedBoxesCache // force refresh highlight UI
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -637,6 +634,7 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     
     combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
+    combineSlot(\.CropperHasShadowKey, \.cropperHasShadow, CropperHasShadowKey)
     combineSlot(\.HLBorderedStyleKey, \.hlBorderedStyle, HLBorderedStyleKey)
     combineSlot(\.HLBorderedColorKey, \.hlBorderedColor, HLBorderedColorKey)
     combineSlot(\.HLRectangleColorKey, \.hlRectangleColor, HLRectangleColorKey)

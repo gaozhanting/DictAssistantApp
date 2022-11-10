@@ -30,6 +30,8 @@ struct HighlightSettingsView: View {
                     }
                     
                     Spacer()
+                    
+                    CropperHasShadowToggle()
                 }
             }
             
@@ -47,6 +49,30 @@ struct HighlightSettingsView: View {
                 EmptyView()
             }
         }
+    }
+}
+
+private struct CropperHasShadowToggle: View {
+    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
+    
+    var body: some View {
+        HStack {
+            Toggle(isOn: $cropperHasShadow) {
+                Text("has shadow")
+            }
+            .toggleStyle(CheckboxToggleStyle())
+            
+            MiniInfoView {
+                CropperHasShadowInfo()
+            }
+        }
+    }
+}
+
+private struct CropperHasShadowInfo: View {
+    var body: some View {
+        Text("Set this true when you like the window shadow effect. It will persistently rerender the cropper window shadow which will make the highlight shadow always synchronized, thus consumes CPU.")
+            .infoStyle()
     }
 }
 
@@ -376,6 +402,8 @@ struct HighlightSettingsView_Previews: PreviewProvider {
         Group {
             HighlightInfoView()
             HLRectangleInfoView()
+            
+            CropperHasShadowInfo()
         }
     }
 }
