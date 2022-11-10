@@ -14,7 +14,7 @@ struct UseAppleDictModePicker: View {
     
     var body: some View {
         HStack {
-            Text("Use apple dict mode")
+            Text("Use Apple Dictionary mode")
             Spacer()
             Picker("", selection: $useAppleDictMode) {
                 Text("not use").tag(UseAppleDictMode.notUse.rawValue)
@@ -34,7 +34,7 @@ struct UseAppleDictModePicker: View {
 
 private struct UseAppleDictModeInfoView: View {
     var body: some View {
-        Text("Builtin dictionary and Apple dictionary makes up our local dictionary database.")
+        Text("Builtin dictionary and Apple Dictionary makes up our local dictionary database.")
             .infoStyle()
     }
 }
