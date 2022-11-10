@@ -294,8 +294,8 @@ private struct BorderedOptionsView: View {
     
     var body: some View {
         Picker("Style:", selection: $hLBorderedStyle) {
-            Text("regular").tag(HLBorderedStyle.regular.rawValue)
             Text("light").tag(HLBorderedStyle.light.rawValue)
+            Text("regular").tag(HLBorderedStyle.regular.rawValue)
         }
         .pickerStyle(MenuPickerStyle())
         .frame(width: 150)
