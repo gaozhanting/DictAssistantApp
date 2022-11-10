@@ -290,15 +290,42 @@ private struct DottedIndexOptionsView: View {
 }
 
 private struct BorderedOptionsView: View {
-    @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
+    @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
+    @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(hlBorderedColor)!) },
+            set: { newValue in
+                hlBorderedColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    func useDefault() {
+        hlBorderedStyle = HLBorderedStyleDefault
+        hlBorderedColor = HLBorderedColorDefault
+    }
     
     var body: some View {
-        Picker("Style:", selection: $hLBorderedStyle) {
-            Text("light").tag(HLBorderedStyle.light.rawValue)
-            Text("regular").tag(HLBorderedStyle.regular.rawValue)
+        HStack {
+            Picker("Style:", selection: $hlBorderedStyle) {
+                Text("light").tag(HLBorderedStyle.light.rawValue)
+                Text("regular").tag(HLBorderedStyle.regular.rawValue)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 150)
+            
+            Spacer()
+            
+            ColorPicker("Color:", selection: binding)
+            
+            Spacer()
+            
+            Button(action: useDefault) {
+                Image(systemName: "arrow.triangle.2.circlepath")
+            }
         }
-        .pickerStyle(MenuPickerStyle())
-        .frame(width: 150)
     }
 }
 

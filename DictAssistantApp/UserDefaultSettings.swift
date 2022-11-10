@@ -35,6 +35,8 @@ let HighlightModeDefault = HighlightMode.bordered.rawValue
 
 let HLBorderedStyleKey = "HLBorderedStyleKey"
 let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
+let HLBorderedColorKey = "HLBorderedColorKey"
+let HLBorderedColorDefault = colorToData(NSColor.findHighlightColor)!
 
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
@@ -233,6 +235,7 @@ private let sceneKV: [String: Any] = [
     HighlightModeKey: HighlightModeDefault,
     
     HLBorderedStyleKey: HLBorderedStyleDefault,
+    HLBorderedColorKey: HLBorderedColorDefault,
     
     HLRectangleColorKey: HLRectangleColorDefault,
     
@@ -416,6 +419,10 @@ extension UserDefaults {
     @objc var HLBorderedStyleKey: Int {
         get { return integer(forKey: "HLBorderedStyleKey") }
         set { set(newValue, forKey: "HLBorderedStyleKey") }
+    }
+    @objc var HLBorderedColorKey: Data {
+        get { return data(forKey: "HLBorderedColorKey")! }
+        set { set(newValue, forKey: "HLBorderedColorKey") }
     }
     @objc var HLRectangleColorKey: Data {
         get { return data(forKey: "HLRectangleColorKey")! }
@@ -630,8 +637,9 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     
     combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
-    combineSlot(\.HLBorderedStyleKey, \.hLBorderedStyle, HLBorderedStyleKey)
-    combineSlot(\.HLRectangleColorKey, \.hLRectangleColor, HLRectangleColorKey)
+    combineSlot(\.HLBorderedStyleKey, \.hlBorderedStyle, HLBorderedStyleKey)
+    combineSlot(\.HLBorderedColorKey, \.hlBorderedColor, HLBorderedColorKey)
+    combineSlot(\.HLRectangleColorKey, \.hlRectangleColor, HLRectangleColorKey)
     combineSlot(\.IsShowIndexKey, \.isShowIndex, IsShowIndexKey)
     combineSlot(\.StrokeDownwardOffsetKey, \.strokeDownwardOffset, StrokeDownwardOffsetKey)
     combineSlot(\.StrokeLineWidthKey, \.strokeLineWidth, StrokeLineWidthKey)

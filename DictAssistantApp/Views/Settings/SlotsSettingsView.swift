@@ -47,8 +47,9 @@ struct Settings: Codable {
     var isShowContentFrame: Bool
     
     var highlightMode: Int
-    var hLBorderedStyle: Int
-    var hLRectangleColor: Data
+    var hlBorderedStyle: Int
+    var hlBorderedColor: Data
+    var hlRectangleColor: Data
     var isShowIndex: Bool
     var strokeDownwardOffset: Double
     var strokeLineWidth: Double
@@ -88,8 +89,9 @@ struct Settings: Codable {
         isShowContentFrame: Bool,
         
         highlightMode: Int,
-        hLBorderedStyle: Int,
-        hLRectangleColor: Data,
+        hlBorderedStyle: Int,
+        hlBorderedColor: Data,
+        hlRectangleColor: Data,
         isShowIndex: Bool,
         strokeDownwardOffset: Double,
         strokeLineWidth: Double,
@@ -127,8 +129,9 @@ struct Settings: Codable {
         self.isShowContentFrame = isShowContentFrame
         
         self.highlightMode = highlightMode
-        self.hLBorderedStyle = hLBorderedStyle
-        self.hLRectangleColor = hLRectangleColor
+        self.hlBorderedStyle = hlBorderedStyle
+        self.hlBorderedColor = hlBorderedColor
+        self.hlRectangleColor = hlRectangleColor
         self.isShowIndex = isShowIndex
         self.strokeDownwardOffset = strokeDownwardOffset
         self.strokeLineWidth = strokeLineWidth
@@ -179,8 +182,9 @@ private let defaultSettings = Settings(
     isShowContentFrame: true,
     
     highlightMode: HighlightModeDefault,
-    hLBorderedStyle: HLBorderedStyleDefault,
-    hLRectangleColor: HLRectangleColorDefault,
+    hlBorderedStyle: HLBorderedStyleDefault,
+    hlBorderedColor: HLBorderedColorDefault,
+    hlRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
     strokeDownwardOffset: 5.0,
     strokeLineWidth: 1.6,
@@ -270,8 +274,9 @@ private struct SlotsView: View {
         isShowContentFrame = s.isShowContentFrame
         
         highlightMode = s.highlightMode
-        hLBorderedStyle = s.hLBorderedStyle
-        hLRectangleColor = s.hLRectangleColor
+        hlBorderedStyle = s.hlBorderedStyle
+        hlBorderedColor = s.hlBorderedColor
+        hlRectangleColor = s.hlRectangleColor
         isShowIndex = s.isShowIndex
         strokeDownwardOffset = s.strokeDownwardOffset
         strokeLineWidth = s.strokeLineWidth
@@ -310,8 +315,9 @@ private struct SlotsView: View {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
-    @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
-    @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault
+    @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
+    @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6

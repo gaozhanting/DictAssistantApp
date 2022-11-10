@@ -258,15 +258,15 @@ private struct HLBorderedView: View {
     let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
     let geometrySize: CGSize
     
-    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
+    @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
     
     var hlColor: Color {
-        Color(dataToColor(hlRectangleColor)!)
+        Color(dataToColor(hlBorderedColor)!)
     }
     
-    @AppStorage(HLBorderedStyleKey) var hLBorderedStyle: Int = HLBorderedStyleDefault
+    @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
     var verticalBorderWidth: Double {
-        switch HLBorderedStyle(rawValue: hLBorderedStyle)! {
+        switch HLBorderedStyle(rawValue: hlBorderedStyle)! {
         case .regular:
             return 5.0
         case .light:
@@ -277,7 +277,7 @@ private struct HLBorderedView: View {
         verticalBorderWidth / 2.0
     }
     var horizontalBorderWidth: Double {
-        switch HLBorderedStyle(rawValue: hLBorderedStyle)! {
+        switch HLBorderedStyle(rawValue: hlBorderedStyle)! {
         case .regular:
             return 3.0
         case .light:
@@ -295,7 +295,7 @@ private struct HLBorderedView: View {
                     x: box.1.x * geometrySize.width + fixSpotWidth,
                     y: (1 - box.1.y) * geometrySize.height))
             }
-            .stroke(Color(NSColor.findHighlightColor), lineWidth: horizontalBorderWidth)
+            .stroke(hlColor, lineWidth: horizontalBorderWidth)
             
             Path { path in
                 path.move(to: CGPoint(
@@ -305,7 +305,7 @@ private struct HLBorderedView: View {
                     x: box.1.x * geometrySize.width + fixSpotWidth,
                     y: (1 - box.0.y) * geometrySize.height))
             }
-            .stroke(Color(NSColor.findHighlightColor), lineWidth: horizontalBorderWidth)
+            .stroke(hlColor, lineWidth: horizontalBorderWidth)
             
             Path { path in
                 path.move(to: CGPoint(
@@ -315,7 +315,7 @@ private struct HLBorderedView: View {
                     x: box.0.x * geometrySize.width,
                     y: (1 - box.0.y) * geometrySize.height))
             }
-            .stroke(Color(NSColor.findHighlightColor), lineWidth: verticalBorderWidth)
+            .stroke(hlColor, lineWidth: verticalBorderWidth)
             
             Path { path in
                 path.move(to: CGPoint(
@@ -325,12 +325,10 @@ private struct HLBorderedView: View {
                     x: box.1.x * geometrySize.width,
                     y: (1 - box.0.y) * geometrySize.height))
             }
-            .stroke(Color(NSColor.findHighlightColor), lineWidth: verticalBorderWidth)
+            .stroke(hlColor, lineWidth: verticalBorderWidth)
         }
     }
 }
-
-private let pureYellow = Color(red: 1.0, green: 1.0, blue: 0)
 
 struct CropperViewWithHighlight: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
