@@ -30,6 +30,14 @@ struct Settings: Codable {
     var minimalistVPadding: Double
     var minimalistHPadding: Double
     
+    var wordColor: Data
+    var transColor: Data
+    var backgroundColor: Data
+    var contentHasShadow: Bool
+    var useContentBackgroundVisualEffect: Bool
+    var contentBackGroundVisualEffectMaterial: Int
+    var theColorScheme: Int
+    
     var fontSize: Int
     var lineSpacing: Double
     
@@ -73,6 +81,14 @@ struct Settings: Codable {
         minimalistVPadding: Double,
         minimalistHPadding: Double,
         
+        wordColor: Data,
+        transColor: Data,
+        backgroundColor: Data,
+        contentHasShadow: Bool,
+        useContentBackgroundVisualEffect: Bool,
+        contentBackGroundVisualEffectMaterial: Int,
+        theColorScheme: Int,
+        
         fontSize: Int,
         lineSpacing: Double,
         
@@ -113,6 +129,14 @@ struct Settings: Codable {
         self.contentPaddingStyle = contentPaddingStyle
         self.minimalistVPadding = minimalistVPadding
         self.minimalistHPadding = minimalistHPadding
+        
+        self.wordColor = wordColor
+        self.transColor = transColor
+        self.backgroundColor = backgroundColor
+        self.contentHasShadow = contentHasShadow
+        self.useContentBackgroundVisualEffect = useContentBackgroundVisualEffect
+        self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial
+        self.theColorScheme = theColorScheme
         
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
@@ -167,6 +191,14 @@ private let defaultSettings = Settings(
     contentPaddingStyle: ContentPaddingStyle.standard.rawValue,
     minimalistVPadding: 2.0,
     minimalistHPadding: 6.0,
+    
+    wordColor: WordColorDefault,
+    transColor: TransColorDefault,
+    backgroundColor: BackgroundColorDefault,
+    contentHasShadow: ContentHasShadowDefault,
+    useContentBackgroundVisualEffect: UseContentBackgroundVisualEffectDefault,
+    contentBackGroundVisualEffectMaterial: ContentBackGroundVisualEffectMaterialDefault,
+    theColorScheme: TheColorSchemeDefault,
     
     fontSize: 14,
     lineSpacing: 2.0,
@@ -261,6 +293,14 @@ private struct SlotsView: View {
         minimalistVPadding = s.minimalistVPadding
         minimalistHPadding = s.minimalistHPadding
         
+        wordColor = s.wordColor
+        transColor = s.transColor
+        backgroundColor = s.backgroundColor
+        contentHasShadow = s.contentHasShadow
+        useContentBackgroundVisualEffect = s.useContentBackgroundVisualEffect
+        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial
+        theColorScheme = s.theColorScheme
+        
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
         
@@ -302,6 +342,14 @@ private struct SlotsView: View {
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
+    
+    @AppStorage(WordColorKey) var wordColor: Data = WordColorDefault
+    @AppStorage(TransColorKey) var transColor: Data = TransColorDefault
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = BackgroundColorDefault
+    @AppStorage(ContentHasShadowKey) var contentHasShadow: Bool = ContentHasShadowDefault
+    @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = UseContentBackgroundVisualEffectDefault
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = ContentBackGroundVisualEffectMaterialDefault
+    @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorSchemeDefault
 
     @AppStorage(FontSizeKey) var fontSize: Int = 14
     @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
@@ -390,7 +438,7 @@ private struct SlotItemView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 TextField("", text: Binding.init(
-                    get: { slot.label! },
+                    get: { slot.label ?? "" },
                     set: { newValue in
                         slot.label = newValue
                         saveContext()

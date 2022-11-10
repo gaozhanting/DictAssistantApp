@@ -31,7 +31,7 @@ struct SelectedSlotView: View {
                         .font(imageFont)
                         .foregroundColor(Color(dataToColor(slot.color!)!))
                     
-                    Text(slot.label!)
+                    Text(slot.label ?? "")
                         .font(textFont)
                         .lineLimit(1)
                         .foregroundColor(Color(NSColor.labelColor))

@@ -100,7 +100,9 @@ let LineSpacingKey = "LineSpacingKey"
 let FontRatioKey = "FontRatioKey"
 
 let WordColorKey = "WordColorKey"
+let WordColorDefault = colorToData(NSColor.labelColor)!
 let TransColorKey = "TransColorKey"
+let TransColorDefault = colorToData(NSColor.secondaryLabelColor)!
 let BackgroundColorKey = "BackgroundColorKey"
 let BackgroundColorDefault = colorToData(NSColor.textBackgroundColor)!
 
@@ -108,9 +110,12 @@ let ContentHasShadowKey = "ContentHasShadowKey"
 let ContentHasShadowDefault = false
 
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
+let UseContentBackgroundVisualEffectDefault = false
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
+let ContentBackGroundVisualEffectMaterialDefault = NSVisualEffectView.Material.titlebar.rawValue
 
 let TheColorSchemeKey = "TheColorSchemeKey"
+let TheColorSchemeDefault = TheColorScheme.system.rawValue
 
 let ContentPaddingStyleKey = "ContentPaddingStyleKey"
 // minimalist
@@ -219,6 +224,14 @@ private let sceneKV: [String: Any] = [
     MinimalistVPaddingKey: 2.0,
     MinimalistHPaddingKey: 6.0,
     
+    WordColorKey: WordColorDefault,
+    TransColorKey: TransColorDefault,
+    BackgroundColorKey: BackgroundColorDefault,
+    ContentHasShadowKey: ContentHasShadowDefault,
+    UseContentBackgroundVisualEffectKey: UseContentBackgroundVisualEffectDefault,
+    ContentBackGroundVisualEffectMaterialKey: ContentBackGroundVisualEffectMaterialDefault,
+    TheColorSchemeKey: TheColorSchemeDefault,
+    
     FontSizeKey: 14,
     LineSpacingKey: 2.0,
     
@@ -270,16 +283,6 @@ private let universalKV: [String: Any] = sceneKV.merging([
     FontNameKey: defaultFontName,
     FontRatioKey: 0.9,
 
-    WordColorKey: colorToData(NSColor.labelColor)!,
-    TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
-    BackgroundColorKey: BackgroundColorDefault,
-    
-    ContentHasShadowKey: ContentHasShadowDefault,
-    UseContentBackgroundVisualEffectKey: false,
-    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
-    
-    TheColorSchemeKey: TheColorScheme.system.rawValue,
-    
     IsWithAnimationKey: true,
     
     HLDottedColorKey: colorToData(NSColor.red)!,
@@ -390,6 +393,35 @@ extension UserDefaults {
     @objc var MinimalistHPaddingKey: Double {
         get { return double(forKey: "MinimalistHPaddingKey") }
         set { set(newValue, forKey: "MinimalistHPaddingKey") }
+    }
+    
+    @objc var WordColorKey: Data {
+        get { return data(forKey: "WordColorKey")! }
+        set { set(newValue, forKey: "WordColorKey") }
+    }
+    @objc var TransColorKey: Data {
+        get { return data(forKey: "TransColorKey")! }
+        set { set(newValue, forKey: "TransColorKey") }
+    }
+    @objc var BackgroundColorKey: Data {
+        get { return data(forKey: "BackgroundColorKey")! }
+        set { set(newValue, forKey: "BackgroundColorKey") }
+    }
+    @objc var ContentHasShadowKey: Bool {
+        get { return bool(forKey: "ContentHasShadowKey") }
+        set { set(newValue, forKey: "ContentHasShadowKey") }
+    }
+    @objc var UseContentBackgroundVisualEffectKey: Bool {
+        get { return bool(forKey: "UseContentBackgroundVisualEffectKey") }
+        set { set(newValue, forKey: "UseContentBackgroundVisualEffectKey") }
+    }
+    @objc var ContentBackGroundVisualEffectMaterialKey: Int {
+        get { return integer(forKey: "ContentBackGroundVisualEffectMaterialKey") }
+        set { set(newValue, forKey: "ContentBackGroundVisualEffectMaterialKey") }
+    }
+    @objc var TheColorSchemeKey: Int {
+        get { return integer(forKey: "TheColorSchemeKey") }
+        set { set(newValue, forKey: "TheColorSchemeKey") }
     }
     
     @objc var FontSizeKey: Int {
@@ -616,6 +648,14 @@ func autoSaveSlotSettings() {
     combineSlot(\.ContentPaddingStyleKey, \.contentPaddingStyle, ContentPaddingStyleKey)
     combineSlot(\.MinimalistVPaddingKey, \.minimalistVPadding, MinimalistVPaddingKey)
     combineSlot(\.MinimalistHPaddingKey, \.minimalistHPadding, MinimalistHPaddingKey)
+    
+    combineSlot(\.WordColorKey, \.wordColor, WordColorKey)
+    combineSlot(\.TransColorKey, \.transColor, TransColorKey)
+    combineSlot(\.BackgroundColorKey, \.backgroundColor, BackgroundColorKey)
+    combineSlot(\.ContentHasShadowKey, \.contentHasShadow, ContentHasShadowKey)
+    combineSlot(\.UseContentBackgroundVisualEffectKey, \.useContentBackgroundVisualEffect, UseContentBackgroundVisualEffectKey)
+    combineSlot(\.ContentBackGroundVisualEffectMaterialKey, \.contentBackGroundVisualEffectMaterial, ContentBackGroundVisualEffectMaterialKey)
+    combineSlot(\.TheColorSchemeKey, \.theColorScheme, TheColorSchemeKey)
     
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
