@@ -58,7 +58,7 @@ private struct CropperHasShadowToggle: View {
     var body: some View {
         HStack {
             Toggle(isOn: $cropperHasShadow) {
-                Text("has shadow")
+                Text("Cropper has shadow")
             }
             .toggleStyle(CheckboxToggleStyle())
             
