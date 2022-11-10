@@ -23,7 +23,6 @@
 		442134D526A9A36A00963441 /* ShortcutsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D426A9A36A00963441 /* ShortcutsSettingsView.swift */; };
 		442134D826AADBE800963441 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 442134D726AADBE800963441 /* KeyboardShortcuts */; };
 		442134DA26AADC3100963441 /* GlobalShortCutKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134D926AADC3100963441 /* GlobalShortCutKey.swift */; };
-		442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DD26AAF68200963441 /* AppearanceSettingsView.swift */; };
 		442134E026AB00B500963441 /* UserDefaultSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134DF26AB00B500963441 /* UserDefaultSettings.swift */; };
 		442134E326AC326100963441 /* SingleWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E226AC326100963441 /* SingleWordView.swift */; };
 		442134E526AC32A700963441 /* WordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442134E426AC32A700963441 /* WordsView.swift */; };
@@ -34,7 +33,7 @@
 		442D6A17276510C4001ACA08 /* HLBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442D6A16276510C4001ACA08 /* HLBox.swift */; };
 		442E94DC26B2AA2E00B71FFA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442E94DB26B2AA2E00B71FFA /* ToastView.swift */; };
 		44332451277572A7007FFF44 /* SettingsCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44332450277572A7007FFF44 /* SettingsCommon.swift */; };
-		443324532775BA2E007FFF44 /* LanguageSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443324522775BA2E007FFF44 /* LanguageSettingsView.swift */; };
+		443324532775BA2E007FFF44 /* CommonSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443324522775BA2E007FFF44 /* CommonSettingsView.swift */; };
 		4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4440EE43262EDCA3007FF470 /* AppDelegate.swift */; };
 		4440EE48262EDCA4007FF470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE47262EDCA4007FF470 /* Assets.xcassets */; };
 		4440EE4B262EDCA4007FF470 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4440EE4A262EDCA4007FF470 /* Preview Assets.xcassets */; };
@@ -105,7 +104,6 @@
 		442134CD26A6C64200963441 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		442134D426A9A36A00963441 /* ShortcutsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsSettingsView.swift; sourceTree = "<group>"; };
 		442134D926AADC3100963441 /* GlobalShortCutKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalShortCutKey.swift; sourceTree = "<group>"; };
-		442134DD26AAF68200963441 /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		442134DF26AB00B500963441 /* UserDefaultSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSettings.swift; sourceTree = "<group>"; };
 		442134E226AC326100963441 /* SingleWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWordView.swift; sourceTree = "<group>"; };
 		442134E426AC32A700963441 /* WordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsView.swift; sourceTree = "<group>"; };
@@ -115,7 +113,7 @@
 		442D6A16276510C4001ACA08 /* HLBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLBox.swift; sourceTree = "<group>"; };
 		442E94DB26B2AA2E00B71FFA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		44332450277572A7007FFF44 /* SettingsCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCommon.swift; sourceTree = "<group>"; };
-		443324522775BA2E007FFF44 /* LanguageSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingsView.swift; sourceTree = "<group>"; };
+		443324522775BA2E007FFF44 /* CommonSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSettingsView.swift; sourceTree = "<group>"; };
 		4440EE40262EDCA3007FF470 /* Freedom English.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freedom English.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4440EE43262EDCA3007FF470 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4440EE47262EDCA4007FF470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -195,9 +193,8 @@
 				44332450277572A7007FFF44 /* SettingsCommon.swift */,
 				447C25BC276F5EFC00C97DFF /* SceneSettingsView.swift */,
 				446027F9276F012200B901D4 /* ScenarioSettingsItemViews */,
-				443324522775BA2E007FFF44 /* LanguageSettingsView.swift */,
-				443324542775BA36007FFF44 /* LanguageSettingsItemViews */,
-				442134DD26AAF68200963441 /* AppearanceSettingsView.swift */,
+				443324522775BA2E007FFF44 /* CommonSettingsView.swift */,
+				443324542775BA36007FFF44 /* CommonSettingsItemViews */,
 				442134D426A9A36A00963441 /* ShortcutsSettingsView.swift */,
 				447F9B5426BD0451009C572F /* SlotsSettingsView.swift */,
 			);
@@ -217,14 +214,14 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
-		443324542775BA36007FFF44 /* LanguageSettingsItemViews */ = {
+		443324542775BA36007FFF44 /* CommonSettingsItemViews */ = {
 			isa = PBXGroup;
 			children = (
 				44039240276C67E600DD39F6 /* NLPSettingsView.swift */,
 				44FEB724270AE3C100701E5D /* DictionarySettingsView.swift */,
 				44039242276C936F00DD39F6 /* TranscriptSettingsView.swift */,
 			);
-			path = LanguageSettingsItemViews;
+			path = CommonSettingsItemViews;
 			sourceTree = "<group>";
 		};
 		4440EE37262EDCA3007FF470 = {
@@ -487,7 +484,7 @@
 				44CAC50D2714641600EAFA74 /* MiniEntryView.swift in Sources */,
 				442126C72719AC3200CEF786 /* EntriesPanel.swift in Sources */,
 				44CAC50927145B2700EAFA74 /* MiniPhraseView.swift in Sources */,
-				443324532775BA2E007FFF44 /* LanguageSettingsView.swift in Sources */,
+				443324532775BA2E007FFF44 /* CommonSettingsView.swift in Sources */,
 				446B24E726F1F0C400F1301D /* OnboardingView.swift in Sources */,
 				44FEB725270AE3C100701E5D /* DictionarySettingsView.swift in Sources */,
 				444AACD526B0417D00791FC2 /* PortraitWordsView.swift in Sources */,
@@ -534,7 +531,6 @@
 				442134D526A9A36A00963441 /* ShortcutsSettingsView.swift in Sources */,
 				442126C92719AEDC00CEF786 /* NoisesPanel.swift in Sources */,
 				442134E326AC326100963441 /* SingleWordView.swift in Sources */,
-				442134DE26AAF68200963441 /* AppearanceSettingsView.swift in Sources */,
 				442126C52719A8DA00CEF786 /* PhrasesPanel.swift in Sources */,
 				442126C2271996B500CEF786 /* EditingPanel.swift in Sources */,
 				4440EE44262EDCA3007FF470 /* AppDelegate.swift in Sources */,

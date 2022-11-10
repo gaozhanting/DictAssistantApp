@@ -1,20 +1,26 @@
 //
-//  AppearanceSettingsView.swift
+//  CommonSettingsView.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/7/23.
+//  Created by Gao Cong on 2021/12/24.
 //
 
 import SwiftUI
-import Preferences
 
-struct AppearanceSettingsView: View {
+struct CommonSettingsView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            GroupBox {
-                FontSettingView()
-                FontRatioSetting()
-            }
+            UseAppleDictModePicker()
+            UseEntryModePicker()
+            
+            DoNameRecognitionToggle()
+            DoPhraseDetectionToggle()
+            
+            Divider()
+            
+            FontSettingView()
+            FontRatioSetting()
+            
             WithAnimationToggle()
             ChineseCharacterConvertingPicker()
             HighlightDottedView()
@@ -165,7 +171,6 @@ private struct FontRatioSetting: View {
     }
 }
 
-
 private struct WithAnimationToggle: View {
     @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
     
@@ -179,10 +184,10 @@ private struct WithAnimationToggle: View {
     }
 }
 
-struct AppearanceSettingView_Previews: PreviewProvider {
+struct CommonSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppearanceSettingsView()
+            CommonSettingsView()
             
             FontInfoView()
         }

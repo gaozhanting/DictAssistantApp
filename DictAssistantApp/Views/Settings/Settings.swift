@@ -10,7 +10,7 @@ import Preferences
 
 extension Preferences.PaneIdentifier {
     static let scene = Self("scene")
-    static let language = Self("language")
+    static let common = Self("common")
     static let appearance = Self("appearance")
     static let shortcuts = Self("shortcuts")
     static let slots = Self("slots")
@@ -29,25 +29,13 @@ func ScenePreferenceViewController() -> PreferencePane {
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func LanguagePreferenceViewController() -> PreferencePane {
+func CommonPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .language,
-        title: NSLocalizedString("Language", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Language preferences")!
+        identifier: .common,
+        title: NSLocalizedString("Common", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Common preferences")!
     ) {
-        LanguageSettingsView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func AppearancePreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .appearance,
-        title: NSLocalizedString("Appearance", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
-    ) {
-        AppearanceSettingsView()
+        CommonSettingsView()
     }
 
     return Preferences.PaneHostingController(pane: paneView)
