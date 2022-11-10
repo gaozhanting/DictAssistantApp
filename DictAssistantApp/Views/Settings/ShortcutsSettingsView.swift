@@ -179,9 +179,9 @@ private struct KeyRecordingView: View {
     var g3: some View {
         Group {
             HStack {
-                Text("Run cheap snapshot")
+                Text("Run snapshot")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .runCheapSnapshot)
+                KeyboardShortcuts.Recorder(for: .runSnapshot)
                 MiniInfoView {
                     Text("recommend: Option-C").font(.subheadline).padding()
                 }

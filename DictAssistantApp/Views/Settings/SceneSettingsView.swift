@@ -22,7 +22,6 @@ struct SceneSettingsView: View {
                     MinimumTextHeightSetting()
                     UsesLanguageCorrectionToggle()
                     IsOpenLemmaToggle()
-                    IsShowToastView()
                 }
             }
             GroupBox {
@@ -38,6 +37,7 @@ struct SceneSettingsView: View {
             }
             ContentPaddingStyleSettingsView()
             CropperStyleSettingView()
+            IsShowToastView()
             Divider()
             HighlightSettingsView()
         }

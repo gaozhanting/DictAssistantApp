@@ -25,7 +25,7 @@ extension KeyboardShortcuts.Name {
     
     static let toggleConcealTranslation = Self("toggleConcealTranslation")
     
-    static let runCheapSnapshot = Self("runCheapSnapshot")
+    static let runSnapshot = Self("runSnapshot")
     
     static let stop = Self("stop")
     
@@ -147,7 +147,7 @@ func registerGlobalKey() {
         }
     }
     
-    KeyboardShortcuts.onKeyUp(for: .runCheapSnapshot) {
+    KeyboardShortcuts.onKeyUp(for: .runSnapshot) {
         snapshotState = 1 // issue when something goes wrong, how to reset this value
         startPlaying()
     }
