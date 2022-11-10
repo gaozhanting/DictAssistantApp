@@ -149,7 +149,8 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowNotFound)
                 KeyboardShortcuts.Recorder(for: .toggleShowNotFound)
                 MiniInfoView {
-                    Text("recommend: Option-3").font(.subheadline).padding()
+                    Text("recommend: Option-3\nSet this true will still show the word which cannot be found in the dictionary.")
+                        .infoStyle()
                 }
             }
             HStack {
