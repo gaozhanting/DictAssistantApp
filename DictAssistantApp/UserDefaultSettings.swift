@@ -126,26 +126,26 @@ let IsWithAnimationKey = "IsWithAnimationKey"
 
 // Enums
 enum ContentPaddingStyle: Int, Codable {
-    case standard
-    case minimalist
+    case standard = 0
+    case minimalist = 1
 }
 
 enum HighlightMode: Int, Codable {
-    case bordered
-    case rectangle
-    case dotted
-    case disabled
+    case bordered = 0
+    case rectangle = 1
+    case dotted = 2
+    case disabled = 3
 }
 
 enum HLBorderedStyle: Int, Codable {
-    case regular
-    case light
+    case regular = 0
+    case light = 1
 }
 
 enum IndexXBasic: Int, Codable {
-    case leading
-    case center
-    case trailing
+    case leading = 0
+    case center = 1
+    case trailing = 2
 }
 
 enum CropperStyle: Int, Codable {
