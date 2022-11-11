@@ -62,7 +62,7 @@ class AVSessionAndTR : NSObject, SCStreamOutput, SCStreamDelegate {
                     try self.theStream?.addStreamOutput(self, type: .screen, sampleHandlerQueue: self.videoDataOutputQueue)
                     self.theStream?.startCapture()
                 } catch {
-                    logger.error("Failed to capture: \(error.localizedDescription)")
+                    logger.error("Failed to start capture: \(error.localizedDescription)")
                 }
             }
         }
@@ -110,7 +110,12 @@ class AVSessionAndTR : NSObject, SCStreamOutput, SCStreamDelegate {
     }
 
     func stopScreenCapture() {
-        theStream?.stopCapture()
+        do {
+            try self.theStream?.removeStreamOutput(self, type: .screen)
+            self.theStream?.stopCapture()
+        } catch {
+            logger.error("Failed to stop capture: \(error.localizedDescription)")
+        }
     }
 
     func recognizeTextHandler(request: VNRequest, error: Error?) {

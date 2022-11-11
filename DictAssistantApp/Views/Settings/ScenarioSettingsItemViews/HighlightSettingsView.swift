@@ -10,30 +10,37 @@ import SwiftUI
 struct HighlightSettingsView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
     
+    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Form { // Form makes it has an auto padding here
-                HStack {
-                    Group {
-                        Picker("Highlight:", selection: $highlightMode) {
-                            Text("Bordered").tag(HighlightMode.bordered.rawValue)
-                            Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
-                            Text("Dotted").tag(HighlightMode.dotted.rawValue)
-                            Text("Disabled").tag(HighlightMode.disabled.rawValue)
-                        }
-                        .frame(width: 200)
-                        .pickerStyle(MenuPickerStyle())
-                        
-                        MiniInfoView {
-                            HighlightInfoView()
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    CropperHasShadowToggle()
+            HStack {
+                Picker("Highlight:", selection: $highlightMode) {
+                    Text("Bordered").tag(HighlightMode.bordered.rawValue)
+                    Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
+                    Text("Dotted").tag(HighlightMode.dotted.rawValue)
+                    Text("Disabled").tag(HighlightMode.disabled.rawValue)
+                }
+                .frame(width: 200)
+                .pickerStyle(MenuPickerStyle())
+                
+                MiniInfoView {
+                    HighlightInfoView()
+                }
+                
+                Spacer()
+                
+                Toggle(isOn: $cropperHasShadow) {
+                    Text("Cropper has shadow")
+                }
+                .toggleStyle(CheckboxToggleStyle())
+                
+                MiniInfoView {
+                    CropperHasShadowInfo()
                 }
             }
+            .padding(.top, 3)
+            .padding(.bottom, 3)
             
             switch HighlightMode(rawValue: highlightMode)! {
             case .bordered:
@@ -47,23 +54,6 @@ struct HighlightSettingsView: View {
                 }
             case .disabled:
                 EmptyView()
-            }
-        }
-    }
-}
-
-private struct CropperHasShadowToggle: View {
-    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $cropperHasShadow) {
-                Text("Cropper has shadow")
-            }
-            .toggleStyle(CheckboxToggleStyle())
-            
-            MiniInfoView {
-                CropperHasShadowInfo()
             }
         }
     }

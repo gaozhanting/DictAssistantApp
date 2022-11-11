@@ -129,6 +129,7 @@ func trCallBackWithCache() {
             logger.info("refreshHighlightUI executed, cache diff")
             hlBox.indexedBoxes = indexedBoxesCache
         }
+        logger.info("hasShadow = \(UserDefaults.standard.bool(forKey: CropperHasShadowKey)) ")
         if UserDefaults.standard.bool(forKey: CropperHasShadowKey) { // seems resolve shadow bug, but cpu not to 0
             cropperWindow.invalidateShadow()
         }
