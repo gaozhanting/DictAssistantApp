@@ -48,6 +48,7 @@ func trCallBackWithCache() {
 //        return
 //    }
     
+    // Bug, when first start, the results is empty? Why?
     guard let trResults = aVSessionAndTR.results else {
         logger.info("trCallBackWithCache: aVSessionAndTR results is empty")
         return

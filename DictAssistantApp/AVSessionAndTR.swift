@@ -80,10 +80,11 @@ class AVSessionAndTR : NSObject, SCStreamOutput, SCStreamDelegate {
     
     private func dealWith(sampleBuffer: CMSampleBuffer) {
         if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
+            logger.info("sampleBuffer the same")
             return
         }
         
-        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do run TR")
+        logger.info("sampleBuffer diff")
         
         sampleBufferCache = sampleBuffer
 
