@@ -64,7 +64,7 @@ private struct HightInfoView: View {
 }
 
 struct RecognitionLevelSetting: View {
-    @AppStorage(RecognitionLevelKey) var textRecognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(RecognitionLevelKey) var textRecognitionLevel: Int = RecognitionLevelDefault
     
     var body: some View {
         HStack {

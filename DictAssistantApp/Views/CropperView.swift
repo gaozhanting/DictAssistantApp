@@ -146,7 +146,7 @@ private struct HLDottedView: View {
         Color(dataToColor(hlDottedColor)!)
     }
     
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = StrokeDownwardOffsetDefault
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
@@ -250,7 +250,83 @@ private struct HLRectangleView: View {
                 return rect
             }())
             .fill(hlColor)
-            .shadow(color: .primary, radius: 3)
+    }
+}
+
+private struct HLBorderedView: View {
+    let index: Int
+    let box: ((CGPoint, CGPoint)) // topLeft, bottomRight, (x, y) all are decimal fraction
+    let geometrySize: CGSize
+    
+    @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
+    
+    var hlColor: Color {
+        Color(dataToColor(hlBorderedColor)!)
+    }
+    
+    @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
+    var verticalBorderWidth: Double {
+        switch HLBorderedStyle(rawValue: hlBorderedStyle)! {
+        case .regular:
+            return 5.0
+        case .light:
+            return 2.0
+        }
+    }
+    var fixSpotWidth: Double {
+        verticalBorderWidth / 2.0
+    }
+    var horizontalBorderWidth: Double {
+        switch HLBorderedStyle(rawValue: hlBorderedStyle)! {
+        case .regular:
+            return 3.0
+        case .light:
+            return 1.0
+        }
+    }
+    
+    var body: some View {
+        Group {
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.0.x * geometrySize.width - fixSpotWidth, // 2.5 = 5 / 2 // 5 = lineWidth vertical
+                    y: (1 - box.1.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.1.x * geometrySize.width + fixSpotWidth,
+                    y: (1 - box.1.y) * geometrySize.height))
+            }
+            .stroke(hlColor, lineWidth: horizontalBorderWidth)
+            
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.0.x * geometrySize.width - fixSpotWidth,
+                    y: (1 - box.0.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.1.x * geometrySize.width + fixSpotWidth,
+                    y: (1 - box.0.y) * geometrySize.height))
+            }
+            .stroke(hlColor, lineWidth: horizontalBorderWidth)
+            
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.0.x * geometrySize.width,
+                    y: (1 - box.1.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.0.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height))
+            }
+            .stroke(hlColor, lineWidth: verticalBorderWidth)
+            
+            Path { path in
+                path.move(to: CGPoint(
+                    x: box.1.x * geometrySize.width,
+                    y: (1 - box.1.y) * geometrySize.height))
+                path.addLine(to: CGPoint(
+                    x: box.1.x * geometrySize.width,
+                    y: (1 - box.0.y) * geometrySize.height))
+            }
+            .stroke(hlColor, lineWidth: verticalBorderWidth)
+        }
     }
 }
 
@@ -264,13 +340,17 @@ struct CropperViewWithHighlight: View {
                 CropperView()
                 
                 switch HighlightMode(rawValue: highlightMode)! {
-                case .dotted:
+                case .bordered:
                     ForEach(hlBox.indexedBoxes) { b in
-                        HLDottedView(index: b.index, box: b.box, geometrySize: geometry.size)
+                        HLBorderedView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .rectangle:
                     ForEach(hlBox.indexedBoxes) { b in
                         HLRectangleView(index: b.index, box: b.box, geometrySize: geometry.size)
+                    }
+                case .dotted:
+                    ForEach(hlBox.indexedBoxes) { b in
+                        HLDottedView(index: b.index, box: b.box, geometrySize: geometry.size)
                     }
                 case .disabled:
                     EmptyView()

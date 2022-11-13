@@ -10,9 +10,8 @@ import Preferences
 
 var preferencesWindowController = PreferencesWindowController(
     preferencePanes: [
-        ScenarioPreferenceViewController(),
-        LanguagePreferenceViewController(),
-        AppearancePreferenceViewController(),
+        ScenePreferenceViewController(),
+        CommonPreferenceViewController(),
         ShortcutsPreferenceViewController(),
         SlotsPreferenceViewController(managedObjectContext: persistentContainer.viewContext)
     ],

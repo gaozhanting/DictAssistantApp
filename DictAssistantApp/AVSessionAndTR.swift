@@ -7,14 +7,10 @@
 
 import Cocoa
 import Foundation
-import AVFoundation
 import Vision
+import ScreenCaptureKit
 
-class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate {
-    let session: AVCaptureSession = AVCaptureSession()
-    let screenInput: AVCaptureScreenInput = AVCaptureScreenInput(displayID: CGMainDisplayID())! // todo
-    
-    let dataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
+class AVSessionAndTR : NSObject, SCStreamOutput, SCStreamDelegate {
     let videoDataOutputQueue = DispatchQueue(
         label: "CameraFeedDataOutput",
         qos: .userInitiated,
@@ -22,95 +18,73 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
         autoreleaseFrequency: .workItem
     )
     
-    // for testing mp4 file
-    let testMovie = false
-    let testMovieFileOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
-    let movieUrlString = NSHomeDirectory() + "/Documents/" + "ab.mp4"
-
+    private var theStream: SCStream?
+    
     func startScreenCapture() {
-        let maximumFrameRate = UserDefaults.standard.double(forKey: MaximumFrameRateKey)
-        screenInput.minFrameDuration = CMTime(seconds: Double(1 / maximumFrameRate), preferredTimescale: 600)
-        
-        screenInput.cropRect = cropperWindow.frame
+        SCShareableContent.getExcludingDesktopWindows(false, onScreenWindowsOnly: true) { (availableContent, error ) in
+            DispatchQueue.main.async {
+                guard let availableContent = availableContent else {
+                    logger.error("No shareable content.")
+                    return
+                }
+                
+                let availableDisplays = availableContent.displays
+                let selectedDisplay = availableDisplays.first
+                
+                guard let display = selectedDisplay else {
+                    logger.error("No display selected.")
+                    return
+                }
+                
+                let excludedApps = availableContent.applications.filter { app in
+                    Bundle.main.bundleIdentifier == app.bundleIdentifier
+                }
 
-//        input.scaleFactor = CGFloat(scaleFactor)
-        screenInput.capturesCursor = false
-        screenInput.capturesMouseClicks = false
-
-        session.beginConfiguration()
-//        session.sessionPreset = .hd1920x1080
-        
-        if session.canAddInput(screenInput) {
-            session.addInput(screenInput)
-        } else {
-            logger.error("Could not add video device input to the session")
-        }
-        
-        if testMovie {
-            if session.canAddOutput(testMovieFileOutput) {
-                session.addOutput(testMovieFileOutput)
-                testMovieFileOutput.movieFragmentInterval = .invalid
-//                testMovieFileOutput.setOutputSettings([AVVideoCodecKey: videoCodec], for: connection)
-            } else {
-                logger.error("Could not add movie file output to the session")
+                let filter = SCContentFilter(display: display,
+                                             excludingApplications: excludedApps,
+                                             exceptingWindows: [])
+                
+                let streamConfig = SCStreamConfiguration()
+                let maximumFrameRate = UserDefaults.standard.integer(forKey: MaximumFrameRateKey)
+                streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(maximumFrameRate))
+                streamConfig.showsCursor = false
+                streamConfig.sourceRect = CGRect(
+                    origin: CGPoint(
+                        x: self.cropperWindow.frame.origin.x,
+                        y: CGFloat(display.height) - self.cropperWindow.frame.maxY // why?
+                    ),
+                    size: self.cropperWindow.frame.size)
+                streamConfig.height = Int(self.cropperWindow.frame.height)
+                streamConfig.width = Int(self.cropperWindow.frame.width)
+                
+                do {
+                    self.theStream = SCStream(filter: filter, configuration: streamConfig, delegate: self)
+                    try self.theStream?.addStreamOutput(self, type: .screen, sampleHandlerQueue: self.videoDataOutputQueue)
+                    self.theStream?.startCapture()
+                } catch {
+                    logger.error("Failed to start capture: \(error.localizedDescription)")
+                }
             }
         }
-        else {
-            if session.canAddOutput(dataOutput) {
-                session.addOutput(dataOutput)
-                // Add a video data output
-                dataOutput.alwaysDiscardsLateVideoFrames = true
-                //          dataOutput.videoSettings = [
-                //            String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
-                //          ]
-                dataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-            } else {
-                logger.error("Could not add video data output to the session")
-            }
-            //        let captureConnection = dataOutput.connection(with: .video)
-            //        captureConnection?.preferredVideoStabilizationMode = .standard
-            //        captureConnection?.videoOrientation = .portrait
-            // Always process the frames
-            //        captureConnection?.isEnabled = true
-        }
-        
-        session.commitConfiguration()
-        
-        session.startRunning()
-        
-        if testMovie {
-            do {
-                let movieUrl = URL.init(fileURLWithPath: movieUrlString)
-                try FileManager.default.removeItem(at: movieUrl)
-            } catch {
-                logger.error("remove movieUrl exception caught: \(error.localizedDescription)")
-            }
-
-            let movieUrl = URL.init(fileURLWithPath: movieUrlString)
-            testMovieFileOutput.startRecording(to: movieUrl, recordingDelegate: self)
-        }
-    }
-
-    func stopScreenCapture() {
-        if testMovie {
-            testMovieFileOutput.stopRecording()
-        }
-
-        session.stopRunning()
     }
     
-    // for test mp4
-    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+    func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of outputType: SCStreamOutputType) {
+        guard sampleBuffer.isValid else { return }
+        
+        DispatchQueue.main.async {
+            aVSessionAndTR.dealWith(sampleBuffer: sampleBuffer)
+        }
     }
     
     var sampleBufferCache: CMSampleBuffer? = nil
     
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    private func dealWith(sampleBuffer: CMSampleBuffer) {
         if sampleBuffer.imageBuffer == sampleBufferCache?.imageBuffer {
+            logger.info("sampleBuffer the same")
             return
         }
         
-        logger.info("captureOutput sampleBuffer.imageBuffer != sampleBufferCache?.imageBuffer, so do run TR")
+        logger.info("sampleBuffer diff")
         
         sampleBufferCache = sampleBuffer
 
@@ -129,6 +103,19 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
             } catch {
                 logger.error("TextRecognize failed: \(error.localizedDescription, privacy: .public)")
             }
+        }
+    }
+    
+    func stream(_ stream: SCStream, didStopWithError error: Error) {
+        logger.error("error: \(error.localizedDescription)")
+    }
+
+    func stopScreenCapture() {
+        do {
+            try self.theStream?.removeStreamOutput(self, type: .screen)
+            self.theStream?.stopCapture()
+        } catch {
+            logger.error("Failed to stop capture: \(error.localizedDescription)")
         }
     }
 
@@ -154,3 +141,4 @@ class AVSessionAndTR: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, AV
 let aVSessionAndTR = AVSessionAndTR.init(
     cropperWindow: cropperWindow
 )
+

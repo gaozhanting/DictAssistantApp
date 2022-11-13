@@ -12,7 +12,7 @@ func cachedDictionaryServicesDefine(_ word: String) -> String? {
     return trans
 }
 
-func queryDefine(_ word: String) -> String? {
+private func queryDefine(_ word: String) -> String? {
     let mode = UseEntryMode.init(rawValue: UserDefaults.standard.integer(forKey: UseEntryModeKey))!
     switch mode {
     case .notUse:
@@ -52,7 +52,7 @@ func mixDefine(_ word: String) -> String? {
     }
 }
 
-func builtInDefine(_ word: String) -> String? {
+private func builtInDefine(_ word: String) -> String? {
     if let remoteEntry = getRemoteEntry(of: word) {
         // DictionaryServices trans all includes the title word, simulate Apple Dictionary behavior, for consistence for content options.
         return "\(remoteEntry.word!) \(remoteEntry.trans!)"

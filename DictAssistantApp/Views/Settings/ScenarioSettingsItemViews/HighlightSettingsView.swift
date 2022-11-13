@@ -9,49 +9,49 @@ import SwiftUI
 
 struct HighlightSettingsView: View {
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
-    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
+    
+    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
     
     var body: some View {
         VStack(alignment: .leading) {
-            Form { // Form makes it has an auto padding here
-                HStack {
-                    Group {
-                        Picker("Highlight:", selection: $highlightMode) {
-                            Text("Dotted").tag(HighlightMode.dotted.rawValue)
-                            Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
-                            Text("Disabled").tag(HighlightMode.disabled.rawValue)
-                        }
-                        .frame(width: 200)
-                        .pickerStyle(MenuPickerStyle())
-                        
-                        MiniInfoView {
-                            HighlightInfoView()
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Group {
-                        Toggle(isOn: $isAlwaysRefreshHighlight) {
-                            Text("Is always refresh highlight")
-                        }
-                        .disabled(HighlightMode(rawValue: highlightMode)! == .disabled)
-                        
-                        MiniInfoView {
-                            IsAlwaysRefreshHighlightInfoView()
-                        }
-                    }
+            HStack {
+                Picker("Highlight:", selection: $highlightMode) {
+                    Text("Bordered").tag(HighlightMode.bordered.rawValue)
+                    Text("Rectangle").tag(HighlightMode.rectangle.rawValue)
+                    Text("Dotted").tag(HighlightMode.dotted.rawValue)
+                    Text("Disabled").tag(HighlightMode.disabled.rawValue)
+                }
+                .frame(width: 200)
+                .pickerStyle(MenuPickerStyle())
+                
+                MiniInfoView {
+                    HighlightInfoView()
+                }
+                
+                Spacer()
+                
+                Toggle(isOn: $cropperHasShadow) {
+                    Text("Cropper has shadow")
+                }
+                .toggleStyle(CheckboxToggleStyle())
+                
+                MiniInfoView {
+                    CropperHasShadowInfo()
                 }
             }
+            .padding(.top, 3)
+            .padding(.bottom, 3)
             
             switch HighlightMode(rawValue: highlightMode)! {
+            case .bordered:
+                BorderedOptionsView()
+            case .rectangle:
+                RectangleOptionsView()
             case .dotted:
                 VStack(alignment: .leading) {
                     DottedOptionsView()
                     DottedIndexOptionsView()
                 }
-            case .rectangle:
-                RectangleOptionsView()
             case .disabled:
                 EmptyView()
             }
@@ -59,21 +59,38 @@ struct HighlightSettingsView: View {
     }
 }
 
+private struct CropperHasShadowInfo: View {
+    var body: some View {
+        Text("Set this true when you like the window shadow effect. It will persistently rerender the cropper window shadow which will make the highlight shadow always synchronized, thus consumes CPU.")
+            .infoStyle()
+    }
+}
+
 struct HighlightInfoView: View {
     var body: some View {
-        Text("Highlight are subtle in the App, that is because it is drawn on the cropper window which makes the screen recording cropper area messy, it is overlapped, it may cause blink. The cropper window must be the front most when enable highlight otherwise the highlight is covered and hidden. \n\nI recommend using highlight rectangle when reading stream captions, the color should have some dark level and opacity level which somehow is more subtle because it should be balanced between your eyes and the reading scenario which is watching by AI, otherwise it will cause blink. By the way, recognition accurate level is more tolerant with the color than the fast level. \nI recommend using highlight dotted when reading because it is less subtle, but the index feature is more subtle which is better used in reading books scenario, in that case, App snapshot is more useful than normal playing, and there is no blink with snapshot.\n\nAnyhow, you are free. Highlight is subtle, but it is still useful.")
+        Text("Highlights are drawn on the cropper window. It must be on the front most of the screen, otherwise it is covered and invisible.")
             .infoStyle()
     }
 }
 
-struct IsAlwaysRefreshHighlightInfoView: View {
+struct HighlightDottedView: View {
+    @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
+    
     var body: some View {
-        Text("If you check this option, it will continually refresh highlight even when the recognized text is the same but the cropper screen area differs little from last frame, until the frames are the same. This will make the highlight always synced with the text whensoever, but the costs are consuming more CPU and increasing blink odds. \nIf you uncheck this option, highlight sometimes may not be synced with the text, in some cases when the text is the same but the cropper screen area trembled some little position.")
-            .infoStyle()
+        switch HighlightMode(rawValue: highlightMode)! {
+        case .dotted:
+            Group {
+                Divider()
+                HighlightDottedOptionsView()
+                HighlightDottedIndexOptionsView()
+            }
+        default:
+            EmptyView()
+        }
     }
 }
 
-struct HighlightDottedOptionsView: View {
+private struct HighlightDottedOptionsView: View {
     @AppStorage(HLDottedColorKey) var hlDottedColor: Data = colorToData(NSColor.red)!
         
     var binding: Binding<Color> {
@@ -102,14 +119,14 @@ struct HighlightDottedOptionsView: View {
     }
 }
 
-private struct DottedOptionsView: View {
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
+struct DottedOptionsView: View {
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = StrokeDownwardOffsetDefault
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
     func useDefault() {
-        strokeDownwardOffset = 4.0
+        strokeDownwardOffset = StrokeDownwardOffsetDefault
         strokeLineWidth = 3.0
         strokeDashPainted = 1.0
         strokeDashUnPainted = 5.0
@@ -162,7 +179,7 @@ private struct DottedOptionsView: View {
     }
 }
 
-struct HighlightDottedIndexOptionsView: View {
+private struct HighlightDottedIndexOptionsView: View {
     @AppStorage(IndexXBasicKey) var indexXBasic: Int = IndexXBasic.trailing.rawValue
     @AppStorage(IndexColorKey) var indexColor: Data = colorToData(NSColor.windowBackgroundColor)!
     @AppStorage(IndexBgColorKey) var indexBgColor: Data = colorToData(NSColor.labelColor)!
@@ -288,6 +305,46 @@ private struct DottedIndexOptionsView: View {
     }
 }
 
+private struct BorderedOptionsView: View {
+    @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
+    @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
+    
+    var binding: Binding<Color> {
+        Binding(
+            get: { Color(dataToColor(hlBorderedColor)!) },
+            set: { newValue in
+                hlBorderedColor = colorToData(NSColor(newValue))!
+            }
+        )
+    }
+    
+    func useDefault() {
+        hlBorderedStyle = HLBorderedStyleDefault
+        hlBorderedColor = HLBorderedColorDefault
+    }
+    
+    var body: some View {
+        HStack {
+            Picker("Style:", selection: $hlBorderedStyle) {
+                Text("light").tag(HLBorderedStyle.light.rawValue)
+                Text("regular").tag(HLBorderedStyle.regular.rawValue)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 150)
+            
+            Spacer()
+            
+            ColorPicker("Color:", selection: binding)
+            
+            Spacer()
+            
+            Button(action: useDefault) {
+                Image(systemName: "arrow.triangle.2.circlepath")
+            }
+        }
+    }
+}
+
 private struct RectangleOptionsView: View {
     @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
     
@@ -306,11 +363,13 @@ private struct RectangleOptionsView: View {
     
     var body: some View {
         HStack {
-            Text("Highlight Rectangle:")
-            
-            Spacer()
-            
-            ColorPicker("Color:", selection: binding)
+            Group {
+                ColorPicker("Color:", selection: binding)
+                
+                MiniInfoView {
+                    HLRectangleInfoView()
+                }
+            }
             
             Spacer()
             
@@ -321,11 +380,20 @@ private struct RectangleOptionsView: View {
     }
 }
 
+struct HLRectangleInfoView: View {
+    var body: some View {
+        Text("Rectangle highlight color should have some opacity level, otherwise it will make the text below covered and invisible.")
+            .infoStyle()
+    }
+}
+
 struct HighlightSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             HighlightInfoView()
-            IsAlwaysRefreshHighlightInfoView()
+            HLRectangleInfoView()
+            
+            CropperHasShadowInfo()
         }
     }
 }

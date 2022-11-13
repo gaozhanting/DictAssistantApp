@@ -92,7 +92,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowContentFrame)
                 KeyboardShortcuts.Recorder(for: .toggleContentFrame)
                 MiniInfoView {
-                    Text("recommend: Option-F\nThis option belongs to scenario.").font(.subheadline).padding()
+                    Text("recommend: Option-F\nThis option belongs to scene.").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -102,7 +102,7 @@ private struct KeyRecordingView: View {
                 ContentInnerLayoutTagView()
                 KeyboardShortcuts.Recorder(for: .switchLayout)
                 MiniInfoView {
-                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait; or scroll, centered when landscape. And whether it is landscape or portrait depends on which is bigger of the content window, width(landscape) or hight(portrait).\nThis option belongs to scenario.")
+                    Text("recommend: Option-L\nSwitch content layout between top, topTrailing, topLeading and bottom when portrait; or scroll, centered when landscape. And whether it is landscape or portrait depends on which is bigger of the content window, width(landscape) or hight(portrait).\nThis option belongs to scene.")
                         .infoStyle()
                 }
             }
@@ -112,7 +112,7 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isAddLineBreak)
                 KeyboardShortcuts.Recorder(for: .toggleAddLineBreak)
                 MiniInfoView {
-                    Text("recommend: Option-B\nThis option belongs to scenario.").font(.subheadline).padding()
+                    Text("recommend: Option-B\nThis option belongs to scene.").font(.subheadline).padding()
                 }
             }
             HStack {
@@ -149,7 +149,8 @@ private struct KeyRecordingView: View {
                 Toggle("", isOn: $isShowNotFound)
                 KeyboardShortcuts.Recorder(for: .toggleShowNotFound)
                 MiniInfoView {
-                    Text("recommend: Option-3").font(.subheadline).padding()
+                    Text("recommend: Option-3\nSet this true will still show the word which cannot be found in the dictionary.")
+                        .infoStyle()
                 }
             }
             HStack {
@@ -178,17 +179,9 @@ private struct KeyRecordingView: View {
     var g3: some View {
         Group {
             HStack {
-                Text("Run swift play")
+                Text("Run snapshot")
                 Spacer()
-                KeyboardShortcuts.Recorder(for: .runQuickPlay)
-                MiniInfoView {
-                    Text("recommend: Option-S").font(.subheadline).padding()
-                }
-            }
-            HStack {
-                Text("Run cheap snapshot")
-                Spacer()
-                KeyboardShortcuts.Recorder(for: .runCheapSnapshot)
+                KeyboardShortcuts.Recorder(for: .runSnapshot)
                 MiniInfoView {
                     Text("recommend: Option-C").font(.subheadline).padding()
                 }

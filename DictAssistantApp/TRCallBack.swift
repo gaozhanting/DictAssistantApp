@@ -14,10 +14,14 @@ var trTextsCache: [String] = []
 // highlight need
 var primitiveWordCellCache: [WordCellWithToken] = []
 
+// when cache not diff, don't refresh highlight UI
+var indexedBoxesCache: [IndexedBox] = []
+
 // other refreshing action
 func trCallBack() {
     trTextsCache = []
     primitiveWordCellCache = []
+    indexedBoxesCache = []
     trCallBackWithCache()
 }
 
@@ -44,6 +48,7 @@ func trCallBackWithCache() {
 //        return
 //    }
     
+    // Bug, when first start, the results is empty? Why?
     guard let trResults = aVSessionAndTR.results else {
         logger.info("trCallBackWithCache: aVSessionAndTR results is empty")
         return
@@ -58,10 +63,6 @@ func trCallBackWithCache() {
     
     // We mutate primitiveWordCellCache
     func retriveBoxesAndsyncIndices() -> [IndexedBox] {
-        if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: HighlightModeKey))! == .disabled {
-            return []
-        }
-        
         let unKnownWords = primitiveWordCellCache.filter{ $0.isKnown == .unKnown }.map{ $0.word }.removeDuplicates()
         
         var iboxes: [IndexedBox] = []
@@ -100,31 +101,8 @@ func trCallBackWithCache() {
                                 }
                             }
                             
-                            if HighlightMode(rawValue: UserDefaults.standard.integer(forKey: HighlightModeKey))! == .dotted {
-                                collect()
-                            } else {
-                                // when rectangle highlight: overlap cause color overlap, which will cause blink
-                                let overlappedWithCurrents = iboxes.map{ $0.box }.contains{ currentBox in
-                                    let rect = CGRect(
-                                        x: box.0.x,
-                                        y: 1 - box.0.y,
-                                        width: abs(box.1.x - box.0.x),
-                                        height: abs(box.1.y - box.0.y)
-                                    )
-                                    
-                                    let currentRect = CGRect(
-                                        x: currentBox.0.x,
-                                        y: 1 - currentBox.0.y,
-                                        width: abs(currentBox.1.x - currentBox.0.x),
-                                        height: abs(currentBox.1.y - currentBox.0.y)
-                                    )
-                                    
-                                    return rect.intersects(currentRect)
-                                }
-                                if !overlappedWithCurrents {
-                                    collect()
-                                }
-                            }
+                            collect()
+
                         } else {
                             logger.info("candidate.boundingBox is nil")
                         }
@@ -147,17 +125,21 @@ func trCallBackWithCache() {
     }
     
     func refreshHighlightUI() {
-        hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
+        indexedBoxesCache = retriveBoxesAndsyncIndices()
+        if !hlBox.indexedBoxes.elementsEqual(indexedBoxesCache) {
+            logger.info("refreshHighlightUI executed, cache diff")
+            hlBox.indexedBoxes = indexedBoxesCache
+        }
+        logger.info("hasShadow = \(UserDefaults.standard.bool(forKey: CropperHasShadowKey)) ")
+        if UserDefaults.standard.bool(forKey: CropperHasShadowKey) { // seems resolve shadow bug, but cpu not to 0
+            cropperWindow.invalidateShadow()
+        }
     }
     
     // This is why we use this cache, to prevent duplicate nlp work, and prevent duplicate nlp logs
     if trTexts.elementsEqual(trTextsCache) {
-        if UserDefaults.standard.bool(forKey: IsAlwaysRefreshHighlightKey) {
-            // We run highlight even when trTexts not changed, for example: youtube pause cause its subtitle texts moved although texts not changed.
-            refreshHighlightUI()
-        } else {
-            // ! Not doing this can avoid many Blink, for example: reading
-        }
+        logger.info(">>> refreshHighlightUI only")
+        refreshHighlightUI()
         return
     } else {
         trTextsCache = trTexts
@@ -168,7 +150,8 @@ func trCallBackWithCache() {
     primitiveWordCellCache = processed.map { tagWord($0) }
     
     func refreshUI() {
-        hlBox.indexedBoxes = retriveBoxesAndsyncIndices()
+        logger.info(">>> refreshUI")
+        refreshHighlightUI()
         let wordCells = primitiveWordCellCache.map { wc2 in
             WordCell(word: wc2.word.lemma, isKnown: wc2.isKnown, trans: wc2.trans, index: wc2.index)
         }

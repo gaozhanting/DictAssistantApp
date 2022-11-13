@@ -31,12 +31,21 @@ let CropperStyleKey = "CropperStyleKey"
 let CropperStyleDefault = CropperStyle.strokeBorder.rawValue
 
 let HighlightModeKey = "HighlightModeKey"
-let HighlightModeDefault = HighlightMode.disabled.rawValue
+let HighlightModeDefault = HighlightMode.bordered.rawValue
+
+let CropperHasShadowKey = "CropperHasShadowKey"
+let CropperHasShadowDefault = false
+
+let HLBorderedStyleKey = "HLBorderedStyleKey"
+let HLBorderedStyleDefault = HLBorderedStyle.light.rawValue
+let HLBorderedColorKey = "HLBorderedColorKey"
+let HLBorderedColorDefault = colorToData(NSColor.systemRed)!
 
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
 
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
+let StrokeDownwardOffsetDefault = 0.0
 let HLDottedColorKey = "HLDottedColorKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
 let StrokeDashPaintedKey = "StrokeDashPaintedKey"
@@ -50,13 +59,13 @@ let IndexPaddingKey = "IndexPaddingKey"
 let IndexXBasicKey = "IndexXBasicKey"
 let IndexFontSizeKey = "IndexFontSizeKey"
 
-let IsAlwaysRefreshHighlightKey = "IsAlwaysRefreshHighlightKey"
-
 // Screen Recording
 let MaximumFrameRateKey = "MaximumFrameRateKey"
+let MaximumFrameRateDefault: Int = 3
 
 // Vision
 let RecognitionLevelKey = "RecognitionLevelKey"
+let RecognitionLevelDefault = VNRequestTextRecognitionLevel.accurate.rawValue // fast 1, accurate 0
 let MinimumTextHeightKey = "MinimumTextHeightKey"
 let ZeroDefaultMinimumTextHeight: Double = 0.0
 let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
@@ -92,7 +101,9 @@ let LineSpacingKey = "LineSpacingKey"
 let FontRatioKey = "FontRatioKey"
 
 let WordColorKey = "WordColorKey"
+let WordColorDefault = colorToData(NSColor.labelColor)!
 let TransColorKey = "TransColorKey"
+let TransColorDefault = colorToData(NSColor.secondaryLabelColor)!
 let BackgroundColorKey = "BackgroundColorKey"
 let BackgroundColorDefault = colorToData(NSColor.textBackgroundColor)!
 
@@ -100,9 +111,12 @@ let ContentHasShadowKey = "ContentHasShadowKey"
 let ContentHasShadowDefault = false
 
 let UseContentBackgroundVisualEffectKey = "UseContentBackgroundVisualEffectKey"
+let UseContentBackgroundVisualEffectDefault = false
 let ContentBackGroundVisualEffectMaterialKey = "ContentBackGroundVisualEffectMaterialKey"
+let ContentBackGroundVisualEffectMaterialDefault = NSVisualEffectView.Material.titlebar.rawValue
 
 let TheColorSchemeKey = "TheColorSchemeKey"
+let TheColorSchemeDefault = TheColorScheme.system.rawValue
 
 let ContentPaddingStyleKey = "ContentPaddingStyleKey"
 // minimalist
@@ -111,25 +125,28 @@ let MinimalistHPaddingKey = "MinimalistHPaddingKey"
 
 let IsWithAnimationKey = "IsWithAnimationKey"
 
-let CropperHasShadowKey = "CropperHasShadowKey"
-let CropperHasShadowDefault = true
-
 // Enums
 enum ContentPaddingStyle: Int, Codable {
-    case standard
-    case minimalist
+    case standard = 0
+    case minimalist = 1
 }
 
 enum HighlightMode: Int, Codable {
-    case dotted
-    case rectangle
-    case disabled
+    case bordered = 0
+    case rectangle = 1
+    case dotted = 2
+    case disabled = 3
+}
+
+enum HLBorderedStyle: Int, Codable {
+    case light = 0
+    case regular = 1
 }
 
 enum IndexXBasic: Int, Codable {
-    case leading
-    case center
-    case trailing
+    case leading = 0
+    case center = 1
+    case trailing = 2
 }
 
 enum CropperStyle: Int, Codable {
@@ -194,7 +211,7 @@ enum TheColorScheme: Int, Codable {
 
 // in slot defaults
 // !! Need sync with var defaultSettings in SlotsSettingsView
-private let scenarioKV: [String: Any] = [
+private let sceneKV: [String: Any] = [
     IsShowContentFrameKey: true,
     
     PortraitCornerKey: PortraitCornerDefault,
@@ -208,36 +225,46 @@ private let scenarioKV: [String: Any] = [
     MinimalistVPaddingKey: 2.0,
     MinimalistHPaddingKey: 6.0,
     
+    WordColorKey: WordColorDefault,
+    TransColorKey: TransColorDefault,
+    BackgroundColorKey: BackgroundColorDefault,
+    ContentHasShadowKey: ContentHasShadowDefault,
+    UseContentBackgroundVisualEffectKey: UseContentBackgroundVisualEffectDefault,
+    ContentBackGroundVisualEffectMaterialKey: ContentBackGroundVisualEffectMaterialDefault,
+    TheColorSchemeKey: TheColorSchemeDefault,
+    
     FontSizeKey: 14,
     LineSpacingKey: 2.0,
     
     CropperStyleKey: CropperStyleDefault,
     
-    RecognitionLevelKey: VNRequestTextRecognitionLevel.fast.rawValue,
+    RecognitionLevelKey: RecognitionLevelDefault,
     MinimumTextHeightKey: ZeroDefaultMinimumTextHeight,
     UsesLanguageCorrectionKey: false,
     
-    MaximumFrameRateKey: 4.0,
+    MaximumFrameRateKey: MaximumFrameRateDefault,
     IsOpenLemmaKey: false,
     IsShowToastKey: true,
     
     HighlightModeKey: HighlightModeDefault,
+    CropperHasShadowKey: CropperHasShadowDefault,
+    
+    HLBorderedStyleKey: HLBorderedStyleDefault,
+    HLBorderedColorKey: HLBorderedColorDefault,
     
     HLRectangleColorKey: HLRectangleColorDefault,
     
     IsShowIndexKey: false,
-    StrokeDownwardOffsetKey: 5.0,
+    StrokeDownwardOffsetKey: StrokeDownwardOffsetDefault,
     StrokeLineWidthKey: 1.6,
     StrokeDashPaintedKey: 1.0,
     StrokeDashUnPaintedKey: 3.0,
     IndexPaddingKey: 1.5,
     IndexFontSizeKey: 5,
-    
-    IsAlwaysRefreshHighlightKey: false,
 ]
 
 // all defaults
-private let universalKV: [String: Any] = scenarioKV.merging([
+private let universalKV: [String: Any] = sceneKV.merging([
     IsFinishedOnboardingKey: false,
     
     IsShowKnownKey: false,
@@ -257,19 +284,7 @@ private let universalKV: [String: Any] = scenarioKV.merging([
     FontNameKey: defaultFontName,
     FontRatioKey: 0.9,
 
-    WordColorKey: colorToData(NSColor.labelColor)!,
-    TransColorKey: colorToData(NSColor.secondaryLabelColor)!,
-    BackgroundColorKey: BackgroundColorDefault,
-    
-    ContentHasShadowKey: ContentHasShadowDefault,
-    UseContentBackgroundVisualEffectKey: false,
-    ContentBackGroundVisualEffectMaterialKey: NSVisualEffectView.Material.titlebar.rawValue,
-    
-    TheColorSchemeKey: TheColorScheme.system.rawValue,
-    
     IsWithAnimationKey: true,
-    
-    CropperHasShadowKey: CropperHasShadowDefault,
     
     HLDottedColorKey: colorToData(NSColor.red)!,
     
@@ -307,8 +322,8 @@ extension UserDefaults {
         set { set(newValue, forKey: "CropperStyleKey") }
     }
 
-    @objc var MaximumFrameRateKey: Double {
-        get { return double(forKey: "MaximumFrameRateKey") }
+    @objc var MaximumFrameRateKey: Int {
+        get { return integer(forKey: "MaximumFrameRateKey") }
         set { set(newValue, forKey: "MaximumFrameRateKey") }
     }
     @objc var RecognitionLevelKey: Int {
@@ -381,6 +396,35 @@ extension UserDefaults {
         set { set(newValue, forKey: "MinimalistHPaddingKey") }
     }
     
+    @objc var WordColorKey: Data {
+        get { return data(forKey: "WordColorKey")! }
+        set { set(newValue, forKey: "WordColorKey") }
+    }
+    @objc var TransColorKey: Data {
+        get { return data(forKey: "TransColorKey")! }
+        set { set(newValue, forKey: "TransColorKey") }
+    }
+    @objc var BackgroundColorKey: Data {
+        get { return data(forKey: "BackgroundColorKey")! }
+        set { set(newValue, forKey: "BackgroundColorKey") }
+    }
+    @objc var ContentHasShadowKey: Bool {
+        get { return bool(forKey: "ContentHasShadowKey") }
+        set { set(newValue, forKey: "ContentHasShadowKey") }
+    }
+    @objc var UseContentBackgroundVisualEffectKey: Bool {
+        get { return bool(forKey: "UseContentBackgroundVisualEffectKey") }
+        set { set(newValue, forKey: "UseContentBackgroundVisualEffectKey") }
+    }
+    @objc var ContentBackGroundVisualEffectMaterialKey: Int {
+        get { return integer(forKey: "ContentBackGroundVisualEffectMaterialKey") }
+        set { set(newValue, forKey: "ContentBackGroundVisualEffectMaterialKey") }
+    }
+    @objc var TheColorSchemeKey: Int {
+        get { return integer(forKey: "TheColorSchemeKey") }
+        set { set(newValue, forKey: "TheColorSchemeKey") }
+    }
+    
     @objc var FontSizeKey: Int {
         get { return integer(forKey: "FontSizeKey") }
         set { set(newValue, forKey: "FontSizeKey") }
@@ -403,6 +447,19 @@ extension UserDefaults {
     @objc var HighlightModeKey: Int {
         get { return integer(forKey: "HighlightModeKey") }
         set { set(newValue, forKey: "HighlightModeKey") }
+    }
+    @objc var CropperHasShadowKey: Bool {
+        get { return bool(forKey: "CropperHasShadowKey") }
+        set { set(newValue, forKey: "CropperHasShadowKey") }
+    }
+
+    @objc var HLBorderedStyleKey: Int {
+        get { return integer(forKey: "HLBorderedStyleKey") }
+        set { set(newValue, forKey: "HLBorderedStyleKey") }
+    }
+    @objc var HLBorderedColorKey: Data {
+        get { return data(forKey: "HLBorderedColorKey")! }
+        set { set(newValue, forKey: "HLBorderedColorKey") }
     }
     @objc var HLRectangleColorKey: Data {
         get { return data(forKey: "HLRectangleColorKey")! }
@@ -435,15 +492,6 @@ extension UserDefaults {
     @objc var IndexFontSizeKey: Int {
         get { return integer(forKey: "IndexFontSizeKey") }
         set { set(newValue, forKey: "IndexFontSizeKey") }
-    }
-    @objc var IsAlwaysRefreshHighlightKey: Bool {
-        get { return bool(forKey: "IsAlwaysRefreshHighlightKey") }
-        set { set(newValue, forKey: "IsAlwaysRefreshHighlightKey") }
-    }
-    
-    @objc var CropperHasShadowKey: Bool {
-        get { return bool(forKey: "CropperHasShadowKey") }
-        set { set(newValue, forKey: "CropperHasShadowKey") }
     }
 }
 
@@ -564,13 +612,11 @@ func combineHighlight() {
     UserDefaults.standard
         .publisher(for: \.HighlightModeKey)
         .handleEvents(receiveOutput: { _ in
-            trCallBack()
+            hlBox.indexedBoxes = indexedBoxesCache // force refresh highlight UI
         })
         .sink { _ in }
         .store(in: &subscriptions)
-}
-
-func combineCropperHasShadow() {
+        
     UserDefaults.standard
         .publisher(for: \.CropperHasShadowKey)
         .handleEvents(receiveOutput: { cropperHasShadow in
@@ -579,6 +625,14 @@ func combineCropperHasShadow() {
             } else {
                 cropperWindow.hasShadow = false
             }
+        })
+        .sink { _ in }
+        .store(in: &subscriptions)
+    
+    UserDefaults.standard
+        .publisher(for: \.HLBorderedStyleKey)
+        .handleEvents(receiveOutput: { _ in
+            hlBox.indexedBoxes = indexedBoxesCache // force refresh highlight UI
         })
         .sink { _ in }
         .store(in: &subscriptions)
@@ -595,6 +649,14 @@ func autoSaveSlotSettings() {
     combineSlot(\.ContentPaddingStyleKey, \.contentPaddingStyle, ContentPaddingStyleKey)
     combineSlot(\.MinimalistVPaddingKey, \.minimalistVPadding, MinimalistVPaddingKey)
     combineSlot(\.MinimalistHPaddingKey, \.minimalistHPadding, MinimalistHPaddingKey)
+    
+    combineSlot(\.WordColorKey, \.wordColor, WordColorKey)
+    combineSlot(\.TransColorKey, \.transColor, TransColorKey)
+    combineSlot(\.BackgroundColorKey, \.backgroundColor, BackgroundColorKey)
+    combineSlot(\.ContentHasShadowKey, \.contentHasShadow, ContentHasShadowKey)
+    combineSlot(\.UseContentBackgroundVisualEffectKey, \.useContentBackgroundVisualEffect, UseContentBackgroundVisualEffectKey)
+    combineSlot(\.ContentBackGroundVisualEffectMaterialKey, \.contentBackGroundVisualEffectMaterial, ContentBackGroundVisualEffectMaterialKey)
+    combineSlot(\.TheColorSchemeKey, \.theColorScheme, TheColorSchemeKey)
     
     combineSlot(\.FontSizeKey, \.fontSize, FontSizeKey)
     combineSlot(\.LineSpacingKey, \.lineSpacing, LineSpacingKey)
@@ -613,7 +675,10 @@ func autoSaveSlotSettings() {
     combineSlot(\.IsAddLineBreakKey, \.isAddLineBreak, IsAddLineBreakKey)
     
     combineSlot(\.HighlightModeKey, \.highlightMode, HighlightModeKey)
-    combineSlot(\.HLRectangleColorKey, \.hLRectangleColor, HLRectangleColorKey)
+    combineSlot(\.CropperHasShadowKey, \.cropperHasShadow, CropperHasShadowKey)
+    combineSlot(\.HLBorderedStyleKey, \.hlBorderedStyle, HLBorderedStyleKey)
+    combineSlot(\.HLBorderedColorKey, \.hlBorderedColor, HLBorderedColorKey)
+    combineSlot(\.HLRectangleColorKey, \.hlRectangleColor, HLRectangleColorKey)
     combineSlot(\.IsShowIndexKey, \.isShowIndex, IsShowIndexKey)
     combineSlot(\.StrokeDownwardOffsetKey, \.strokeDownwardOffset, StrokeDownwardOffsetKey)
     combineSlot(\.StrokeLineWidthKey, \.strokeLineWidth, StrokeLineWidthKey)
@@ -621,7 +686,6 @@ func autoSaveSlotSettings() {
     combineSlot(\.StrokeDashUnPaintedKey, \.strokeDashUnPainted, StrokeDashUnPaintedKey)
     combineSlot(\.IndexPaddingKey, \.indexPadding, IndexPaddingKey)
     combineSlot(\.IndexFontSizeKey, \.indexFontSize, IndexFontSizeKey)
-    combineSlot(\.IsAlwaysRefreshHighlightKey, \.isAlwaysRefreshHighlight, IsAlwaysRefreshHighlightKey)
 }
 
 private func combineSlot<T>(

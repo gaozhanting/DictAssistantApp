@@ -296,6 +296,10 @@ private struct TheText: View {
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
     var indexText: Text {
         switch HighlightMode(rawValue: highlightMode)! {
+        case .bordered:
+            return Text("")
+        case .rectangle:
+            return Text("")
         case .dotted:
             if !isShowIndex {
                 return Text("").foregroundColor(iColor).font(indexFont)
@@ -305,8 +309,6 @@ private struct TheText: View {
             } else {
                 return Text("\(wordCell.index) ").foregroundColor(iColor).font(indexFont)
             }
-        case .rectangle:
-            return Text("")
         case .disabled:
             return Text("")
         }

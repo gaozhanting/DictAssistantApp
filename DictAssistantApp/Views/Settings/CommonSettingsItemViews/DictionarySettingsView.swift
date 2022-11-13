@@ -14,7 +14,7 @@ struct UseAppleDictModePicker: View {
     
     var body: some View {
         HStack {
-            Text("Use apple dict mode")
+            Text("Use Apple Dictionary mode")
             Spacer()
             Picker("", selection: $useAppleDictMode) {
                 Text("not use").tag(UseAppleDictMode.notUse.rawValue)
@@ -34,7 +34,7 @@ struct UseAppleDictModePicker: View {
 
 private struct UseAppleDictModeInfoView: View {
     var body: some View {
-        Text("Builtin dictionary and Apple dictionary makes up our local dictionary database.")
+        Text("Builtin dictionary and Apple Dictionary makes up our local dictionary database.")
             .infoStyle()
     }
 }
@@ -64,7 +64,7 @@ struct UseEntryModePicker: View {
 
 private struct UseEntryModeInfoView: View {
     var body: some View {
-        Text("Note, if you unselected Is open lemma Option in Scenario Tab, and at the same time the lemma of your custom entry word can't be found, then it still can't be shown. \nYour entries is just another dictionary.")
+        Text("Note, if you unselected Is open lemma Option in Scene Tab, and at the same time the lemma of your custom entry word can't be found, then it still can't be shown. \nYour entries is just another dictionary.")
             .infoStyle()
     }
 }

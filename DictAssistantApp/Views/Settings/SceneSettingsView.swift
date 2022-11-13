@@ -1,194 +1,77 @@
 //
-//  AppearanceSettingsView.swift
+//  SceneSettingsView.swift
 //  DictAssistantApp
 //
-//  Created by Gao Cong on 2021/7/23.
+//  Created by Gao Cong on 2021/12/19.
 //
 
 import SwiftUI
-import Preferences
 
-struct AppearanceSettingsView: View {
-    var g1: some View {
-        Group {
-            FontSettingView()
-            FontRatioSetting()
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
-    var g2: some View {
-        Group {
-            ColorPickers()
-            
-            ContentHasShadowToggle()
-            ContentBackgroundVisualEffect()
-            ColorSchemeSetting()
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
-    var g3: some View {
-        Group {
-            WithAnimationToggle()
-            CropperHasShadowToggle()
-            ChineseCharacterConvertingPicker()
-            
-            Spacer().frame(height: 20)
-            Divider()
-        }
-    }
-    
-    var g4: some View {
-        Group {
-            HighlightDottedOptionsView()
-            HighlightDottedIndexOptionsView()
-        }
-    }
-    
+struct SceneSettingsView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            g1
-            g2
-            g3
-            g4
+            SelectedSlotView(imageFont: .title, textFont: .callout)
+            GroupBox {
+                VStack(alignment: .leading) {
+                    RecognitionLevelSetting()
+                    MaximumFrameRateSetting()
+                }
+            }
+            .overlay(
+                QuestionMarkView {
+                    ImportantInfoView()
+                }, alignment: .bottomTrailing)
+            GroupBox {
+                VStack(alignment: .leading) {
+                    MinimumTextHeightSetting()
+                    UsesLanguageCorrectionToggle()
+                    IsOpenLemmaToggle()
+                }
+            }
+            GroupBox {
+                FontConfigView()
+                ContentMaxSettingsView()
+            }
+            GroupBox {
+                ColorPickers()
+                
+                ContentHasShadowToggle()
+                ContentBackgroundVisualEffect()
+                ColorSchemeSetting()
+            }
+            ContentPaddingStyleSettingsView()
+            CropperStyleSettingView()
+            IsShowToastView()
+            Divider()
+            HighlightSettingsView()
         }
         .padding()
         .frame(width: panelWidth)
     }
 }
 
-struct FontSizeSettingView: View {
-    @AppStorage(FontSizeKey) var fontSize: Int = 14
-    
-    func onIncrement() {
-        fontSize += 1
-    }
-    
-    func onDecrement() {
-        fontSize -= 1
-        if fontSize < 0 {
-            fontSize = 0
-        }
-    }
-    
+private struct ImportantInfoView: View {
     var body: some View {
-        HStack {
-            Text("Font size:")
-            TextField("", value: $fontSize, formatter: tfIntegerFormatter).frame(width: tfWidth)
-            Stepper(onIncrement: onIncrement, onDecrement: onDecrement) {}
-        }
+        Text("This is the big deal of the App. Recognition Level, FPS, and text amount of the scene must be matched. \n\nFor dealing with large amount of text, you should select the level fast, or set FPS small. For example when the scene is reading books, you could set level accurate for different text font, BUT FPS 1 for a mild stream. Otherwise, it may get stuck and not working, because the lifting is so heavy for real time processing.")
+            .font(.callout)
+            .padding()
+            .frame(width: 400)
     }
 }
 
-struct FontLineSpacingSettingView: View {
-    @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
-
-    var body: some View {
-        HStack {
-            Text("Font line spacing:")
-            TextField("", value: $lineSpacing, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
-        }
-    }
-}
-
-private struct FontSettingView: View {
-    @AppStorage(FontNameKey) var fontName: String = defaultFontName
-    let fixedFontSize: Int = 13
-    
-    var font: NSFont {
-        if let font = NSFont(name: fontName, size: CGFloat(fixedFontSize)) {
-            return font
-        } else {
-            print("construct 3 font failed: with name:\(fontName), with size:\(fixedFontSize)") // occured when changing default system font size; the FontPanel can't reflect the system font which is unkown why.
-            return NSFont.systemFont(ofSize: 14.0)
-        }
-    }
-
-    func showFontPanel(_ sender: Any?) {
-        NSFontManager.shared.setSelectedFont(font, isMultiple: false)
-        NSApplication.shared.activate(ignoringOtherApps: true)
-        NSFontManager.shared.orderFrontFontPanel(sender) // why the FontPanel has no system Font (same as CotEditor), but Apple Notes FontPanel does have.
-    }
-    
-    var showFont: Font {
-        return Font.custom(fontName, size: CGFloat(fixedFontSize))
-    }
-    
-    func useDefault() {
-        fontName = defaultFontName
-    }
+struct ContentMaxSettingsView: View {
+    @AppStorage(PortraitMaxHeightKey) var portraitMaxHeight: Double = PortraitMaxHeightDefault
+    @AppStorage(LandscapeMaxWidthKey) var landscapeMaxWidth: Double = LandscapeMaxWidthDefault
     
     var body: some View {
         HStack {
-            Text("Font:")
-            TextField("", text: Binding.constant("\(fontName)"))
-                .font(showFont)
-                .disabled(true)
-                .textFieldStyle(SquareBorderTextFieldStyle())
+            Text("Max height per entry:")
+            TextField("", value: $portraitMaxHeight, formatter: tfDecimalFormatter).frame(width: tfWidth)
             
-            Button("Select...") {
-                showFontPanel(nil)
-            }
+            Spacer()
             
-            Button(action: useDefault) {
-                Image(systemName: "arrow.triangle.2.circlepath")
-            }
-            
-            MiniInfoView {
-                FontInfoView()
-            }
-        }
-    }
-}
-
-private struct FontInfoView: View {
-    var body: some View {
-        Text("Here is only the font name you select from, not font size which is under the Scenario Tab. \nNote there is an issue: when other TextField is focused, changing font will not work, in that case, you could switch tabs and back.")
-            .infoStyle()
-    }
-}
-
-private struct FontRatioSetting: View {
-    @AppStorage(FontRatioKey) var fontRatio: Double = 0.9
-    
-    func incrementStep() {
-        fontRatio += 0.01
-        if fontRatio > 1 {
-            fontRatio = 1
-        }
-    }
-    
-    func decrementStep() {
-        fontRatio -= 0.01
-        if fontRatio < 0 {
-            fontRatio = 0
-        }
-    }
-    
-    var body: some View {
-        HStack {
-            Text("Font size - Trans/Word ratio:")
-            
-            Slider(
-                value: $fontRatio,
-                in: 0...2
-            )
-            
-            TextField("", value: $fontRatio, formatter: {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .decimal
-                formatter.minimum = 0
-                formatter.maximum = 2
-                return formatter
-            }())
-                .frame(width: tfWidth)
-            
-            Stepper(onIncrement: incrementStep, onDecrement: decrementStep) {}
+            Text("Max width per entry:")
+            TextField("", value: $landscapeMaxWidth, formatter: tfDecimalFormatter).frame(width: tfWidth)
         }
     }
 }
@@ -254,6 +137,8 @@ private struct ContentHasShadowToggle: View {
                 Text("Content has shadow")
             }
             .toggleStyle(CheckboxToggleStyle())
+            
+            Spacer()
         }
     }
 }
@@ -339,40 +224,83 @@ private struct ColorSchemeInfo: View {
     }
 }
 
-private struct WithAnimationToggle: View {
-    @AppStorage(IsWithAnimationKey) var isWithAnimation: Bool = true
+private struct ContentPaddingStyleSettingsView: View {
+    @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
+    @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
+    @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
     
     var body: some View {
         HStack {
-            Toggle(isOn: $isWithAnimation, label: {
-                Text("With animation")
-            })
-            .toggleStyle(CheckboxToggleStyle())
-        }
-    }
-}
-
-private struct CropperHasShadowToggle: View {
-    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
-    
-    var body: some View {
-        HStack {
-            Toggle(isOn: $cropperHasShadow) {
-                Text("Cropper has shadow")
+            Picker("Content padding style:", selection: $contentPaddingStyle) {
+                Text("standard").tag(ContentPaddingStyle.standard.rawValue)
+                Text("minimalist").tag(ContentPaddingStyle.minimalist.rawValue)
             }
-            .toggleStyle(CheckboxToggleStyle())
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 250)
+            
+            Spacer()
+            
+            if ContentPaddingStyle(rawValue: contentPaddingStyle) == .minimalist {
+                Group {
+                    Text("Bpad:")
+                    TextField("", value: $minimalistVPadding, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
+                    
+                    Text("Hpad:")
+                    TextField("", value: $minimalistHPadding, formatter: tfDecimalFormatter).frame(width: tfSmallWidth)
+                    
+                    Button(action: {
+                        minimalistVPadding = 2.0
+                        minimalistHPadding = 6.0
+                    }) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                    }
+                }
+            }
         }
     }
 }
 
-struct AppearanceSettingView_Previews: PreviewProvider {
+private struct CropperStyleSettingView: View {
+    @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
+
+    var body: some View {
+        Picker("Cropper style:", selection: $cropperStyle) {
+            Text("empty").tag(CropperStyle.empty.rawValue)
+            Text("rectangle").tag(CropperStyle.rectangle.rawValue)
+            Text("strokeBorder").tag(CropperStyle.strokeBorder.rawValue)
+            
+            Divider()
+            
+            Text("leadingBorder").tag(CropperStyle.leadingBorder.rawValue)
+            Text("trailingBorder").tag(CropperStyle.trailingBorder.rawValue)
+            Text("topBorder").tag(CropperStyle.topBorder.rawValue)
+            Text("bottomBorder").tag(CropperStyle.bottomBorder.rawValue)
+        }
+        .pickerStyle(MenuPickerStyle())
+        .frame(width: 250)
+    }
+}
+
+private struct IsShowToastView: View {
+    @AppStorage(IsShowToastKey) var isShowToast: Bool = true
+    
+    var body: some View {
+        Toggle(isOn: $isShowToast, label: {
+            Text("Show toast")
+        })
+        .toggleStyle(CheckboxToggleStyle())
+    }
+}
+
+struct SceneSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppearanceSettingsView()
+            SceneSettingsView()
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
+            
+            ImportantInfoView()
             
             ColorSchemeInfo()
-            
-            FontInfoView()
         }
     }
 }

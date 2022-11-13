@@ -9,44 +9,33 @@ import SwiftUI
 import Preferences
 
 extension Preferences.PaneIdentifier {
-    static let scenario = Self("scenario")
-    static let language = Self("language")
+    static let scene = Self("scene")
+    static let common = Self("common")
     static let appearance = Self("appearance")
     static let shortcuts = Self("shortcuts")
     static let slots = Self("slots")
 }
 
-func ScenarioPreferenceViewController() -> PreferencePane {
+func ScenePreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .scenario,
-        title: NSLocalizedString("Scenario", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "gear", accessibilityDescription: "Scenario preferences")!
+        identifier: .scene,
+        title: NSLocalizedString("Scene", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "shippingbox.fill", accessibilityDescription: "Scene preferences")!
     ) {
-        ScenarioSettingsView()
+        SceneSettingsView()
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
     }
     
     return Preferences.PaneHostingController(pane: paneView)
 }
 
-func LanguagePreferenceViewController() -> PreferencePane {
+func CommonPreferenceViewController() -> PreferencePane {
     let paneView = Preferences.Pane(
-        identifier: .language,
-        title: NSLocalizedString("Language", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Language preferences")!
+        identifier: .common,
+        title: NSLocalizedString("Common", comment: ""),
+        toolbarIcon: NSImage(systemSymbolName: "building.columns", accessibilityDescription: "Common preferences")!
     ) {
-        LanguageSettingsView()
-    }
-
-    return Preferences.PaneHostingController(pane: paneView)
-}
-
-func AppearancePreferenceViewController() -> PreferencePane {
-    let paneView = Preferences.Pane(
-        identifier: .appearance,
-        title: NSLocalizedString("Appearance", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "Appearance preferences")!
-    ) {
-        AppearanceSettingsView()
+        CommonSettingsView()
     }
 
     return Preferences.PaneHostingController(pane: paneView)
@@ -69,7 +58,7 @@ func SlotsPreferenceViewController(managedObjectContext: NSManagedObjectContext)
     let paneView = Preferences.Pane(
         identifier: .slots,
         title: NSLocalizedString("Slots", comment: ""),
-        toolbarIcon: NSImage(systemSymbolName: "cube", accessibilityDescription: "Slots preferences")!
+        toolbarIcon: NSImage(systemSymbolName: "shippingbox.circle", accessibilityDescription: "Slots preferences")!
     ) {
         SlotsSettingsView()
             .environmentObject(statusData)

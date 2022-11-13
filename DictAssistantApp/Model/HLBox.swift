@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct IndexedBox: Identifiable {
+struct IndexedBox: Identifiable, Equatable {
     let box: (CGPoint, CGPoint)
     let index: Int
     var id = UUID()
+    
+    static func ==(lhs: IndexedBox, rhs: IndexedBox) -> Bool {
+        return lhs.box == rhs.box
+    }
 }
 
 class HLBox: ObservableObject {

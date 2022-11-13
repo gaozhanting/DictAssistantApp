@@ -30,12 +30,20 @@ struct Settings: Codable {
     var minimalistVPadding: Double
     var minimalistHPadding: Double
     
+    var wordColor: Data
+    var transColor: Data
+    var backgroundColor: Data
+    var contentHasShadow: Bool
+    var useContentBackgroundVisualEffect: Bool
+    var contentBackGroundVisualEffectMaterial: Int
+    var theColorScheme: Int
+    
     var fontSize: Int
     var lineSpacing: Double
     
     var cropperStyle: Int
     
-    var maximumFrameRate: Double
+    var maximumFrameRate: Int
     var recognitionLevel: Int
     var minimumTextHeight: Double
     var usesLanguageCorrection: Bool
@@ -47,7 +55,10 @@ struct Settings: Codable {
     var isShowContentFrame: Bool
     
     var highlightMode: Int
-    var hLRectangleColor: Data
+    var cropperHasShadow: Bool
+    var hlBorderedStyle: Int
+    var hlBorderedColor: Data
+    var hlRectangleColor: Data
     var isShowIndex: Bool
     var strokeDownwardOffset: Double
     var strokeLineWidth: Double
@@ -55,7 +66,6 @@ struct Settings: Codable {
     var strokeDashUnPainted: Double
     var indexPadding: Double
     var indexFontSize: Int
-    var isAlwaysRefreshHighlight: Bool
     
     // two frames settings for a slot
     var cropperFrame: NSRect
@@ -71,12 +81,20 @@ struct Settings: Codable {
         minimalistVPadding: Double,
         minimalistHPadding: Double,
         
+        wordColor: Data,
+        transColor: Data,
+        backgroundColor: Data,
+        contentHasShadow: Bool,
+        useContentBackgroundVisualEffect: Bool,
+        contentBackGroundVisualEffectMaterial: Int,
+        theColorScheme: Int,
+        
         fontSize: Int,
         lineSpacing: Double,
         
         cropperStyle: Int,
         
-        maximumFrameRate: Double,
+        maximumFrameRate: Int,
         recognitionLevel: Int,
         minimumTextHeight: Double,
         usesLanguageCorrection: Bool,
@@ -88,7 +106,10 @@ struct Settings: Codable {
         isShowContentFrame: Bool,
         
         highlightMode: Int,
-        hLRectangleColor: Data,
+        cropperHasShadow: Bool,
+        hlBorderedStyle: Int,
+        hlBorderedColor: Data,
+        hlRectangleColor: Data,
         isShowIndex: Bool,
         strokeDownwardOffset: Double,
         strokeLineWidth: Double,
@@ -96,7 +117,6 @@ struct Settings: Codable {
         strokeDashUnPainted: Double,
         indexPadding: Double,
         indexFontSize: Int,
-        isAlwaysRefreshHighlight: Bool,
         
         cropperFrame: NSRect,
         contentFrame: NSRect
@@ -109,6 +129,14 @@ struct Settings: Codable {
         self.contentPaddingStyle = contentPaddingStyle
         self.minimalistVPadding = minimalistVPadding
         self.minimalistHPadding = minimalistHPadding
+        
+        self.wordColor = wordColor
+        self.transColor = transColor
+        self.backgroundColor = backgroundColor
+        self.contentHasShadow = contentHasShadow
+        self.useContentBackgroundVisualEffect = useContentBackgroundVisualEffect
+        self.contentBackGroundVisualEffectMaterial = contentBackGroundVisualEffectMaterial
+        self.theColorScheme = theColorScheme
         
         self.fontSize = fontSize
         self.lineSpacing = lineSpacing
@@ -127,7 +155,10 @@ struct Settings: Codable {
         self.isShowContentFrame = isShowContentFrame
         
         self.highlightMode = highlightMode
-        self.hLRectangleColor = hLRectangleColor
+        self.cropperHasShadow = cropperHasShadow
+        self.hlBorderedStyle = hlBorderedStyle
+        self.hlBorderedColor = hlBorderedColor
+        self.hlRectangleColor = hlRectangleColor
         self.isShowIndex = isShowIndex
         self.strokeDownwardOffset = strokeDownwardOffset
         self.strokeLineWidth = strokeLineWidth
@@ -135,7 +166,6 @@ struct Settings: Codable {
         self.strokeDashUnPainted = strokeDashUnPainted
         self.indexPadding = indexPadding
         self.indexFontSize = indexFontSize
-        self.isAlwaysRefreshHighlight = isAlwaysRefreshHighlight
         
         self.cropperFrame = cropperFrame
         self.contentFrame = contentFrame
@@ -162,13 +192,21 @@ private let defaultSettings = Settings(
     minimalistVPadding: 2.0,
     minimalistHPadding: 6.0,
     
+    wordColor: WordColorDefault,
+    transColor: TransColorDefault,
+    backgroundColor: BackgroundColorDefault,
+    contentHasShadow: ContentHasShadowDefault,
+    useContentBackgroundVisualEffect: UseContentBackgroundVisualEffectDefault,
+    contentBackGroundVisualEffectMaterial: ContentBackGroundVisualEffectMaterialDefault,
+    theColorScheme: TheColorSchemeDefault,
+    
     fontSize: 14,
     lineSpacing: 2.0,
     
     cropperStyle: CropperStyleDefault,
     
-    maximumFrameRate: 4.0,
-    recognitionLevel: VNRequestTextRecognitionLevel.fast.rawValue,
+    maximumFrameRate: MaximumFrameRateDefault,
+    recognitionLevel: RecognitionLevelDefault,
     minimumTextHeight: ZeroDefaultMinimumTextHeight,
     usesLanguageCorrection: false,
     
@@ -179,15 +217,17 @@ private let defaultSettings = Settings(
     isShowContentFrame: true,
     
     highlightMode: HighlightModeDefault,
-    hLRectangleColor: HLRectangleColorDefault,
+    cropperHasShadow: CropperHasShadowDefault,
+    hlBorderedStyle: HLBorderedStyleDefault,
+    hlBorderedColor: HLBorderedColorDefault,
+    hlRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
-    strokeDownwardOffset: 5.0,
+    strokeDownwardOffset: StrokeDownwardOffsetDefault,
     strokeLineWidth: 1.6,
     strokeDashPainted: 1.0,
     strokeDashUnPainted: 3.0,
     indexPadding: 1.5,
     indexFontSize: 5,
-    isAlwaysRefreshHighlight: false,
     
     //
     cropperFrame: defaultCropperFrame,
@@ -253,6 +293,14 @@ private struct SlotsView: View {
         minimalistVPadding = s.minimalistVPadding
         minimalistHPadding = s.minimalistHPadding
         
+        wordColor = s.wordColor
+        transColor = s.transColor
+        backgroundColor = s.backgroundColor
+        contentHasShadow = s.contentHasShadow
+        useContentBackgroundVisualEffect = s.useContentBackgroundVisualEffect
+        contentBackGroundVisualEffectMaterial = s.contentBackGroundVisualEffectMaterial
+        theColorScheme = s.theColorScheme
+        
         fontSize = s.fontSize
         lineSpacing = s.lineSpacing
         
@@ -270,7 +318,10 @@ private struct SlotsView: View {
         isShowContentFrame = s.isShowContentFrame
         
         highlightMode = s.highlightMode
-        hLRectangleColor = s.hLRectangleColor
+        cropperHasShadow = s.cropperHasShadow
+        hlBorderedStyle = s.hlBorderedStyle
+        hlBorderedColor = s.hlBorderedColor
+        hlRectangleColor = s.hlRectangleColor
         isShowIndex = s.isShowIndex
         strokeDownwardOffset = s.strokeDownwardOffset
         strokeLineWidth = s.strokeLineWidth
@@ -278,7 +329,6 @@ private struct SlotsView: View {
         strokeDashUnPainted = s.strokeDashUnPainted
         indexPadding = s.indexPadding
         indexFontSize = s.indexFontSize
-        isAlwaysRefreshHighlight = s.isAlwaysRefreshHighlight
         
         cropperWindow.setFrame(s.cropperFrame, display: true)
         contentWindow.setFrame(s.contentFrame, display: true)
@@ -292,14 +342,22 @@ private struct SlotsView: View {
     @AppStorage(ContentPaddingStyleKey) var contentPaddingStyle: Int = ContentPaddingStyle.standard.rawValue
     @AppStorage(MinimalistVPaddingKey) var minimalistVPadding: Double = 2.0
     @AppStorage(MinimalistHPaddingKey) var minimalistHPadding: Double = 6.0
+    
+    @AppStorage(WordColorKey) var wordColor: Data = WordColorDefault
+    @AppStorage(TransColorKey) var transColor: Data = TransColorDefault
+    @AppStorage(BackgroundColorKey) var backgroundColor: Data = BackgroundColorDefault
+    @AppStorage(ContentHasShadowKey) var contentHasShadow: Bool = ContentHasShadowDefault
+    @AppStorage(UseContentBackgroundVisualEffectKey) var useContentBackgroundVisualEffect: Bool = UseContentBackgroundVisualEffectDefault
+    @AppStorage(ContentBackGroundVisualEffectMaterialKey) var contentBackGroundVisualEffectMaterial: Int = ContentBackGroundVisualEffectMaterialDefault
+    @AppStorage(TheColorSchemeKey) var theColorScheme: Int = TheColorSchemeDefault
 
     @AppStorage(FontSizeKey) var fontSize: Int = 14
     @AppStorage(LineSpacingKey) var lineSpacing: Double = 2.0
 
     @AppStorage(CropperStyleKey) var cropperStyle: Int = CropperStyleDefault
 
-    @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Double = 4
-    @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+    @AppStorage(MaximumFrameRateKey) var maximumFrameRate: Int = MaximumFrameRateDefault
+    @AppStorage(RecognitionLevelKey) var recognitionLevel: Int = RecognitionLevelDefault
     @AppStorage(MinimumTextHeightKey) var minimumTextHeight: Double = ZeroDefaultMinimumTextHeight
     @AppStorage(UsesLanguageCorrectionKey) var usesLanguageCorrection: Bool = false
     
@@ -310,15 +368,17 @@ private struct SlotsView: View {
     @AppStorage(IsShowContentFrameKey) var isShowContentFrame: Bool = true
 
     @AppStorage(HighlightModeKey) var highlightMode: Int = HighlightModeDefault
-    @AppStorage(HLRectangleColorKey) var hLRectangleColor: Data = HLRectangleColorDefault
+    @AppStorage(CropperHasShadowKey) var cropperHasShadow: Bool = CropperHasShadowDefault
+    @AppStorage(HLBorderedStyleKey) var hlBorderedStyle: Int = HLBorderedStyleDefault
+    @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
+    @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = StrokeDownwardOffsetDefault
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     @AppStorage(IndexPaddingKey) var indexPadding: Double = 1.5
     @AppStorage(IndexFontSizeKey) var indexFontSize: Int = 5
-    @AppStorage(IsAlwaysRefreshHighlightKey) var isAlwaysRefreshHighlight: Bool = false
 }
 
 extension CGFloat {
@@ -371,22 +431,23 @@ private struct SlotItemView: View {
                 Button(action: {
                     select(slot)
                 }) {
-                    Image(systemName: slot.isSelected ? "cube.fill" : "cube")
+                    Image(systemName: slot.isSelected ? "shippingbox.circle.fill" : "shippingbox.circle")
                         .font(.title)
                         .foregroundColor(Color(dataToColor(slot.color!)!))
                 }
                 .buttonStyle(PlainButtonStyle())
                 
                 TextField("", text: Binding.init(
-                    get: { slot.label! },
+                    get: { slot.label ?? "" },
                     set: { newValue in
                         slot.label = newValue
                         saveContext()
                     }
                 ))
-                    .font(.callout)
-                    .textFieldStyle(PlainTextFieldStyle())
+                .font(.callout)
+                .textFieldStyle(PlainTextFieldStyle())
             }
+            .shadow(color: slot.isSelected ? Color.primary : Color.clear, radius: slot.isSelected ? 1 : 0)
         }
     }
 }
@@ -511,7 +572,7 @@ private struct ButtonsView: View {
 
 private struct InfoView: View {
     var body: some View {
-        Text("You create a slot and select it by click on the cube icon, then all the settings in current Scenario Tab are all stored in that slot, and the current content window frame and cropper window frame are stored as well. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be automatically saved in it. \n\nBecause you can use the App in many scenarios, for example: reading webpages, reading books, reading subtitles when watching videos or playing with Google Chrome live caption (which is more suitable because both are auto streams), etc. Slots makes you switch them quickly. You could switch them more quickly by setting a global shortcut key of Show Slots Tab in Shortcuts Tab.  \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when scenario settings changed, sorry for the trouble.")
+        Text("You create a slot and select it by click on the box icon, then all the settings in current Scene Tab are all stored in that slot, and the current content window frame and cropper window frame are stored as well. You can attach a slot with a text label, by typing text after the icon. When a slot is selected, changes of settings will be automatically saved in it. \n\nBecause you can use the App in many scenes, for example: reading webpages, reading books, reading subtitles when watching videos or playing with Google Chrome live caption (which is more suitable because both are auto streams), etc. Slots makes you switch them quickly. You could switch them more quickly by setting a global shortcut key of Show Slots Tab in Shortcuts Tab.  \n\nNote, if you update the App in the future, the new version App will delete all the slots before running. That is because the slot data may becomes incompatible when scene settings changed, sorry for the trouble.")
             .font(.callout)
             .padding()
             .frame(width: 400)
