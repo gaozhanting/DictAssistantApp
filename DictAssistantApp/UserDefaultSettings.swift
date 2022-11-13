@@ -45,6 +45,7 @@ let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
 
 let StrokeDownwardOffsetKey = "StrokeDownwardOffsetKey"
+let StrokeDownwardOffsetDefault = 0.0
 let HLDottedColorKey = "HLDottedColorKey"
 let StrokeLineWidthKey = "StrokeLineWidthKey"
 let StrokeDashPaintedKey = "StrokeDashPaintedKey"
@@ -254,7 +255,7 @@ private let sceneKV: [String: Any] = [
     HLRectangleColorKey: HLRectangleColorDefault,
     
     IsShowIndexKey: false,
-    StrokeDownwardOffsetKey: 5.0,
+    StrokeDownwardOffsetKey: StrokeDownwardOffsetDefault,
     StrokeLineWidthKey: 1.6,
     StrokeDashPaintedKey: 1.0,
     StrokeDashUnPaintedKey: 3.0,

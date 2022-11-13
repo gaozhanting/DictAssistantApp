@@ -222,7 +222,7 @@ private let defaultSettings = Settings(
     hlBorderedColor: HLBorderedColorDefault,
     hlRectangleColor: HLRectangleColorDefault,
     isShowIndex: false,
-    strokeDownwardOffset: 5.0,
+    strokeDownwardOffset: StrokeDownwardOffsetDefault,
     strokeLineWidth: 1.6,
     strokeDashPainted: 1.0,
     strokeDashUnPainted: 3.0,
@@ -373,7 +373,7 @@ private struct SlotsView: View {
     @AppStorage(HLBorderedColorKey) var hlBorderedColor: Data = HLBorderedColorDefault
     @AppStorage(HLRectangleColorKey) var hlRectangleColor: Data = HLRectangleColorDefault
     @AppStorage(IsShowIndexKey) var isShowIndex: Bool = false
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = StrokeDownwardOffsetDefault
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0

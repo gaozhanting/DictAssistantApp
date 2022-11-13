@@ -120,13 +120,13 @@ private struct HighlightDottedOptionsView: View {
 }
 
 struct DottedOptionsView: View {
-    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = 5.0
+    @AppStorage(StrokeDownwardOffsetKey) var strokeDownwardOffset: Double = StrokeDownwardOffsetDefault
     @AppStorage(StrokeLineWidthKey) var strokeLineWidth: Double = 1.6
     @AppStorage(StrokeDashPaintedKey) var strokeDashPainted: Double = 1.0
     @AppStorage(StrokeDashUnPaintedKey) var strokeDashUnPainted: Double = 3.0
     
     func useDefault() {
-        strokeDownwardOffset = 4.0
+        strokeDownwardOffset = StrokeDownwardOffsetDefault
         strokeLineWidth = 3.0
         strokeDashPainted = 1.0
         strokeDashUnPainted = 5.0
