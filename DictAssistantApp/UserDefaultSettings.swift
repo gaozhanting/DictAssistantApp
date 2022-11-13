@@ -34,12 +34,12 @@ let HighlightModeKey = "HighlightModeKey"
 let HighlightModeDefault = HighlightMode.bordered.rawValue
 
 let CropperHasShadowKey = "CropperHasShadowKey"
-let CropperHasShadowDefault = true
+let CropperHasShadowDefault = false
 
 let HLBorderedStyleKey = "HLBorderedStyleKey"
 let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
 let HLBorderedColorKey = "HLBorderedColorKey"
-let HLBorderedColorDefault = colorToData(NSColor.findHighlightColor)!
+let HLBorderedColorDefault = colorToData(NSColor.systemRed)!
 
 let HLRectangleColorKey = "HLRectangleColorKey"
 let HLRectangleColorDefault = colorToData(NSColor.magenta.shadow(withLevel: 0.25)!.withAlphaComponent(0.25))!
