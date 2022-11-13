@@ -17,6 +17,10 @@ struct SceneSettingsView: View {
                     MaximumFrameRateSetting()
                 }
             }
+            .overlay(
+                QuestionMarkView {
+                    ImportantInfoView()
+                }, alignment: .bottomTrailing)
             GroupBox {
                 VStack(alignment: .leading) {
                     MinimumTextHeightSetting()
@@ -43,6 +47,15 @@ struct SceneSettingsView: View {
         }
         .padding()
         .frame(width: panelWidth)
+    }
+}
+
+private struct ImportantInfoView: View {
+    var body: some View {
+        Text("This is the big deal of the App. Recognition Level, FPS, and text amount of the scene must be matched. \n\nFor dealing with large amount of text, you should select the level fast, or set FPS small. For example when the scene is reading books, you could set level accurate for different text font, BUT FPS 1 for a mild stream. Otherwise, it may get stuck and not working, because the lifting is so heavy for real time processing.")
+            .font(.callout)
+            .padding()
+            .frame(width: 400)
     }
 }
 
@@ -285,6 +298,7 @@ struct SceneSettingsView_Previews: PreviewProvider {
             SceneSettingsView()
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
             
+            ImportantInfoView()
             
             ColorSchemeInfo()
         }
