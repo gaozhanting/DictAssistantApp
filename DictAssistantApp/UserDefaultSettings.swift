@@ -64,7 +64,7 @@ let MaximumFrameRateDefault: Int = 3
 
 // Vision
 let RecognitionLevelKey = "RecognitionLevelKey"
-let RecognitionLevelDefault = VNRequestTextRecognitionLevel.fast.rawValue // fast 1, accurate 0
+let RecognitionLevelDefault = VNRequestTextRecognitionLevel.accurate.rawValue // fast 1, accurate 0
 let MinimumTextHeightKey = "MinimumTextHeightKey"
 let ZeroDefaultMinimumTextHeight: Double = 0.0
 let UsesLanguageCorrectionKey = "UsesLanguageCorrectionKey"
