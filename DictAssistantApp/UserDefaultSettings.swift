@@ -37,7 +37,7 @@ let CropperHasShadowKey = "CropperHasShadowKey"
 let CropperHasShadowDefault = false
 
 let HLBorderedStyleKey = "HLBorderedStyleKey"
-let HLBorderedStyleDefault = HLBorderedStyle.regular.rawValue
+let HLBorderedStyleDefault = HLBorderedStyle.light.rawValue
 let HLBorderedColorKey = "HLBorderedColorKey"
 let HLBorderedColorDefault = colorToData(NSColor.systemRed)!
 
@@ -138,8 +138,8 @@ enum HighlightMode: Int, Codable {
 }
 
 enum HLBorderedStyle: Int, Codable {
-    case regular = 0
-    case light = 1
+    case light = 0
+    case regular = 1
 }
 
 enum IndexXBasic: Int, Codable {
